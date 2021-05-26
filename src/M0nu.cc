@@ -110,21 +110,45 @@ namespace M0nu
   }
 
 
+  double RegulatorNonLocal(double p, double pp)
+  {
+    double Lambda = 500;
+    double nexp = 3;
+    return exp(-pow(p*HBARC/Lambda,2*nexp))*exp(-pow(pp*HBARC/Lambda,2*nexp));
+    // return  1;
+  }
+
+  double RegulatorLocal(double q)
+  {
+    double Lambda = 500;
+    double nexp = 3;
+    return exp(-pow(q*HBARC/Lambda,2*nexp));
+  }
+
   //Abbreviation used in the definition of the partial waves expansion in
   //K. Erkelenz, R. Alzetta, and K. Holinde, Nucl. Phys. A 176, 413 (1971).
   //The factor of z^l from the paper is ignored since l=0 in all the needed cases.
   double A(double p, double pp, int J, double Eclosure, std::string transition, gsl_integration_glfixed_table * t, int norm, int size)
   {
-    std::map<std::string, std::function<double(double)> > FFlist = {{"F",FermiFormFactor},{"GT",GTFormFactor},{"T",TensorFormFactor}}; // make a map from std::string to a function which takes in q and returns a form factor
     double A = 0;
+    std::map<std::string, std::function<double(double)> > FFlist = {{"F",FermiFormFactor},{"GT",GTFormFactor},{"T",TensorFormFactor},{"C", RegulatorLocal}};
+    // std::map<std::string, std::function<double(double)> > FFlist = {{"F",FermiFormFactor},{"GT",GTFormFactor},{"T",TensorFormFactor}}; // make a map from std::string to a function which takes in q and returns a form factor
     for (int i=0;i<size;i++)
     {
       double xi;
       double wi;
+      double temp;
       gsl_integration_glfixed_point(-1,1,i,&xi,&wi,t);
       double q = sqrt(pp*pp+p*p-2*p*pp*xi);
       double ff = FFlist[transition](q);
-      double temp = wi*ff/(q*q+q*Eclosure)*gsl_sf_legendre_Pl(J,xi);
+      if (transition!="C")
+      {
+        temp = wi*ff/(q*q+q*Eclosure)*gsl_sf_legendre_Pl(J,xi);
+      }
+      else
+      {
+        temp = wi*ff*gsl_sf_legendre_Pl(J,xi);
+      }
       if (norm == 1)
       {
         temp *= HBARC*HBARC/(q*q);
@@ -232,6 +256,21 @@ namespace M0nu
     return W;
   }
 
+  //Function for the partial wave decomposition given by Eq 4.20 of 
+  //K. Erkelenz, R. Alzetta, and K. Holinde, Nucl. Phys. A 176, 413 (1971).
+  //We treat the fermi and gt as the same since we include the spin part for the gt when
+  //computing the TBMEs. Since for all the possible cases used a value of J equal to l in
+  //A(p,pp,J,l), we pass L rather than J. Furthermore, l = 0 by definition
+  //for this case. Fetches the values of A from the precomputed list for efficiency.
+  //W function is multiplied by the regulator 
+  double W_contact(double p, double pp,int index_p, int index_pp, int l, int lp, int J, std::unordered_map<uint64_t,double>& AList)
+  {
+    double W = 0;
+    W += 2*GetA(index_p,index_pp,0,0,AList);
+    // W+=Regulator(p,pp);
+    return W;
+  }
+
   //Function for the partial wave decomposition given by Eq 4.24 of 
   //K. Erkelenz, R. Alzetta, and K. Holinde, Nucl. Phys. A 176, 413 (1971).
   //Only the cases for S=1 have been implemented since this decay can only happen with S=1
@@ -270,10 +309,15 @@ namespace M0nu
   //Integrand for the integral of the neutrino potential over mometum space. 
   double fq(double p, double pp,int index_p, int index_pp, int n, int l, int np, int lp, int J, double hw, std::string transition, double Eclosure, std::string src, std::unordered_map<uint64_t,double>& AList)
   { 
-    
-    std::map<std::string, std::function<double(double,double,int,int,int,int,int,std::unordered_map<uint64_t,double>& A)> > WList = {{"F",W_fermi_gt},{"GT",W_fermi_gt},{"T",W_tensor}};
+    std::map<std::string, std::function<double(double,double,int,int,int,int,int,std::unordered_map<uint64_t,double>& A)> > WList = {{"F",W_fermi_gt},{"GT",W_fermi_gt},{"T",W_tensor},{"C", W_contact}};
     double W = WList[transition](p,pp,index_p,index_pp,l,lp,J,AList);
     return p*p*pp*pp*HO_Radial_psi_mom(n,l,hw,p)*W*HO_Radial_psi_mom(np,lp,hw,pp);
+  }
+
+  // Integrand for the contact operator over momentum space
+  double fq_contact(double p, double pp, int n, int l, int np, int lp, double hw)
+  {
+     return p*p*pp*pp*HO_Radial_psi_mom(n,l,hw,p)*RegulatorNonLocal(p,pp)*HO_Radial_psi_mom(np,lp,hw,pp);
   }
 
   //Performs the integral over moemntum space using Gauss-Legendre quadrature quadrilateral rule
@@ -283,13 +327,13 @@ namespace M0nu
   double integrate_dq(int n, int l, int np, int lp, int J, double hw, std::string transition, double Eclosure, std::string src, int npoints, gsl_integration_glfixed_table * t, std::unordered_map<uint64_t,double>& AList)
   { 
     double I = 0;
-    for (int i = 0 ; i< npoints; i++)
+    if (transition=="GT" or transition=="F" or transition=="T")
     {
-      double xi;
-      double wi;
-      gsl_integration_glfixed_point(0,25,i,&xi,&wi,t);
-      // if (l!=lp)
-      // {
+      for (int i = 0 ; i< npoints; i++)
+      {
+        double xi;
+        double wi;
+        gsl_integration_glfixed_point(0,25,i,&xi,&wi,t);
         for (int j = 0; j<npoints; j++)
         {
           double xj;
@@ -297,25 +341,23 @@ namespace M0nu
           gsl_integration_glfixed_point(0,25,j,&xj,&wj,t);
           I += wi*wj*fq(xi,xj,i,j,n,l,np,lp,J,hw,transition,Eclosure,src,AList); 
         }
-      // }
-      // else
-      // {
-      //   for (int j = i; j<=i; j++)
-      //   {
-      //     double xj;
-      //     double wj;
-      //     gsl_integration_glfixed_point(0,25,j,&xj,&wj,t);
-      //     I += wi*wj*fq(xi,xj,i,j,n,l,np,lp,J,hw,transition,Eclosure,src,AList);
-      //   }
-      //   for (int j = i+1; j<npoints; j++)
-      //   {
-      //     double xj;
-      //     double wj;
-      //     gsl_integration_glfixed_point(0,25,j,&xj,&wj,t);
-      //     I += 2*wi*wj*fq(xi,xj,i,j,n,l,np,lp,J,hw,transition,Eclosure,src,AList); 
-      //   }
-      // }
-      
+      }
+    }
+    else if (transition=="C")
+    {
+      for (int i = 0 ; i< npoints; i++)
+      {
+        double xi;
+        double wi;
+        gsl_integration_glfixed_point(0,25,i,&xi,&wi,t);
+        for (int j = 0; j<npoints; j++)
+        {
+          double xj;
+          double wj;
+          gsl_integration_glfixed_point(0,25,j,&xj,&wj,t);
+          I += wi*wj*fq_contact (xi,xj,n,l,np,lp,hw); 
+        }
+      }
     }
     return I;
   }
@@ -346,10 +388,14 @@ namespace M0nu
     IMSRGProfiler profiler;
     double t_start_pci = omp_get_wtime(); // profiling (s)
     std::unordered_map<uint64_t,double> IntList;
+    std::unordered_map<uint64_t,double> AList;
     int size=500;
     std::cout<<"calculating integrals wrt dp and dpp..."<<std::endl;
-    std::unordered_map<uint64_t,double> AList = PrecalculateA(e2max,Eclosure,transition,size);
-    std::cout<<"Done precomputing A's."<<std::endl;
+    if (transition != "C")
+    {
+      AList = PrecalculateA(e2max,Eclosure,transition,size);
+      std::cout<<"Done precomputing A's."<<std::endl;
+    }
     int maxn = e2max/2;
     int maxl = e2max;
     int maxnp = e2max/2;
@@ -407,6 +453,23 @@ namespace M0nu
         }
       }
     }
+    else if (transition =="C")
+    {
+      int S = 0;
+      for (int n=0; n<=maxn; n++)
+      {
+        int l = 0;
+        int tempminnp = n; // NOTE: need not start from 'int np=0' since IntHash(n,l,np,l) = IntHash(np,l,n,l), by construction
+        for (int np=tempminnp; np<=maxnp; np++)
+        {
+          int J = 0;
+          uint64_t key = IntHash(n,l,np,l,J);
+          KEYS.push_back(key);
+          IntList[key] = 0.0; // "Make sure eveything's in there to avoid a rehash in the parallel loop" (RS)
+        }
+      }
+    }
+
     gsl_integration_glfixed_table * t = gsl_integration_glfixed_table_alloc(size);
     #pragma omp parallel for schedule(dynamic, 1)// this works as long as the gsl_function handle is within this for-loop
     for (size_t i=0; i<KEYS.size(); i++)
@@ -443,8 +506,8 @@ namespace M0nu
       std::swap(n,np); // using symmetry IntHash(n,l,np,lp) = IntHash(np,lp,n,l)
       std::swap(l,lp); // " " " " "
     }
-    //long int key = IntHash(n,l,np,lp); // if I ever get that version working...
-    //std::cout<<"n ="<<n<<", l ="<<l<<", np = "<<np<<", S = "<<S<<", J = "<<J<<std::endl;
+    // long int key = IntHash(n,l,np,lp); // if I ever get that version working...
+    // std::cout<<"n ="<<n<<", l ="<<l<<", np = "<<np<<", S = "<<S<<", J = "<<J<<std::endl;
     uint64_t key = IntHash(n,l,np,lp,J);
     auto it = IntList.find(key);
     if (it != IntList.end()) // return what we've found
@@ -914,6 +977,171 @@ namespace M0nu
     return M0nuT_TBME;
   }
 
+
+
+  double jl(double j, double l)
+  {
+    return floor(l+j-1/2);
+  }
+
+  /// Contact operator for neutrinoless double beta decay. Opertor is written in momentum space containing factor of -2gvv
+  Operator Contact(ModelSpace& modelspace, double Eclosure, std::string src)
+  {
+    bool reduced = true;
+    double t_start, t_start_tbme, t_start_omp; // profiling (v)
+    t_start = omp_get_wtime(); // profiling (s)
+    std::string transition = "C";
+    double hw = modelspace.GetHbarOmega(); // oscillator basis frequency [MeV]
+    int e2max = modelspace.GetE2max(); // 2*emax
+    Operator M0nuC_TBME(modelspace,0,2,0,2); // NOTE: from the constructor -- Operator::Operator(ModelSpace& ms, int Jrank, int Trank, int p, int part_rank)
+    std::cout<<"     reduced            =  "<<reduced<<std::endl;
+    M0nuC_TBME.SetHermitian(); // it should be Hermitian
+    int Anuc = modelspace.GetTargetMass(); // the mass number for the desired nucleus
+    const double Rnuc = R0*pow(Anuc,1.0/3.0); // the nuclear radius [fm]
+    // const double Rnuc =1;
+    const double gvv = 0.614;
+    const double prefact = -gvv*Rnuc/(2*PI*PI); // factor in-front of M0nu TBME, extra global 2 for nutbar (as confirmed by benchmarking with Ca48 NMEs) [fm]
+
+    modelspace.PreCalculateMoshinsky(); // pre-calculate the needed Moshinsky brackets, for efficiency
+    std::unordered_map<uint64_t,double> IntList = PreCalculateM0nuIntegrals(e2max,hw,transition, Eclosure, src); // pre-calculate the needed integrals over dp and dpp
+    M0nuC_TBME.profiler.timer["M0nuC_1_sur"] += omp_get_wtime() - t_start; // profiling (r)
+    // create the TBMEs of M0nu
+    // auto loops over the TBME channels and such
+    std::cout<<"calculating M0nu TBMEs..."<<std::endl;
+    t_start_tbme = omp_get_wtime(); // profiling (s)
+    for (auto& itmat : M0nuC_TBME.TwoBody.MatEl)
+    {
+      int chbra = itmat.first[0]; // grab the channel count from auto
+      int chket = itmat.first[1]; // " " " " " "
+      TwoBodyChannel& tbc_bra = modelspace.GetTwoBodyChannel(chbra); // grab the two-body channel
+      TwoBodyChannel& tbc_ket = modelspace.GetTwoBodyChannel(chket); // " " " " "
+      int nbras = tbc_bra.GetNumberKets(); // get the number of bras
+      int nkets = tbc_ket.GetNumberKets(); // get the number of kets
+      int J = tbc_bra.J; // NOTE: by construction, J := J_ab == J_cd := J'
+      double Jhat; // set below based on "reduced" variable
+      if (reduced == false)
+      {
+        Jhat = 1.0; // for non-reduced elements, to compare with JE
+      }
+      else //if (reduced == "R")
+      {
+        Jhat = sqrt(2*J + 1); // the hat factor of J
+      }
+      t_start_omp = omp_get_wtime(); // profiling (s)
+      #pragma omp parallel for schedule(dynamic,1) // need to do: PreCalculateMoshinsky() and PreCalcIntegrals() [above] and then "#pragma omp critical" [below]
+      for (int ibra=0; ibra<nbras; ibra++)
+      {
+        Ket& bra = tbc_bra.GetKet(ibra); // get the final state = <ab|
+        int ia = bra.p; // get the integer label a
+        int ib = bra.q; // get the integer label b
+        Orbit& oa = modelspace.GetOrbit(ia); // get the <a| state orbit
+        Orbit& ob = modelspace.GetOrbit(ib); // get the <b| state prbit
+        int na = oa.n;
+        int nb = ob.n;
+        int la = oa.l;
+        int lb = ob.l;
+        double ja = oa.j2/2.0;
+        double jb = ob.j2/2.0;
+        double jla = jl(ja,la);
+        double jlb = jl(jb,lb);
+        int eps_ab = 2*na + la + 2*nb + lb; // for conservation of energy in the Moshinsky brackets
+        for (int iket=0; iket<nkets; iket++)
+        {
+          Ket& ket = tbc_ket.GetKet(iket); // get the initial state = |cd>
+          int ic = ket.p; // get the integer label c
+          int id = ket.q; // get the integer label d
+          Orbit& oc = modelspace.GetOrbit(ic); // get the |c> state orbit
+          Orbit& od = modelspace.GetOrbit(id); // get the |d> state orbit
+          int nc = oc.n;
+          int nd = od.n;
+          int lc = oc.l;
+          int ld = od.l;
+          double jc = oc.j2/2.0;
+          double jd = od.j2/2.0; // ...for convenience
+          double jlc = jl(jc,lc);
+          double jld = jl(jd,ld);
+          int eps_cd = 2*nc + lc + 2*nd + ld; // for conservation of energy in the Moshinsky brackets
+          double sumLS = 0; // for the Bessel's Matrix Elemets (BMEs)
+          double sumLSas = 0; // (anti-symmetric part)
+          if (std::abs(eps_ab-eps_cd)%2>0) continue;
+          int S=0;
+          // for (int S=0; S<=1; S++) // sum over total spin...
+          // {
+            int L_min = std::max(std::max(abs(la-lb),abs(lc-ld)), abs(J-S));
+            int L_max = std::min(std::min(la+lb,lc+ld),J+S);
+            for (int L = L_min; L<=L_max;L++)
+            {
+              double sumMT = 0; // for the Moshinsky transformation
+              double sumMTas = 0; // (anti-symmetric part)
+              double tempLS = (2*L + 1)*(2*S + 1); // just for efficiency, only used in the three lines below
+              double normab = sqrt(tempLS*(2*ja + 1)*(2*jb + 1)); // normalization factor for the 9j-symbol out front
+              double nNJab = normab*AngMom::NineJ(la,lb,L,0.5,0.5,S,ja,jb,J); // the normalized 9j-symbol out front
+              if (abs(nNJab)<1e-7) continue;
+              double normcd = sqrt(tempLS*(2*jc + 1)*(2*jd + 1)); // normalization factor for the second 9j-symbol
+              double nNJcd = normcd*AngMom::NineJ(lc,ld,L,0.5,0.5,S,jc,jd,J); // the second normalized 9j-symbol
+              double nNJdc = normcd*AngMom::NineJ(ld,lc,L,0.5,0.5,S,jd,jc,J); // (anti-symmetric part)
+              if ((abs(nNJcd)<1e-7) or (abs(nNJdc)<1e-7))  continue;
+              double bulk = nNJab*nNJcd; // bulk product of the above
+              double bulkas = nNJab*nNJdc; // (anti-symmetric part)
+              int tempmaxnr = floor((eps_ab - L)/2.0); // just for the limits below
+              for (int nr = 0; nr <= tempmaxnr; nr++)
+              {
+                double npr = ((eps_cd - eps_ab)/2.0) + nr; // via Equation (4.73) of my thesis
+                if ((npr >= 0) and (npr == floor(npr)))
+                {
+                  int tempmaxNcom = tempmaxnr - nr; // just for the limits below
+                  for (int Ncom = 0; Ncom <= tempmaxNcom; Ncom++)
+                  {
+                    int tempminlr = ceil((eps_ab - L)/2.0) - (nr + Ncom); // just for the limits below
+                    int tempmaxlr = floor((eps_ab + L)/2.0) - (nr + Ncom); // " " " " "
+                    double integral = 0;
+                    double Di = 0;
+                    double Df = 0;
+                    double asDi = 0;
+                    // for (int lr =tempminlr; lr <= tempmaxlr; lr++)
+                    // {
+                      if (tempminlr>0) continue;
+                      int lr = 0;
+                      int Lam = eps_ab - 2*(nr + Ncom) - lr; // via Equation (4.73) of my thesis
+                      double normJrel;
+                      Df += modelspace.GetMoshinsky(Ncom,Lam,nr,lr,na,la,nb,lb,L); // Ragnar has -- double mosh_ab = modelspace.GetMoshinsky(N_ab,Lam_ab,n_ab,lam_ab,na,la,nb,lb,Lab);
+                      Di += modelspace.GetMoshinsky(Ncom,Lam,npr,lr,nc,lc,nd,ld,L); // " " " "
+                      if (std::abs(Df)<1e-8 or std::abs(Di)<1e-8) continue;
+                      asDi += modelspace.GetMoshinsky(Ncom,Lam,npr,lr,nd,ld,nc,lc,L); // (anti-symmetric part)
+                      // int minJrel= abs(lr-S);
+                      // int maxJrel = lr+S;
+                      // for (int Jrel = minJrel; Jrel<=maxJrel; Jrel++)
+                      // {
+                      int Jrel = 0;
+                      normJrel = sqrt((2*L+1))*phase(L+lr+Jrel+J)*AngMom::SixJ(Lam,lr,L,S,J,Jrel);
+                      // normJrel = 1;
+                      integral += normJrel*normJrel*GetM0nuIntegral(e2max,nr,lr,npr,lr,Jrel,hw,transition,Eclosure,src,IntList); // grab the pre-calculated integral wrt dq and dr from the IntList of the modelspace class
+                      // }//end of for-loop over Jrel
+                      sumMT += Df*Di*integral; // perform the Moshinsky transformation
+                      sumMTas += Df*asDi*integral; // (anti-symmetric part)
+                    // } // end of for-loop over: lr
+                  } // end of for-loop over: Ncom
+                } // end of if: npr \in \Nat_0
+              } // end of for-loop over: nr
+              sumLS += bulk*sumMT; // perform the LS-coupling sum
+              sumLSas += bulkas*sumMTas; // (anti-symmetric part)
+            } // end of for-loop over: L
+          // } // end of for-loop over: S
+          double Mtbme = asNorm(ia,ib)*asNorm(ic,id)*prefact*Jhat*(sumLS - modelspace.phase(jc + jd - J)*sumLSas); // compute the final matrix element, anti-symmetrize
+          // std::stringstream intvalue;
+          // intvalue<<na<<", "<<nb<<", "<<nc<<", "<<nd<<", "<<jla<<", "<<jlb<<", "<<jlc<<", "<<jld<<", "<<J<<", "<<Mtbme<<std::endl;
+          // std::cout<<intvalue.str();
+          M0nuC_TBME.profiler.timer["M0nuC_3_omp"] += omp_get_wtime() - t_start_omp; // profiling (r)
+          M0nuC_TBME.TwoBody.SetTBME(chbra,chket,ibra,iket,Mtbme); // set the two-body matrix elements (TBME) to Mtbme
+        } // end of for-loop over: iket
+      } // end of for-loop over: ibra
+    } // end of for-loop over: auto
+    std::cout<<"...done calculating M0nu TBMEs"<<std::endl;
+    M0nuC_TBME.profiler.timer["M0nuC_2_tbme"] += omp_get_wtime() - t_start_tbme; // profiling (r)
+    M0nuC_TBME.profiler.timer["M0nuC_adpt_Op"] += omp_get_wtime() - t_start; // profiling (r)
+    return M0nuC_TBME;
+  }
+
   Operator DGT_Op(ModelSpace& modelspace)
   {
     Operator DGT_TBME(modelspace,0,2,0,2); // NOTE: from the constructor -- Operator::Operator(ModelSpace& ms, int Jrank, int Trank, int p, int part_rank)
@@ -1008,7 +1236,7 @@ namespace M0nu
                         for (int Jrel = minJrel; Jrel<=maxJrel; Jrel++)
                         {
                           normJrel = sqrt((2*Jrel+1)*(2*L+1))*phase(Lam+lr+S+J)*AngMom::SixJ(Lam,lr,L,S,J,Jrel);
-                          integral += normJrel*normJrel*1; // grab the pre-calculated integral wrt dq and dr from the IntList of the modelspace class
+                          integral += normJrel*normJrel*1;
                         }//end of for-loop over Jrel
                         sumMT += Df*Di*integral; // perform the Moshinsky transformation
                         sumMTas += Df*asDi*integral; // (anti-symmetric part)
