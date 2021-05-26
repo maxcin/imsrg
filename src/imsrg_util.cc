@@ -107,6 +107,7 @@ namespace imsrg_util
       else if (opname == "VCentralCoul")  theop =  VCentralCoulomb_Op(modelspace); 
       else if (opname == "AxialCharge")   theop =  AxialCharge_Op(modelspace); // Untested...
       else if (opname == "VMinnesota")    theop =  MinnesotaPotential( modelspace );
+      else if (opname == "DGT")           theop = M0nu::DGT_Op(modelspace);
       else if (opnamesplit[0] =="VGaus")
       {
          double sigma = 1.0;
@@ -288,6 +289,7 @@ namespace imsrg_util
               {"GT", &M0nu::GamowTeller},
               {"F",  &M0nu::Fermi},
               {"T",  &M0nu::Tensor},
+              {"C", &M0nu::Contact}
              };
         if ( M0nuop.find(M0nuopname) != M0nuop.end() )
         {

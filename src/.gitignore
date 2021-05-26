@@ -7,4 +7,10 @@ tmp*
 ../input/*
 ../doc/*
 ../work/*
-../old_armadillo/*
+../old_armadillo/
+CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
+imsrg++
+libIMSRG.dylib
+install_manifest.txt

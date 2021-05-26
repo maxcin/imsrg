@@ -37,6 +37,8 @@ namespace M0nu
   double GTFormFactor(double q); ///< Gamow Teller Form Factor
   double FermiFormFactor(double q); ///< Fermi Form Factor
   double TensorFormFactor(double q); ///< Tensor Form Factor
+  double RegulatorLocal(double q);
+  double RegulatorNonLocal(double p, double pp);
 
   double A(double p, double pp, int J, double Eclosure, std::string transition, gsl_integration_glfixed_table * t, int norm, int size);
   uint64_t AHash(int i, int j, int J, int norm);
@@ -44,9 +46,11 @@ namespace M0nu
   std::unordered_map<uint64_t,double> PrecalculateA(int e2max,double Eclosure, std::string transition, int npoints);
   double GetA(int i, int j, int J, int norm,int l, std::unordered_map<uint64_t,double> &AList);
   double W_fermi_gt(double p, double pp,int index_p,int index_pp, int l, int lp, int J, std::unordered_map<uint64_t,double>& AList);
+  double W_contact(double p, double pp,int index_p,int index_pp, int l, int lp, int J, std::unordered_map<uint64_t,double>& AList);
   double W_tensor(double p, double pp, int index_p, int index_pp, int l, int lp, int J, std::unordered_map<uint64_t,double>& AList);
   
   double fq(double p, double pp,int i, int j, int n, int l, int np, int lp, int J, double hw, std::string transition, double Eclosure, std::string src, std::unordered_map<uint64_t,double>& AList);
+  double fq_contact(double p, double pp,int i, int j, int n, int l, int np, int lp, int J, double hw);
   double integrate_dq(int n, int l, int np, int lp, int J, double hw, std::string transition, double Eclosure, std::string src,int npoints, gsl_integration_glfixed_table * t, std::unordered_map<uint64_t,double>& AList);
 
   uint64_t IntHash(int n, int l, int np, int lp, int J);
@@ -57,6 +61,8 @@ namespace M0nu
   Operator GamowTeller(ModelSpace& modelspace, double Eclosure, std::string src); ///< Gamow-Teller part of M0nu operator
   Operator Fermi(ModelSpace& modelspace, double Eclosure, std::string src); ///< Fermi part of M0nu operator
   Operator Tensor(ModelSpace& modelspace, double Eclosure, std::string src); ///< Tensor part of M0nu operator
+  double jl(double j, double l);
+  Operator Contact(ModelSpace& modelspace, double Eclosure, std::string src); ///< Tensor part of M0nu operator
   Operator DGT_Op(ModelSpace& modelspace); //< Double Gamow-Teller operator
 
 }
