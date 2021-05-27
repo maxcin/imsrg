@@ -999,8 +999,7 @@ namespace M0nu
     int Anuc = modelspace.GetTargetMass(); // the mass number for the desired nucleus
     const double Rnuc = R0*pow(Anuc,1.0/3.0); // the nuclear radius [fm]
     // const double Rnuc =1;
-    const double gvv = 0.614;
-    const double prefact = -gvv*Rnuc/(2*PI*PI); // factor in-front of M0nu TBME, extra global 2 for nutbar (as confirmed by benchmarking with Ca48 NMEs) [fm]
+    const double prefact = - 4 * Rnuc/(PI); // factor in-front of M0nu TBME, includes the -2 from the -2gvv and the 4*pi. Only thing missing is gvv/gA^2 which is done on the NME
 
     modelspace.PreCalculateMoshinsky(); // pre-calculate the needed Moshinsky brackets, for efficiency
     std::unordered_map<uint64_t,double> IntList = PreCalculateM0nuIntegrals(e2max,hw,transition, Eclosure, src); // pre-calculate the needed integrals over dp and dpp
