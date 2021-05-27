@@ -830,7 +830,7 @@ namespace M0nu
   ///        O_{T}(\bold{q'}) = -\frac{R}{2\pi^2}\frac{h_{T}(q')}{q'(q'+E_c)}[3(\boldsymbol{\sigma_1}\cdot\boldsymbol{\hat{q'}})(\boldsymbol{\sigma_2}\cdot\boldsymbol{\hat{q'}})-(\boldsymbol{\sigma_1} \cdot \boldsymbol{\sigma_2})] \tau_{1,+}\tau_{2,+}
   /// \f]
   /// Where \f$ h_{T} \f$ is the neutrino potenital  impletmented above and \f$ E_c \f$ is the closure energy. The minus factor up front as been included in the neutrino potential for simplicity.
-   /// Operator is then evaluated in the lab frame oscialltor basis.
+  /// Operator is then evaluated in the lab frame oscialltor basis.
   /// More detail on how to obatin the form of the operator can be found in https://drive.google.com/file/d/1QaMfuvQ7I3NM5h_ppjyIPsap3SWmCe2o/view?usp=sharing
   /// and on how to evaluate in lab frame in https://drive.google.com/file/d/1C6E2HnzSJ1bzMoIKWfH1GaZKjqaAEluG/view?usp=sharing
   Operator Tensor(ModelSpace& modelspace, double Eclosure, std::string src)
@@ -978,16 +978,22 @@ namespace M0nu
   }
 
 
-
+  //This is function is to be able to compare with Jiangming's files for his contact TBME
   double jl(double j, double l)
   {
     return floor(l+j-1/2);
   }
 
-  /// Contact operator for neutrinoless double beta decay. Opertor is written in momentum space containing factor of -2gvv
+  /// Contact operator for neutrinoless double beta decay. Opertor is written in momentum space. Only factor missing is the gvv/gA^2 which is multiplied to the NME
+  /// at the end since gvv depends on the interactions. Values of gvv can be found in arXiv:2105.05415.
+  /// The non-local  contact oprator in momentum space takes the form 
+  /// \f[ 
+  ///        O_{C}(p,p') = - 4  \frac{R}{pi} exp((\frac{p}{\Lambda})^{2n})exp((\frac{p'}{\Lambda})^{2n})
+  /// \f]
+  /// Operator is then evaluated in the lab frame oscialltor basis.
   Operator Contact(ModelSpace& modelspace, double Eclosure, std::string src)
   {
-    bool reduced = true;
+    bool reduced = false;
     double t_start, t_start_tbme, t_start_omp; // profiling (v)
     t_start = omp_get_wtime(); // profiling (s)
     std::string transition = "C";
@@ -1000,6 +1006,7 @@ namespace M0nu
     const double Rnuc = R0*pow(Anuc,1.0/3.0); // the nuclear radius [fm]
     // const double Rnuc =1;
     const double prefact = - 4 * Rnuc/(PI); // factor in-front of M0nu TBME, includes the -2 from the -2gvv and the 4*pi. Only thing missing is gvv/gA^2 which is done on the NME
+    // const double prefact = Rnuc/(2*PI*PI);
 
     modelspace.PreCalculateMoshinsky(); // pre-calculate the needed Moshinsky brackets, for efficiency
     std::unordered_map<uint64_t,double> IntList = PreCalculateM0nuIntegrals(e2max,hw,transition, Eclosure, src); // pre-calculate the needed integrals over dp and dpp
@@ -1064,72 +1071,59 @@ namespace M0nu
           double sumLSas = 0; // (anti-symmetric part)
           if (std::abs(eps_ab-eps_cd)%2>0) continue;
           int S=0;
-          // for (int S=0; S<=1; S++) // sum over total spin...
-          // {
-            int L_min = std::max(std::max(abs(la-lb),abs(lc-ld)), abs(J-S));
-            int L_max = std::min(std::min(la+lb,lc+ld),J+S);
-            for (int L = L_min; L<=L_max;L++)
+          int L_min = std::max(std::max(abs(la-lb),abs(lc-ld)), abs(J-S));
+          int L_max = std::min(std::min(la+lb,lc+ld),J+S);
+          for (int L = L_min; L<=L_max;L++)
+          {
+            double sumMT = 0; // for the Moshinsky transformation
+            double sumMTas = 0; // (anti-symmetric part)
+            double tempLS = (2*L + 1)*(2*S + 1); // just for efficiency, only used in the three lines below
+            double normab = sqrt(tempLS*(2*ja + 1)*(2*jb + 1)); // normalization factor for the 9j-symbol out front
+            double nNJab = normab*AngMom::NineJ(la,lb,L,0.5,0.5,S,ja,jb,J); // the normalized 9j-symbol out front
+            if (abs(nNJab)<1e-7) continue;
+            double normcd = sqrt(tempLS*(2*jc + 1)*(2*jd + 1)); // normalization factor for the second 9j-symbol
+            double nNJcd = normcd*AngMom::NineJ(lc,ld,L,0.5,0.5,S,jc,jd,J); // the second normalized 9j-symbol
+            double nNJdc = normcd*AngMom::NineJ(ld,lc,L,0.5,0.5,S,jd,jc,J); // (anti-symmetric part)
+            if ((abs(nNJcd)<1e-7) or (abs(nNJdc)<1e-7))  continue;
+            double bulk = nNJab*nNJcd; // bulk product of the above
+            double bulkas = nNJab*nNJdc; // (anti-symmetric part)
+            int tempmaxnr = floor((eps_ab - L)/2.0); // just for the limits below
+            for (int nr = 0; nr <= tempmaxnr; nr++)
             {
-              double sumMT = 0; // for the Moshinsky transformation
-              double sumMTas = 0; // (anti-symmetric part)
-              double tempLS = (2*L + 1)*(2*S + 1); // just for efficiency, only used in the three lines below
-              double normab = sqrt(tempLS*(2*ja + 1)*(2*jb + 1)); // normalization factor for the 9j-symbol out front
-              double nNJab = normab*AngMom::NineJ(la,lb,L,0.5,0.5,S,ja,jb,J); // the normalized 9j-symbol out front
-              if (abs(nNJab)<1e-7) continue;
-              double normcd = sqrt(tempLS*(2*jc + 1)*(2*jd + 1)); // normalization factor for the second 9j-symbol
-              double nNJcd = normcd*AngMom::NineJ(lc,ld,L,0.5,0.5,S,jc,jd,J); // the second normalized 9j-symbol
-              double nNJdc = normcd*AngMom::NineJ(ld,lc,L,0.5,0.5,S,jd,jc,J); // (anti-symmetric part)
-              if ((abs(nNJcd)<1e-7) or (abs(nNJdc)<1e-7))  continue;
-              double bulk = nNJab*nNJcd; // bulk product of the above
-              double bulkas = nNJab*nNJdc; // (anti-symmetric part)
-              int tempmaxnr = floor((eps_ab - L)/2.0); // just for the limits below
-              for (int nr = 0; nr <= tempmaxnr; nr++)
+              double npr = ((eps_cd - eps_ab)/2.0) + nr; // via Equation (4.73) of my thesis
+              if ((npr >= 0) and (npr == floor(npr)))
               {
-                double npr = ((eps_cd - eps_ab)/2.0) + nr; // via Equation (4.73) of my thesis
-                if ((npr >= 0) and (npr == floor(npr)))
+                int tempmaxNcom = tempmaxnr - nr; // just for the limits below
+                for (int Ncom = 0; Ncom <= tempmaxNcom; Ncom++)
                 {
-                  int tempmaxNcom = tempmaxnr - nr; // just for the limits below
-                  for (int Ncom = 0; Ncom <= tempmaxNcom; Ncom++)
-                  {
-                    int tempminlr = ceil((eps_ab - L)/2.0) - (nr + Ncom); // just for the limits below
-                    int tempmaxlr = floor((eps_ab + L)/2.0) - (nr + Ncom); // " " " " "
-                    double integral = 0;
-                    double Di = 0;
-                    double Df = 0;
-                    double asDi = 0;
-                    // for (int lr =tempminlr; lr <= tempmaxlr; lr++)
-                    // {
-                      if (tempminlr>0) continue;
-                      int lr = 0;
-                      int Lam = eps_ab - 2*(nr + Ncom) - lr; // via Equation (4.73) of my thesis
-                      double normJrel;
-                      Df += modelspace.GetMoshinsky(Ncom,Lam,nr,lr,na,la,nb,lb,L); // Ragnar has -- double mosh_ab = modelspace.GetMoshinsky(N_ab,Lam_ab,n_ab,lam_ab,na,la,nb,lb,Lab);
-                      Di += modelspace.GetMoshinsky(Ncom,Lam,npr,lr,nc,lc,nd,ld,L); // " " " "
-                      if (std::abs(Df)<1e-8 or std::abs(Di)<1e-8) continue;
-                      asDi += modelspace.GetMoshinsky(Ncom,Lam,npr,lr,nd,ld,nc,lc,L); // (anti-symmetric part)
-                      // int minJrel= abs(lr-S);
-                      // int maxJrel = lr+S;
-                      // for (int Jrel = minJrel; Jrel<=maxJrel; Jrel++)
-                      // {
-                      int Jrel = 0;
-                      normJrel = sqrt((2*L+1))*phase(L+lr+Jrel+J)*AngMom::SixJ(Lam,lr,L,S,J,Jrel);
-                      // normJrel = 1;
-                      integral += normJrel*normJrel*GetM0nuIntegral(e2max,nr,lr,npr,lr,Jrel,hw,transition,Eclosure,src,IntList); // grab the pre-calculated integral wrt dq and dr from the IntList of the modelspace class
-                      // }//end of for-loop over Jrel
-                      sumMT += Df*Di*integral; // perform the Moshinsky transformation
-                      sumMTas += Df*asDi*integral; // (anti-symmetric part)
-                    // } // end of for-loop over: lr
-                  } // end of for-loop over: Ncom
-                } // end of if: npr \in \Nat_0
-              } // end of for-loop over: nr
-              sumLS += bulk*sumMT; // perform the LS-coupling sum
-              sumLSas += bulkas*sumMTas; // (anti-symmetric part)
-            } // end of for-loop over: L
-          // } // end of for-loop over: S
+                  int tempminlr = ceil((eps_ab - L)/2.0) - (nr + Ncom); // just for the limits below
+                  double integral = 0;
+                  double Di = 0;
+                  double Df = 0;
+                  double asDi = 0;
+                  if (tempminlr>0) continue; //Contact term can only have lr = 0 so no need to loop over lr
+                  int lr = 0;
+                  int Lam = eps_ab - 2*(nr + Ncom) - lr; // via Equation (4.73) of my thesis
+                  double normJrel;
+                  Df += modelspace.GetMoshinsky(Ncom,Lam,nr,lr,na,la,nb,lb,L); // Ragnar has -- double mosh_ab = modelspace.GetMoshinsky(N_ab,Lam_ab,n_ab,lam_ab,na,la,nb,lb,Lab);
+                  Di += modelspace.GetMoshinsky(Ncom,Lam,npr,lr,nc,lc,nd,ld,L); // " " " "
+                  if (std::abs(Df)<1e-8 or std::abs(Di)<1e-8) continue;
+                  asDi += modelspace.GetMoshinsky(Ncom,Lam,npr,lr,nd,ld,nc,lc,L); // (anti-symmetric part)
+                  int Jrel = 0;
+                  normJrel = sqrt((2*L+1))*phase(L+lr+Jrel+J)*AngMom::SixJ(Lam,lr,L,S,J,Jrel);
+                  integral += normJrel*normJrel*GetM0nuIntegral(e2max,nr,lr,npr,lr,Jrel,hw,transition,Eclosure,src,IntList); // grab the pre-calculated integral wrt dq and dr from the IntList of the modelspace class
+                  sumMT += Df*Di*integral; // perform the Moshinsky transformation
+                  sumMTas += Df*asDi*integral; // (anti-symmetric part) 
+                } // end of for-loop over: Ncom
+              } // end of if: npr \in \Nat_0
+            } // end of for-loop over: nr
+            sumLS += bulk*sumMT; // perform the LS-coupling sum
+            sumLSas += bulkas*sumMTas; // (anti-symmetric part)
+          } // end of for-loop over: L
           double Mtbme = asNorm(ia,ib)*asNorm(ic,id)*prefact*Jhat*(sumLS - modelspace.phase(jc + jd - J)*sumLSas); // compute the final matrix element, anti-symmetrize
           // std::stringstream intvalue;
           // intvalue<<na<<", "<<nb<<", "<<nc<<", "<<nd<<", "<<jla<<", "<<jlb<<", "<<jlc<<", "<<jld<<", "<<J<<", "<<Mtbme<<std::endl;
-          // std::cout<<intvalue.str();
+          // std::cout<<intvalue.str();  //Prints values of the TBME to compare with Jiangming
           M0nuC_TBME.profiler.timer["M0nuC_3_omp"] += omp_get_wtime() - t_start_omp; // profiling (r)
           M0nuC_TBME.TwoBody.SetTBME(chbra,chket,ibra,iket,Mtbme); // set the two-body matrix elements (TBME) to Mtbme
         } // end of for-loop over: iket
@@ -1141,6 +1135,9 @@ namespace M0nu
     return M0nuC_TBME;
   }
 
+
+  /// Double Gamow-Teller operator. It is simply the 0vbb GT operator with the neutrino potential set to 1.
+  /// More infromation on the process can be found in 10.1103/PhysRevLett.120.142502. 
   Operator DGT_Op(ModelSpace& modelspace)
   {
     Operator DGT_TBME(modelspace,0,2,0,2); // NOTE: from the constructor -- Operator::Operator(ModelSpace& ms, int Jrank, int Trank, int p, int part_rank)
