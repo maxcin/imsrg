@@ -385,6 +385,9 @@ namespace M0nu
 
   std::unordered_map<uint64_t,double> PreCalculateM0nuIntegrals(int e2max, double hw, std::string transition, double Eclosure, std::string src)
   {
+    const double scale_ct = 77.233;
+    const double prefact = -2*scale_ct/(PI*PI);
+    std::cout<<prefact<<std::endl;
     IMSRGProfiler profiler;
     double t_start_pci = omp_get_wtime(); // profiling (s)
     std::unordered_map<uint64_t,double> IntList;
@@ -455,12 +458,11 @@ namespace M0nu
     }
     else if (transition =="C")
     {
-      int S = 0;
       for (int n=0; n<=maxn; n++)
       {
         int l = 0;
-        int tempminnp = n; // NOTE: need not start from 'int np=0' since IntHash(n,l,np,l) = IntHash(np,l,n,l), by construction
-        for (int np=tempminnp; np<=maxnp; np++)
+        // int tempminnp = n; // NOTE: need not start from 'int np=0' since IntHash(n,l,np,l) = IntHash(np,l,n,l), by construction
+        for (int np=n; np<=maxnp; np++)
         {
           int J = 0;
           uint64_t key = IntHash(n,l,np,l,J);
@@ -480,7 +482,7 @@ namespace M0nu
       IntList[key] = integrate_dq(n,l,np,lp,J,hw,transition,Eclosure,src,size,t,AList); // these have been ordered by the above loops such that we take the "lowest" value of decimalgen(n,l,np,lp,maxl,maxnp,maxlp), see GetIntegral(...)
       // Uncomment if you want to verify integrals values
       // std::stringstream intvalue;
-      // intvalue<<n<<" "<<l<<" "<<np<<" "<<lp<<" "<<J<<" "<<IntList[key]<<std::endl;
+      // intvalue<<n<<" "<<np<<" "<<prefact*IntList[key]<<std::endl;
       // std::cout<<intvalue.str();
       
     }
@@ -993,7 +995,7 @@ namespace M0nu
   /// Operator is then evaluated in the lab frame oscialltor basis.
   Operator Contact(ModelSpace& modelspace, double Eclosure, std::string src)
   {
-    bool reduced = false;
+    bool reduced = true;
     double t_start, t_start_tbme, t_start_omp; // profiling (v)
     t_start = omp_get_wtime(); // profiling (s)
     std::string transition = "C";
@@ -1003,10 +1005,14 @@ namespace M0nu
     std::cout<<"     reduced            =  "<<reduced<<std::endl;
     M0nuC_TBME.SetHermitian(); // it should be Hermitian
     int Anuc = modelspace.GetTargetMass(); // the mass number for the desired nucleus
+    // double m_N = 938.91897; //values to benchmark with Takayuki
+    // double gA=1.29;
+    // double fp = 92.4;
+    // const double scale_ct = (m_N*gA*gA*HBARC)/(4*fp*fp);
+    const double scale_ct = (M_NUCLEON*NUCLEON_AXIAL_G*NUCLEON_AXIAL_G*HBARC)/(4*F_PI*F_PI);
     const double Rnuc = R0*pow(Anuc,1.0/3.0); // the nuclear radius [fm]
     // const double Rnuc =1;
-    const double prefact = - 4 * Rnuc/(PI); // factor in-front of M0nu TBME, includes the -2 from the -2gvv and the 4*pi. Only thing missing is gvv/gA^2 which is done on the NME
-    // const double prefact = Rnuc/(2*PI*PI);
+    const double prefact = - 2*Rnuc/(PI*PI)*scale_ct*scale_ct; // factor in-front of M0nu TBME, includes the -2 from the -2gvv and the 4*pi. Only thing missing is gvv
 
     modelspace.PreCalculateMoshinsky(); // pre-calculate the needed Moshinsky brackets, for efficiency
     std::unordered_map<uint64_t,double> IntList = PreCalculateM0nuIntegrals(e2max,hw,transition, Eclosure, src); // pre-calculate the needed integrals over dp and dpp
@@ -1113,7 +1119,7 @@ namespace M0nu
                   normJrel = sqrt((2*L+1))*phase(L+lr+Jrel+J)*AngMom::SixJ(Lam,lr,L,S,J,Jrel);
                   integral += normJrel*normJrel*GetM0nuIntegral(e2max,nr,lr,npr,lr,Jrel,hw,transition,Eclosure,src,IntList); // grab the pre-calculated integral wrt dq and dr from the IntList of the modelspace class
                   sumMT += Df*Di*integral; // perform the Moshinsky transformation
-                  sumMTas += Df*asDi*integral; // (anti-symmetric part) 
+                  sumMTas += normJrel*normJrel*Df*asDi*integral; // (anti-symmetric part) 
                 } // end of for-loop over: Ncom
               } // end of if: npr \in \Nat_0
             } // end of for-loop over: nr
