@@ -33,7 +33,7 @@ add_executable(imsrg++ imsrg++.cc)
 
 add_library(OBJ OBJECT  ModelSpace.cc TwoBodyME.cc ThreeBodyME.cc Operator.cc  ReadWrite.cc
                         HartreeFock.cc imsrg_util.cc Generator.cc IMSRGSolver.cc AngMom.cc
-                        IMSRGProfiler.cc Commutator.cc HFMBPT.cc
+                        IMSRGProfiler.cc Commutator.cc HFMBPT.cc Helicity.cc
                         M0nu.cc DarkMatterNREFT.cc Jacobi3BME.cc UnitTest.cc 
                         TwoBodyChannel.cc ThreeBodyChannel.cc 
                         ThreeBodyStorage.cc ThreeBodyStorage_pn.cc ThreeBodyStorage_iso.cc 

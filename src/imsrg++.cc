@@ -110,6 +110,8 @@ int main(int argc, char** argv)
   bool only_2b_omega = (parameters.s("only_2b_omega")=="true");
   bool perturbative_triples = (parameters.s("perturbative_triples")=="true");
   bool brueckner_restart = false;
+  bool write_HO_ops = parameters.s("write_HO_ops") == "true";
+  bool write_HF_ops = parameters.s("write_HF_ops") == "true";
 
   int eMax = parameters.i("emax");
   int lmax = parameters.i("lmax"); // so far I only use this with atomic systems.
@@ -1314,6 +1316,21 @@ int main(int argc, char** argv)
 
       Operator op = imsrg_util::OperatorFromString( modelspace, opname );
 
+      if (write_HO_ops)
+      {
+        std::cout << "writing HO tensor files " << std::endl;
+        if (valence_file_format == "tokyo")
+        {
+          rw.WriteTensorTokyo(intfile+opnames[i]+"_HO_2b.snt",op);
+        }
+        else
+        {
+          rw.WriteTensorOneBody(intfile+opnames[i]+"_HO_1b.op",op,opnames[i]);
+          rw.WriteTensorTwoBody(intfile+opnames[i]+"_HO_2b.op",op,opnames[i]);
+        }
+      }
+
+
       if ( basis == "HF")
       {
         op = hf.TransformToHFBasis(op).DoNormalOrdering();
@@ -1322,6 +1339,8 @@ int main(int argc, char** argv)
       {
         op = hf.TransformHOToNATBasis(op).DoNormalOrdering();
       }
+
+      
       std::cout << "   HF: " << op.ZeroBody << std::endl;
 
       if ( (eMax_imsrg != -1) or (e2Max_imsrg != -1) or (e3Max_imsrg) != -1)
@@ -1331,7 +1350,19 @@ int main(int argc, char** argv)
         op = op.Truncate(modelspace_imsrg);
       }
 
-
+      if (write_HF_ops)
+      {
+        std::cout << "writing HF tensor files " << std::endl;
+        if (valence_file_format == "tokyo")
+        {
+          rw.WriteTensorTokyo(intfile+opnames[i]+"_HF_2b.snt",op);
+        }
+        else
+        {
+          rw.WriteTensorOneBody(intfile+opnames[i]+"_HF_1b.op",op,opnames[i]);
+          rw.WriteTensorTwoBody(intfile+opnames[i]+"_HF_2b.op",op,opnames[i]);
+        }
+      }
 
       op = imsrgsolver.Transform(op);
 
@@ -1344,6 +1375,8 @@ int main(int argc, char** argv)
 //      std::cout << " (" << ops[i].ZeroBody << " ) " << std::endl;
       std::cout << "   IMSRG: " << op.ZeroBody << std::endl;
 //      rw.WriteOperatorHuman(ops[i],intfile+opnames[i]+"_step2.op");
+
+
 
 
 

@@ -29,6 +29,7 @@ namespace M0nu
   int decimalgen(int a, int b, int c, int d, int maxb, int maxc, int maxd);
   int phase(int x);  
   double HO_Radial_psi_mom(int n, int l, double hw, double p);
+  
 
   double gv_func(double qsq);
   double ga_func(double qsq);
@@ -65,7 +66,15 @@ namespace M0nu
   Operator Contact(ModelSpace& modelspace, double Eclosure, std::string src); ///< Tensor part of M0nu operator
   Operator DGT_Op(ModelSpace& modelspace); //< Double Gamow-Teller operator
 
+  double HO_Radial_psi(int n, int l, double hw, double r);
+  double fq_radial_GT(double q, double Eclosure, double r12);
+  double integrate_dq_radial_GT(double Eclosure, double r12,  int npoints, gsl_integration_glfixed_table * t);
+  std::unordered_map<uint64_t,double> PreCalculateM0nuIntegrals_R(int e2max, double hw, double Eclosure, double r12);
+  double GetM0nuIntegral_R(int e2max, int n, int l, int np, int lp,int J, double hw, double Eclosure, double r12, std::unordered_map<uint64_t,double> &IntList);
+  Operator GamowTeller_R(ModelSpace& modelspace, double Eclosure, double r12);
+  Operator DGT_R(ModelSpace& modelspace, double r12);
 }
+  
 
 
 #endif

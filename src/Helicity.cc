@@ -382,7 +382,7 @@ namespace Helicity
   }
 
   // Performs the integral over cos(theta) of the wigner small-d matrices and the matrix element of the operator in helicity basis.
-  // This corresponds to the integral in eq. 13 in my notes.
+  // This corresponds to the integral in eq. 13 in my notes, found at https://drive.google.com/file/d/1QQrLwYNSbMaJrA2WRX0wlATcl0mL5MRp/view?usp=sharing
   double integrate_op_rotation (double p, double pp, std::function<double(double, double, double,int,int,double,double,double,double)> op, int Jp, int operator_index, int operator_rank, double lam1, double lam2, double lamp1, double lamp2, double Lam, double Lamp)
   {
     double integral = 0;
@@ -399,6 +399,7 @@ namespace Helicity
   }
 
   // Partial Wave Decomposition of a general tensor operator in the J basis using the helicity representation of the operator. 
+  // Corresponds to equation 13 of my notes.
   double projection_to_j_basis(double p, double pp, int J, int Jp, double lam1, double lam2, double lamp1, double lamp2, double Lam, double Lamp,  std::function<double(double, double, double, int,int,double,double,double,double)> op, int operator_rank)
   {
     double tensor_representation = 0;
@@ -414,7 +415,7 @@ namespace Helicity
 
   // Compute the overlap of the states in heliciy basis and in lsj basis.
   // It is used at to convert the result in helicity basis to lsj basis in the 
-  // full partial wave_decomposition. 
+  // full partial wave_decomposition. Corresponds to equation 14 of my notes.
   double overlap_lsj(int S, int L, int J, double lam1, double lam2, double Lam)
   {
     if (S < abs(Lam)) return 0;
@@ -423,7 +424,7 @@ namespace Helicity
   }
 
   // Full partial wave decomposition of a general tensor operator using helicity formalism.
-  // Gives the matrix element of the opertor in lsj basis.
+  // Gives the matrix element of the opertor in lsj basis. Corresponds to equation 15 of my notes.
   double tensor_partial_wave_decomposition(double p, double pp, int L, int Lp, int S, int Sp, int J, int Jp,  std::function<double(double, double, double, int,int,double,double,double,double)> op, int operator_rank)
   {
     // There are 4 possible heliciies for each state, i.e. ++, +-. -+, --
