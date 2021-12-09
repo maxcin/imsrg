@@ -296,6 +296,20 @@ namespace imsrg_util
         theop =  M0nuop[M0nuopname](modelspace,Eclosure,src);
         }
       }
+      else if (opnamesplit[0] == "M0nuR") // Radial dependance of GT part of M0nu
+      {
+        double Eclosure;
+        double r12;
+        std::istringstream(opnamesplit[1]) >> Eclosure;
+        std::istringstream(opnamesplit[2]) >> r12;
+        theop = M0nu::GamowTeller_R(modelspace, Eclosure, r12);
+      }
+      else if (opnamesplit[0] == "DGTR") //Radial depedance of DGT operator
+      {
+        double r12;
+        std::istringstream(opnamesplit[1]) >> r12;
+        theop = M0nu::DGT_R(modelspace, r12);
+      }
       else //need to remove from the list
       {
          std::cout << "Unknown operator: " << opname << std::endl;

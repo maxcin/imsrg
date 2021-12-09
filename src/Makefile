@@ -390,6 +390,33 @@ HartreeFock.cc.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/OBJ.dir/build.make CMakeFiles/OBJ.dir/HartreeFock.cc.s
 .PHONY : HartreeFock.cc.s
 
+Helicity.o: Helicity.cc.o
+
+.PHONY : Helicity.o
+
+# target to build an object file
+Helicity.cc.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/OBJ.dir/build.make CMakeFiles/OBJ.dir/Helicity.cc.o
+.PHONY : Helicity.cc.o
+
+Helicity.i: Helicity.cc.i
+
+.PHONY : Helicity.i
+
+# target to preprocess a source file
+Helicity.cc.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/OBJ.dir/build.make CMakeFiles/OBJ.dir/Helicity.cc.i
+.PHONY : Helicity.cc.i
+
+Helicity.s: Helicity.cc.s
+
+.PHONY : Helicity.s
+
+# target to generate assembly for a file
+Helicity.cc.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/OBJ.dir/build.make CMakeFiles/OBJ.dir/Helicity.cc.s
+.PHONY : Helicity.cc.s
+
 IMSRGProfiler.o: IMSRGProfiler.cc.o
 
 .PHONY : IMSRGProfiler.o
@@ -1018,6 +1045,9 @@ help:
 	@echo "... HartreeFock.o"
 	@echo "... HartreeFock.i"
 	@echo "... HartreeFock.s"
+	@echo "... Helicity.o"
+	@echo "... Helicity.i"
+	@echo "... Helicity.s"
 	@echo "... IMSRGProfiler.o"
 	@echo "... IMSRGProfiler.i"
 	@echo "... IMSRGProfiler.s"
