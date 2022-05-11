@@ -310,6 +310,12 @@ namespace imsrg_util
         std::istringstream(opnamesplit[1]) >> r12;
         theop = M0nu::DGT_R(modelspace, r12);
       }
+      else if (opnamesplit[0] == "DGTRLocal") //Radial depedance of DGT operator with surface localization
+      {
+        double r12;
+        std::istringstream(opnamesplit[1]) >> r12;
+        theop = M0nu::DGT_R_SurfaceLocalization(modelspace, r12);
+      }
       else //need to remove from the list
       {
          std::cout << "Unknown operator: " << opname << std::endl;

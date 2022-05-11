@@ -7,6 +7,8 @@ set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED YES)
 set(INSTDIR $ENV{HOME})
 set(CMAKE_INSTALL_MESSAGE LAZY)
+set(CMAKE_INSTALL_RPATH_USE_LINK_PATH TRUE)
+set(CMAKE_INSTALL_RPATH /Users/antoinebelley/lib)
 
 set(splashscreen 
 "                                                     ____                                     
@@ -78,8 +80,8 @@ find_package(ZLIB REQUIRED)
 if(ZLIB_FOUND)
   target_link_libraries(OBJ PUBLIC ZLIB::ZLIB)
 endif(ZLIB_FOUND)
-find_package(PythonInterp)
-find_package(PythonLibs)
+
+
 
 
 ####Installation command###
@@ -110,10 +112,12 @@ install(CODE "MESSAGE(\"********************************************************
 install(CODE "MESSAGE(\"* Make sure libIMSRG.so is in your LIBRARY_PATH and LD_LIBRARY_PATH *\")")
 install(CODE "MESSAGE(\"*********************************************************************\")")
 
-
+# find_package(PythonInterp 3.10)
+# find_package(PythonLibs 3.10)
+# find_package (Python3 COMPONENTS Interpreter Development)
 
 ###Compile pyIMSRG shared library if it finds python
-if (PythonLibs_FOUND AND PythonInterp_FOUND)
+# if (PythonLibs_FOUND AND PythonInterp_FOUND)
   add_subdirectory(pybind11)
   pybind11_add_module(pyIMSRG pyIMSRG.cc)
   target_link_libraries(pyIMSRG PUBLIC OBJ)
@@ -121,4 +125,4 @@ if (PythonLibs_FOUND AND PythonInterp_FOUND)
   target_include_directories(pyIMSRG PUBLIC half/include)
   set_target_properties(pyIMSRG PROPERTIES CXX_VISIBILITY_PRESET default)
   install(TARGETS pyIMSRG  DESTINATION ${INSTDIR}/lib PERMISSIONS OWNER_READ OWNER_WRITE OWNER_EXECUTE GROUP_READ GROUP_WRITE GROUP_EXECUTE WORLD_READ)
-endif(PythonLibs_FOUND AND PythonInterp_FOUND)
+# endif(PythonLibs_FOUND AND PythonInterp_FOUND)

@@ -73,6 +73,13 @@ namespace M0nu
   double GetM0nuIntegral_R(int e2max, int n, int l, int np, int lp,int J, double hw, double Eclosure, double r12, std::unordered_map<uint64_t,double> &IntList);
   Operator GamowTeller_R(ModelSpace& modelspace, double Eclosure, double r12);
   Operator DGT_R(ModelSpace& modelspace, double r12);
+
+  long double TalmiB(int na, int la, int nb, int lb, int p);
+  double RadialIntegral_Gauss( int na, int la, int nb, int lb, double sigma );
+  double integrateRcom(int Ncom, int  Lambda, double  hw, double Rnucl);//,gsl_integration_glfixed_table * t);
+  std::unordered_map<uint64_t,double> PreCalculateDGTRComIntegrals(int e2max, double hw, double Rnucl);
+  double GetDGTRcomIntegral(int Ncom, int Lam, double hw, std::unordered_map<uint64_t,double> &IntList);
+  Operator DGT_R_SurfaceLocalization(ModelSpace& modelspace, double r12);
 }
   
 
