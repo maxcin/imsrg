@@ -322,6 +322,98 @@ void IMSRGSolver::Solve_magnus_euler()
 
 }
 
+void IMSRGSolver::Solve_magnus_euler()
+{
+   istep = 0;
+
+   if ( generator.GetType() == "rspace" ) { generator.modelspace = (Eta.modelspace); generator.SetRegulatorLength(800005.0); };
+
+   generator.Update(&FlowingOps[0],&Eta);
+
+   if (generator.GetType() == "shell-model-atan")
+   {
+     generator.SetDenominatorCutoff(1.0); // do we need this?
+   }
+
+   Elast = H_0->ZeroBody;
+   cumulative_error = 0;
+    // Write details of the flow
+   WriteFlowStatus(flowfile);
+   WriteFlowStatus(std::cout);
+
+   for (istep=1;s<smax;++istep)
+   {
+
+      double norm_eta = Eta.Norm();
+      if (norm_eta < eta_criterion )
+      {
+        break;
+      }
+      double norm_omega = Omega.back().Norm();
+      if (norm_omega > omega_norm_max)
+      {
+//        if ( perturbative_triples )
+//        {
+//          GetPerturbativeTriples();
+////          pert_triples_this_omega = GetPerturbativeTriples();
+////          pert_triples_sum += pert_triples_this_omega;
+//        }
+        if (hunter_gatherer)
+        {
+          GatherOmega();
+        }
+        else
+        {
+          NewOmega();
+        }
+        norm_omega = 0;
+      }
+      // ds should never be more than 1, as this is over-rotating
+      if (magnus_adaptive)
+         ds = std::min( std::min( std::min(norm_domega/norm_eta, norm_domega / norm_eta / (norm_omega+1.0e-9)), omega_norm_max/norm_eta), ds_max);
+      ds = std::min(ds,smax-s);
+
+      s += ds;
+      Eta *= ds; // Here's the Euler step.
+
+      // accumulated generator (aka Magnus operator) exp(Omega) = exp(dOmega) * exp(Omega_last)
+      Omega.back() = Commutator::BCH_Product( Eta, Omega.back() );
+
+      // transformed Hamiltonian H_s = exp(Omega) H_0 exp(-Omega)
+      if ((Omega.size()+n_omega_written)<2)
+      {
+        FlowingOps[0] = Commutator::BCH_Transform( *H_0, Omega.back() );
+      }
+      else
+      {
+        FlowingOps[0] = Commutator::BCH_Transform( H_saved, Omega.back() );
+      }
+
+      if (norm_eta<1.0 and generator.GetType() == "shell-model-atan")
+      {
+        generator.SetDenominatorCutoff(1e-6);
+      }
+
+//      if ( generator.GetType() == "rspace" ) { generator.SetRegulatorLength(s); };
+      generator.Update(&FlowingOps[0],&Eta);
+//      cumulative_error += EstimateStepError();
+
+      // Write details of the flow
+      WriteFlowStatus(flowfile);
+      WriteFlowStatus(std::cout);
+      Elast = FlowingOps[0].ZeroBody;
+
+//      Operator DHDS = Commutator::Commutator( Eta, FlowingOps[0] );
+//      size_t ch = FlowingOps[0].modelspace->GetTwoBodyChannelIndex(0,0,1);
+//      auto MAT  = FlowingOps[0].TwoBody.GetMatrix(ch,ch);
+//      auto dMAT  = DHDS.TwoBody.GetMatrix(ch,ch);
+//      std::cout << " ======>  " << MAT(0,0) << "     " << MAT(1,0) << "   " << MAT(2,0) << "  " << MAT(1,1) << " " << MAT(2,1) << "  " << MAT(2,2) << std::endl;
+//      std::cout << " ______>  " << dMAT(0,0) << "     " << dMAT(1,0) << "   " << dMAT(2,0) << "  " << dMAT(1,1) << " " << dMAT(2,1) << "  " << dMAT(2,2) << std::endl;
+
+   }
+
+}
+
 
 void IMSRGSolver::Solve_magnus_modified_euler()
 {

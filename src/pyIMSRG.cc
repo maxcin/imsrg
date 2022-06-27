@@ -191,10 +191,11 @@ PYBIND11_MODULE(pyIMSRG, m)
        .def("MakeUnNormalized", &Operator::MakeUnNormalized)
        .def("SetOneBodyME", &OpSetOneBodyME)
        .def("GetMP2_Energy", &Operator::GetMP2_Energy)
-       .def("GetMP2_3BEnergy", &Operator::GetMP2_Energy)
+       .def("GetMP2_3BEnergy", &Operator::GetMP2_3BEnergy)
        .def("GetMP3_Energy", &Operator::GetMP3_Energy)
-       .def("GetPPHH_Ladders", &Operator::GetPPHH_Ladders);
-      //  .def("IsospinProject", &Operator::IsospinProject);
+       .def("GetPPHH_Ladders", &Operator::GetPPHH_Ladders)
+       .def("GetModelSpace", &Operator::GetModelSpace);
+   //  .def("IsospinProject", &Operator::IsospinProject);
 
    py::class_<arma::mat>(m, "ArmaMat")
        .def(py::init<>())
