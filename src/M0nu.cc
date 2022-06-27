@@ -72,17 +72,78 @@ namespace M0nu
     return gM;
   }
 
+  /// Different form component required for the form factors
+  /// separated by their vector, vector-axial, induced pseudo-scalar...
+  /// parts as defined in JHEP12(2018)097
+
+  double hF_VV(double qsq)
+  {
+    return gv_func(qsq)*gv_func(qsq)/(NUCLEON_VECTOR_G*NUCLEON_VECTOR_G);
+  }
+
+  double hGT_AA(double qsq)
+  {
+    return ga_func(qsq)*ga_func(qsq) / (NUCLEON_AXIAL_G * NUCLEON_AXIAL_G);
+  }
+
+  double hGT_AP(double qsq)
+  {
+    double gA = ga_func(qsq);
+    double gP = gp_func(qsq);
+    return -(gA * gP * qsq) / (3 * M_NUCLEON * NUCLEON_AXIAL_G * NUCLEON_AXIAL_G);
+  }
+
+  double hGT_PP(double qsq)
+  {
+    double Mnucsq = M_NUCLEON * M_NUCLEON; // the proton mass squared [MeV^2]
+    double gP = gp_func(qsq);
+    return (pow(gP * qsq, 2) / (12 * Mnucsq * NUCLEON_AXIAL_G * NUCLEON_AXIAL_G));
+  }
+
+  double hGT_MM(double qsq)
+  {
+    double Mnucsq = M_NUCLEON * M_NUCLEON; // the proton mass squared [MeV^2]
+    double gM = gm_func(qsq);
+    return ((gM * gM * qsq) / (6 * Mnucsq* NUCLEON_AXIAL_G * NUCLEON_AXIAL_G));
+  }
+
+  double hT_AA(double qsq)
+  {
+    return ga_func(qsq) * ga_func(qsq) / (NUCLEON_AXIAL_G * NUCLEON_AXIAL_G);
+  }
+
+  double hT_AP(double qsq)
+  {
+    double gA = ga_func(qsq);
+    double gP = gp_func(qsq);
+    return (gA * gP * qsq) / (3 * M_NUCLEON * NUCLEON_AXIAL_G * NUCLEON_AXIAL_G);
+  }
+
+  double hT_PP(double qsq)
+  {
+    double Mnucsq = M_NUCLEON * M_NUCLEON; // the proton mass squared [MeV^2]
+    double gP = gp_func(qsq);
+    return -(pow(gP * qsq, 2) / (12 * Mnucsq * NUCLEON_AXIAL_G * NUCLEON_AXIAL_G));
+  }
+
+  double hT_MM(double qsq)
+  {
+    double Mnucsq = M_NUCLEON * M_NUCLEON; // the proton mass squared [MeV^2]
+    double gM = gm_func(qsq);
+    return ((gM * gM * qsq) / (12 * Mnucsq * NUCLEON_AXIAL_G * NUCLEON_AXIAL_G));
+  }
 
   /// Form factors of the neutrino potential of Gamow-Teller transition
   /// Implemented from Equation (4.12) of Charlie Payne's thesis
   double GTFormFactor(double q)
   {
     double qsq     = q*q; // q squared [MeV^2]
-    double Mprosq  = M_PROTON*M_PROTON; // the proton mass squared [MeV^2]
-    double gA      = ga_func(qsq);
-    double gP      = gp_func(qsq); 
-    double gM      = gm_func(qsq); 
-    double ff      = ((gA*gA) - ((gA*gP*qsq)/(3*M_PROTON)) + (pow(gP*qsq,2)/(12*Mprosq)) + ((gM*gM*qsq)/(6*Mprosq)))/(NUCLEON_AXIAL_G*NUCLEON_AXIAL_G); 
+    // double Mprosq  = M_PROTON*M_PROTON; // the proton mass squared [MeV^2]
+    // double gA      = ga_func(qsq);
+    // double gP      = gp_func(qsq); 
+    // double gM      = gm_func(qsq); 
+    // double ff      = ((gA*gA) - ((gA*gP*qsq)/(3*M_PROTON)) + (pow(gP*qsq,2)/(12*Mprosq)) + ((gM*gM*qsq)/(6*Mprosq)))/(NUCLEON_AXIAL_G*NUCLEON_AXIAL_G);
+    double ff = hGT_AA(qsq)+hGT_AP(qsq)+hGT_PP(qsq)+hGT_MM(qsq); 
     return ff;
   }
 
@@ -91,8 +152,9 @@ namespace M0nu
   double FermiFormFactor(double q)
   {
     double qsq     = q*q; // q squared [MeV^2]
-    double gV      = gv_func(qsq);
-    double ff      = (gV*gV)/(NUCLEON_VECTOR_G*NUCLEON_VECTOR_G); //Equation (4.11) of Charlie's thesis
+    // double gV      = gv_func(qsq);
+    // double ff      = (gV*gV)/(NUCLEON_VECTOR_G*NUCLEON_VECTOR_G); //Equation (4.11) of Charlie's thesis
+    double ff = hF_VV(qsq) ;
     return ff;
   }
 
@@ -101,19 +163,20 @@ namespace M0nu
   double TensorFormFactor(double q)
   {
     double qsq     = q*q; // q squared [MeV^2]
-    double Mprosq  = M_PROTON*M_PROTON; // the proton mass squared [MeV^2]
-    double gA      = ga_func(qsq);
-    double gP      = gp_func (qsq);
-    double gM      = gm_func(qsq);
-    double ff      = (((gA*gP*qsq)/(3*M_PROTON)) - (pow(gP*qsq,2)/(12*Mprosq)) + ((gM*gM*qsq)/(12*Mprosq)))/(NUCLEON_AXIAL_G*NUCLEON_AXIAL_G); //Equation (4.13) of Charlie's thesis
+    // double Mprosq  = M_PROTON*M_PROTON; // the proton mass squared [MeV^2]
+    // double gA      = ga_func(qsq);
+    // double gP      = gp_func (qsq);
+    // double gM      = gm_func(qsq);
+    // double ff      = (((gA*gP*qsq)/(3*M_PROTON)) - (pow(gP*qsq,2)/(12*Mprosq)) + ((gM*gM*qsq)/(12*Mprosq)))/(NUCLEON_AXIAL_G*NUCLEON_AXIAL_G); //Equation (4.13) of Charlie's thesis
+    double ff = hT_AP(qsq)+hT_PP(qsq)+hT_MM(qsq);
     return -ff;
   }
 
 
   double RegulatorNonLocal(double p, double pp)
   {
-    double Lambda = 500;
-    double nexp = 3;
+    double Lambda = 394;
+    double nexp = 4;
     return exp(-pow(p*HBARC/Lambda,2*nexp))*exp(-pow(pp*HBARC/Lambda,2*nexp));
     // return  1;
   }
@@ -131,7 +194,7 @@ namespace M0nu
   double A(double p, double pp, int J, double Eclosure, std::string transition, gsl_integration_glfixed_table * t, int norm, int size)
   {
     double A = 0;
-    std::map<std::string, std::function<double(double)> > FFlist = {{"F",FermiFormFactor},{"GT",GTFormFactor},{"T",TensorFormFactor},{"C", RegulatorLocal}};
+    std::map<std::string, std::function<double(double)> > FFlist = {{"F",FermiFormFactor},{"GT",GTFormFactor},{"T",TensorFormFactor},{"C", FermiFormFactor}};
     // std::map<std::string, std::function<double(double)> > FFlist = {{"F",FermiFormFactor},{"GT",GTFormFactor},{"T",TensorFormFactor}}; // make a map from std::string to a function which takes in q and returns a form factor
     for (int i=0;i<size;i++)
     {
@@ -667,6 +730,8 @@ namespace M0nu
             } // end of for-loop over: L
           } // end of for-loop over: S
           double Mtbme = asNorm(ia,ib)*asNorm(ic,id)*prefact*Jhat*(sumLS - modelspace.phase(jc + jd - J)*sumLSas); // compute the final matrix element, anti-symmetrize
+          // double Mtbme = prefact * Jhat * sumLS; // compute the final matrix element, not anti-symmetrize
+
           M0nuGT_TBME.TwoBody.SetTBME(chbra,chket,ibra,iket,Mtbme); // set the two-body matrix elements (TBME) to Mtbme
         } // end of for-loop over: iket
       } // end of for-loop over: ibra
