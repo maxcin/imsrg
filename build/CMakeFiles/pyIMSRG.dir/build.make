@@ -88,75 +88,54 @@ pyIMSRG_OBJECTS = \
 "CMakeFiles/pyIMSRG.dir/pyIMSRG.cc.o"
 
 # External object files for target pyIMSRG
-pyIMSRG_EXTERNAL_OBJECTS = \
-"/Users/antoinebelley/Documents/TRIUMF/imsrg/build/CMakeFiles/OBJ.dir/ModelSpace.cc.o" \
-"/Users/antoinebelley/Documents/TRIUMF/imsrg/build/CMakeFiles/OBJ.dir/TwoBodyME.cc.o" \
-"/Users/antoinebelley/Documents/TRIUMF/imsrg/build/CMakeFiles/OBJ.dir/ThreeBodyME.cc.o" \
-"/Users/antoinebelley/Documents/TRIUMF/imsrg/build/CMakeFiles/OBJ.dir/Operator.cc.o" \
-"/Users/antoinebelley/Documents/TRIUMF/imsrg/build/CMakeFiles/OBJ.dir/ReadWrite.cc.o" \
-"/Users/antoinebelley/Documents/TRIUMF/imsrg/build/CMakeFiles/OBJ.dir/HartreeFock.cc.o" \
-"/Users/antoinebelley/Documents/TRIUMF/imsrg/build/CMakeFiles/OBJ.dir/imsrg_util.cc.o" \
-"/Users/antoinebelley/Documents/TRIUMF/imsrg/build/CMakeFiles/OBJ.dir/Generator.cc.o" \
-"/Users/antoinebelley/Documents/TRIUMF/imsrg/build/CMakeFiles/OBJ.dir/IMSRGSolver.cc.o" \
-"/Users/antoinebelley/Documents/TRIUMF/imsrg/build/CMakeFiles/OBJ.dir/AngMom.cc.o" \
-"/Users/antoinebelley/Documents/TRIUMF/imsrg/build/CMakeFiles/OBJ.dir/IMSRGProfiler.cc.o" \
-"/Users/antoinebelley/Documents/TRIUMF/imsrg/build/CMakeFiles/OBJ.dir/Commutator.cc.o" \
-"/Users/antoinebelley/Documents/TRIUMF/imsrg/build/CMakeFiles/OBJ.dir/HFMBPT.cc.o" \
-"/Users/antoinebelley/Documents/TRIUMF/imsrg/build/CMakeFiles/OBJ.dir/Helicity.cc.o" \
-"/Users/antoinebelley/Documents/TRIUMF/imsrg/build/CMakeFiles/OBJ.dir/M0nu.cc.o" \
-"/Users/antoinebelley/Documents/TRIUMF/imsrg/build/CMakeFiles/OBJ.dir/DarkMatterNREFT.cc.o" \
-"/Users/antoinebelley/Documents/TRIUMF/imsrg/build/CMakeFiles/OBJ.dir/Jacobi3BME.cc.o" \
-"/Users/antoinebelley/Documents/TRIUMF/imsrg/build/CMakeFiles/OBJ.dir/UnitTest.cc.o" \
-"/Users/antoinebelley/Documents/TRIUMF/imsrg/build/CMakeFiles/OBJ.dir/TwoBodyChannel.cc.o" \
-"/Users/antoinebelley/Documents/TRIUMF/imsrg/build/CMakeFiles/OBJ.dir/ThreeBodyChannel.cc.o" \
-"/Users/antoinebelley/Documents/TRIUMF/imsrg/build/CMakeFiles/OBJ.dir/Pwd.cc.o" \
-"/Users/antoinebelley/Documents/TRIUMF/imsrg/build/CMakeFiles/OBJ.dir/ThreeBodyStorage.cc.o" \
-"/Users/antoinebelley/Documents/TRIUMF/imsrg/build/CMakeFiles/OBJ.dir/ThreeBodyStorage_pn.cc.o" \
-"/Users/antoinebelley/Documents/TRIUMF/imsrg/build/CMakeFiles/OBJ.dir/ThreeBodyStorage_iso.cc.o" \
-"/Users/antoinebelley/Documents/TRIUMF/imsrg/build/CMakeFiles/OBJ.dir/ThreeBodyStorage_no2b.cc.o" \
-"/Users/antoinebelley/Documents/TRIUMF/imsrg/build/CMakeFiles/OBJ.dir/ThreeLegME.cc.o" \
-"/Users/antoinebelley/Documents/TRIUMF/imsrg/build/CMakeFiles/OBJ.dir/boost_src/gzip.cpp.o" \
-"/Users/antoinebelley/Documents/TRIUMF/imsrg/build/CMakeFiles/OBJ.dir/boost_src/zlib.cpp.o"
+pyIMSRG_EXTERNAL_OBJECTS =
 
 pyIMSRG.cpython-310-darwin.so: CMakeFiles/pyIMSRG.dir/pyIMSRG.cc.o
-pyIMSRG.cpython-310-darwin.so: CMakeFiles/OBJ.dir/ModelSpace.cc.o
-pyIMSRG.cpython-310-darwin.so: CMakeFiles/OBJ.dir/TwoBodyME.cc.o
-pyIMSRG.cpython-310-darwin.so: CMakeFiles/OBJ.dir/ThreeBodyME.cc.o
-pyIMSRG.cpython-310-darwin.so: CMakeFiles/OBJ.dir/Operator.cc.o
-pyIMSRG.cpython-310-darwin.so: CMakeFiles/OBJ.dir/ReadWrite.cc.o
-pyIMSRG.cpython-310-darwin.so: CMakeFiles/OBJ.dir/HartreeFock.cc.o
-pyIMSRG.cpython-310-darwin.so: CMakeFiles/OBJ.dir/imsrg_util.cc.o
-pyIMSRG.cpython-310-darwin.so: CMakeFiles/OBJ.dir/Generator.cc.o
-pyIMSRG.cpython-310-darwin.so: CMakeFiles/OBJ.dir/IMSRGSolver.cc.o
-pyIMSRG.cpython-310-darwin.so: CMakeFiles/OBJ.dir/AngMom.cc.o
-pyIMSRG.cpython-310-darwin.so: CMakeFiles/OBJ.dir/IMSRGProfiler.cc.o
-pyIMSRG.cpython-310-darwin.so: CMakeFiles/OBJ.dir/Commutator.cc.o
-pyIMSRG.cpython-310-darwin.so: CMakeFiles/OBJ.dir/HFMBPT.cc.o
-pyIMSRG.cpython-310-darwin.so: CMakeFiles/OBJ.dir/Helicity.cc.o
-pyIMSRG.cpython-310-darwin.so: CMakeFiles/OBJ.dir/M0nu.cc.o
-pyIMSRG.cpython-310-darwin.so: CMakeFiles/OBJ.dir/DarkMatterNREFT.cc.o
-pyIMSRG.cpython-310-darwin.so: CMakeFiles/OBJ.dir/Jacobi3BME.cc.o
-pyIMSRG.cpython-310-darwin.so: CMakeFiles/OBJ.dir/UnitTest.cc.o
-pyIMSRG.cpython-310-darwin.so: CMakeFiles/OBJ.dir/TwoBodyChannel.cc.o
-pyIMSRG.cpython-310-darwin.so: CMakeFiles/OBJ.dir/ThreeBodyChannel.cc.o
-pyIMSRG.cpython-310-darwin.so: CMakeFiles/OBJ.dir/Pwd.cc.o
-pyIMSRG.cpython-310-darwin.so: CMakeFiles/OBJ.dir/ThreeBodyStorage.cc.o
-pyIMSRG.cpython-310-darwin.so: CMakeFiles/OBJ.dir/ThreeBodyStorage_pn.cc.o
-pyIMSRG.cpython-310-darwin.so: CMakeFiles/OBJ.dir/ThreeBodyStorage_iso.cc.o
-pyIMSRG.cpython-310-darwin.so: CMakeFiles/OBJ.dir/ThreeBodyStorage_no2b.cc.o
-pyIMSRG.cpython-310-darwin.so: CMakeFiles/OBJ.dir/ThreeLegME.cc.o
-pyIMSRG.cpython-310-darwin.so: CMakeFiles/OBJ.dir/boost_src/gzip.cpp.o
-pyIMSRG.cpython-310-darwin.so: CMakeFiles/OBJ.dir/boost_src/zlib.cpp.o
 pyIMSRG.cpython-310-darwin.so: CMakeFiles/pyIMSRG.dir/build.make
+pyIMSRG.cpython-310-darwin.so: libHFMBPT.a
+pyIMSRG.cpython-310-darwin.so: libUnitTest.a
+pyIMSRG.cpython-310-darwin.so: libReferenceImplementations.a
+pyIMSRG.cpython-310-darwin.so: libIMSRGSolver.a
+pyIMSRG.cpython-310-darwin.so: libGenerator.a
+pyIMSRG.cpython-310-darwin.so: libimsrg_util.a
+pyIMSRG.cpython-310-darwin.so: libM0nu.a
+pyIMSRG.cpython-310-darwin.so: libIMSRGSolver.a
+pyIMSRG.cpython-310-darwin.so: libGenerator.a
+pyIMSRG.cpython-310-darwin.so: libimsrg_util.a
+pyIMSRG.cpython-310-darwin.so: libM0nu.a
+pyIMSRG.cpython-310-darwin.so: libReadWrite.a
+pyIMSRG.cpython-310-darwin.so: libHartreeFock.a
+pyIMSRG.cpython-310-darwin.so: libJacobi3BME.a
+pyIMSRG.cpython-310-darwin.so: libHartreeFock.a
+pyIMSRG.cpython-310-darwin.so: libJacobi3BME.a
+pyIMSRG.cpython-310-darwin.so: libCommutator.a
+pyIMSRG.cpython-310-darwin.so: libCommutator232.a
+pyIMSRG.cpython-310-darwin.so: libDarkMatterNREFT.a
+pyIMSRG.cpython-310-darwin.so: libPwd.a
+pyIMSRG.cpython-310-darwin.so: libVersion.a
+pyIMSRG.cpython-310-darwin.so: libRPA.a
+pyIMSRG.cpython-310-darwin.so: libOperator.a
+pyIMSRG.cpython-310-darwin.so: libTwoBodyME.a
+pyIMSRG.cpython-310-darwin.so: libThreeBodyME.a
+pyIMSRG.cpython-310-darwin.so: libThreeBodyStorage_iso.a
+pyIMSRG.cpython-310-darwin.so: libThreeBodyStorage_pn.a
+pyIMSRG.cpython-310-darwin.so: libThreeBodyStorage_no2b.a
+pyIMSRG.cpython-310-darwin.so: libThreeBodyStorage_mono.a
+pyIMSRG.cpython-310-darwin.so: boost_src/libIMSRGBoostZip.a
+pyIMSRG.cpython-310-darwin.so: /Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk/usr/lib/libz.tbd
+pyIMSRG.cpython-310-darwin.so: libThreeBodyStorage.a
+pyIMSRG.cpython-310-darwin.so: libThreeLegME.a
+pyIMSRG.cpython-310-darwin.so: libModelSpace.a
+pyIMSRG.cpython-310-darwin.so: libIMSRGProfiler.a
+pyIMSRG.cpython-310-darwin.so: /usr/local/lib/libomp.dylib
+pyIMSRG.cpython-310-darwin.so: libAngMomCache.a
+pyIMSRG.cpython-310-darwin.so: libAngMom.a
 pyIMSRG.cpython-310-darwin.so: /usr/local/Cellar/gsl/2.7/lib/libgsl.dylib
 pyIMSRG.cpython-310-darwin.so: /usr/local/Cellar/gsl/2.7/lib/libgslcblas.dylib
-pyIMSRG.cpython-310-darwin.so: /usr/local/lib/libomp.dylib
 pyIMSRG.cpython-310-darwin.so: /usr/local/opt/openblas/lib/libopenblas.dylib
-pyIMSRG.cpython-310-darwin.so: /Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk/usr/lib/libz.tbd
 pyIMSRG.cpython-310-darwin.so: CMakeFiles/pyIMSRG.dir/link.txt
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/Users/antoinebelley/Documents/TRIUMF/imsrg/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX shared module pyIMSRG.cpython-310-darwin.so"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/pyIMSRG.dir/link.txt --verbose=$(VERBOSE)
-	/Library/Developer/CommandLineTools/usr/bin/strip -x /Users/antoinebelley/Documents/TRIUMF/imsrg/build/pyIMSRG.cpython-310-darwin.so
 
 # Rule to build all files generated by this target.
 CMakeFiles/pyIMSRG.dir/build: pyIMSRG.cpython-310-darwin.so

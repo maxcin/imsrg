@@ -387,6 +387,34 @@ add_library(
 )
 
 add_library(
+    Helicity
+    Helicity.hh Helicity.cc
+)
+
+target_link_libraries(
+    Helicity
+    PUBLIC
+    GSL::gsl
+    PhysicalConstants
+    PRIVATE
+    AngMom
+
+)
+
+add_library(
+    Pwd
+    Pwd.hh Pwd.cc
+)
+
+target_link_libraries(
+    Pwd
+    PUBLIC
+    GSL::gsl
+    PhysicalConstants
+
+)
+
+add_library(
     M0nu
     M0nu.hh M0nu.cc
 )
@@ -399,6 +427,7 @@ target_link_libraries(
     Operator
     imsrg_util
     PhysicalConstants
+    Pwd
     PRIVATE
     AngMom
 )

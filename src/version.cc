@@ -2,12 +2,8 @@
 
 #include <string>
 
-#ifndef BUILDVERSION
-#define BUILDVERSION "unversioned"
-#endif
-
 namespace version {
 std::string BuildVersion() {
-    return BUILDVERSION;
+    return "devel_d1c09e8+";
 }
 }

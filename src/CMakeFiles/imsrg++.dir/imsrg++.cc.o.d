@@ -46,7 +46,7 @@ CMakeFiles/imsrg++.dir/imsrg++.cc.o: \
   /Library/Developer/CommandLineTools/SDKs/MacOSX12.1.sdk/usr/include/sys/_types/_uid_t.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX12.1.sdk/usr/include/sys/resource.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX12.1.sdk/usr/include/c++/v1/stdint.h \
-  /Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/stdint.h \
+  /Library/Developer/CommandLineTools/usr/lib/clang/14.0.0/include/stdint.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX12.1.sdk/usr/include/stdint.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX12.1.sdk/usr/include/_types/_uint8_t.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX12.1.sdk/usr/include/_types/_uint16_t.h \
@@ -73,12 +73,12 @@ CMakeFiles/imsrg++.dir/imsrg++.cc.o: \
   /Library/Developer/CommandLineTools/SDKs/MacOSX12.1.sdk/usr/include/c++/v1/iosfwd \
   /Library/Developer/CommandLineTools/SDKs/MacOSX12.1.sdk/usr/include/c++/v1/wchar.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX12.1.sdk/usr/include/c++/v1/stddef.h \
-  /Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/stddef.h \
-  /Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/__stddef_max_align_t.h \
+  /Library/Developer/CommandLineTools/usr/lib/clang/14.0.0/include/stddef.h \
+  /Library/Developer/CommandLineTools/usr/lib/clang/14.0.0/include/__stddef_max_align_t.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX12.1.sdk/usr/include/c++/v1/__nullptr \
   /Library/Developer/CommandLineTools/SDKs/MacOSX12.1.sdk/usr/include/wchar.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX12.1.sdk/usr/include/sys/_types/_mbstate_t.h \
-  /Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/stdarg.h \
+  /Library/Developer/CommandLineTools/usr/lib/clang/14.0.0/include/stdarg.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX12.1.sdk/usr/include/c++/v1/stdio.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX12.1.sdk/usr/include/stdio.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX12.1.sdk/usr/include/_stdio.h \
@@ -141,7 +141,7 @@ CMakeFiles/imsrg++.dir/imsrg++.cc.o: \
   /Library/Developer/CommandLineTools/SDKs/MacOSX12.1.sdk/usr/include/c++/v1/ratio \
   /Library/Developer/CommandLineTools/SDKs/MacOSX12.1.sdk/usr/include/c++/v1/climits \
   /Library/Developer/CommandLineTools/SDKs/MacOSX12.1.sdk/usr/include/c++/v1/limits.h \
-  /Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/limits.h \
+  /Library/Developer/CommandLineTools/usr/lib/clang/14.0.0/include/limits.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX12.1.sdk/usr/include/limits.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX12.1.sdk/usr/include/machine/limits.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX12.1.sdk/usr/include/i386/limits.h \
@@ -251,7 +251,11 @@ CMakeFiles/imsrg++.dir/imsrg++.cc.o: \
   /Library/Developer/CommandLineTools/SDKs/MacOSX12.1.sdk/usr/include/math.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX12.1.sdk/usr/include/c++/v1/set \
   /Users/antoinebelley/Documents/TRIUMF/imsrg/src/armadillo/armadillo \
+  /Users/antoinebelley/Documents/TRIUMF/imsrg/src/armadillo/armadillo_bits/config.hpp \
+  /Users/antoinebelley/Documents/TRIUMF/imsrg/src/armadillo/armadillo_bits/compiler_check.hpp \
   /Library/Developer/CommandLineTools/SDKs/MacOSX12.1.sdk/usr/include/c++/v1/complex \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX12.1.sdk/usr/include/c++/v1/random \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX12.1.sdk/usr/include/c++/v1/numeric \
   /Library/Developer/CommandLineTools/SDKs/MacOSX12.1.sdk/usr/include/unistd.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX12.1.sdk/usr/include/sys/unistd.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX12.1.sdk/usr/include/sys/_types/_posix_vdisable.h \
@@ -260,11 +264,7 @@ CMakeFiles/imsrg++.dir/imsrg++.cc.o: \
   /Library/Developer/CommandLineTools/SDKs/MacOSX12.1.sdk/usr/include/sys/_select.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX12.1.sdk/usr/include/sys/_types/_uuid_t.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX12.1.sdk/usr/include/gethostuuid.h \
-  /Users/antoinebelley/Documents/TRIUMF/imsrg/src/armadillo/armadillo_bits/compiler_extra.hpp \
-  /Users/antoinebelley/Documents/TRIUMF/imsrg/src/armadillo/armadillo_bits/config.hpp \
   /Users/antoinebelley/Documents/TRIUMF/imsrg/src/armadillo/armadillo_bits/compiler_setup.hpp \
-  /Library/Developer/CommandLineTools/SDKs/MacOSX12.1.sdk/usr/include/c++/v1/random \
-  /Library/Developer/CommandLineTools/SDKs/MacOSX12.1.sdk/usr/include/c++/v1/numeric \
   /Users/antoinebelley/Documents/TRIUMF/imsrg/src/armadillo/armadillo_bits/include_atlas.hpp \
   /Users/antoinebelley/Documents/TRIUMF/imsrg/src/armadillo/armadillo_bits/include_hdf5.hpp \
   /Users/antoinebelley/Documents/TRIUMF/imsrg/src/armadillo/armadillo_bits/include_superlu.hpp \
@@ -287,6 +287,7 @@ CMakeFiles/imsrg++.dir/imsrg++.cc.o: \
   /Users/antoinebelley/Documents/TRIUMF/imsrg/src/armadillo/armadillo_bits/constants_old.hpp \
   /Users/antoinebelley/Documents/TRIUMF/imsrg/src/armadillo/armadillo_bits/mp_misc.hpp \
   /Users/antoinebelley/Documents/TRIUMF/imsrg/src/armadillo/armadillo_bits/arma_rel_comparators.hpp \
+  /Users/antoinebelley/Documents/TRIUMF/imsrg/src/armadillo/armadillo_bits/fill.hpp \
   /Users/antoinebelley/Documents/TRIUMF/imsrg/src/armadillo/armadillo_bits/arma_rng_cxx98.hpp \
   /Users/antoinebelley/Documents/TRIUMF/imsrg/src/armadillo/armadillo_bits/arma_rng_cxx11.hpp \
   /Users/antoinebelley/Documents/TRIUMF/imsrg/src/armadillo/armadillo_bits/arma_rng.hpp \
@@ -323,6 +324,7 @@ CMakeFiles/imsrg++.dir/imsrg++.cc.o: \
   /Users/antoinebelley/Documents/TRIUMF/imsrg/src/armadillo/armadillo_bits/SpCol_bones.hpp \
   /Users/antoinebelley/Documents/TRIUMF/imsrg/src/armadillo/armadillo_bits/SpRow_bones.hpp \
   /Users/antoinebelley/Documents/TRIUMF/imsrg/src/armadillo/armadillo_bits/SpSubview_bones.hpp \
+  /Users/antoinebelley/Documents/TRIUMF/imsrg/src/armadillo/armadillo_bits/SpSubview_col_list_bones.hpp \
   /Users/antoinebelley/Documents/TRIUMF/imsrg/src/armadillo/armadillo_bits/spdiagview_bones.hpp \
   /Users/antoinebelley/Documents/TRIUMF/imsrg/src/armadillo/armadillo_bits/MapMat_bones.hpp \
   /Users/antoinebelley/Documents/TRIUMF/imsrg/src/armadillo/armadillo_bits/typedef_mat_fixed.hpp \
@@ -368,6 +370,8 @@ CMakeFiles/imsrg++.dir/imsrg++.cc.o: \
   /Users/antoinebelley/Documents/TRIUMF/imsrg/src/armadillo/armadillo_bits/op_diagmat_bones.hpp \
   /Users/antoinebelley/Documents/TRIUMF/imsrg/src/armadillo/armadillo_bits/op_diagvec_bones.hpp \
   /Users/antoinebelley/Documents/TRIUMF/imsrg/src/armadillo/armadillo_bits/op_dot_bones.hpp \
+  /Users/antoinebelley/Documents/TRIUMF/imsrg/src/armadillo/armadillo_bits/op_det_bones.hpp \
+  /Users/antoinebelley/Documents/TRIUMF/imsrg/src/armadillo/armadillo_bits/op_log_det_bones.hpp \
   /Users/antoinebelley/Documents/TRIUMF/imsrg/src/armadillo/armadillo_bits/op_inv_bones.hpp \
   /Users/antoinebelley/Documents/TRIUMF/imsrg/src/armadillo/armadillo_bits/op_htrans_bones.hpp \
   /Users/antoinebelley/Documents/TRIUMF/imsrg/src/armadillo/armadillo_bits/op_max_bones.hpp \
@@ -429,6 +433,7 @@ CMakeFiles/imsrg++.dir/imsrg++.cc.o: \
   /Users/antoinebelley/Documents/TRIUMF/imsrg/src/armadillo/armadillo_bits/op_cond_bones.hpp \
   /Users/antoinebelley/Documents/TRIUMF/imsrg/src/armadillo/armadillo_bits/op_sp_plus_bones.hpp \
   /Users/antoinebelley/Documents/TRIUMF/imsrg/src/armadillo/armadillo_bits/op_sp_minus_bones.hpp \
+  /Users/antoinebelley/Documents/TRIUMF/imsrg/src/armadillo/armadillo_bits/op_powmat_bones.hpp \
   /Users/antoinebelley/Documents/TRIUMF/imsrg/src/armadillo/armadillo_bits/glue_times_bones.hpp \
   /Users/antoinebelley/Documents/TRIUMF/imsrg/src/armadillo/armadillo_bits/glue_mixed_bones.hpp \
   /Users/antoinebelley/Documents/TRIUMF/imsrg/src/armadillo/armadillo_bits/glue_cov_bones.hpp \
@@ -471,7 +476,7 @@ CMakeFiles/imsrg++.dir/imsrg++.cc.o: \
   /Users/antoinebelley/Documents/TRIUMF/imsrg/src/armadillo/armadillo_bits/spop_reverse_bones.hpp \
   /Users/antoinebelley/Documents/TRIUMF/imsrg/src/armadillo/armadillo_bits/spop_repmat_bones.hpp \
   /Users/antoinebelley/Documents/TRIUMF/imsrg/src/armadillo/armadillo_bits/spop_vectorise_bones.hpp \
-  /Users/antoinebelley/Documents/TRIUMF/imsrg/src/armadillo/armadillo_bits/spglue_elem_helper_bones.hpp \
+  /Users/antoinebelley/Documents/TRIUMF/imsrg/src/armadillo/armadillo_bits/spop_norm_bones.hpp \
   /Users/antoinebelley/Documents/TRIUMF/imsrg/src/armadillo/armadillo_bits/spglue_plus_bones.hpp \
   /Users/antoinebelley/Documents/TRIUMF/imsrg/src/armadillo/armadillo_bits/spglue_minus_bones.hpp \
   /Users/antoinebelley/Documents/TRIUMF/imsrg/src/armadillo/armadillo_bits/spglue_schur_bones.hpp \
@@ -485,9 +490,11 @@ CMakeFiles/imsrg++.dir/imsrg++.cc.o: \
   /Users/antoinebelley/Documents/TRIUMF/imsrg/src/armadillo/armadillo_bits/newarp_EigsSelect.hpp \
   /Users/antoinebelley/Documents/TRIUMF/imsrg/src/armadillo/armadillo_bits/newarp_DenseGenMatProd_bones.hpp \
   /Users/antoinebelley/Documents/TRIUMF/imsrg/src/armadillo/armadillo_bits/newarp_SparseGenMatProd_bones.hpp \
+  /Users/antoinebelley/Documents/TRIUMF/imsrg/src/armadillo/armadillo_bits/newarp_SparseGenRealShiftSolve_bones.hpp \
   /Users/antoinebelley/Documents/TRIUMF/imsrg/src/armadillo/armadillo_bits/newarp_DoubleShiftQR_bones.hpp \
   /Users/antoinebelley/Documents/TRIUMF/imsrg/src/armadillo/armadillo_bits/newarp_GenEigsSolver_bones.hpp \
   /Users/antoinebelley/Documents/TRIUMF/imsrg/src/armadillo/armadillo_bits/newarp_SymEigsSolver_bones.hpp \
+  /Users/antoinebelley/Documents/TRIUMF/imsrg/src/armadillo/armadillo_bits/newarp_SymEigsShiftSolver_bones.hpp \
   /Users/antoinebelley/Documents/TRIUMF/imsrg/src/armadillo/armadillo_bits/newarp_TridiagEigen_bones.hpp \
   /Users/antoinebelley/Documents/TRIUMF/imsrg/src/armadillo/armadillo_bits/newarp_UpperHessenbergEigen_bones.hpp \
   /Users/antoinebelley/Documents/TRIUMF/imsrg/src/armadillo/armadillo_bits/newarp_UpperHessenbergQR_bones.hpp \
@@ -588,10 +595,11 @@ CMakeFiles/imsrg++.dir/imsrg++.cc.o: \
   /Users/antoinebelley/Documents/TRIUMF/imsrg/src/armadillo/armadillo_bits/fn_trunc_log.hpp \
   /Users/antoinebelley/Documents/TRIUMF/imsrg/src/armadillo/armadillo_bits/fn_toeplitz.hpp \
   /Users/antoinebelley/Documents/TRIUMF/imsrg/src/armadillo/armadillo_bits/fn_trimat.hpp \
+  /Users/antoinebelley/Documents/TRIUMF/imsrg/src/armadillo/armadillo_bits/fn_trimat_ind.hpp \
   /Users/antoinebelley/Documents/TRIUMF/imsrg/src/armadillo/armadillo_bits/fn_cumsum.hpp \
   /Users/antoinebelley/Documents/TRIUMF/imsrg/src/armadillo/armadillo_bits/fn_cumprod.hpp \
   /Users/antoinebelley/Documents/TRIUMF/imsrg/src/armadillo/armadillo_bits/fn_symmat.hpp \
-  /Users/antoinebelley/Documents/TRIUMF/imsrg/src/armadillo/armadillo_bits/fn_syl_lyap.hpp \
+  /Users/antoinebelley/Documents/TRIUMF/imsrg/src/armadillo/armadillo_bits/fn_sylvester.hpp \
   /Users/antoinebelley/Documents/TRIUMF/imsrg/src/armadillo/armadillo_bits/fn_hist.hpp \
   /Users/antoinebelley/Documents/TRIUMF/imsrg/src/armadillo/armadillo_bits/fn_histc.hpp \
   /Users/antoinebelley/Documents/TRIUMF/imsrg/src/armadillo/armadillo_bits/fn_unique.hpp \
@@ -633,6 +641,7 @@ CMakeFiles/imsrg++.dir/imsrg++.cc.o: \
   /Users/antoinebelley/Documents/TRIUMF/imsrg/src/armadillo/armadillo_bits/fn_roots.hpp \
   /Users/antoinebelley/Documents/TRIUMF/imsrg/src/armadillo/armadillo_bits/fn_randperm.hpp \
   /Users/antoinebelley/Documents/TRIUMF/imsrg/src/armadillo/armadillo_bits/fn_quantile.hpp \
+  /Users/antoinebelley/Documents/TRIUMF/imsrg/src/armadillo/armadillo_bits/fn_powmat.hpp \
   /Users/antoinebelley/Documents/TRIUMF/imsrg/src/armadillo/armadillo_bits/fn_speye.hpp \
   /Users/antoinebelley/Documents/TRIUMF/imsrg/src/armadillo/armadillo_bits/fn_spones.hpp \
   /Users/antoinebelley/Documents/TRIUMF/imsrg/src/armadillo/armadillo_bits/fn_sprandn.hpp \
@@ -707,6 +716,7 @@ CMakeFiles/imsrg++.dir/imsrg++.cc.o: \
   /Users/antoinebelley/Documents/TRIUMF/imsrg/src/armadillo/armadillo_bits/SpRow_meat.hpp \
   /Users/antoinebelley/Documents/TRIUMF/imsrg/src/armadillo/armadillo_bits/SpSubview_meat.hpp \
   /Users/antoinebelley/Documents/TRIUMF/imsrg/src/armadillo/armadillo_bits/SpSubview_iterators_meat.hpp \
+  /Users/antoinebelley/Documents/TRIUMF/imsrg/src/armadillo/armadillo_bits/SpSubview_col_list_meat.hpp \
   /Users/antoinebelley/Documents/TRIUMF/imsrg/src/armadillo/armadillo_bits/spdiagview_meat.hpp \
   /Users/antoinebelley/Documents/TRIUMF/imsrg/src/armadillo/armadillo_bits/MapMat_meat.hpp \
   /Users/antoinebelley/Documents/TRIUMF/imsrg/src/armadillo/armadillo_bits/diskio_meat.hpp \
@@ -716,6 +726,8 @@ CMakeFiles/imsrg++.dir/imsrg++.cc.o: \
   /Users/antoinebelley/Documents/TRIUMF/imsrg/src/armadillo/armadillo_bits/op_diagmat_meat.hpp \
   /Users/antoinebelley/Documents/TRIUMF/imsrg/src/armadillo/armadillo_bits/op_diagvec_meat.hpp \
   /Users/antoinebelley/Documents/TRIUMF/imsrg/src/armadillo/armadillo_bits/op_dot_meat.hpp \
+  /Users/antoinebelley/Documents/TRIUMF/imsrg/src/armadillo/armadillo_bits/op_det_meat.hpp \
+  /Users/antoinebelley/Documents/TRIUMF/imsrg/src/armadillo/armadillo_bits/op_log_det_meat.hpp \
   /Users/antoinebelley/Documents/TRIUMF/imsrg/src/armadillo/armadillo_bits/op_inv_meat.hpp \
   /Users/antoinebelley/Documents/TRIUMF/imsrg/src/armadillo/armadillo_bits/op_htrans_meat.hpp \
   /Users/antoinebelley/Documents/TRIUMF/imsrg/src/armadillo/armadillo_bits/op_max_meat.hpp \
@@ -777,6 +789,7 @@ CMakeFiles/imsrg++.dir/imsrg++.cc.o: \
   /Users/antoinebelley/Documents/TRIUMF/imsrg/src/armadillo/armadillo_bits/op_cond_meat.hpp \
   /Users/antoinebelley/Documents/TRIUMF/imsrg/src/armadillo/armadillo_bits/op_sp_plus_meat.hpp \
   /Users/antoinebelley/Documents/TRIUMF/imsrg/src/armadillo/armadillo_bits/op_sp_minus_meat.hpp \
+  /Users/antoinebelley/Documents/TRIUMF/imsrg/src/armadillo/armadillo_bits/op_powmat_meat.hpp \
   /Users/antoinebelley/Documents/TRIUMF/imsrg/src/armadillo/armadillo_bits/glue_times_meat.hpp \
   /Users/antoinebelley/Documents/TRIUMF/imsrg/src/armadillo/armadillo_bits/glue_mixed_meat.hpp \
   /Users/antoinebelley/Documents/TRIUMF/imsrg/src/armadillo/armadillo_bits/glue_cov_meat.hpp \
@@ -819,7 +832,7 @@ CMakeFiles/imsrg++.dir/imsrg++.cc.o: \
   /Users/antoinebelley/Documents/TRIUMF/imsrg/src/armadillo/armadillo_bits/spop_reverse_meat.hpp \
   /Users/antoinebelley/Documents/TRIUMF/imsrg/src/armadillo/armadillo_bits/spop_repmat_meat.hpp \
   /Users/antoinebelley/Documents/TRIUMF/imsrg/src/armadillo/armadillo_bits/spop_vectorise_meat.hpp \
-  /Users/antoinebelley/Documents/TRIUMF/imsrg/src/armadillo/armadillo_bits/spglue_elem_helper_meat.hpp \
+  /Users/antoinebelley/Documents/TRIUMF/imsrg/src/armadillo/armadillo_bits/spop_norm_meat.hpp \
   /Users/antoinebelley/Documents/TRIUMF/imsrg/src/armadillo/armadillo_bits/spglue_plus_meat.hpp \
   /Users/antoinebelley/Documents/TRIUMF/imsrg/src/armadillo/armadillo_bits/spglue_minus_meat.hpp \
   /Users/antoinebelley/Documents/TRIUMF/imsrg/src/armadillo/armadillo_bits/spglue_schur_meat.hpp \
@@ -834,16 +847,18 @@ CMakeFiles/imsrg++.dir/imsrg++.cc.o: \
   /Users/antoinebelley/Documents/TRIUMF/imsrg/src/armadillo/armadillo_bits/newarp_SortEigenvalue.hpp \
   /Users/antoinebelley/Documents/TRIUMF/imsrg/src/armadillo/armadillo_bits/newarp_DenseGenMatProd_meat.hpp \
   /Users/antoinebelley/Documents/TRIUMF/imsrg/src/armadillo/armadillo_bits/newarp_SparseGenMatProd_meat.hpp \
+  /Users/antoinebelley/Documents/TRIUMF/imsrg/src/armadillo/armadillo_bits/newarp_SparseGenRealShiftSolve_meat.hpp \
   /Users/antoinebelley/Documents/TRIUMF/imsrg/src/armadillo/armadillo_bits/newarp_DoubleShiftQR_meat.hpp \
   /Users/antoinebelley/Documents/TRIUMF/imsrg/src/armadillo/armadillo_bits/newarp_GenEigsSolver_meat.hpp \
   /Users/antoinebelley/Documents/TRIUMF/imsrg/src/armadillo/armadillo_bits/newarp_SymEigsSolver_meat.hpp \
+  /Users/antoinebelley/Documents/TRIUMF/imsrg/src/armadillo/armadillo_bits/newarp_SymEigsShiftSolver_meat.hpp \
   /Users/antoinebelley/Documents/TRIUMF/imsrg/src/armadillo/armadillo_bits/newarp_TridiagEigen_meat.hpp \
   /Users/antoinebelley/Documents/TRIUMF/imsrg/src/armadillo/armadillo_bits/newarp_UpperHessenbergEigen_meat.hpp \
   /Users/antoinebelley/Documents/TRIUMF/imsrg/src/armadillo/armadillo_bits/newarp_UpperHessenbergQR_meat.hpp \
   /Users/antoinebelley/Documents/TRIUMF/imsrg/src/armadillo/armadillo_bits/compiler_setup_post.hpp \
-  IMSRGProfiler.hh Operator.hh TwoBodyME.hh ThreeBodyME.hh \
-  ThreeBodyStorage.hh ThreeBodyStorage_iso.hh ThreeBodyStorage_pn.hh \
-  ThreeBodyStorage_no2b.hh \
+  IMSRGProfiler.hh AngMomCache.hh Operator.hh TwoBodyME.hh \
+  ThreeBodyME.hh ThreeBodyStorage.hh ThreeBodyStorage_iso.hh \
+  ThreeBodyStorage_pn.hh ThreeBodyStorage_no2b.hh \
   /usr/local/include/boost/iostreams/filtering_streambuf.hpp \
   /usr/local/include/boost/iostreams/chain.hpp \
   /usr/local/include/boost/assert.hpp \
@@ -1321,110 +1336,22 @@ CMakeFiles/imsrg++.dir/imsrg++.cc.o: \
   /usr/local/include/boost/config/abi_prefix.hpp \
   /usr/local/include/boost/config/abi_suffix.hpp \
   /usr/local/include/boost/iostreams/putback.hpp \
-  /Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/x86intrin.h \
-  /Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/ia32intrin.h \
-  /Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/immintrin.h \
-  /Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/x86gprintrin.h \
-  /Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/hresetintrin.h \
-  /Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/uintrintrin.h \
-  /Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/mmintrin.h \
-  /Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/xmmintrin.h \
-  /Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/mm_malloc.h \
-  /Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/emmintrin.h \
-  /Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/pmmintrin.h \
-  /Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/tmmintrin.h \
-  /Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/smmintrin.h \
-  /Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/popcntintrin.h \
-  /Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/wmmintrin.h \
-  /Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/__wmmintrin_aes.h \
-  /Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/__wmmintrin_pclmul.h \
-  /Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/clflushoptintrin.h \
-  /Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/clwbintrin.h \
-  /Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/avxintrin.h \
-  /Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/avx2intrin.h \
-  /Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/f16cintrin.h \
-  /Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/bmiintrin.h \
-  /Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/bmi2intrin.h \
-  /Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/lzcntintrin.h \
-  /Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/fmaintrin.h \
-  /Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/avx512fintrin.h \
-  /Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/avx512vlintrin.h \
-  /Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/avx512bwintrin.h \
-  /Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/avx512bitalgintrin.h \
-  /Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/avx512cdintrin.h \
-  /Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/avx512vpopcntdqintrin.h \
-  /Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/avx512vpopcntdqvlintrin.h \
-  /Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/avx512vnniintrin.h \
-  /Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/avx512vlvnniintrin.h \
-  /Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/avxvnniintrin.h \
-  /Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/avx512dqintrin.h \
-  /Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/avx512vlbitalgintrin.h \
-  /Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/avx512vlbwintrin.h \
-  /Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/avx512vlcdintrin.h \
-  /Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/avx512vldqintrin.h \
-  /Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/avx512erintrin.h \
-  /Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/avx512ifmaintrin.h \
-  /Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/avx512ifmavlintrin.h \
-  /Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/avx512vbmiintrin.h \
-  /Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/avx512vbmivlintrin.h \
-  /Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/avx512vbmi2intrin.h \
-  /Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/avx512vlvbmi2intrin.h \
-  /Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/avx512pfintrin.h \
-  /Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/avx512bf16intrin.h \
-  /Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/avx512vlbf16intrin.h \
-  /Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/pkuintrin.h \
-  /Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/vpclmulqdqintrin.h \
-  /Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/vaesintrin.h \
-  /Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/gfniintrin.h \
-  /Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/rtmintrin.h \
-  /Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/xtestintrin.h \
-  /Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/shaintrin.h \
-  /Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/fxsrintrin.h \
-  /Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/xsaveintrin.h \
-  /Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/xsaveoptintrin.h \
-  /Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/xsavecintrin.h \
-  /Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/xsavesintrin.h \
-  /Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/cetintrin.h \
-  /Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/adxintrin.h \
-  /Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/rdseedintrin.h \
-  /Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/wbnoinvdintrin.h \
-  /Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/cldemoteintrin.h \
-  /Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/waitpkgintrin.h \
-  /Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/movdirintrin.h \
-  /Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/pconfigintrin.h \
-  /Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/sgxintrin.h \
-  /Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/ptwriteintrin.h \
-  /Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/invpcidintrin.h \
-  /Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/keylockerintrin.h \
-  /Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/amxintrin.h \
-  /Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/avx512vp2intersectintrin.h \
-  /Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/avx512vlvp2intersectintrin.h \
-  /Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/enqcmdintrin.h \
-  /Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/serializeintrin.h \
-  /Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/tsxldtrkintrin.h \
-  /Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/mm3dnow.h \
-  /Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/prfchwintrin.h \
-  /Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/ammintrin.h \
-  /Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/fma4intrin.h \
-  /Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/xopintrin.h \
-  /Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/tbmintrin.h \
-  /Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/lwpintrin.h \
-  /Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/mwaitxintrin.h \
-  /Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/clzerointrin.h \
   /Users/antoinebelley/Documents/TRIUMF/imsrg/src/half/include/half.hpp \
   /Library/Developer/CommandLineTools/SDKs/MacOSX12.1.sdk/usr/include/c++/v1/cfenv \
   /Library/Developer/CommandLineTools/SDKs/MacOSX12.1.sdk/usr/include/c++/v1/fenv.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX12.1.sdk/usr/include/fenv.h \
-  ThreeLegME.hh Jacobi3BME.hh HartreeFock.hh Commutator.hh Generator.hh \
-  IMSRGSolver.hh imsrg_util.hh PhysicalConstants.hh \
+  ThreeBodyStorage_mono.hh ThreeLegME.hh Jacobi3BME.hh HartreeFock.hh \
+  Commutator.hh \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX12.1.sdk/usr/include/c++/v1/unordered_set \
+  Generator.hh IMSRGSolver.hh imsrg_util.hh PhysicalConstants.hh \
   /usr/local/include/gsl/gsl_math.h /usr/local/include/gsl/gsl_sys.h \
   /usr/local/include/gsl/gsl_inline.h \
   /usr/local/include/gsl/gsl_machine.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX12.1.sdk/usr/include/c++/v1/float.h \
-  /Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/float.h \
+  /Library/Developer/CommandLineTools/usr/lib/clang/14.0.0/include/float.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX12.1.sdk/usr/include/float.h \
   /usr/local/include/gsl/gsl_precision.h \
   /usr/local/include/gsl/gsl_types.h /usr/local/include/gsl/gsl_nan.h \
   /usr/local/include/gsl/gsl_pow_int.h \
   /usr/local/include/gsl/gsl_minmax.h AngMom.hh DarkMatterNREFT.hh \
-  HFMBPT.hh UnitTest.hh Parameters.hh version.hh
+  HFMBPT.hh UnitTest.hh RPA.hh Parameters.hh version.hh

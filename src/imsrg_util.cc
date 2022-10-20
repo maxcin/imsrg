@@ -120,6 +120,7 @@ namespace imsrg_util
       else if (opname == "VBareDelta")    theop =  BareDelta( modelspace );
       else if (opname == "OccRef")        theop =  NumberOpRef( modelspace );
       else if (opname == "LdotS")         theop =  LdotS_Op( modelspace);
+      else if (opname == "DGT")           theop = M0nu::DGT_Op(modelspace);
       else if (opnamesplit[0] =="VGaus")
       {
          double sigma = 1.0;
@@ -321,6 +322,7 @@ namespace imsrg_util
               {"GT", &M0nu::GamowTeller},
               {"F",  &M0nu::Fermi},
               {"T",  &M0nu::Tensor},
+              {"C", &M0nu::Contact}
              };
         if ( M0nuop.find(M0nuopname) != M0nuop.end() )
         {
@@ -356,6 +358,26 @@ namespace imsrg_util
           return theop;
         }
         theop = TViolatingPotential_Op( modelspace, LECs );
+      }
+      else if (opnamesplit[0] == "M0nuR") // Radial dependance of GT part of M0nu
+      {
+        double Eclosure;
+        double r12;
+        std::istringstream(opnamesplit[1]) >> Eclosure;
+        std::istringstream(opnamesplit[2]) >> r12;
+        theop = M0nu::GamowTeller_R(modelspace, Eclosure, r12);
+      }
+      else if (opnamesplit[0] == "DGTR") //Radial depedance of DGT operator
+      {
+        double r12;
+        std::istringstream(opnamesplit[1]) >> r12;
+        theop = M0nu::DGT_R(modelspace, r12);
+      }
+      else if (opnamesplit[0] == "DGTRLocal") //Radial depedance of DGT operator with surface localization
+      {
+        double r12;
+        std::istringstream(opnamesplit[1]) >> r12;
+        theop = M0nu::DGT_R_SurfaceLocalization(modelspace, r12);
       }
       else //need to remove from the list
       {
