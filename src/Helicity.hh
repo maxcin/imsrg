@@ -2,8 +2,8 @@
 #define Helicity_hh
 
 #include <iostream>
-
-
+#include <unordered_map>
+#include <gsl/gsl_integration.h>
 
 /// Code containing the partial wave decomposition
 /// for 2-body nuclear potential in helicity formalism.
@@ -17,14 +17,25 @@ namespace Helicity{
   int phase(int x);
   // PWD of scalar 2-body potentials
   double AIntegrand(double p, double pp, int J, int l, std::function<double(double,double,double)> potential);
-  double A(double p, double pp, int J, int l, std::function<double(double,double,double)> potential, int size);
-  double central_force_decomposition(double p, double pp, int S, int L, int Lp, int J,  std::function<double(double,double,double)> potential, int size);
-  double spin_spin_decomposition(double p, double pp, int S, int L, int Lp, int J,  std::function<double(double,double,double)> potential, int size);
-  double spin_orbit_decomposition(double p, double pp, int S, int L, int Lp, int J,  std::function<double(double,double,double)> potential, int size);
-  double sigma_L_decomposition(double p, double pp, int S, int L, int Lp, int J,  std::function<double(double,double,double)> potential, int size);
-  double tensor_decomposition(double p, double pp, int S, int L, int Lp, int J,  std::function<double(double,double,double)> potential, int size);
-  double sigma_k_decomposition(double p, double pp, int S, int L, int Lp, int J,  std::function<double(double,double,double)> potential, int size);
-  double scalar_partial_wave_decomposition(double p, double pp, int S, int L, int Lp, int J,  std::function<double(double,double,double)> potential, int size, std::string potential_type);
+  // double A(double p, double pp, int J, int l, std::function<double(double,double,double)> potential, int n_z_points);
+  // double central_force_decomposition(double p, double pp, int S, int L, int Lp, int J, std::function<double(double, double, double)> potential, int n_z_points);
+  // double spin_spin_decomposition(double p, double pp, int S, int L, int Lp, int J,  std::function<double(double,double,double)> potential, int n_z_points);
+  // double spin_orbit_decomposition(double p, double pp, int S, int L, int Lp, int J,  std::function<double(double,double,double)> potential, int n_z_points);
+  // double sigma_L_decomposition(double p, double pp, int S, int L, int Lp, int J,  std::function<double(double,double,double)> potential, int n_z_points);
+  // double tensor_decomposition(double p, double pp, int S, int L, int Lp, int J,  std::function<double(double,double,double)> potential, int n_z_points);
+  // double sigma_k_decomposition(double p, double pp, int S, int L, int Lp, int J,  std::function<double(double,double,double)> potential, int n_z_points);
+  //PWD with overloaded functions allowing precomputation of A for efficiency
+  double A(double p, double pp, int J, int l, std::function<double(double, double, double)> potential, gsl_integration_glfixed_table *t, int z_size);
+  uint64_t AHash(int index_p, int index_pp, int J, int l);
+  void AUnHash(uint64_t key, uint64_t &index_p, uint64_t &index_pp, uint64_t &J, uint64_t &l);
+  std::unordered_map<uint64_t, double> PrecalculateA(int e2max, std::function<double(double, double, double)> potential, int lmax, double max_momentum, gsl_integration_glfixed_table *t_momentum, gsl_integration_glfixed_table *t_z, int n_momentum_points, int n_z_points);
+  double GetA(int index_p, int index_pp, int J, int l, std::unordered_map<uint64_t, double> &AList);
+  double central_force_decomposition(double p, double pp,int index_p, int index_pp, int S, int L, int Lp, int J, std::unordered_map<uint64_t,double>& AList);
+  double spin_spin_decomposition(double p, double pp, int index_p, int index_pp, int S, int L, int Lp, int J, std::unordered_map<uint64_t, double>& AList);
+  double spin_orbit_decomposition(double p, double pp, int index_p, int index_pp, int S, int L, int Lp, int J, std::unordered_map<uint64_t, double>& AList);
+  double sigma_L_decomposition(double p, double pp, int index_p, int index_pp, int S, int L, int Lp, int J, std::unordered_map<uint64_t, double>& AList);
+  double tensor_decomposition(double p, double pp, int index_p, int index_pp, int S, int L, int Lp, int J, std::unordered_map<uint64_t, double>& AList);
+  double sigma_k_decomposition(double p, double pp, int index_p, int index_pp, int S, int L, int Lp, int J, std::unordered_map<uint64_t, double>& AList);
   // Generalization to tensor potentials
   double binomial_coefficient(int n, int k);
   double JacobiPolynomials(int n, int a, int b, double z);

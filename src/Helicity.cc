@@ -7,8 +7,7 @@
 #include "AngMom.hh"
 #include <map>
 #include <vector>
-
-
+#include <sstream>
 
 using namespace PhysConst;
 
@@ -24,306 +23,448 @@ namespace Helicity
   ///  Partial Wave Decomposition of 2-body scalar potentials in momentum space           ///
   ///  for  . Implementation of the derivation by Erkelenz et al.                         ///
   ///  found in K. Erkelenz, R. Alzetta, and K. Holinde, Nucl. Phys. A 176, 413 (1971).   ///
+  ///  Implementd by AB                                                                   ///
   ///                                                                                     ///
   ///////////////////////////////////////////////////////////////////////////////////////////
 
   /// Integrand for the angular integration of the partial wave decomposition
   /// presented above eq 4.14 in Erkelenz et al. as the abbreviation A.
   /// Here p and pp are momenta of the two states and z = cos(theta).
+  /// The potential needs to be written as a function of pp,p,z
   double AIntegrand(double p, double pp, double z, int J, int l, std::function<double(double,double,double)> potential)
   {
     return potential(p,pp,z)*pow(z,l)*gsl_sf_legendre_Pl(J,z);
   }
 
-  /// Integral of the angular part presented above eq 4.14 in Erkelenz et al. as the abbreviation A..
-  double A(double p, double pp, int J, int l, std::function<double(double,double,double)> potential, int size)
-  { 
+  // /// Integral of the angular part presented above eq 4.14 in Erkelenz et al. as the abbreviation A..
+  // double A(double p, double pp, int J, int l, std::function<double(double,double,double)> potential, int n_z_points)
+  // { 
+  //   double A = 0;
+  //   gsl_integration_glfixed_table * t = gsl_integration_glfixed_table_alloc(n_z_points);
+  //   for (int i=0;i<n_z_points;i++)
+  //   {
+  //     double zi, wi;
+  //     gsl_integration_glfixed_point(-1,1,i,&zi,&wi,t);
+  //     A += wi*AIntegrand(p,pp,zi,J,l,potential);
+  //   }
+  //   gsl_integration_glfixed_table_free(t);
+  //   return PI*A;
+  // }
+
+  
+  // /// Helicity decomposition of a scalar potential with a central force as 
+  // /// described in eq 4.20 of Erkelenz et al.
+  // double central_force_decomposition(double p, double pp, int S, int L, int Lp, int J, std::function<double(double, double, double)> potential, int n_z_points)
+  // {
+  //   double W  = 0;
+  //   if (S==0 and L==J and Lp==J) //Singlet state
+  //   {
+  //     W = 2*A(p,pp,J,0,potential,n_z_points);
+  //   } 
+  //   else if(S==1) //Triplet state
+  //   {
+  //     //The fucntions are the same if L=Lp regardless of the value of L and is 0 otherwise
+  //     if ( (L == Lp) and (((L == J) or (L == J - 1) or (L == J + 1))))
+  //     {
+  //       if ((L==J) or (L==J-1) or (L==J+1))
+  //       {
+  //         W  = 2*A(p,pp,L,0,potential,n_z_points);
+  //       }
+  //     }
+  //   }
+  //   return W;
+  // }
+
+  // /// Helicity decomposition of a scalar potential with a spin-spin force as 
+  // /// described in eq 4.21 of Erkelenz et al. The value is  the same as the central_force_decomposition
+  // /// with the exception of a factor of -3 for the singlet state. This is handle with the variable Seval which is
+  // /// -3 for S = 0 and 1 for S = 1. Not that W =0 otherwise so all case are considered.
+  // double spin_spin_decomposition(double p, double pp, int S, int L, int Lp, int J,  std::function<double(double,double,double)> potential, int n_z_points)
+  // {
+  //   int Seval = Seval = 2 * S * (S + 1) - 3;
+  //   double  W = Seval*central_force_decomposition(p, pp, S, L, Lp, J, potential, n_z_points);
+  //   return W;
+  // }
+
+  // /// Helicity decomposition of a scalar potential with a spin-orbit force as 
+  // /// described in eq 4.22 of Erkelenz et al. The singlet state gives 0 and state with
+  // /// L != Lp are also 0 so we only need to check for the triplet states with L=Lp
+  // double spin_orbit_decomposition(double p, double pp, int S, int L, int Lp, int J,  std::function<double(double,double,double)> potential, int n_z_points)
+  // {
+  //   double W = 0;
+  //   if(S==1)
+  //   {
+  //     if (L==Lp)
+  //     {
+  //       if (L==J)
+  //       {
+  //         return 2*p*pp/(2*J+1)*(A(p,pp,J+1,0,potential,n_z_points)-A(p,pp,J-1,0,potential,n_z_points));
+  //       }
+  //       else if (L==J-1)
+  //       {
+  //         return 2*p*pp*(J-1)/(2*J+1)*(A(p,pp,J-2,0,potential,n_z_points)-A(p,pp,J,0,potential,n_z_points));
+  //       }
+  //       else if (L==J+1)
+  //       {
+  //         return 2*p*pp*(J+2)/(2*J+1)*(A(p,pp,J+2,0,potential,n_z_points)-A(p,pp,J,0,potential,n_z_points));
+  //       }
+  //     }
+  //   }
+  //   return W;
+  // }
+
+  // /// Helicity decomposition of a scalar potential with a sigma-L force as 
+  // /// described in eq 4.23 of Erkelenz et al.
+  // double sigma_L_decomposition(double p, double pp, int S, int L, int Lp, int J,  std::function<double(double,double,double)> potential, int n_z_points)
+  // {
+  //   double W = 0;
+  //   if (S==0 and  L==J and Lp==J) //Singlet state
+  //   {
+  //     return 2*p*p*pp*pp*(A(p,pp,J,2,potential,n_z_points)-A(p,pp,J,0,potential,n_z_points));
+  //   }
+  //   else if(S==1) //Triplet state
+  //   {
+  //     if (L==Lp)
+  //     {
+  //       if (L==J)
+  //       {
+  //         W = 2*p*p*pp*pp*(-A(p,pp,J,0,potential,n_z_points)+(J-1)/(2*J+1)*A(p,pp,J+1,1,potential,n_z_points)+(J-1)/(2*J+1)*A(p,pp,J-1,1,potential,n_z_points));
+  //       }
+  //       else if (L==J-1)
+  //       {
+  //         W = 2*p*p*pp*pp*((2*J-1)/(2*J+1)*A(p,pp,J-1,0,potential,n_z_points)-2/(2*J+1)*A(p,pp,J,1,potential,n_z_points)-A(p,pp,J-1,1,potential,n_z_points));
+  //       }
+  //       else if (L==J+1)
+  //       {
+  //         W = 2*p*p*pp*pp*((2*J+3)/(2*J+1)*A(p,pp,J+1,0,potential,n_z_points)-2/(2*J+1)*A(p,pp,J,1,potential,n_z_points)-A(p,pp,J+1,1,potential,n_z_points));
+  //       }
+  //     }
+  //     else if ((Lp==J-1 and L==J+1) or (Lp==J+1 and L==J-1))
+  //     {
+  //       W = 4*p*p*pp*pp*sqrt(J*(J+1))/(2*J+1)/(2*J+1)*(A(p,pp,J+1,0,potential,n_z_points)-A(p,pp,J-1,0,potential,n_z_points));      
+  //     }
+  //   }
+  //   return W;
+  // }
+
+  // /// Helicity decomposition of a scalar potential with a tensor force as 
+  // /// described in eq 4.24 of Erkelenz et al.
+  // double tensor_decomposition(double p, double pp, int S, int L, int Lp, int J,  std::function<double(double,double,double)> potential, int n_z_points)
+  // {
+  //   double W = 0;
+  //   if (S==0  and L==J and Lp==J) //Singlet state
+  //   {
+  //     W = 2*(-(p*p+pp*pp)*A(p,pp,J,0,potential,n_z_points)+2*p*pp*A(p,pp,J,1,potential,n_z_points));
+  //   }
+  //   else if(S==1) //Triple state
+  //   {
+  //     if (L==Lp)
+  //     {
+  //       if (L==J)
+  //       {
+  //         W = 2*((pp*pp+p*p)*A(p,pp,J,0,potential,n_z_points)-2*p*pp/(2*J+1)*(A(p,pp,J+1,0,potential,n_z_points)+(J+1)*A(p,pp,J-1,0,potential,n_z_points)));
+  //       }
+  //       else if (L==J-1)
+  //       {
+  //         W =  2/(2*J+1)*((p*p+pp*pp)*A(p,pp,J-1,0,potential,n_z_points)-2*p*pp*A(p,pp,J,0,potential,n_z_points));
+  //       }
+  //       else if (L==J+1)
+  //       {
+  //         W = 2/(2*J+1)*(-(p*p+pp*pp)*A(p,pp,J+1,0,potential,n_z_points)+2*p*pp*A(p,pp,J,0,potential,n_z_points));
+  //       }
+  //     }
+  //     else if (Lp==J-1 and L==J+1) 
+  //     {
+  //       W = 4*sqrt(J*(J+1))/(2*J+1)*(p*p*A(p,pp,J+1,0,potential,n_z_points)+pp*pp*A(p,pp,J-1,0,potential,n_z_points))-2*p*pp*A(p,pp,J,0,potential,n_z_points);      
+  //     }
+  //     else if (Lp==J+1 and L==J-1)
+  //     {
+  //       W = 4*sqrt(J*(J+1))/(2*J+1)*(p*p*A(p,pp,J-1,0,potential,n_z_points)+pp*pp*A(p,pp,J+1,0,potential,n_z_points))-2*p*pp*A(p,pp,J,0,potential,n_z_points);
+  //     }
+  //   }
+  //   return W;
+  // }
+
+  // /// Helicity decomposition of a scalar potential with a spin-spin force as 
+  // /// described in eq 4.25 of Erkelenz et al.
+  // double sigma_k_decomposition(double p, double pp, int S, int L, int Lp, int J,  std::function<double(double,double,double)> potential, int n_z_points)
+  // {
+  //   double W = 0;
+  //   if (S==0 and L==J and Lp==J) //Singlet state
+  //   {
+  //     W = 1/2*(-(p*p+pp*pp)*A(p,pp,J,0,potential,n_z_points)-2*p*pp*A(p,pp,J,1,potential,n_z_points));
+  //   }
+  //   else if(S==1) //Triplet state
+  //   {
+  //     if (L==Lp)
+  //     {
+  //       if (L==J)
+  //       {
+  //         W = 1/2*((pp*pp+p*p)*A(p,pp,J,0,potential,n_z_points)+2*p*pp/(2*J+1)*(A(p,pp,J+1,0,potential,n_z_points)+(J+1)*A(p,pp,J-1,0,potential,n_z_points)));
+  //       }
+  //       else if (L==J-1)
+  //       {
+  //         W = 1/2/(2*J+1)*((p*p+pp*pp)*A(p,pp,J-1,0,potential,n_z_points)+2*p*pp*A(p,pp,J,0,potential,n_z_points));
+  //       }
+  //       else if (L==J+1)
+  //       {
+  //         W = 1/2/(2*J+1)*(-(p*p+pp*pp)*A(p,pp,J+1,0,potential,n_z_points)-2*p*pp*A(p,pp,J,0,potential,n_z_points));
+  //       }
+  //     }
+  //     else if (Lp==J-1 and L==J+1) 
+  //     {
+  //       W = sqrt(J*(J+1))/(2*J+1)*(p*p*A(p,pp,J+1,0,potential,n_z_points)+pp*pp*A(p,pp,J-1,0,potential,n_z_points))+2*p*pp*A(p,pp,J,0,potential,n_z_points);      
+  //     }
+  //     else if (Lp==J+1 and L==J-1)
+  //     {
+  //       W = sqrt(J*(J+1))/(2*J+1)*(p*p*A(p,pp,J-1,0,potential,n_z_points)+pp*pp*A(p,pp,J+1,0,potential,n_z_points))+2*p*pp*A(p,pp,J,0,potential,n_z_points);
+  //     }
+  //   }
+  //   return W;
+  // }
+
+  // Functions to allow for precomputation for efficiency
+  // overloaded function if we pass the integration table for efficiency when many A's need to be computed
+  double A(double p, double pp, int J, int l, std::function<double(double, double, double)> potential, gsl_integration_glfixed_table *t, int n_z_points)
+  {
     double A = 0;
-    gsl_integration_glfixed_table * t = gsl_integration_glfixed_table_alloc(size);
-    for (int i=0;i<size;i++)
+    for (int i = 0; i < n_z_points; i++)
     {
       double zi, wi;
-      gsl_integration_glfixed_point(-1,1,i,&zi,&wi,t);
-      A += wi*AIntegrand(p,pp,zi,J,l,potential);
+      gsl_integration_glfixed_point(-1, 1, i, &zi, &wi, t);
+      A += wi * AIntegrand(p, pp, zi, J, l, potential);
     }
-    gsl_integration_glfixed_table_free(t);
-    return PI*A;
-  } 
-
-  /// Helicity decomposition of a scalar potential with a central force as 
-  /// described in eq 4.20 of Erkelenz et al.
-  double central_force_decomposition(double p, double pp, int S, int L, int Lp, int J,  std::function<double(double,double,double)> potential, int size)
-  {
-    if (S==0)
-    {
-      return 2*A(p,pp,J,0,potential,size);
-    }
-    else if(S==1)
-    {
-      if (L==Lp)
-      {
-        if ((L==J) or (L==J-1) or (L==J+1))
-        {
-          return 2*A(p,pp,L,0,potential,size);
-        }
-        else
-        {
-          return 0; //Don't respect angular momentum if here
-        }
-      }
-      else if ((Lp==J-1 and L==J+1) or (Lp==J+1 and L==J-1))
-      {
-        return 0;      
-      }
-      else
-      {
-        return 0; //Don't respect angular momentum if here
-      }
-    }
-    else
-    {
-      return 0; //Don't respect angular momentum.
-    }
+    return PI * A;
   }
 
-  /// Helicity decomposition of a scalar potential with a spin-spin force as 
-  /// described in eq 4.21 of Erkelenz et al.
-  double spin_spin_decomposition(double p, double pp, int S, int L, int Lp, int J,  std::function<double(double,double,double)> potential, int size)
+  uint64_t AHash(int index_p, int index_pp, int J, int l)
   {
-    if (S==0)
-    {
-      return -6*A(p,pp,J,0,potential,size);
-    }
-    else if(S==1)
-    {
-     if (L==Lp)
-      {
-        if ((L==J) or (L==J-1) or (L==J+1))
-        {
-          return 2*A(p,pp,L,0,potential,size);
-        }
-        else
-        {
-          return 0; //Don't respect angular momentum if here
-        }
-      }
-      else if ((Lp==J-1 and L==J+1) or (Lp==J+1 and L==J-1))
-      {
-        return 0;      
-      }
-      else
-      {
-        return 0; //Don't respect angular momentum if here
-      }
-    }
-    else
-    {
-      return 0; //Don't respect angular momentum if here
-    }
+    return (((uint64_t)(index_p)) << 30) + (((uint64_t)(index_pp)) << 20) + (((uint64_t)(J)) << 10) + ((uint64_t)(l));
   }
 
-  /// Helicity decomposition of a scalar potential with a spin-orbit force as 
-  /// described in eq 4.22 of Erkelenz et al.
-  double spin_orbit_decomposition(double p, double pp, int S, int L, int Lp, int J,  std::function<double(double,double,double)> potential, int size)
+  void AUnHash(uint64_t key, uint64_t &index_p, uint64_t &index_pp, uint64_t &J, uint64_t &l)
   {
-    if (S==0)
-    {
-      return 0;
-    }
-    else if(S==1)
-    {
-      if (L==Lp)
-      {
-        if (L==J)
-        {
-          return 2*p*pp/(2*J+1)*(A(p,pp,J+1,0,potential,size)-A(p,pp,J-1,0,potential,size));
-        }
-        else if (L==J-1)
-        {
-          return 2*p*pp*(J-1)/(2*J+1)*(A(p,pp,J-2,0,potential,size)-A(p,pp,J,0,potential,size));
-        }
-        else if (L==J+1)
-        {
-          return 2*p*pp*(J+2)/(2*J+1)*(A(p,pp,J+2,0,potential,size)-A(p,pp,J,0,potential,size));
-        }
-        else
-        {
-          return 0; //Don't respect angular momentum if here
-        }
-      }
-      else if ((Lp==J-1 and L==J+1) or (Lp==J+1 and L==J-1))
-      {
-        return 0;      
-      }
-      else
-      {
-        return 0; //Don't respect angular momentum if here
-      }      
-    }
-    else
-    {
-      return 0; //Don't respect angular momentum if here.
-    }
+    index_p = (key >> 30) & 0x3FFL;
+    index_pp = (key >> 20) & 0x3FFL;
+    J = (key >> 10) & 0x3FFL;
+    l = (key)&0x3FFL;
   }
 
-  /// Helicity decomposition of a scalar potential with a sigma-L force as 
-  /// described in eq 4.23 of Erkelenz et al.
-  double sigma_L_decomposition(double p, double pp, int S, int L, int Lp, int J,  std::function<double(double,double,double)> potential, int size)
+  std::unordered_map<uint64_t, double> PrecalculateA(int e2max, std::function<double(double, double, double)> potential, int lmax, double max_momentum, gsl_integration_glfixed_table *t_momentum, gsl_integration_glfixed_table *t_z, int n_momentum_points, int n_z_points)
   {
-    if (S==0)
+    std::unordered_map<uint64_t, double> AList;
+    int Jmax = e2max + 1; // coupling of 2 l=emax with S=1
+    std::vector<uint64_t> KEYS;
+    for (int J = 0; J <= Jmax; J++)
     {
-      return 2*p*p*pp*pp*(A(p,pp,J,2,potential,size)-A(p,pp,J,0,potential,size));
-    }
-    else if(S==1)
-    {
-      if (L==Lp)
+      for (int index_p = 0; index_p < n_momentum_points; index_p++)
       {
-        if (L==J)
+        for (int index_pp = index_p; index_pp < n_momentum_points; index_pp++)
         {
-          return 2*p*p*pp*pp*(-A(p,pp,J,0,potential,size)+(J-1)/(2*J+1)*A(p,pp,J+1,1,potential,size)+(J-1)/(2*J+1)*A(p,pp,J-1,1,potential,size));
-        }
-        else if (L==J-1)
-        {
-          return 2*p*p*pp*pp*((2*J-1)/(2*J+1)*A(p,pp,J-1,0,potential,size)-2/(2*J+1)*A(p,pp,J,1,potential,size)-A(p,pp,J-1,1,potential,size));
-        }
-        else if (L==J+1)
-        {
-          return 2*p*p*pp*pp*((2*J+3)/(2*J+1)*A(p,pp,J+1,0,potential,size)-2/(2*J+1)*A(p,pp,J,1,potential,size)-A(p,pp,J+1,1,potential,size));
-        }
-        else
-        {
-          return 0; //Don't respect angular momentum if here
+          for (int l = 0; l <= lmax; l++)
+          {
+            uint64_t key = AHash(index_p, index_pp, J, l);
+            KEYS.push_back(key);
+            AList[key] = 0.0; // Everything needs to be in this loop to avoid re-hash in parralel
+          }
         }
       }
-      else if ((Lp==J-1 and L==J+1) or (Lp==J+1 and L==J-1))
-      {
-        return 4*p*p*pp*pp*sqrt(J*(J+1))/(2*J+1)/(2*J+1)*(A(p,pp,J+1,0,potential,size)-A(p,pp,J-1,0,potential,size));      
-      }
-      else
-      {
-        return 0; //Don't respect angular momentum if here
-      }
     }
-    else
+    #pragma omp parallel for schedule(dynamic, 1) // this works as long as the gsl_function handle is within this for-loop
+    for (size_t n = 0; n < KEYS.size(); n++)
     {
-      return 0; //Don't respect angular momentum if here.
+      uint64_t key = KEYS[n];
+      uint64_t index_p, index_pp, J, l;
+      AUnHash(key, index_p, index_pp, J, l);
+      double p, pp, wi, wj;
+      gsl_integration_glfixed_point(0, max_momentum, index_p, &p, &wi, t_momentum);
+      gsl_integration_glfixed_point(0, max_momentum, index_pp, &pp, &wj, t_momentum);
+      double aval = A(p, pp, J, l, potential, t_z, n_z_points);
+      AList[key] =aval;
+      // std::stringstream intvalue;
+      // intvalue<<p<<" "<<pp<<" "<<J<<" "<<aval<<std::endl;
+      // std::cout<<intvalue.str();
     }
+    // gsl_integration_glfixed_table_free(t_momentum);
+    // gsl_integration_glfixed_table_free(t_z);
+    return AList;
   }
 
-  /// Helicity decomposition of a scalar potential with a tensor force as 
-  /// described in eq 4.24 of Erkelenz et al.
-  double tensor_decomposition(double p, double pp, int S, int L, int Lp, int J,  std::function<double(double,double,double)> potential, int size)
+  double GetA(int index_p, int index_pp, int J, int l, std::unordered_map<uint64_t, double> &AList)
   {
-    if (S==0)
+    double A;
+    if (index_p > index_pp)
+      std::swap(index_p, index_pp);
+    uint64_t key = AHash(index_p, index_pp, J, l);
+    auto it = AList.find(key);
+    if (it != AList.end()) // return what we've found
     {
-      return 2*(-(p*p+pp*pp)*A(p,pp,J,0,potential,size)+2*p*pp*A(p,pp,J,1,potential,size));
+      A = it->second;
     }
-    else if(S==1)
+    else // if we didn't find it, calculate it and add it to the list!
+    {
+      printf("DANGER!!!!!!!  Updating IntList inside a parellel loop breaks thread safety!\n");
+      printf("   I shouldn't be here in GetA(%d, %d, %d, %d):   key =%llx", index_p, index_pp, J, l, key);
+      exit(EXIT_FAILURE);
+    }
+    return A;
+  }
+
+  double central_force_decomposition(double p, double pp, int index_p, int index_pp, int S, int L, int Lp, int J, std::unordered_map<uint64_t, double>& AList)
+  {
+    double W = 0;
+    if (S == 0 and L == J and Lp == J) // Singlet state
+    {
+      W = 2 * GetA(index_p, index_pp, J, 0, AList);
+    }
+    else if (S == 1) // Triplet state
+    {
+      // The fucntions are the same if L=Lp regardless of the value of L and is 0 otherwise
+      if ((L == Lp) and (((L == J) or (L == J - 1) or (L == J + 1))))
+      {
+        if ((L == J) or (L == J - 1) or (L == J + 1))
+        {
+          W = 2 * GetA(index_p, index_pp, L, 0, AList);
+        }
+      }
+    }
+    return W;
+  }
+
+  double spin_spin_decomposition(double p, double pp, int index_p, int index_pp, int S, int L, int Lp, int J, std::unordered_map<uint64_t, double>& AList)
+  {
+    int Seval = Seval = 2 * S * (S + 1) - 3;
+    double W = Seval * central_force_decomposition(p, pp, index_p, index_pp, S, L, Lp, J,AList); 
+    return W;
+  }
+
+  double spin_orbit_decomposition(double p, double pp, int index_p, int index_pp, int S, int L, int Lp, int J, std::unordered_map<uint64_t, double>& AList)
+  {
+    double W = 0;
+    if (S == 1)
+    {
+      if (L == Lp)
+      {
+        if (L == J)
+        {
+          return 2 * p * pp / (2 * J + 1) * (GetA(index_p, index_pp, J + 1, 0, AList) - GetA(index_p, index_pp, J - 1, 0, AList));
+        }
+        else if (L == J - 1)
+        {
+          return 2 * p * pp * (J - 1) / (2 * J + 1) * (GetA(index_p, index_pp, J - 2, 0, AList) - GetA(index_p, index_pp, J, 0, AList));
+        }
+        else if (L == J + 1)
+        {
+          return 2 * p * pp * (J + 2) / (2 * J + 1) * (GetA(index_p, index_pp, J + 2, 0, AList) - GetA(index_p, index_pp, J, 0, AList));
+        }
+      }
+    }
+    return W;
+  }
+
+  double sigma_L_decomposition(double p, double pp, int index_p, int index_pp, int S, int L, int Lp, int J, std::unordered_map<uint64_t, double>& AList)
+  {
+    double W = 0;
+    if (S==0 and  L==J and Lp==J) //Singlet state
+    {
+      return 2*p*p*pp*pp*(GetA(index_p,index_pp,J,2,AList)-GetA(index_p,index_pp,J,0,AList));
+    }
+    else if(S==1) //Triplet state
     {
       if (L==Lp)
       {
         if (L==J)
         {
-          return 2*((pp*pp+p*p)*A(p,pp,J,0,potential,size)-2*p*pp/(2*J+1)*(A(p,pp,J+1,0,potential,size)+(J+1)*A(p,pp,J-1,0,potential,size)));
+          W = 2*p*p*pp*pp*(-GetA(index_p,index_pp,J,0,AList)+(J-1)/(2*J+1)*GetA(index_p,index_pp,J+1,1,AList)+(J-1)/(2*J+1)*GetA(index_p,index_pp,J-1,1,AList));
         }
         else if (L==J-1)
         {
-          return 2/(2*J+1)*((p*p+pp*pp)*A(p,pp,J-1,0,potential,size)-2*p*pp*A(p,pp,J,0,potential,size));
+          W = 2*p*p*pp*pp*((2*J-1)/(2*J+1)*GetA(index_p,index_pp,J-1,0,AList)-2/(2*J+1)*GetA(index_p,index_pp,J,1,AList)-GetA(index_p,index_pp,J-1,1,AList));
         }
         else if (L==J+1)
         {
-          return 2/(2*J+1)*(-(p*p+pp*pp)*A(p,pp,J+1,0,potential,size)+2*p*pp*A(p,pp,J,0,potential,size));
-        }
-        else
-        {
-          return 0; //Don't respect angular momentum if here
+          W = 2*p*p*pp*pp*((2*J+3)/(2*J+1)*GetA(index_p,index_pp,J+1,0,AList)-2/(2*J+1)*GetA(index_p,index_pp,J,1,AList)-GetA(index_p,index_pp,J+1,1,AList));
         }
       }
-      else if (Lp==J-1 and L==J+1) 
+      else if ((Lp==J-1 and L==J+1) or (Lp==J+1 and L==J-1))
       {
-        return 4*sqrt(J*(J+1))/(2*J+1)*(p*p*A(p,pp,J+1,0,potential,size)+pp*pp*A(p,pp,J-1,0,potential,size))-2*p*pp*A(p,pp,J,0,potential,size);      
-      }
-      else if (Lp==J+1 and L==J-1)
-      {
-        return 4*sqrt(J*(J+1))/(2*J+1)*(p*p*A(p,pp,J-1,0,potential,size)+pp*pp*A(p,pp,J+1,0,potential,size))-2*p*pp*A(p,pp,J,0,potential,size);
-      }
-      else
-      {
-        return 0; //Don't respect angular momentum if here
+        W = 4*p*p*pp*pp*sqrt(J*(J+1))/(2*J+1)/(2*J+1)*(GetA(index_p,index_pp,J+1,0,AList)-GetA(index_p,index_pp,J-1,0,AList));      
       }
     }
-    else
-    {
-      return 0; //Don't respect angular momentum if here.
-    }
+    return W;
   }
 
-  /// Helicity decomposition of a scalar potential with a spin-spin force as 
-  /// described in eq 4.25 of Erkelenz et al.
-  double sigma_k_decomposition(double p, double pp, int S, int L, int Lp, int J,  std::function<double(double,double,double)> potential, int size)
+  double tensor_decomposition(double p, double pp, int index_p, int index_pp, int S, int L, int Lp, int J, std::unordered_map<uint64_t, double>& AList)
   {
-    if (S==0)
+    double W = 0;
+    if (S == 0 and L == J and Lp == J) // Singlet state
     {
-      return 1/2*(-(p*p+pp*pp)*A(p,pp,J,0,potential,size)-2*p*pp*A(p,pp,J,1,potential,size));
+      W = 2 * (-(p * p + pp * pp) * GetA(index_p, index_pp, J, 0, AList) + 2 * p * pp * GetA(index_p, index_pp, J, 1, AList));
     }
-    else if(S==1)
+    else if (S == 1) // Triple state
     {
-      if (L==Lp)
+      if (L == Lp)
       {
-        if (L==J)
+        if (L == J)
         {
-          return 1/2*((pp*pp+p*p)*A(p,pp,J,0,potential,size)+2*p*pp/(2*J+1)*(A(p,pp,J+1,0,potential,size)+(J+1)*A(p,pp,J-1,0,potential,size)));
+          W = 2 * ((pp * pp + p * p) * GetA(index_p, index_pp, J, 0, AList) - 2 * p * pp / (2 * J + 1) * (GetA(index_p, index_pp, J + 1, 0, AList) + (J + 1) * GetA(index_p, index_pp, J - 1, 0, AList)));
         }
-        else if (L==J-1)
+        else if (L == J - 1)
         {
-          return 1/2/(2*J+1)*((p*p+pp*pp)*A(p,pp,J-1,0,potential,size)+2*p*pp*A(p,pp,J,0,potential,size));
+          W = 2 / (2 * J + 1) * ((p * p + pp * pp) * GetA(index_p, index_pp, J - 1, 0, AList) - 2 * p * pp * GetA(index_p, index_pp, J, 0, AList));
         }
-        else if (L==J+1)
+        else if (L == J + 1)
         {
-          return 1/2/(2*J+1)*(-(p*p+pp*pp)*A(p,pp,J+1,0,potential,size)-2*p*pp*A(p,pp,J,0,potential,size));
-        }
-        else
-        {
-          return 0;
+          W = 2 / (2 * J + 1) * (-(p * p + pp * pp) *GetA(index_p, index_pp, J + 1, 0, AList) + 2 * p * pp * GetA(index_p, index_pp, J, 0, AList));
         }
       }
-      else if (Lp==J-1 and L==J+1) 
+      else if (Lp == J - 1 and L == J + 1)
       {
-        return sqrt(J*(J+1))/(2*J+1)*(p*p*A(p,pp,J+1,0,potential,size)+pp*pp*A(p,pp,J-1,0,potential,size))+2*p*pp*A(p,pp,J,0,potential,size);      
+        W = 4 * sqrt(J * (J + 1)) / (2 * J + 1) * (p * p * GetA(index_p, index_pp, J + 1, 0, AList) + pp * pp * GetA(index_p, index_pp, J - 1, 0, AList)) - 2 * p * pp * GetA(index_p, index_pp, J, 0, AList);
       }
-      else if (Lp==J+1 and L==J-1)
+      else if (Lp == J + 1 and L == J - 1)
       {
-        return sqrt(J*(J+1))/(2*J+1)*(p*p*A(p,pp,J-1,0,potential,size)+pp*pp*A(p,pp,J+1,0,potential,size))+2*p*pp*A(p,pp,J,0,potential,size);
-      }
-      else
-      {
-        return  0;
+        W = 4 * sqrt(J * (J + 1)) / (2 * J + 1) * (p * p * GetA(index_p, index_pp, J - 1, 0, AList) + pp * pp * GetA(index_p, index_pp, J + 1, 0, AList)) - 2 * p * pp * GetA(index_p, index_pp, J, 0, AList);
       }
     }
-    else
-    {
-      return 0; //Don't respect angular momentum if here.
-    }
+    return W;
   }
 
-  /// Wrap up function that will call the right case for the helicity representation of scalar poential
-  double scalar_partial_wave_decomposition(double p, double pp, int S, int L, int Lp, int J,  std::function<double(double,double,double)> potential, int size, std::string potential_type)
+  double sigma_k_decomposition(double p, double pp, int index_p, int index_pp, int S, int L, int Lp, int J, std::unordered_map<uint64_t, double>& AList)
   {
-    std::map <std::string, std::function<double(double,double,int,double,double,double,std::function<double(double,double,double)>,int)> > DecompositionList = 
-    {  
-      {"central", central_force_decomposition},
-      {"spn_spin", spin_spin_decomposition},
-      {"spin_orbit",spin_orbit_decomposition},
-      {"sigma_L", sigma_L_decomposition},
-      {"tensor", tensor_decomposition},
-      {"sigma_k",sigma_k_decomposition}
-    };
-    double helicity_representation = DecompositionList[potential_type](p,pp,S,L,Lp,J,potential,size);
-    return helicity_representation;
+    double W = 0;
+    if (S == 0 and L == J and Lp == J) // Singlet state
+    {
+      W = 1 / 2 * (-(p * p + pp * pp) * GetA(index_p, index_pp, J, 0, AList) - 2 * p * pp * GetA(index_p, index_pp, J, 1, AList));
+    }
+    else if (S == 1) // Triplet state
+    {
+      if (L == Lp)
+      {
+        if (L == J)
+        {
+          W = 1 / 2 * ((pp * pp + p * p) * GetA(index_p, index_pp, J, 0, AList) + 2 * p * pp / (2 * J + 1) * (GetA(index_p, index_pp, J + 1, 0, AList) + (J + 1) * GetA(index_p, index_pp, J - 1, 0, AList)));
+        }
+        else if (L == J - 1)
+        {
+          W = 1 / 2 / (2 * J + 1) * ((p * p + pp * pp) * GetA(index_p, index_pp, J - 1, 0, AList) + 2 * p * pp * GetA(index_p, index_pp, J, 0, AList));
+        }
+        else if (L == J + 1)
+        {
+          W = 1 / 2 / (2 * J + 1) * (-(p * p + pp * pp) * GetA(index_p, index_pp, J + 1, 0, AList) - 2 * p * pp * GetA(index_p, index_pp, J, 0, AList));
+        }
+      }
+      else if (Lp == J - 1 and L == J + 1)
+      {
+        W = sqrt(J * (J + 1)) / (2 * J + 1) * (p * p * GetA(index_p, index_pp, J + 1, 0, AList) + pp * pp * GetA(index_p, index_pp, J - 1, 0, AList)) + 2 * p * pp * GetA(index_p, index_pp, J, 0, AList);
+      }
+      else if (Lp == J + 1 and L == J - 1)
+      {
+        W = sqrt(J * (J + 1)) / (2 * J + 1) * (p * p * GetA(index_p, index_pp, J - 1, 0, AList) + pp * pp * GetA(index_p, index_pp, J + 1, 0, AList)) + 2 * p * pp * GetA(index_p, index_pp, J, 0, AList);
+      }
+    }
+    return W;
   }
-
-
-
 
   ///////////////////////////////////////////////////////////////////////////////////////////
   ///                                                                                     ///
