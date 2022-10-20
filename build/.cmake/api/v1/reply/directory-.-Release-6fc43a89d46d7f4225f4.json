@@ -1,0 +1,196 @@
+{
+	"backtraceGraph" : 
+	{
+		"commands" : 
+		[
+			"install"
+		],
+		"files" : 
+		[
+			"CMakeLists.txt"
+		],
+		"nodes" : 
+		[
+			{
+				"file" : 0
+			},
+			{
+				"command" : 0,
+				"file" : 0,
+				"line" : 88,
+				"parent" : 0
+			},
+			{
+				"command" : 0,
+				"file" : 0,
+				"line" : 90,
+				"parent" : 0
+			},
+			{
+				"command" : 0,
+				"file" : 0,
+				"line" : 95,
+				"parent" : 0
+			},
+			{
+				"command" : 0,
+				"file" : 0,
+				"line" : 101,
+				"parent" : 0
+			},
+			{
+				"command" : 0,
+				"file" : 0,
+				"line" : 105,
+				"parent" : 0
+			},
+			{
+				"command" : 0,
+				"file" : 0,
+				"line" : 110,
+				"parent" : 0
+			},
+			{
+				"command" : 0,
+				"file" : 0,
+				"line" : 111,
+				"parent" : 0
+			},
+			{
+				"command" : 0,
+				"file" : 0,
+				"line" : 112,
+				"parent" : 0
+			},
+			{
+				"command" : 0,
+				"file" : 0,
+				"line" : 113,
+				"parent" : 0
+			},
+			{
+				"command" : 0,
+				"file" : 0,
+				"line" : 127,
+				"parent" : 0
+			}
+		]
+	},
+	"installers" : 
+	[
+		{
+			"backtrace" : 1,
+			"component" : "Unspecified",
+			"type" : "code"
+		},
+		{
+			"backtrace" : 2,
+			"component" : "Unspecified",
+			"destination" : "/Users/antoinebelley/bin",
+			"paths" : 
+			[
+				"imsrg++"
+			],
+			"targetId" : "imsrg++::@6890427a1f51a3e7e1df",
+			"targetIndex" : 2,
+			"type" : "target"
+		},
+		{
+			"backtrace" : 3,
+			"component" : "Unspecified",
+			"destination" : "/Users/antoinebelley/lib",
+			"paths" : 
+			[
+				"libIMSRG.dylib"
+			],
+			"targetId" : "IMSRG::@6890427a1f51a3e7e1df",
+			"targetIndex" : 0,
+			"type" : "target"
+		},
+		{
+			"backtrace" : 4,
+			"component" : "Unspecified",
+			"destination" : "/Users/antoinebelley/include",
+			"paths" : 
+			[
+				"AngMom.hh",
+				"Commutator.hh",
+				"DarkMatterNREFT.hh",
+				"GaussLaguerre.hh",
+				"Generator.hh",
+				"HFMBPT.hh",
+				"HartreeFock.hh",
+				"Helicity.hh",
+				"IMSRG.hh",
+				"IMSRGProfiler.hh",
+				"IMSRGSolver.hh",
+				"Jacobi3BME.hh",
+				"M0nu.hh",
+				"ModelSpace.hh",
+				"Operator.hh",
+				"Parameters.hh",
+				"PhysicalConstants.hh",
+				"Pwd.hh",
+				"ReadWrite.hh",
+				"ThreeBodyME.hh",
+				"ThreeBodyStorage.hh",
+				"ThreeBodyStorage_iso.hh",
+				"ThreeBodyStorage_no2b.hh",
+				"ThreeBodyStorage_pn.hh",
+				"ThreeLegME.hh",
+				"TwoBodyME.hh",
+				"UnitTest.hh",
+				"imsrg_util.hh",
+				"version.hh"
+			],
+			"type" : "file"
+		},
+		{
+			"backtrace" : 5,
+			"component" : "Unspecified",
+			"destination" : "/Users/antoinebelley/include",
+			"paths" : 
+			[
+				"armadillo"
+			],
+			"type" : "directory"
+		},
+		{
+			"backtrace" : 6,
+			"component" : "Unspecified",
+			"type" : "code"
+		},
+		{
+			"backtrace" : 7,
+			"component" : "Unspecified",
+			"type" : "code"
+		},
+		{
+			"backtrace" : 8,
+			"component" : "Unspecified",
+			"type" : "code"
+		},
+		{
+			"backtrace" : 9,
+			"component" : "Unspecified",
+			"type" : "code"
+		},
+		{
+			"backtrace" : 10,
+			"component" : "Unspecified",
+			"destination" : "/Users/antoinebelley/lib",
+			"paths" : 
+			[
+				"pyIMSRG.cpython-310-darwin.so"
+			],
+			"targetId" : "pyIMSRG::@6890427a1f51a3e7e1df",
+			"targetIndex" : 3,
+			"type" : "target"
+		}
+	],
+	"paths" : 
+	{
+		"build" : ".",
+		"source" : "."
+	}
+}
