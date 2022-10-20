@@ -3,6 +3,7 @@ tmp*
 *.o
 *.so
 *.gz
+*.a
 ../output/*
 ../input/*
 ../doc/*
@@ -12,3 +13,8 @@ build/
 .vscode/
 .cache/
 CMakeUserPresets.json
+../old_armadillo/
+imsrg++
+CMakeCache.txt
+cmake_install.cmake
+libIMSRG.dylib

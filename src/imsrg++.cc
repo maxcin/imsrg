@@ -1451,6 +1451,8 @@ int main(int argc, char** argv)
       {
         op = hf.TransformHOToNATBasis(op).DoNormalOrdering();
       }
+
+      
       std::cout << "   HF: " << op.ZeroBody << std::endl;
 
       if ( (eMax_imsrg != -1) or (e2Max_imsrg != -1) or (e3Max_imsrg) != -1)
@@ -1492,6 +1494,8 @@ int main(int argc, char** argv)
       std::cout << "   IMSRG: " << op.ZeroBody << std::endl;
 //      rw.WriteOperatorHuman(ops[i],intfile+opnames[i]+"_step2.op");
 //      std::cout << "After renormal ordering Op(5,4) is " << std::setprecision(10) << op.OneBody(5,4) << std::endl;
+
+
 
 
 

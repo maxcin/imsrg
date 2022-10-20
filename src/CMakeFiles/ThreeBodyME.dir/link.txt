@@ -1,0 +1,2 @@
+/Library/Developer/CommandLineTools/usr/bin/ar qc libThreeBodyME.a CMakeFiles/ThreeBodyME.dir/ThreeBodyME.cc.o
+/Library/Developer/CommandLineTools/usr/bin/ranlib libThreeBodyME.a

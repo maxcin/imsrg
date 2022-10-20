@@ -9,7 +9,7 @@ CMakeFiles/pyIMSRG.dir/pyIMSRG.cc.o: pyIMSRG.cc \
   /Library/Developer/CommandLineTools/SDKs/MacOSX12.1.sdk/usr/include/c++/v1/limits.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX12.1.sdk/usr/include/c++/v1/__config \
   /Library/Developer/CommandLineTools/SDKs/MacOSX12.1.sdk/usr/include/pthread.h \
-  /Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/limits.h \
+  /Library/Developer/CommandLineTools/usr/lib/clang/14.0.0/include/limits.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX12.1.sdk/usr/include/limits.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX12.1.sdk/usr/include/sys/cdefs.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX12.1.sdk/usr/include/sys/_symbol_aliasing.h \
@@ -76,7 +76,7 @@ CMakeFiles/pyIMSRG.dir/pyIMSRG.cc.o: pyIMSRG.cc \
   /Library/Developer/CommandLineTools/SDKs/MacOSX12.1.sdk/usr/include/sys/_types/_uid_t.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX12.1.sdk/usr/include/sys/resource.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX12.1.sdk/usr/include/c++/v1/stdint.h \
-  /Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/stdint.h \
+  /Library/Developer/CommandLineTools/usr/lib/clang/14.0.0/include/stdint.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX12.1.sdk/usr/include/stdint.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX12.1.sdk/usr/include/_types/_uint8_t.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX12.1.sdk/usr/include/_types/_uint16_t.h \
@@ -120,15 +120,15 @@ CMakeFiles/pyIMSRG.dir/pyIMSRG.cc.o: pyIMSRG.cc \
   /Library/Developer/CommandLineTools/SDKs/MacOSX12.1.sdk/usr/include/assert.h \
   /Users/antoinebelley/.pyenv/versions/3.10.2/include/python3.10/pyport.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX12.1.sdk/usr/include/c++/v1/inttypes.h \
-  /Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/inttypes.h \
+  /Library/Developer/CommandLineTools/usr/lib/clang/14.0.0/include/inttypes.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX12.1.sdk/usr/include/inttypes.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX12.1.sdk/usr/include/c++/v1/math.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX12.1.sdk/usr/include/math.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX12.1.sdk/usr/include/c++/v1/type_traits \
   /Library/Developer/CommandLineTools/SDKs/MacOSX12.1.sdk/usr/include/c++/v1/cstddef \
   /Library/Developer/CommandLineTools/SDKs/MacOSX12.1.sdk/usr/include/c++/v1/version \
-  /Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/stddef.h \
-  /Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/__stddef_max_align_t.h \
+  /Library/Developer/CommandLineTools/usr/lib/clang/14.0.0/include/stddef.h \
+  /Library/Developer/CommandLineTools/usr/lib/clang/14.0.0/include/__stddef_max_align_t.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX12.1.sdk/usr/include/c++/v1/__nullptr \
   /Library/Developer/CommandLineTools/SDKs/MacOSX12.1.sdk/usr/include/c++/v1/limits \
   /Library/Developer/CommandLineTools/SDKs/MacOSX12.1.sdk/usr/include/c++/v1/__undef_macros \
@@ -157,7 +157,7 @@ CMakeFiles/pyIMSRG.dir/pyIMSRG.cc.o: pyIMSRG.cc \
   /Users/antoinebelley/.pyenv/versions/3.10.2/include/python3.10/pyhash.h \
   /Users/antoinebelley/.pyenv/versions/3.10.2/include/python3.10/cpython/pydebug.h \
   /Users/antoinebelley/.pyenv/versions/3.10.2/include/python3.10/bytearrayobject.h \
-  /Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/stdarg.h \
+  /Library/Developer/CommandLineTools/usr/lib/clang/14.0.0/include/stdarg.h \
   /Users/antoinebelley/.pyenv/versions/3.10.2/include/python3.10/cpython/bytearrayobject.h \
   /Users/antoinebelley/.pyenv/versions/3.10.2/include/python3.10/bytesobject.h \
   /Users/antoinebelley/.pyenv/versions/3.10.2/include/python3.10/cpython/bytesobject.h \
@@ -368,17 +368,16 @@ CMakeFiles/pyIMSRG.dir/pyIMSRG.cc.o: pyIMSRG.cc \
   /Library/Developer/CommandLineTools/SDKs/MacOSX12.1.sdk/usr/include/c++/v1/cmath \
   /Library/Developer/CommandLineTools/SDKs/MacOSX12.1.sdk/usr/include/c++/v1/set \
   armadillo/armadillo \
+  armadillo/armadillo_bits/config.hpp \
+  armadillo/armadillo_bits/compiler_check.hpp \
   /Library/Developer/CommandLineTools/SDKs/MacOSX12.1.sdk/usr/include/c++/v1/sstream \
   /Library/Developer/CommandLineTools/SDKs/MacOSX12.1.sdk/usr/include/c++/v1/complex \
-  armadillo/armadillo_bits/compiler_extra.hpp \
-  armadillo/armadillo_bits/config.hpp \
-  armadillo/armadillo_bits/compiler_setup.hpp \
   /Library/Developer/CommandLineTools/SDKs/MacOSX12.1.sdk/usr/include/c++/v1/random \
   /Library/Developer/CommandLineTools/SDKs/MacOSX12.1.sdk/usr/include/c++/v1/numeric \
+  armadillo/armadillo_bits/compiler_setup.hpp \
   armadillo/armadillo_bits/include_atlas.hpp \
   armadillo/armadillo_bits/include_hdf5.hpp \
   armadillo/armadillo_bits/include_superlu.hpp \
-  /usr/local/include/omp.h \
   armadillo/armadillo_bits/arma_forward.hpp \
   armadillo/armadillo_bits/arma_static_check.hpp \
   armadillo/armadillo_bits/typedef_elem.hpp \
@@ -398,6 +397,7 @@ CMakeFiles/pyIMSRG.dir/pyIMSRG.cc.o: pyIMSRG.cc \
   armadillo/armadillo_bits/constants_old.hpp \
   armadillo/armadillo_bits/mp_misc.hpp \
   armadillo/armadillo_bits/arma_rel_comparators.hpp \
+  armadillo/armadillo_bits/fill.hpp \
   armadillo/armadillo_bits/arma_rng_cxx98.hpp \
   armadillo/armadillo_bits/arma_rng_cxx11.hpp \
   armadillo/armadillo_bits/arma_rng.hpp \
@@ -434,6 +434,7 @@ CMakeFiles/pyIMSRG.dir/pyIMSRG.cc.o: pyIMSRG.cc \
   armadillo/armadillo_bits/SpCol_bones.hpp \
   armadillo/armadillo_bits/SpRow_bones.hpp \
   armadillo/armadillo_bits/SpSubview_bones.hpp \
+  armadillo/armadillo_bits/SpSubview_col_list_bones.hpp \
   armadillo/armadillo_bits/spdiagview_bones.hpp \
   armadillo/armadillo_bits/MapMat_bones.hpp \
   armadillo/armadillo_bits/typedef_mat_fixed.hpp \
@@ -479,6 +480,8 @@ CMakeFiles/pyIMSRG.dir/pyIMSRG.cc.o: pyIMSRG.cc \
   armadillo/armadillo_bits/op_diagmat_bones.hpp \
   armadillo/armadillo_bits/op_diagvec_bones.hpp \
   armadillo/armadillo_bits/op_dot_bones.hpp \
+  armadillo/armadillo_bits/op_det_bones.hpp \
+  armadillo/armadillo_bits/op_log_det_bones.hpp \
   armadillo/armadillo_bits/op_inv_bones.hpp \
   armadillo/armadillo_bits/op_htrans_bones.hpp \
   armadillo/armadillo_bits/op_max_bones.hpp \
@@ -540,6 +543,7 @@ CMakeFiles/pyIMSRG.dir/pyIMSRG.cc.o: pyIMSRG.cc \
   armadillo/armadillo_bits/op_cond_bones.hpp \
   armadillo/armadillo_bits/op_sp_plus_bones.hpp \
   armadillo/armadillo_bits/op_sp_minus_bones.hpp \
+  armadillo/armadillo_bits/op_powmat_bones.hpp \
   armadillo/armadillo_bits/glue_times_bones.hpp \
   armadillo/armadillo_bits/glue_mixed_bones.hpp \
   armadillo/armadillo_bits/glue_cov_bones.hpp \
@@ -582,7 +586,7 @@ CMakeFiles/pyIMSRG.dir/pyIMSRG.cc.o: pyIMSRG.cc \
   armadillo/armadillo_bits/spop_reverse_bones.hpp \
   armadillo/armadillo_bits/spop_repmat_bones.hpp \
   armadillo/armadillo_bits/spop_vectorise_bones.hpp \
-  armadillo/armadillo_bits/spglue_elem_helper_bones.hpp \
+  armadillo/armadillo_bits/spop_norm_bones.hpp \
   armadillo/armadillo_bits/spglue_plus_bones.hpp \
   armadillo/armadillo_bits/spglue_minus_bones.hpp \
   armadillo/armadillo_bits/spglue_schur_bones.hpp \
@@ -596,9 +600,11 @@ CMakeFiles/pyIMSRG.dir/pyIMSRG.cc.o: pyIMSRG.cc \
   armadillo/armadillo_bits/newarp_EigsSelect.hpp \
   armadillo/armadillo_bits/newarp_DenseGenMatProd_bones.hpp \
   armadillo/armadillo_bits/newarp_SparseGenMatProd_bones.hpp \
+  armadillo/armadillo_bits/newarp_SparseGenRealShiftSolve_bones.hpp \
   armadillo/armadillo_bits/newarp_DoubleShiftQR_bones.hpp \
   armadillo/armadillo_bits/newarp_GenEigsSolver_bones.hpp \
   armadillo/armadillo_bits/newarp_SymEigsSolver_bones.hpp \
+  armadillo/armadillo_bits/newarp_SymEigsShiftSolver_bones.hpp \
   armadillo/armadillo_bits/newarp_TridiagEigen_bones.hpp \
   armadillo/armadillo_bits/newarp_UpperHessenbergEigen_bones.hpp \
   armadillo/armadillo_bits/newarp_UpperHessenbergQR_bones.hpp \
@@ -699,10 +705,11 @@ CMakeFiles/pyIMSRG.dir/pyIMSRG.cc.o: pyIMSRG.cc \
   armadillo/armadillo_bits/fn_trunc_log.hpp \
   armadillo/armadillo_bits/fn_toeplitz.hpp \
   armadillo/armadillo_bits/fn_trimat.hpp \
+  armadillo/armadillo_bits/fn_trimat_ind.hpp \
   armadillo/armadillo_bits/fn_cumsum.hpp \
   armadillo/armadillo_bits/fn_cumprod.hpp \
   armadillo/armadillo_bits/fn_symmat.hpp \
-  armadillo/armadillo_bits/fn_syl_lyap.hpp \
+  armadillo/armadillo_bits/fn_sylvester.hpp \
   armadillo/armadillo_bits/fn_hist.hpp \
   armadillo/armadillo_bits/fn_histc.hpp \
   armadillo/armadillo_bits/fn_unique.hpp \
@@ -744,6 +751,7 @@ CMakeFiles/pyIMSRG.dir/pyIMSRG.cc.o: pyIMSRG.cc \
   armadillo/armadillo_bits/fn_roots.hpp \
   armadillo/armadillo_bits/fn_randperm.hpp \
   armadillo/armadillo_bits/fn_quantile.hpp \
+  armadillo/armadillo_bits/fn_powmat.hpp \
   armadillo/armadillo_bits/fn_speye.hpp \
   armadillo/armadillo_bits/fn_spones.hpp \
   armadillo/armadillo_bits/fn_sprandn.hpp \
@@ -818,6 +826,7 @@ CMakeFiles/pyIMSRG.dir/pyIMSRG.cc.o: pyIMSRG.cc \
   armadillo/armadillo_bits/SpRow_meat.hpp \
   armadillo/armadillo_bits/SpSubview_meat.hpp \
   armadillo/armadillo_bits/SpSubview_iterators_meat.hpp \
+  armadillo/armadillo_bits/SpSubview_col_list_meat.hpp \
   armadillo/armadillo_bits/spdiagview_meat.hpp \
   armadillo/armadillo_bits/MapMat_meat.hpp \
   armadillo/armadillo_bits/diskio_meat.hpp \
@@ -827,6 +836,8 @@ CMakeFiles/pyIMSRG.dir/pyIMSRG.cc.o: pyIMSRG.cc \
   armadillo/armadillo_bits/op_diagmat_meat.hpp \
   armadillo/armadillo_bits/op_diagvec_meat.hpp \
   armadillo/armadillo_bits/op_dot_meat.hpp \
+  armadillo/armadillo_bits/op_det_meat.hpp \
+  armadillo/armadillo_bits/op_log_det_meat.hpp \
   armadillo/armadillo_bits/op_inv_meat.hpp \
   armadillo/armadillo_bits/op_htrans_meat.hpp \
   armadillo/armadillo_bits/op_max_meat.hpp \
@@ -888,6 +899,7 @@ CMakeFiles/pyIMSRG.dir/pyIMSRG.cc.o: pyIMSRG.cc \
   armadillo/armadillo_bits/op_cond_meat.hpp \
   armadillo/armadillo_bits/op_sp_plus_meat.hpp \
   armadillo/armadillo_bits/op_sp_minus_meat.hpp \
+  armadillo/armadillo_bits/op_powmat_meat.hpp \
   armadillo/armadillo_bits/glue_times_meat.hpp \
   armadillo/armadillo_bits/glue_mixed_meat.hpp \
   armadillo/armadillo_bits/glue_cov_meat.hpp \
@@ -930,7 +942,7 @@ CMakeFiles/pyIMSRG.dir/pyIMSRG.cc.o: pyIMSRG.cc \
   armadillo/armadillo_bits/spop_reverse_meat.hpp \
   armadillo/armadillo_bits/spop_repmat_meat.hpp \
   armadillo/armadillo_bits/spop_vectorise_meat.hpp \
-  armadillo/armadillo_bits/spglue_elem_helper_meat.hpp \
+  armadillo/armadillo_bits/spop_norm_meat.hpp \
   armadillo/armadillo_bits/spglue_plus_meat.hpp \
   armadillo/armadillo_bits/spglue_minus_meat.hpp \
   armadillo/armadillo_bits/spglue_schur_meat.hpp \
@@ -945,14 +957,17 @@ CMakeFiles/pyIMSRG.dir/pyIMSRG.cc.o: pyIMSRG.cc \
   armadillo/armadillo_bits/newarp_SortEigenvalue.hpp \
   armadillo/armadillo_bits/newarp_DenseGenMatProd_meat.hpp \
   armadillo/armadillo_bits/newarp_SparseGenMatProd_meat.hpp \
+  armadillo/armadillo_bits/newarp_SparseGenRealShiftSolve_meat.hpp \
   armadillo/armadillo_bits/newarp_DoubleShiftQR_meat.hpp \
   armadillo/armadillo_bits/newarp_GenEigsSolver_meat.hpp \
   armadillo/armadillo_bits/newarp_SymEigsSolver_meat.hpp \
+  armadillo/armadillo_bits/newarp_SymEigsShiftSolver_meat.hpp \
   armadillo/armadillo_bits/newarp_TridiagEigen_meat.hpp \
   armadillo/armadillo_bits/newarp_UpperHessenbergEigen_meat.hpp \
   armadillo/armadillo_bits/newarp_UpperHessenbergQR_meat.hpp \
   armadillo/armadillo_bits/compiler_setup_post.hpp \
   IMSRGProfiler.hh \
+  AngMomCache.hh \
   Operator.hh \
   TwoBodyME.hh \
   ThreeBodyME.hh \
@@ -1438,104 +1453,16 @@ CMakeFiles/pyIMSRG.dir/pyIMSRG.cc.o: pyIMSRG.cc \
   /usr/local/include/boost/config/abi_prefix.hpp \
   /usr/local/include/boost/config/abi_suffix.hpp \
   /usr/local/include/boost/iostreams/putback.hpp \
-  /Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/x86intrin.h \
-  /Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/ia32intrin.h \
-  /Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/immintrin.h \
-  /Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/x86gprintrin.h \
-  /Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/hresetintrin.h \
-  /Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/uintrintrin.h \
-  /Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/mmintrin.h \
-  /Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/xmmintrin.h \
-  /Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/mm_malloc.h \
-  /Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/emmintrin.h \
-  /Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/pmmintrin.h \
-  /Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/tmmintrin.h \
-  /Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/smmintrin.h \
-  /Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/popcntintrin.h \
-  /Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/wmmintrin.h \
-  /Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/__wmmintrin_aes.h \
-  /Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/__wmmintrin_pclmul.h \
-  /Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/clflushoptintrin.h \
-  /Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/clwbintrin.h \
-  /Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/avxintrin.h \
-  /Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/avx2intrin.h \
-  /Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/f16cintrin.h \
-  /Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/bmiintrin.h \
-  /Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/bmi2intrin.h \
-  /Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/lzcntintrin.h \
-  /Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/fmaintrin.h \
-  /Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/avx512fintrin.h \
-  /Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/avx512vlintrin.h \
-  /Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/avx512bwintrin.h \
-  /Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/avx512bitalgintrin.h \
-  /Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/avx512cdintrin.h \
-  /Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/avx512vpopcntdqintrin.h \
-  /Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/avx512vpopcntdqvlintrin.h \
-  /Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/avx512vnniintrin.h \
-  /Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/avx512vlvnniintrin.h \
-  /Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/avxvnniintrin.h \
-  /Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/avx512dqintrin.h \
-  /Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/avx512vlbitalgintrin.h \
-  /Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/avx512vlbwintrin.h \
-  /Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/avx512vlcdintrin.h \
-  /Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/avx512vldqintrin.h \
-  /Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/avx512erintrin.h \
-  /Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/avx512ifmaintrin.h \
-  /Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/avx512ifmavlintrin.h \
-  /Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/avx512vbmiintrin.h \
-  /Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/avx512vbmivlintrin.h \
-  /Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/avx512vbmi2intrin.h \
-  /Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/avx512vlvbmi2intrin.h \
-  /Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/avx512pfintrin.h \
-  /Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/avx512bf16intrin.h \
-  /Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/avx512vlbf16intrin.h \
-  /Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/pkuintrin.h \
-  /Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/vpclmulqdqintrin.h \
-  /Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/vaesintrin.h \
-  /Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/gfniintrin.h \
-  /Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/rtmintrin.h \
-  /Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/xtestintrin.h \
-  /Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/shaintrin.h \
-  /Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/fxsrintrin.h \
-  /Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/xsaveintrin.h \
-  /Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/xsaveoptintrin.h \
-  /Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/xsavecintrin.h \
-  /Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/xsavesintrin.h \
-  /Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/cetintrin.h \
-  /Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/adxintrin.h \
-  /Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/rdseedintrin.h \
-  /Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/wbnoinvdintrin.h \
-  /Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/cldemoteintrin.h \
-  /Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/waitpkgintrin.h \
-  /Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/movdirintrin.h \
-  /Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/pconfigintrin.h \
-  /Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/sgxintrin.h \
-  /Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/ptwriteintrin.h \
-  /Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/invpcidintrin.h \
-  /Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/keylockerintrin.h \
-  /Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/amxintrin.h \
-  /Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/avx512vp2intersectintrin.h \
-  /Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/avx512vlvp2intersectintrin.h \
-  /Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/enqcmdintrin.h \
-  /Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/serializeintrin.h \
-  /Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/tsxldtrkintrin.h \
-  /Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/mm3dnow.h \
-  /Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/prfchwintrin.h \
-  /Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/ammintrin.h \
-  /Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/fma4intrin.h \
-  /Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/xopintrin.h \
-  /Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/tbmintrin.h \
-  /Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/lwpintrin.h \
-  /Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/mwaitxintrin.h \
-  /Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/clzerointrin.h \
   half/include/half.hpp \
   /Library/Developer/CommandLineTools/SDKs/MacOSX12.1.sdk/usr/include/c++/v1/cfenv \
   /Library/Developer/CommandLineTools/SDKs/MacOSX12.1.sdk/usr/include/c++/v1/fenv.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX12.1.sdk/usr/include/fenv.h \
+  ThreeBodyStorage_mono.hh \
   ThreeLegME.hh \
   Jacobi3BME.hh \
   HartreeFock.hh \
   Commutator.hh \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX12.1.sdk/usr/include/c++/v1/unordered_set \
   Generator.hh \
   IMSRGSolver.hh \
   imsrg_util.hh \
@@ -1545,7 +1472,7 @@ CMakeFiles/pyIMSRG.dir/pyIMSRG.cc.o: pyIMSRG.cc \
   /usr/local/include/gsl/gsl_inline.h \
   /usr/local/include/gsl/gsl_machine.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX12.1.sdk/usr/include/c++/v1/float.h \
-  /Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/float.h \
+  /Library/Developer/CommandLineTools/usr/lib/clang/14.0.0/include/float.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX12.1.sdk/usr/include/float.h \
   /usr/local/include/gsl/gsl_precision.h \
   /usr/local/include/gsl/gsl_types.h \
@@ -1556,6 +1483,8 @@ CMakeFiles/pyIMSRG.dir/pyIMSRG.cc.o: pyIMSRG.cc \
   DarkMatterNREFT.hh \
   HFMBPT.hh \
   UnitTest.hh \
+  RPA.hh \
+  version.hh \
   pybind11/include/pybind11/pybind11.h \
   pybind11/include/pybind11/attr.h \
   pybind11/include/pybind11/cast.h \
@@ -1564,7 +1493,6 @@ CMakeFiles/pyIMSRG.dir/pyIMSRG.cc.o: pyIMSRG.cc \
   /Users/antoinebelley/.pyenv/versions/3.10.2/include/python3.10/frameobject.h \
   /Users/antoinebelley/.pyenv/versions/3.10.2/include/python3.10/cpython/frameobject.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX12.1.sdk/usr/include/c++/v1/forward_list \
-  /Library/Developer/CommandLineTools/SDKs/MacOSX12.1.sdk/usr/include/c++/v1/unordered_set \
   /Library/Developer/CommandLineTools/SDKs/MacOSX12.1.sdk/usr/include/c++/v1/typeindex \
   pybind11/include/pybind11/buffer_info.h \
   pybind11/include/pybind11/detail/typeid.h \
@@ -1608,93 +1536,11 @@ DarkMatterNREFT.hh:
 
 /usr/local/include/gsl/gsl_types.h:
 
-/Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/float.h:
-
 /usr/local/include/gsl/gsl_inline.h:
 
 Commutator.hh:
 
 half/include/half.hpp:
-
-/Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/clzerointrin.h:
-
-/Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/mwaitxintrin.h:
-
-/Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/lwpintrin.h:
-
-/Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/prfchwintrin.h:
-
-/Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/tsxldtrkintrin.h:
-
-/Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/serializeintrin.h:
-
-/Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/avx512vp2intersectintrin.h:
-
-/Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/ptwriteintrin.h:
-
-/Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/pconfigintrin.h:
-
-/Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/adxintrin.h:
-
-/Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/xsavesintrin.h:
-
-/Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/xsavecintrin.h:
-
-/Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/xsaveoptintrin.h:
-
-/Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/fxsrintrin.h:
-
-/Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/avx512vlbf16intrin.h:
-
-/Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/avx512bf16intrin.h:
-
-/Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/avx512vbmi2intrin.h:
-
-/Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/avx512vbmivlintrin.h:
-
-/Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/avx512vbmiintrin.h:
-
-/Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/avx512ifmavlintrin.h:
-
-/Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/avx512ifmaintrin.h:
-
-/Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/avx512erintrin.h:
-
-/Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/avx512vldqintrin.h:
-
-/Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/avx512vlcdintrin.h:
-
-/Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/avx512vlbwintrin.h:
-
-/Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/avx512vlbitalgintrin.h:
-
-/Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/avxvnniintrin.h:
-
-/Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/avx512vnniintrin.h:
-
-/Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/avx512vpopcntdqvlintrin.h:
-
-/Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/avx512cdintrin.h:
-
-/Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/avx512bwintrin.h:
-
-/Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/fmaintrin.h:
-
-/Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/wmmintrin.h:
-
-/Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/vpclmulqdqintrin.h:
-
-/Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/pmmintrin.h:
-
-/Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/emmintrin.h:
-
-/Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/xmmintrin.h:
-
-/Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/mmintrin.h:
-
-/Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/tmmintrin.h:
-
-/Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/immintrin.h:
 
 /usr/local/include/boost/iostreams/putback.hpp:
 
@@ -1715,8 +1561,6 @@ PhysicalConstants.hh:
 /usr/local/include/boost/config/pragma_message.hpp:
 
 /usr/local/include/boost/smart_ptr/detail/yield_k.hpp:
-
-/Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/pkuintrin.h:
 
 /usr/local/include/boost/smart_ptr/detail/spinlock.hpp:
 
@@ -1741,6 +1585,8 @@ PhysicalConstants.hh:
 /usr/local/include/boost/call_traits.hpp:
 
 /usr/local/include/boost/iostreams/get.hpp:
+
+/usr/local/include/boost/iostreams/detail/config/unreachable_return.hpp:
 
 /usr/local/include/boost/iostreams/detail/default_arg.hpp:
 
@@ -1797,6 +1643,10 @@ PhysicalConstants.hh:
 /usr/local/include/boost/iostreams/detail/resolve.hpp:
 
 /usr/local/include/boost/iostreams/detail/push_params.hpp:
+
+/usr/local/include/boost/type_traits/has_plus_assign.hpp:
+
+/usr/local/include/boost/range/detail/safe_bool.hpp:
 
 /usr/local/include/boost/iterator/iterator_adaptor.hpp:
 
@@ -1882,8 +1732,6 @@ HartreeFock.hh:
 
 /usr/local/include/boost/mpl/bind.hpp:
 
-/Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/__wmmintrin_pclmul.h:
-
 /usr/local/include/boost/mpl/lambda.hpp:
 
 /usr/local/include/boost/preprocessor/repetition/enum_trailing_params.hpp:
@@ -1899,8 +1747,6 @@ HartreeFock.hh:
 /usr/local/include/boost/mpl/aux_/preprocessor/default_params.hpp:
 
 /usr/local/include/boost/mpl/always.hpp:
-
-/Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/cldemoteintrin.h:
 
 /usr/local/include/boost/type_traits/is_enum.hpp:
 
@@ -2024,8 +1870,6 @@ HartreeFock.hh:
 
 /usr/local/include/boost/iostreams/detail/char_traits.hpp:
 
-/usr/local/include/boost/mpl/identity.hpp:
-
 /usr/local/include/boost/mpl/aux_/lambda_support.hpp:
 
 /usr/local/include/boost/preprocessor/logical/not.hpp:
@@ -2080,6 +1924,12 @@ pybind11/include/pybind11/detail/common.h:
 
 /usr/local/include/boost/preprocessor/arithmetic/dec.hpp:
 
+/usr/local/include/boost/type_traits/function_traits.hpp:
+
+/usr/local/include/boost/preprocessor/empty.hpp:
+
+/usr/local/include/boost/preprocessor/facilities/identity.hpp:
+
 /usr/local/include/boost/type_traits/make_void.hpp:
 
 /usr/local/include/boost/preprocessor/seq/limits/size_256.hpp:
@@ -2089,8 +1939,6 @@ pybind11/include/pybind11/detail/common.h:
 /usr/local/include/boost/preprocessor/logical/and.hpp:
 
 /usr/local/include/boost/mpl/aux_/preprocessor/enum.hpp:
-
-/Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/movdirintrin.h:
 
 /usr/local/include/boost/preprocessor/arithmetic/limits/inc_256.hpp:
 
@@ -2124,8 +1972,6 @@ UnitTest.hh:
 
 /usr/local/include/boost/preprocessor/comma_if.hpp:
 
-/Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/avx512pfintrin.h:
-
 /usr/local/include/boost/mpl/aux_/preprocessor/params.hpp:
 
 /usr/local/include/boost/preprocessor/logical/compl.hpp:
@@ -2136,15 +1982,9 @@ UnitTest.hh:
 
 /usr/local/include/boost/mpl/aux_/config/nttp.hpp:
 
-/usr/local/include/boost/range/empty.hpp:
-
-/usr/local/include/boost/mpl/int.hpp:
-
 AngMom.hh:
 
 /usr/local/include/boost/mpl/aux_/config/lambda.hpp:
-
-/Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/avx2intrin.h:
 
 /usr/local/include/boost/iostreams/detail/config/codecvt.hpp:
 
@@ -2153,8 +1993,6 @@ AngMom.hh:
 /usr/local/include/boost/type_traits/is_member_pointer.hpp:
 
 /usr/local/include/boost/mpl/aux_/na_fwd.hpp:
-
-/Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/avx512vlvnniintrin.h:
 
 /usr/local/include/boost/mpl/bool_fwd.hpp:
 
@@ -2175,6 +2013,8 @@ AngMom.hh:
 /usr/local/include/boost/mpl/aux_/na_spec.hpp:
 
 /usr/local/include/boost/mpl/aux_/config/msvc.hpp:
+
+RPA.hh:
 
 /usr/local/include/boost/range/detail/sfinae.hpp:
 
@@ -2252,6 +2092,8 @@ TwoBodyME.hh:
 
 Operator.hh:
 
+AngMomCache.hh:
+
 IMSRGProfiler.hh:
 
 armadillo/armadillo_bits/compiler_setup_post.hpp:
@@ -2264,11 +2106,15 @@ armadillo/armadillo_bits/newarp_UpperHessenbergEigen_meat.hpp:
 
 armadillo/armadillo_bits/newarp_TridiagEigen_meat.hpp:
 
+armadillo/armadillo_bits/newarp_SymEigsShiftSolver_meat.hpp:
+
 armadillo/armadillo_bits/newarp_SymEigsSolver_meat.hpp:
 
 armadillo/armadillo_bits/newarp_GenEigsSolver_meat.hpp:
 
 armadillo/armadillo_bits/newarp_DoubleShiftQR_meat.hpp:
+
+armadillo/armadillo_bits/newarp_SparseGenRealShiftSolve_meat.hpp:
 
 pybind11/include/pybind11/attr.h:
 
@@ -2296,13 +2142,7 @@ armadillo/armadillo_bits/spglue_schur_meat.hpp:
 
 armadillo/armadillo_bits/spglue_plus_meat.hpp:
 
-/usr/local/include/boost/preprocessor/facilities/identity.hpp:
-
-armadillo/armadillo_bits/spglue_elem_helper_meat.hpp:
-
 /Library/Developer/CommandLineTools/SDKs/MacOSX12.1.sdk/usr/include/c++/v1/float.h:
-
-/Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/xtestintrin.h:
 
 armadillo/armadillo_bits/spop_symmat_meat.hpp:
 
@@ -2344,8 +2184,6 @@ armadillo/armadillo_bits/glue_conv_meat.hpp:
 
 armadillo/armadillo_bits/glue_kron_meat.hpp:
 
-/Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/bmiintrin.h:
-
 /usr/local/include/boost/smart_ptr/detail/local_counted_base.hpp:
 
 /usr/local/include/boost/core/demangle.hpp:
@@ -2353,6 +2191,8 @@ armadillo/armadillo_bits/glue_kron_meat.hpp:
 armadillo/armadillo_bits/glue_mixed_meat.hpp:
 
 armadillo/armadillo_bits/glue_times_meat.hpp:
+
+armadillo/armadillo_bits/op_powmat_meat.hpp:
 
 armadillo/armadillo_bits/op_sp_minus_meat.hpp:
 
@@ -2397,8 +2237,6 @@ armadillo/armadillo_bits/op_trimat_meat.hpp:
 armadillo/armadillo_bits/op_cx_scalar_meat.hpp:
 
 armadillo/armadillo_bits/op_find_unique_meat.hpp:
-
-/Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/bmi2intrin.h:
 
 armadillo/armadillo_bits/op_orth_null_meat.hpp:
 
@@ -2474,6 +2312,12 @@ armadillo/armadillo_bits/op_toeplitz_meat.hpp:
 
 armadillo/armadillo_bits/spdiagview_meat.hpp:
 
+/usr/local/include/boost/range/empty.hpp:
+
+/usr/local/include/boost/mpl/int.hpp:
+
+armadillo/armadillo_bits/SpSubview_col_list_meat.hpp:
+
 armadillo/armadillo_bits/SpSubview_iterators_meat.hpp:
 
 armadillo/armadillo_bits/SpRow_meat.hpp:
@@ -2494,35 +2338,29 @@ armadillo/armadillo_bits/subview_field_meat.hpp:
 
 armadillo/armadillo_bits/subview_elem2_meat.hpp:
 
-/Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/invpcidintrin.h:
-
 armadillo/armadillo_bits/subview_meat.hpp:
 
 armadillo/armadillo_bits/field_meat.hpp:
 
 armadillo/armadillo_bits/SizeMat_meat.hpp:
 
-armadillo/armadillo_bits/subview_field_bones.hpp:
-
-armadillo/armadillo_bits/xvec_htrans_meat.hpp:
-
-/usr/local/include/boost/smart_ptr/detail/sp_counted_base_gcc_atomic.hpp:
-
-armadillo/armadillo_bits/spop_strans_bones.hpp:
-
-armadillo/armadillo_bits/Cube_meat.hpp:
-
 armadillo/armadillo_bits/Row_meat.hpp:
+
+/usr/local/include/boost/preprocessor/seq/seq.hpp:
+
+/usr/local/include/boost/type_traits/is_lvalue_reference.hpp:
+
+armadillo/armadillo_bits/Col_meat.hpp:
+
+armadillo/armadillo_bits/Mat_meat.hpp:
 
 /usr/local/include/boost/preprocessor/arithmetic/detail/is_minimum_number.hpp:
 
 armadillo/armadillo_bits/injector_meat.hpp:
 
-/usr/local/include/boost/preprocessor/detail/check.hpp:
+/usr/local/include/boost/preprocessor/repetition/for.hpp:
 
-/Users/antoinebelley/.pyenv/versions/3.10.2/include/python3.10/pycapsule.h:
-
-armadillo/armadillo_bits/auxlib_meat.hpp:
+armadillo/armadillo_bits/sp_auxlib_meat.hpp:
 
 armadillo/armadillo_bits/eop_core_meat.hpp:
 
@@ -2536,8 +2374,6 @@ armadillo/armadillo_bits/mtGlue_meat.hpp:
 
 armadillo/armadillo_bits/eGlueCube_meat.hpp:
 
-/Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/enqcmdintrin.h:
-
 /Library/Developer/CommandLineTools/SDKs/MacOSX12.1.sdk/usr/include/sys/_pthread/_pthread_cond_t.h:
 
 armadillo/armadillo_bits/eOpCube_meat.hpp:
@@ -2546,7 +2382,15 @@ armadillo/armadillo_bits/op_shuffle_meat.hpp:
 
 armadillo/armadillo_bits/mul_gemm_mixed.hpp:
 
+/usr/local/include/boost/concept/detail/general.hpp:
+
+/usr/local/include/boost/range/detail/extract_optional_type.hpp:
+
+armadillo/armadillo_bits/mul_gemv.hpp:
+
 armadillo/armadillo_bits/fft_engine.hpp:
+
+/Library/Developer/CommandLineTools/usr/lib/clang/14.0.0/include/stddef.h:
 
 armadillo/armadillo_bits/fn_sprandu.hpp:
 
@@ -2638,6 +2482,12 @@ armadillo/armadillo_bits/glue_times_bones.hpp:
 
 armadillo/armadillo_bits/fn_cumsum.hpp:
 
+/Users/antoinebelley/.pyenv/versions/3.10.2/include/python3.10/Python.h:
+
+armadillo/armadillo_bits/op_diagvec_bones.hpp:
+
+armadillo/armadillo_bits/fn_trimat_ind.hpp:
+
 armadillo/armadillo_bits/fn_hist.hpp:
 
 /usr/local/include/boost/mpl/aux_/config/static_constant.hpp:
@@ -2660,6 +2510,12 @@ armadillo/armadillo_bits/fn_kron.hpp:
 
 armadillo/armadillo_bits/fn_rank.hpp:
 
+/usr/local/include/boost/preprocessor/iteration/detail/limits/local_256.hpp:
+
+/Library/Developer/CommandLineTools/SDKs/MacOSX12.1.sdk/usr/include/sys/_types/_key_t.h:
+
+armadillo/armadillo_bits/fn_pinv.hpp:
+
 /usr/local/include/boost/type_traits/detail/has_binary_operator.hpp:
 
 /Users/antoinebelley/.pyenv/versions/3.10.2/include/python3.10/cpython/bytesobject.h:
@@ -2671,8 +2527,6 @@ armadillo/armadillo_bits/fn_eps.hpp:
 armadillo/armadillo_bits/fn_prod.hpp:
 
 armadillo/armadillo_bits/fn_shuffle.hpp:
-
-/Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/fma4intrin.h:
 
 armadillo/armadillo_bits/fn_interp1.hpp:
 
@@ -2691,6 +2545,8 @@ armadillo/armadillo_bits/fn_reshape.hpp:
 armadillo/armadillo_bits/fn_solve.hpp:
 
 armadillo/armadillo_bits/fn_svd.hpp:
+
+ThreeBodyStorage_mono.hh:
 
 armadillo/armadillo_bits/fn_median.hpp:
 
@@ -2727,8 +2583,6 @@ armadillo/armadillo_bits/GenCube_meat.hpp:
 armadillo/armadillo_bits/op_hist_bones.hpp:
 
 armadillo/armadillo_bits/fn_eig_sym.hpp:
-
-/Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/vaesintrin.h:
 
 armadillo/armadillo_bits/fn_eig_gen.hpp:
 
@@ -2792,8 +2646,6 @@ armadillo/armadillo_bits/debug.hpp:
 
 armadillo/armadillo_bits/fn_ones.hpp:
 
-/Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/keylockerintrin.h:
-
 armadillo/armadillo_bits/newarp_UpperHessenbergEigen_bones.hpp:
 
 /usr/local/include/boost/type_traits/remove_pointer.hpp:
@@ -2842,10 +2694,6 @@ armadillo/armadillo_bits/spglue_schur_bones.hpp:
 
 armadillo/armadillo_bits/spglue_plus_bones.hpp:
 
-/usr/local/include/boost/iostreams/detail/config/unreachable_return.hpp:
-
-armadillo/armadillo_bits/spglue_elem_helper_bones.hpp:
-
 /usr/local/include/boost/iostreams/put.hpp:
 
 armadillo/armadillo_bits/strip.hpp:
@@ -2874,13 +2722,9 @@ armadillo/armadillo_bits/fn_dot.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX12.1.sdk/usr/include/Availability.h:
 
+armadillo/armadillo_bits/fn_powmat.hpp:
+
 armadillo/armadillo_bits/spop_var_bones.hpp:
-
-/Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/ia32intrin.h:
-
-armadillo/armadillo_bits/Mat_meat.hpp:
-
-/Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/popcntintrin.h:
 
 /usr/local/include/boost/preprocessor/array/data.hpp:
 
@@ -2901,6 +2745,14 @@ armadillo/armadillo_bits/spop_diagmat_bones.hpp:
 armadillo/armadillo_bits/op_repelem_bones.hpp:
 
 armadillo/armadillo_bits/spop_htrans_bones.hpp:
+
+/usr/local/include/boost/smart_ptr/detail/sp_counted_base_gcc_atomic.hpp:
+
+armadillo/armadillo_bits/Cube_meat.hpp:
+
+armadillo/armadillo_bits/spop_strans_bones.hpp:
+
+armadillo/armadillo_bits/newarp_SymEigsShiftSolver_bones.hpp:
 
 armadillo/armadillo_bits/fn_hess.hpp:
 
@@ -2956,10 +2808,6 @@ armadillo/armadillo_bits/glue_max_bones.hpp:
 
 armadillo/armadillo_bits/glue_histc_bones.hpp:
 
-armadillo/armadillo_bits/fn_sort.hpp:
-
-armadillo/armadillo_bits/glue_hist_bones.hpp:
-
 armadillo/armadillo_bits/glue_conv_bones.hpp:
 
 armadillo/armadillo_bits/translate_atlas.hpp:
@@ -2979,6 +2827,10 @@ armadillo/armadillo_bits/typedef_elem_check.hpp:
 armadillo/armadillo_bits/fn_randn.hpp:
 
 armadillo/armadillo_bits/glue_cov_bones.hpp:
+
+armadillo/armadillo_bits/op_clamp_bones.hpp:
+
+armadillo/armadillo_bits/op_powmat_bones.hpp:
 
 armadillo/armadillo_bits/arma_ostream_bones.hpp:
 
@@ -3027,6 +2879,8 @@ armadillo/armadillo_bits/op_expmat_bones.hpp:
 /Library/Developer/CommandLineTools/SDKs/MacOSX12.1.sdk/usr/include/machine/types.h:
 
 armadillo/armadillo_bits/op_fft_bones.hpp:
+
+armadillo/armadillo_bits/spop_norm_meat.hpp:
 
 armadillo/armadillo_bits/op_strans_meat.hpp:
 
@@ -3104,8 +2958,6 @@ armadillo/armadillo_bits/operator_cube_schur.hpp:
 
 armadillo/armadillo_bits/op_var_bones.hpp:
 
-/Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/uintrintrin.h:
-
 armadillo/armadillo_bits/OpCube_bones.hpp:
 
 armadillo/armadillo_bits/op_stddev_bones.hpp:
@@ -3122,6 +2974,12 @@ armadillo/armadillo_bits/op_misc_bones.hpp:
 
 armadillo/armadillo_bits/op_max_bones.hpp:
 
+armadillo/armadillo_bits/fn_sort.hpp:
+
+armadillo/armadillo_bits/glue_hist_bones.hpp:
+
+armadillo/armadillo_bits/op_log_det_bones.hpp:
+
 armadillo/armadillo_bits/glue_intersect_bones.hpp:
 
 /usr/local/include/boost/mpl/aux_/preprocessed/gcc/placeholders.hpp:
@@ -3135,10 +2993,6 @@ armadillo/armadillo_bits/op_dot_bones.hpp:
 armadillo/armadillo_bits/fn_size.hpp:
 
 armadillo/armadillo_bits/fn_toeplitz.hpp:
-
-/Users/antoinebelley/.pyenv/versions/3.10.2/include/python3.10/Python.h:
-
-armadillo/armadillo_bits/op_diagvec_bones.hpp:
 
 armadillo/armadillo_bits/op_diagmat_bones.hpp:
 
@@ -3161,6 +3015,8 @@ armadillo/armadillo_bits/mtGlueCube_bones.hpp:
 armadillo/armadillo_bits/operator_cube_plus.hpp:
 
 armadillo/armadillo_bits/mtSpGlue_bones.hpp:
+
+armadillo/armadillo_bits/spop_norm_bones.hpp:
 
 /usr/local/include/boost/iostreams/detail/is_iterator_range.hpp:
 
@@ -3185,8 +3041,6 @@ armadillo/armadillo_bits/mtSpOp_bones.hpp:
 /usr/local/include/boost/smart_ptr/detail/shared_count.hpp:
 
 armadillo/armadillo_bits/mtOpCube_bones.hpp:
-
-/Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/gfniintrin.h:
 
 /usr/local/include/boost/preprocessor/repetition/enum_binary_params.hpp:
 
@@ -3244,33 +3098,33 @@ armadillo/armadillo_bits/subview_cube_bones.hpp:
 
 armadillo/armadillo_bits/subview_elem2_bones.hpp:
 
-/Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/avxintrin.h:
-
-armadillo/armadillo_bits/fn_syl_lyap.hpp:
-
 armadillo/armadillo_bits/subview_elem1_bones.hpp:
 
 armadillo/armadillo_bits/operator_cube_relational.hpp:
 
 armadillo/armadillo_bits/subview_bones.hpp:
 
-armadillo/armadillo_bits/hdf5_name.hpp:
-
-armadillo/armadillo_bits/field_bones.hpp:
-
 armadillo/armadillo_bits/spdiagview_bones.hpp:
 
-armadillo/armadillo_bits/operator_minus.hpp:
+/Library/Developer/CommandLineTools/SDKs/MacOSX12.1.sdk/usr/include/stdint.h:
 
-/Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/rtmintrin.h:
+armadillo/armadillo_bits/SpSubview_col_list_bones.hpp:
+
+armadillo/armadillo_bits/operator_minus.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX12.1.sdk/usr/include/sys/_types/_fd_isset.h:
 
 armadillo/armadillo_bits/SpRow_bones.hpp:
 
+/Library/Developer/CommandLineTools/SDKs/MacOSX12.1.sdk/usr/include/sys/_types/_filesec_t.h:
+
+armadillo/armadillo_bits/newarp_SparseGenRealShiftSolve_bones.hpp:
+
 armadillo/armadillo_bits/SpCol_bones.hpp:
 
 /usr/local/include/boost/iostreams/detail/config/overload_resolution.hpp:
+
+armadillo/armadillo_bits/op_det_meat.hpp:
 
 armadillo/armadillo_bits/SpMat_bones.hpp:
 
@@ -3303,8 +3157,6 @@ armadillo/armadillo_bits/Row_bones.hpp:
 armadillo/armadillo_bits/newarp_SymEigsSolver_bones.hpp:
 
 armadillo/armadillo_bits/Mat_bones.hpp:
-
-/Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/xsaveintrin.h:
 
 armadillo/armadillo_bits/fn_stddev.hpp:
 
@@ -3354,8 +3206,6 @@ armadillo/armadillo_bits/def_superlu.hpp:
 
 armadillo/armadillo_bits/def_blas.hpp:
 
-/Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/rdseedintrin.h:
-
 armadillo/armadillo_bits/SpBase_bones.hpp:
 
 /usr/local/include/boost/iostreams/detail/streambuf/chainbuf.hpp:
@@ -3363,6 +3213,8 @@ armadillo/armadillo_bits/SpBase_bones.hpp:
 /usr/local/include/boost/type_traits/remove_reference.hpp:
 
 armadillo/armadillo_bits/fn_n_unique.hpp:
+
+/Library/Developer/CommandLineTools/usr/lib/clang/14.0.0/include/limits.h:
 
 armadillo/armadillo_bits/unwrap_spmat.hpp:
 
@@ -3374,7 +3226,7 @@ armadillo/armadillo_bits/OpCube_meat.hpp:
 
 armadillo/armadillo_bits/arma_rng_cxx98.hpp:
 
-/Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/mm_malloc.h:
+armadillo/armadillo_bits/fill.hpp:
 
 /usr/local/include/boost/mpl/aux_/arity.hpp:
 
@@ -3405,12 +3257,6 @@ armadillo/armadillo_bits/promote_type.hpp:
 /Users/antoinebelley/.pyenv/versions/3.10.2/include/python3.10/modsupport.h:
 
 armadillo/armadillo_bits/arma_static_check.hpp:
-
-/usr/local/include/boost/type_traits/function_traits.hpp:
-
-/usr/local/include/boost/preprocessor/empty.hpp:
-
-armadillo/armadillo_bits/compiler_extra.hpp:
 
 armadillo/armadillo_bits/arrayops_meat.hpp:
 
@@ -3448,16 +3294,6 @@ armadillo/armadillo:
 
 armadillo/armadillo_bits/SizeCube_bones.hpp:
 
-/Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/wbnoinvdintrin.h:
-
-/usr/local/include/boost/preprocessor/iteration/detail/limits/local_256.hpp:
-
-armadillo/armadillo_bits/fn_pinv.hpp:
-
-/Library/Developer/CommandLineTools/SDKs/MacOSX12.1.sdk/usr/include/sys/_types/_key_t.h:
-
-/Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/__wmmintrin_aes.h:
-
 /usr/local/include/boost/type_traits/type_with_alignment.hpp:
 
 armadillo/armadillo_bits/eGlueCube_bones.hpp:
@@ -3471,6 +3307,10 @@ armadillo/armadillo_bits/eGlueCube_bones.hpp:
 armadillo/armadillo_bits/fn_strans.hpp:
 
 armadillo/armadillo_bits/typedef_mat.hpp:
+
+armadillo/armadillo_bits/xvec_htrans_meat.hpp:
+
+armadillo/armadillo_bits/subview_field_bones.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX12.1.sdk/usr/include/xlocale/_time.h:
 
@@ -3594,8 +3434,6 @@ armadillo/armadillo_bits/gmm_full_bones.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX12.1.sdk/usr/include/_locale.h:
 
-/Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/avx512vlvp2intersectintrin.h:
-
 /usr/local/include/boost/smart_ptr/detail/spinlock_pool.hpp:
 
 /usr/local/include/boost/iostreams/detail/call_traits.hpp:
@@ -3610,13 +3448,7 @@ armadillo/armadillo_bits/eOpCube_bones.hpp:
 
 armadillo/armadillo_bits/access.hpp:
 
-/Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/xopintrin.h:
-
 /Library/Developer/CommandLineTools/SDKs/MacOSX12.1.sdk/usr/include/c++/v1/mutex:
-
-/Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/shaintrin.h:
-
-/Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/avx512fintrin.h:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX12.1.sdk/usr/include/c++/v1/__mutex_base:
 
@@ -3643,8 +3475,6 @@ armadillo/armadillo_bits/fn_eigs_gen.hpp:
 /Library/Developer/CommandLineTools/SDKs/MacOSX12.1.sdk/usr/include/machine/signal.h:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX12.1.sdk/usr/include/sys/_pthread/_pthread_mutexattr_t.h:
-
-/Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/smmintrin.h:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX12.1.sdk/usr/include/c++/v1/cstdio:
 
@@ -3686,6 +3516,8 @@ Jacobi3BME.hh:
 
 armadillo/armadillo_bits/Op_meat.hpp:
 
+version.hh:
+
 /usr/local/include/boost/iostreams/detail/config/dyn_link.hpp:
 
 armadillo/armadillo_bits/arma_str.hpp:
@@ -3706,8 +3538,6 @@ armadillo/armadillo_bits/fn_fft2.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX12.1.sdk/usr/include/c++/v1/atomic:
 
-/Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/inttypes.h:
-
 armadillo/armadillo_bits/fn_intersect.hpp:
 
 /usr/local/include/boost/type_traits/is_abstract.hpp:
@@ -3715,8 +3545,6 @@ armadillo/armadillo_bits/fn_intersect.hpp:
 armadillo/armadillo_bits/eOp_meat.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX12.1.sdk/usr/include/c++/v1/__memory/utilities.h:
-
-armadillo/armadillo_bits/op_clamp_bones.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX12.1.sdk/usr/include/c++/v1/__memory/allocator_traits.h:
 
@@ -3763,8 +3591,6 @@ armadillo/armadillo_bits/glue_min_meat.hpp:
 /usr/local/include/boost/preprocessor/control/limits/while_256.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX12.1.sdk/usr/include/c++/v1/string_view:
-
-/Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/clflushoptintrin.h:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX12.1.sdk/usr/include/sys/_types/_blksize_t.h:
 
@@ -3816,6 +3642,8 @@ armadillo/armadillo_bits/SizeCube_meat.hpp:
 
 armadillo/armadillo_bits/constants_old.hpp:
 
+/Library/Developer/CommandLineTools/usr/lib/clang/14.0.0/include/stdarg.h:
+
 /Users/antoinebelley/.pyenv/versions/3.10.2/include/python3.10/cpython/import.h:
 
 armadillo/armadillo_bits/fn_numel.hpp:
@@ -3826,21 +3654,11 @@ armadillo/armadillo_bits/fn_numel.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX12.1.sdk/usr/include/nl_types.h:
 
-/usr/local/include/boost/preprocessor/repetition/for.hpp:
-
-armadillo/armadillo_bits/sp_auxlib_meat.hpp:
-
 armadillo/armadillo_bits/op_cumsum_bones.hpp:
 
 pybind11/include/pybind11/detail/init.h:
 
 /Users/antoinebelley/.pyenv/versions/3.10.2/include/python3.10/sysmodule.h:
-
-/usr/local/include/boost/preprocessor/seq/seq.hpp:
-
-/usr/local/include/boost/type_traits/is_lvalue_reference.hpp:
-
-armadillo/armadillo_bits/Col_meat.hpp:
 
 /Users/antoinebelley/.pyenv/versions/3.10.2/include/python3.10/cpython/ceval.h:
 
@@ -3851,8 +3669,6 @@ armadillo/armadillo_bits/Col_meat.hpp:
 /Users/antoinebelley/.pyenv/versions/3.10.2/include/python3.10/pythonrun.h:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX12.1.sdk/usr/include/c++/v1/vector:
-
-/Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/__stddef_max_align_t.h:
 
 armadillo/armadillo_bits/fn_as_scalar.hpp:
 
@@ -3874,8 +3690,6 @@ armadillo/armadillo_bits/fn_expmat.hpp:
 
 /Users/antoinebelley/.pyenv/versions/3.10.2/include/python3.10/genobject.h:
 
-/Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/x86gprintrin.h:
-
 /Users/antoinebelley/.pyenv/versions/3.10.2/include/python3.10/context.h:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX12.1.sdk/usr/include/sys/_pthread/_pthread_rwlockattr_t.h:
@@ -3885,8 +3699,6 @@ armadillo/armadillo_bits/fn_expmat.hpp:
 armadillo/armadillo_bits/fn_quantile.hpp:
 
 armadillo/armadillo_bits/fn_approx_equal.hpp:
-
-/Library/Developer/CommandLineTools/SDKs/MacOSX12.1.sdk/usr/include/stdint.h:
 
 armadillo/armadillo_bits/op_sort_bones.hpp:
 
@@ -3899,8 +3711,6 @@ armadillo/armadillo_bits/op_sort_bones.hpp:
 /Users/antoinebelley/.pyenv/versions/3.10.2/include/python3.10/cpython/bytearrayobject.h:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX12.1.sdk/usr/include/c++/v1/exception:
-
-/Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/f16cintrin.h:
 
 armadillo/armadillo_bits/glue_toeplitz_bones.hpp:
 
@@ -3982,8 +3792,6 @@ armadillo/armadillo_bits/fn_interp2.hpp:
 
 /Users/antoinebelley/.pyenv/versions/3.10.2/include/python3.10/sliceobject.h:
 
-/Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/amxintrin.h:
-
 /usr/local/include/boost/preprocessor/slot/slot.hpp:
 
 armadillo/armadillo_bits/op_norm_bones.hpp:
@@ -4000,8 +3808,6 @@ armadillo/armadillo_bits/fn_mean.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX12.1.sdk/usr/include/c++/v1/fstream:
 
-/Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/lzcntintrin.h:
-
 /Library/Developer/CommandLineTools/SDKs/MacOSX12.1.sdk/usr/include/sys/_types/_int64_t.h:
 
 armadillo/armadillo_bits/fn_all.hpp:
@@ -4014,9 +3820,11 @@ armadillo/armadillo_bits/translate_superlu.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX12.1.sdk/usr/include/sys/_types/_int32_t.h:
 
-/usr/local/include/boost/range/detail/safe_bool.hpp:
+/usr/local/include/boost/preprocessor/detail/check.hpp:
 
-/Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/stdint.h:
+armadillo/armadillo_bits/auxlib_meat.hpp:
+
+/Users/antoinebelley/.pyenv/versions/3.10.2/include/python3.10/pycapsule.h:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX12.1.sdk/usr/include/c++/v1/cstring:
 
@@ -4053,8 +3861,6 @@ armadillo/armadillo_bits/fn_svds.hpp:
 /Users/antoinebelley/.pyenv/versions/3.10.2/include/python3.10/enumobject.h:
 
 armadillo/armadillo_bits/op_cx_scalar_bones.hpp:
-
-/Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/hresetintrin.h:
 
 /Users/antoinebelley/.pyenv/versions/3.10.2/include/python3.10/cpython/abstract.h:
 
@@ -4106,8 +3912,6 @@ armadillo/armadillo_bits/SpToDOp_meat.hpp:
 
 /Users/antoinebelley/.pyenv/versions/3.10.2/include/python3.10/cpython/initconfig.h:
 
-/Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/cetintrin.h:
-
 /Users/antoinebelley/.pyenv/versions/3.10.2/include/python3.10/memoryobject.h:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX12.1.sdk/usr/include/unistd.h:
@@ -4123,14 +3927,6 @@ armadillo/armadillo_bits/op_all_meat.hpp:
 /Users/antoinebelley/.pyenv/versions/3.10.2/include/python3.10/pythread.h:
 
 /Users/antoinebelley/.pyenv/versions/3.10.2/include/python3.10/rangeobject.h:
-
-armadillo/armadillo_bits/spop_repmat_meat.hpp:
-
-/Library/Developer/CommandLineTools/SDKs/MacOSX12.1.sdk/usr/include/limits.h:
-
-/usr/local/include/boost/mpl/bind_fwd.hpp:
-
-/Library/Developer/CommandLineTools/SDKs/MacOSX12.1.sdk/usr/include/sys/_types/_nlink_t.h:
 
 armadillo/armadillo_bits/op_sqrtmat_bones.hpp:
 
@@ -4192,8 +3988,6 @@ armadillo/armadillo_bits/fn_unique.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX12.1.sdk/usr/include/sys/signal.h:
 
-/Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/ammintrin.h:
-
 /Users/antoinebelley/.pyenv/versions/3.10.2/include/python3.10/bytesobject.h:
 
 /Users/antoinebelley/.pyenv/versions/3.10.2/include/python3.10/longintrepr.h:
@@ -4201,20 +3995,6 @@ armadillo/armadillo_bits/fn_unique.hpp:
 /Users/antoinebelley/.pyenv/versions/3.10.2/include/python3.10/cpython/pytime.h:
 
 armadillo/armadillo_bits/mul_syrk.hpp:
-
-/Users/antoinebelley/.pyenv/versions/3.10.2/include/python3.10/pyframe.h:
-
-/usr/local/include/boost/preprocessor/detail/auto_rec.hpp:
-
-/Library/Developer/CommandLineTools/SDKs/MacOSX12.1.sdk/usr/include/libkern/i386/_OSByteOrder.h:
-
-/usr/local/include/boost/range/config.hpp:
-
-/usr/local/include/boost/config/compiler/clang.hpp:
-
-/Library/Developer/CommandLineTools/SDKs/MacOSX12.1.sdk/usr/include/i386/types.h:
-
-/Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/stdarg.h:
 
 armadillo/armadillo_bits/glue_mixed_bones.hpp:
 
@@ -4276,13 +4056,13 @@ armadillo/armadillo_bits/glue_affmul_bones.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX12.1.sdk/usr/include/sys/_types/_s_ifmt.h:
 
-/Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/avx512vlintrin.h:
-
 /usr/local/include/boost/preprocessor/iteration/detail/bounds/upper1.hpp:
 
 armadillo/armadillo_bits/newarp_SortEigenvalue.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX12.1.sdk/usr/include/sys/_pthread/_pthread_t.h:
+
+armadillo/armadillo_bits/op_log_det_meat.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX12.1.sdk/usr/include/c++/v1/limits.h:
 
@@ -4292,11 +4072,9 @@ armadillo/armadillo_bits/fn_range.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX12.1.sdk/usr/include/sys/stat.h:
 
-/Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/avx512vlvbmi2intrin.h:
-
 armadillo/armadillo_bits/fn_trapz.hpp:
 
-/Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/avx512dqintrin.h:
+/Library/Developer/CommandLineTools/usr/lib/clang/14.0.0/include/float.h:
 
 armadillo/armadillo_bits/newarp_SparseGenMatProd_bones.hpp:
 
@@ -4314,11 +4092,7 @@ armadillo/armadillo_bits/op_cumprod_meat.hpp:
 
 /Users/antoinebelley/.pyenv/versions/3.10.2/include/python3.10/cpython/methodobject.h:
 
-/Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/tbmintrin.h:
-
 armadillo/armadillo_bits/op_reshape_bones.hpp:
-
-/Library/Developer/CommandLineTools/SDKs/MacOSX12.1.sdk/usr/include/sys/_types/_filesec_t.h:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX12.1.sdk/usr/include/sys/_types/_uuid_t.h:
 
@@ -4344,7 +4118,17 @@ armadillo/armadillo_bits/arma_rng.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX12.1.sdk/usr/include/inttypes.h:
 
-/Library/Developer/CommandLineTools/SDKs/MacOSX12.1.sdk/usr/include/c++/v1/bit:
+/Library/Developer/CommandLineTools/usr/lib/clang/14.0.0/include/stdint.h:
+
+armadillo/armadillo_bits/spop_repmat_meat.hpp:
+
+/Library/Developer/CommandLineTools/SDKs/MacOSX12.1.sdk/usr/include/limits.h:
+
+/usr/local/include/boost/mpl/bind_fwd.hpp:
+
+/Library/Developer/CommandLineTools/SDKs/MacOSX12.1.sdk/usr/include/sys/_types/_nlink_t.h:
+
+/Library/Developer/CommandLineTools/usr/lib/clang/14.0.0/include/inttypes.h:
 
 /Users/antoinebelley/.pyenv/versions/3.10.2/include/python3.10/frameobject.h:
 
@@ -4366,11 +4150,9 @@ armadillo/armadillo_bits/fn_conv.hpp:
 
 armadillo/armadillo_bits/op_min_bones.hpp:
 
-/usr/local/include/boost/type_traits/has_plus_assign.hpp:
-
-/Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/limits.h:
-
 /Library/Developer/CommandLineTools/SDKs/MacOSX12.1.sdk/usr/include/c++/v1/__undef_macros:
+
+armadillo/armadillo_bits/compiler_check.hpp:
 
 /Users/antoinebelley/.pyenv/versions/3.10.2/include/python3.10/object.h:
 
@@ -4381,6 +4163,12 @@ armadillo/armadillo_bits/op_min_bones.hpp:
 armadillo/armadillo_bits/spglue_minus_meat.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX12.1.sdk/usr/include/sys/_types/_fd_zero.h:
+
+/usr/local/include/boost/range/config.hpp:
+
+/usr/local/include/boost/config/compiler/clang.hpp:
+
+/Library/Developer/CommandLineTools/SDKs/MacOSX12.1.sdk/usr/include/i386/types.h:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX12.1.sdk/usr/include/sys/_types/_fd_clr.h:
 
@@ -4401,6 +4189,14 @@ armadillo/armadillo_bits/glue_join_bones.hpp:
 /usr/local/include/boost/range/rend.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX12.1.sdk/usr/include/strings.h:
+
+armadillo/armadillo_bits/hdf5_name.hpp:
+
+armadillo/armadillo_bits/field_bones.hpp:
+
+/usr/local/include/boost/mpl/identity.hpp:
+
+/Library/Developer/CommandLineTools/usr/lib/clang/14.0.0/include/__stddef_max_align_t.h:
 
 armadillo/armadillo_bits/traits.hpp:
 
@@ -4426,9 +4222,9 @@ armadillo/armadillo_bits/op_reshape_meat.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX12.1.sdk/usr/include/sys/select.h:
 
-/Library/Developer/CommandLineTools/SDKs/MacOSX12.1.sdk/usr/include/c++/v1/__bits:
+armadillo/armadillo_bits/op_det_bones.hpp:
 
-/Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/x86intrin.h:
+/Library/Developer/CommandLineTools/SDKs/MacOSX12.1.sdk/usr/include/c++/v1/__bits:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX12.1.sdk/usr/include/xlocale/_stdio.h:
 
@@ -4442,8 +4238,6 @@ armadillo/armadillo_bits/fn_spsolve.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX12.1.sdk/usr/include/sys/_types/_seek_set.h:
 
-/Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/mm3dnow.h:
-
 /Library/Developer/CommandLineTools/SDKs/MacOSX12.1.sdk/usr/include/sys/errno.h:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX12.1.sdk/usr/include/i386/limits.h:
@@ -4454,11 +4248,19 @@ armadillo/armadillo_bits/fn_spsolve.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX12.1.sdk/usr/include/malloc/_malloc.h:
 
+armadillo/armadillo_bits/include_hdf5.hpp:
+
 /usr/local/include/boost/detail/indirect_traits.hpp:
 
 /usr/local/include/boost/mpl/aux_/config/overload_resolution.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX12.1.sdk/usr/include/stdlib.h:
+
+/Users/antoinebelley/.pyenv/versions/3.10.2/include/python3.10/pyframe.h:
+
+/usr/local/include/boost/preprocessor/detail/auto_rec.hpp:
+
+/Library/Developer/CommandLineTools/SDKs/MacOSX12.1.sdk/usr/include/libkern/i386/_OSByteOrder.h:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX12.1.sdk/usr/include/i386/endian.h:
 
@@ -4492,21 +4294,51 @@ armadillo/armadillo_bits/glue_relational_meat.hpp:
 
 armadillo/armadillo_bits/op_normalise_bones.hpp:
 
-/Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/avx512vpopcntdqintrin.h:
-
 /Library/Developer/CommandLineTools/SDKs/MacOSX12.1.sdk/usr/include/c++/v1/cstdint:
 
 armadillo/armadillo_bits/fn_trans.hpp:
 
-armadillo/armadillo_bits/include_hdf5.hpp:
+/Library/Developer/CommandLineTools/SDKs/MacOSX12.1.sdk/usr/include/c++/v1/tuple:
+
+/Library/Developer/CommandLineTools/SDKs/MacOSX12.1.sdk/usr/include/sys/_types/_ucontext.h:
+
+/Users/antoinebelley/.pyenv/versions/3.10.2/include/python3.10/compile.h:
+
+armadillo/armadillo_bits/Gen_bones.hpp:
+
+armadillo/armadillo_bits/glue_join_meat.hpp:
+
+armadillo/armadillo_bits/subview_cube_meat.hpp:
+
+/Library/Developer/CommandLineTools/SDKs/MacOSX12.1.sdk/usr/include/sys/appleapiopts.h:
+
+/usr/local/include/boost/preprocessor/debug/error.hpp:
+
+/Library/Developer/CommandLineTools/SDKs/MacOSX12.1.sdk/usr/include/_types/_uint64_t.h:
+
+armadillo/armadillo_bits/spop_misc_meat.hpp:
+
+/Library/Developer/CommandLineTools/SDKs/MacOSX12.1.sdk/usr/include/sys/_types/_errno_t.h:
+
+/Library/Developer/CommandLineTools/SDKs/MacOSX12.1.sdk/usr/include/sys/_types/_id_t.h:
+
+armadillo/armadillo_bits/spop_misc_bones.hpp:
+
+/Library/Developer/CommandLineTools/SDKs/MacOSX12.1.sdk/usr/include/c++/v1/__memory/pointer_traits.h:
+
+/usr/local/include/boost/integer_traits.hpp:
+
+/Users/antoinebelley/.pyenv/versions/3.10.2/include/python3.10/cpython/pydebug.h:
+
+armadillo/armadillo_bits/translate_blas.hpp:
+
+/Library/Developer/CommandLineTools/SDKs/MacOSX12.1.sdk/usr/include/sys/_types/_pid_t.h:
 
 /usr/local/include/boost/type_traits/is_signed.hpp:
 
 /Users/antoinebelley/.pyenv/versions/3.10.2/include/python3.10/pyconfig.h:
 
 armadillo/armadillo_bits/spglue_max_bones.hpp:
-
-/Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/waitpkgintrin.h:
 
 /usr/local/include/boost/mpl/aux_/config/has_apply.hpp:
 
@@ -4526,56 +4358,6 @@ armadillo/armadillo_bits/fn_wishrnd.hpp:
 
 armadillo/armadillo_bits/fn_var.hpp:
 
-/Library/Developer/CommandLineTools/SDKs/MacOSX12.1.sdk/usr/include/c++/v1/tuple:
-
-/Library/Developer/CommandLineTools/SDKs/MacOSX12.1.sdk/usr/include/sys/_types/_ucontext.h:
-
-/Users/antoinebelley/.pyenv/versions/3.10.2/include/python3.10/compile.h:
-
-armadillo/armadillo_bits/Gen_bones.hpp:
-
-armadillo/armadillo_bits/glue_join_meat.hpp:
-
-armadillo/armadillo_bits/subview_cube_meat.hpp:
-
-/Library/Developer/CommandLineTools/SDKs/MacOSX12.1.sdk/usr/include/sys/appleapiopts.h:
-
-/usr/local/include/boost/concept/detail/general.hpp:
-
-/usr/local/include/boost/range/detail/extract_optional_type.hpp:
-
-armadillo/armadillo_bits/mul_gemv.hpp:
-
-/Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/stddef.h:
-
-/usr/local/include/boost/preprocessor/debug/error.hpp:
-
-/Library/Developer/CommandLineTools/SDKs/MacOSX12.1.sdk/usr/include/_types/_uint64_t.h:
-
-armadillo/armadillo_bits/spop_misc_meat.hpp:
-
-/Library/Developer/CommandLineTools/SDKs/MacOSX12.1.sdk/usr/include/sys/_types/_errno_t.h:
-
-/Library/Developer/CommandLineTools/SDKs/MacOSX12.1.sdk/usr/include/sys/_types/_id_t.h:
-
-armadillo/armadillo_bits/spop_misc_bones.hpp:
-
-/Library/Developer/CommandLineTools/SDKs/MacOSX12.1.sdk/usr/include/c++/v1/__memory/pointer_traits.h:
-
-/usr/local/include/boost/mpl/aux_/arg_typedef.hpp:
-
-armadillo/armadillo_bits/fn_randperm.hpp:
-
-/Library/Developer/CommandLineTools/SDKs/MacOSX12.1.sdk/usr/include/sys/_types/_pid_t.h:
-
-/usr/local/include/omp.h:
-
-/usr/local/include/boost/integer_traits.hpp:
-
-/Users/antoinebelley/.pyenv/versions/3.10.2/include/python3.10/cpython/pydebug.h:
-
-armadillo/armadillo_bits/translate_blas.hpp:
-
 /usr/local/include/boost/mpl/bool.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX12.1.sdk/usr/include/c++/v1/stdlib.h:
@@ -4583,8 +4365,6 @@ armadillo/armadillo_bits/translate_blas.hpp:
 /Library/Developer/CommandLineTools/SDKs/MacOSX12.1.sdk/usr/include/AvailabilityVersions.h:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX12.1.sdk/usr/include/errno.h:
-
-/Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/avx512bitalgintrin.h:
 
 armadillo/armadillo_bits/fn_zeros.hpp:
 
@@ -4614,8 +4394,6 @@ armadillo/armadillo_bits/op_find_bones.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX12.1.sdk/usr/include/sys/_types/_mbstate_t.h:
 
-/Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/clwbintrin.h:
-
 /Library/Developer/CommandLineTools/SDKs/MacOSX12.1.sdk/usr/include/_types/_uint32_t.h:
 
 /usr/local/include/boost/preprocessor/tuple/elem.hpp:
@@ -4644,13 +4422,17 @@ armadillo/armadillo_bits/Col_bones.hpp:
 
 armadillo/armadillo_bits/xvec_htrans_bones.hpp:
 
-/Library/Developer/CommandLineTools/usr/lib/clang/13.1.6/include/sgxintrin.h:
-
 /usr/local/include/boost/iostreams/detail/adapter/mode_adapter.hpp:
 
 /usr/local/include/boost/preprocessor/cat.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX12.1.sdk/usr/include/sys/_types/_va_list.h:
+
+/usr/local/include/boost/mpl/aux_/arg_typedef.hpp:
+
+armadillo/armadillo_bits/fn_randperm.hpp:
+
+armadillo/armadillo_bits/fn_sylvester.hpp:
 
 armadillo/armadillo_bits/eop_aux.hpp:
 
@@ -4703,6 +4485,8 @@ armadillo/armadillo_bits/op_min_meat.hpp:
 armadillo/armadillo_bits/compiler_setup.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX12.1.sdk/usr/include/sys/_types/_suseconds_t.h:
+
+/Library/Developer/CommandLineTools/SDKs/MacOSX12.1.sdk/usr/include/c++/v1/bit:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX12.1.sdk/usr/include/alloca.h:
 
