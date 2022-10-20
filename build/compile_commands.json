@@ -1,0 +1,152 @@
+[
+{
+  "directory": "/Users/antoinebelley/Documents/TRIUMF/imsrg/build",
+  "command": "/Library/Developer/CommandLineTools/usr/bin/c++  -I/Users/antoinebelley/Documents/TRIUMF/imsrg/src/armadillo -I/Users/antoinebelley/Documents/TRIUMF/imsrg/src/half/include -isystem /usr/local/Cellar/gsl/2.7/include -O3 -DNDEBUG -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk -DNO_HDF5 -Xclang -fopenmp -std=gnu++11 -o CMakeFiles/OBJ.dir/ModelSpace.cc.o -c /Users/antoinebelley/Documents/TRIUMF/imsrg/src/ModelSpace.cc",
+  "file": "/Users/antoinebelley/Documents/TRIUMF/imsrg/src/ModelSpace.cc"
+},
+{
+  "directory": "/Users/antoinebelley/Documents/TRIUMF/imsrg/build",
+  "command": "/Library/Developer/CommandLineTools/usr/bin/c++  -I/Users/antoinebelley/Documents/TRIUMF/imsrg/src/armadillo -I/Users/antoinebelley/Documents/TRIUMF/imsrg/src/half/include -isystem /usr/local/Cellar/gsl/2.7/include -O3 -DNDEBUG -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk -DNO_HDF5 -Xclang -fopenmp -std=gnu++11 -o CMakeFiles/OBJ.dir/TwoBodyME.cc.o -c /Users/antoinebelley/Documents/TRIUMF/imsrg/src/TwoBodyME.cc",
+  "file": "/Users/antoinebelley/Documents/TRIUMF/imsrg/src/TwoBodyME.cc"
+},
+{
+  "directory": "/Users/antoinebelley/Documents/TRIUMF/imsrg/build",
+  "command": "/Library/Developer/CommandLineTools/usr/bin/c++  -I/Users/antoinebelley/Documents/TRIUMF/imsrg/src/armadillo -I/Users/antoinebelley/Documents/TRIUMF/imsrg/src/half/include -isystem /usr/local/Cellar/gsl/2.7/include -O3 -DNDEBUG -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk -DNO_HDF5 -Xclang -fopenmp -std=gnu++11 -o CMakeFiles/OBJ.dir/ThreeBodyME.cc.o -c /Users/antoinebelley/Documents/TRIUMF/imsrg/src/ThreeBodyME.cc",
+  "file": "/Users/antoinebelley/Documents/TRIUMF/imsrg/src/ThreeBodyME.cc"
+},
+{
+  "directory": "/Users/antoinebelley/Documents/TRIUMF/imsrg/build",
+  "command": "/Library/Developer/CommandLineTools/usr/bin/c++  -I/Users/antoinebelley/Documents/TRIUMF/imsrg/src/armadillo -I/Users/antoinebelley/Documents/TRIUMF/imsrg/src/half/include -isystem /usr/local/Cellar/gsl/2.7/include -O3 -DNDEBUG -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk -DNO_HDF5 -Xclang -fopenmp -std=gnu++11 -o CMakeFiles/OBJ.dir/Operator.cc.o -c /Users/antoinebelley/Documents/TRIUMF/imsrg/src/Operator.cc",
+  "file": "/Users/antoinebelley/Documents/TRIUMF/imsrg/src/Operator.cc"
+},
+{
+  "directory": "/Users/antoinebelley/Documents/TRIUMF/imsrg/build",
+  "command": "/Library/Developer/CommandLineTools/usr/bin/c++  -I/Users/antoinebelley/Documents/TRIUMF/imsrg/src/armadillo -I/Users/antoinebelley/Documents/TRIUMF/imsrg/src/half/include -isystem /usr/local/Cellar/gsl/2.7/include -O3 -DNDEBUG -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk -DNO_HDF5 -Xclang -fopenmp -std=gnu++11 -o CMakeFiles/OBJ.dir/ReadWrite.cc.o -c /Users/antoinebelley/Documents/TRIUMF/imsrg/src/ReadWrite.cc",
+  "file": "/Users/antoinebelley/Documents/TRIUMF/imsrg/src/ReadWrite.cc"
+},
+{
+  "directory": "/Users/antoinebelley/Documents/TRIUMF/imsrg/build",
+  "command": "/Library/Developer/CommandLineTools/usr/bin/c++  -I/Users/antoinebelley/Documents/TRIUMF/imsrg/src/armadillo -I/Users/antoinebelley/Documents/TRIUMF/imsrg/src/half/include -isystem /usr/local/Cellar/gsl/2.7/include -O3 -DNDEBUG -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk -DNO_HDF5 -Xclang -fopenmp -std=gnu++11 -o CMakeFiles/OBJ.dir/HartreeFock.cc.o -c /Users/antoinebelley/Documents/TRIUMF/imsrg/src/HartreeFock.cc",
+  "file": "/Users/antoinebelley/Documents/TRIUMF/imsrg/src/HartreeFock.cc"
+},
+{
+  "directory": "/Users/antoinebelley/Documents/TRIUMF/imsrg/build",
+  "command": "/Library/Developer/CommandLineTools/usr/bin/c++  -I/Users/antoinebelley/Documents/TRIUMF/imsrg/src/armadillo -I/Users/antoinebelley/Documents/TRIUMF/imsrg/src/half/include -isystem /usr/local/Cellar/gsl/2.7/include -O3 -DNDEBUG -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk -DNO_HDF5 -Xclang -fopenmp -std=gnu++11 -o CMakeFiles/OBJ.dir/imsrg_util.cc.o -c /Users/antoinebelley/Documents/TRIUMF/imsrg/src/imsrg_util.cc",
+  "file": "/Users/antoinebelley/Documents/TRIUMF/imsrg/src/imsrg_util.cc"
+},
+{
+  "directory": "/Users/antoinebelley/Documents/TRIUMF/imsrg/build",
+  "command": "/Library/Developer/CommandLineTools/usr/bin/c++  -I/Users/antoinebelley/Documents/TRIUMF/imsrg/src/armadillo -I/Users/antoinebelley/Documents/TRIUMF/imsrg/src/half/include -isystem /usr/local/Cellar/gsl/2.7/include -O3 -DNDEBUG -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk -DNO_HDF5 -Xclang -fopenmp -std=gnu++11 -o CMakeFiles/OBJ.dir/Generator.cc.o -c /Users/antoinebelley/Documents/TRIUMF/imsrg/src/Generator.cc",
+  "file": "/Users/antoinebelley/Documents/TRIUMF/imsrg/src/Generator.cc"
+},
+{
+  "directory": "/Users/antoinebelley/Documents/TRIUMF/imsrg/build",
+  "command": "/Library/Developer/CommandLineTools/usr/bin/c++  -I/Users/antoinebelley/Documents/TRIUMF/imsrg/src/armadillo -I/Users/antoinebelley/Documents/TRIUMF/imsrg/src/half/include -isystem /usr/local/Cellar/gsl/2.7/include -O3 -DNDEBUG -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk -DNO_HDF5 -Xclang -fopenmp -std=gnu++11 -o CMakeFiles/OBJ.dir/IMSRGSolver.cc.o -c /Users/antoinebelley/Documents/TRIUMF/imsrg/src/IMSRGSolver.cc",
+  "file": "/Users/antoinebelley/Documents/TRIUMF/imsrg/src/IMSRGSolver.cc"
+},
+{
+  "directory": "/Users/antoinebelley/Documents/TRIUMF/imsrg/build",
+  "command": "/Library/Developer/CommandLineTools/usr/bin/c++  -I/Users/antoinebelley/Documents/TRIUMF/imsrg/src/armadillo -I/Users/antoinebelley/Documents/TRIUMF/imsrg/src/half/include -isystem /usr/local/Cellar/gsl/2.7/include -O3 -DNDEBUG -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk -DNO_HDF5 -Xclang -fopenmp -std=gnu++11 -o CMakeFiles/OBJ.dir/AngMom.cc.o -c /Users/antoinebelley/Documents/TRIUMF/imsrg/src/AngMom.cc",
+  "file": "/Users/antoinebelley/Documents/TRIUMF/imsrg/src/AngMom.cc"
+},
+{
+  "directory": "/Users/antoinebelley/Documents/TRIUMF/imsrg/build",
+  "command": "/Library/Developer/CommandLineTools/usr/bin/c++  -I/Users/antoinebelley/Documents/TRIUMF/imsrg/src/armadillo -I/Users/antoinebelley/Documents/TRIUMF/imsrg/src/half/include -isystem /usr/local/Cellar/gsl/2.7/include -O3 -DNDEBUG -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk -DNO_HDF5 -Xclang -fopenmp -std=gnu++11 -o CMakeFiles/OBJ.dir/IMSRGProfiler.cc.o -c /Users/antoinebelley/Documents/TRIUMF/imsrg/src/IMSRGProfiler.cc",
+  "file": "/Users/antoinebelley/Documents/TRIUMF/imsrg/src/IMSRGProfiler.cc"
+},
+{
+  "directory": "/Users/antoinebelley/Documents/TRIUMF/imsrg/build",
+  "command": "/Library/Developer/CommandLineTools/usr/bin/c++  -I/Users/antoinebelley/Documents/TRIUMF/imsrg/src/armadillo -I/Users/antoinebelley/Documents/TRIUMF/imsrg/src/half/include -isystem /usr/local/Cellar/gsl/2.7/include -O3 -DNDEBUG -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk -DNO_HDF5 -Xclang -fopenmp -std=gnu++11 -o CMakeFiles/OBJ.dir/Commutator.cc.o -c /Users/antoinebelley/Documents/TRIUMF/imsrg/src/Commutator.cc",
+  "file": "/Users/antoinebelley/Documents/TRIUMF/imsrg/src/Commutator.cc"
+},
+{
+  "directory": "/Users/antoinebelley/Documents/TRIUMF/imsrg/build",
+  "command": "/Library/Developer/CommandLineTools/usr/bin/c++  -I/Users/antoinebelley/Documents/TRIUMF/imsrg/src/armadillo -I/Users/antoinebelley/Documents/TRIUMF/imsrg/src/half/include -isystem /usr/local/Cellar/gsl/2.7/include -O3 -DNDEBUG -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk -DNO_HDF5 -Xclang -fopenmp -std=gnu++11 -o CMakeFiles/OBJ.dir/HFMBPT.cc.o -c /Users/antoinebelley/Documents/TRIUMF/imsrg/src/HFMBPT.cc",
+  "file": "/Users/antoinebelley/Documents/TRIUMF/imsrg/src/HFMBPT.cc"
+},
+{
+  "directory": "/Users/antoinebelley/Documents/TRIUMF/imsrg/build",
+  "command": "/Library/Developer/CommandLineTools/usr/bin/c++  -I/Users/antoinebelley/Documents/TRIUMF/imsrg/src/armadillo -I/Users/antoinebelley/Documents/TRIUMF/imsrg/src/half/include -isystem /usr/local/Cellar/gsl/2.7/include -O3 -DNDEBUG -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk -DNO_HDF5 -Xclang -fopenmp -std=gnu++11 -o CMakeFiles/OBJ.dir/Helicity.cc.o -c /Users/antoinebelley/Documents/TRIUMF/imsrg/src/Helicity.cc",
+  "file": "/Users/antoinebelley/Documents/TRIUMF/imsrg/src/Helicity.cc"
+},
+{
+  "directory": "/Users/antoinebelley/Documents/TRIUMF/imsrg/build",
+  "command": "/Library/Developer/CommandLineTools/usr/bin/c++  -I/Users/antoinebelley/Documents/TRIUMF/imsrg/src/armadillo -I/Users/antoinebelley/Documents/TRIUMF/imsrg/src/half/include -isystem /usr/local/Cellar/gsl/2.7/include -O3 -DNDEBUG -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk -DNO_HDF5 -Xclang -fopenmp -std=gnu++11 -o CMakeFiles/OBJ.dir/M0nu.cc.o -c /Users/antoinebelley/Documents/TRIUMF/imsrg/src/M0nu.cc",
+  "file": "/Users/antoinebelley/Documents/TRIUMF/imsrg/src/M0nu.cc"
+},
+{
+  "directory": "/Users/antoinebelley/Documents/TRIUMF/imsrg/build",
+  "command": "/Library/Developer/CommandLineTools/usr/bin/c++  -I/Users/antoinebelley/Documents/TRIUMF/imsrg/src/armadillo -I/Users/antoinebelley/Documents/TRIUMF/imsrg/src/half/include -isystem /usr/local/Cellar/gsl/2.7/include -O3 -DNDEBUG -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk -DNO_HDF5 -Xclang -fopenmp -std=gnu++11 -o CMakeFiles/OBJ.dir/DarkMatterNREFT.cc.o -c /Users/antoinebelley/Documents/TRIUMF/imsrg/src/DarkMatterNREFT.cc",
+  "file": "/Users/antoinebelley/Documents/TRIUMF/imsrg/src/DarkMatterNREFT.cc"
+},
+{
+  "directory": "/Users/antoinebelley/Documents/TRIUMF/imsrg/build",
+  "command": "/Library/Developer/CommandLineTools/usr/bin/c++  -I/Users/antoinebelley/Documents/TRIUMF/imsrg/src/armadillo -I/Users/antoinebelley/Documents/TRIUMF/imsrg/src/half/include -isystem /usr/local/Cellar/gsl/2.7/include -O3 -DNDEBUG -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk -DNO_HDF5 -Xclang -fopenmp -std=gnu++11 -o CMakeFiles/OBJ.dir/Jacobi3BME.cc.o -c /Users/antoinebelley/Documents/TRIUMF/imsrg/src/Jacobi3BME.cc",
+  "file": "/Users/antoinebelley/Documents/TRIUMF/imsrg/src/Jacobi3BME.cc"
+},
+{
+  "directory": "/Users/antoinebelley/Documents/TRIUMF/imsrg/build",
+  "command": "/Library/Developer/CommandLineTools/usr/bin/c++  -I/Users/antoinebelley/Documents/TRIUMF/imsrg/src/armadillo -I/Users/antoinebelley/Documents/TRIUMF/imsrg/src/half/include -isystem /usr/local/Cellar/gsl/2.7/include -O3 -DNDEBUG -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk -DNO_HDF5 -Xclang -fopenmp -std=gnu++11 -o CMakeFiles/OBJ.dir/UnitTest.cc.o -c /Users/antoinebelley/Documents/TRIUMF/imsrg/src/UnitTest.cc",
+  "file": "/Users/antoinebelley/Documents/TRIUMF/imsrg/src/UnitTest.cc"
+},
+{
+  "directory": "/Users/antoinebelley/Documents/TRIUMF/imsrg/build",
+  "command": "/Library/Developer/CommandLineTools/usr/bin/c++  -I/Users/antoinebelley/Documents/TRIUMF/imsrg/src/armadillo -I/Users/antoinebelley/Documents/TRIUMF/imsrg/src/half/include -isystem /usr/local/Cellar/gsl/2.7/include -O3 -DNDEBUG -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk -DNO_HDF5 -Xclang -fopenmp -std=gnu++11 -o CMakeFiles/OBJ.dir/TwoBodyChannel.cc.o -c /Users/antoinebelley/Documents/TRIUMF/imsrg/src/TwoBodyChannel.cc",
+  "file": "/Users/antoinebelley/Documents/TRIUMF/imsrg/src/TwoBodyChannel.cc"
+},
+{
+  "directory": "/Users/antoinebelley/Documents/TRIUMF/imsrg/build",
+  "command": "/Library/Developer/CommandLineTools/usr/bin/c++  -I/Users/antoinebelley/Documents/TRIUMF/imsrg/src/armadillo -I/Users/antoinebelley/Documents/TRIUMF/imsrg/src/half/include -isystem /usr/local/Cellar/gsl/2.7/include -O3 -DNDEBUG -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk -DNO_HDF5 -Xclang -fopenmp -std=gnu++11 -o CMakeFiles/OBJ.dir/ThreeBodyChannel.cc.o -c /Users/antoinebelley/Documents/TRIUMF/imsrg/src/ThreeBodyChannel.cc",
+  "file": "/Users/antoinebelley/Documents/TRIUMF/imsrg/src/ThreeBodyChannel.cc"
+},
+{
+  "directory": "/Users/antoinebelley/Documents/TRIUMF/imsrg/build",
+  "command": "/Library/Developer/CommandLineTools/usr/bin/c++  -I/Users/antoinebelley/Documents/TRIUMF/imsrg/src/armadillo -I/Users/antoinebelley/Documents/TRIUMF/imsrg/src/half/include -isystem /usr/local/Cellar/gsl/2.7/include -O3 -DNDEBUG -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk -DNO_HDF5 -Xclang -fopenmp -std=gnu++11 -o CMakeFiles/OBJ.dir/Pwd.cc.o -c /Users/antoinebelley/Documents/TRIUMF/imsrg/src/Pwd.cc",
+  "file": "/Users/antoinebelley/Documents/TRIUMF/imsrg/src/Pwd.cc"
+},
+{
+  "directory": "/Users/antoinebelley/Documents/TRIUMF/imsrg/build",
+  "command": "/Library/Developer/CommandLineTools/usr/bin/c++  -I/Users/antoinebelley/Documents/TRIUMF/imsrg/src/armadillo -I/Users/antoinebelley/Documents/TRIUMF/imsrg/src/half/include -isystem /usr/local/Cellar/gsl/2.7/include -O3 -DNDEBUG -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk -DNO_HDF5 -Xclang -fopenmp -std=gnu++11 -o CMakeFiles/OBJ.dir/ThreeBodyStorage.cc.o -c /Users/antoinebelley/Documents/TRIUMF/imsrg/src/ThreeBodyStorage.cc",
+  "file": "/Users/antoinebelley/Documents/TRIUMF/imsrg/src/ThreeBodyStorage.cc"
+},
+{
+  "directory": "/Users/antoinebelley/Documents/TRIUMF/imsrg/build",
+  "command": "/Library/Developer/CommandLineTools/usr/bin/c++  -I/Users/antoinebelley/Documents/TRIUMF/imsrg/src/armadillo -I/Users/antoinebelley/Documents/TRIUMF/imsrg/src/half/include -isystem /usr/local/Cellar/gsl/2.7/include -O3 -DNDEBUG -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk -DNO_HDF5 -Xclang -fopenmp -std=gnu++11 -o CMakeFiles/OBJ.dir/ThreeBodyStorage_pn.cc.o -c /Users/antoinebelley/Documents/TRIUMF/imsrg/src/ThreeBodyStorage_pn.cc",
+  "file": "/Users/antoinebelley/Documents/TRIUMF/imsrg/src/ThreeBodyStorage_pn.cc"
+},
+{
+  "directory": "/Users/antoinebelley/Documents/TRIUMF/imsrg/build",
+  "command": "/Library/Developer/CommandLineTools/usr/bin/c++  -I/Users/antoinebelley/Documents/TRIUMF/imsrg/src/armadillo -I/Users/antoinebelley/Documents/TRIUMF/imsrg/src/half/include -isystem /usr/local/Cellar/gsl/2.7/include -O3 -DNDEBUG -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk -DNO_HDF5 -Xclang -fopenmp -std=gnu++11 -o CMakeFiles/OBJ.dir/ThreeBodyStorage_iso.cc.o -c /Users/antoinebelley/Documents/TRIUMF/imsrg/src/ThreeBodyStorage_iso.cc",
+  "file": "/Users/antoinebelley/Documents/TRIUMF/imsrg/src/ThreeBodyStorage_iso.cc"
+},
+{
+  "directory": "/Users/antoinebelley/Documents/TRIUMF/imsrg/build",
+  "command": "/Library/Developer/CommandLineTools/usr/bin/c++  -I/Users/antoinebelley/Documents/TRIUMF/imsrg/src/armadillo -I/Users/antoinebelley/Documents/TRIUMF/imsrg/src/half/include -isystem /usr/local/Cellar/gsl/2.7/include -O3 -DNDEBUG -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk -DNO_HDF5 -Xclang -fopenmp -std=gnu++11 -o CMakeFiles/OBJ.dir/ThreeBodyStorage_no2b.cc.o -c /Users/antoinebelley/Documents/TRIUMF/imsrg/src/ThreeBodyStorage_no2b.cc",
+  "file": "/Users/antoinebelley/Documents/TRIUMF/imsrg/src/ThreeBodyStorage_no2b.cc"
+},
+{
+  "directory": "/Users/antoinebelley/Documents/TRIUMF/imsrg/build",
+  "command": "/Library/Developer/CommandLineTools/usr/bin/c++  -I/Users/antoinebelley/Documents/TRIUMF/imsrg/src/armadillo -I/Users/antoinebelley/Documents/TRIUMF/imsrg/src/half/include -isystem /usr/local/Cellar/gsl/2.7/include -O3 -DNDEBUG -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk -DNO_HDF5 -Xclang -fopenmp -std=gnu++11 -o CMakeFiles/OBJ.dir/ThreeLegME.cc.o -c /Users/antoinebelley/Documents/TRIUMF/imsrg/src/ThreeLegME.cc",
+  "file": "/Users/antoinebelley/Documents/TRIUMF/imsrg/src/ThreeLegME.cc"
+},
+{
+  "directory": "/Users/antoinebelley/Documents/TRIUMF/imsrg/build",
+  "command": "/Library/Developer/CommandLineTools/usr/bin/c++  -I/Users/antoinebelley/Documents/TRIUMF/imsrg/src/armadillo -I/Users/antoinebelley/Documents/TRIUMF/imsrg/src/half/include -isystem /usr/local/Cellar/gsl/2.7/include -O3 -DNDEBUG -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk -DNO_HDF5 -Xclang -fopenmp -std=gnu++11 -o CMakeFiles/OBJ.dir/boost_src/gzip.cpp.o -c /Users/antoinebelley/Documents/TRIUMF/imsrg/src/boost_src/gzip.cpp",
+  "file": "/Users/antoinebelley/Documents/TRIUMF/imsrg/src/boost_src/gzip.cpp"
+},
+{
+  "directory": "/Users/antoinebelley/Documents/TRIUMF/imsrg/build",
+  "command": "/Library/Developer/CommandLineTools/usr/bin/c++  -I/Users/antoinebelley/Documents/TRIUMF/imsrg/src/armadillo -I/Users/antoinebelley/Documents/TRIUMF/imsrg/src/half/include -isystem /usr/local/Cellar/gsl/2.7/include -O3 -DNDEBUG -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk -DNO_HDF5 -Xclang -fopenmp -std=gnu++11 -o CMakeFiles/OBJ.dir/boost_src/zlib.cpp.o -c /Users/antoinebelley/Documents/TRIUMF/imsrg/src/boost_src/zlib.cpp",
+  "file": "/Users/antoinebelley/Documents/TRIUMF/imsrg/src/boost_src/zlib.cpp"
+},
+{
+  "directory": "/Users/antoinebelley/Documents/TRIUMF/imsrg/build",
+  "command": "/Library/Developer/CommandLineTools/usr/bin/c++  -I/Users/antoinebelley/Documents/TRIUMF/imsrg/src/armadillo -I/Users/antoinebelley/Documents/TRIUMF/imsrg/src/half/include -isystem /usr/local/Cellar/gsl/2.7/include -O3 -DNDEBUG -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk -DNO_HDF5 -Xclang -fopenmp -std=gnu++11 -o CMakeFiles/imsrg++.dir/imsrg++.cc.o -c /Users/antoinebelley/Documents/TRIUMF/imsrg/src/imsrg++.cc",
+  "file": "/Users/antoinebelley/Documents/TRIUMF/imsrg/src/imsrg++.cc"
+},
+{
+  "directory": "/Users/antoinebelley/Documents/TRIUMF/imsrg/build",
+  "command": "/Library/Developer/CommandLineTools/usr/bin/c++ -DpyIMSRG_EXPORTS -I/Users/antoinebelley/Documents/TRIUMF/imsrg/src/pybind11/include -I/Users/antoinebelley/.pyenv/versions/3.10.2/include/python3.10 -I/Users/antoinebelley/Documents/TRIUMF/imsrg/src/armadillo -I/Users/antoinebelley/Documents/TRIUMF/imsrg/src/half/include -isystem /usr/local/Cellar/gsl/2.7/include -O3 -DNDEBUG -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk -fPIC -fvisibility=default -flto -DNO_HDF5 -Xclang -fopenmp -std=gnu++11 -o CMakeFiles/pyIMSRG.dir/pyIMSRG.cc.o -c /Users/antoinebelley/Documents/TRIUMF/imsrg/src/pyIMSRG.cc",
+  "file": "/Users/antoinebelley/Documents/TRIUMF/imsrg/src/pyIMSRG.cc"
+}
+]

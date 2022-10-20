@@ -1,0 +1,444 @@
+{
+	"artifacts" : 
+	[
+		{
+			"path" : "CMakeFiles/OBJ.dir/ModelSpace.cc.o"
+		},
+		{
+			"path" : "CMakeFiles/OBJ.dir/TwoBodyME.cc.o"
+		},
+		{
+			"path" : "CMakeFiles/OBJ.dir/ThreeBodyME.cc.o"
+		},
+		{
+			"path" : "CMakeFiles/OBJ.dir/Operator.cc.o"
+		},
+		{
+			"path" : "CMakeFiles/OBJ.dir/ReadWrite.cc.o"
+		},
+		{
+			"path" : "CMakeFiles/OBJ.dir/HartreeFock.cc.o"
+		},
+		{
+			"path" : "CMakeFiles/OBJ.dir/imsrg_util.cc.o"
+		},
+		{
+			"path" : "CMakeFiles/OBJ.dir/Generator.cc.o"
+		},
+		{
+			"path" : "CMakeFiles/OBJ.dir/IMSRGSolver.cc.o"
+		},
+		{
+			"path" : "CMakeFiles/OBJ.dir/AngMom.cc.o"
+		},
+		{
+			"path" : "CMakeFiles/OBJ.dir/IMSRGProfiler.cc.o"
+		},
+		{
+			"path" : "CMakeFiles/OBJ.dir/Commutator.cc.o"
+		},
+		{
+			"path" : "CMakeFiles/OBJ.dir/HFMBPT.cc.o"
+		},
+		{
+			"path" : "CMakeFiles/OBJ.dir/Helicity.cc.o"
+		},
+		{
+			"path" : "CMakeFiles/OBJ.dir/M0nu.cc.o"
+		},
+		{
+			"path" : "CMakeFiles/OBJ.dir/DarkMatterNREFT.cc.o"
+		},
+		{
+			"path" : "CMakeFiles/OBJ.dir/Jacobi3BME.cc.o"
+		},
+		{
+			"path" : "CMakeFiles/OBJ.dir/UnitTest.cc.o"
+		},
+		{
+			"path" : "CMakeFiles/OBJ.dir/TwoBodyChannel.cc.o"
+		},
+		{
+			"path" : "CMakeFiles/OBJ.dir/ThreeBodyChannel.cc.o"
+		},
+		{
+			"path" : "CMakeFiles/OBJ.dir/Pwd.cc.o"
+		},
+		{
+			"path" : "CMakeFiles/OBJ.dir/ThreeBodyStorage.cc.o"
+		},
+		{
+			"path" : "CMakeFiles/OBJ.dir/ThreeBodyStorage_pn.cc.o"
+		},
+		{
+			"path" : "CMakeFiles/OBJ.dir/ThreeBodyStorage_iso.cc.o"
+		},
+		{
+			"path" : "CMakeFiles/OBJ.dir/ThreeBodyStorage_no2b.cc.o"
+		},
+		{
+			"path" : "CMakeFiles/OBJ.dir/ThreeLegME.cc.o"
+		},
+		{
+			"path" : "CMakeFiles/OBJ.dir/boost_src/gzip.cpp.o"
+		},
+		{
+			"path" : "CMakeFiles/OBJ.dir/boost_src/zlib.cpp.o"
+		}
+	],
+	"backtrace" : 1,
+	"backtraceGraph" : 
+	{
+		"commands" : 
+		[
+			"add_library",
+			"target_compile_options",
+			"target_link_libraries",
+			"target_include_directories"
+		],
+		"files" : 
+		[
+			"CMakeLists.txt"
+		],
+		"nodes" : 
+		[
+			{
+				"file" : 0
+			},
+			{
+				"command" : 0,
+				"file" : 0,
+				"line" : 36,
+				"parent" : 0
+			},
+			{
+				"command" : 1,
+				"file" : 0,
+				"line" : 69,
+				"parent" : 0
+			},
+			{
+				"command" : 2,
+				"file" : 0,
+				"line" : 60,
+				"parent" : 0
+			},
+			{
+				"command" : 3,
+				"file" : 0,
+				"line" : 48,
+				"parent" : 0
+			},
+			{
+				"command" : 3,
+				"file" : 0,
+				"line" : 49,
+				"parent" : 0
+			},
+			{
+				"command" : 2,
+				"file" : 0,
+				"line" : 55,
+				"parent" : 0
+			}
+		]
+	},
+	"compileGroups" : 
+	[
+		{
+			"compileCommandFragments" : 
+			[
+				{
+					"fragment" : "-O3 -DNDEBUG -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk"
+				},
+				{
+					"backtrace" : 2,
+					"fragment" : "-DNO_HDF5"
+				},
+				{
+					"backtrace" : 3,
+					"fragment" : "-Xclang"
+				},
+				{
+					"backtrace" : 3,
+					"fragment" : "-fopenmp"
+				},
+				{
+					"fragment" : "-std=gnu++11"
+				}
+			],
+			"includes" : 
+			[
+				{
+					"backtrace" : 4,
+					"path" : "/Users/antoinebelley/Documents/TRIUMF/imsrg/src/armadillo"
+				},
+				{
+					"backtrace" : 5,
+					"path" : "/Users/antoinebelley/Documents/TRIUMF/imsrg/src/half/include"
+				},
+				{
+					"backtrace" : 6,
+					"isSystem" : true,
+					"path" : "/usr/local/Cellar/gsl/2.7/include"
+				}
+			],
+			"language" : "CXX",
+			"languageStandard" : 
+			{
+				"backtraces" : 
+				[
+					1
+				],
+				"standard" : "11"
+			},
+			"sourceIndexes" : 
+			[
+				0,
+				1,
+				2,
+				3,
+				4,
+				5,
+				6,
+				7,
+				8,
+				9,
+				10,
+				11,
+				12,
+				13,
+				14,
+				15,
+				16,
+				17,
+				18,
+				19,
+				20,
+				21,
+				22,
+				23,
+				24,
+				25,
+				26,
+				27
+			]
+		}
+	],
+	"id" : "OBJ::@6890427a1f51a3e7e1df",
+	"name" : "OBJ",
+	"paths" : 
+	{
+		"build" : ".",
+		"source" : "."
+	},
+	"sourceGroups" : 
+	[
+		{
+			"name" : "Source Files",
+			"sourceIndexes" : 
+			[
+				0,
+				1,
+				2,
+				3,
+				4,
+				5,
+				6,
+				7,
+				8,
+				9,
+				10,
+				11,
+				12,
+				13,
+				14,
+				15,
+				16,
+				17,
+				18,
+				19,
+				20,
+				21,
+				22,
+				23,
+				24,
+				25,
+				26,
+				27
+			]
+		}
+	],
+	"sources" : 
+	[
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "ModelSpace.cc",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "TwoBodyME.cc",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "ThreeBodyME.cc",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "Operator.cc",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "ReadWrite.cc",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "HartreeFock.cc",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "imsrg_util.cc",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "Generator.cc",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "IMSRGSolver.cc",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "AngMom.cc",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "IMSRGProfiler.cc",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "Commutator.cc",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "HFMBPT.cc",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "Helicity.cc",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "M0nu.cc",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "DarkMatterNREFT.cc",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "Jacobi3BME.cc",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "UnitTest.cc",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "TwoBodyChannel.cc",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "ThreeBodyChannel.cc",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "Pwd.cc",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "ThreeBodyStorage.cc",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "ThreeBodyStorage_pn.cc",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "ThreeBodyStorage_iso.cc",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "ThreeBodyStorage_no2b.cc",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "ThreeLegME.cc",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "boost_src/gzip.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "boost_src/zlib.cpp",
+			"sourceGroupIndex" : 0
+		}
+	],
+	"type" : "OBJECT_LIBRARY"
+}

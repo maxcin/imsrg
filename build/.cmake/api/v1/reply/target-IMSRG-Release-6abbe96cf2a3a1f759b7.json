@@ -1,0 +1,327 @@
+{
+	"artifacts" : 
+	[
+		{
+			"path" : "libIMSRG.dylib"
+		}
+	],
+	"backtrace" : 1,
+	"backtraceGraph" : 
+	{
+		"commands" : 
+		[
+			"add_library",
+			"install",
+			"target_link_libraries"
+		],
+		"files" : 
+		[
+			"CMakeLists.txt"
+		],
+		"nodes" : 
+		[
+			{
+				"file" : 0
+			},
+			{
+				"command" : 0,
+				"file" : 0,
+				"line" : 44,
+				"parent" : 0
+			},
+			{
+				"command" : 1,
+				"file" : 0,
+				"line" : 95,
+				"parent" : 0
+			},
+			{
+				"command" : 2,
+				"file" : 0,
+				"line" : 50,
+				"parent" : 0
+			}
+		]
+	},
+	"dependencies" : 
+	[
+		{
+			"backtrace" : 3,
+			"id" : "OBJ::@6890427a1f51a3e7e1df"
+		}
+	],
+	"id" : "IMSRG::@6890427a1f51a3e7e1df",
+	"install" : 
+	{
+		"destinations" : 
+		[
+			{
+				"backtrace" : 2,
+				"path" : "/Users/antoinebelley/lib"
+			},
+			{
+				"backtrace" : 2,
+				"path" : "/Users/antoinebelley/lib"
+			}
+		],
+		"prefix" : 
+		{
+			"path" : "/usr/local"
+		}
+	},
+	"link" : 
+	{
+		"commandFragments" : 
+		[
+			{
+				"fragment" : "",
+				"role" : "flags"
+			},
+			{
+				"fragment" : "/usr/local/Cellar/gsl/2.7/lib/libgsl.dylib",
+				"role" : "libraries"
+			},
+			{
+				"fragment" : "/usr/local/Cellar/gsl/2.7/lib/libgslcblas.dylib",
+				"role" : "libraries"
+			},
+			{
+				"fragment" : "/usr/local/lib/libomp.dylib",
+				"role" : "libraries"
+			},
+			{
+				"fragment" : "/usr/local/opt/openblas/lib/libopenblas.dylib",
+				"role" : "libraries"
+			},
+			{
+				"fragment" : "-lm",
+				"role" : "libraries"
+			},
+			{
+				"fragment" : "-ldl",
+				"role" : "libraries"
+			},
+			{
+				"fragment" : "/Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk/usr/lib/libz.tbd",
+				"role" : "libraries"
+			}
+		],
+		"language" : "CXX"
+	},
+	"name" : "IMSRG",
+	"nameOnDisk" : "libIMSRG.dylib",
+	"paths" : 
+	{
+		"build" : ".",
+		"source" : "."
+	},
+	"sourceGroups" : 
+	[
+		{
+			"name" : "Object Libraries",
+			"sourceIndexes" : 
+			[
+				0,
+				1,
+				2,
+				3,
+				4,
+				5,
+				6,
+				7,
+				8,
+				9,
+				10,
+				11,
+				12,
+				13,
+				14,
+				15,
+				16,
+				17,
+				18,
+				19,
+				20,
+				21,
+				22,
+				23,
+				24,
+				25,
+				26,
+				27
+			]
+		}
+	],
+	"sources" : 
+	[
+		{
+			"backtrace" : 3,
+			"isGenerated" : true,
+			"path" : "/Users/antoinebelley/Documents/TRIUMF/imsrg/build/CMakeFiles/OBJ.dir/ModelSpace.cc.o",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 3,
+			"isGenerated" : true,
+			"path" : "/Users/antoinebelley/Documents/TRIUMF/imsrg/build/CMakeFiles/OBJ.dir/TwoBodyME.cc.o",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 3,
+			"isGenerated" : true,
+			"path" : "/Users/antoinebelley/Documents/TRIUMF/imsrg/build/CMakeFiles/OBJ.dir/ThreeBodyME.cc.o",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 3,
+			"isGenerated" : true,
+			"path" : "/Users/antoinebelley/Documents/TRIUMF/imsrg/build/CMakeFiles/OBJ.dir/Operator.cc.o",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 3,
+			"isGenerated" : true,
+			"path" : "/Users/antoinebelley/Documents/TRIUMF/imsrg/build/CMakeFiles/OBJ.dir/ReadWrite.cc.o",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 3,
+			"isGenerated" : true,
+			"path" : "/Users/antoinebelley/Documents/TRIUMF/imsrg/build/CMakeFiles/OBJ.dir/HartreeFock.cc.o",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 3,
+			"isGenerated" : true,
+			"path" : "/Users/antoinebelley/Documents/TRIUMF/imsrg/build/CMakeFiles/OBJ.dir/imsrg_util.cc.o",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 3,
+			"isGenerated" : true,
+			"path" : "/Users/antoinebelley/Documents/TRIUMF/imsrg/build/CMakeFiles/OBJ.dir/Generator.cc.o",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 3,
+			"isGenerated" : true,
+			"path" : "/Users/antoinebelley/Documents/TRIUMF/imsrg/build/CMakeFiles/OBJ.dir/IMSRGSolver.cc.o",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 3,
+			"isGenerated" : true,
+			"path" : "/Users/antoinebelley/Documents/TRIUMF/imsrg/build/CMakeFiles/OBJ.dir/AngMom.cc.o",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 3,
+			"isGenerated" : true,
+			"path" : "/Users/antoinebelley/Documents/TRIUMF/imsrg/build/CMakeFiles/OBJ.dir/IMSRGProfiler.cc.o",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 3,
+			"isGenerated" : true,
+			"path" : "/Users/antoinebelley/Documents/TRIUMF/imsrg/build/CMakeFiles/OBJ.dir/Commutator.cc.o",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 3,
+			"isGenerated" : true,
+			"path" : "/Users/antoinebelley/Documents/TRIUMF/imsrg/build/CMakeFiles/OBJ.dir/HFMBPT.cc.o",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 3,
+			"isGenerated" : true,
+			"path" : "/Users/antoinebelley/Documents/TRIUMF/imsrg/build/CMakeFiles/OBJ.dir/Helicity.cc.o",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 3,
+			"isGenerated" : true,
+			"path" : "/Users/antoinebelley/Documents/TRIUMF/imsrg/build/CMakeFiles/OBJ.dir/M0nu.cc.o",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 3,
+			"isGenerated" : true,
+			"path" : "/Users/antoinebelley/Documents/TRIUMF/imsrg/build/CMakeFiles/OBJ.dir/DarkMatterNREFT.cc.o",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 3,
+			"isGenerated" : true,
+			"path" : "/Users/antoinebelley/Documents/TRIUMF/imsrg/build/CMakeFiles/OBJ.dir/Jacobi3BME.cc.o",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 3,
+			"isGenerated" : true,
+			"path" : "/Users/antoinebelley/Documents/TRIUMF/imsrg/build/CMakeFiles/OBJ.dir/UnitTest.cc.o",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 3,
+			"isGenerated" : true,
+			"path" : "/Users/antoinebelley/Documents/TRIUMF/imsrg/build/CMakeFiles/OBJ.dir/TwoBodyChannel.cc.o",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 3,
+			"isGenerated" : true,
+			"path" : "/Users/antoinebelley/Documents/TRIUMF/imsrg/build/CMakeFiles/OBJ.dir/ThreeBodyChannel.cc.o",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 3,
+			"isGenerated" : true,
+			"path" : "/Users/antoinebelley/Documents/TRIUMF/imsrg/build/CMakeFiles/OBJ.dir/Pwd.cc.o",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 3,
+			"isGenerated" : true,
+			"path" : "/Users/antoinebelley/Documents/TRIUMF/imsrg/build/CMakeFiles/OBJ.dir/ThreeBodyStorage.cc.o",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 3,
+			"isGenerated" : true,
+			"path" : "/Users/antoinebelley/Documents/TRIUMF/imsrg/build/CMakeFiles/OBJ.dir/ThreeBodyStorage_pn.cc.o",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 3,
+			"isGenerated" : true,
+			"path" : "/Users/antoinebelley/Documents/TRIUMF/imsrg/build/CMakeFiles/OBJ.dir/ThreeBodyStorage_iso.cc.o",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 3,
+			"isGenerated" : true,
+			"path" : "/Users/antoinebelley/Documents/TRIUMF/imsrg/build/CMakeFiles/OBJ.dir/ThreeBodyStorage_no2b.cc.o",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 3,
+			"isGenerated" : true,
+			"path" : "/Users/antoinebelley/Documents/TRIUMF/imsrg/build/CMakeFiles/OBJ.dir/ThreeLegME.cc.o",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 3,
+			"isGenerated" : true,
+			"path" : "/Users/antoinebelley/Documents/TRIUMF/imsrg/build/CMakeFiles/OBJ.dir/boost_src/gzip.cpp.o",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 3,
+			"isGenerated" : true,
+			"path" : "/Users/antoinebelley/Documents/TRIUMF/imsrg/build/CMakeFiles/OBJ.dir/boost_src/zlib.cpp.o",
+			"sourceGroupIndex" : 0
+		}
+	],
+	"type" : "SHARED_LIBRARY"
+}
