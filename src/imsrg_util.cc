@@ -314,20 +314,31 @@ namespace imsrg_util
       }
       else if (opnamesplit[0] == "M0nu") // Neutrinoless Double Beta Decay Operators   format e.g.  M0nu_GT_7.72_none or M0nu_F_12.6_AV18
       {
-        double Eclosure;
+        
         std::string M0nuopname = opnamesplit[1];
-        std::istringstream(opnamesplit[2]) >> Eclosure;
-        std::string src = opnamesplit[3];
-        std::map<std::string, Operator (*)(ModelSpace&, double, std::string) > M0nuop = {
-              {"GT", &M0nu::GamowTeller},
-              {"F",  &M0nu::Fermi},
-              {"T",  &M0nu::Tensor},
-              {"C", &M0nu::Contact}
-             };
-        if ( M0nuop.find(M0nuopname) != M0nuop.end() )
+        if (M0nuopname != "C")
         {
-        theop =  M0nuop[M0nuopname](modelspace,Eclosure,src);
+          double Eclosure;
+          std::istringstream(opnamesplit[2]) >> Eclosure;
+          std::string src = opnamesplit[3];
+          std::map<std::string, Operator (*)(ModelSpace &, double, std::string)> M0nuop = {
+              {"GT", &M0nu::GamowTeller},
+              {"F", &M0nu::Fermi},
+              {"T", &M0nu::Tensor}};
+          if (M0nuop.find(M0nuopname) != M0nuop.end())
+          {
+            theop = M0nuop[M0nuopname](modelspace, Eclosure, src);
+          }
         }
+        else
+        {
+          double regulator_cutoff;
+          std::istringstream(opnamesplit[2]) >> regulator_cutoff;
+          int regulator_power;
+          std::istringstream(opnamesplit[3]) >> regulator_power;
+          theop = M0nu::Contact(modelspace, regulator_cutoff, regulator_power);
+        }
+        
       }
       else if (opnamesplit[0] == "VWS")
       {

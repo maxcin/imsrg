@@ -1353,7 +1353,7 @@ CMakeFiles/imsrg_util.dir/imsrg_util.cc.o: \
   /usr/local/include/gsl/gsl_pow_int.h \
   /usr/local/include/gsl/gsl_minmax.h AngMom.hh Commutator.hh \
   /Library/Developer/CommandLineTools/SDKs/MacOSX12.1.sdk/usr/include/c++/v1/unordered_set \
-  GaussLaguerre.hh DarkMatterNREFT.hh M0nu.hh Pwd.hh Helicity.hh \
+  GaussLaguerre.hh DarkMatterNREFT.hh M0nu.hh Pwd.hh \
   /usr/local/include/gsl/gsl_integration.h \
   /usr/local/include/gsl/gsl_sf_bessel.h \
   /usr/local/include/gsl/gsl_mode.h \

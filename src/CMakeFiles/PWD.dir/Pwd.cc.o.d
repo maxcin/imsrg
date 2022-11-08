@@ -1,6 +1,5 @@
 CMakeFiles/Pwd.dir/Pwd.cc.o: \
   /Users/antoinebelley/Documents/TRIUMF/imsrg/src/Pwd.cc Pwd.hh \
-  Helicity.hh \
   /Library/Developer/CommandLineTools/SDKs/MacOSX12.1.sdk/usr/include/c++/v1/iostream \
   /Library/Developer/CommandLineTools/SDKs/MacOSX12.1.sdk/usr/include/c++/v1/__config \
   /Library/Developer/CommandLineTools/SDKs/MacOSX12.1.sdk/usr/include/pthread.h \

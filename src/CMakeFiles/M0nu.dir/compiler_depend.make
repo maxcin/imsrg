@@ -1372,7 +1372,6 @@ CMakeFiles/M0nu.dir/M0nu.cc.o: M0nu.cc \
   /usr/local/Cellar/gsl/2.7/include/gsl/gsl_pow_int.h \
   /usr/local/Cellar/gsl/2.7/include/gsl/gsl_minmax.h \
   Pwd.hh \
-  Helicity.hh \
   /usr/local/Cellar/gsl/2.7/include/gsl/gsl_integration.h \
   AngMom.hh \
   /usr/local/Cellar/gsl/2.7/include/gsl/gsl_sf_laguerre.h \
@@ -2088,8 +2087,6 @@ armadillo/armadillo_bits/op_sp_plus_meat.hpp:
 armadillo/armadillo_bits/fn_diagmat.hpp:
 
 armadillo/armadillo_bits/op_cond_meat.hpp:
-
-Helicity.hh:
 
 /usr/local/include/boost/type.hpp:
 

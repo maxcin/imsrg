@@ -1353,7 +1353,7 @@ CMakeFiles/M0nu.dir/M0nu.cc.o: \
   /usr/local/Cellar/gsl/2.7/include/gsl/gsl_types.h \
   /usr/local/Cellar/gsl/2.7/include/gsl/gsl_nan.h \
   /usr/local/Cellar/gsl/2.7/include/gsl/gsl_pow_int.h \
-  /usr/local/Cellar/gsl/2.7/include/gsl/gsl_minmax.h Pwd.hh Helicity.hh \
+  /usr/local/Cellar/gsl/2.7/include/gsl/gsl_minmax.h Pwd.hh \
   /usr/local/Cellar/gsl/2.7/include/gsl/gsl_integration.h AngMom.hh \
   /usr/local/Cellar/gsl/2.7/include/gsl/gsl_sf_laguerre.h \
   /usr/local/Cellar/gsl/2.7/include/gsl/gsl_sf_result.h \
