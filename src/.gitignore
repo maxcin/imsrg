@@ -18,3 +18,5 @@ imsrg++
 CMakeCache.txt
 cmake_install.cmake
 libIMSRG.dylib
+profiling/**
+CMakeFiles/**

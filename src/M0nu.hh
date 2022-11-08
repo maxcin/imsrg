@@ -30,30 +30,29 @@ namespace M0nu
   int decimalgen(int a, int b, int c, int d, int maxb, int maxc, int maxd);
   int phase(int x);  
   double HO_Radial_psi_mom(int n, int l, double hw, double p);
-  
+
 
   double gv_func(double qsq);
   double ga_func(double qsq);
   double gm_func(double qsq);
   double gp_func(double qsq);
-  double GTFormFactor(double q); ///< Gamow Teller Form Factor
-  double FermiFormFactor(double q); ///< Fermi Form Factor
-  double TensorFormFactor(double q); ///< Tensor Form Factor
-  double RegulatorLocal(double q);
-  double RegulatorNonLocal(double p, double pp);
+  double GTFormFactor(double q); 
+  double FermiFormFactor(double q); 
+  double TensorFormFactor(double q);
 
-  
   double integrate_dq(int n, int l, int np, int lp, int S, int J, double hw, PWD &pwd);
   uint64_t IntHash(int n, int l, int np, int lp, int S, int J);
   void IntUnHash(uint64_t key, uint64_t &n, uint64_t &l, uint64_t &np, uint64_t &lp,uint64_t &S, uint64_t &J);
-  std::unordered_map<uint64_t, double> PreCalculateM0nuIntegrals(int e2max, int Smin, int Smax, double hw, int l_diff, PWD& pwd);
+  std::unordered_map<uint64_t, double> PreCalculateMomentumSpaceIntegrals(int e2max, int Smin, int Smax, double hw, int l_diff, PWD &pwd);
   double GetM0nuIntegral(int e2max, int n, int l, int np, int lp, int J, int S, std::unordered_map<uint64_t, double> &IntList);
+
+  void TalmiMoshinkyTransform(ModelSpace &modelspace, double &sumTMT, double &sumTMTas, int na, int la, int nb, int lb, int nc, int lc, int nd, int ld,
+                                                 int Li, int Lf, int S, int J, int rank, int e2max, std::unordered_map<uint64_t, double>& RelativeFrameOPList);
 
   Operator GamowTeller(ModelSpace &modelspace, double Eclosure, std::string src); ///< Gamow-Teller part of M0nu operator
   Operator Fermi(ModelSpace& modelspace, double Eclosure, std::string src); ///< Fermi part of M0nu operator
   Operator Tensor(ModelSpace& modelspace, double Eclosure, std::string src); ///< Tensor part of M0nu operator
-  double jl(double j, double l);
-  Operator Contact(ModelSpace& modelspace, double Eclosure, std::string src); ///< Tensor part of M0nu operator
+  Operator Contact(ModelSpace& modelspace, double regulator_cutoff, int regualtor_power); ///<Contact part of M0nu operator
   Operator DGT_Op(ModelSpace& modelspace); //< Double Gamow-Teller operator
 
   double HO_Radial_psi(int n, int l, double hw, double r);

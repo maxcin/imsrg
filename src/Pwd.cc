@@ -15,6 +15,7 @@ PWD::PWD()
   {
     setPotential([](double p, double pp, double z) { return 0; }, types[i]);
     potential_bool[types[i]] =  false;
+    regulator = [](double p, double pp, double z) { return 1.0; };
   }
 }
 
@@ -35,7 +36,7 @@ int PWD::getMomentumMeshSize()
   return momentum_mesh_size;
 }
 
-gsl_integration_glfixed_table *PWD::getMomentumMesh()
+gsl_integration_glfixed_table* PWD::getMomentumMesh()
 {
   return momentum_mesh;
 }
@@ -77,13 +78,32 @@ void PWD::setMaxMomentum(double max)
   max_momentum = max;
 }
 
+
 double PWD::getMaxMomentum()
 {
   return max_momentum;
 }
 
+void PWD::setRegulator(double regulator_cutoff, int regulator_power, std::string type)
+{
+  if (type == "local")
+  {
+    regulator = [regulator_cutoff, regulator_power](double p, double pp, double z)
+                {
+                  double q = sqrt(p*p+pp*pp-2*p*pp*z);
+                  return regulator_local(q, regulator_cutoff, regulator_power);
+                 };
+  }
+  else if (type == "nonlocal")
+  {
+    regulator = [regulator_cutoff, regulator_power](double p, double pp, double z)
+    {
+      return regulator_nonlocal(p, pp, regulator_cutoff, regulator_power);
+    };
+  }
+}
 
-void PWD::setPotential(std::function<double(double,double,double)> potential_func, std::string  potential_type )
+void PWD::setPotential(std::function<double(double, double, double)> potential_func, std::string potential_type)
 {
   potential_list[potential_type] = potential_func;
   potential_bool[potential_type] = true;
@@ -107,7 +127,12 @@ void PWD::calcA(int e2max, int lmax)
     { 
       std::cout<<types[i]<<std::endl;
       int l = std::min(types_lmax[types[i]], lmax);
-      PrecalculateA(e2max, potential_list[types[i]], l, i, max_momentum, momentum_mesh, angular_mesh, momentum_mesh_size, angular_mesh_size, AList);
+     
+      auto pot = [&](double p, double pp, double z)
+      {
+        return potential_list[types[i]](p,pp,z)*regulator(p,pp,z);
+      };
+      PrecalculateA(e2max, pot, l, i, max_momentum, momentum_mesh, angular_mesh, momentum_mesh_size, angular_mesh_size, AList);
     } 
   }
 }
@@ -116,6 +141,12 @@ void PWD::clearA()
 {
   AList.clear();
 }
+
+int PWD::getAsize()
+{
+  return AList.size();
+}
+
 
 double PWD::getW(double p, double pp, int index_p, int index_pp, int S, int L, int Lp, int J)
 {
@@ -133,44 +164,11 @@ double PWD::getW(double p, double pp, int index_p, int index_pp, int S, int L, i
     {
       double Wval = Wtypes[types[i]](p, pp, index_p, index_pp, S, L, Lp, J, AList);
       W += Wval;
-      // std::cout<<types[i]<<"_new = "<<Wval<<std::endl;
     }
   }
   return W;
 }
 
-
-PWDNonLocal::PWDNonLocal()
-{
-  regulator = [](double p, double pp){ return 1.0; };
-
-}
-
-void PWDNonLocal::setRegulator(double regulator_cutoff, int regulator_power)
-{
-  regulator = [regulator_cutoff, regulator_power](double p, double pp){return regulator_nonlocal(p,pp,regulator_cutoff, regulator_power);};
-}
-
-double PWDNonLocal::getW(double p, double pp, int index_p, int index_pp, int S, int L, int Lp, int J)
-{
-  double W = 0;
-  std::map<std::string, std::function<double(double, double, int, int, int, int, int, int, std::unordered_map<uint64_t, double> &)>> Wtypes = {{"central", central_force_decomposition},
-                                                                                                                                               {"spin-spin", spin_spin_decomposition},
-                                                                                                                                               {"spin-orbit", spin_orbit_decomposition},
-                                                                                                                                               {"sigma_L", sigma_L_decomposition},
-                                                                                                                                               {"tensor", tensor_decomposition},
-                                                                                                                                               {"sigma_k", sigma_k_decomposition}};
-  for (int i = 0; i < 6; i++)
-  {
-    if (PWD::potential_bool[PWD::types[i]] == true)
-    {
-      double Wval = Wtypes[PWD::types[i]](p, pp, index_p, index_pp, S, L, Lp, J, PWD::AList);
-      W += Wval;
-    }
-  }
-  double reg = regulator(p,pp);
-  return W*reg;
-}
 
 double AIntegrand(double p, double pp, double z, int J, int l, std::function<double(double, double, double)> potential)
 {
@@ -206,7 +204,7 @@ void AUnHash(uint64_t key, uint64_t &index_p, uint64_t &index_pp, uint64_t &J, u
 
 void PrecalculateA(int e2max, std::function<double(double, double, double)> potential, int lmax, int type, double max_momentum, gsl_integration_glfixed_table *t_momentum, gsl_integration_glfixed_table *t_z, int n_momentum_points, int n_z_points, std::unordered_map<uint64_t, double>& AList)
 {
-  int Jmax = e2max + 1; // coupling of 2 l=emax with S=1
+  int Jmax = e2max + 1; // maximal coupling of 2 l=emax with S=1
   std::vector<uint64_t> KEYS;
   for (int J = 0; J <= Jmax; J++)
   {
@@ -223,7 +221,7 @@ void PrecalculateA(int e2max, std::function<double(double, double, double)> pote
       }
     }
   }
-  #pragma omp parallel for schedule(dynamic, 1) // this works as long as the gsl_function handle is within this for-loop
+  #pragma omp parallel for schedule(dynamic, 1)
   for (size_t n = 0; n < KEYS.size(); n++)
   {
     uint64_t key = KEYS[n];
@@ -234,7 +232,6 @@ void PrecalculateA(int e2max, std::function<double(double, double, double)> pote
     gsl_integration_glfixed_point(0, max_momentum, index_pp, &pp, &wj, t_momentum);
     double aval = A(p, pp, J, l, potential, t_z, n_z_points);
     AList[key] = aval;
-    // std::cout<<aval<<std::endl;
   }
 }
 
@@ -251,7 +248,7 @@ double GetA(int index_p, int index_pp, int J, int l, int type, std::unordered_ma
   }
   else // if we didn't find it, calculate it and add it to the list!
   {
-    printf("DANGER!!!!!!!  Updating IntList inside a parellel loop breaks thread safety!\n");
+    printf("DANGER!!!!!!!  Updating AList inside a parellel loop breaks thread safety!\n");
     printf("   I shouldn't be here in GetA(%d, %d, %d, %d):   key =%llx", index_p, index_pp, J, l, key);
     exit(EXIT_FAILURE);
   }
@@ -262,18 +259,11 @@ double central_force_decomposition(double p, double pp, int index_p, int index_p
 {
   int type = 0;
   double W = 0;
-  if (S == 0 and L == J and Lp == J) // Singlet state
-  {
-    W = 2 * GetA(index_p, index_pp, J, 0, type, AList);
-  }
-  else if (S == 1) // Triplet state
-  {
-    // The fucntions are the same if L=Lp regardless of the value of L and is 0 otherwise
-    if ((L == Lp) and (((L == J) or (L == J - 1) or (L == J + 1))))
+  if ((S == 0 and L == J and Lp == J)
+    or (S == 1 and (L == Lp) and ((L == J) or (L == J - 1) or (L == J + 1)))) // Singlet state and triplet state are the same
     {
-      W = 2 * GetA(index_p, index_pp, L, 0, type, AList);
+      W = 2 * GetA(index_p, index_pp, J, 0, type, AList);
     }
-  }
   return W;
 }
 
@@ -368,11 +358,14 @@ double tensor_decomposition(double p, double pp, int index_p, int index_pp, int 
     {
       if (L == J)
       {
-        W = 2 * ((pp * pp + p * p) * GetA(index_p, index_pp, J, 0, type, AList) - 2 * p * pp / (2 * J + 1) * (J * GetA(index_p, index_pp, J + 1, 0, type, AList) + (J + 1) * GetA(index_p, index_pp, J - 1, 0, type, AList)));
+        W = 2 * ( (pp * pp + p * p) * GetA(index_p, index_pp, J, 0, type, AList)
+                   - 2 * p * pp / (2 * J + 1) * (
+                                  J * GetA(index_p, index_pp, J + 1, 0, type, AList) 
+                                  + (J + 1) * GetA(index_p, index_pp, J - 1, 0, type, AList)));
       }
       else if (L == J - 1)
       {
-        W = 2 * ((p * p + pp * pp) * GetA(index_p, index_pp, J - 1, 0, type, AList) - 2 * p * pp * GetA(index_p, index_pp, J, 0, type, AList)) / (2 * J + 1);
+        W = 2 * ( (p * p + pp * pp) * GetA(index_p, index_pp, J - 1, 0, type, AList) - 2 * p * pp * GetA(index_p, index_pp, J, 0, type, AList)) / (2 * J + 1);
 
       }
       else if (L == J + 1)
@@ -382,11 +375,11 @@ double tensor_decomposition(double p, double pp, int index_p, int index_pp, int 
     }
     else if (Lp == J + 1 and L == J - 1)
     {
-      W = -4 * sqrt(J * (J + 1)) * (p * p * GetA(index_p, index_pp, J + 1, 0, type, AList) + pp * pp * GetA(index_p, index_pp, J - 1, 0, type, AList) - 2 * p * pp * GetA(index_p, index_pp, J, 0, type, AList)) / (2 * J + 1);
+      W = -4 * (sqrt(J * (J + 1)) / (2 * J + 1)) * (p * p * GetA(index_p, index_pp, J + 1, 0, type, AList) + pp * pp * GetA(index_p, index_pp, J - 1, 0, type, AList) - 2 * p * pp * GetA(index_p, index_pp, J, 0, type, AList));
     }
     else if (Lp == J - 1 and L == J + 1)
     {
-      W = -4 * sqrt(J * (J + 1)) * (p * p * GetA(index_p, index_pp, J - 1, 0, type, AList) + pp * pp * GetA(index_p, index_pp, J + 1, 0, type, AList) - 2 * p * pp * GetA(index_p, index_pp, J, 0, type, AList)) / (2 * J + 1);
+      W = -4 * (sqrt(J * (J + 1)) / (2 * J + 1)) * (p * p * GetA(index_p, index_pp, J - 1, 0, type, AList) + pp * pp * GetA(index_p, index_pp, J + 1, 0, type, AList) - 2 * p * pp * GetA(index_p, index_pp, J, 0, type, AList));
     }
   }
   return W;

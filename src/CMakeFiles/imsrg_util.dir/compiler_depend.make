@@ -1377,7 +1377,6 @@ CMakeFiles/imsrg_util.dir/imsrg_util.cc.o: imsrg_util.cc \
   DarkMatterNREFT.hh \
   M0nu.hh \
   Pwd.hh \
-  Helicity.hh \
   /usr/local/include/gsl/gsl_integration.h \
   /usr/local/include/gsl/gsl_sf_bessel.h \
   /usr/local/include/gsl/gsl_mode.h \
@@ -2103,8 +2102,6 @@ armadillo/armadillo_bits/op_sp_plus_meat.hpp:
 armadillo/armadillo_bits/fn_diagmat.hpp:
 
 armadillo/armadillo_bits/op_cond_meat.hpp:
-
-Helicity.hh:
 
 /usr/local/include/boost/type.hpp:
 

@@ -1,7 +1,7 @@
 #ifndef PWD_h
 #define PWD_h 1
 
-#include "Helicity.hh"
+// #include "Helicity.hh"
 #include <iostream>
 #include <unordered_map>
 #include <gsl/gsl_integration.h>
@@ -10,7 +10,7 @@
 
 class PWD
 {
-  protected:
+  private:
     int momentum_mesh_size;
     gsl_integration_glfixed_table *momentum_mesh;
     int angular_mesh_size;
@@ -43,13 +43,14 @@ class PWD
                                                   {"tensor", tensor_on},
                                                   {"sigma_k", sigma_k_on}};
     std::unordered_map<uint64_t, double> AList;
+    std::function<double(double, double, double)> regulator;
 
   public:
     void initializeMomentumMesh(int size);
     void setMomentumMesh(gsl_integration_glfixed_table *t, int size);
     int getMomentumMeshSize();
     gsl_integration_glfixed_table *getMomentumMesh();
-     void freeMomentumMesh();
+    void freeMomentumMesh();
      
     void initializeAngularMesh(int size);
     void setAngularMesh(gsl_integration_glfixed_table *momentum_mesh, int size);
@@ -62,7 +63,10 @@ class PWD
 
     void setPotential(std::function<double(double, double, double)> potential_func,  std::string potential_type);
 
+    void setRegulator(double regulator_cutoff, int regulator_power, std::string type);
+
     void calcA(int e2max, int lmax);
+    int getAsize();
     void clearA();
 
     double getW(double p, double pp, int index_p, int index_pp, int S, int L, int Lp, int J);
@@ -70,19 +74,6 @@ class PWD
     PWD();
 };
 
-
-
-
-class PWDNonLocal : public PWD
-{
-  private:
-    std::function<double(double, double)> regulator;
-
-  public:
-    void setRegulator(double regulator_cutoff, int regulator_power);
-    double getW(double p, double pp, int index_p, int index_pp, int S, int L, int Lp, int J);
-    PWDNonLocal();
-};
 
 double AIntegrand(double p, double pp, int J, int l, std::function<double(double,double,double)> potential);
 double A(double p, double pp, int J, int l, std::function<double(double, double, double)> potential, gsl_integration_glfixed_table *t, int z_size);
