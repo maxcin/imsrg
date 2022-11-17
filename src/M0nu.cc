@@ -126,25 +126,25 @@ namespace M0nu
 
 
   /// Form factors of the neutrino potential of Gamow-Teller transition
-  double GTFormFactor(double q)
+  double GTFormFactor(double qsq)
   {
-    double qsq     = q*q; // q squared [MeV^2]
+    //  qsq = q squared [MeV^2]
     double ff = hGT_AA(qsq)+hGT_AP(qsq)+hGT_PP(qsq)+hGT_MM(qsq); 
     return ff;
   }
 
   /// Form factors of the neutrino potential of Fermi transition
-  double FermiFormFactor(double q)
+  double FermiFormFactor(double qsq)
   {
-    double qsq     = q*q; // q squared [MeV^2]
+    //  qsq = q squared [MeV^2]
     double ff = hF_VV(qsq) ;
     return ff;
   }
 
   /// Form factors of the neutrino potential of tensor transition
-  double TensorFormFactor(double q)
+  double TensorFormFactor(double qsq)
   {
-    double qsq     = q*q; // q squared [MeV^2]
+    //  qsq = q squared [MeV^2]
     double ff = hT_AP(qsq)+hT_PP(qsq)+hT_MM(qsq);
     return -ff;
   }
@@ -152,13 +152,25 @@ namespace M0nu
   double potential_closure(double p, double pp, double z, double Eclosure, std::function<double(double)> formfactor)
   {
     double  q = sqrt(p*p+pp*pp-2*p*pp*z)*HBARC;
-    return HBARC*HBARC*formfactor(q)/(q*q+Eclosure*q);
+    return HBARC*HBARC*formfactor(q*q)/(q*q+Eclosure*q);
   }
 
+  /// Potential in position space is given as
+  ///\f { equation }
+  ///       H_{\alpha}(r) = \frac{2R}{2\pi m^2}\int_0^\infty q^2 h_{\alpha}(q) j_{\lambda}(q*r)
+  ///\f
+  /// which becomes
+  ///\f { equation }
+  ///       H_{\alpha}(q) = (-1))^\lambda\frac{R}{2\pi^2 m^2} h_{\alpha}(q)
+  ///\f
+  /// after doing the fourrier transform. For simplicity, we put the prefactor in the operator since lambda = 0 for
+  /// GT and F and 2 for T. The mass to use is somewhat ambiguous. In Phys. Rev. C 91, 024613, they use m_e*m_p but
+  /// in JHEP12(2018)097, they use m_pi^2. In the end it is only introduced to make unit consitent so
+  /// it should simply be matched to the other factor in the formula.
   double potential_heavy_neutrino(double p, double pp, double z, std::function<double(double)> formfactor)
   {
-    double q = sqrt(p * p + pp * pp - 2 * p * pp * z) * HBARC;
-    return  formfactor(q)*q*q/HBARC/HBARC;
+    double qsq = (p * p + pp * pp - 2 * p * pp * z) * HBARC*HBARC;
+    return  formfactor(qsq);
   }
 
   double integrate_dq(int n, int l, int np, int lp, int S, int J, double hw, PWD &pwd)
@@ -484,7 +496,7 @@ namespace M0nu
   /// Operator is then evaluated in the lab frame oscialltor basis.
   /// More detail on how to obatin the form of the operator can be found in https://drive.google.com/file/d/1QaMfuvQ7I3NM5h_ppjyIPsap3SWmCe2o/view?usp=sharing
   /// and on how to evaluate in lab frame in https://drive.google.com/file/d/1C6E2HnzSJ1bzMoIKWfH1GaZKjqaAEluG/view?usp=sharing
-  Operator GamowTeller(ModelSpace &modelspace, double Eclosure, std::string src)
+  Operator GamowTeller(ModelSpace &modelspace, double Eclosure, std::string src, std::function<double(double)> formfactor)
   {
     double hw = modelspace.GetHbarOmega();         // oscillator basis frequency [MeV]
     int e2max = modelspace.GetE2max();             // 2*emax
@@ -496,7 +508,7 @@ namespace M0nu
     pwd.initializeAngularMesh(100);
     pwd.initializeMomentumMesh(500);
     pwd.setMaxMomentum(25);
-    pwd.setPotential([prefact, Eclosure](double p, double pp,  double z){return prefact*potential_closure(p,pp,z,Eclosure,GTFormFactor);}, "spin-spin");
+    pwd.setPotential([prefact, Eclosure, formfactor](double p, double pp,  double z){return prefact*potential_closure(p,pp,z,Eclosure,formfactor);}, "spin-spin");
     pwd.calcA(e2max,0);
     pwd.freeAngularMesh();
     std::cout << "Done precomputing A's." << std::endl;
@@ -512,7 +524,7 @@ namespace M0nu
    /// Operator is then evaluated in the lab frame oscialltor basis.
   /// More detail on how to obatin the form of the operator can be found in https://drive.google.com/file/d/1QaMfuvQ7I3NM5h_ppjyIPsap3SWmCe2o/view?usp=sharing
   /// and on how to evaluate in lab frame in https://drive.google.com/file/d/1C6E2HnzSJ1bzMoIKWfH1GaZKjqaAEluG/view?usp=sharing
-  Operator Fermi(ModelSpace& modelspace, double Eclosure, std::string src)
+  Operator Fermi(ModelSpace &modelspace, double Eclosure, std::string src, std::function<double(double)> formfactor)
   {
     double hw = modelspace.GetHbarOmega(); // oscillator basis frequency [MeV]
     int e2max = modelspace.GetE2max(); // 2*emax
@@ -524,7 +536,7 @@ namespace M0nu
     pwd.initializeAngularMesh(100);
     pwd.initializeMomentumMesh(500);
     pwd.setMaxMomentum(25);
-    pwd.setPotential([prefact, Eclosure](double p, double pp,  double z){return prefact*potential_closure(p,pp,z,Eclosure,FermiFormFactor);}, "central");
+    pwd.setPotential([prefact, Eclosure, formfactor](double p, double pp,  double z){return prefact*potential_closure(p,pp,z,Eclosure,formfactor);}, "central");
     pwd.calcA(e2max,0);
     pwd.freeAngularMesh();
     std::cout<<"Done precomputing A's."<<std::endl;
@@ -540,7 +552,7 @@ namespace M0nu
   /// Operator is then evaluated in the lab frame oscialltor basis.
   /// More detail on how to obatin the form of the operator can be found in https://drive.google.com/file/d/1QaMfuvQ7I3NM5h_ppjyIPsap3SWmCe2o/view?usp=sharing
   /// and on how to evaluate in lab frame in https://drive.google.com/file/d/1C6E2HnzSJ1bzMoIKWfH1GaZKjqaAEluG/view?usp=sharing
-  Operator Tensor(ModelSpace& modelspace, double Eclosure, std::string src)
+    Operator Tensor(ModelSpace &modelspace, double Eclosure, std::string src, std::function<double(double)> formfactor)
     {
       double hw = modelspace.GetHbarOmega(); // oscillator basis frequency [MeV]
       int e2max = modelspace.GetE2max(); // 2*emax
@@ -552,15 +564,15 @@ namespace M0nu
       pwd.initializeAngularMesh(100);
       pwd.initializeMomentumMesh(500);
       pwd.setMaxMomentum(25);
-      pwd.setPotential([prefact, Eclosure](double p, double pp, double z)
+      pwd.setPotential([prefact, Eclosure, formfactor](double p, double pp, double z)
                        {
                          double qsq = p*p+pp*pp-2*p*pp*z;
-                         return prefact*(3/qsq)*potential_closure(p, pp, z, Eclosure, TensorFormFactor); 
+                         return prefact*(3/qsq)*potential_closure(p, pp, z, Eclosure, formfactor); 
                         },
                         "tensor");
-      pwd.setPotential([prefact,Eclosure](double p, double pp, double z)
+      pwd.setPotential([prefact,Eclosure, formfactor](double p, double pp, double z)
                        {
-                         return -prefact*potential_closure(p, pp, z, Eclosure, TensorFormFactor); 
+                         return -prefact*potential_closure(p, pp, z, Eclosure, formfactor); 
                         },
                        "spin-spin");
       pwd.calcA(e2max, 0);
@@ -593,13 +605,86 @@ namespace M0nu
     pwd.setMaxMomentum(25);
     pwd.setRegulator(regulator_cutoff,regulator_power,reg_type);
     pwd.setPotential([prefact](double p, double pp, double z)
-                      { return prefact; },
+                      {
+                        return prefact;//
+                      },
                       "central");
     pwd.calcA(e2max, 0);
     pwd.freeAngularMesh();
     std::cout << "Done precomputing A's." << std::endl;
     Operator M0nuC_TBME = TwoBody_Scalar_operator(modelspace, pwd, 0, 0, 0, 0);
     return M0nuC_TBME;
+  }
+
+  Operator GamowTellerHeavy(ModelSpace &modelspace,  std::string src, std::function<double(double)> formfactor)
+  {
+    double hw = modelspace.GetHbarOmega();         // oscillator basis frequency [MeV]
+    int e2max = modelspace.GetE2max();             // 2*emax
+    int Anuc = modelspace.GetTargetMass();         // the mass number for the desired nucleus
+    const double Rnuc = R0 * pow(Anuc, 1.0 / 3.0); // the nuclear radius [fm]
+    const double prefact = Rnuc * HBARC*HBARC / (PI * PI* M_PROTON* M_ELECTRON);   // factor in-front of M0nu TBME, extra global factor of 2 since we use <p|\tau|n> = sqrt(2) [fm]
+    modelspace.PreCalculateMoshinsky();            // pre-calculate the needed Moshinsky brackets, for efficiency
+    PWD pwd;                                       // Class for the partial wave decomposition
+    pwd.initializeAngularMesh(100);
+    pwd.initializeMomentumMesh(500);
+    pwd.setMaxMomentum(25);
+    pwd.setPotential([prefact, formfactor](double p, double pp, double z)
+                     { return prefact * potential_heavy_neutrino(p, pp, z, formfactor); },
+                     "spin-spin");
+    pwd.calcA(e2max, 0);
+    pwd.freeAngularMesh();
+    std::cout << "Done precomputing A's." << std::endl;
+    Operator M0nuGT_TBME = TwoBody_Scalar_operator(modelspace, pwd, 0, 0);
+    return M0nuGT_TBME;
+  }
+
+  Operator FermiHeavy(ModelSpace &modelspace, std::string src, std::function<double(double)> formfactor)
+  {
+    double hw = modelspace.GetHbarOmega();         // oscillator basis frequency [MeV]
+    int e2max = modelspace.GetE2max();             // 2*emax
+    int Anuc = modelspace.GetTargetMass();         // the mass number for the desired nucleus
+    const double Rnuc = R0 * pow(Anuc, 1.0 / 3.0); // the nuclear radius [fm]
+    const double prefact = Rnuc*HBARC*HBARC/ (PI * PI * M_PROTON * M_ELECTRON); // factor in-front of M0nu TBME, extra global 2 for nutbar (as confirmed by benchmarking with Ca48 NMEs) [fm]
+    modelspace.PreCalculateMoshinsky();            // pre-calculate the needed Moshinsky brackets, for efficiency
+    PWD pwd;
+    pwd.initializeAngularMesh(100);
+    pwd.initializeMomentumMesh(500);
+    pwd.setMaxMomentum(25);
+    pwd.setPotential([prefact, formfactor](double p, double pp, double z)
+                     { return prefact * potential_heavy_neutrino(p, pp, z, formfactor); },
+                     "central");
+    pwd.calcA(e2max, 0);
+    pwd.freeAngularMesh();
+    std::cout << "Done precomputing A's." << std::endl;
+    Operator M0nuF_TBME = TwoBody_Scalar_operator(modelspace, pwd, 0, 0);
+    return M0nuF_TBME;
+  }
+
+  Operator TensorHeavy(ModelSpace &modelspace,  std::string src, std::function<double(double)> formfactor)
+  {
+    double hw = modelspace.GetHbarOmega();         // oscillator basis frequency [MeV]
+    int e2max = modelspace.GetE2max();             // 2*emax
+    int Anuc = modelspace.GetTargetMass();         // the mass number for the desired nucleus
+    const double Rnuc = R0 * pow(Anuc, 1.0 / 3.0); // the nuclear radius [MeV^-1]
+    const double prefact = Rnuc *HBARC*HBARC / (PI * PI * M_PROTON * M_ELECTRON);       // factor in-front of M0nu TBME, extra global 2 for nutbar (as confirmed by benchmarking with Ca48 NMEs) [MeV^-1]
+    modelspace.PreCalculateMoshinsky();            // pre-calculate the needed Moshinsky brackets, for efficiency
+    PWD pwd;
+    pwd.initializeAngularMesh(100);
+    pwd.initializeMomentumMesh(500);
+    pwd.setMaxMomentum(25);
+    pwd.setPotential([prefact, formfactor](double p, double pp, double z)
+                     {
+                         double qsq = p*p+pp*pp-2*p*pp*z;
+                         return prefact*(3/qsq)*potential_heavy_neutrino(p, pp, z, formfactor); },
+                     "tensor");
+    pwd.setPotential([prefact,  formfactor](double p, double pp, double z)
+                     { return -prefact * potential_heavy_neutrino(p, pp, z, formfactor); },
+                     "spin-spin");
+    pwd.calcA(e2max, 0);
+    pwd.freeAngularMesh();
+    std::cout << "Done precomputing A's." << std::endl;
+    Operator M0nuT_TBME = TwoBody_Scalar_operator(modelspace, pwd, 0, 2, 1);
+    return M0nuT_TBME;
   }
 
   /// Double Gamow-Teller operator. It is simply the 0vbb GT operator with the neutrino potential set to 1.

@@ -36,9 +36,18 @@ namespace M0nu
   double ga_func(double qsq);
   double gm_func(double qsq);
   double gp_func(double qsq);
-  double GTFormFactor(double q); 
-  double FermiFormFactor(double q); 
-  double TensorFormFactor(double q);
+  double hF_VV(double qsq);
+  double hGT_AA(double qsq);
+  double hGT_AP(double qsq);
+  double hGT_PP(double qsq);
+  double hGT_MM(double qsq);
+  double hT_AA(double qsq);
+  double hT_AP(double qsq);
+  double hT_PP(double qsq);
+  double hT_MM(double qsq);
+  double GTFormFactor(double qsq);
+  double FermiFormFactor(double qsq); 
+  double TensorFormFactor(double qsq);
 
   double integrate_dq(int n, int l, int np, int lp, int S, int J, double hw, PWD &pwd);
   uint64_t IntHash(int n, int l, int np, int lp, int S, int J);
@@ -49,11 +58,15 @@ namespace M0nu
   void TalmiMoshinkyTransform(ModelSpace &modelspace, double &sumTMT, double &sumTMTas, int na, int la, int nb, int lb, int nc, int lc, int nd, int ld,
                                                  int Li, int Lf, int S, int J, int rank, int e2max, std::unordered_map<uint64_t, double>& RelativeFrameOPList);
 
-  Operator GamowTeller(ModelSpace &modelspace, double Eclosure, std::string src); ///< Gamow-Teller part of M0nu operator
-  Operator Fermi(ModelSpace& modelspace, double Eclosure, std::string src); ///< Fermi part of M0nu operator
-  Operator Tensor(ModelSpace& modelspace, double Eclosure, std::string src); ///< Tensor part of M0nu operator
+  Operator GamowTeller(ModelSpace &modelspace, double Eclosure, std::string src, std::function<double(double)> formfactor); ///< Gamow-Teller part of M0nu operator
+  Operator Fermi(ModelSpace& modelspace, double Eclosure, std::string src, std::function<double(double)> formfactor); ///< Fermi part of M0nu operator
+  Operator Tensor(ModelSpace &modelspace, double Eclosure, std::string src, std::function<double(double)> formfactor); ///< Tensor part of M0nu operator
   Operator Contact(ModelSpace& modelspace, double regulator_cutoff, int regualtor_power); ///<Contact part of M0nu operator
   Operator DGT_Op(ModelSpace& modelspace); //< Double Gamow-Teller operator
+
+  Operator GamowTellerHeavy(ModelSpace &modelspace,  std::string src, std::function<double(double)> formfactor); ///< Gamow-Teller part of M0nu operator
+  Operator FermiHeavy(ModelSpace &modelspace, std::string src, std::function<double(double)> formfactor);       ///< Fermi part of M0nu operator
+  Operator TensorHeavy(ModelSpace &modelspace, std::string src, std::function<double(double)> formfactor);      ///< Tensor part of M0nu operator
 
   double HO_Radial_psi(int n, int l, double hw, double r);
   double fq_radial_GT(double q, double Eclosure, double r12);

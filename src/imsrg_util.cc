@@ -316,18 +316,66 @@ namespace imsrg_util
       {
         
         std::string M0nuopname = opnamesplit[1];
+        std::map<std::string, Operator (*)(ModelSpace&, double, std::string, std::function<double(double)>)> OPList{
+            {"GT", &M0nu::GamowTeller},
+            {"F", &M0nu::Fermi},
+            {"T", &M0nu::Tensor}};
+
         if (M0nuopname != "C")
         {
           double Eclosure;
           std::istringstream(opnamesplit[2]) >> Eclosure;
           std::string src = opnamesplit[3];
-          std::map<std::string, Operator (*)(ModelSpace &, double, std::string)> M0nuop = {
-              {"GT", &M0nu::GamowTeller},
-              {"F", &M0nu::Fermi},
-              {"T", &M0nu::Tensor}};
-          if (M0nuop.find(M0nuopname) != M0nuop.end())
+          if (opnamesplit.size() == 4)
           {
-            theop = M0nuop[M0nuopname](modelspace, Eclosure, src);
+            std::map<std::string, std::function<double(double)>> FormFactorList{
+                {"GT",M0nu::GTFormFactor},
+                {"F", M0nu::FermiFormFactor},
+                {"T", M0nu::TensorFormFactor}
+            };
+            theop = OPList[M0nuopname](modelspace, Eclosure, src, FormFactorList[M0nuopname]);
+          }
+          else if (opnamesplit.size() == 5)
+          { 
+            std::string formfactor = opnamesplit[4];
+            if (M0nuopname == "GT")
+            {
+              if (formfactor == "AA")
+              {
+                theop = M0nu::GamowTeller(modelspace, Eclosure, src, M0nu::hGT_AA);
+              }
+              else if (formfactor == "AP")
+              {
+                theop = M0nu::GamowTeller(modelspace, Eclosure, src, M0nu::hGT_AP);
+              }
+              else if (formfactor == "PP")
+              {
+                theop = M0nu::GamowTeller(modelspace, Eclosure, src, M0nu::hGT_PP);
+              }
+              else if (formfactor == "MM")
+              {
+                theop = M0nu::GamowTeller(modelspace, Eclosure, src, M0nu::hGT_MM);
+              }
+            }
+            else if (M0nuopname == "T")
+            {
+              if (formfactor == "AA")
+              {
+                theop = M0nu::Tensor(modelspace, Eclosure, src, M0nu::hT_AA);
+              }
+              else if (formfactor == "AP")
+              {
+                theop = M0nu::Tensor(modelspace, Eclosure, src, M0nu::hT_AP);
+              }
+              else if (formfactor == "PP")
+              {
+                theop = M0nu::Tensor(modelspace, Eclosure, src, M0nu::hT_PP);
+              }
+              else if (formfactor == "MM")
+              {
+                theop = M0nu::Tensor(modelspace, Eclosure, src, M0nu::hT_MM);
+              }
+            }
           }
         }
         else
@@ -339,6 +387,43 @@ namespace imsrg_util
           theop = M0nu::Contact(modelspace, regulator_cutoff, regulator_power);
         }
         
+      }
+      else if (opnamesplit[0] == "M0nuHeavy") // Neutrinoless Double Beta Decay Operators   format e.g.  M0nu_GT_7.72_none or M0nu_F_12.6_AV18
+      {
+        std::string M0nuopname = opnamesplit[1];
+        std::string src = opnamesplit[2];
+        std::string formfactor = opnamesplit[3];
+        if (M0nuopname == "GT")
+        {
+          if (formfactor == "AA")
+          {
+            theop = M0nu::GamowTellerHeavy(modelspace, src, M0nu::hGT_AA);
+          }
+          else if (formfactor == "AP")
+          {
+            theop = M0nu::GamowTellerHeavy(modelspace, src, M0nu::hGT_AP);
+          }
+          else if (formfactor == "PP")
+          {
+            theop = M0nu::GamowTellerHeavy(modelspace, src, M0nu::hGT_PP);
+          }
+        }
+        else if (M0nuopname == "F")
+        {
+          theop = M0nu::FermiHeavy(modelspace, src, M0nu::hF_VV);
+        }
+        else if (M0nuopname == "T")
+        {
+
+          if (formfactor == "AP")
+          {
+            theop = M0nu::TensorHeavy(modelspace, src, M0nu::hT_AP);
+          }
+          else if (formfactor == "PP")
+          {
+            theop = M0nu::TensorHeavy(modelspace, src, M0nu::hT_PP);
+          }
+        }
       }
       else if (opnamesplit[0] == "VWS")
       {
