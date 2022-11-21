@@ -1,5 +1,8 @@
 cmake_minimum_required(VERSION 3.18)
 
+set(INSTDIR $ENV{HOME})
+set(CMAKE_SKIP_INSTALL_RPATH=ON)
+
 option(IMSRG_BUILD_PYTHON_BINDINGS "Build Python bindings" ON)
 
 # Determine if imsrg++ is built as a subproject (using add_subdirectory)
