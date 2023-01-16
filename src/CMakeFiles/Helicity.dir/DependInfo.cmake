@@ -8,12 +8,12 @@ set(CMAKE_DEPENDS_LANGUAGES
 
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
-  "/Users/antoinebelley/Documents/TRIUMF/imsrg/src/Helicity.cc" "CMakeFiles/Helicity.dir/Helicity.cc.o" "gcc" "CMakeFiles/Helicity.dir/Helicity.cc.o.d"
+  "/home/belleya/projects/def-holt/belleya/imsrg/src/Helicity.cc" "CMakeFiles/Helicity.dir/Helicity.cc.o" "gcc" "CMakeFiles/Helicity.dir/Helicity.cc.o.d"
   )
 
 # Targets to which this target links.
 set(CMAKE_TARGET_LINKED_INFO_FILES
-  "/Users/antoinebelley/Documents/TRIUMF/imsrg/src/CMakeFiles/AngMom.dir/DependInfo.cmake"
+  "/home/belleya/projects/def-holt/belleya/imsrg/src/CMakeFiles/AngMom.dir/DependInfo.cmake"
   )
 
 # Fortran module output directory.

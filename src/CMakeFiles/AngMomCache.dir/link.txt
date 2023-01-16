@@ -1,2 +1,2 @@
-/Library/Developer/CommandLineTools/usr/bin/ar qc libAngMomCache.a CMakeFiles/AngMomCache.dir/AngMomCache.cc.o
-/Library/Developer/CommandLineTools/usr/bin/ranlib libAngMomCache.a
+/cvmfs/soft.computecanada.ca/gentoo/2020/usr/bin/ar qc libAngMomCache.a CMakeFiles/AngMomCache.dir/AngMomCache.cc.o
+/cvmfs/soft.computecanada.ca/gentoo/2020/usr/bin/ranlib libAngMomCache.a

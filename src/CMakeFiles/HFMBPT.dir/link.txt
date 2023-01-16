@@ -1,2 +1,2 @@
-/Library/Developer/CommandLineTools/usr/bin/ar qc libHFMBPT.a CMakeFiles/HFMBPT.dir/HFMBPT.cc.o
-/Library/Developer/CommandLineTools/usr/bin/ranlib libHFMBPT.a
+/cvmfs/soft.computecanada.ca/gentoo/2020/usr/bin/ar qc libHFMBPT.a CMakeFiles/HFMBPT.dir/HFMBPT.cc.o
+/cvmfs/soft.computecanada.ca/gentoo/2020/usr/bin/ranlib libHFMBPT.a

@@ -1,5 +1,8 @@
 cmake_minimum_required(VERSION 3.18)
 
+set(INSTDIR $ENV{HOME})
+set(BLA_VENDER OpenBLAS)
+
 option(IMSRG_BUILD_PYTHON_BINDINGS "Build Python bindings" ON)
 
 # Determine if imsrg++ is built as a subproject (using add_subdirectory)
@@ -26,6 +29,8 @@ find_package(BLAS REQUIRED)
 find_package(GSL REQUIRED)
 find_package(Boost REQUIRED)
 find_package(ZLIB REQUIRED)
+find_package(Armadillo REQUIRED)
+include_directories(${ARMADILLO_INCLUDE_DIRS})
 
 
 set(CMAKE_CXX_STANDARD 11)
@@ -39,7 +44,7 @@ if(IMSRG_BUILD_PYTHON_BINDINGS)
     set(CMAKE_POSITION_INDEPENDENT_CODE TRUE)
 endif()
 
-add_subdirectory(armadillo)
+# add_subdirectory(armadillo)
 add_subdirectory(half)
 
 add_subdirectory(boost_src)
@@ -99,10 +104,11 @@ add_library(
 target_link_libraries(
     ModelSpace
     PUBLIC
-    armadillo
+    # armadillo
     IMSRGProfiler
     AngMomCache
     PRIVATE
+    ${ARMADILLO_LIBRARIES}
     OpenMP::OpenMP_CXX
 )
 
@@ -131,9 +137,10 @@ add_library(
 target_link_libraries(
     ThreeLegME
     PUBLIC
-    armadillo
+    # armadillo
     ModelSpace
     PRIVATE
+    ${ARMADILLO_LIBRARIES}
     PhysicalConstants
 )
 
@@ -235,7 +242,7 @@ add_library(
 target_link_libraries(
     Operator
     PUBLIC
-    armadillo
+    # armadillo
     ModelSpace
     TwoBodyME
     ThreeBodyME
@@ -244,6 +251,7 @@ target_link_libraries(
     PRIVATE
     GSL::gsl
     OpenMP::OpenMP_CXX
+    ${ARMADILLO_LIBRARIES}
     PhysicalConstants
     AngMom
 )
@@ -319,12 +327,13 @@ add_library(
 target_link_libraries(
     Commutator
     PUBLIC
-    armadillo
+    # armadillo
     Operator
     TwoBodyME
     ThreeLegME
     PRIVATE
     OpenMP::OpenMP_CXX
+    ${ARMADILLO_LIBRARIES}
     PhysicalConstants
     Commutator232
     AngMom
@@ -368,7 +377,7 @@ add_library(
 target_link_libraries(
     HartreeFock
     PUBLIC
-    armadillo
+    # armadillo
     ModelSpace
     Operator
     IMSRGProfiler
@@ -378,6 +387,7 @@ target_link_libraries(
     OpenMP::OpenMP_CXX
     GSL::gsl
     AngMom
+    ${ARMADILLO_LIBRARIES}
     PhysicalConstants
 )
 
@@ -386,20 +396,20 @@ add_library(
     INTERFACE
 )
 
-add_library(
-    Helicity
-    Helicity.hh Helicity.cc
-)
+# add_library(
+#     Helicity
+#     Helicity.hh Helicity.cc
+# )
 
-target_link_libraries(
-    Helicity
-    PUBLIC
-    GSL::gsl
-    PhysicalConstants
-    PRIVATE
-    AngMom
+# target_link_libraries(
+#     Helicity
+#     PUBLIC
+#     GSL::gsl
+#     PhysicalConstants
+#     PRIVATE
+#     AngMom
 
-)
+# )
 
 add_library(
     Pwd
@@ -478,10 +488,11 @@ add_library(
 target_link_libraries(
     HFMBPT
     PUBLIC
-    armadillo
+    # armadillo
     HartreeFock
     PRIVATE
     PhysicalConstants
+    ${ARMADILLO_LIBRARIES}
     OpenMP::OpenMP_CXX
 )
 
@@ -492,10 +503,11 @@ add_library(
 target_link_libraries(
     RPA
     PUBLIC
-    armadillo
+    # armadillo
     ModelSpace
     Operator
     PRIVATE
+    ${ARMADILLO_LIBRARIES}
     PhysicalConstants
     AngMom
 )
@@ -511,7 +523,8 @@ target_link_libraries(
     Operator
     Commutator
     PRIVATE
-    armadillo
+    # armadillo
+    ${ARMADILLO_LIBRARIES}
     PhysicalConstants
     Version
     imsrg_util
@@ -530,7 +543,8 @@ target_link_libraries(
     Operator
     Commutator
     PRIVATE
-    armadillo
+    # armadillo
+    ${ARMADILLO_LIBRARIES}
     PhysicalConstants
     Version
     imsrg_util
@@ -602,3 +616,19 @@ if(IMSRG_BUILD_PYTHON_BINDINGS)
         IMSRG
     )
 endif()
+
+# Install imsrg executable
+install(TARGETS imsrg++ 
+        DESTINATION ${INSTDIR}/bin 
+        PERMISSIONS OWNER_READ OWNER_WRITE OWNER_EXECUTE GROUP_READ  GROUP_EXECUTE WORLD_READ WORLD_EXECUTE) 
+
+# Install library
+install(TARGETS IMSRG  
+        DESTINATION ${INSTDIR}/lib 
+        PERMISSIONS OWNER_READ OWNER_WRITE OWNER_EXECUTE GROUP_READ  GROUP_EXECUTE WORLD_READ WORLD_EXECUTE)
+
+# Install the header files
+file(GLOB HEADERS *.hh)
+install(FILES ${HEADERS} 
+        DESTINATION ${INSTDIR}/include
+        PERMISSIONS OWNER_READ OWNER_WRITE OWNER_EXECUTE GROUP_READ  GROUP_EXECUTE WORLD_READ WORLD_EXECUTE)

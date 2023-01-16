@@ -1,2 +1,2 @@
-/Library/Developer/CommandLineTools/usr/bin/ar qc libRPA.a CMakeFiles/RPA.dir/RPA.cc.o
-/Library/Developer/CommandLineTools/usr/bin/ranlib libRPA.a
+/cvmfs/soft.computecanada.ca/gentoo/2020/usr/bin/ar qc libRPA.a CMakeFiles/RPA.dir/RPA.cc.o
+/cvmfs/soft.computecanada.ca/gentoo/2020/usr/bin/ranlib libRPA.a

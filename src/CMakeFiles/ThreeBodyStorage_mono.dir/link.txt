@@ -1,2 +1,2 @@
-/Library/Developer/CommandLineTools/usr/bin/ar qc libThreeBodyStorage_mono.a CMakeFiles/ThreeBodyStorage_mono.dir/ThreeBodyStorage_mono.cc.o
-/Library/Developer/CommandLineTools/usr/bin/ranlib libThreeBodyStorage_mono.a
+/cvmfs/soft.computecanada.ca/gentoo/2020/usr/bin/ar qc libThreeBodyStorage_mono.a CMakeFiles/ThreeBodyStorage_mono.dir/ThreeBodyStorage_mono.cc.o
+/cvmfs/soft.computecanada.ca/gentoo/2020/usr/bin/ranlib libThreeBodyStorage_mono.a
