@@ -1,2 +1,2 @@
-/Library/Developer/CommandLineTools/usr/bin/ar qc libM0nu.a CMakeFiles/M0nu.dir/M0nu.cc.o
-/Library/Developer/CommandLineTools/usr/bin/ranlib libM0nu.a
+/cvmfs/soft.computecanada.ca/gentoo/2020/usr/bin/ar qc libM0nu.a CMakeFiles/M0nu.dir/M0nu.cc.o
+/cvmfs/soft.computecanada.ca/gentoo/2020/usr/bin/ranlib libM0nu.a

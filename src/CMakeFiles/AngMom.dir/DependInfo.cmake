@@ -8,7 +8,7 @@ set(CMAKE_DEPENDS_LANGUAGES
 
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
-  "/Users/antoinebelley/Documents/TRIUMF/imsrg/src/AngMom.cc" "CMakeFiles/AngMom.dir/AngMom.cc.o" "gcc" "CMakeFiles/AngMom.dir/AngMom.cc.o.d"
+  "/home/belleya/projects/def-holt/belleya/imsrg/src/AngMom.cc" "CMakeFiles/AngMom.dir/AngMom.cc.o" "gcc" "CMakeFiles/AngMom.dir/AngMom.cc.o.d"
   )
 
 # Targets to which this target links.

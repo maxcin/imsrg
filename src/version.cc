@@ -4,6 +4,6 @@
 
 namespace version {
 std::string BuildVersion() {
-    return "AntoineRefactor_c2547eb+";
+    return "devel_abb5821+";
 }
 }

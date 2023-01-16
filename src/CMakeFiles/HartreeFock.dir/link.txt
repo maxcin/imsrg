@@ -1,2 +1,2 @@
-/Library/Developer/CommandLineTools/usr/bin/ar qc libHartreeFock.a CMakeFiles/HartreeFock.dir/HartreeFock.cc.o
-/Library/Developer/CommandLineTools/usr/bin/ranlib libHartreeFock.a
+/cvmfs/soft.computecanada.ca/gentoo/2020/usr/bin/ar qc libHartreeFock.a CMakeFiles/HartreeFock.dir/HartreeFock.cc.o
+/cvmfs/soft.computecanada.ca/gentoo/2020/usr/bin/ranlib libHartreeFock.a

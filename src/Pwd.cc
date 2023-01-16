@@ -3,6 +3,7 @@
 #include <unordered_map>
 #include <vector>
 #include <map>
+#include <functional>
 #include<iostream>
 #include <gsl/gsl_sf_legendre.h>
 #include "PhysicalConstants.hh"

@@ -1,2 +1,2 @@
-/Library/Developer/CommandLineTools/usr/bin/ar qc libCommutator.a CMakeFiles/Commutator.dir/Commutator.cc.o
-/Library/Developer/CommandLineTools/usr/bin/ranlib libCommutator.a
+/cvmfs/soft.computecanada.ca/gentoo/2020/usr/bin/ar qc libCommutator.a CMakeFiles/Commutator.dir/Commutator.cc.o
+/cvmfs/soft.computecanada.ca/gentoo/2020/usr/bin/ranlib libCommutator.a

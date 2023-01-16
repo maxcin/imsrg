@@ -1,2 +1,2 @@
-/Library/Developer/CommandLineTools/usr/bin/ar qc libUnitTest.a CMakeFiles/UnitTest.dir/UnitTest.cc.o
-/Library/Developer/CommandLineTools/usr/bin/ranlib libUnitTest.a
+/cvmfs/soft.computecanada.ca/gentoo/2020/usr/bin/ar qc libUnitTest.a CMakeFiles/UnitTest.dir/UnitTest.cc.o
+/cvmfs/soft.computecanada.ca/gentoo/2020/usr/bin/ranlib libUnitTest.a

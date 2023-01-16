@@ -1,2 +1,2 @@
-/Library/Developer/CommandLineTools/usr/bin/ar qc libimsrg_util.a CMakeFiles/imsrg_util.dir/imsrg_util.cc.o
-/Library/Developer/CommandLineTools/usr/bin/ranlib libimsrg_util.a
+/cvmfs/soft.computecanada.ca/gentoo/2020/usr/bin/ar qc libimsrg_util.a CMakeFiles/imsrg_util.dir/imsrg_util.cc.o
+/cvmfs/soft.computecanada.ca/gentoo/2020/usr/bin/ranlib libimsrg_util.a

@@ -39,3 +39,81 @@ make: *** [cmTC_abd0a/fast] Error 2
 
 
 
+Determining if the function sgemm_ exists failed with the following output:
+Change Dir: /home/belleya/projects/def-holt/belleya/imsrg/src/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/cvmfs/soft.computecanada.ca/gentoo/2020/usr/bin/gmake -f Makefile cmTC_7d7d1/fast && /cvmfs/soft.computecanada.ca/gentoo/2020/usr/bin/gmake  -f CMakeFiles/cmTC_7d7d1.dir/build.make CMakeFiles/cmTC_7d7d1.dir/build
+gmake[1]: Entering directory '/project/6006601/belleya/imsrg/src/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_7d7d1.dir/CheckFunctionExists.c.o
+/cvmfs/soft.computecanada.ca/easybuild/software/2020/Core/gcccore/9.3.0/bin/cc   -DCHECK_FUNCTION_EXISTS=sgemm_ -o CMakeFiles/cmTC_7d7d1.dir/CheckFunctionExists.c.o -c /cvmfs/soft.computecanada.ca/easybuild/software/2020/Core/cmake/3.23.1/share/cmake-3.23/Modules/CheckFunctionExists.c
+Linking C executable cmTC_7d7d1
+/cvmfs/soft.computecanada.ca/easybuild/software/2020/Core/cmake/3.23.1/bin/cmake -E cmake_link_script CMakeFiles/cmTC_7d7d1.dir/link.txt --verbose=1
+/cvmfs/soft.computecanada.ca/easybuild/software/2020/Core/gcccore/9.3.0/bin/cc  -DCHECK_FUNCTION_EXISTS=sgemm_ CMakeFiles/cmTC_7d7d1.dir/CheckFunctionExists.c.o -o cmTC_7d7d1 
+CMakeFiles/cmTC_7d7d1.dir/CheckFunctionExists.c.o:CheckFunctionExists.c:function main: error: undefined reference to 'sgemm_'
+collect2: error: ld returned 1 exit status
+gmake[1]: *** [CMakeFiles/cmTC_7d7d1.dir/build.make:99: cmTC_7d7d1] Error 1
+gmake[1]: Leaving directory '/project/6006601/belleya/imsrg/src/CMakeFiles/CMakeTmp'
+gmake: *** [Makefile:127: cmTC_7d7d1/fast] Error 2
+
+
+
+Performing C SOURCE FILE Test CMAKE_HAVE_LIBC_PTHREAD failed with the following output:
+Change Dir: /home/belleya/projects/def-holt/belleya/imsrg/src/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/cvmfs/soft.computecanada.ca/gentoo/2020/usr/bin/gmake -f Makefile cmTC_b2334/fast && /cvmfs/soft.computecanada.ca/gentoo/2020/usr/bin/gmake  -f CMakeFiles/cmTC_b2334.dir/build.make CMakeFiles/cmTC_b2334.dir/build
+gmake[1]: Entering directory '/project/6006601/belleya/imsrg/src/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_b2334.dir/src.c.o
+/cvmfs/soft.computecanada.ca/easybuild/software/2020/Core/gcccore/9.3.0/bin/cc -DCMAKE_HAVE_LIBC_PTHREAD   -o CMakeFiles/cmTC_b2334.dir/src.c.o -c /home/belleya/projects/def-holt/belleya/imsrg/src/CMakeFiles/CMakeTmp/src.c
+Linking C executable cmTC_b2334
+/cvmfs/soft.computecanada.ca/easybuild/software/2020/Core/cmake/3.23.1/bin/cmake -E cmake_link_script CMakeFiles/cmTC_b2334.dir/link.txt --verbose=1
+/cvmfs/soft.computecanada.ca/easybuild/software/2020/Core/gcccore/9.3.0/bin/cc CMakeFiles/cmTC_b2334.dir/src.c.o -o cmTC_b2334 
+CMakeFiles/cmTC_b2334.dir/src.c.o:src.c:function main: error: undefined reference to 'pthread_create'
+CMakeFiles/cmTC_b2334.dir/src.c.o:src.c:function main: error: undefined reference to 'pthread_detach'
+CMakeFiles/cmTC_b2334.dir/src.c.o:src.c:function main: error: undefined reference to 'pthread_cancel'
+CMakeFiles/cmTC_b2334.dir/src.c.o:src.c:function main: error: undefined reference to 'pthread_join'
+collect2: error: ld returned 1 exit status
+gmake[1]: *** [CMakeFiles/cmTC_b2334.dir/build.make:99: cmTC_b2334] Error 1
+gmake[1]: Leaving directory '/project/6006601/belleya/imsrg/src/CMakeFiles/CMakeTmp'
+gmake: *** [Makefile:127: cmTC_b2334/fast] Error 2
+
+
+Source file was:
+#include <pthread.h>
+
+static void* test_func(void* data)
+{
+  return data;
+}
+
+int main(void)
+{
+  pthread_t thread;
+  pthread_create(&thread, NULL, test_func, NULL);
+  pthread_detach(thread);
+  pthread_cancel(thread);
+  pthread_join(thread, NULL);
+  pthread_atfork(NULL, NULL, NULL);
+  pthread_exit(NULL);
+
+  return 0;
+}
+
+Determining if the function pthread_create exists in the pthreads failed with the following output:
+Change Dir: /home/belleya/projects/def-holt/belleya/imsrg/src/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/cvmfs/soft.computecanada.ca/gentoo/2020/usr/bin/gmake -f Makefile cmTC_9a5c3/fast && /cvmfs/soft.computecanada.ca/gentoo/2020/usr/bin/gmake  -f CMakeFiles/cmTC_9a5c3.dir/build.make CMakeFiles/cmTC_9a5c3.dir/build
+gmake[1]: Entering directory '/project/6006601/belleya/imsrg/src/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_9a5c3.dir/CheckFunctionExists.c.o
+/cvmfs/soft.computecanada.ca/easybuild/software/2020/Core/gcccore/9.3.0/bin/cc   -DCHECK_FUNCTION_EXISTS=pthread_create -o CMakeFiles/cmTC_9a5c3.dir/CheckFunctionExists.c.o -c /cvmfs/soft.computecanada.ca/easybuild/software/2020/Core/cmake/3.23.1/share/cmake-3.23/Modules/CheckFunctionExists.c
+Linking C executable cmTC_9a5c3
+/cvmfs/soft.computecanada.ca/easybuild/software/2020/Core/cmake/3.23.1/bin/cmake -E cmake_link_script CMakeFiles/cmTC_9a5c3.dir/link.txt --verbose=1
+/cvmfs/soft.computecanada.ca/easybuild/software/2020/Core/gcccore/9.3.0/bin/cc  -DCHECK_FUNCTION_EXISTS=pthread_create CMakeFiles/cmTC_9a5c3.dir/CheckFunctionExists.c.o -o cmTC_9a5c3  -lpthreads 
+/cvmfs/soft.computecanada.ca/gentoo/2020/usr/x86_64-pc-linux-gnu/binutils-bin/2.33.1/ld.gold: error: cannot find -lpthreads
+CMakeFiles/cmTC_9a5c3.dir/CheckFunctionExists.c.o:CheckFunctionExists.c:function main: error: undefined reference to 'pthread_create'
+collect2: error: ld returned 1 exit status
+gmake[1]: *** [CMakeFiles/cmTC_9a5c3.dir/build.make:99: cmTC_9a5c3] Error 1
+gmake[1]: Leaving directory '/project/6006601/belleya/imsrg/src/CMakeFiles/CMakeTmp'
+gmake: *** [Makefile:127: cmTC_9a5c3/fast] Error 2
+
+
+
