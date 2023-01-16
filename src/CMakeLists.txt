@@ -3,6 +3,7 @@ cmake_minimum_required(VERSION 3.18)
 set(INSTDIR $ENV{HOME})
 set(BLA_VENDER OpenBLAS)
 
+
 option(IMSRG_BUILD_PYTHON_BINDINGS "Build Python bindings" ON)
 
 # Determine if imsrg++ is built as a subproject (using add_subdirectory)
@@ -632,3 +633,4 @@ file(GLOB HEADERS *.hh)
 install(FILES ${HEADERS} 
         DESTINATION ${INSTDIR}/include
         PERMISSIONS OWNER_READ OWNER_WRITE OWNER_EXECUTE GROUP_READ  GROUP_EXECUTE WORLD_READ WORLD_EXECUTE)
+
