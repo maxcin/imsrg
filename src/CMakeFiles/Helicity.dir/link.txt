@@ -1,2 +1,0 @@
-/cvmfs/soft.computecanada.ca/gentoo/2020/usr/bin/ar qc libHelicity.a CMakeFiles/Helicity.dir/Helicity.cc.o
-/cvmfs/soft.computecanada.ca/gentoo/2020/usr/bin/ranlib libHelicity.a

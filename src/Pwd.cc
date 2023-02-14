@@ -263,7 +263,7 @@ double central_force_decomposition(double p, double pp, int index_p, int index_p
   if ((S == 0 and L == J and Lp == J)
     or (S == 1 and (L == Lp) and ((L == J) or (L == J - 1) or (L == J + 1)))) // Singlet state and triplet state are the same
     {
-      W = 2 * GetA(index_p, index_pp, J, 0, type, AList);
+      W = 2 * GetA(index_p, index_pp, L, 0, type, AList);
     }
   return W;
 }

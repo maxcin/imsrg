@@ -1,7 +1,7 @@
 CMakeFiles/AngMomCache.dir/AngMomCache.cc.o: \
- /home/belleya/projects/def-holt/belleya/imsrg/src/AngMomCache.cc \
+ /home/belleya/projects/rrg-holt/belleya/imsrg/src/AngMomCache.cc \
  /cvmfs/soft.computecanada.ca/gentoo/2020/usr/include/stdc-predef.h \
- /home/belleya/projects/def-holt/belleya/imsrg/src/AngMomCache.hh \
+ /home/belleya/projects/rrg-holt/belleya/imsrg/src/AngMomCache.hh \
  /cvmfs/soft.computecanada.ca/easybuild/software/2020/Core/gcccore/9.3.0/include/c++/9.3.0/cstddef \
  /cvmfs/soft.computecanada.ca/easybuild/software/2020/Core/gcccore/9.3.0/include/c++/9.3.0/x86_64-pc-linux-gnu/bits/c++config.h \
  /cvmfs/soft.computecanada.ca/easybuild/software/2020/Core/gcccore/9.3.0/include/c++/9.3.0/x86_64-pc-linux-gnu/bits/os_defines.h \
@@ -53,7 +53,7 @@ CMakeFiles/AngMomCache.dir/AngMomCache.cc.o: \
  /cvmfs/soft.computecanada.ca/easybuild/software/2020/Core/gcccore/9.3.0/include/c++/9.3.0/bits/functional_hash.h \
  /cvmfs/soft.computecanada.ca/easybuild/software/2020/Core/gcccore/9.3.0/include/c++/9.3.0/bits/range_access.h \
  /cvmfs/soft.computecanada.ca/easybuild/software/2020/Core/gcccore/9.3.0/include/c++/9.3.0/bits/vector.tcc \
- /home/belleya/projects/def-holt/belleya/imsrg/src/AngMom.hh \
+ /home/belleya/projects/rrg-holt/belleya/imsrg/src/AngMom.hh \
  /cvmfs/soft.computecanada.ca/easybuild/software/2020/Core/gcccore/9.3.0/include/c++/9.3.0/cmath \
  /cvmfs/soft.computecanada.ca/gentoo/2020/usr/include/math.h \
  /cvmfs/soft.computecanada.ca/gentoo/2020/usr/include/bits/libc-header-start.h \

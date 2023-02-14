@@ -2,7 +2,8 @@ cmake_minimum_required(VERSION 3.18)
 
 set(INSTDIR $ENV{HOME})
 set(BLA_VENDER OpenBLAS)
-
+set(CMAKE_SKIP_INSTALL_RPATH ON)
+set(CMAKE_SYSTEM_PREFIX_PATH $ENV{EBROOTGENTOO})
 
 option(IMSRG_BUILD_PYTHON_BINDINGS "Build Python bindings" ON)
 
