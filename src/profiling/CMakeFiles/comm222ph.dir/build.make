@@ -123,7 +123,11 @@ profiling/comm222ph: libThreeBodyStorage_pn.a
 profiling/comm222ph: libThreeBodyStorage_no2b.a
 profiling/comm222ph: libThreeBodyStorage_mono.a
 profiling/comm222ph: boost_src/libIMSRGBoostZip.a
+<<<<<<< HEAD
 profiling/comm222ph: /cvmfs/soft.computecanada.ca/gentoo/2020/usr/lib/libz.so
+=======
+profiling/comm222ph: /Library/Developer/CommandLineTools/SDKs/MacOSX13.1.sdk/usr/lib/libz.tbd
+>>>>>>> 049e272 (Merging)
 profiling/comm222ph: libThreeBodyStorage.a
 profiling/comm222ph: libThreeLegME.a
 profiling/comm222ph: libModelSpace.a

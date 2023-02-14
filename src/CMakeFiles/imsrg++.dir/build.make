@@ -123,7 +123,11 @@ imsrg++: libThreeBodyStorage_pn.a
 imsrg++: libThreeBodyStorage_no2b.a
 imsrg++: libThreeBodyStorage_mono.a
 imsrg++: boost_src/libIMSRGBoostZip.a
+<<<<<<< HEAD
 imsrg++: /cvmfs/soft.computecanada.ca/gentoo/2020/usr/lib/libz.so
+=======
+imsrg++: /Library/Developer/CommandLineTools/SDKs/MacOSX13.1.sdk/usr/lib/libz.tbd
+>>>>>>> 049e272 (Merging)
 imsrg++: libThreeBodyStorage.a
 imsrg++: libThreeLegME.a
 imsrg++: libModelSpace.a

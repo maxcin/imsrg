@@ -333,10 +333,17 @@ CMakeFiles/ModelSpace.dir/clean:
 # Target rules for target CMakeFiles/TwoBodyME.dir
 
 # All Build rule for target.
+<<<<<<< HEAD
 CMakeFiles/TwoBodyME.dir/all: CMakeFiles/AngMomCache.dir/all
 CMakeFiles/TwoBodyME.dir/all: CMakeFiles/IMSRGProfiler.dir/all
 CMakeFiles/TwoBodyME.dir/all: CMakeFiles/ModelSpace.dir/all
 CMakeFiles/TwoBodyME.dir/all: CMakeFiles/AngMom.dir/all
+=======
+CMakeFiles/TwoBodyME.dir/all: CMakeFiles/AngMom.dir/all
+CMakeFiles/TwoBodyME.dir/all: CMakeFiles/AngMomCache.dir/all
+CMakeFiles/TwoBodyME.dir/all: CMakeFiles/IMSRGProfiler.dir/all
+CMakeFiles/TwoBodyME.dir/all: CMakeFiles/ModelSpace.dir/all
+>>>>>>> 049e272 (Merging)
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/TwoBodyME.dir/build.make CMakeFiles/TwoBodyME.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/TwoBodyME.dir/build.make CMakeFiles/TwoBodyME.dir/build
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/belleya/projects/rrg-holt/belleya/imsrg/src/CMakeFiles --progress-num=56,57 "Built target TwoBodyME"
@@ -362,10 +369,17 @@ CMakeFiles/TwoBodyME.dir/clean:
 # Target rules for target CMakeFiles/ThreeLegME.dir
 
 # All Build rule for target.
+<<<<<<< HEAD
 CMakeFiles/ThreeLegME.dir/all: CMakeFiles/AngMomCache.dir/all
 CMakeFiles/ThreeLegME.dir/all: CMakeFiles/IMSRGProfiler.dir/all
 CMakeFiles/ThreeLegME.dir/all: CMakeFiles/ModelSpace.dir/all
 CMakeFiles/ThreeLegME.dir/all: CMakeFiles/AngMom.dir/all
+=======
+CMakeFiles/ThreeLegME.dir/all: CMakeFiles/AngMom.dir/all
+CMakeFiles/ThreeLegME.dir/all: CMakeFiles/AngMomCache.dir/all
+CMakeFiles/ThreeLegME.dir/all: CMakeFiles/IMSRGProfiler.dir/all
+CMakeFiles/ThreeLegME.dir/all: CMakeFiles/ModelSpace.dir/all
+>>>>>>> 049e272 (Merging)
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/ThreeLegME.dir/build.make CMakeFiles/ThreeLegME.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/ThreeLegME.dir/build.make CMakeFiles/ThreeLegME.dir/build
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/belleya/projects/rrg-holt/belleya/imsrg/src/CMakeFiles --progress-num=54,55 "Built target ThreeLegME"
@@ -391,10 +405,17 @@ CMakeFiles/ThreeLegME.dir/clean:
 # Target rules for target CMakeFiles/ThreeBodyStorage.dir
 
 # All Build rule for target.
+<<<<<<< HEAD
 CMakeFiles/ThreeBodyStorage.dir/all: CMakeFiles/AngMomCache.dir/all
 CMakeFiles/ThreeBodyStorage.dir/all: CMakeFiles/IMSRGProfiler.dir/all
 CMakeFiles/ThreeBodyStorage.dir/all: CMakeFiles/ModelSpace.dir/all
 CMakeFiles/ThreeBodyStorage.dir/all: CMakeFiles/AngMom.dir/all
+=======
+CMakeFiles/ThreeBodyStorage.dir/all: CMakeFiles/AngMom.dir/all
+CMakeFiles/ThreeBodyStorage.dir/all: CMakeFiles/AngMomCache.dir/all
+CMakeFiles/ThreeBodyStorage.dir/all: CMakeFiles/IMSRGProfiler.dir/all
+CMakeFiles/ThreeBodyStorage.dir/all: CMakeFiles/ModelSpace.dir/all
+>>>>>>> 049e272 (Merging)
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/ThreeBodyStorage.dir/build.make CMakeFiles/ThreeBodyStorage.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/ThreeBodyStorage.dir/build.make CMakeFiles/ThreeBodyStorage.dir/build
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/belleya/projects/rrg-holt/belleya/imsrg/src/CMakeFiles --progress-num=44,45 "Built target ThreeBodyStorage"
@@ -420,11 +441,19 @@ CMakeFiles/ThreeBodyStorage.dir/clean:
 # Target rules for target CMakeFiles/ThreeBodyStorage_pn.dir
 
 # All Build rule for target.
+<<<<<<< HEAD
 CMakeFiles/ThreeBodyStorage_pn.dir/all: CMakeFiles/AngMomCache.dir/all
 CMakeFiles/ThreeBodyStorage_pn.dir/all: CMakeFiles/IMSRGProfiler.dir/all
 CMakeFiles/ThreeBodyStorage_pn.dir/all: CMakeFiles/ModelSpace.dir/all
 CMakeFiles/ThreeBodyStorage_pn.dir/all: CMakeFiles/ThreeBodyStorage.dir/all
 CMakeFiles/ThreeBodyStorage_pn.dir/all: CMakeFiles/AngMom.dir/all
+=======
+CMakeFiles/ThreeBodyStorage_pn.dir/all: CMakeFiles/AngMom.dir/all
+CMakeFiles/ThreeBodyStorage_pn.dir/all: CMakeFiles/AngMomCache.dir/all
+CMakeFiles/ThreeBodyStorage_pn.dir/all: CMakeFiles/IMSRGProfiler.dir/all
+CMakeFiles/ThreeBodyStorage_pn.dir/all: CMakeFiles/ModelSpace.dir/all
+CMakeFiles/ThreeBodyStorage_pn.dir/all: CMakeFiles/ThreeBodyStorage.dir/all
+>>>>>>> 049e272 (Merging)
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/ThreeBodyStorage_pn.dir/build.make CMakeFiles/ThreeBodyStorage_pn.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/ThreeBodyStorage_pn.dir/build.make CMakeFiles/ThreeBodyStorage_pn.dir/build
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/belleya/projects/rrg-holt/belleya/imsrg/src/CMakeFiles --progress-num=52,53 "Built target ThreeBodyStorage_pn"
@@ -450,6 +479,10 @@ CMakeFiles/ThreeBodyStorage_pn.dir/clean:
 # Target rules for target CMakeFiles/ThreeBodyStorage_no2b.dir
 
 # All Build rule for target.
+<<<<<<< HEAD
+=======
+CMakeFiles/ThreeBodyStorage_no2b.dir/all: CMakeFiles/AngMom.dir/all
+>>>>>>> 049e272 (Merging)
 CMakeFiles/ThreeBodyStorage_no2b.dir/all: CMakeFiles/AngMomCache.dir/all
 CMakeFiles/ThreeBodyStorage_no2b.dir/all: CMakeFiles/IMSRGProfiler.dir/all
 CMakeFiles/ThreeBodyStorage_no2b.dir/all: CMakeFiles/ModelSpace.dir/all
@@ -481,6 +514,10 @@ CMakeFiles/ThreeBodyStorage_no2b.dir/clean:
 # Target rules for target CMakeFiles/ThreeBodyStorage_mono.dir
 
 # All Build rule for target.
+<<<<<<< HEAD
+=======
+CMakeFiles/ThreeBodyStorage_mono.dir/all: CMakeFiles/AngMom.dir/all
+>>>>>>> 049e272 (Merging)
 CMakeFiles/ThreeBodyStorage_mono.dir/all: CMakeFiles/AngMomCache.dir/all
 CMakeFiles/ThreeBodyStorage_mono.dir/all: CMakeFiles/IMSRGProfiler.dir/all
 CMakeFiles/ThreeBodyStorage_mono.dir/all: CMakeFiles/ModelSpace.dir/all
@@ -512,11 +549,19 @@ CMakeFiles/ThreeBodyStorage_mono.dir/clean:
 # Target rules for target CMakeFiles/ThreeBodyStorage_iso.dir
 
 # All Build rule for target.
+<<<<<<< HEAD
 CMakeFiles/ThreeBodyStorage_iso.dir/all: CMakeFiles/AngMomCache.dir/all
 CMakeFiles/ThreeBodyStorage_iso.dir/all: CMakeFiles/IMSRGProfiler.dir/all
 CMakeFiles/ThreeBodyStorage_iso.dir/all: CMakeFiles/ModelSpace.dir/all
 CMakeFiles/ThreeBodyStorage_iso.dir/all: CMakeFiles/ThreeBodyStorage.dir/all
 CMakeFiles/ThreeBodyStorage_iso.dir/all: CMakeFiles/AngMom.dir/all
+=======
+CMakeFiles/ThreeBodyStorage_iso.dir/all: CMakeFiles/AngMom.dir/all
+CMakeFiles/ThreeBodyStorage_iso.dir/all: CMakeFiles/AngMomCache.dir/all
+CMakeFiles/ThreeBodyStorage_iso.dir/all: CMakeFiles/IMSRGProfiler.dir/all
+CMakeFiles/ThreeBodyStorage_iso.dir/all: CMakeFiles/ModelSpace.dir/all
+CMakeFiles/ThreeBodyStorage_iso.dir/all: CMakeFiles/ThreeBodyStorage.dir/all
+>>>>>>> 049e272 (Merging)
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/ThreeBodyStorage_iso.dir/build.make CMakeFiles/ThreeBodyStorage_iso.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/ThreeBodyStorage_iso.dir/build.make CMakeFiles/ThreeBodyStorage_iso.dir/build
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/belleya/projects/rrg-holt/belleya/imsrg/src/CMakeFiles --progress-num=46,47 "Built target ThreeBodyStorage_iso"
@@ -542,6 +587,10 @@ CMakeFiles/ThreeBodyStorage_iso.dir/clean:
 # Target rules for target CMakeFiles/ThreeBodyME.dir
 
 # All Build rule for target.
+<<<<<<< HEAD
+=======
+CMakeFiles/ThreeBodyME.dir/all: CMakeFiles/AngMom.dir/all
+>>>>>>> 049e272 (Merging)
 CMakeFiles/ThreeBodyME.dir/all: CMakeFiles/AngMomCache.dir/all
 CMakeFiles/ThreeBodyME.dir/all: CMakeFiles/IMSRGProfiler.dir/all
 CMakeFiles/ThreeBodyME.dir/all: CMakeFiles/ModelSpace.dir/all
@@ -577,6 +626,10 @@ CMakeFiles/ThreeBodyME.dir/clean:
 # Target rules for target CMakeFiles/Operator.dir
 
 # All Build rule for target.
+<<<<<<< HEAD
+=======
+CMakeFiles/Operator.dir/all: CMakeFiles/AngMom.dir/all
+>>>>>>> 049e272 (Merging)
 CMakeFiles/Operator.dir/all: CMakeFiles/AngMomCache.dir/all
 CMakeFiles/Operator.dir/all: CMakeFiles/IMSRGProfiler.dir/all
 CMakeFiles/Operator.dir/all: CMakeFiles/ModelSpace.dir/all
@@ -641,6 +694,10 @@ CMakeFiles/Version.dir/clean:
 # Target rules for target CMakeFiles/ReadWrite.dir
 
 # All Build rule for target.
+<<<<<<< HEAD
+=======
+CMakeFiles/ReadWrite.dir/all: CMakeFiles/AngMom.dir/all
+>>>>>>> 049e272 (Merging)
 CMakeFiles/ReadWrite.dir/all: CMakeFiles/AngMomCache.dir/all
 CMakeFiles/ReadWrite.dir/all: CMakeFiles/IMSRGProfiler.dir/all
 CMakeFiles/ReadWrite.dir/all: CMakeFiles/ModelSpace.dir/all
@@ -657,6 +714,11 @@ CMakeFiles/ReadWrite.dir/all: boost_src/CMakeFiles/IMSRGBoostZip.dir/all
 CMakeFiles/ReadWrite.dir/all: CMakeFiles/AngMom.dir/all
 CMakeFiles/ReadWrite.dir/all: CMakeFiles/Operator.dir/all
 CMakeFiles/ReadWrite.dir/all: CMakeFiles/Version.dir/all
+<<<<<<< HEAD
+=======
+CMakeFiles/ReadWrite.dir/all: CMakeFiles/Jacobi3BME.dir/all
+CMakeFiles/ReadWrite.dir/all: boost_src/CMakeFiles/IMSRGBoostZip.dir/all
+>>>>>>> 049e272 (Merging)
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/ReadWrite.dir/build.make CMakeFiles/ReadWrite.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/ReadWrite.dir/build.make CMakeFiles/ReadWrite.dir/build
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/belleya/projects/rrg-holt/belleya/imsrg/src/CMakeFiles --progress-num=38,39 "Built target ReadWrite"
@@ -708,6 +770,10 @@ CMakeFiles/IMSRGSolver.dir/clean:
 # Target rules for target CMakeFiles/Commutator232.dir
 
 # All Build rule for target.
+<<<<<<< HEAD
+=======
+CMakeFiles/Commutator232.dir/all: CMakeFiles/AngMom.dir/all
+>>>>>>> 049e272 (Merging)
 CMakeFiles/Commutator232.dir/all: CMakeFiles/AngMomCache.dir/all
 CMakeFiles/Commutator232.dir/all: CMakeFiles/IMSRGProfiler.dir/all
 CMakeFiles/Commutator232.dir/all: CMakeFiles/ModelSpace.dir/all
@@ -719,6 +785,10 @@ CMakeFiles/Commutator232.dir/all: CMakeFiles/ThreeLegME.dir/all
 CMakeFiles/Commutator232.dir/all: CMakeFiles/ThreeBodyStorage_mono.dir/all
 CMakeFiles/Commutator232.dir/all: CMakeFiles/ThreeBodyStorage_iso.dir/all
 CMakeFiles/Commutator232.dir/all: CMakeFiles/ThreeBodyME.dir/all
+<<<<<<< HEAD
+=======
+CMakeFiles/Commutator232.dir/all: CMakeFiles/Operator.dir/all
+>>>>>>> 049e272 (Merging)
 CMakeFiles/Commutator232.dir/all: boost_src/CMakeFiles/IMSRGBoostZip.dir/all
 CMakeFiles/Commutator232.dir/all: CMakeFiles/AngMom.dir/all
 CMakeFiles/Commutator232.dir/all: CMakeFiles/Operator.dir/all
@@ -747,6 +817,10 @@ CMakeFiles/Commutator232.dir/clean:
 # Target rules for target CMakeFiles/Commutator.dir
 
 # All Build rule for target.
+<<<<<<< HEAD
+=======
+CMakeFiles/Commutator.dir/all: CMakeFiles/AngMom.dir/all
+>>>>>>> 049e272 (Merging)
 CMakeFiles/Commutator.dir/all: CMakeFiles/AngMomCache.dir/all
 CMakeFiles/Commutator.dir/all: CMakeFiles/IMSRGProfiler.dir/all
 CMakeFiles/Commutator.dir/all: CMakeFiles/ModelSpace.dir/all
@@ -759,6 +833,11 @@ CMakeFiles/Commutator.dir/all: CMakeFiles/Commutator232.dir/all
 CMakeFiles/Commutator.dir/all: CMakeFiles/ThreeBodyStorage_mono.dir/all
 CMakeFiles/Commutator.dir/all: CMakeFiles/ThreeBodyStorage_iso.dir/all
 CMakeFiles/Commutator.dir/all: CMakeFiles/ThreeBodyME.dir/all
+<<<<<<< HEAD
+=======
+CMakeFiles/Commutator.dir/all: CMakeFiles/Operator.dir/all
+CMakeFiles/Commutator.dir/all: CMakeFiles/Commutator232.dir/all
+>>>>>>> 049e272 (Merging)
 CMakeFiles/Commutator.dir/all: boost_src/CMakeFiles/IMSRGBoostZip.dir/all
 CMakeFiles/Commutator.dir/all: CMakeFiles/AngMom.dir/all
 CMakeFiles/Commutator.dir/all: CMakeFiles/Operator.dir/all
@@ -787,6 +866,10 @@ CMakeFiles/Commutator.dir/clean:
 # Target rules for target CMakeFiles/DarkMatterNREFT.dir
 
 # All Build rule for target.
+<<<<<<< HEAD
+=======
+CMakeFiles/DarkMatterNREFT.dir/all: CMakeFiles/AngMom.dir/all
+>>>>>>> 049e272 (Merging)
 CMakeFiles/DarkMatterNREFT.dir/all: CMakeFiles/AngMomCache.dir/all
 CMakeFiles/DarkMatterNREFT.dir/all: CMakeFiles/IMSRGProfiler.dir/all
 CMakeFiles/DarkMatterNREFT.dir/all: CMakeFiles/ModelSpace.dir/all
@@ -798,6 +881,10 @@ CMakeFiles/DarkMatterNREFT.dir/all: CMakeFiles/ThreeLegME.dir/all
 CMakeFiles/DarkMatterNREFT.dir/all: CMakeFiles/ThreeBodyStorage_mono.dir/all
 CMakeFiles/DarkMatterNREFT.dir/all: CMakeFiles/ThreeBodyStorage_iso.dir/all
 CMakeFiles/DarkMatterNREFT.dir/all: CMakeFiles/ThreeBodyME.dir/all
+<<<<<<< HEAD
+=======
+CMakeFiles/DarkMatterNREFT.dir/all: CMakeFiles/Operator.dir/all
+>>>>>>> 049e272 (Merging)
 CMakeFiles/DarkMatterNREFT.dir/all: boost_src/CMakeFiles/IMSRGBoostZip.dir/all
 CMakeFiles/DarkMatterNREFT.dir/all: CMakeFiles/AngMom.dir/all
 CMakeFiles/DarkMatterNREFT.dir/all: CMakeFiles/Operator.dir/all
@@ -852,6 +939,10 @@ CMakeFiles/Jacobi3BME.dir/clean:
 # Target rules for target CMakeFiles/HartreeFock.dir
 
 # All Build rule for target.
+<<<<<<< HEAD
+=======
+CMakeFiles/HartreeFock.dir/all: CMakeFiles/AngMom.dir/all
+>>>>>>> 049e272 (Merging)
 CMakeFiles/HartreeFock.dir/all: CMakeFiles/AngMomCache.dir/all
 CMakeFiles/HartreeFock.dir/all: CMakeFiles/IMSRGProfiler.dir/all
 CMakeFiles/HartreeFock.dir/all: CMakeFiles/ModelSpace.dir/all
@@ -863,6 +954,10 @@ CMakeFiles/HartreeFock.dir/all: CMakeFiles/ThreeLegME.dir/all
 CMakeFiles/HartreeFock.dir/all: CMakeFiles/ThreeBodyStorage_mono.dir/all
 CMakeFiles/HartreeFock.dir/all: CMakeFiles/ThreeBodyStorage_iso.dir/all
 CMakeFiles/HartreeFock.dir/all: CMakeFiles/ThreeBodyME.dir/all
+<<<<<<< HEAD
+=======
+CMakeFiles/HartreeFock.dir/all: CMakeFiles/Operator.dir/all
+>>>>>>> 049e272 (Merging)
 CMakeFiles/HartreeFock.dir/all: boost_src/CMakeFiles/IMSRGBoostZip.dir/all
 CMakeFiles/HartreeFock.dir/all: CMakeFiles/AngMom.dir/all
 CMakeFiles/HartreeFock.dir/all: CMakeFiles/Operator.dir/all
@@ -969,6 +1064,10 @@ CMakeFiles/imsrg_util.dir/clean:
 # Target rules for target CMakeFiles/Generator.dir
 
 # All Build rule for target.
+<<<<<<< HEAD
+=======
+CMakeFiles/Generator.dir/all: CMakeFiles/AngMom.dir/all
+>>>>>>> 049e272 (Merging)
 CMakeFiles/Generator.dir/all: CMakeFiles/AngMomCache.dir/all
 CMakeFiles/Generator.dir/all: CMakeFiles/IMSRGProfiler.dir/all
 CMakeFiles/Generator.dir/all: CMakeFiles/ModelSpace.dir/all
@@ -983,9 +1082,13 @@ CMakeFiles/Generator.dir/all: CMakeFiles/Commutator232.dir/all
 CMakeFiles/Generator.dir/all: CMakeFiles/Commutator.dir/all
 CMakeFiles/Generator.dir/all: CMakeFiles/DarkMatterNREFT.dir/all
 CMakeFiles/Generator.dir/all: CMakeFiles/Jacobi3BME.dir/all
+<<<<<<< HEAD
 CMakeFiles/Generator.dir/all: CMakeFiles/ThreeBodyStorage_mono.dir/all
 CMakeFiles/Generator.dir/all: CMakeFiles/ThreeBodyStorage_iso.dir/all
 CMakeFiles/Generator.dir/all: CMakeFiles/ThreeBodyME.dir/all
+=======
+CMakeFiles/Generator.dir/all: CMakeFiles/Pwd.dir/all
+>>>>>>> 049e272 (Merging)
 CMakeFiles/Generator.dir/all: boost_src/CMakeFiles/IMSRGBoostZip.dir/all
 CMakeFiles/Generator.dir/all: CMakeFiles/AngMom.dir/all
 CMakeFiles/Generator.dir/all: CMakeFiles/Operator.dir/all
@@ -1015,6 +1118,10 @@ CMakeFiles/Generator.dir/clean:
 # Target rules for target CMakeFiles/HFMBPT.dir
 
 # All Build rule for target.
+<<<<<<< HEAD
+=======
+CMakeFiles/HFMBPT.dir/all: CMakeFiles/AngMom.dir/all
+>>>>>>> 049e272 (Merging)
 CMakeFiles/HFMBPT.dir/all: CMakeFiles/AngMomCache.dir/all
 CMakeFiles/HFMBPT.dir/all: CMakeFiles/IMSRGProfiler.dir/all
 CMakeFiles/HFMBPT.dir/all: CMakeFiles/ModelSpace.dir/all
@@ -1027,6 +1134,11 @@ CMakeFiles/HFMBPT.dir/all: CMakeFiles/Jacobi3BME.dir/all
 CMakeFiles/HFMBPT.dir/all: CMakeFiles/ThreeBodyStorage_mono.dir/all
 CMakeFiles/HFMBPT.dir/all: CMakeFiles/ThreeBodyStorage_iso.dir/all
 CMakeFiles/HFMBPT.dir/all: CMakeFiles/ThreeBodyME.dir/all
+<<<<<<< HEAD
+=======
+CMakeFiles/HFMBPT.dir/all: CMakeFiles/Operator.dir/all
+CMakeFiles/HFMBPT.dir/all: CMakeFiles/Jacobi3BME.dir/all
+>>>>>>> 049e272 (Merging)
 CMakeFiles/HFMBPT.dir/all: boost_src/CMakeFiles/IMSRGBoostZip.dir/all
 CMakeFiles/HFMBPT.dir/all: CMakeFiles/AngMom.dir/all
 CMakeFiles/HFMBPT.dir/all: CMakeFiles/Operator.dir/all
@@ -1055,6 +1167,10 @@ CMakeFiles/HFMBPT.dir/clean:
 # Target rules for target CMakeFiles/RPA.dir
 
 # All Build rule for target.
+<<<<<<< HEAD
+=======
+CMakeFiles/RPA.dir/all: CMakeFiles/AngMom.dir/all
+>>>>>>> 049e272 (Merging)
 CMakeFiles/RPA.dir/all: CMakeFiles/AngMomCache.dir/all
 CMakeFiles/RPA.dir/all: CMakeFiles/IMSRGProfiler.dir/all
 CMakeFiles/RPA.dir/all: CMakeFiles/ModelSpace.dir/all
@@ -1066,6 +1182,10 @@ CMakeFiles/RPA.dir/all: CMakeFiles/ThreeLegME.dir/all
 CMakeFiles/RPA.dir/all: CMakeFiles/ThreeBodyStorage_mono.dir/all
 CMakeFiles/RPA.dir/all: CMakeFiles/ThreeBodyStorage_iso.dir/all
 CMakeFiles/RPA.dir/all: CMakeFiles/ThreeBodyME.dir/all
+<<<<<<< HEAD
+=======
+CMakeFiles/RPA.dir/all: CMakeFiles/Operator.dir/all
+>>>>>>> 049e272 (Merging)
 CMakeFiles/RPA.dir/all: boost_src/CMakeFiles/IMSRGBoostZip.dir/all
 CMakeFiles/RPA.dir/all: CMakeFiles/AngMom.dir/all
 CMakeFiles/RPA.dir/all: CMakeFiles/Operator.dir/all
@@ -1094,6 +1214,10 @@ CMakeFiles/RPA.dir/clean:
 # Target rules for target CMakeFiles/ReferenceImplementations.dir
 
 # All Build rule for target.
+<<<<<<< HEAD
+=======
+CMakeFiles/ReferenceImplementations.dir/all: CMakeFiles/AngMom.dir/all
+>>>>>>> 049e272 (Merging)
 CMakeFiles/ReferenceImplementations.dir/all: CMakeFiles/AngMomCache.dir/all
 CMakeFiles/ReferenceImplementations.dir/all: CMakeFiles/IMSRGProfiler.dir/all
 CMakeFiles/ReferenceImplementations.dir/all: CMakeFiles/ModelSpace.dir/all
@@ -1109,9 +1233,13 @@ CMakeFiles/ReferenceImplementations.dir/all: CMakeFiles/Commutator232.dir/all
 CMakeFiles/ReferenceImplementations.dir/all: CMakeFiles/Commutator.dir/all
 CMakeFiles/ReferenceImplementations.dir/all: CMakeFiles/DarkMatterNREFT.dir/all
 CMakeFiles/ReferenceImplementations.dir/all: CMakeFiles/Jacobi3BME.dir/all
+<<<<<<< HEAD
 CMakeFiles/ReferenceImplementations.dir/all: CMakeFiles/ThreeBodyStorage_mono.dir/all
 CMakeFiles/ReferenceImplementations.dir/all: CMakeFiles/ThreeBodyStorage_iso.dir/all
 CMakeFiles/ReferenceImplementations.dir/all: CMakeFiles/ThreeBodyME.dir/all
+=======
+CMakeFiles/ReferenceImplementations.dir/all: CMakeFiles/Pwd.dir/all
+>>>>>>> 049e272 (Merging)
 CMakeFiles/ReferenceImplementations.dir/all: boost_src/CMakeFiles/IMSRGBoostZip.dir/all
 CMakeFiles/ReferenceImplementations.dir/all: CMakeFiles/AngMom.dir/all
 CMakeFiles/ReferenceImplementations.dir/all: CMakeFiles/Operator.dir/all
@@ -1141,6 +1269,10 @@ CMakeFiles/ReferenceImplementations.dir/clean:
 # Target rules for target CMakeFiles/UnitTest.dir
 
 # All Build rule for target.
+<<<<<<< HEAD
+=======
+CMakeFiles/UnitTest.dir/all: CMakeFiles/AngMom.dir/all
+>>>>>>> 049e272 (Merging)
 CMakeFiles/UnitTest.dir/all: CMakeFiles/AngMomCache.dir/all
 CMakeFiles/UnitTest.dir/all: CMakeFiles/IMSRGProfiler.dir/all
 CMakeFiles/UnitTest.dir/all: CMakeFiles/ModelSpace.dir/all
@@ -1156,9 +1288,14 @@ CMakeFiles/UnitTest.dir/all: CMakeFiles/Commutator232.dir/all
 CMakeFiles/UnitTest.dir/all: CMakeFiles/Commutator.dir/all
 CMakeFiles/UnitTest.dir/all: CMakeFiles/DarkMatterNREFT.dir/all
 CMakeFiles/UnitTest.dir/all: CMakeFiles/Jacobi3BME.dir/all
+<<<<<<< HEAD
 CMakeFiles/UnitTest.dir/all: CMakeFiles/ThreeBodyStorage_mono.dir/all
 CMakeFiles/UnitTest.dir/all: CMakeFiles/ThreeBodyStorage_iso.dir/all
 CMakeFiles/UnitTest.dir/all: CMakeFiles/ThreeBodyME.dir/all
+=======
+CMakeFiles/UnitTest.dir/all: CMakeFiles/Pwd.dir/all
+CMakeFiles/UnitTest.dir/all: CMakeFiles/ReferenceImplementations.dir/all
+>>>>>>> 049e272 (Merging)
 CMakeFiles/UnitTest.dir/all: boost_src/CMakeFiles/IMSRGBoostZip.dir/all
 CMakeFiles/UnitTest.dir/all: CMakeFiles/AngMom.dir/all
 CMakeFiles/UnitTest.dir/all: CMakeFiles/ReferenceImplementations.dir/all
@@ -1189,6 +1326,10 @@ CMakeFiles/UnitTest.dir/clean:
 # Target rules for target CMakeFiles/imsrg++.dir
 
 # All Build rule for target.
+<<<<<<< HEAD
+=======
+CMakeFiles/imsrg++.dir/all: CMakeFiles/AngMom.dir/all
+>>>>>>> 049e272 (Merging)
 CMakeFiles/imsrg++.dir/all: CMakeFiles/AngMomCache.dir/all
 CMakeFiles/imsrg++.dir/all: CMakeFiles/IMSRGProfiler.dir/all
 CMakeFiles/imsrg++.dir/all: CMakeFiles/ModelSpace.dir/all
@@ -1204,11 +1345,16 @@ CMakeFiles/imsrg++.dir/all: CMakeFiles/Commutator232.dir/all
 CMakeFiles/imsrg++.dir/all: CMakeFiles/Commutator.dir/all
 CMakeFiles/imsrg++.dir/all: CMakeFiles/DarkMatterNREFT.dir/all
 CMakeFiles/imsrg++.dir/all: CMakeFiles/Jacobi3BME.dir/all
+<<<<<<< HEAD
 CMakeFiles/imsrg++.dir/all: CMakeFiles/ThreeBodyStorage_mono.dir/all
 CMakeFiles/imsrg++.dir/all: CMakeFiles/ThreeBodyStorage_iso.dir/all
 CMakeFiles/imsrg++.dir/all: CMakeFiles/ThreeBodyME.dir/all
 CMakeFiles/imsrg++.dir/all: boost_src/CMakeFiles/IMSRGBoostZip.dir/all
 CMakeFiles/imsrg++.dir/all: CMakeFiles/AngMom.dir/all
+=======
+CMakeFiles/imsrg++.dir/all: CMakeFiles/Pwd.dir/all
+CMakeFiles/imsrg++.dir/all: CMakeFiles/HFMBPT.dir/all
+>>>>>>> 049e272 (Merging)
 CMakeFiles/imsrg++.dir/all: CMakeFiles/RPA.dir/all
 CMakeFiles/imsrg++.dir/all: CMakeFiles/ReferenceImplementations.dir/all
 CMakeFiles/imsrg++.dir/all: CMakeFiles/UnitTest.dir/all
@@ -1240,6 +1386,10 @@ CMakeFiles/imsrg++.dir/clean:
 # Target rules for target CMakeFiles/unit_test.dir
 
 # All Build rule for target.
+<<<<<<< HEAD
+=======
+CMakeFiles/unit_test.dir/all: CMakeFiles/AngMom.dir/all
+>>>>>>> 049e272 (Merging)
 CMakeFiles/unit_test.dir/all: CMakeFiles/AngMomCache.dir/all
 CMakeFiles/unit_test.dir/all: CMakeFiles/IMSRGProfiler.dir/all
 CMakeFiles/unit_test.dir/all: CMakeFiles/ModelSpace.dir/all
@@ -1255,11 +1405,16 @@ CMakeFiles/unit_test.dir/all: CMakeFiles/Commutator232.dir/all
 CMakeFiles/unit_test.dir/all: CMakeFiles/Commutator.dir/all
 CMakeFiles/unit_test.dir/all: CMakeFiles/DarkMatterNREFT.dir/all
 CMakeFiles/unit_test.dir/all: CMakeFiles/Jacobi3BME.dir/all
+<<<<<<< HEAD
 CMakeFiles/unit_test.dir/all: CMakeFiles/ThreeBodyStorage_mono.dir/all
 CMakeFiles/unit_test.dir/all: CMakeFiles/ThreeBodyStorage_iso.dir/all
 CMakeFiles/unit_test.dir/all: CMakeFiles/ThreeBodyME.dir/all
 CMakeFiles/unit_test.dir/all: boost_src/CMakeFiles/IMSRGBoostZip.dir/all
 CMakeFiles/unit_test.dir/all: CMakeFiles/AngMom.dir/all
+=======
+CMakeFiles/unit_test.dir/all: CMakeFiles/Pwd.dir/all
+CMakeFiles/unit_test.dir/all: CMakeFiles/HFMBPT.dir/all
+>>>>>>> 049e272 (Merging)
 CMakeFiles/unit_test.dir/all: CMakeFiles/RPA.dir/all
 CMakeFiles/unit_test.dir/all: CMakeFiles/ReferenceImplementations.dir/all
 CMakeFiles/unit_test.dir/all: CMakeFiles/UnitTest.dir/all
@@ -1291,6 +1446,10 @@ CMakeFiles/unit_test.dir/clean:
 # Target rules for target CMakeFiles/pyIMSRG.dir
 
 # All Build rule for target.
+<<<<<<< HEAD
+=======
+CMakeFiles/pyIMSRG.dir/all: CMakeFiles/AngMom.dir/all
+>>>>>>> 049e272 (Merging)
 CMakeFiles/pyIMSRG.dir/all: CMakeFiles/AngMomCache.dir/all
 CMakeFiles/pyIMSRG.dir/all: CMakeFiles/IMSRGProfiler.dir/all
 CMakeFiles/pyIMSRG.dir/all: CMakeFiles/ModelSpace.dir/all
@@ -1306,11 +1465,16 @@ CMakeFiles/pyIMSRG.dir/all: CMakeFiles/Commutator232.dir/all
 CMakeFiles/pyIMSRG.dir/all: CMakeFiles/Commutator.dir/all
 CMakeFiles/pyIMSRG.dir/all: CMakeFiles/DarkMatterNREFT.dir/all
 CMakeFiles/pyIMSRG.dir/all: CMakeFiles/Jacobi3BME.dir/all
+<<<<<<< HEAD
 CMakeFiles/pyIMSRG.dir/all: CMakeFiles/ThreeBodyStorage_mono.dir/all
 CMakeFiles/pyIMSRG.dir/all: CMakeFiles/ThreeBodyStorage_iso.dir/all
 CMakeFiles/pyIMSRG.dir/all: CMakeFiles/ThreeBodyME.dir/all
 CMakeFiles/pyIMSRG.dir/all: boost_src/CMakeFiles/IMSRGBoostZip.dir/all
 CMakeFiles/pyIMSRG.dir/all: CMakeFiles/AngMom.dir/all
+=======
+CMakeFiles/pyIMSRG.dir/all: CMakeFiles/Pwd.dir/all
+CMakeFiles/pyIMSRG.dir/all: CMakeFiles/HFMBPT.dir/all
+>>>>>>> 049e272 (Merging)
 CMakeFiles/pyIMSRG.dir/all: CMakeFiles/RPA.dir/all
 CMakeFiles/pyIMSRG.dir/all: CMakeFiles/ReferenceImplementations.dir/all
 CMakeFiles/pyIMSRG.dir/all: CMakeFiles/UnitTest.dir/all
@@ -1368,6 +1532,10 @@ boost_src/CMakeFiles/IMSRGBoostZip.dir/clean:
 # Target rules for target profiling/CMakeFiles/comm232.dir
 
 # All Build rule for target.
+<<<<<<< HEAD
+=======
+profiling/CMakeFiles/comm232.dir/all: CMakeFiles/AngMom.dir/all
+>>>>>>> 049e272 (Merging)
 profiling/CMakeFiles/comm232.dir/all: CMakeFiles/AngMomCache.dir/all
 profiling/CMakeFiles/comm232.dir/all: CMakeFiles/IMSRGProfiler.dir/all
 profiling/CMakeFiles/comm232.dir/all: CMakeFiles/ModelSpace.dir/all
@@ -1383,11 +1551,16 @@ profiling/CMakeFiles/comm232.dir/all: CMakeFiles/Commutator232.dir/all
 profiling/CMakeFiles/comm232.dir/all: CMakeFiles/Commutator.dir/all
 profiling/CMakeFiles/comm232.dir/all: CMakeFiles/DarkMatterNREFT.dir/all
 profiling/CMakeFiles/comm232.dir/all: CMakeFiles/Jacobi3BME.dir/all
+<<<<<<< HEAD
 profiling/CMakeFiles/comm232.dir/all: CMakeFiles/ThreeBodyStorage_mono.dir/all
 profiling/CMakeFiles/comm232.dir/all: CMakeFiles/ThreeBodyStorage_iso.dir/all
 profiling/CMakeFiles/comm232.dir/all: CMakeFiles/ThreeBodyME.dir/all
 profiling/CMakeFiles/comm232.dir/all: boost_src/CMakeFiles/IMSRGBoostZip.dir/all
 profiling/CMakeFiles/comm232.dir/all: CMakeFiles/AngMom.dir/all
+=======
+profiling/CMakeFiles/comm232.dir/all: CMakeFiles/Pwd.dir/all
+profiling/CMakeFiles/comm232.dir/all: CMakeFiles/HFMBPT.dir/all
+>>>>>>> 049e272 (Merging)
 profiling/CMakeFiles/comm232.dir/all: CMakeFiles/RPA.dir/all
 profiling/CMakeFiles/comm232.dir/all: CMakeFiles/ReferenceImplementations.dir/all
 profiling/CMakeFiles/comm232.dir/all: CMakeFiles/UnitTest.dir/all
@@ -1419,6 +1592,10 @@ profiling/CMakeFiles/comm232.dir/clean:
 # Target rules for target profiling/CMakeFiles/comm223.dir
 
 # All Build rule for target.
+<<<<<<< HEAD
+=======
+profiling/CMakeFiles/comm223.dir/all: CMakeFiles/AngMom.dir/all
+>>>>>>> 049e272 (Merging)
 profiling/CMakeFiles/comm223.dir/all: CMakeFiles/AngMomCache.dir/all
 profiling/CMakeFiles/comm223.dir/all: CMakeFiles/IMSRGProfiler.dir/all
 profiling/CMakeFiles/comm223.dir/all: CMakeFiles/ModelSpace.dir/all
@@ -1434,11 +1611,16 @@ profiling/CMakeFiles/comm223.dir/all: CMakeFiles/Commutator232.dir/all
 profiling/CMakeFiles/comm223.dir/all: CMakeFiles/Commutator.dir/all
 profiling/CMakeFiles/comm223.dir/all: CMakeFiles/DarkMatterNREFT.dir/all
 profiling/CMakeFiles/comm223.dir/all: CMakeFiles/Jacobi3BME.dir/all
+<<<<<<< HEAD
 profiling/CMakeFiles/comm223.dir/all: CMakeFiles/ThreeBodyStorage_mono.dir/all
 profiling/CMakeFiles/comm223.dir/all: CMakeFiles/ThreeBodyStorage_iso.dir/all
 profiling/CMakeFiles/comm223.dir/all: CMakeFiles/ThreeBodyME.dir/all
 profiling/CMakeFiles/comm223.dir/all: boost_src/CMakeFiles/IMSRGBoostZip.dir/all
 profiling/CMakeFiles/comm223.dir/all: CMakeFiles/AngMom.dir/all
+=======
+profiling/CMakeFiles/comm223.dir/all: CMakeFiles/Pwd.dir/all
+profiling/CMakeFiles/comm223.dir/all: CMakeFiles/HFMBPT.dir/all
+>>>>>>> 049e272 (Merging)
 profiling/CMakeFiles/comm223.dir/all: CMakeFiles/RPA.dir/all
 profiling/CMakeFiles/comm223.dir/all: CMakeFiles/ReferenceImplementations.dir/all
 profiling/CMakeFiles/comm223.dir/all: CMakeFiles/UnitTest.dir/all
@@ -1470,6 +1652,10 @@ profiling/CMakeFiles/comm223.dir/clean:
 # Target rules for target profiling/CMakeFiles/comm133.dir
 
 # All Build rule for target.
+<<<<<<< HEAD
+=======
+profiling/CMakeFiles/comm133.dir/all: CMakeFiles/AngMom.dir/all
+>>>>>>> 049e272 (Merging)
 profiling/CMakeFiles/comm133.dir/all: CMakeFiles/AngMomCache.dir/all
 profiling/CMakeFiles/comm133.dir/all: CMakeFiles/IMSRGProfiler.dir/all
 profiling/CMakeFiles/comm133.dir/all: CMakeFiles/ModelSpace.dir/all
@@ -1485,11 +1671,16 @@ profiling/CMakeFiles/comm133.dir/all: CMakeFiles/Commutator232.dir/all
 profiling/CMakeFiles/comm133.dir/all: CMakeFiles/Commutator.dir/all
 profiling/CMakeFiles/comm133.dir/all: CMakeFiles/DarkMatterNREFT.dir/all
 profiling/CMakeFiles/comm133.dir/all: CMakeFiles/Jacobi3BME.dir/all
+<<<<<<< HEAD
 profiling/CMakeFiles/comm133.dir/all: CMakeFiles/ThreeBodyStorage_mono.dir/all
 profiling/CMakeFiles/comm133.dir/all: CMakeFiles/ThreeBodyStorage_iso.dir/all
 profiling/CMakeFiles/comm133.dir/all: CMakeFiles/ThreeBodyME.dir/all
 profiling/CMakeFiles/comm133.dir/all: boost_src/CMakeFiles/IMSRGBoostZip.dir/all
 profiling/CMakeFiles/comm133.dir/all: CMakeFiles/AngMom.dir/all
+=======
+profiling/CMakeFiles/comm133.dir/all: CMakeFiles/Pwd.dir/all
+profiling/CMakeFiles/comm133.dir/all: CMakeFiles/HFMBPT.dir/all
+>>>>>>> 049e272 (Merging)
 profiling/CMakeFiles/comm133.dir/all: CMakeFiles/RPA.dir/all
 profiling/CMakeFiles/comm133.dir/all: CMakeFiles/ReferenceImplementations.dir/all
 profiling/CMakeFiles/comm133.dir/all: CMakeFiles/UnitTest.dir/all
@@ -1521,6 +1712,10 @@ profiling/CMakeFiles/comm133.dir/clean:
 # Target rules for target profiling/CMakeFiles/comm222pphh.dir
 
 # All Build rule for target.
+<<<<<<< HEAD
+=======
+profiling/CMakeFiles/comm222pphh.dir/all: CMakeFiles/AngMom.dir/all
+>>>>>>> 049e272 (Merging)
 profiling/CMakeFiles/comm222pphh.dir/all: CMakeFiles/AngMomCache.dir/all
 profiling/CMakeFiles/comm222pphh.dir/all: CMakeFiles/IMSRGProfiler.dir/all
 profiling/CMakeFiles/comm222pphh.dir/all: CMakeFiles/ModelSpace.dir/all
@@ -1536,11 +1731,16 @@ profiling/CMakeFiles/comm222pphh.dir/all: CMakeFiles/Commutator232.dir/all
 profiling/CMakeFiles/comm222pphh.dir/all: CMakeFiles/Commutator.dir/all
 profiling/CMakeFiles/comm222pphh.dir/all: CMakeFiles/DarkMatterNREFT.dir/all
 profiling/CMakeFiles/comm222pphh.dir/all: CMakeFiles/Jacobi3BME.dir/all
+<<<<<<< HEAD
 profiling/CMakeFiles/comm222pphh.dir/all: CMakeFiles/ThreeBodyStorage_mono.dir/all
 profiling/CMakeFiles/comm222pphh.dir/all: CMakeFiles/ThreeBodyStorage_iso.dir/all
 profiling/CMakeFiles/comm222pphh.dir/all: CMakeFiles/ThreeBodyME.dir/all
 profiling/CMakeFiles/comm222pphh.dir/all: boost_src/CMakeFiles/IMSRGBoostZip.dir/all
 profiling/CMakeFiles/comm222pphh.dir/all: CMakeFiles/AngMom.dir/all
+=======
+profiling/CMakeFiles/comm222pphh.dir/all: CMakeFiles/Pwd.dir/all
+profiling/CMakeFiles/comm222pphh.dir/all: CMakeFiles/HFMBPT.dir/all
+>>>>>>> 049e272 (Merging)
 profiling/CMakeFiles/comm222pphh.dir/all: CMakeFiles/RPA.dir/all
 profiling/CMakeFiles/comm222pphh.dir/all: CMakeFiles/ReferenceImplementations.dir/all
 profiling/CMakeFiles/comm222pphh.dir/all: CMakeFiles/UnitTest.dir/all
@@ -1572,6 +1772,10 @@ profiling/CMakeFiles/comm222pphh.dir/clean:
 # Target rules for target profiling/CMakeFiles/comm222ph.dir
 
 # All Build rule for target.
+<<<<<<< HEAD
+=======
+profiling/CMakeFiles/comm222ph.dir/all: CMakeFiles/AngMom.dir/all
+>>>>>>> 049e272 (Merging)
 profiling/CMakeFiles/comm222ph.dir/all: CMakeFiles/AngMomCache.dir/all
 profiling/CMakeFiles/comm222ph.dir/all: CMakeFiles/IMSRGProfiler.dir/all
 profiling/CMakeFiles/comm222ph.dir/all: CMakeFiles/ModelSpace.dir/all
@@ -1587,11 +1791,16 @@ profiling/CMakeFiles/comm222ph.dir/all: CMakeFiles/Commutator232.dir/all
 profiling/CMakeFiles/comm222ph.dir/all: CMakeFiles/Commutator.dir/all
 profiling/CMakeFiles/comm222ph.dir/all: CMakeFiles/DarkMatterNREFT.dir/all
 profiling/CMakeFiles/comm222ph.dir/all: CMakeFiles/Jacobi3BME.dir/all
+<<<<<<< HEAD
 profiling/CMakeFiles/comm222ph.dir/all: CMakeFiles/ThreeBodyStorage_mono.dir/all
 profiling/CMakeFiles/comm222ph.dir/all: CMakeFiles/ThreeBodyStorage_iso.dir/all
 profiling/CMakeFiles/comm222ph.dir/all: CMakeFiles/ThreeBodyME.dir/all
 profiling/CMakeFiles/comm222ph.dir/all: boost_src/CMakeFiles/IMSRGBoostZip.dir/all
 profiling/CMakeFiles/comm222ph.dir/all: CMakeFiles/AngMom.dir/all
+=======
+profiling/CMakeFiles/comm222ph.dir/all: CMakeFiles/Pwd.dir/all
+profiling/CMakeFiles/comm222ph.dir/all: CMakeFiles/HFMBPT.dir/all
+>>>>>>> 049e272 (Merging)
 profiling/CMakeFiles/comm222ph.dir/all: CMakeFiles/RPA.dir/all
 profiling/CMakeFiles/comm222ph.dir/all: CMakeFiles/ReferenceImplementations.dir/all
 profiling/CMakeFiles/comm222ph.dir/all: CMakeFiles/UnitTest.dir/all
@@ -1623,6 +1832,10 @@ profiling/CMakeFiles/comm222ph.dir/clean:
 # Target rules for target profiling/CMakeFiles/comm132.dir
 
 # All Build rule for target.
+<<<<<<< HEAD
+=======
+profiling/CMakeFiles/comm132.dir/all: CMakeFiles/AngMom.dir/all
+>>>>>>> 049e272 (Merging)
 profiling/CMakeFiles/comm132.dir/all: CMakeFiles/AngMomCache.dir/all
 profiling/CMakeFiles/comm132.dir/all: CMakeFiles/IMSRGProfiler.dir/all
 profiling/CMakeFiles/comm132.dir/all: CMakeFiles/ModelSpace.dir/all
@@ -1638,11 +1851,16 @@ profiling/CMakeFiles/comm132.dir/all: CMakeFiles/Commutator232.dir/all
 profiling/CMakeFiles/comm132.dir/all: CMakeFiles/Commutator.dir/all
 profiling/CMakeFiles/comm132.dir/all: CMakeFiles/DarkMatterNREFT.dir/all
 profiling/CMakeFiles/comm132.dir/all: CMakeFiles/Jacobi3BME.dir/all
+<<<<<<< HEAD
 profiling/CMakeFiles/comm132.dir/all: CMakeFiles/ThreeBodyStorage_mono.dir/all
 profiling/CMakeFiles/comm132.dir/all: CMakeFiles/ThreeBodyStorage_iso.dir/all
 profiling/CMakeFiles/comm132.dir/all: CMakeFiles/ThreeBodyME.dir/all
 profiling/CMakeFiles/comm132.dir/all: boost_src/CMakeFiles/IMSRGBoostZip.dir/all
 profiling/CMakeFiles/comm132.dir/all: CMakeFiles/AngMom.dir/all
+=======
+profiling/CMakeFiles/comm132.dir/all: CMakeFiles/Pwd.dir/all
+profiling/CMakeFiles/comm132.dir/all: CMakeFiles/HFMBPT.dir/all
+>>>>>>> 049e272 (Merging)
 profiling/CMakeFiles/comm132.dir/all: CMakeFiles/RPA.dir/all
 profiling/CMakeFiles/comm132.dir/all: CMakeFiles/ReferenceImplementations.dir/all
 profiling/CMakeFiles/comm132.dir/all: CMakeFiles/UnitTest.dir/all
@@ -1674,6 +1892,10 @@ profiling/CMakeFiles/comm132.dir/clean:
 # Target rules for target profiling/CMakeFiles/comm231.dir
 
 # All Build rule for target.
+<<<<<<< HEAD
+=======
+profiling/CMakeFiles/comm231.dir/all: CMakeFiles/AngMom.dir/all
+>>>>>>> 049e272 (Merging)
 profiling/CMakeFiles/comm231.dir/all: CMakeFiles/AngMomCache.dir/all
 profiling/CMakeFiles/comm231.dir/all: CMakeFiles/IMSRGProfiler.dir/all
 profiling/CMakeFiles/comm231.dir/all: CMakeFiles/ModelSpace.dir/all
@@ -1689,11 +1911,16 @@ profiling/CMakeFiles/comm231.dir/all: CMakeFiles/Commutator232.dir/all
 profiling/CMakeFiles/comm231.dir/all: CMakeFiles/Commutator.dir/all
 profiling/CMakeFiles/comm231.dir/all: CMakeFiles/DarkMatterNREFT.dir/all
 profiling/CMakeFiles/comm231.dir/all: CMakeFiles/Jacobi3BME.dir/all
+<<<<<<< HEAD
 profiling/CMakeFiles/comm231.dir/all: CMakeFiles/ThreeBodyStorage_mono.dir/all
 profiling/CMakeFiles/comm231.dir/all: CMakeFiles/ThreeBodyStorage_iso.dir/all
 profiling/CMakeFiles/comm231.dir/all: CMakeFiles/ThreeBodyME.dir/all
 profiling/CMakeFiles/comm231.dir/all: boost_src/CMakeFiles/IMSRGBoostZip.dir/all
 profiling/CMakeFiles/comm231.dir/all: CMakeFiles/AngMom.dir/all
+=======
+profiling/CMakeFiles/comm231.dir/all: CMakeFiles/Pwd.dir/all
+profiling/CMakeFiles/comm231.dir/all: CMakeFiles/HFMBPT.dir/all
+>>>>>>> 049e272 (Merging)
 profiling/CMakeFiles/comm231.dir/all: CMakeFiles/RPA.dir/all
 profiling/CMakeFiles/comm231.dir/all: CMakeFiles/ReferenceImplementations.dir/all
 profiling/CMakeFiles/comm231.dir/all: CMakeFiles/UnitTest.dir/all
@@ -1725,6 +1952,10 @@ profiling/CMakeFiles/comm231.dir/clean:
 # Target rules for target profiling/CMakeFiles/comm330.dir
 
 # All Build rule for target.
+<<<<<<< HEAD
+=======
+profiling/CMakeFiles/comm330.dir/all: CMakeFiles/AngMom.dir/all
+>>>>>>> 049e272 (Merging)
 profiling/CMakeFiles/comm330.dir/all: CMakeFiles/AngMomCache.dir/all
 profiling/CMakeFiles/comm330.dir/all: CMakeFiles/IMSRGProfiler.dir/all
 profiling/CMakeFiles/comm330.dir/all: CMakeFiles/ModelSpace.dir/all
@@ -1740,11 +1971,16 @@ profiling/CMakeFiles/comm330.dir/all: CMakeFiles/Commutator232.dir/all
 profiling/CMakeFiles/comm330.dir/all: CMakeFiles/Commutator.dir/all
 profiling/CMakeFiles/comm330.dir/all: CMakeFiles/DarkMatterNREFT.dir/all
 profiling/CMakeFiles/comm330.dir/all: CMakeFiles/Jacobi3BME.dir/all
+<<<<<<< HEAD
 profiling/CMakeFiles/comm330.dir/all: CMakeFiles/ThreeBodyStorage_mono.dir/all
 profiling/CMakeFiles/comm330.dir/all: CMakeFiles/ThreeBodyStorage_iso.dir/all
 profiling/CMakeFiles/comm330.dir/all: CMakeFiles/ThreeBodyME.dir/all
 profiling/CMakeFiles/comm330.dir/all: boost_src/CMakeFiles/IMSRGBoostZip.dir/all
 profiling/CMakeFiles/comm330.dir/all: CMakeFiles/AngMom.dir/all
+=======
+profiling/CMakeFiles/comm330.dir/all: CMakeFiles/Pwd.dir/all
+profiling/CMakeFiles/comm330.dir/all: CMakeFiles/HFMBPT.dir/all
+>>>>>>> 049e272 (Merging)
 profiling/CMakeFiles/comm330.dir/all: CMakeFiles/RPA.dir/all
 profiling/CMakeFiles/comm330.dir/all: CMakeFiles/ReferenceImplementations.dir/all
 profiling/CMakeFiles/comm330.dir/all: CMakeFiles/UnitTest.dir/all
@@ -1776,6 +2012,10 @@ profiling/CMakeFiles/comm330.dir/clean:
 # Target rules for target profiling/CMakeFiles/comm331.dir
 
 # All Build rule for target.
+<<<<<<< HEAD
+=======
+profiling/CMakeFiles/comm331.dir/all: CMakeFiles/AngMom.dir/all
+>>>>>>> 049e272 (Merging)
 profiling/CMakeFiles/comm331.dir/all: CMakeFiles/AngMomCache.dir/all
 profiling/CMakeFiles/comm331.dir/all: CMakeFiles/IMSRGProfiler.dir/all
 profiling/CMakeFiles/comm331.dir/all: CMakeFiles/ModelSpace.dir/all
@@ -1791,11 +2031,16 @@ profiling/CMakeFiles/comm331.dir/all: CMakeFiles/Commutator232.dir/all
 profiling/CMakeFiles/comm331.dir/all: CMakeFiles/Commutator.dir/all
 profiling/CMakeFiles/comm331.dir/all: CMakeFiles/DarkMatterNREFT.dir/all
 profiling/CMakeFiles/comm331.dir/all: CMakeFiles/Jacobi3BME.dir/all
+<<<<<<< HEAD
 profiling/CMakeFiles/comm331.dir/all: CMakeFiles/ThreeBodyStorage_mono.dir/all
 profiling/CMakeFiles/comm331.dir/all: CMakeFiles/ThreeBodyStorage_iso.dir/all
 profiling/CMakeFiles/comm331.dir/all: CMakeFiles/ThreeBodyME.dir/all
 profiling/CMakeFiles/comm331.dir/all: boost_src/CMakeFiles/IMSRGBoostZip.dir/all
 profiling/CMakeFiles/comm331.dir/all: CMakeFiles/AngMom.dir/all
+=======
+profiling/CMakeFiles/comm331.dir/all: CMakeFiles/Pwd.dir/all
+profiling/CMakeFiles/comm331.dir/all: CMakeFiles/HFMBPT.dir/all
+>>>>>>> 049e272 (Merging)
 profiling/CMakeFiles/comm331.dir/all: CMakeFiles/RPA.dir/all
 profiling/CMakeFiles/comm331.dir/all: CMakeFiles/ReferenceImplementations.dir/all
 profiling/CMakeFiles/comm331.dir/all: CMakeFiles/UnitTest.dir/all
