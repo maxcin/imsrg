@@ -5,7 +5,7 @@
 
 class Interaction():
   """Class that describes what files should be used for a particular interaction"""
-  def __init__(self, file2e1max, file3e1max, file2bme, file3bme, LECs, Threebme_type, file2c = None, fileIf = None):
+  def __init__(self, file2e1max, file3e1max, file2bme, file3bme, LECs, Threebme_type, file2c = None, fileIf = None,  reg_cutoff=500, reg_power=3):
     self.file2e1max = file2e1max
     self.file3e1max = file3e1max
     self.file2bme   = file2bme
@@ -14,6 +14,8 @@ class Interaction():
     self.Threebme_type  = Threebme_type
     self.file2c     = file2c     #File for the 2bc
     self.fileIf     = fileIf     #File for the induced force
+    self.reg_power = reg_power
+    self.reg_cutoff = reg_cutoff
 
   def set_args(self, Dict, BB, Decay, hw, SRC , Ec, sample=None):
     """Set the required argument for the imsrg for the specific interaction and decay"""
@@ -56,7 +58,11 @@ class Interaction():
     elif Decay == 'GT' or Decay == 'F' or Decay == 'T' or Decay == 'C':
       Dict['Operators'] = f'M0nu_{Decay}_{Ec}_{SRC}'
     elif Decay == 'M0nu':
-      Dict['Operators'] = f'M0nu_GT_{Ec}_{SRC},M0nu_F_{Ec}_{SRC},M0nu_T_{Ec}_{SRC},M0nu_C_{Ec}_{SRC}'
+      Dict['Operators'] = f'M0nu_GT_{Ec}_{SRC},M0nu_F_{Ec}_{SRC},M0nu_T_{Ec}_{SRC},M0nu_C_{self.reg_cutoff}_{self.reg_power}'
+    elif Decay == 'M0nuHeavy':
+      Dict['Operators'] =  f'M0nuHeavy_GT_{SRC}_AA,M0nuHeavy_GT_{SRC}_AP,M0nuHeavy_GT_{SRC}_PP,M0nuHeavy_F_{SRC}_VV,M0nuHeavy_T_{SRC}_AP,M0nuHeavy_T_{SRC}_PP'
+    elif Decay == 'Test_op_from_file':
+      Dict['OperatorsFromFile'] = "0vbbGT^0_2_0_2^/Users/antoinebelley/Documents/TRIUMF/NuHamil-public/0vbbGamowTeller_Ec_7.72_Range_LR-N2LO_TwBME-HO_NN-only_N3LO_EM500_bare_hw16_emax4_e2max8.me2j.gz"
     else:
       Dict['Operators'] = Decay
     
@@ -143,18 +149,18 @@ N4LO_EM500_LNL = Interaction(file2e1max = '16 file2e2max=32 file2lmax=16', file3
 DELTA_NNLO_GO = Interaction(file2e1max = '18 file2e2max=36, file2lmax=18', file3e1max= '16 file3e2max=32 file3e3max=24',
                              file2bme = '/home/belleya/projects/def-holt/shared/me2j/TwBME-HO_NN-only_DNNLOgo_bare_hw%d_emax18_e2max36.me2j.gz',
                              file3bme = '/home/belleya/projects/def-holt/shared/me3j/NO2B_ThBME_DNNLOgo_3NFJmax15_IS_hw%d_ms16_32_24.stream.bin',
-                             LECs = 'N2LOgo', Threebme_type = 'no2b')
+                             LECs = 'N2LOgo', Threebme_type = 'no2b', reg_power=4, reg_cutoff=394)
 
 
 DELTA_NNLO_G0high = Interaction(file2e1max = '18 file2e2max=36, file2lmax=18', file3e1max= '16 file3e2max=32 file3e3max=28',
                              file2bme = '/home/belleya/projects/def-holt/shared/me2j/TwBME-HO_NN-only_DNNLOgo_bare_hw%d_emax18_e2max36.me2j.gz',
                              file3bme = '/home/belleya/projects/def-holt/shared/me3j/NO2B_half_ThBME_DNNLOgo_3NFJmax15_IS_hw%d_ms16_32_28.stream.bin',
-                             LECs = 'N2LOgo', Threebme_type = 'no2b')
+                             LECs = 'N2LOgo', Threebme_type = 'no2b', reg_power=4, reg_cutoff=394)
 
 Sample34       = Interaction(file2e1max = '16 file2e2max=32, file2lmax=16', file3e1max= '16 file3e2max=32 file3e3max=28',
                              file2bme = '/home/belleya/projects/def-holt/shared/me2j/TwBME-HO_NN-only_DeltaGO394_sample%d_bare_hw%d_emax16_e2max32.me2j.gz',
                              file3bme = '/home/belleya/projects/def-holt/shared/me3j/delta_samples/NO2B_half_ThBME_3NFJmax15_DN2LOGO394_sample%d_IS_hw%d_ms16_32_28.stream.bin',
-                             LECs = 'N2LOgo', Threebme_type = 'no2b')
+                             LECs = 'N2LOgo', Threebme_type = 'no2b', reg_power=4, reg_cutoff=394)
 
 
 
