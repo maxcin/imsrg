@@ -1,4 +1,4 @@
-# Install script for directory: /home/belleya/projects/def-holt/belleya/imsrg/src
+# Install script for directory: /home/belleya/projects/rrg-holt/belleya/imsrg/src
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -44,22 +44,22 @@ endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for the subdirectory.
-  include("/home/belleya/projects/def-holt/belleya/imsrg/src/half/cmake_install.cmake")
+  include("/home/belleya/projects/rrg-holt/belleya/imsrg/src/half/cmake_install.cmake")
 endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for the subdirectory.
-  include("/home/belleya/projects/def-holt/belleya/imsrg/src/boost_src/cmake_install.cmake")
+  include("/home/belleya/projects/rrg-holt/belleya/imsrg/src/boost_src/cmake_install.cmake")
 endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for the subdirectory.
-  include("/home/belleya/projects/def-holt/belleya/imsrg/src/profiling/cmake_install.cmake")
+  include("/home/belleya/projects/rrg-holt/belleya/imsrg/src/profiling/cmake_install.cmake")
 endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for the subdirectory.
-  include("/home/belleya/projects/def-holt/belleya/imsrg/src/pybind11/cmake_install.cmake")
+  include("/home/belleya/projects/rrg-holt/belleya/imsrg/src/pybind11/cmake_install.cmake")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
@@ -77,9 +77,13 @@ if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_
   if(CMAKE_ERROR_ON_ABSOLUTE_INSTALL_DESTINATION)
     message(FATAL_ERROR "ABSOLUTE path INSTALL DESTINATION forbidden (by caller): ${CMAKE_ABSOLUTE_DESTINATION_FILES}")
   endif()
-  file(INSTALL DESTINATION "/home/belleya/bin" TYPE EXECUTABLE PERMISSIONS OWNER_READ OWNER_WRITE OWNER_EXECUTE GROUP_READ GROUP_EXECUTE WORLD_READ WORLD_EXECUTE FILES "/home/belleya/projects/def-holt/belleya/imsrg/src/imsrg++")
+  file(INSTALL DESTINATION "/home/belleya/bin" TYPE EXECUTABLE PERMISSIONS OWNER_READ OWNER_WRITE OWNER_EXECUTE GROUP_READ GROUP_EXECUTE WORLD_READ WORLD_EXECUTE FILES "/home/belleya/projects/rrg-holt/belleya/imsrg/src/imsrg++")
   if(EXISTS "$ENV{DESTDIR}/home/belleya/bin/imsrg++" AND
      NOT IS_SYMLINK "$ENV{DESTDIR}/home/belleya/bin/imsrg++")
+    file(RPATH_CHANGE
+         FILE "$ENV{DESTDIR}/home/belleya/bin/imsrg++"
+         OLD_RPATH "/cvmfs/soft.computecanada.ca/easybuild/software/2020/avx2/Compiler/intel2020/gsl/2.6/lib:/cvmfs/soft.computecanada.ca/easybuild/software/2020/avx2/Compiler/intel2020/armadillo/9.900.2/lib64:"
+         NEW_RPATH "")
     if(CMAKE_INSTALL_DO_STRIP)
       execute_process(COMMAND "/cvmfs/soft.computecanada.ca/gentoo/2020/usr/bin/strip" "$ENV{DESTDIR}/home/belleya/bin/imsrg++")
     endif()
@@ -96,40 +100,40 @@ if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_
     message(FATAL_ERROR "ABSOLUTE path INSTALL DESTINATION forbidden (by caller): ${CMAKE_ABSOLUTE_DESTINATION_FILES}")
   endif()
   file(INSTALL DESTINATION "/home/belleya/include" TYPE FILE PERMISSIONS OWNER_READ OWNER_WRITE OWNER_EXECUTE GROUP_READ GROUP_EXECUTE WORLD_READ WORLD_EXECUTE FILES
-    "/home/belleya/projects/def-holt/belleya/imsrg/src/AngMom.hh"
-    "/home/belleya/projects/def-holt/belleya/imsrg/src/AngMomCache.hh"
-    "/home/belleya/projects/def-holt/belleya/imsrg/src/Commutator.hh"
-    "/home/belleya/projects/def-holt/belleya/imsrg/src/Commutator232.hh"
-    "/home/belleya/projects/def-holt/belleya/imsrg/src/DarkMatterNREFT.hh"
-    "/home/belleya/projects/def-holt/belleya/imsrg/src/GaussLaguerre.hh"
-    "/home/belleya/projects/def-holt/belleya/imsrg/src/Generator.hh"
-    "/home/belleya/projects/def-holt/belleya/imsrg/src/HFMBPT.hh"
-    "/home/belleya/projects/def-holt/belleya/imsrg/src/HartreeFock.hh"
-    "/home/belleya/projects/def-holt/belleya/imsrg/src/Helicity.hh"
-    "/home/belleya/projects/def-holt/belleya/imsrg/src/IMSRG.hh"
-    "/home/belleya/projects/def-holt/belleya/imsrg/src/IMSRGProfiler.hh"
-    "/home/belleya/projects/def-holt/belleya/imsrg/src/IMSRGSolver.hh"
-    "/home/belleya/projects/def-holt/belleya/imsrg/src/Jacobi3BME.hh"
-    "/home/belleya/projects/def-holt/belleya/imsrg/src/M0nu.hh"
-    "/home/belleya/projects/def-holt/belleya/imsrg/src/ModelSpace.hh"
-    "/home/belleya/projects/def-holt/belleya/imsrg/src/Operator.hh"
-    "/home/belleya/projects/def-holt/belleya/imsrg/src/Parameters.hh"
-    "/home/belleya/projects/def-holt/belleya/imsrg/src/PhysicalConstants.hh"
-    "/home/belleya/projects/def-holt/belleya/imsrg/src/Pwd.hh"
-    "/home/belleya/projects/def-holt/belleya/imsrg/src/RPA.hh"
-    "/home/belleya/projects/def-holt/belleya/imsrg/src/ReadWrite.hh"
-    "/home/belleya/projects/def-holt/belleya/imsrg/src/ReferenceImplementations.hh"
-    "/home/belleya/projects/def-holt/belleya/imsrg/src/ThreeBodyME.hh"
-    "/home/belleya/projects/def-holt/belleya/imsrg/src/ThreeBodyStorage.hh"
-    "/home/belleya/projects/def-holt/belleya/imsrg/src/ThreeBodyStorage_iso.hh"
-    "/home/belleya/projects/def-holt/belleya/imsrg/src/ThreeBodyStorage_mono.hh"
-    "/home/belleya/projects/def-holt/belleya/imsrg/src/ThreeBodyStorage_no2b.hh"
-    "/home/belleya/projects/def-holt/belleya/imsrg/src/ThreeBodyStorage_pn.hh"
-    "/home/belleya/projects/def-holt/belleya/imsrg/src/ThreeLegME.hh"
-    "/home/belleya/projects/def-holt/belleya/imsrg/src/TwoBodyME.hh"
-    "/home/belleya/projects/def-holt/belleya/imsrg/src/UnitTest.hh"
-    "/home/belleya/projects/def-holt/belleya/imsrg/src/imsrg_util.hh"
-    "/home/belleya/projects/def-holt/belleya/imsrg/src/version.hh"
+    "/home/belleya/projects/rrg-holt/belleya/imsrg/src/AngMom.hh"
+    "/home/belleya/projects/rrg-holt/belleya/imsrg/src/AngMomCache.hh"
+    "/home/belleya/projects/rrg-holt/belleya/imsrg/src/Commutator.hh"
+    "/home/belleya/projects/rrg-holt/belleya/imsrg/src/Commutator232.hh"
+    "/home/belleya/projects/rrg-holt/belleya/imsrg/src/DarkMatterNREFT.hh"
+    "/home/belleya/projects/rrg-holt/belleya/imsrg/src/GaussLaguerre.hh"
+    "/home/belleya/projects/rrg-holt/belleya/imsrg/src/Generator.hh"
+    "/home/belleya/projects/rrg-holt/belleya/imsrg/src/HFMBPT.hh"
+    "/home/belleya/projects/rrg-holt/belleya/imsrg/src/HartreeFock.hh"
+    "/home/belleya/projects/rrg-holt/belleya/imsrg/src/Helicity.hh"
+    "/home/belleya/projects/rrg-holt/belleya/imsrg/src/IMSRG.hh"
+    "/home/belleya/projects/rrg-holt/belleya/imsrg/src/IMSRGProfiler.hh"
+    "/home/belleya/projects/rrg-holt/belleya/imsrg/src/IMSRGSolver.hh"
+    "/home/belleya/projects/rrg-holt/belleya/imsrg/src/Jacobi3BME.hh"
+    "/home/belleya/projects/rrg-holt/belleya/imsrg/src/M0nu.hh"
+    "/home/belleya/projects/rrg-holt/belleya/imsrg/src/ModelSpace.hh"
+    "/home/belleya/projects/rrg-holt/belleya/imsrg/src/Operator.hh"
+    "/home/belleya/projects/rrg-holt/belleya/imsrg/src/Parameters.hh"
+    "/home/belleya/projects/rrg-holt/belleya/imsrg/src/PhysicalConstants.hh"
+    "/home/belleya/projects/rrg-holt/belleya/imsrg/src/Pwd.hh"
+    "/home/belleya/projects/rrg-holt/belleya/imsrg/src/RPA.hh"
+    "/home/belleya/projects/rrg-holt/belleya/imsrg/src/ReadWrite.hh"
+    "/home/belleya/projects/rrg-holt/belleya/imsrg/src/ReferenceImplementations.hh"
+    "/home/belleya/projects/rrg-holt/belleya/imsrg/src/ThreeBodyME.hh"
+    "/home/belleya/projects/rrg-holt/belleya/imsrg/src/ThreeBodyStorage.hh"
+    "/home/belleya/projects/rrg-holt/belleya/imsrg/src/ThreeBodyStorage_iso.hh"
+    "/home/belleya/projects/rrg-holt/belleya/imsrg/src/ThreeBodyStorage_mono.hh"
+    "/home/belleya/projects/rrg-holt/belleya/imsrg/src/ThreeBodyStorage_no2b.hh"
+    "/home/belleya/projects/rrg-holt/belleya/imsrg/src/ThreeBodyStorage_pn.hh"
+    "/home/belleya/projects/rrg-holt/belleya/imsrg/src/ThreeLegME.hh"
+    "/home/belleya/projects/rrg-holt/belleya/imsrg/src/TwoBodyME.hh"
+    "/home/belleya/projects/rrg-holt/belleya/imsrg/src/UnitTest.hh"
+    "/home/belleya/projects/rrg-holt/belleya/imsrg/src/imsrg_util.hh"
+    "/home/belleya/projects/rrg-holt/belleya/imsrg/src/version.hh"
     )
 endif()
 
@@ -141,5 +145,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "/home/belleya/projects/def-holt/belleya/imsrg/src/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "/home/belleya/projects/rrg-holt/belleya/imsrg/src/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

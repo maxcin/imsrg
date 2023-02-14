@@ -8,8 +8,8 @@ set(CMAKE_DEPENDS_LANGUAGES
 
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
-  "/home/belleya/projects/def-holt/belleya/imsrg/src/boost_src/gzip.cpp" "boost_src/CMakeFiles/IMSRGBoostZip.dir/gzip.cpp.o" "gcc" "boost_src/CMakeFiles/IMSRGBoostZip.dir/gzip.cpp.o.d"
-  "/home/belleya/projects/def-holt/belleya/imsrg/src/boost_src/zlib.cpp" "boost_src/CMakeFiles/IMSRGBoostZip.dir/zlib.cpp.o" "gcc" "boost_src/CMakeFiles/IMSRGBoostZip.dir/zlib.cpp.o.d"
+  "/home/belleya/projects/rrg-holt/belleya/imsrg/src/boost_src/gzip.cpp" "boost_src/CMakeFiles/IMSRGBoostZip.dir/gzip.cpp.o" "gcc" "boost_src/CMakeFiles/IMSRGBoostZip.dir/gzip.cpp.o.d"
+  "/home/belleya/projects/rrg-holt/belleya/imsrg/src/boost_src/zlib.cpp" "boost_src/CMakeFiles/IMSRGBoostZip.dir/zlib.cpp.o" "gcc" "boost_src/CMakeFiles/IMSRGBoostZip.dir/zlib.cpp.o.d"
   )
 
 # Targets to which this target links.

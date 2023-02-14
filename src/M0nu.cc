@@ -110,18 +110,20 @@ namespace M0nu
 
   double hT_AP(double qsq)
   {
-    return -hGT_AP(qsq);
+    //extra factor of -1 from fourier trans r -> p space
+    return hGT_AP(qsq);
   }
 
   double hT_PP(double qsq)
   {
-    
-    return -hGT_PP(qsq);
+    //extra factor of -1 from fourier trans r -> p space
+    return hGT_PP(qsq);
   }
 
   double hT_MM(double qsq)
   {
-    return hGT_MM(qsq)/2;
+    //extra factor of -1 from fourier trans r -> p space
+    return -hGT_MM(qsq)/2;
   }
 
 
@@ -146,7 +148,7 @@ namespace M0nu
   {
     //  qsq = q squared [MeV^2]
     double ff = hT_AP(qsq)+hT_PP(qsq)+hT_MM(qsq);
-    return -ff;
+    return ff;
   }
 
   double potential_closure(double p, double pp, double z, double Eclosure, std::function<double(double)> formfactor)
