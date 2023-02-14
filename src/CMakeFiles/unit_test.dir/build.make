@@ -123,7 +123,11 @@ unit_test: libThreeBodyStorage_pn.a
 unit_test: libThreeBodyStorage_no2b.a
 unit_test: libThreeBodyStorage_mono.a
 unit_test: boost_src/libIMSRGBoostZip.a
+<<<<<<< HEAD
 unit_test: /cvmfs/soft.computecanada.ca/gentoo/2020/usr/lib/libz.so
+=======
+unit_test: /Library/Developer/CommandLineTools/SDKs/MacOSX13.1.sdk/usr/lib/libz.tbd
+>>>>>>> 049e272 (Merging)
 unit_test: libThreeBodyStorage.a
 unit_test: libThreeLegME.a
 unit_test: libModelSpace.a

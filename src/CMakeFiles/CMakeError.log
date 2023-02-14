@@ -76,3 +76,44 @@ gmake: *** [Makefile:127: cmTC_c15e2/fast] Error 2
 
 
 
+Compiling the C compiler identification source file "CMakeCCompilerId.c" failed.
+Compiler: /Library/Developer/CommandLineTools/usr/bin/cc 
+Build flags: 
+Id flags:  
+
+The output was:
+1
+ld: library not found for -lSystem
+clang: error: linker command failed with exit code 1 (use -v to see invocation)
+
+
+Compiling the CXX compiler identification source file "CMakeCXXCompilerId.cpp" failed.
+Compiler: /Library/Developer/CommandLineTools/usr/bin/c++ 
+Build flags: 
+Id flags:  
+
+The output was:
+1
+ld: library not found for -lc++
+clang: error: linker command failed with exit code 1 (use -v to see invocation)
+
+
+Determining if the function sgemm_ exists failed with the following output:
+Change Dir: /Users/antoinebelley/Documents/TRIUMF/imsrg/src/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/make -f Makefile cmTC_3dafd/fast && /Library/Developer/CommandLineTools/usr/bin/make  -f CMakeFiles/cmTC_3dafd.dir/build.make CMakeFiles/cmTC_3dafd.dir/build
+Building C object CMakeFiles/cmTC_3dafd.dir/CheckFunctionExists.c.o
+/Library/Developer/CommandLineTools/usr/bin/cc   -DCHECK_FUNCTION_EXISTS=sgemm_ -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.1.sdk -MD -MT CMakeFiles/cmTC_3dafd.dir/CheckFunctionExists.c.o -MF CMakeFiles/cmTC_3dafd.dir/CheckFunctionExists.c.o.d -o CMakeFiles/cmTC_3dafd.dir/CheckFunctionExists.c.o -c /usr/local/Cellar/cmake/3.22.1/share/cmake/Modules/CheckFunctionExists.c
+Linking C executable cmTC_3dafd
+/usr/local/Cellar/cmake/3.22.1/bin/cmake -E cmake_link_script CMakeFiles/cmTC_3dafd.dir/link.txt --verbose=1
+/Library/Developer/CommandLineTools/usr/bin/cc  -DCHECK_FUNCTION_EXISTS=sgemm_ -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.1.sdk -Wl,-search_paths_first -Wl,-headerpad_max_install_names CMakeFiles/cmTC_3dafd.dir/CheckFunctionExists.c.o -o cmTC_3dafd 
+Undefined symbols for architecture x86_64:
+  "_sgemm_", referenced from:
+      _main in CheckFunctionExists.c.o
+ld: symbol(s) not found for architecture x86_64
+clang: error: linker command failed with exit code 1 (use -v to see invocation)
+make[1]: *** [cmTC_3dafd] Error 1
+make: *** [cmTC_3dafd/fast] Error 2
+
+
+

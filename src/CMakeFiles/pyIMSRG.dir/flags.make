@@ -4,7 +4,13 @@
 # compile CXX with /cvmfs/soft.computecanada.ca/easybuild/software/2020/Core/gcccore/9.3.0/bin/c++
 CXX_DEFINES = -DBOOST_ALL_NO_LIB -DNO_HDF5=\"true\" -DpyIMSRG_EXPORTS
 
+<<<<<<< HEAD
 CXX_INCLUDES = -I/cvmfs/soft.computecanada.ca/easybuild/software/2020/avx2/Compiler/intel2020/armadillo/9.900.2/include -I/home/belleya/projects/rrg-holt/belleya/imsrg/src/pybind11/include -I/cvmfs/soft.computecanada.ca/easybuild/software/2020/avx2/Core/python/3.8.10/include/python3.8 -I/home/belleya/projects/rrg-holt/belleya/imsrg/src/half/include -isystem /cvmfs/soft.computecanada.ca/easybuild/software/2020/avx2/Compiler/intel2020/boost/1.72.0/include -isystem /cvmfs/soft.computecanada.ca/easybuild/software/2020/avx2/Compiler/intel2020/gsl/2.6/include
 
 CXX_FLAGS = -O3 -DNDEBUG -fPIC -fvisibility=hidden -flto -fno-fat-lto-objects -std=gnu++11
+=======
+CXX_INCLUDES = -I/Users/antoinebelley/Documents/TRIUMF/imsrg/src/pybind11/include -I/usr/local/opt/python@3.9/Frameworks/Python.framework/Versions/3.9/include/python3.9 -I/Users/antoinebelley/Documents/TRIUMF/imsrg/src/armadillo -I/Users/antoinebelley/Documents/TRIUMF/imsrg/src/half/include -isystem /usr/local/include -isystem /usr/local/Cellar/gsl/2.7/include
+
+CXX_FLAGS = -O3 -DNDEBUG -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.1.sdk -fPIC -fvisibility=hidden -flto -std=gnu++11
+>>>>>>> 049e272 (Merging)
 

@@ -6,5 +6,9 @@ CXX_DEFINES =
 
 CXX_INCLUDES = -I/cvmfs/soft.computecanada.ca/easybuild/software/2020/avx2/Compiler/intel2020/armadillo/9.900.2/include
 
+<<<<<<< HEAD
 CXX_FLAGS = -O3 -DNDEBUG -fPIC -fopenmp -std=gnu++11
+=======
+CXX_FLAGS = -O3 -DNDEBUG -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.1.sdk -fPIC -Xclang -fopenmp -std=gnu++11
+>>>>>>> 049e272 (Merging)
 
