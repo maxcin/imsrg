@@ -52,12 +52,12 @@ args = parser.parse_args()
 
 """USER SPECIFIC INFO'S! DON'T FORGET TO CHANGE THOSE"""
 #Path to the executables, make sure to change this one to match your path
-exe = '/Users/antoinebelley/bin/imsrg++'
-# exe = '/Users/antoinebelley/Documents/TRIUMF/imsrg/src/imsrg++'
+# exe = '/Users/antoinebelley/bin/imsrg++'
+exe = '/Users/antoinebelley/Documents/TRIUMF/imsrg/src/imsrg++'
 #Don't forget to change this. I don't want emails about your calculations...
 mail_address = 'antoine.belley@mail.mcgill.ca'
 #Directory that contain all the result directories
-wrkdir = '/Users/antoinebelley/Documents/TRIUMF/Test_contact'
+wrkdir = '/Users/antoinebelley/Documents/TRIUMF/results/'
 
 #Lists to find the isotope
 #Some files use with capital letters and some with lower case
@@ -100,7 +100,7 @@ MNU['Decay'] = f'{args.Decay}'
 
 ARGS = {}
 
-
+ARGS['input_op_fmt'] = 'miyagi'
 ARGS['A'] = f'{args.A}'
 if not args.reference:
   ARGS['reference'] = f'{ELEM2[args.ZI]}{args.A}'
