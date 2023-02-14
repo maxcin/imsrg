@@ -122,7 +122,7 @@ namespace M0nu
 
   double hT_MM(double qsq)
   {
-    //extra factor of -1 from fourier trans r -> p space
+    // extra factor of -1 from fourier trans r -> p space
     return -hGT_MM(qsq)/2;
   }
 
@@ -196,6 +196,9 @@ namespace M0nu
         wfp = HO_Radial_psi_mom(np, lp, hw, xj);
         double W = pwd.getW(xi, xj, i, j, S, l, lp, J) ;
         I += wi * wj * xi * xi * xj * xj * wf * wfp * W;
+        // std::stringstream intvalue;
+        // intvalue << S << ", " << l << ", " << lp << ", " << J << ", " << xi*HBARC << ", " << xj*HBARC <<", " << 2*pi*hW<< std::endl;
+        // std::cout<<intvalue.str();
       }
     }
     return I;
