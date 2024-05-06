@@ -100,6 +100,7 @@ namespace imsrg_util
       else if (opname == "Fermi")         theop =  AllowedFermi_Op(modelspace) ;
       else if (opname == "GamowTeller")   theop =  AllowedGamowTeller_Op(modelspace) ;
       else if (opname == "Iso2")          theop =  Isospin2_Op(modelspace) ;
+      else if (opname == "Tz2")           theop =  TzSquared_Op(modelspace) ;
       else if (opname == "R2CM")          theop =  R2CM_Op(modelspace) ;
       else if (opname == "Trel")          theop =  Trel_Op(modelspace) ;
       else if (opname == "TCM")           theop =  TCM_Op(modelspace) ;
@@ -534,7 +535,7 @@ namespace imsrg_util
 
  /// Gives \f$ rho_{n,l}(r)\f$ , the norm squared of the harmonic oscillator radial wave function evaluated at r.
  /// This is normalized so that integrating \f$ rho(r) r^2 dr \f$ gives 1.
- /// This means that it is related to the acutal density by a factor of $\f 4\pi \f$.
+ /// This means that it is related to the acutal density by a factor of \f$ 4\pi \f$.
  /// This is equivalent to squaring the return value of HO_Radial_psi().
  double HO_density(int n, int l, double hw, double r)
  {
@@ -797,6 +798,7 @@ Operator KineticEnergy_RelativisticCorr(ModelSpace& modelspace)
    for (int ch=0; ch<nchan; ++ch)
    {
       TwoBodyChannel& tbc = modelspace.GetTwoBodyChannel(ch);
+//      std::cout << "== J = " << tbc.J << " == " << std::endl;
       int nkets = tbc.GetNumberKets();
       for (int ibra=0;ibra<nkets;++ibra)
       {
@@ -813,6 +815,7 @@ Operator KineticEnergy_RelativisticCorr(ModelSpace& modelspace)
             if ( 2*(ok.n+ol.n)+ok.l+ol.l > E2max) continue;
 //            double p1p2 = Calculate_p1p2(modelspace,bra,ket,tbc.J) * hw/A;
             double p1p2 = Calculate_p1p2(modelspace,bra,ket,tbc.J) / A;
+//            std::cout << "ijkl " << bra.p << " " << bra.q << " " << ket.p << " " << ket.q << "   p1p2 = " << p1p2 << "  E2max is " << E2max << std::endl;
             if (std::abs(p1p2)>1e-7)
             {
               TcmOp.TwoBody.SetTBME(ch,ibra,iket,p1p2);
@@ -912,8 +915,23 @@ Operator KineticEnergy_RelativisticCorr(ModelSpace& modelspace)
               if (Lab<std::abs(Lam_ab-lam_ab) or Lab>(Lam_ab+lam_ab) ) continue;
               // factor to account for antisymmetrization
 
+              // factor to account for antisymmetrization. I sure wish this were more transparent...
+              //  antisymmetrized matrix elements: V = <ab|V|cd> - <ab|V|dc>
+              //  coupled to J, this becomes <abJ|V|cdJ> - (-1)^{jc+jd-J}<ab|V|dcJ>
+              //  The phase we obtain for switching c<->d in the transformation from lab to cm/rel is
+              //  due to the 9j symbol an the Moshinsky bracket. Together, they amount to -(-1)^{lam+S + jc+jd-J}
+              //  so this becomes <abJ|V|cdJ> + (-1)^{lam+S}<abJ|V|cdJ> = (1+ (-1)^{lam+S})<abJ|V|cdJ>.
+              //  so exchange gives us a phase factor and we have V = <ab|V|cd> + (-1)**(Lcd+Scd) <ab|V|dc>
+              //  case pp,nn -> 1 + (-1)**(L+S)
+              //  pnpn -> 1 + 0
+              //  pnnp -> 0 + (-1)**(L+S)
               int asymm_factor = (std::abs(bra.op->tz2+ket.op->tz2) + std::abs(bra.op->tz2+ket.oq->tz2)*modelspace.phase( lam_ab + Sab ))/ 2;
+//              double asymm_factor = 1 + modelspace.phase( lam_ab + Sab );
+//              if ( bra.op->tz2 != bra.oq->tz2 ) asymm_factor /= 2;
               if ( asymm_factor ==0 ) continue;
+
+//              int asymm_factor = (std::abs(bra.op->tz2+ket.op->tz2) + std::abs(bra.op->tz2+ket.oq->tz2)*modelspace.phase( lam_ab + Sab ))/ 2;
+//              if ( asymm_factor ==0 ) continue;
 
               int lam_cd = lam_ab; // tcm and trel conserve lam and Lam
               int n_ab = (fab - 2*N_ab-Lam_ab-lam_ab)/2; // n_ab is determined by energy conservation
@@ -1674,6 +1692,41 @@ Operator FourierBesselCoeff(ModelSpace& modelspace, int nu, double R, std::set<i
    {
      TwoBodyChannel& tbc = modelspace.GetTwoBodyChannel(ch);
      arma::mat& TB = T2.TwoBody.GetMatrix(ch);
+
+     // 2 tz1 * tz2 = |Tz|-1/2
+     TB.diag().fill( std::abs( tbc.Tz)-0.5 );
+
+     if (tbc.Tz == 0)
+     {
+        for (size_t ibra=0;ibra<tbc.GetNumberKets(); ++ibra)
+        {
+           Ket& bra = tbc.GetKet(ibra);
+           Orbit& oa = modelspace.GetOrbit(bra.p);
+           Orbit& ob = modelspace.GetOrbit(bra.q);
+
+           size_t abar = modelspace.GetOrbitIndex( oa.n, oa.l, oa.j2, -oa.tz2 );
+           size_t bbar = modelspace.GetOrbitIndex( ob.n, ob.l, ob.j2, -ob.tz2 );
+           size_t iket = tbc.GetLocalIndex( std::min(abar,bbar), std::max(abar,bbar) ); 
+           Ket& ket = tbc.GetKet(iket);
+           int flipphase = abar > bbar ? ket.Phase(tbc.J) : 1 ;
+           TB(ibra,iket) += flipphase * 1.0;
+//           TB(iket,ibra) = TB(ibra,iket);
+
+        }// for ibra
+     }// if Tz=-0
+   }// for ch
+   return T2;
+ }
+/*
+ Operator Isospin2_Op(ModelSpace& modelspace)
+ {
+   Operator T2 = Operator(modelspace,0,0,0,2);
+   T2.OneBody.diag().fill(0.75);
+
+   for (int ch=0; ch<T2.nChannels; ++ch)
+   {
+     TwoBodyChannel& tbc = modelspace.GetTwoBodyChannel(ch);
+     arma::mat& TB = T2.TwoBody.GetMatrix(ch);
      // pp,nn:  2<t2.t1> = 1/(2(1+delta_ab)) along diagonal
      if (std::abs(tbc.Tz) == 1)
      {
@@ -1691,36 +1744,40 @@ Operator FourierBesselCoeff(ModelSpace& modelspace, int nu, double R, std::set<i
              Ket& ket = tbc.GetKet(iket);
              Orbit& oc = modelspace.GetOrbit(ket.p);
              Orbit& od = modelspace.GetOrbit(ket.q);
-             if (oa.j2==oc.j2 and oa.n==oc.n and oa.l==oc.l
+             double matel2b = 0;
+             if (  oa.j2==oc.j2 and oa.n==oc.n and oa.l==oc.l
                and ob.j2==od.j2 and ob.n==od.n and ob.l==od.l )
              {
                // tz1 tz2 case
                if( oa.tz2 == oc.tz2 and ob.tz2==od.tz2)
                {
-                 TB(ibra,iket) -= 0.5;
+                 matel2b -= 0.5;
                }
                // t+ t- case
                if( oa.tz2 == od.tz2 and ob.tz2==oc.tz2)
                {
-                 TB(ibra,iket) += 1.0;
+                 matel2b += 1.0;
                }
-               // if a==b==c==d, we need to consider the exchange term
-               if (oa.j2==ob.j2 and oa.n==ob.n and oa.l==ob.l)
-               {
-                  int phase = bra.Phase(tbc.J);
+             }
+             if (  oa.j2==od.j2 and oa.n==od.n and oa.l==od.l
+               and ob.j2==oc.j2 and ob.n==oc.n and ob.l==oc.l )
+             {
+
+                  int phase = bra.Phase(tbc.J); // this phase includes the fermionic minus sign
                   // tz1 tz2 case
-                  if( oa.tz2 == oc.tz2 and ob.tz2==od.tz2)
-                  {
-                    TB(ibra,iket) += phase * 1.0;
-                  }
-                  // t+ t- case
                   if( oa.tz2 == od.tz2 and ob.tz2==oc.tz2)
                   {
-                    TB(ibra,iket) -= phase * 0.5;
+                    matel2b -= phase * 0.5;
                   }
-               }
-               TB(iket,ibra) = TB(ibra,iket); // hermitian
+                  // t+ t- case
+                  if( oa.tz2 == oc.tz2 and ob.tz2==od.tz2)
+                  {
+                    matel2b += phase * 1.0;
+                  }
              }
+
+             TB(ibra,iket) = matel2b;
+             TB(iket,ibra) = TB(ibra,iket); // hermitian
 
            }
         }
@@ -1728,6 +1785,27 @@ Operator FourierBesselCoeff(ModelSpace& modelspace, int nu, double R, std::set<i
    }
    return T2;
  }
+*/
+
+
+/// Returns the \f$ T^{2} \f$ operator
+ Operator TzSquared_Op(ModelSpace& modelspace)
+ {
+   Operator T2 = Operator(modelspace,0,0,0,2);
+   T2.OneBody.diag().fill(0.25);
+
+   for (int ch=0; ch<T2.nChannels; ++ch)
+   {
+     TwoBodyChannel& tbc = modelspace.GetTwoBodyChannel(ch);
+     arma::mat& TB = T2.TwoBody.GetMatrix(ch);
+
+     // 2 tz1 * tz2 = |Tz|-1/2
+     TB.diag().fill( std::abs( tbc.Tz)-0.5 );
+
+   }// for ch
+   return T2;
+ }
+
 
   /// Mutipole responses (except dipole) with units fm\f$ ^{rL}\f$ (see PRC97(2018)054306 ) --added by bhu
   Operator MultipoleResponseOp(ModelSpace& modelspace, int rL, int YL, int isospin)
@@ -2512,6 +2590,8 @@ Operator FourierBesselCoeff(ModelSpace& modelspace, int nu, double R, std::set<i
          }
       }
    }
+
+   QdotQ_op.OneBody = Qmat*Qmat;
    return QdotQ_op;
  }
 
@@ -4523,7 +4603,7 @@ Operator FourierBesselCoeff(ModelSpace& modelspace, int nu, double R, std::set<i
               //  pnpn -> 1 + 0
               //  pnnp -> 0 + (-1)**(L+S)
               int asymm_factor = (std::abs(bra.op->tz2+ket.op->tz2) + std::abs(bra.op->tz2+ket.oq->tz2)*modelspace.phase( lam_ab + Sab ))/ 2;
-//PUT THIS BACK              if ( asymm_factor ==0 ) continue;
+              if ( asymm_factor ==0 ) continue;
 
 
               int lam_cd = lam_ab; // V conserves lam and Lam

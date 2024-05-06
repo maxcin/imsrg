@@ -24,7 +24,8 @@ ThreeBodyStorage_pn::~ThreeBodyStorage_pn( )
   if (is_allocated)  number_allocated--;
 }
 
-std::shared_ptr<ThreeBodyStorage> ThreeBodyStorage_pn::Clone() const { return std::shared_ptr<ThreeBodyStorage>( new ThreeBodyStorage_pn( *this)); };
+//std::shared_ptr<ThreeBodyStorage> ThreeBodyStorage_pn::Clone() const { return std::shared_ptr<ThreeBodyStorage>( new ThreeBodyStorage_pn( *this)); };
+std::unique_ptr<ThreeBodyStorage> ThreeBodyStorage_pn::Clone() const { return std::unique_ptr<ThreeBodyStorage>( new ThreeBodyStorage_pn( *this)); };
 
 
   void ThreeBodyStorage_pn::Multiply(const double rhs) 
@@ -89,8 +90,9 @@ void ThreeBodyStorage_pn::Allocate()
       if (  ( std::abs(Tbc_bra.twoJ-Tbc_ket.twoJ)<=2*rank_J ) and ( (Tbc_bra.twoJ+Tbc_ket.twoJ)>=2*rank_J )
           and ( (Tbc_bra.parity+Tbc_ket.parity)%2==parity ) and ( std::abs(Tbc_bra.twoTz-Tbc_ket.twoTz)==2*rank_T )  )
       {
-         ch_start[{ch_bra,ch_ket}] = total_dimension;
          size_t nkets_ket = Tbc_ket.GetNumber3bKets(); // Number of kets in this 3body J,p,Tz channel
+         if (nkets_ket > 0) // If there aren't any kets, don't add it to the list.
+            ch_start[{ch_bra,ch_ket}] = total_dimension;
          if (ch_bra==ch_ket)
          {
            total_dimension += nkets_bra * (nkets_bra+1)/2; // only need to store half the matrix
@@ -138,7 +140,14 @@ ThreeBodyStorage::ME_type ThreeBodyStorage_pn::GetME_pn(  int Jab, int Jde, int 
   size_t ch_bra = GetKetIndex_withRecoupling( Jab, twoJ, a,b,c, index_bra, recouple_bra );
   size_t ch_ket = GetKetIndex_withRecoupling( Jde, twoJ, d,e,f, index_ket, recouple_ket );
   if ( rank_J==0 and rank_T==0 and parity==0 and  (ch_bra != ch_ket) ) return 0;
+  if (ch_bra==-1 or ch_ket==-1) return 0;
+  ThreeBodyChannel& Tbc_bra = modelspace->GetThreeBodyChannel(ch_bra);
+  ThreeBodyChannel& Tbc_ket = modelspace->GetThreeBodyChannel(ch_ket);
+  if ( (Tbc_bra.parity + Tbc_ket.parity)%2 != parity) return 0;
+  if ( std::abs( Tbc_bra.twoTz - Tbc_ket.twoTz) != 2*rank_T ) return 0;
   //TODO: Should we also throw an exception if twoJ is even?
+
+
 
   double me_out = 0;
   for ( size_t I=0; I<index_bra.size(); I++)

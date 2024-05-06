@@ -18,7 +18,7 @@
 
 #include <boost/iostreams/filtering_streambuf.hpp>
 #include <boost/iostreams/filtering_stream.hpp>
-#include <boost/iostreams/copy.hpp>
+//#include <boost/iostreams/copy.hpp>
 #include <boost/iostreams/filter/gzip.hpp>
 
 #ifndef NO_HDF5
@@ -651,6 +651,16 @@ void ReadWrite::WriteTBME_Navratil( std::string filename, Operator& Hbare)
 /// Decide if the file is gzipped or ascii, create a stream, then call ReadBareTBME_Darmstadt_from_stream().
 void ReadWrite::ReadBareTBME_Darmstadt( std::string filename, Operator& Hbare, int emax, int E2max, int lmax)
 {
+
+  // Check if the file exists. If not, die loudly.
+  if ( not std::ifstream(filename).good() )
+  {
+    std::cout << std::endl << "========================================" << std::endl;
+    std::cout <<  __func__ << "  No such file : " << filename;
+    std::cout << std::endl << "========================================" << std::endl;
+    std::exit(EXIT_FAILURE);
+  }
+
   File2N = filename;
   Aref = Hbare.GetModelSpace()->GetAref();
   Zref = Hbare.GetModelSpace()->GetZref();
@@ -709,6 +719,16 @@ void ReadWrite::Read_Darmstadt_3body( std::string filename, Operator& Hbare, int
 {
 
   double start_time = omp_get_wtime();
+
+  // check if the file exists. if not, die loudly.
+  if ( not std::ifstream(filename).good() )
+  {
+    std::cout << std::endl << "========================================" << std::endl;
+    std::cout <<  __func__ << "  No such file : " << filename;
+    std::cout << std::endl << "========================================" << std::endl;
+    std::exit(EXIT_FAILURE);
+  }
+
   std::string extension = filename.substr( filename.find_last_of("."));
 //  File3N = filename;
   Aref = Hbare.GetModelSpace()->GetAref();
@@ -3563,11 +3583,21 @@ void ReadWrite::WriteOperatorHuman(Operator& op, std::string filename)
    }
    opfile << op.GetJRank() << "  " << op.GetTRank() << "  " << op.GetParity() << std::endl;
 
+   int norb = modelspace->GetNumberOrbits();
+   opfile << "$Single-particle states:" << std::endl;
+   opfile << "$ i\tn\tl\t2j\t2tz  (protons are 2tz=-1)" << std::endl;
+   for (int i=0;i<norb;i++)
+   {
+      Orbit& oi = modelspace->GetOrbit(i);
+      opfile << i << "\t" << oi.n << "\t" << oi.l << "\t" << oi.j2 << "\t" << oi.tz2 << std::endl;
+   }
+
+
    opfile << "$ZeroBody:\t" << std::setprecision(10) << op.ZeroBody << std::endl;
 
    opfile << "$OneBody:\t" << std::endl;
+   opfile << "$ i\tj\t<i|O|j>" << std::endl;
 
-   int norb = modelspace->GetNumberOrbits();
    for (int i=0;i<norb;++i)
    {
       int jmin = op.IsNonHermitian() ? 0 : i;
@@ -3579,6 +3609,7 @@ void ReadWrite::WriteOperatorHuman(Operator& op, std::string filename)
    }
 
    opfile <<  "$TwoBody:\t"  << std::endl;
+   opfile <<  "$ J  p  Tz  J'  p'  Tz'  i  j  k  l    <ij JpTz| O | kl J'p'Tz'>" << std::endl;
 
    for ( auto& it : op.TwoBody.MatEl )
    {
@@ -3779,11 +3810,14 @@ void ReadWrite::ReadOperatorHuman(Operator &op, std::string filename)
    int jrank,trank,parity;
    opfile >> jrank >> trank >> parity;
 
-   opfile >> tmpstr >> v;
+   while (tmpstr != "$ZeroBody:")
+   {
+      opfile >> tmpstr >> v;
+   }
    op.ZeroBody = v;
 
-   getline(opfile, tmpstr);
-   getline(opfile, tmpstr);
+   getline(opfile, tmpstr);  //  $OneBody:
+   getline(opfile, tmpstr);  //  $ i	j	<i|O|j>
    getline(opfile, tmpstr);
    while (tmpstr[0] != '$')
    {
@@ -3797,6 +3831,7 @@ void ReadWrite::ReadOperatorHuman(Operator &op, std::string filename)
       getline(opfile, tmpstr);
    }
 
+   getline(opfile, tmpstr);
 //  while(opfile >> chbra >> chket >> i >> j >> v)
   while(opfile >> Jbra >> pbra >> Tzbra >> Jket >> pket >> Tzket >> i >> j >> k >> l >> v)
   {
@@ -4926,6 +4961,7 @@ void ReadWrite::ReadTokyo(std::string filename, Operator& op)
   std::string line;
   std::ifstream infile;
   infile.open(filename);
+//  std::cout << __func__ << " filename = " << filename << std::endl;
   if (!infile.good() )
   {
     std::cerr << "************************************" << std::endl
@@ -4941,17 +4977,23 @@ void ReadWrite::ReadTokyo(std::string filename, Operator& op)
   infile >> prtorb >> ntnorb >> pcore >> ncore;
   int num=prtorb+ntnorb;
   int norb = modelspace->GetNumberOrbits();
-  for(int i=0; i<num; i++)
+
+  for( int i=0; i<num; i++)
   {
+     std::getline( infile, line );
+     std::istringstream iss(line);  // SRS modified this to handle comments at the end of the line
+//    std::cout << "  i = " << i << "  num = " << num << std::endl;
     int iorb, n, l, j, tz;
     infile >> iorb >> n >> l >> j >> tz;
     int io = modelspace->GetOrbitIndex(n, l, j, tz);
+//    std::cout << __func__ << "  " << io << " " << iorb << " " << n << " " << l << " " << j << " " << tz << std::endl;
     if(io >= norb) continue;
     orbits_remap[iorb] = io;
-    //cout << io << " " << iorb << " " << n << " " << l << " " << j << " " << tz << endl;
   }
-  skip_comments(infile);
-  getline(infile, line);
+
+
+//  skip_comments(infile);
+//  getline(infile, line);
 
   skip_comments(infile);
 //  double zerobody;
@@ -4984,6 +5026,7 @@ void ReadWrite::ReadTokyo(std::string filename, Operator& op)
 
   skip_comments(infile);
   infile >> num;
+//  std::cout << "Now num is " << num << std::endl;
   getline(infile, line);
   skip_comments(infile);
   for(int n=0; n<num; n++)
@@ -5046,7 +5089,7 @@ void ReadWrite::WriteTokyo(Operator& op, std::string filename, std::string mode)
    intfile << "! input 3N: " << File3N.substr( File3N.find_last_of("/\\")+1 ) << std::endl;
    intfile << "! e1max: " << modelspace->GetEmax() << "  e2max: " << modelspace->GetE2max() << "   e3max: " << modelspace->GetE3max() << "   hw: " << modelspace->GetHbarOmega();
    intfile << "   Aref: " << Aref << "  Zref: " << Zref << "  A_for_kinetic_energy: " << modelspace->GetTargetMass() << std::endl;
-   intfile << "! Zero body term: " << op.ZeroBody << std::endl;
+   intfile << "! Zero body term: " << std::setprecision(9) << op.ZeroBody << std::endl;
    intfile << "! " << std::endl;
    intfile << "! model space" << std::endl;
    intfile << std::setw(wint) << valence_protons.size() << std::setw(wint) << valence_neutrons.size()

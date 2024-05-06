@@ -1,5 +1,6 @@
 #include "IMSRGSolver.hh"
 #include "Commutator.hh"
+#include "BCH.hh"
 #include "Operator.hh"
 #include <algorithm>
 #include <cmath>
@@ -21,7 +22,11 @@ IMSRGSolver::IMSRGSolver()
     : s(0), ds(0.1), ds_max(0.5),
       norm_domega(0.1), omega_norm_max(2.0), eta_criterion(1e-6), method("magnus_euler"),
       flowfile(""), n_omega_written(0), max_omega_written(500), magnus_adaptive(true), hunter_gatherer(false), perturbative_triples(false),
+<<<<<<< HEAD
       pert_triples_this_omega(0), pert_triples_sum(0), ode_monitor(*this), ode_mode("H"), ode_e_abs(1e-6), ode_e_rel(1e-6)
+=======
+      /*pert_triples_this_omega(0),pert_triples_sum(0),*/ ode_monitor(*this), ode_mode("H"), ode_e_abs(1e-6), ode_e_rel(1e-6)
+>>>>>>> upstream/devel
 {
 }
 
@@ -31,7 +36,11 @@ IMSRGSolver::IMSRGSolver(Operator &H_in)
       istep(0), s(0), ds(0.1), ds_max(0.5),
       smax(2.0), norm_domega(0.1), omega_norm_max(2.0), eta_criterion(1e-6), method("magnus_euler"),
       flowfile(""), n_omega_written(0), max_omega_written(500), magnus_adaptive(true), hunter_gatherer(false), perturbative_triples(false),
+<<<<<<< HEAD
       pert_triples_this_omega(0), pert_triples_sum(0), ode_monitor(*this), ode_mode("H"), ode_e_abs(1e-6), ode_e_rel(1e-6)
+=======
+      /*pert_triples_this_omega(0),pert_triples_sum(0),*/ ode_monitor(*this), ode_mode("H"), ode_e_abs(1e-6), ode_e_rel(1e-6)
+>>>>>>> upstream/devel
 {
   Eta.Erase();
   Eta.SetAntiHermitian();
@@ -44,8 +53,17 @@ void IMSRGSolver::NewOmega()
   std::cout << "pushing back another Omega. Omega.size = " << Omega.size()
             << " , operator size = " << Omega.front().Size() / 1024. / 1024. << " MB"
             << ",  memory usage = " << profiler.CheckMem()["RSS"] / 1024. / 1024. << " GB";
+<<<<<<< HEAD
   if (perturbative_triples)
     std::cout << "  pert. triples = " << pert_triples_this_omega << "   sum = " << pert_triples_sum;
+=======
+  //  if ( perturbative_triples )
+  //  {
+  //       pert_triples_this_omega = GetPerturbativeTriples();
+  //       pert_triples_sum += pert_triples_this_omega;
+  //       std::cout << "  pert. triples = " << pert_triples_this_omega << "   sum = " << pert_triples_sum;
+  //  }
+>>>>>>> upstream/devel
   std::cout << std::endl;
   if (scratchdir != "")
   {
@@ -92,7 +110,11 @@ void IMSRGSolver::NewOmega()
 void IMSRGSolver::GatherOmega()
 {
   std::cout << "gathering Omega. " << std::endl;
+<<<<<<< HEAD
   if (Omega.size() < 2)
+=======
+  if (Omega.size() < 2 ) 
+>>>>>>> upstream/devel
   {
     auto &last = Omega.back();
     Omega.emplace_back(last);
@@ -102,13 +124,21 @@ void IMSRGSolver::GatherOmega()
   auto &gatherer = Omega[Omega.size() - 2];
   if (hunter.Norm() > 1e-6)
   {
+<<<<<<< HEAD
     gatherer = Commutator::BCH_Product(hunter, gatherer);
+=======
+    gatherer = BCH::BCH_Product(hunter, gatherer);
+>>>>>>> upstream/devel
   }
   hunter.Erase();
   H_saved = *H_0;
   for (size_t i = 0; i < Omega.size() - 1; i++)
   {
+<<<<<<< HEAD
     H_saved = Commutator::BCH_Transform(H_saved, Omega[i]);
+=======
+    H_saved = BCH::BCH_Transform(H_saved, Omega[i]);
+>>>>>>> upstream/devel
   }
 }
 
@@ -153,7 +183,15 @@ void IMSRGSolver::SetGenerator(std::string gen)
   if (Omega.back().Norm() > 1e-6)
   {
     Eta.Erase();
-    NewOmega();
+    // NewOmega();   B.C. He
+    if (hunter_gatherer)
+    {
+      GatherOmega();
+    }
+    else
+    {
+      NewOmega();
+    }
   }
   if (magnus_adaptive)
   {
@@ -221,6 +259,7 @@ void IMSRGSolver::UpdateEta()
 void IMSRGSolver::Solve_magnus_euler()
 {
   istep = 0;
+<<<<<<< HEAD
   generator.Update(FlowingOps[0], Eta);
   Elast = H_0->ZeroBody;
   cumulative_error = 0;
@@ -231,11 +270,36 @@ void IMSRGSolver::Solve_magnus_euler()
   for (istep = 1; s < smax; ++istep)
   {
 
+=======
+
+  generator.Update(FlowingOps[0], Eta);
+
+  Elast = H_0->ZeroBody;
+  cumulative_error = 0;
+  // Write details of the flow
+  WriteFlowStatus(flowfile);
+  WriteFlowStatus(std::cout);
+
+  for (istep = 1; s < smax; ++istep)
+  {
+
+>>>>>>> upstream/devel
     double norm_eta = Eta.Norm();
     if (norm_eta < eta_criterion)
     {
       break;
     }
+<<<<<<< HEAD
+=======
+    if (norm_eta > 1e12 or std::abs(Elast) > 1e9) // This is obviously going nowhere...
+    {
+      std::cout << "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!" << std::endl;
+      std::cout << "!!!!!!!!!!!  Norm of eta is " << norm_eta << " E0 = " << Elast << "  things are clearly broken. Giving up." << std::endl;
+      std::cout << "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!" << std::endl;
+      FlowingOps[0] *= 1.0 / 0.0;
+      break;
+    }
+>>>>>>> upstream/devel
     double norm_omega = Omega.back().Norm();
     if (norm_omega > omega_norm_max)
     {
@@ -258,24 +322,42 @@ void IMSRGSolver::Solve_magnus_euler()
     Eta *= ds; // Here's the Euler step.
 
     // accumulated generator (aka Magnus operator) exp(Omega) = exp(dOmega) * exp(Omega_last)
+<<<<<<< HEAD
     Omega.back() = Commutator::BCH_Product(Eta, Omega.back());
+=======
+    Omega.back() = BCH::BCH_Product(Eta, Omega.back());
+>>>>>>> upstream/devel
 
     // transformed Hamiltonian H_s = exp(Omega) H_0 exp(-Omega)
     if ((Omega.size() + n_omega_written) < 2)
     {
+<<<<<<< HEAD
       FlowingOps[0] = Commutator::BCH_Transform(*H_0, Omega.back());
     }
     else
     {
       FlowingOps[0] = Commutator::BCH_Transform(H_saved, Omega.back());
+=======
+      FlowingOps[0] = BCH::BCH_Transform(*H_0, Omega.back());
+    }
+    else
+    {
+      FlowingOps[0] = BCH::BCH_Transform(H_saved, Omega.back());
+>>>>>>> upstream/devel
     }
 
     if (norm_eta < 1.0 and generator.GetType() == "shell-model-atan")
     {
       generator.SetDenominatorCutoff(1e-6);
     }
+<<<<<<< HEAD
     generator.Update(FlowingOps[0], Eta);
 
+=======
+
+    generator.Update(FlowingOps[0], Eta);
+
+>>>>>>> upstream/devel
     // Write details of the flow
     WriteFlowStatus(flowfile);
     WriteFlowStatus(std::cout);
@@ -319,12 +401,21 @@ void IMSRGSolver::Solve_magnus_backoff()
     double norm_omega = Omega.back().Norm();
     if (norm_omega > omega_norm_max)
     {
+<<<<<<< HEAD
       //        if ( perturbative_triples )
       //        {
       //          GetPerturbativeTriples();
       ////          pert_triples_this_omega = GetPerturbativeTriples();
       ////          pert_triples_sum += pert_triples_this_omega;
       //        }
+=======
+      //               if ( perturbative_triples )
+      //               {
+      ////                 GetPerturbativeTriples();
+      //                 pert_triples_this_omega = GetPerturbativeTriples();
+      //                 pert_triples_sum += pert_triples_this_omega;
+      //               }
+>>>>>>> upstream/devel
       if (hunter_gatherer)
       {
         GatherOmega();
@@ -346,16 +437,28 @@ void IMSRGSolver::Solve_magnus_backoff()
 
     // accumulated generator (aka Magnus operator) exp(Omega) = exp(dOmega) *
     // exp(Omega_last)
+<<<<<<< HEAD
     Omega.back() = Commutator::BCH_Product(Eta, Omega.back());
+=======
+    Omega.back() = BCH::BCH_Product(Eta, Omega.back());
+>>>>>>> upstream/devel
 
     // transformed Hamiltonian H_s = exp(Omega) H_0 exp(-Omega)
     if ((Omega.size() + n_omega_written) < 2)
     {
+<<<<<<< HEAD
       FlowingOps[0] = Commutator::BCH_Transform(*H_0, Omega.back());
     }
     else
     {
       FlowingOps[0] = Commutator::BCH_Transform(H_saved, Omega.back());
+=======
+      FlowingOps[0] = BCH::BCH_Transform(*H_0, Omega.back());
+    }
+    else
+    {
+      FlowingOps[0] = BCH::BCH_Transform(H_saved, Omega.back());
+>>>>>>> upstream/devel
     }
 
     //     if (norm_eta < 1.0 and generator.GetType() == "shell-model-atan") {
@@ -443,17 +546,17 @@ void IMSRGSolver::Solve_magnus_modified_euler()
 
     // accumulated generator (aka Magnus operator) exp(Omega) = exp(dOmega) * exp(Omega_last)
     //      Omega.back() = Eta.BCH_Product( Omega.back() );
-    Omega.back() = Commutator::BCH_Product(Eta, Omega.back());
+    Omega.back() = BCH::BCH_Product(Eta, Omega.back());
 
     if ((Omega.size() + n_omega_written) < 2)
     {
       //        FlowingOps[0] = H_0->BCH_Transform( Omega.back() );
-      FlowingOps[0] = Commutator::BCH_Transform(*H_0, Omega.back());
+      FlowingOps[0] = BCH::BCH_Transform(*H_0, Omega.back());
     }
     else
     {
       //        FlowingOps[0] = H_saved.BCH_Transform( Omega.back() );
-      FlowingOps[0] = Commutator::BCH_Transform(H_saved, Omega.back());
+      FlowingOps[0] = BCH::BCH_Transform(H_saved, Omega.back());
     }
 
     //      generator.Update(&FlowingOps[0],&Eta);
@@ -486,6 +589,9 @@ void IMSRGSolver::Solve_flow_RK4()
   WriteFlowStatus(flowfile);
   WriteFlowStatus(std::cout);
 
+  Operator goosetank_chi(*modelspace, 0, 0, 0, 1);  // for use if we do IMSRG2* to mock up the goose tanks
+  Operator goosetank_dchi(*modelspace, 0, 0, 0, 1); // for use if we do IMSRG2* to mock up the goose tanks
+
   for (istep = 1; s < smax; ++istep)
   {
 
@@ -508,7 +614,10 @@ void IMSRGSolver::Solve_flow_RK4()
     //      Operator& Hs = FlowingOps[0];   // this is not used explicitly
     for (int i = 0; i < nops; i++)
     {
-      K1[i] = Commutator::Commutator(Eta, FlowingOps[i]);
+      if (i == 0)
+        K1[i] = Commutator::Commutator(Eta, FlowingOps[i] + goosetank_chi);
+      else
+        K1[i] = Commutator::Commutator(Eta, FlowingOps[i]);
       Ktmp[i] = FlowingOps[i] + 0.5 * ds * K1[i];
     }
     //      Operator K1 = Commutator::Commutator( Eta, Hs );
@@ -519,7 +628,10 @@ void IMSRGSolver::Solve_flow_RK4()
     for (int i = 0; i < nops; i++)
     {
       //        K2[i] = Commutator::Commutator( Eta, FlowingOps[i]+Ktmp[i]);
-      K2[i] = Commutator::Commutator(Eta, Ktmp[i]);
+      if (i == 0)
+        K2[i] = Commutator::Commutator(Eta, Ktmp[i] + goosetank_chi);
+      else
+        K2[i] = Commutator::Commutator(Eta, Ktmp[i]);
       Ktmp[i] = FlowingOps[i] + 0.5 * ds * K2[i];
     }
     //      Operator K2 = Commutator::Commutator( Eta, Hs+Htmp );
@@ -530,8 +642,11 @@ void IMSRGSolver::Solve_flow_RK4()
     for (int i = 0; i < nops; i++)
     {
       //        K3[i] = Commutator::Commutator( Eta, FlowingOps[i]+Ktmp[i]);
-      K3[i] = Commutator::Commutator(Eta, Ktmp[i]);
-      Ktmp[i] = FlowingOps[i] + 1.0 * ds * K2[i];
+      if (i == 0)
+        K3[i] = Commutator::Commutator(Eta, Ktmp[i] + goosetank_chi);
+      else
+        K3[i] = Commutator::Commutator(Eta, Ktmp[i]);
+      Ktmp[i] = FlowingOps[i] + 1.0 * ds * K3[i];
     }
     //      Operator K3 = Commutator::Commutator( Eta, Hs+Htmp );
     //      Htmp = Hs + 1.0*ds*K3;
@@ -541,7 +656,10 @@ void IMSRGSolver::Solve_flow_RK4()
     for (int i = 0; i < nops; i++)
     {
       //        K4[i] = Commutator::Commutator( Eta, FlowingOps[i]+Ktmp[i]);
-      K4[i] = Commutator::Commutator(Eta, Ktmp[i]);
+      if (i == 0)
+        K4[i] = Commutator::Commutator(Eta, Ktmp[i] + goosetank_chi);
+      else
+        K4[i] = Commutator::Commutator(Eta, Ktmp[i]);
       //        Ktmp[i] = FlowingOps[i] + 1.0*ds*K2[i];
       FlowingOps[i] += ds / 6.0 * (K1[i] + 2 * K2[i] + 2 * K3[i] + K4[i]);
     }
@@ -551,6 +669,23 @@ void IMSRGSolver::Solve_flow_RK4()
     if (norm_eta < 1.0 and generator.GetType() == "shell-model-atan")
     {
       generator.SetDenominatorCutoff(1e-6);
+    }
+
+    if (BCH::use_goose_tank_correction)
+    {
+      goosetank_dchi.EraseOneBody();
+      Commutator::comm221ss(Eta, FlowingOps[0], goosetank_dchi); // update chi.
+      for (auto i : modelspace->all_orbits)                      // enforce n_in_j + nbar_i nbar_j
+      {
+        Orbit &oi = modelspace->GetOrbit(i);
+        for (auto j : modelspace->all_orbits)
+        {
+          Orbit &oj = modelspace->GetOrbit(j);
+          goosetank_dchi.OneBody(i, j) *= oi.occ * oj.occ + (1.0 - oi.occ) * (1.0 - oj.occ);
+        }
+      }
+      goosetank_chi += goosetank_dchi * ds;
+      //        std::cout << " " << __FILE__ << "  line " << __LINE__ << s << "  " << goosetank_chi.OneBody(1,1) << std::endl;;
     }
 
     //      if ( generator.GetType() == "rspace" ) { generator.SetRegulatorLength(s); };
@@ -783,10 +918,10 @@ void IMSRGSolver::operator()(const std::deque<Operator> &x, std::deque<Operator>
     auto &Omega_s = x.back();
     Operator &H_s = FlowingOps[0];
     if ((Omega.size() + n_omega_written) > 1)
-      H_s = Commutator::BCH_Transform(H_saved, Omega_s);
+      H_s = BCH::BCH_Transform(H_saved, Omega_s);
     //       H_s = H_saved.BCH_Transform(Omega_s);
     else
-      H_s = Commutator::BCH_Transform(*H_0, Omega_s);
+      H_s = BCH::BCH_Transform(*H_0, Omega_s);
     //       H_s = H_0->BCH_Transform(Omega_s);
     //     generator.Update(&H_s,&Eta);
     generator.Update(H_s, Eta);
@@ -878,7 +1013,7 @@ Operator IMSRGSolver::InverseTransform(Operator &OpIn)
   {
     Operator negomega = -(*omega);
     //    OpOut = OpOut.BCH_Transform( negomega );
-    OpOut = Commutator::BCH_Transform(OpOut, negomega);
+    OpOut = BCH::BCH_Transform(OpOut, negomega);
   }
   return OpOut;
 }
@@ -909,7 +1044,7 @@ Operator IMSRGSolver::Transform_Partial(Operator &OpIn, int n)
       omega.ReadBinary(ifs);
       //     if (OpIn.GetJRank()>0) cout << "step " << i << endl;
       //     OpOut = OpOut.BCH_Transform( omega );
-      OpOut = Commutator::BCH_Transform(OpOut, omega);
+      OpOut = BCH::BCH_Transform(OpOut, omega);
       std::cout << "norm of omega = " << omega.Norm() << std::endl;
       std::cout << " op zero body = " << OpOut.ZeroBody << std::endl;
       //     if (OpIn.GetJRank()>0)cout << "done" << endl;
@@ -925,7 +1060,7 @@ Operator IMSRGSolver::Transform_Partial(Operator &OpIn, int n)
     //     std::cout << " norm of op = " << OpOut.Norm() << std::endl;
     //     std::cout << " op zero body = " << OpOut.ZeroBody << std::endl;
     //    OpOut = OpOut.BCH_Transform( Omega[i] );
-    OpOut = Commutator::BCH_Transform(OpOut, Omega[i]);
+    OpOut = BCH::BCH_Transform(OpOut, Omega[i]);
     //     if (OpIn.GetJRank()>0)cout << "done" << endl;
   }
 
@@ -952,14 +1087,14 @@ Operator IMSRGSolver::Transform_Partial(Operator &&OpIn, int n)
       std::ifstream ifs(filename.str(), std::ios::binary);
       omega.ReadBinary(ifs);
       //     OpOut = OpOut.BCH_Transform( omega );
-      OpOut = Commutator::BCH_Transform(OpOut, omega);
+      OpOut = BCH::BCH_Transform(OpOut, omega);
     }
   }
 
   for (size_t i = std::max(n - n_omega_written, 0); i < Omega.size(); ++i)
   {
     //    OpOut = OpOut.BCH_Transform( Omega[i] );
-    OpOut = Commutator::BCH_Transform(OpOut, Omega[i]);
+    OpOut = BCH::BCH_Transform(OpOut, Omega[i]);
   }
   return OpOut;
 }
@@ -1053,37 +1188,43 @@ double IMSRGSolver::EstimateBCHError()
   int counter = 0;
   for (auto &omega : Omega)
   {
-    err += Commutator::EstimateBCHError(omega, *H_0);
+    err += BCH::EstimateBCHError(omega, *H_0);
     std::cout << counter++ << "  " << err << std::endl;
   }
   return err;
 }
 
-double IMSRGSolver::GetPerturbativeTriples()
+/// Compute the perturbative triples correction to the energy
+/// \f[ \Delta E_3 = \sum |W_{ijkabc}|^2/\Delta_{ijkabc} \f]
+/// where
+/// \f[ W=[\Omega,H]_3b \f]
+double IMSRGSolver::CalculatePerturbativeTriples()
 {
-  std::cout << __func__ << std::endl;
-  //  Operator Wbar( (*modelspace), 0,0,0,3);
-  //  Wbar.ThreeBody.SwitchToPN_and_discard();
+
   Operator Wbar((*modelspace), 0, 0, 0, 2);
-  Operator &omega = Omega.back();
+  // Wbar.ThreeBody.SetMode("pn");  // Dont do this. It automatically allocates and we don't want that.
+
+  // If we've split the Omegas up, we combine them here, implicitly summing the 3N generated by each.
+  Operator omega = Omega[0];
+//  for (size_t n=1; n<Omega.size(); n++) omega += Omega[n];
+  for (size_t n=1; n<Omega.size(); n++) omega = BCH::BCH_Product(omega,Omega[n]);
 
   Operator &Hs = FlowingOps[0];
 
-  Commutator::SetBCHSkipiEq1(true);
+  BCH::SetBCHSkipiEq1(true);
   Operator Htilde = Transform(*H_0);
-  Commutator::SetBCHSkipiEq1(false);
+  BCH::SetBCHSkipiEq1(false);
 
-  Commutator::perturbative_triples = true;
+  // Need to put the one-body part of H into Wbar so we can get the denominators. I'm not sure this is the best way to do that...
   Wbar.OneBody = Hs.OneBody;
   Wbar.TwoBody = Hs.TwoBody;
+
+  Commutator::perturbative_triples = true;
   Commutator::comm223ss(omega, Htilde, Wbar);
+  Commutator::perturbative_triples = false; // turn it back off in case we want to do any more transformations
+
   double pert_triples = Wbar.ZeroBody;
 
-  //  double pert_triples = Wbar.GetMP2_3BEnergy();
-  //  double pert_triples = new_way;
-  std::cout << "I GOT pert_triples = " << std::setw(14) << std::setprecision(8) << pert_triples
-            << "  size of omega is " << Omega.size() << std::endl;
-  Commutator::perturbative_triples = false; // turn it back off in case we want to do any more transformations
   return pert_triples;
 }
 

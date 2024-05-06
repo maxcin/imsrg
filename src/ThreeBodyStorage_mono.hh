@@ -12,7 +12,7 @@
 #include <iomanip>
 #include <boost/iostreams/filtering_streambuf.hpp>
 #include <boost/iostreams/filtering_stream.hpp>
-#include <boost/iostreams/copy.hpp>
+//#include <boost/iostreams/copy.hpp>
 #include <boost/iostreams/filter/gzip.hpp>
 
 /// Use half-precision floats. For documentation, see http://half.sourceforge.net
@@ -110,7 +110,8 @@ class ThreeBodyStorage_mono : public ThreeBodyStorage
     using ThreeBodyStorage::ThreeBodyStorage;  // inherit constructors from the base class
     ThreeBodyStorage_mono( const ThreeBodyStorage_mono& ); // also implement at copy constructor
 
-    std::shared_ptr<ThreeBodyStorage> Clone() const override;
+//    std::shared_ptr<ThreeBodyStorage> Clone() const override;
+    std::unique_ptr<ThreeBodyStorage> Clone() const override;
 
     std::string GetStorageMode() const override {return "mono";};
 
