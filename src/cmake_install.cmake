@@ -1,4 +1,4 @@
-# Install script for directory: /home/belleya/projects/rrg-holt/belleya/imsrg/src
+# Install script for directory: /Users/antoinebelley/Documents/TRIUMF/imsrg/src
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -27,11 +27,6 @@ if(NOT CMAKE_INSTALL_COMPONENT)
   endif()
 endif()
 
-# Install shared libraries without execute permission?
-if(NOT DEFINED CMAKE_INSTALL_SO_NO_EXE)
-  set(CMAKE_INSTALL_SO_NO_EXE "0")
-endif()
-
 # Is this installation the result of a crosscompile?
 if(NOT DEFINED CMAKE_CROSSCOMPILING)
   set(CMAKE_CROSSCOMPILING "FALSE")
@@ -39,101 +34,96 @@ endif()
 
 # Set default install directory permissions.
 if(NOT DEFINED CMAKE_OBJDUMP)
-  set(CMAKE_OBJDUMP "/cvmfs/soft.computecanada.ca/gentoo/2020/usr/bin/objdump")
+  set(CMAKE_OBJDUMP "/Library/Developer/CommandLineTools/usr/bin/objdump")
 endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for the subdirectory.
-  include("/home/belleya/projects/rrg-holt/belleya/imsrg/src/half/cmake_install.cmake")
+  include("/Users/antoinebelley/Documents/TRIUMF/imsrg/src/armadillo/cmake_install.cmake")
 endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for the subdirectory.
-  include("/home/belleya/projects/rrg-holt/belleya/imsrg/src/boost_src/cmake_install.cmake")
+  include("/Users/antoinebelley/Documents/TRIUMF/imsrg/src/half/cmake_install.cmake")
 endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for the subdirectory.
-  include("/home/belleya/projects/rrg-holt/belleya/imsrg/src/profiling/cmake_install.cmake")
+  include("/Users/antoinebelley/Documents/TRIUMF/imsrg/src/boost_src/cmake_install.cmake")
 endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for the subdirectory.
-  include("/home/belleya/projects/rrg-holt/belleya/imsrg/src/pybind11/cmake_install.cmake")
+  include("/Users/antoinebelley/Documents/TRIUMF/imsrg/src/profiling/cmake_install.cmake")
 endif()
 
-if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  if(EXISTS "$ENV{DESTDIR}/home/belleya/bin/imsrg++" AND
-     NOT IS_SYMLINK "$ENV{DESTDIR}/home/belleya/bin/imsrg++")
-    file(RPATH_CHECK
-         FILE "$ENV{DESTDIR}/home/belleya/bin/imsrg++"
-         RPATH "")
-  endif()
+if(NOT CMAKE_INSTALL_LOCAL_ONLY)
+  # Include the install script for the subdirectory.
+  include("/Users/antoinebelley/Documents/TRIUMF/imsrg/src/pybind11/cmake_install.cmake")
+endif()
+
+if(CMAKE_INSTALL_COMPONENT STREQUAL "Unspecified" OR NOT CMAKE_INSTALL_COMPONENT)
   list(APPEND CMAKE_ABSOLUTE_DESTINATION_FILES
-   "/home/belleya/bin/imsrg++")
+   "/bin/imsrg++")
   if(CMAKE_WARN_ON_ABSOLUTE_INSTALL_DESTINATION)
     message(WARNING "ABSOLUTE path INSTALL DESTINATION : ${CMAKE_ABSOLUTE_DESTINATION_FILES}")
   endif()
   if(CMAKE_ERROR_ON_ABSOLUTE_INSTALL_DESTINATION)
     message(FATAL_ERROR "ABSOLUTE path INSTALL DESTINATION forbidden (by caller): ${CMAKE_ABSOLUTE_DESTINATION_FILES}")
   endif()
-  file(INSTALL DESTINATION "/home/belleya/bin" TYPE EXECUTABLE PERMISSIONS OWNER_READ OWNER_WRITE OWNER_EXECUTE GROUP_READ GROUP_EXECUTE WORLD_READ WORLD_EXECUTE FILES "/home/belleya/projects/rrg-holt/belleya/imsrg/src/imsrg++")
-  if(EXISTS "$ENV{DESTDIR}/home/belleya/bin/imsrg++" AND
-     NOT IS_SYMLINK "$ENV{DESTDIR}/home/belleya/bin/imsrg++")
-    file(RPATH_CHANGE
-         FILE "$ENV{DESTDIR}/home/belleya/bin/imsrg++"
-         OLD_RPATH "/cvmfs/soft.computecanada.ca/easybuild/software/2020/avx2/Compiler/intel2020/gsl/2.6/lib:/cvmfs/soft.computecanada.ca/easybuild/software/2020/avx2/Compiler/intel2020/armadillo/9.900.2/lib64:"
-         NEW_RPATH "")
+  file(INSTALL DESTINATION "/bin" TYPE EXECUTABLE PERMISSIONS OWNER_READ OWNER_WRITE OWNER_EXECUTE GROUP_READ GROUP_EXECUTE WORLD_READ WORLD_EXECUTE FILES "/Users/antoinebelley/Documents/TRIUMF/imsrg/src/imsrg++")
+  if(EXISTS "$ENV{DESTDIR}/bin/imsrg++" AND
+     NOT IS_SYMLINK "$ENV{DESTDIR}/bin/imsrg++")
     if(CMAKE_INSTALL_DO_STRIP)
-      execute_process(COMMAND "/cvmfs/soft.computecanada.ca/gentoo/2020/usr/bin/strip" "$ENV{DESTDIR}/home/belleya/bin/imsrg++")
+      execute_process(COMMAND "/Library/Developer/CommandLineTools/usr/bin/strip" -u -r "$ENV{DESTDIR}/bin/imsrg++")
     endif()
   endif()
 endif()
 
-if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
+if(CMAKE_INSTALL_COMPONENT STREQUAL "Unspecified" OR NOT CMAKE_INSTALL_COMPONENT)
   list(APPEND CMAKE_ABSOLUTE_DESTINATION_FILES
-   "/home/belleya/include/AngMom.hh;/home/belleya/include/AngMomCache.hh;/home/belleya/include/Commutator.hh;/home/belleya/include/Commutator232.hh;/home/belleya/include/DarkMatterNREFT.hh;/home/belleya/include/GaussLaguerre.hh;/home/belleya/include/Generator.hh;/home/belleya/include/HFMBPT.hh;/home/belleya/include/HartreeFock.hh;/home/belleya/include/Helicity.hh;/home/belleya/include/IMSRG.hh;/home/belleya/include/IMSRGProfiler.hh;/home/belleya/include/IMSRGSolver.hh;/home/belleya/include/Jacobi3BME.hh;/home/belleya/include/M0nu.hh;/home/belleya/include/ModelSpace.hh;/home/belleya/include/Operator.hh;/home/belleya/include/Parameters.hh;/home/belleya/include/PhysicalConstants.hh;/home/belleya/include/Pwd.hh;/home/belleya/include/RPA.hh;/home/belleya/include/ReadWrite.hh;/home/belleya/include/ReferenceImplementations.hh;/home/belleya/include/ThreeBodyME.hh;/home/belleya/include/ThreeBodyStorage.hh;/home/belleya/include/ThreeBodyStorage_iso.hh;/home/belleya/include/ThreeBodyStorage_mono.hh;/home/belleya/include/ThreeBodyStorage_no2b.hh;/home/belleya/include/ThreeBodyStorage_pn.hh;/home/belleya/include/ThreeLegME.hh;/home/belleya/include/TwoBodyME.hh;/home/belleya/include/UnitTest.hh;/home/belleya/include/imsrg_util.hh;/home/belleya/include/version.hh")
+   "/include/AngMom.hh;/include/AngMomCache.hh;/include/Commutator.hh;/include/Commutator232.hh;/include/DarkMatterNREFT.hh;/include/GaussLaguerre.hh;/include/Generator.hh;/include/HFMBPT.hh;/include/HartreeFock.hh;/include/Helicity.hh;/include/IMSRG.hh;/include/IMSRGProfiler.hh;/include/IMSRGSolver.hh;/include/Jacobi3BME.hh;/include/M0nu.hh;/include/ModelSpace.hh;/include/Operator.hh;/include/Parameters.hh;/include/PhysicalConstants.hh;/include/Pwd.hh;/include/RPA.hh;/include/ReadWrite.hh;/include/ReferenceImplementations.hh;/include/ThreeBodyME.hh;/include/ThreeBodyStorage.hh;/include/ThreeBodyStorage_iso.hh;/include/ThreeBodyStorage_mono.hh;/include/ThreeBodyStorage_no2b.hh;/include/ThreeBodyStorage_pn.hh;/include/ThreeLegME.hh;/include/TwoBodyME.hh;/include/UnitTest.hh;/include/imsrg_util.hh;/include/version.hh")
   if(CMAKE_WARN_ON_ABSOLUTE_INSTALL_DESTINATION)
     message(WARNING "ABSOLUTE path INSTALL DESTINATION : ${CMAKE_ABSOLUTE_DESTINATION_FILES}")
   endif()
   if(CMAKE_ERROR_ON_ABSOLUTE_INSTALL_DESTINATION)
     message(FATAL_ERROR "ABSOLUTE path INSTALL DESTINATION forbidden (by caller): ${CMAKE_ABSOLUTE_DESTINATION_FILES}")
   endif()
-  file(INSTALL DESTINATION "/home/belleya/include" TYPE FILE PERMISSIONS OWNER_READ OWNER_WRITE OWNER_EXECUTE GROUP_READ GROUP_EXECUTE WORLD_READ WORLD_EXECUTE FILES
-    "/home/belleya/projects/rrg-holt/belleya/imsrg/src/AngMom.hh"
-    "/home/belleya/projects/rrg-holt/belleya/imsrg/src/AngMomCache.hh"
-    "/home/belleya/projects/rrg-holt/belleya/imsrg/src/Commutator.hh"
-    "/home/belleya/projects/rrg-holt/belleya/imsrg/src/Commutator232.hh"
-    "/home/belleya/projects/rrg-holt/belleya/imsrg/src/DarkMatterNREFT.hh"
-    "/home/belleya/projects/rrg-holt/belleya/imsrg/src/GaussLaguerre.hh"
-    "/home/belleya/projects/rrg-holt/belleya/imsrg/src/Generator.hh"
-    "/home/belleya/projects/rrg-holt/belleya/imsrg/src/HFMBPT.hh"
-    "/home/belleya/projects/rrg-holt/belleya/imsrg/src/HartreeFock.hh"
-    "/home/belleya/projects/rrg-holt/belleya/imsrg/src/Helicity.hh"
-    "/home/belleya/projects/rrg-holt/belleya/imsrg/src/IMSRG.hh"
-    "/home/belleya/projects/rrg-holt/belleya/imsrg/src/IMSRGProfiler.hh"
-    "/home/belleya/projects/rrg-holt/belleya/imsrg/src/IMSRGSolver.hh"
-    "/home/belleya/projects/rrg-holt/belleya/imsrg/src/Jacobi3BME.hh"
-    "/home/belleya/projects/rrg-holt/belleya/imsrg/src/M0nu.hh"
-    "/home/belleya/projects/rrg-holt/belleya/imsrg/src/ModelSpace.hh"
-    "/home/belleya/projects/rrg-holt/belleya/imsrg/src/Operator.hh"
-    "/home/belleya/projects/rrg-holt/belleya/imsrg/src/Parameters.hh"
-    "/home/belleya/projects/rrg-holt/belleya/imsrg/src/PhysicalConstants.hh"
-    "/home/belleya/projects/rrg-holt/belleya/imsrg/src/Pwd.hh"
-    "/home/belleya/projects/rrg-holt/belleya/imsrg/src/RPA.hh"
-    "/home/belleya/projects/rrg-holt/belleya/imsrg/src/ReadWrite.hh"
-    "/home/belleya/projects/rrg-holt/belleya/imsrg/src/ReferenceImplementations.hh"
-    "/home/belleya/projects/rrg-holt/belleya/imsrg/src/ThreeBodyME.hh"
-    "/home/belleya/projects/rrg-holt/belleya/imsrg/src/ThreeBodyStorage.hh"
-    "/home/belleya/projects/rrg-holt/belleya/imsrg/src/ThreeBodyStorage_iso.hh"
-    "/home/belleya/projects/rrg-holt/belleya/imsrg/src/ThreeBodyStorage_mono.hh"
-    "/home/belleya/projects/rrg-holt/belleya/imsrg/src/ThreeBodyStorage_no2b.hh"
-    "/home/belleya/projects/rrg-holt/belleya/imsrg/src/ThreeBodyStorage_pn.hh"
-    "/home/belleya/projects/rrg-holt/belleya/imsrg/src/ThreeLegME.hh"
-    "/home/belleya/projects/rrg-holt/belleya/imsrg/src/TwoBodyME.hh"
-    "/home/belleya/projects/rrg-holt/belleya/imsrg/src/UnitTest.hh"
-    "/home/belleya/projects/rrg-holt/belleya/imsrg/src/imsrg_util.hh"
-    "/home/belleya/projects/rrg-holt/belleya/imsrg/src/version.hh"
+  file(INSTALL DESTINATION "/include" TYPE FILE PERMISSIONS OWNER_READ OWNER_WRITE OWNER_EXECUTE GROUP_READ GROUP_EXECUTE WORLD_READ WORLD_EXECUTE FILES
+    "/Users/antoinebelley/Documents/TRIUMF/imsrg/src/AngMom.hh"
+    "/Users/antoinebelley/Documents/TRIUMF/imsrg/src/AngMomCache.hh"
+    "/Users/antoinebelley/Documents/TRIUMF/imsrg/src/Commutator.hh"
+    "/Users/antoinebelley/Documents/TRIUMF/imsrg/src/Commutator232.hh"
+    "/Users/antoinebelley/Documents/TRIUMF/imsrg/src/DarkMatterNREFT.hh"
+    "/Users/antoinebelley/Documents/TRIUMF/imsrg/src/GaussLaguerre.hh"
+    "/Users/antoinebelley/Documents/TRIUMF/imsrg/src/Generator.hh"
+    "/Users/antoinebelley/Documents/TRIUMF/imsrg/src/HFMBPT.hh"
+    "/Users/antoinebelley/Documents/TRIUMF/imsrg/src/HartreeFock.hh"
+    "/Users/antoinebelley/Documents/TRIUMF/imsrg/src/Helicity.hh"
+    "/Users/antoinebelley/Documents/TRIUMF/imsrg/src/IMSRG.hh"
+    "/Users/antoinebelley/Documents/TRIUMF/imsrg/src/IMSRGProfiler.hh"
+    "/Users/antoinebelley/Documents/TRIUMF/imsrg/src/IMSRGSolver.hh"
+    "/Users/antoinebelley/Documents/TRIUMF/imsrg/src/Jacobi3BME.hh"
+    "/Users/antoinebelley/Documents/TRIUMF/imsrg/src/M0nu.hh"
+    "/Users/antoinebelley/Documents/TRIUMF/imsrg/src/ModelSpace.hh"
+    "/Users/antoinebelley/Documents/TRIUMF/imsrg/src/Operator.hh"
+    "/Users/antoinebelley/Documents/TRIUMF/imsrg/src/Parameters.hh"
+    "/Users/antoinebelley/Documents/TRIUMF/imsrg/src/PhysicalConstants.hh"
+    "/Users/antoinebelley/Documents/TRIUMF/imsrg/src/Pwd.hh"
+    "/Users/antoinebelley/Documents/TRIUMF/imsrg/src/RPA.hh"
+    "/Users/antoinebelley/Documents/TRIUMF/imsrg/src/ReadWrite.hh"
+    "/Users/antoinebelley/Documents/TRIUMF/imsrg/src/ReferenceImplementations.hh"
+    "/Users/antoinebelley/Documents/TRIUMF/imsrg/src/ThreeBodyME.hh"
+    "/Users/antoinebelley/Documents/TRIUMF/imsrg/src/ThreeBodyStorage.hh"
+    "/Users/antoinebelley/Documents/TRIUMF/imsrg/src/ThreeBodyStorage_iso.hh"
+    "/Users/antoinebelley/Documents/TRIUMF/imsrg/src/ThreeBodyStorage_mono.hh"
+    "/Users/antoinebelley/Documents/TRIUMF/imsrg/src/ThreeBodyStorage_no2b.hh"
+    "/Users/antoinebelley/Documents/TRIUMF/imsrg/src/ThreeBodyStorage_pn.hh"
+    "/Users/antoinebelley/Documents/TRIUMF/imsrg/src/ThreeLegME.hh"
+    "/Users/antoinebelley/Documents/TRIUMF/imsrg/src/TwoBodyME.hh"
+    "/Users/antoinebelley/Documents/TRIUMF/imsrg/src/UnitTest.hh"
+    "/Users/antoinebelley/Documents/TRIUMF/imsrg/src/imsrg_util.hh"
+    "/Users/antoinebelley/Documents/TRIUMF/imsrg/src/version.hh"
     )
 endif()
 
@@ -145,5 +135,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "/home/belleya/projects/rrg-holt/belleya/imsrg/src/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "/Users/antoinebelley/Documents/TRIUMF/imsrg/src/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

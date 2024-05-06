@@ -58,6 +58,7 @@ exe = '/Users/antoinebelley/Documents/TRIUMF/imsrg/src/imsrg++'
 mail_address = 'antoine.belley@mail.mcgill.ca'
 #Directory that contain all the result directories
 wrkdir = '/Users/antoinebelley/Documents/TRIUMF/results/'
+# wrkdir = '/Users/antoinebelley/Documents/TRIUMF/Benchmark_TBME/'
 
 #Lists to find the isotope
 #Some files use with capital letters and some with lower case
@@ -117,7 +118,8 @@ elif args.A == 10 and (args.ZI == 2 or args.ZI == 4):
   ARGS['valence_space'] = 'p-shell' # AKA: p
   MNU['Ec'] = 3.54
 elif args.A == 14 and args.ZI == 6:
-  ARGS['valence_space'] = 'p-shell' # AKA: p
+  ARGS['valence_space'] = 'psd5-shell' # AKA: p
+  ARGS['custom_valence_space'] = "He4,p0p3,n0p3,p0p1,n0p1,p1s1,n1s1,p0d5,n0d5"
   MNU['Ec'] = 4.19
 elif args.A == 14 and args.ZI == 8:
   ARGS['valence_space'] = 'p-shell' # AKA: p
@@ -129,11 +131,13 @@ elif args.A<40 and args.ZI<20:
   ARGS['valence_space'] = 'sd-shell' # AKA: sd
   MNU['Ec'] = 1.12*args.A**(1/2)
 elif args.A == 40 and args.ZI == 20:
-  ARGS['valence_space'] = 'fp-shell' # AKA: fp
+  # ARGS['valence_space'] = 'fp-shell' # AKA: fp
+  ARGS['valence_space'] = 'sd-shell'  # AKA: fp
   #ARGS['valence_space'] = 'Ca40' # for Jiangming
 elif args.A >= 42 and (args.ZI == 20 or args.ZI == 22 or args.ZI == 24):
   ARGS['valence_space'] = 'fp-shell' # AKA: fp
   MNU['Ec'] = 7.72
+  # MNU['Ec'] = 0.143
   #ARGS['valence_space'] = 'Ca48' # for Jiangming
 elif args.A == 76 and args.ZI == 32:
   ARGS['valence_space'] = 'pf5g9' # this is just a label when custom_valence_space is set
@@ -152,9 +156,7 @@ elif args.A == 136 and args.ZI == 54:
   ARGS['custom_valence_space'] = 'Sn100,p0g7,n0g7,p1d3,n1d3,p1d5,n1d5,p2s1,n2s1,p0h11,n0h11'
   MNU['Ec'] = 13.06
 else:
-  print('these *A and Z* have not been set up yet!')
-  print('exiting...')
-  exit()
+  ARGS['valence_space'] = '0hw-shell'
 
 
 
@@ -177,6 +179,7 @@ if MNU['int'] == 'BARE' or MNU['BB'] == 'HF':
 else:
   ARGS['smax'] = '500'
 ARGS['dsmax'] = '0.5'
+# ARGS['eta_criterion'] = 1e-6
 ### Norm of Omega at which we split off and start a new transformation
 ARGS['omega_norm_max'] = '0.25'
 ### Solution method
@@ -228,6 +231,22 @@ elif MNU['int'] == 'EM2':
 elif MNU['int'] == 'N2LOsat':
   print('running N2LO Sat int...')
   N2LO_SAT.set_args(ARGS, MNU['BB'], args.Decay, args.hw, MNU['SRC'], MNU['Ec'])
+elif MNU['int'] == 'LO_EMN':
+  print('running LO...')
+  if args.hw == 15:
+    LO_EM500.set_args(ARGS, MNU['BB'], args.Decay, args.hw, MNU['SRC'], MNU['Ec'])
+elif MNU['int'] == 'N2LO_EMN':
+  print('running N2LO...')
+  if args.hw == 15:
+    N2LO_EM500.set_args(ARGS, MNU['BB'], args.Decay, args.hw, MNU['SRC'], MNU['Ec'])
+elif MNU['int'] == 'NLO_EMN':
+  print('running N2LO...')
+  if args.hw == 15:
+    NLO_EM500.set_args(ARGS, MNU['BB'], args.Decay, args.hw, MNU['SRC'], MNU['Ec'])
+elif MNU['int'] == 'N3LO_EMN':
+  print('running N3LO...')
+  if args.hw == 15:
+    N3LO_EMN500.set_args(ARGS, MNU['BB'], args.Decay, args.hw, MNU['SRC'], MNU['Ec'])
 elif MNU['int'] == 'N3LO':
   print('running N3LO...')
   if args.hw == 16:
@@ -258,12 +277,13 @@ else:
 
 # ARGS['BetaCM'] = '0'
 # ARGS['hwBetaCM'] = f'{args.hw}'
-
+ARGS['input_op_fmt'] = 'miyagi'
 ARGS['hw'] = f'{args.hw}'
 ARGS['emax'] = f'{args.emax}'
 ARGS['e3max'] = f'{args.e3max}'
+# ARGS['denominator_delta'] =  20
 #ARGS["3bme_type"] = "no2b"
-#ARGS['freeze_occupations'] =  "true"
+ARGS['freeze_occupations'] =  "true"
 
 # #Print the parameters choosen
 # print('smax      = ',ARGS['smax'])
@@ -321,8 +341,8 @@ if run_multiple==True:
     print('-----------------------')
     print(f'e         = {args.emax}')
     print('-----------------------')
-    print('LECs      = ',ARGS['LECs'])
-    print('-----------------------')
+    # print('LECs      = ',ARGS['LECs'])
+    # print('-----------------------')
     print('Sample    = ',sample)
         #Jobname and logname for the job submission
     jobname  = f'{ARGS["valence_space"]}_{MNU["int"]}_{sample}_{MNU["BB"]}_{ARGS["LECs"]}_{ARGS["method"]}_{ARGS["reference"]}_e{ARGS["emax"]}_E{ARGS["e3max"]}_s{ARGS["smax"]}_hw{ARGS["hw"]}_A{ARGS["A"]}_{MNU["Decay"]}_'
@@ -366,10 +386,10 @@ else:
   print('-----------------------')
   print(f'e         = {args.emax}')
   print('-----------------------')
-  print('LECs      = ',ARGS['LECs'])
+  # print('LECs      = ',ARGS['LECs'])
   #Jobname and logname for the job submission
   if len(MNU["Decay"])>100: MNU["Decay"] = "r_depedance_GT_DGT"
-  jobname  = f'{ARGS["valence_space"]}_{MNU["int"]}_{MNU["BB"]}_{ARGS["LECs"]}_{ARGS["method"]}_{ARGS["reference"]}_e{ARGS["emax"]}_E{ARGS["e3max"]}_s{ARGS["smax"]}_hw{ARGS["hw"]}_A{ARGS["A"]}_{MNU["Decay"]}_'
+  jobname  = f'{ARGS["valence_space"]}_{MNU["int"]}_{MNU["BB"]}_{ARGS["method"]}_{ARGS["reference"]}_e{ARGS["emax"]}_E{ARGS["e3max"]}_s{ARGS["smax"]}_hw{ARGS["hw"]}_A{ARGS["A"]}_{MNU["Decay"]}_'
   if args.extra:
     jobname  += f'{args.extra}_'
   ### Some optional parameters that we probably want in the output name if we're using them

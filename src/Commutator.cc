@@ -807,11 +807,11 @@ void comm220ss( const Operator& X, const Operator& Y, Operator& Z)
    {
       TwoBodyChannel& tbc = Z.modelspace->GetTwoBodyChannel(ch);
       auto hh = tbc.GetKetIndex_hh();
+      if (hh.size() == 0) continue;
       auto ph = tbc.GetKetIndex_ph();
       auto pp = tbc.GetKetIndex_pp();
       arma::uvec nbar_indices = arma::join_cols(hh,ph);
       nbar_indices = arma::join_cols(nbar_indices,pp);
-      if (hh.size()==0 ) continue;
       auto nn = tbc.Ket_occ_hh;
       arma::vec nbarnbar = arma::join_cols(tbc.Ket_unocc_hh, tbc.Ket_unocc_ph);
       auto & X2 = X.TwoBody.GetMatrix(ch).submat(hh,nbar_indices);
@@ -891,12 +891,11 @@ void comm121ss( const Operator& X, const Operator& Y, Operator& Z)
 //               for (auto b : X.OneBodyChannels.at({oa.l,oa.j2,oa.tz2} ))
                for (auto b : X.GetOneBodyChannel(oa.l,oa.j2,oa.tz2 ))
                {
-                  Orbit &ob = Z.modelspace->GetOrbit(b);
-                  double nanb = oa.occ * (1-ob.occ);
+                  Orbit &ob = Z.modelspace->GetOrbit(b);                  double nanb = oa.occ * (1-ob.occ);
                   if (std::abs(nanb)<ModelSpace::OCC_CUT) continue;
 //                  Z.OneBody(i,j) += (ob.j2+1) * nanb *  X.OneBody(a,b) * Y.TwoBody.GetTBMEmonopole(b,i,a,j) ;
 //                  Z.OneBody(i,j) -= (oa.j2+1) * nanb *  X.OneBody(b,a) * Y.TwoBody.GetTBMEmonopole(a,i,b,j) ;
-                  zij += (ob.j2+1) * nanb *  X.OneBody(a,b) * Y.TwoBody.GetTBMEmonopole(b,i,a,j) ;
+                  zij += (ob.j2 + 1) * nanb * X.OneBody(a, b) * Y.TwoBody.GetTBMEmonopole(b, i, a, j);
                   zij -= (oa.j2+1) * nanb *  X.OneBody(b,a) * Y.TwoBody.GetTBMEmonopole(a,i,b,j) ;
                 }
              }
@@ -1063,6 +1062,7 @@ void comm122ss( const Operator& X, const Operator& Y, Operator& Z )
       TwoBodyChannel& tbc = Z.modelspace->GetTwoBodyChannel(ch);
       auto& X2 = X.TwoBody.GetMatrix(ch,ch);
       auto& Y2 = Y.TwoBody.GetMatrix(ch,ch);
+      if (X2.is_zero() and Y2.is_zero()) continue;
       auto& Z2 = Z.TwoBody.GetMatrix(ch,ch);
       arma::mat W2(size(Z2),arma::fill::zeros); // temporary intermediate matrix
 
@@ -1219,30 +1219,30 @@ void ConstructScalarMpp_Mhh(const Operator& X, const Operator& Y, const Operator
       auto& X2_bra = X.TwoBody.GetMatrix(ch_bra,ch_bra);
       auto& X2_ket = X.TwoBody.GetMatrix(ch_ket,ch_ket);
       auto& Y2 = Y.TwoBody.GetMatrix(ch_bra,ch_ket);
-
+      bool X2_bra_zero = X2_bra.is_zero();
+      bool X2_ket_zero = X2_ket.is_zero();
+      if ((X2_bra_zero and X2_ket_zero) or Y2.is_zero()) continue;
       auto& Matrixpp = Mpp.GetMatrix(ch_bra,ch_ket);
       auto& Matrixhh = Mhh.GetMatrix(ch_bra,ch_ket);
-
-      auto& bras_pp = tbc_bra.GetKetIndex_pp();
-      auto& bras_hh = tbc_bra.GetKetIndex_hh();
-      auto& bras_ph = tbc_bra.GetKetIndex_ph();
-      auto& kets_pp = tbc_ket.GetKetIndex_pp();
-      auto& kets_hh = tbc_ket.GetKetIndex_hh();
-      auto& kets_ph = tbc_ket.GetKetIndex_ph();
-      auto& nanb_bra = tbc_bra.Ket_occ_hh;
-      auto& nanb_ket = tbc_ket.Ket_occ_hh;
-      auto& nbarnbar_hh_bra = tbc_bra.Ket_unocc_hh;
-      auto& nbarnbar_ph_bra = tbc_bra.Ket_unocc_ph;
-      auto& nbarnbar_hh_ket = tbc_ket.Ket_unocc_hh;
-      auto& nbarnbar_ph_ket = tbc_ket.Ket_unocc_ph;
+      auto &kets_hh = tbc_ket.GetKetIndex_hh();
+      auto &kets_ph = tbc_ket.GetKetIndex_ph();
       
-      Matrixpp =  X2_bra.cols(bras_pp) * Y2.rows(bras_pp);
-      Matrixhh =  X2_bra.cols(bras_hh) * arma::diagmat(nanb_bra) *  Y2.rows(bras_hh) ;
-      if (kets_hh.size()>0)
-        Matrixpp +=  X2_bra.cols(bras_hh) * arma::diagmat(nbarnbar_hh_bra) *  Y2.rows(bras_hh); 
-      if (kets_ph.size()>0)
-        Matrixpp += X2_bra.cols(bras_ph) * arma::diagmat(nbarnbar_ph_bra) *  Y2.rows(bras_ph) ;
-
+      if (!X2_bra_zero)
+      {
+        auto &bras_pp = tbc_bra.GetKetIndex_pp();
+        auto &bras_hh = tbc_bra.GetKetIndex_hh();
+        auto &bras_ph = tbc_bra.GetKetIndex_ph();
+        auto &nanb_bra = tbc_bra.Ket_occ_hh;
+        auto &nbarnbar_hh_bra = tbc_bra.Ket_unocc_hh;
+        auto &nbarnbar_ph_bra = tbc_bra.Ket_unocc_ph;
+        Matrixpp = X2_bra.cols(bras_pp) * Y2.rows(bras_pp);
+        Matrixhh = X2_bra.cols(bras_hh) * arma::diagmat(nanb_bra) * Y2.rows(bras_hh);
+        if (kets_hh.size() > 0)
+              Matrixpp += X2_bra.cols(bras_hh) * arma::diagmat(nbarnbar_hh_bra) * Y2.rows(bras_hh);
+        if (kets_ph.size() > 0)
+              Matrixpp += X2_bra.cols(bras_ph) * arma::diagmat(nbarnbar_ph_bra) * Y2.rows(bras_ph);
+      } 
+     
 
       if (Z.IsHermitian() and ch_bra==ch_ket)
         {
@@ -1254,13 +1254,17 @@ void ConstructScalarMpp_Mhh(const Operator& X, const Operator& Y, const Operator
            Matrixpp -=  Matrixpp.t();
            Matrixhh -=  Matrixhh.t();
         }
-        else
+        else if (!X2_ket_zero)
         {
-          Matrixpp -=  Y2.cols(kets_pp) * X2_ket.rows(kets_pp);
-          Matrixhh -=  Y2.cols(kets_hh) * arma::diagmat(nanb_ket) *  X2_ket.rows(kets_hh) ;
-          Matrixpp -=  Y2.cols(kets_hh) * arma::diagmat(nbarnbar_hh_ket) *  X2_ket.rows(kets_hh) ;
-          if (kets_ph.size()>0)
-            Matrixpp -=  Y2.cols(kets_ph) * arma::diagmat(nbarnbar_ph_ket) *  X2_ket.rows(kets_ph) ;
+           auto &kets_pp = tbc_ket.GetKetIndex_pp();
+           auto &nanb_ket = tbc_ket.Ket_occ_hh;
+           auto &nbarnbar_hh_ket = tbc_ket.Ket_unocc_hh;
+           auto &nbarnbar_ph_ket = tbc_ket.Ket_unocc_ph;
+           Matrixpp -= Y2.cols(kets_pp) * X2_ket.rows(kets_pp);
+           Matrixhh -= Y2.cols(kets_hh) * arma::diagmat(nanb_ket) * X2_ket.rows(kets_hh);
+           Matrixpp -= Y2.cols(kets_hh) * arma::diagmat(nbarnbar_hh_ket) * X2_ket.rows(kets_hh);
+           if (kets_ph.size() > 0)
+              Matrixpp -= Y2.cols(kets_ph) * arma::diagmat(nbarnbar_ph_ket) * X2_ket.rows(kets_ph);
         }
 
    } //for ch
@@ -1639,7 +1643,7 @@ void DoPandyaTransformation_SingleChannel_XandY(const Operator& X, const Operato
               double xcbad=0;
               double yadcb=0;
               X.TwoBody.GetTBME_J_norm_twoOps(Y.TwoBody,  J_std, J_std,c,b,a,d, xcbad,yadcb) ;
-              Xbar -= (2*J_std+1) * sixj * xcbad  ;
+              Xbar -= (2 * J_std + 1) * sixj * xcbad;
               Ybar -= (2*J_std+1) * sixj * yadcb  * hY;
            }
            X2_CC_ph( iket_cc, ibra+bra_shift ) = Xbar * normfactor * na_nb_factor;

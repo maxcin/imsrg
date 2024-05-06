@@ -221,9 +221,7 @@ void IMSRGSolver::UpdateEta()
 void IMSRGSolver::Solve_magnus_euler()
 {
   istep = 0;
-
   generator.Update(FlowingOps[0], Eta);
-
   Elast = H_0->ZeroBody;
   cumulative_error = 0;
   // Write details of the flow
@@ -276,7 +274,6 @@ void IMSRGSolver::Solve_magnus_euler()
     {
       generator.SetDenominatorCutoff(1e-6);
     }
-
     generator.Update(FlowingOps[0], Eta);
 
     // Write details of the flow

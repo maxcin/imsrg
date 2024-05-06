@@ -1,2 +1,2 @@
-/cvmfs/soft.computecanada.ca/gentoo/2020/usr/bin/ar qc libTwoBodyME.a CMakeFiles/TwoBodyME.dir/TwoBodyME.cc.o
-/cvmfs/soft.computecanada.ca/gentoo/2020/usr/bin/ranlib libTwoBodyME.a
+/Library/Developer/CommandLineTools/usr/bin/ar qc libTwoBodyME.a CMakeFiles/TwoBodyME.dir/TwoBodyME.cc.o
+/Library/Developer/CommandLineTools/usr/bin/ranlib libTwoBodyME.a

@@ -1,2 +1,2 @@
-/cvmfs/soft.computecanada.ca/gentoo/2020/usr/bin/ar qc libOperator.a CMakeFiles/Operator.dir/Operator.cc.o
-/cvmfs/soft.computecanada.ca/gentoo/2020/usr/bin/ranlib libOperator.a
+/Library/Developer/CommandLineTools/usr/bin/ar qc libOperator.a CMakeFiles/Operator.dir/Operator.cc.o
+/Library/Developer/CommandLineTools/usr/bin/ranlib libOperator.a

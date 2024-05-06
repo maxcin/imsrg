@@ -62,7 +62,10 @@ class Interaction():
     elif Decay == 'M0nuHeavy':
       Dict['Operators'] =  f'M0nuHeavy_GT_{SRC}_AA,M0nuHeavy_GT_{SRC}_AP,M0nuHeavy_GT_{SRC}_PP,M0nuHeavy_F_{SRC}_VV,M0nuHeavy_T_{SRC}_AP,M0nuHeavy_T_{SRC}_PP'
     elif Decay == 'Test_op_from_file':
-      Dict['OperatorsFromFile'] = "0vbbGT^0_2_0_2^/Users/antoinebelley/Documents/TRIUMF/NuHamil-public/0vbbGamowTeller_Ec_7.72_Range_LR-N2LO_TwBME-HO_NN-only_N3LO_EM500_bare_hw16_emax4_e2max8.me2j.gz"
+      # Dict['OperatorsFromFile'] = "0vbbFVV_SR^0_2_0_2^/Users/antoinebelley/Documents/TRIUMF/NuHamil-public/0vbbFermiVV_Ec_7.72_Range_SR-N2LO_TwBME-HO_NN-only_N3LO_EM500_bare_hw16_emax4_e2max8.me2j.gz"
+      Dict['OperatorsFromFile'] = "0vbbN2LO^0_2_0_2^/Users/antoinebelley/Documents/TRIUMF/NuHamil-public/0vbbGamowTellerPP_Ec_7.72_Range_SR_-N2LO-Local3-500_TwBME-HO_NN-only_N3LO_EM500_srg2.0_hw15_emax14_e2max28.me2j.gz"
+    elif Decay == "None":
+      pass
     else:
       Dict['Operators'] = Decay
     
@@ -124,6 +127,26 @@ PWA      = Interaction(file2e1max = '16 file2e2max=32', file3e1max= '18 file3e2m
                        file2bme = '/home/belleya/projects/def-holt/shared/me2j/TwBME-HO_NN-only_N3LO_EM500_srg2.0_hw%d_emax16_e2max32.me2j.gz',
                        file3bme = '/home/belleya/projects/def-holt/shared/me3j/NO2B_ThBME_N2LOsat_3NFJmax15_IS_hw%d_ms18_36_24.stream.bin',
                        LECs = 'PWA', Threebme_type = 'no2b')
+
+LO_EM500 = Interaction(file2e1max = '16 file2e2max=32 file2lmax=16', file3e1max= '16 file3e2max=32 file3e3max=22',
+                             file2bme = '/Users/antoinebelley/Documents/TRIUMF/Interactions/TwBME-HO_NN-only_LO_EMN500_srg2.0_hw%d_emax16_e2max32.me2j.gz',
+                             file3bme = '/Users/antoinebelley/Documents/TRIUMF/Interactions/NO2B_ThBME_srg2.0_ramp46-9-44-15-42_LO_EMN500_IS_hw%dfrom30_ms16_32_22.stream.bin',
+                             LECs = 'LO_EM500', Threebme_type = 'no2b')
+
+NLO_EM500 = Interaction(file2e1max = '16 file2e2max=32 file2lmax=16', file3e1max= '16 file3e2max=32 file3e3max=22',
+                             file2bme = '/Users/antoinebelley/Documents/TRIUMF/Interactions/TwBME-HO_NN-only_NLO_EMN500_srg2.0_hw%d_emax16_e2max32.me2j.gz',
+                             file3bme = '/Users/antoinebelley/Documents/TRIUMF/Interactions/NO2B_ThBME_srg2.0_ramp46-9-44-15-42_NLO_EMN500_IS_hw%dfrom30_ms16_32_22.stream.bin',
+                             LECs = 'NLO_EM500', Threebme_type = 'no2b')
+
+N2LO_EM500 = Interaction(file2e1max = '16 file2e2max=32 file2lmax=16', file3e1max= '16 file3e2max=32 file3e3max=22',
+                             file2bme = '/Users/antoinebelley/Documents/TRIUMF/Interactions/TwBME-HO_NN-only_N2LO_EMN500_srg2.0_hw%d_emax16_e2max32.me2j.gz',
+                             file3bme = '/Users/antoinebelley/Documents/TRIUMF/Interactions/NO2B_ThBME_srg2.0_ramp46-9-44-15-42_N2LO_EMN500_3NFJmax15_c1_-0.74_c3_-3.61_c4_2.44_cD_-0.36_cE_-0.189_LNL2_650_500_IS_hw%dfrom30_ms16_32_22.stream.bin',
+                             LECs = 'N2LO_EM500', Threebme_type = 'no2b')
+
+N3LO_EMN500 = Interaction(file2e1max = '16 file2e2max=32 file2lmax=16', file3e1max= '16 file3e2max=32 file3e3max=22',
+                             file2bme = '/Users/antoinebelley/Documents/TRIUMF/Interactions/TwBME-HO_NN-only_N3LO_EMN500_srg2.0_hw%d_emax16_e2max32.me2j.gz',
+                             file3bme = '/Users/antoinebelley/Documents/TRIUMF/Interactions/NO2B_ThBME_srg2.0_ramp46-9-44-15-42_N3LO_EMN500_3NFJmax15_c1_-1.2_c3_-4.43_c4_2.67_cD_-1.33_cE_-0.413_LNL2_650_500_IS_hw%dfrom30_ms16_32_22.stream.bin',
+                             LECs = 'N3LO_EM500', Threebme_type = 'no2b')
 
 N3LO_EM500_LNL = Interaction(file2e1max = '16 file2e2max=32 file2lmax=16', file3e1max= '16 file3e2max=32 file3e3max=22',
                              file2bme = '/home/belleya/projects/def-holt/shared/me2j/TwBME-HO_NN-only_N3LO_EM500_srg2.0_hw%d_emax16_e2max32.me2j.gz',

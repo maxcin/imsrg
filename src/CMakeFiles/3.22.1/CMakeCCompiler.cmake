@@ -1,12 +1,7 @@
-set(CMAKE_C_COMPILER "/cvmfs/soft.computecanada.ca/easybuild/software/2020/Core/gcccore/9.3.0/bin/cc")
+set(CMAKE_C_COMPILER "/Library/Developer/CommandLineTools/usr/bin/cc")
 set(CMAKE_C_COMPILER_ARG1 "")
-<<<<<<< HEAD
-set(CMAKE_C_COMPILER_ID "GNU")
-set(CMAKE_C_COMPILER_VERSION "9.3.0")
-=======
 set(CMAKE_C_COMPILER_ID "AppleClang")
 set(CMAKE_C_COMPILER_VERSION "14.0.0.14000029")
->>>>>>> 049e272 (Merging)
 set(CMAKE_C_COMPILER_VERSION_INTERNAL "")
 set(CMAKE_C_COMPILER_WRAPPER "")
 set(CMAKE_C_STANDARD_COMPUTED_DEFAULT "17")
@@ -18,22 +13,21 @@ set(CMAKE_C11_COMPILE_FEATURES "c_std_11;c_static_assert")
 set(CMAKE_C17_COMPILE_FEATURES "c_std_17")
 set(CMAKE_C23_COMPILE_FEATURES "c_std_23")
 
-set(CMAKE_C_PLATFORM_ID "Linux")
+set(CMAKE_C_PLATFORM_ID "Darwin")
 set(CMAKE_C_SIMULATE_ID "")
 set(CMAKE_C_COMPILER_FRONTEND_VARIANT "")
 set(CMAKE_C_SIMULATE_VERSION "")
 
-set(CMAKE_C_COMPILER_SYSROOT "/cvmfs/soft.computecanada.ca/gentoo/2020/usr")
-set(CMAKE_COMPILER_SYSROOT "/cvmfs/soft.computecanada.ca/gentoo/2020/usr")
 
 
-set(CMAKE_AR "/cvmfs/soft.computecanada.ca/gentoo/2020/usr/bin/ar")
-set(CMAKE_C_COMPILER_AR "/cvmfs/soft.computecanada.ca/easybuild/software/2020/Core/gcccore/9.3.0/bin/gcc-ar")
-set(CMAKE_RANLIB "/cvmfs/soft.computecanada.ca/gentoo/2020/usr/bin/ranlib")
-set(CMAKE_C_COMPILER_RANLIB "/cvmfs/soft.computecanada.ca/easybuild/software/2020/Core/gcccore/9.3.0/bin/gcc-ranlib")
-set(CMAKE_LINKER "/cvmfs/soft.computecanada.ca/gentoo/2020/usr/bin/ld")
+
+set(CMAKE_AR "/Library/Developer/CommandLineTools/usr/bin/ar")
+set(CMAKE_C_COMPILER_AR "")
+set(CMAKE_RANLIB "/Library/Developer/CommandLineTools/usr/bin/ranlib")
+set(CMAKE_C_COMPILER_RANLIB "")
+set(CMAKE_LINKER "/Library/Developer/CommandLineTools/usr/bin/ld")
 set(CMAKE_MT "")
-set(CMAKE_COMPILER_IS_GNUCC 1)
+set(CMAKE_COMPILER_IS_GNUCC )
 set(CMAKE_C_COMPILER_LOADED 1)
 set(CMAKE_C_COMPILER_WORKS TRUE)
 set(CMAKE_C_ABI_COMPILED TRUE)
@@ -47,7 +41,7 @@ set(CMAKE_C_LINKER_PREFERENCE 10)
 
 # Save compiler ABI information.
 set(CMAKE_C_SIZEOF_DATA_PTR "8")
-set(CMAKE_C_COMPILER_ABI "ELF")
+set(CMAKE_C_COMPILER_ABI "")
 set(CMAKE_C_BYTE_ORDER "LITTLE_ENDIAN")
 set(CMAKE_C_LIBRARY_ARCHITECTURE "")
 
@@ -72,14 +66,7 @@ endif()
 
 
 
-<<<<<<< HEAD
-set(CMAKE_C_IMPLICIT_INCLUDE_DIRECTORIES "/cvmfs/soft.computecanada.ca/easybuild/software/2020/avx2/Compiler/intel2020/intelmpi/2019.7.217/intel64/include;/cvmfs/soft.computecanada.ca/easybuild/software/2020/avx2/Core/ucx/1.8.0/include;/cvmfs/soft.computecanada.ca/easybuild/software/2020/avx2/Core/libfabric/1.10.1/include;/cvmfs/soft.computecanada.ca/easybuild/software/2020/avx2/Core/python/3.8.10/include;/cvmfs/soft.computecanada.ca/easybuild/software/2020/Core/libffi/3.3/include;/cvmfs/soft.computecanada.ca/easybuild/software/2020/Core/imkl/2020.1.217/mkl/include/fftw;/cvmfs/soft.computecanada.ca/easybuild/software/2020/Core/imkl/2020.1.217/mkl/include;/cvmfs/restricted.computecanada.ca/easybuild/software/2020/Core/intel/2020.1.217/compilers_and_libraries_2020.1.217/linux/tbb/include;/cvmfs/soft.computecanada.ca/easybuild/software/2020/Core/gcccore/9.3.0/lib/gcc/x86_64-pc-linux-gnu/9.3.0/include;/cvmfs/soft.computecanada.ca/gentoo/2020/usr/include")
-set(CMAKE_C_IMPLICIT_LINK_LIBRARIES "gcc;gcc_s;c;gcc;gcc_s")
-set(CMAKE_C_IMPLICIT_LINK_DIRECTORIES "/cvmfs/soft.computecanada.ca/easybuild/software/2020/avx2/Core/python/3.8.10/lib64;/cvmfs/soft.computecanada.ca/easybuild/software/2020/Core/libffi/3.3/lib64;/cvmfs/soft.computecanada.ca/easybuild/software/2020/Core/gcccore/9.3.0/lib/gcc/x86_64-pc-linux-gnu/9.3.0;/cvmfs/soft.computecanada.ca/easybuild/software/2020/Core/gcccore/9.3.0/lib64;/cvmfs/soft.computecanada.ca/gentoo/2020/lib64;/cvmfs/soft.computecanada.ca/gentoo/2020/usr/lib64;/cvmfs/soft.computecanada.ca/easybuild/software/2020/avx2/Compiler/intel2020/intelmpi/2019.7.217/intel64/libfabric/lib;/cvmfs/soft.computecanada.ca/easybuild/software/2020/avx2/Compiler/intel2020/intelmpi/2019.7.217/intel64/lib/release_mt;/cvmfs/soft.computecanada.ca/easybuild/software/2020/avx2/Compiler/intel2020/intelmpi/2019.7.217/intel64/lib/release;/cvmfs/soft.computecanada.ca/easybuild/software/2020/avx2/Compiler/intel2020/intelmpi/2019.7.217/intel64/lib;/cvmfs/soft.computecanada.ca/easybuild/software/2020/avx2/Core/ucx/1.8.0/lib;/cvmfs/soft.computecanada.ca/easybuild/software/2020/avx2/Core/libfabric/1.10.1/lib;/cvmfs/soft.computecanada.ca/easybuild/software/2020/avx2/Core/python/3.8.10/lib;/cvmfs/soft.computecanada.ca/easybuild/software/2020/Core/libffi/3.3/lib;/cvmfs/soft.computecanada.ca/easybuild/software/2020/Core/imkl/2020.1.217/mkl/lib/intel64;/cvmfs/soft.computecanada.ca/easybuild/software/2020/Core/imkl/2020.1.217/lib/intel64;/cvmfs/restricted.computecanada.ca/easybuild/software/2020/Core/intel/2020.1.217/compilers_and_libraries_2020.1.217/linux/tbb/lib/intel64/gcc4.8;/home/belleya/lib;/cvmfs/soft.computecanada.ca/easybuild/software/2020/Core/gcccore/9.3.0/lib;/cvmfs/soft.computecanada.ca/gentoo/2020/lib;/cvmfs/soft.computecanada.ca/gentoo/2020/usr/lib")
-set(CMAKE_C_IMPLICIT_LINK_FRAMEWORK_DIRECTORIES "")
-=======
 set(CMAKE_C_IMPLICIT_INCLUDE_DIRECTORIES "/usr/local/include;/usr/local/opt/openblas/include;/Library/Developer/CommandLineTools/usr/lib/clang/14.0.0/include;/Library/Developer/CommandLineTools/SDKs/MacOSX13.1.sdk/usr/include;/Library/Developer/CommandLineTools/usr/include")
 set(CMAKE_C_IMPLICIT_LINK_LIBRARIES "")
 set(CMAKE_C_IMPLICIT_LINK_DIRECTORIES "/usr/local/opt/openblas/lib;/usr/local/lib;/Users/antoinebelley/lib;/Users/antoinebelley/Documents/TRIUMF/imsrg/src;/Library/Developer/CommandLineTools/SDKs/MacOSX13.1.sdk/usr/lib")
 set(CMAKE_C_IMPLICIT_LINK_FRAMEWORK_DIRECTORIES "/Library/Developer/CommandLineTools/SDKs/MacOSX13.1.sdk/System/Library/Frameworks")
->>>>>>> 049e272 (Merging)

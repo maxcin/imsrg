@@ -1,2 +1,2 @@
-/cvmfs/soft.computecanada.ca/gentoo/2020/usr/bin/ar qc libReferenceImplementations.a CMakeFiles/ReferenceImplementations.dir/ReferenceImplementations.cc.o
-/cvmfs/soft.computecanada.ca/gentoo/2020/usr/bin/ranlib libReferenceImplementations.a
+/Library/Developer/CommandLineTools/usr/bin/ar qc libReferenceImplementations.a CMakeFiles/ReferenceImplementations.dir/ReferenceImplementations.cc.o
+/Library/Developer/CommandLineTools/usr/bin/ranlib libReferenceImplementations.a

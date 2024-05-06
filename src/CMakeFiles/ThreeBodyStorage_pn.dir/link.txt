@@ -1,2 +1,2 @@
-/cvmfs/soft.computecanada.ca/gentoo/2020/usr/bin/ar qc libThreeBodyStorage_pn.a CMakeFiles/ThreeBodyStorage_pn.dir/ThreeBodyStorage_pn.cc.o
-/cvmfs/soft.computecanada.ca/gentoo/2020/usr/bin/ranlib libThreeBodyStorage_pn.a
+/Library/Developer/CommandLineTools/usr/bin/ar qc libThreeBodyStorage_pn.a CMakeFiles/ThreeBodyStorage_pn.dir/ThreeBodyStorage_pn.cc.o
+/Library/Developer/CommandLineTools/usr/bin/ranlib libThreeBodyStorage_pn.a
