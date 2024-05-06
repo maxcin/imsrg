@@ -784,9 +784,9 @@ int main(int argc, char** argv)
       else if ( input_op_fmt == "miyagi" )
       {
         if (opff.file2name != "")
-        {   
-            Operator optmp = rw.ReadOperator2b_Miyagi( opff.file2name, modelspace );
-            op.TwoBody = optmp.TwoBody;
+        {
+          Operator optmp = rw.ReadOperator2b_Miyagi(opff.file2name, modelspace);
+          op.TwoBody = optmp.TwoBody;
         }
         if ( opff.r>2 and opff.file3name != "")  rw.Read_Darmstadt_3body( opff.file3name, op,  file3e1max,file3e2max,file3e3max);
       }
@@ -1404,9 +1404,9 @@ int main(int argc, char** argv)
         else if ( input_op_fmt == "miyagi" )
         {
           if (opff.file2name != "")
-          {   
-              Operator optmp = rw.ReadOperator2b_Miyagi( opff.file2name, modelspace );
-              op.TwoBody = optmp.TwoBody;
+          {
+            Operator optmp = rw.ReadOperator2b_Miyagi(opff.file2name, modelspace);
+            op.TwoBody = optmp.TwoBody;
           }
           if ( opff.r>2 and opff.file3name != "")  rw.Read_Darmstadt_3body( opff.file3name, op,  file3e1max,file3e2max,file3e3max);
         }
@@ -1438,7 +1438,7 @@ int main(int argc, char** argv)
 
 
 
-
+      
       if ( basis == "oscillator" or opname=="OccRef")
       {
         op = op.DoNormalOrdering();
