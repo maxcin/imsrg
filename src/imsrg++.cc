@@ -432,7 +432,7 @@ int main(int argc, char** argv)
   Hbare.SetHermitian();
 
 
-  Commutator::SetUseGooseTank(goose_tank);
+  BCH::SetUseGooseTank(goose_tank);
   Commutator::SetThreebodyThreshold(threebody_threshold);
 
   std::cout << "Reading interactions..." << std::endl;
@@ -620,16 +620,23 @@ int main(int argc, char** argv)
 //     if (physical_system == "atomic") modelspace_imsrg.InitSingleSpecies(eMax_imsrg, eMax_imsrg, e3Max_imsrg, reference, valence_space);
 //     if (occ_file != "none" and occ_file != "" ) modelspace_imsrg.Init_occ_from_file(eMax_imsrg,e2Max_imsrg,e3Max_imsrg,valence_space,occ_file);
 
-
      // If the occupations in modelspace were different from the naive filling, we want to keep those.
      std::map<index_t,double> hole_map;
-     for ( auto& i_new : modelspace_imsrg.all_orbits )
+     for ( auto& i_old : modelspace.holes) 
      {
-        Orbit& oi_new = modelspace_imsrg.GetOrbit(i_new);
-        index_t i_old = modelspace.GetOrbitIndex( oi_new.n, oi_new.l, oi_new.j2, oi_new.tz2 );
         Orbit& oi_old = modelspace.GetOrbit(i_old);
-        hole_map[i_new] = oi_old.occ;
+        index_t i_new = modelspace_imsrg.GetOrbitIndex( oi_old.n, oi_old.l, oi_old.j2, oi_old.tz2 );
+        Orbit& oi_new = modelspace.GetOrbit(i_new);
+        if ( oi_old.occ < 1e-8 and oi_old.cvq!=1 )  // a hole with such a small occupation is hopefully in the valence space.
+        {
+           std::cout << "WARNING. " << __FILE__ << "  line  " << __LINE__ << "  orbit " << i_old << "  has occupation " << oi_old.occ << "  but cvq = " << oi_old.cvq << std::endl;
+        }
+        else
+        {
+           hole_map[i_new] = oi_old.occ;
+        }
      }
+
      modelspace_imsrg.SetReference( hole_map );
   }
 
@@ -805,6 +812,11 @@ int main(int argc, char** argv)
 //  for (auto& op : ops)
    for (size_t i=0;i<ops.size();++i)
    {
+     if (ops[i].GetJRank()==0 and (ops[i].GetTRank()!=0 or ops[i].GetParity()!=0) )
+     {
+         std::cout << "Before doing HF transformation, making op " << i << " " << opnames[i] << " not reduced. " << std::endl;
+         ops[i].MakeNotReduced();
+     }
 //     std::cout << "Before transforming  " << opnames[i] << " has 3b norm " << ops[i].ThreeBodyNorm() << std::endl;
       // We don't transform a DaggerHF, because we want the a^dagger to already refer to the HF basis.
      if ((basis == "HF") and (opnames[i].find("DaggerHF") == std::string::npos)  )
@@ -905,7 +917,7 @@ int main(int argc, char** argv)
   if (only_2b_omega)
   {
     std::cout << " Restricting the Magnus operator Omega to be 2b." << std::endl;
-    Commutator::SetOnly2bOmega(only_2b_omega);
+    BCH::SetOnly2bOmega(only_2b_omega);
   }
 
 
@@ -1033,7 +1045,7 @@ int main(int argc, char** argv)
   if (denominator_delta_orbit != "none")
     imsrgsolver.SetDenominatorDeltaOrbit(denominator_delta_orbit);
 
-  Commutator::SetUseBruecknerBCH(use_brueckner_bch);
+  BCH::SetUseBruecknerBCH(use_brueckner_bch);
   Commutator::SetUseIMSRG3(IMSRG3);
   Commutator::SetUseIMSRG3N7(imsrg3_n7);
   Commutator::SetUseIMSRG3_MP4(imsrg3_mp4);
@@ -1091,7 +1103,8 @@ int main(int argc, char** argv)
 //    size_t nstates_kept = modelspace.CountThreeBodyStatesInsideCut();
 //    std::array<size_t,2> nstates = modelspace.CountThreeBodyStatesInsideCut();
 //    std::cout << "Truncations: dE3max = " << dE3max << "   OccNat3Cut = " << std::scientific << OccNat3Cut << "  ->  number of 3-body states kept:  " << nstates[0] << " out of " << nstates[1] << std::endl << std::fixed;
-    double dE_triples = imsrgsolver.GetPerturbativeTriples();
+//    double dE_triples = imsrgsolver.GetPerturbativeTriples();
+    double dE_triples = imsrgsolver.CalculatePerturbativeTriples();
     std::cout << "Perturbative triples:  " << std::setw(16) << std::setprecision(8) << dE_triples << " -> " << imsrgsolver.GetH_s().ZeroBody + dE_triples << std::endl;
   }
 
@@ -1419,6 +1432,11 @@ int main(int argc, char** argv)
       }
 //      Operator op = imsrg_util::OperatorFromString( modelspace, opname );
 
+      if ( op.GetJRank()==0 and ( op.GetTRank()!=0 or op.GetParity()!=0 ) )
+      {
+         std::cout << "Before doing HF, making " << opname << "  not reduced" << std::endl;
+         op.MakeNotReduced();
+      }
 
       // Added by Antoine Belley
       if (write_HO_ops)
@@ -1483,23 +1501,23 @@ int main(int argc, char** argv)
 
       op = imsrgsolver.Transform(op);
 
-      std::cout << "Before renormal ordering Op(5,4) is " << std::setprecision(10) << op.OneBody(5,4) << std::endl;
+//      std::cout << "Before renormal ordering Op(5,4) is " << std::setprecision(10) << op.OneBody(5,4) << std::endl;
       if (renormal_order) 
       {
+        if ( op.GetParticleRank()>2) op.SetParticleRank(2); // Discard the residual 3N because we don't want to deal with it in the valence calculation
         op = op.UndoNormalOrdering();
-        op.SetModelSpace(ms2);
-        op = op.DoNormalOrdering();
+//        op.SetModelSpace(ms2);
+//        op = op.DoNormalOrdering();
+        op = op.DoNormalOrderingCore();
       }
 //      std::cout << " (" << ops[i].ZeroBody << " ) " << std::endl;
-      std::cout << "   IMSRG: " << op.ZeroBody << std::endl;
+//      std::cout << "   IMSRG: " << op.ZeroBody << std::endl;
 //      rw.WriteOperatorHuman(ops[i],intfile+opnames[i]+"_step2.op");
 //      std::cout << "After renormal ordering Op(5,4) is " << std::setprecision(10) << op.OneBody(5,4) << std::endl;
 
 
 
-
-
-    std::cout << "      " << op.GetJRank() << " " << op.GetTRank() << " " << op.GetParity() << "   " << op.GetNumberLegs() << std::endl;
+//    std::cout << "      " << op.GetJRank() << " " << op.GetTRank() << " " << op.GetParity() << "   " << op.GetNumberLegs() << std::endl;
     if ( ((op.GetJRank()+op.GetTRank()+op.GetParity())<1) and (op.GetNumberLegs()%2==0) )
     {
        std::cout << "writing scalar files " << std::endl;
@@ -1522,6 +1540,11 @@ int main(int argc, char** argv)
        std::cout << "writing tensor files " << std::endl;
       if (valence_file_format == "tokyo")
       {
+        if (op.GetJRank()==0 and (op.GetTRank()!=0 or op.GetParity()!=0) )
+        {
+           op.MakeReduced();
+        }
+
         rw.WriteTensorTokyo(intfile+opname+"_2b.snt",op);
       }
       else

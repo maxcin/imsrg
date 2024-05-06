@@ -26,6 +26,7 @@
 #include "Operator.hh"
 #include "HartreeFock.hh"
 #include "Commutator.hh"
+#include "BCH.hh"
 #include "Generator.hh"
 #include "IMSRGSolver.hh"
 #include "imsrg_util.hh"
@@ -37,3 +38,4 @@
 #include "UnitTest.hh"
 #include "PhysicalConstants.hh"
 #include "RPA.hh"
+#include "ReferenceImplementations.hh"

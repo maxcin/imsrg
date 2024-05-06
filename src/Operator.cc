@@ -57,7 +57,7 @@ Operator::~Operator()
 Operator::Operator()
  :   modelspace(NULL),
     rank_J(0), rank_T(0), parity(0), particle_rank(2), legs(4),
-    hermitian(true), antihermitian(false), nChannels(0)
+    hermitian(true), antihermitian(false), nChannels(0), is_reduced(false)
 {
   IMSRGProfiler::counter["N_Operators"] ++;
 }
@@ -72,7 +72,8 @@ Operator::Operator(ModelSpace& ms, int Jrank, int Trank, int p, int part_rank) :
     rank_J(Jrank), rank_T(Trank), parity(p), particle_rank(part_rank), legs(2*part_rank),
     E3max(ms.GetE3max()),
     hermitian(true), antihermitian(false),
-    nChannels(ms.GetNumberTwoBodyChannels()) , Q_space_orbit(-1)
+    nChannels(ms.GetNumberTwoBodyChannels()) , Q_space_orbit(-1),
+    is_reduced(Jrank>0 or Trank>0 or p>0) // by default, Hamiltonian-like operators are not reduced, all others are reduced.
 {
   if (part_rank>=2)
   {
@@ -90,7 +91,8 @@ Operator::Operator(ModelSpace& ms) :
     rank_J(0), rank_T(0), parity(0), particle_rank(2), legs(4),
     E3max(ms.GetE3max()),
     hermitian(true), antihermitian(false),
-    nChannels(ms.GetNumberTwoBodyChannels()), Q_space_orbit(-1)
+    nChannels(ms.GetNumberTwoBodyChannels()), Q_space_orbit(-1),
+    is_reduced(false)
 {
   SetUpOneBodyChannels();
   IMSRGProfiler::counter["N_Operators"] ++;
@@ -104,7 +106,8 @@ Operator::Operator(const Operator& op)
   E2max(op.E2max), E3max(op.E3max),
   hermitian(op.hermitian), antihermitian(op.antihermitian),
   nChannels(op.nChannels), OneBodyChannels(op.OneBodyChannels), Q_space_orbit(op.Q_space_orbit),
-  OneBodyChannels_vec(op.OneBodyChannels_vec)
+  OneBodyChannels_vec(op.OneBodyChannels_vec),
+  is_reduced( op.is_reduced)
 {
   IMSRGProfiler::counter["N_Operators"] ++;
 }
@@ -117,7 +120,8 @@ Operator::Operator(Operator&& op)
   E2max(op.E2max), E3max(op.E3max),
   hermitian(op.hermitian), antihermitian(op.antihermitian),
   nChannels(op.nChannels), OneBodyChannels(op.OneBodyChannels), Q_space_orbit(op.Q_space_orbit),
-  OneBodyChannels_vec(op.OneBodyChannels_vec)
+  OneBodyChannels_vec(op.OneBodyChannels_vec),
+  is_reduced(op.is_reduced)
 {
   IMSRGProfiler::counter["N_Operators"] ++;
 }
@@ -920,6 +924,10 @@ void Operator::SetNumberLegs( int l)
 
 void Operator::MakeReduced()
 {
+  if (is_reduced)
+  {
+    std::cout << "Calling MakeReduced(), but this operator is already reduced." << std::endl;
+  }
   if (rank_J>0)
   {
     std::cout << "Trying to reduce an operator with J rank = " << rank_J << ". Not good!!!" << std::endl;
@@ -930,9 +938,9 @@ void Operator::MakeReduced()
     Orbit& oa = modelspace->GetOrbit(a);
     for (size_t b : OneBodyChannels.at({oa.l, oa.j2, oa.tz2}) )
     {
-      if (b<a) continue;
+//      if (b<a) continue;
       OneBody(a,b) *= sqrt(oa.j2+1);
-      OneBody(b,a) = OneBody(a,b);
+//      OneBody(b,a) *= sqrt(oa.j2+1);
     }
   }
   for ( auto& itmat : TwoBody.MatEl )
@@ -940,10 +948,15 @@ void Operator::MakeReduced()
     TwoBodyChannel& tbc = modelspace->GetTwoBodyChannel(itmat.first[0]);
     itmat.second *= sqrt(2*tbc.J+1);
   }
+  is_reduced = true;
 }
 
 void Operator::MakeNotReduced()
 {
+  if (not is_reduced)
+  {
+    std::cout << "Calling MakeNotReduced(), but this operator is already not reduced." << std::endl;
+  }
   if (rank_J>0)
   {
     std::cout << "Trying to un-reduce an operator with J rank = " << rank_J << ". Not good!!!" << std::endl;
@@ -954,9 +967,9 @@ void Operator::MakeNotReduced()
     Orbit& oa = modelspace->GetOrbit(a);
     for ( size_t b : OneBodyChannels.at({oa.l, oa.j2, oa.tz2}) )
     {
-      if (b<a) continue;
+//      if (b<a) continue;
       OneBody(a,b) /= sqrt(oa.j2+1);
-      OneBody(b,a) = OneBody(a,b);
+//      OneBody(b,a) = OneBody(a,b);
     }
   }
   for ( auto& itmat : TwoBody.MatEl )
@@ -964,6 +977,7 @@ void Operator::MakeNotReduced()
     TwoBodyChannel& tbc = modelspace->GetTwoBodyChannel(itmat.first[0]);
     itmat.second /= sqrt(2*tbc.J+1);
   }
+  is_reduced = false;
 }
 
 
@@ -1045,7 +1059,7 @@ double Operator::GetMP2_Energy()
      {
        Orbit& oa = modelspace->GetOrbit(a);
        double ea = OneBody(a,a);
-       if (abs(OneBody(i,a))>1e-6)
+       if (abs(OneBody(i,a))>1e-9)
          Emp2 += (oa.j2+1) * oa.occ * OneBody(i,a)*OneBody(i,a)/(OneBody(a,a)-OneBody(i,i));
        for (index_t j : modelspace->particles)
        {
@@ -1071,7 +1085,7 @@ double Operator::GetMP2_Energy()
            for (int J=Jmin; J<=Jmax; J+=dJ)
            {
              double tbme = TwoBody.GetTBME_J_norm(J,a,b,i,j);
-             if (std::abs(tbme)>1e-6)
+             if (std::abs(tbme)>1e-9)
              {
               Emp2 += (2*J+1)* oa.occ * ob.occ * tbme*tbme/denom; // no factor 1/4 because of the restricted sum
             //  std::cout << "MBPT2 " << a << " " << b << " " << i << " " << j << "    " << J << "  " << oa.occ << " " << ob.occ << "  "

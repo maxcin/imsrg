@@ -40,7 +40,7 @@ class Generator
   double denominator_delta;
   int denominator_delta_index;
 
-  enum denominator_partitioning_t{Epstein_Nesbet,Moller_Plesset};
+  enum denominator_partitioning_t{Epstein_Nesbet,Moller_Plesset,MP_isospin};
   denominator_partitioning_t denominator_partitioning;
 
 //  Operator RspaceRegulator;
@@ -58,7 +58,8 @@ class Generator
 
   Generator();
   void SetType(std::string g){generator_type = g;};
-  void SetDenominatorPartitioning(std::string dp){if (dp=="Moller_Plesset"){denominator_partitioning=Moller_Plesset;}else {denominator_partitioning=Epstein_Nesbet;};};
+//  void SetDenominatorPartitioning(std::string dp){if (dp=="Moller_Plesset"){denominator_partitioning=Moller_Plesset;}else {denominator_partitioning=Epstein_Nesbet;};};
+  void SetDenominatorPartitioning(std::string dp); 
   std::string GetType(){return generator_type;};
 //  void Update(Operator* H, Operator* Eta);
 //  void AddToEta(Operator* H, Operator* Eta);
@@ -68,6 +69,8 @@ class Generator
   void SetDenominatorDelta(double d){denominator_delta=d;};
   void SetDenominatorDeltaIndex(int i){denominator_delta_index=i;};
   void SetDenominatorDeltaOrbit(std::string orb);
+
+  Operator GetHod(Operator& H);
 
 //  void SetRegulatorLength(double r);
 
@@ -98,10 +101,14 @@ class Generator
 //  void ConstructGenerator_Rspace();
   void SetOnly2bEta(bool tf){only_2b_eta = tf;};
   double Get1bDenominator(int i, int j);
-  double Get2bDenominator(int ch, int ibra, int iket);
+//  double Get2bDenominator(int ch, int ibra, int iket);
+  double Get2bDenominator(int ch, int ibra, int iket) { return Get2bDenominator(ch,ch,ibra,iket);};
+  double Get2bDenominator(int ch_bra, int ch_ket, int ibra, int iket);
   double Get2bDenominator_Jdep(int ch, int ibra, int iket);
   double Get3bDenominator(int i, int j, int k, int l, int m, int n);
 
+  Operator GetHod_SingleRef( Operator& H );
+  Operator GetHod_ShellModel( Operator& H );
   
 
 };

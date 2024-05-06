@@ -38,6 +38,7 @@ class RPA
   arma::mat X;
   arma::mat Y;
   arma::vec Energies;
+  size_t channel;
 
 
   // Methods
@@ -45,15 +46,17 @@ class RPA
   RPA(ModelSpace& ms);
   RPA(Operator& H);
 
-  void ConstructAMatrix(int J, int parity, int Tz);
-  void ConstructBMatrix(int J, int parity, int Tz);
+  void ConstructAMatrix(int J, int parity, int Tz, bool Isovector);
+  void ConstructBMatrix(int J, int parity, int Tz, bool Isovector);
 
-  void ConstructAMatrix_byIndex(size_t ich_CC);
-  void ConstructBMatrix_byIndex(size_t ich_CC);
+  void ConstructAMatrix_byIndex(size_t ich_CC, bool Isovector);
+  void ConstructBMatrix_byIndex(size_t ich_CC, bool Isovector);
 //  void SolveTDA();
   void SolveCP(); // core polarization, i.e. 1st order approximation of TDA
   void SolveTDA();
   void SolveRPA();
+
+  double GetEgs();
 
   double TransitionToGroundState( Operator& OpIn, size_t mu );
   double PVCouplingEffectiveCharge( Operator& OpIn, size_t k, size_t l);
