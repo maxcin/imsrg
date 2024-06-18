@@ -6,5 +6,5 @@ CXX_DEFINES =
 
 CXX_INCLUDES = -isystem /usr/local/Cellar/gsl/2.7.1/include
 
-CXX_FLAGS = -O3 -DNDEBUG -std=gnu++11 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.2.sdk -fPIC
+CXX_FLAGS = -O3 -DNDEBUG -std=gnu++11 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk -fPIC -frounding-math
 

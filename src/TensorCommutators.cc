@@ -1345,21 +1345,21 @@ namespace Commutator
 
         Z_bar.at({ch_bra_cc, ch_ket_cc}) = Mleft * Mright;
         //         if ( ch_bra_cc==2 or ch_bra_cc==3 or ch_bra_cc==8 or ch_bra_cc==9 )
-        if (ch_bra_cc == 3)
-        {
-          std::cout << __func__ << "  ch_cc = " << ch_bra_cc << std::endl
-                    << "Mleft " << std::endl
-                    << Mleft << std::endl
-                    << "Mright" << std::endl
-                    << Mright
-                    << std::endl
-                    << "Zbar " << std::endl
-                    << Z_bar.at({ch_bra_cc, ch_ket_cc}) << std::endl;
-          std::cout << "   and also XJ1 = " << std::endl
-                    << XJ1 << std::endl
-                    << "   and  YJ1J2 = " << std::endl
-                    << YJ1J2 << std::endl;
-        }
+        // if (ch_bra_cc == 3)
+        // {
+        //   std::cout << __func__ << "  ch_cc = " << ch_bra_cc << std::endl
+        //             << "Mleft " << std::endl
+        //             << Mleft << std::endl
+        //             << "Mright" << std::endl
+        //             << Mright
+        //             << std::endl
+        //             << "Zbar " << std::endl
+        //             << Z_bar.at({ch_bra_cc, ch_ket_cc}) << std::endl;
+        //   std::cout << "   and also XJ1 = " << std::endl
+        //             << XJ1 << std::endl
+        //             << "   and  YJ1J2 = " << std::endl
+        //             << YJ1J2 << std::endl;
+        // }
       }
 
     } // else J=0

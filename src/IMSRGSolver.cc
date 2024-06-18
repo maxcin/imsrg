@@ -22,11 +22,7 @@ IMSRGSolver::IMSRGSolver()
     : s(0), ds(0.1), ds_max(0.5),
       norm_domega(0.1), omega_norm_max(2.0), eta_criterion(1e-6), method("magnus_euler"),
       flowfile(""), n_omega_written(0), max_omega_written(500), magnus_adaptive(true), hunter_gatherer(false), perturbative_triples(false),
-<<<<<<< HEAD
-      pert_triples_this_omega(0), pert_triples_sum(0), ode_monitor(*this), ode_mode("H"), ode_e_abs(1e-6), ode_e_rel(1e-6)
-=======
       /*pert_triples_this_omega(0),pert_triples_sum(0),*/ ode_monitor(*this), ode_mode("H"), ode_e_abs(1e-6), ode_e_rel(1e-6)
->>>>>>> upstream/devel
 {
 }
 
@@ -36,11 +32,7 @@ IMSRGSolver::IMSRGSolver(Operator &H_in)
       istep(0), s(0), ds(0.1), ds_max(0.5),
       smax(2.0), norm_domega(0.1), omega_norm_max(2.0), eta_criterion(1e-6), method("magnus_euler"),
       flowfile(""), n_omega_written(0), max_omega_written(500), magnus_adaptive(true), hunter_gatherer(false), perturbative_triples(false),
-<<<<<<< HEAD
-      pert_triples_this_omega(0), pert_triples_sum(0), ode_monitor(*this), ode_mode("H"), ode_e_abs(1e-6), ode_e_rel(1e-6)
-=======
       /*pert_triples_this_omega(0),pert_triples_sum(0),*/ ode_monitor(*this), ode_mode("H"), ode_e_abs(1e-6), ode_e_rel(1e-6)
->>>>>>> upstream/devel
 {
   Eta.Erase();
   Eta.SetAntiHermitian();
@@ -53,17 +45,12 @@ void IMSRGSolver::NewOmega()
   std::cout << "pushing back another Omega. Omega.size = " << Omega.size()
             << " , operator size = " << Omega.front().Size() / 1024. / 1024. << " MB"
             << ",  memory usage = " << profiler.CheckMem()["RSS"] / 1024. / 1024. << " GB";
-<<<<<<< HEAD
-  if (perturbative_triples)
-    std::cout << "  pert. triples = " << pert_triples_this_omega << "   sum = " << pert_triples_sum;
-=======
   //  if ( perturbative_triples )
   //  {
   //       pert_triples_this_omega = GetPerturbativeTriples();
   //       pert_triples_sum += pert_triples_this_omega;
   //       std::cout << "  pert. triples = " << pert_triples_this_omega << "   sum = " << pert_triples_sum;
   //  }
->>>>>>> upstream/devel
   std::cout << std::endl;
   if (scratchdir != "")
   {
@@ -110,11 +97,7 @@ void IMSRGSolver::NewOmega()
 void IMSRGSolver::GatherOmega()
 {
   std::cout << "gathering Omega. " << std::endl;
-<<<<<<< HEAD
-  if (Omega.size() < 2)
-=======
   if (Omega.size() < 2 ) 
->>>>>>> upstream/devel
   {
     auto &last = Omega.back();
     Omega.emplace_back(last);
@@ -124,21 +107,13 @@ void IMSRGSolver::GatherOmega()
   auto &gatherer = Omega[Omega.size() - 2];
   if (hunter.Norm() > 1e-6)
   {
-<<<<<<< HEAD
-    gatherer = Commutator::BCH_Product(hunter, gatherer);
-=======
     gatherer = BCH::BCH_Product(hunter, gatherer);
->>>>>>> upstream/devel
   }
   hunter.Erase();
   H_saved = *H_0;
   for (size_t i = 0; i < Omega.size() - 1; i++)
   {
-<<<<<<< HEAD
-    H_saved = Commutator::BCH_Transform(H_saved, Omega[i]);
-=======
     H_saved = BCH::BCH_Transform(H_saved, Omega[i]);
->>>>>>> upstream/devel
   }
 }
 
@@ -259,18 +234,6 @@ void IMSRGSolver::UpdateEta()
 void IMSRGSolver::Solve_magnus_euler()
 {
   istep = 0;
-<<<<<<< HEAD
-  generator.Update(FlowingOps[0], Eta);
-  Elast = H_0->ZeroBody;
-  cumulative_error = 0;
-  // Write details of the flow
-  WriteFlowStatus(flowfile);
-  WriteFlowStatus(std::cout);
-
-  for (istep = 1; s < smax; ++istep)
-  {
-
-=======
 
   generator.Update(FlowingOps[0], Eta);
 
@@ -283,14 +246,11 @@ void IMSRGSolver::Solve_magnus_euler()
   for (istep = 1; s < smax; ++istep)
   {
 
->>>>>>> upstream/devel
     double norm_eta = Eta.Norm();
     if (norm_eta < eta_criterion)
     {
       break;
     }
-<<<<<<< HEAD
-=======
     if (norm_eta > 1e12 or std::abs(Elast) > 1e9) // This is obviously going nowhere...
     {
       std::cout << "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!" << std::endl;
@@ -299,7 +259,6 @@ void IMSRGSolver::Solve_magnus_euler()
       FlowingOps[0] *= 1.0 / 0.0;
       break;
     }
->>>>>>> upstream/devel
     double norm_omega = Omega.back().Norm();
     if (norm_omega > omega_norm_max)
     {
@@ -322,42 +281,25 @@ void IMSRGSolver::Solve_magnus_euler()
     Eta *= ds; // Here's the Euler step.
 
     // accumulated generator (aka Magnus operator) exp(Omega) = exp(dOmega) * exp(Omega_last)
-<<<<<<< HEAD
-    Omega.back() = Commutator::BCH_Product(Eta, Omega.back());
-=======
     Omega.back() = BCH::BCH_Product(Eta, Omega.back());
->>>>>>> upstream/devel
 
     // transformed Hamiltonian H_s = exp(Omega) H_0 exp(-Omega)
     if ((Omega.size() + n_omega_written) < 2)
     {
-<<<<<<< HEAD
-      FlowingOps[0] = Commutator::BCH_Transform(*H_0, Omega.back());
-    }
-    else
-    {
-      FlowingOps[0] = Commutator::BCH_Transform(H_saved, Omega.back());
-=======
       FlowingOps[0] = BCH::BCH_Transform(*H_0, Omega.back());
     }
     else
     {
       FlowingOps[0] = BCH::BCH_Transform(H_saved, Omega.back());
->>>>>>> upstream/devel
     }
 
     if (norm_eta < 1.0 and generator.GetType() == "shell-model-atan")
     {
       generator.SetDenominatorCutoff(1e-6);
     }
-<<<<<<< HEAD
-    generator.Update(FlowingOps[0], Eta);
-
-=======
 
     generator.Update(FlowingOps[0], Eta);
 
->>>>>>> upstream/devel
     // Write details of the flow
     WriteFlowStatus(flowfile);
     WriteFlowStatus(std::cout);
@@ -401,21 +343,12 @@ void IMSRGSolver::Solve_magnus_backoff()
     double norm_omega = Omega.back().Norm();
     if (norm_omega > omega_norm_max)
     {
-<<<<<<< HEAD
-      //        if ( perturbative_triples )
-      //        {
-      //          GetPerturbativeTriples();
-      ////          pert_triples_this_omega = GetPerturbativeTriples();
-      ////          pert_triples_sum += pert_triples_this_omega;
-      //        }
-=======
       //               if ( perturbative_triples )
       //               {
       ////                 GetPerturbativeTriples();
       //                 pert_triples_this_omega = GetPerturbativeTriples();
       //                 pert_triples_sum += pert_triples_this_omega;
       //               }
->>>>>>> upstream/devel
       if (hunter_gatherer)
       {
         GatherOmega();
@@ -437,28 +370,16 @@ void IMSRGSolver::Solve_magnus_backoff()
 
     // accumulated generator (aka Magnus operator) exp(Omega) = exp(dOmega) *
     // exp(Omega_last)
-<<<<<<< HEAD
-    Omega.back() = Commutator::BCH_Product(Eta, Omega.back());
-=======
     Omega.back() = BCH::BCH_Product(Eta, Omega.back());
->>>>>>> upstream/devel
 
     // transformed Hamiltonian H_s = exp(Omega) H_0 exp(-Omega)
     if ((Omega.size() + n_omega_written) < 2)
     {
-<<<<<<< HEAD
-      FlowingOps[0] = Commutator::BCH_Transform(*H_0, Omega.back());
-    }
-    else
-    {
-      FlowingOps[0] = Commutator::BCH_Transform(H_saved, Omega.back());
-=======
       FlowingOps[0] = BCH::BCH_Transform(*H_0, Omega.back());
     }
     else
     {
       FlowingOps[0] = BCH::BCH_Transform(H_saved, Omega.back());
->>>>>>> upstream/devel
     }
 
     //     if (norm_eta < 1.0 and generator.GetType() == "shell-model-atan") {

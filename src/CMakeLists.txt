@@ -1,5 +1,4 @@
 cmake_minimum_required(VERSION 3.18)
-
 # set(INSTDIR $ENV{HOME})
 set(BLA_VENDOR OpenBLAS)
 # set(CMAKE_SKIP_INSTALL_RPATH ON)
@@ -34,7 +33,7 @@ find_package(ZLIB REQUIRED)
 # find_package(Armadillo REQUIRED)
 # include_directories(${ARMADILLO_INCLUDE_DIRS})
 
-
+add_compile_options(-frounding-math)
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
 
@@ -51,7 +50,7 @@ add_subdirectory(half)
 
 add_subdirectory(boost_src)
 
-add_subdirectory(profiling)
+# add_subdirectory(profiling)
 
 
 if(IMSRG_BUILD_PYTHON_BINDINGS)
@@ -294,6 +293,19 @@ target_link_libraries(
 )
 
 add_library(
+    BCH
+    BCH.hh BCH.cc
+)
+target_link_libraries(
+    BCH
+    PUBLIC
+    Operator
+    PRIVATE
+    Commutator
+    OpenMP::OpenMP_CXX
+)
+
+add_library(
     IMSRGSolver
     IMSRGSolver.hh IMSRGSolver.cc
 )
@@ -305,6 +317,7 @@ target_link_libraries(
     IMSRGProfiler
     ReadWrite
     PRIVATE
+    BCH
     Commutator
     Boost::boost
 )
@@ -315,6 +328,58 @@ add_library(
 )
 target_link_libraries(
     Commutator232
+    PUBLIC
+    Operator
+    ModelSpace
+    PRIVATE
+    OpenMP::OpenMP_CXX
+)
+
+add_library(
+    TensorCommutators
+    TensorCommutators.hh TensorCommutators.cc
+)
+target_link_libraries(
+    TensorCommutators
+    PUBLIC
+    Operator
+    ModelSpace
+    PRIVATE
+    OpenMP::OpenMP_CXX
+)
+
+add_library(
+    IMSRG3Commutators
+    IMSRG3Commutators.hh IMSRG3Commutators.cc
+)
+target_link_libraries(
+    IMSRG3Commutators
+    PUBLIC
+    Operator
+    ModelSpace
+    PRIVATE
+    OpenMP::OpenMP_CXX
+)
+
+add_library(
+    FactorizedDoubleCommutator
+    FactorizedDoubleCommutator.hh FactorizedDoubleCommutator.cc
+)
+target_link_libraries(
+    FactorizedDoubleCommutator
+    PUBLIC
+    Operator
+    ModelSpace
+    PRIVATE
+    OpenMP::OpenMP_CXX
+)
+
+add_library(
+    DaggerCommutators
+    DaggerCommutators.hh DaggerCommutators.cc
+)
+target_link_libraries(
+    DaggerCommutators
     PUBLIC
     Operator
     ModelSpace
@@ -338,6 +403,10 @@ target_link_libraries(
     # ${ARMADILLO_LIBRARIES}
     PhysicalConstants
     Commutator232
+    TensorCommutators
+    IMSRG3Commutators
+    FactorizedDoubleCommutator
+    DaggerCommutators
     AngMom
 )
 
@@ -596,12 +665,9 @@ target_link_libraries(
     OpenMP::OpenMP_CXX
 )
 
-add_executable(
-    unit_test
-    unit_test.cc
-)
+
 target_link_libraries(
-    unit_test
+    UnitTest
     PUBLIC
     IMSRG
     Parameters
