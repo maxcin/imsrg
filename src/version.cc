@@ -4,6 +4,6 @@
 
 namespace version {
 std::string BuildVersion() {
-    return "devel_0eccfb6+";
+    return "devel_e79a949+";
 }
 }

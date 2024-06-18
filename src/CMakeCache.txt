@@ -194,7 +194,7 @@ CMAKE_OSX_DEPLOYMENT_TARGET:STRING=
 
 //The product will be built against the headers and libraries located
 // inside the indicated SDK.
-CMAKE_OSX_SYSROOT:PATH=/Library/Developer/CommandLineTools/SDKs/MacOSX14.2.sdk
+CMAKE_OSX_SYSROOT:PATH=/Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk
 
 //Value Computed by CMake
 CMAKE_PROJECT_DESCRIPTION:STATIC=
@@ -326,11 +326,28 @@ PKG_CONFIG_ARGN:STRING=
 //pkg-config executable
 PKG_CONFIG_EXECUTABLE:FILEPATH=/usr/local/bin/pkg-config
 
+//Force new FindPython
+PYBIND11_FINDPYTHON:BOOL=OFF
+
 //Install pybind11 header files?
 PYBIND11_INSTALL:BOOL=OFF
 
+//Override the ABI version, may be used to enable the unstable
+// ABI.
+PYBIND11_INTERNALS_VERSION:STRING=
+
+//Disable search for Python
+PYBIND11_NOPYTHON:BOOL=OFF
+
+//Overwrite cached values read from Python library (classic search).
+// Turn off if cross-compiling and manually setting these values.
+PYBIND11_PYTHONLIBS_OVERWRITE:BOOL=ON
+
 //Python version to use for compiling modules
 PYBIND11_PYTHON_VERSION:STRING=
+
+//Use simpler GIL management logic that does not support disassociation
+PYBIND11_SIMPLE_GIL_MANAGEMENT:BOOL=OFF
 
 //Build pybind11 test suite?
 PYBIND11_TEST:BOOL=OFF
@@ -341,24 +358,17 @@ PYTHON_EXECUTABLE:FILEPATH=/Users/antoinebelley/.pyenv/versions/3.10.2/bin/pytho
 //Path to a library.
 PYTHON_LIBRARY:FILEPATH=/Users/antoinebelley/.pyenv/versions/3.10.2/lib/libpython3.10.a
 
-//Install pybind11 headers in Python include directory instead
-// of default installation prefix
-USE_PYTHON_INCLUDE_DIR:BOOL=OFF
-
 //Path to a file.
-ZLIB_INCLUDE_DIR:PATH=/Library/Developer/CommandLineTools/SDKs/MacOSX14.2.sdk/usr/include
+ZLIB_INCLUDE_DIR:PATH=/Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include
 
 //Path to a library.
 ZLIB_LIBRARY_DEBUG:FILEPATH=ZLIB_LIBRARY_DEBUG-NOTFOUND
 
 //Path to a library.
-ZLIB_LIBRARY_RELEASE:FILEPATH=/Library/Developer/CommandLineTools/SDKs/MacOSX14.2.sdk/usr/lib/libz.tbd
+ZLIB_LIBRARY_RELEASE:FILEPATH=/Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/lib/libz.tbd
 
 //The directory containing a CMake configuration file for boost_headers.
 boost_headers_DIR:PATH=/usr/local/lib/cmake/boost_headers-1.82.0
-
-//The directory containing a CMake configuration file for carma.
-carma_DIR:PATH=carma_DIR-NOTFOUND
 
 //Value Computed by CMake
 imsrg++_BINARY_DIR:STATIC=/Users/antoinebelley/Documents/TRIUMF/imsrg/src
@@ -376,10 +386,7 @@ pkgcfg_lib_GSL_gsl:FILEPATH=/usr/local/Cellar/gsl/2.7.1/lib/libgsl.dylib
 pkgcfg_lib_GSL_gslcblas:FILEPATH=/usr/local/Cellar/gsl/2.7.1/lib/libgslcblas.dylib
 
 //Path to a library.
-pkgcfg_lib_GSL_m:FILEPATH=/Library/Developer/CommandLineTools/SDKs/MacOSX14.2.sdk/usr/lib/libm.tbd
-
-//Dependencies for the target
-pyIMSRG_LIB_DEPENDS:STATIC=general;-undefined dynamic_lookup;
+pkgcfg_lib_GSL_m:FILEPATH=/Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/lib/libm.tbd
 
 //Value Computed by CMake
 pybind11_BINARY_DIR:STATIC=/Users/antoinebelley/Documents/TRIUMF/imsrg/src/pybind11
@@ -527,7 +534,7 @@ CMAKE_MODULE_LINKER_FLAGS_RELWITHDEBINFO-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_NM
 CMAKE_NM-ADVANCED:INTERNAL=1
 //number of local generators
-CMAKE_NUMBER_OF_MAKEFILES:INTERNAL=6
+CMAKE_NUMBER_OF_MAKEFILES:INTERNAL=5
 //ADVANCED property for variable: CMAKE_OBJCOPY
 CMAKE_OBJCOPY-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_OBJDUMP
@@ -585,11 +592,11 @@ FIND_PACKAGE_MESSAGE_DETAILS_OpenMP_C:INTERNAL=[-Xclang -fopenmp][/usr/local/lib
 //Details about finding OpenMP_CXX
 FIND_PACKAGE_MESSAGE_DETAILS_OpenMP_CXX:INTERNAL=[-Xclang -fopenmp][/usr/local/lib/libomp.dylib][v5.0()]
 //Details about finding PYTHON
-FIND_PACKAGE_MESSAGE_DETAILS_PYTHON:INTERNAL=/Users/antoinebelley/.pyenv/versions/3.10.2/bin/python
+FIND_PACKAGE_MESSAGE_DETAILS_PYTHON:INTERNAL=/Users/antoinebelley/.pyenv/versions/3.10.2/bin/python3.10.2
 //Details about finding PythonInterp
-FIND_PACKAGE_MESSAGE_DETAILS_PythonInterp:INTERNAL=[/Users/antoinebelley/.pyenv/versions/3.10.2/bin/python][v3.10.2()]
+FIND_PACKAGE_MESSAGE_DETAILS_PythonInterp:INTERNAL=[/Users/antoinebelley/.pyenv/versions/3.10.2/bin/python][v3.10.2(3.6)]
 //Details about finding ZLIB
-FIND_PACKAGE_MESSAGE_DETAILS_ZLIB:INTERNAL=[/Library/Developer/CommandLineTools/SDKs/MacOSX14.2.sdk/usr/lib/libz.tbd][/Library/Developer/CommandLineTools/SDKs/MacOSX14.2.sdk/usr/include][c ][v1.2.12()]
+FIND_PACKAGE_MESSAGE_DETAILS_ZLIB:INTERNAL=[/Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/lib/libz.tbd][/Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include][c ][v1.2.12()]
 //ADVANCED property for variable: GSL_CBLAS_LIBRARY
 GSL_CBLAS_LIBRARY-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: GSL_CBLAS_LIBRARY_DEBUG
@@ -641,6 +648,8 @@ GSL_gsl_PREFIX:INTERNAL=
 GSL_gsl_VERSION:INTERNAL=
 //Test HAS_FLTO
 HAS_FLTO:INTERNAL=1
+//Test HAS_FLTO_THIN
+HAS_FLTO_THIN:INTERNAL=1
 //Result of TRY_COMPILE
 OpenMP_COMPILE_RESULT_CXX_Xclang fopenmp:INTERNAL=TRUE
 //Result of TRY_COMPILE
@@ -668,21 +677,19 @@ PKG_CONFIG_ARGN-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: PKG_CONFIG_EXECUTABLE
 PKG_CONFIG_EXECUTABLE-ADVANCED:INTERNAL=1
 PYBIND11_INCLUDE_DIR:INTERNAL=/Users/antoinebelley/Documents/TRIUMF/imsrg/src/pybind11/include
-PYBIND11_LTO_CXX_FLAGS:INTERNAL=-flto
-PYBIND11_LTO_LINKER_FLAGS:INTERNAL=-flto
-PYBIND11_VERSION_MAJOR:INTERNAL=2
-PYBIND11_VERSION_MINOR:INTERNAL=5
-PYBIND11_VERSION_PATCH:INTERNAL=0
 //ADVANCED property for variable: PYTHON_EXECUTABLE
 PYTHON_EXECUTABLE-ADVANCED:INTERNAL=1
 PYTHON_INCLUDE_DIRS:INTERNAL=/Users/antoinebelley/.pyenv/versions/3.10.2/include/python3.10
+PYTHON_IS_DEBUG:INTERNAL=0
 PYTHON_LIBRARIES:INTERNAL=/Users/antoinebelley/.pyenv/versions/3.10.2/lib/libpython3.10.a
 //ADVANCED property for variable: PYTHON_LIBRARY
 PYTHON_LIBRARY-ADVANCED:INTERNAL=1
 PYTHON_MODULE_EXTENSION:INTERNAL=.cpython-310-darwin.so
 PYTHON_MODULE_PREFIX:INTERNAL=
+PYTHON_VERSION:INTERNAL=3.10.2
 PYTHON_VERSION_MAJOR:INTERNAL=3
 PYTHON_VERSION_MINOR:INTERNAL=10
+Python_ADDITIONAL_VERSIONS:INTERNAL=3.11;3.10;3.9;3.8;3.7;3.6
 //ADVANCED property for variable: ZLIB_INCLUDE_DIR
 ZLIB_INCLUDE_DIR-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: ZLIB_LIBRARY_DEBUG
@@ -691,6 +698,7 @@ ZLIB_LIBRARY_DEBUG-ADVANCED:INTERNAL=1
 ZLIB_LIBRARY_RELEASE-ADVANCED:INTERNAL=1
 //CMAKE_INSTALL_PREFIX during last run
 _GNUInstallDirs_LAST_CMAKE_INSTALL_PREFIX:INTERNAL=/usr/local
+_Python:INTERNAL=PYTHON
 __pkg_config_arguments_GSL:INTERNAL=QUIET;gsl
 __pkg_config_checked_GSL:INTERNAL=1
 //ADVANCED property for variable: boost_headers_DIR
@@ -702,4 +710,10 @@ pkgcfg_lib_GSL_gslcblas-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: pkgcfg_lib_GSL_m
 pkgcfg_lib_GSL_m-ADVANCED:INTERNAL=1
 prefix_result:INTERNAL=/usr/local/Cellar/gsl/2.7.1/lib
+//True if pybind11 and all required components found on the system
+pybind11_FOUND:INTERNAL=TRUE
+//Directory where pybind11 headers are located
+pybind11_INCLUDE_DIR:INTERNAL=/Users/antoinebelley/Documents/TRIUMF/imsrg/src/pybind11/include
+//Directories where pybind11 and possibly Python headers are located
+pybind11_INCLUDE_DIRS:INTERNAL=/Users/antoinebelley/Documents/TRIUMF/imsrg/src/pybind11/include;/Users/antoinebelley/.pyenv/versions/3.10.2/include/python3.10
 

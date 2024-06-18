@@ -124,6 +124,8 @@ PYBIND11_MODULE(pyIMSRG, m)
           //      .def("GetOrbit", &MS_GetOrbit)
           .def("GetOrbit", [](ModelSpace &self, int i)
                { return self.GetOrbit(i); })
+          .def("GetKet", [](ModelSpace &self, int i)
+               { return self.GetKet(i); })
           .def("GetTwoBodyChannelIndex", &ModelSpace::GetTwoBodyChannelIndex)
           .def("GetTwoBodyChannel", [](ModelSpace &self, int ch)
                { return self.GetTwoBodyChannel(ch); })
@@ -726,55 +728,55 @@ PYBIND11_MODULE(pyIMSRG, m)
        ReferenceImplementations.def("diagram_DIVb_intermediate", &ReferenceImplementations::diagram_DIVb_intermediate);
        ReferenceImplementations.def("comm223_231_BruteForce", &ReferenceImplementations::comm223_231_BruteForce);
        ReferenceImplementations.def("comm223_232_BruteForce", &ReferenceImplementations::comm223_232_BruteForce);
-       ReferenceImplementations.def("comm223_231", &ReferenceImplementations::comm223_231);
-       ReferenceImplementations.def("comm223_232", &ReferenceImplementations::comm223_232);
+    //    ReferenceImplementations.def("comm223_231", &ReferenceImplementations::comm223_231);
+    //    ReferenceImplementations.def("comm223_232", &ReferenceImplementations::comm223_232);
 
-   py::class_<HartreeFock>(m, "HartreeFock")
-       .def(py::init<Operator &>())
-       .def("Solve", &HartreeFock::Solve)
-       .def("TransformToHFBasis", &HartreeFock::TransformToHFBasis)
-       .def("GetHbare", &HartreeFock::GetHbare)
-       //      .def("GetNormalOrderedH",&HF_GetNormalOrderedH)
-       //      .def("GetNormalOrderedH",&HF_GetNormalOrderedH, py::arg("particle_rank")=2 )
-       .def(
-           "GetNormalOrderedH", [](HartreeFock &self, int pRank)
-           {
-        return self.GetNormalOrderedH(pRank); },
-           py::arg("particle_rank") = 2)
-       .def(
-           "GetNormalOrderedH_Cin", [](HartreeFock &self, arma::mat &C, int pRank)
-           {
-        return self.GetNormalOrderedH(C, pRank); },
-           py::arg("C"), py::arg("particle_rank") = 2)
-       .def("GetOmega", &HartreeFock::GetOmega)
-       .def("PrintSPE", &HartreeFock::PrintSPE)
-       .def("PrintSPEandWF", &HartreeFock::PrintSPEandWF)
-       .def("GetRadialWF_r", &HartreeFock::GetRadialWF_r)
-       .def("GetHFPotential", &HartreeFock::GetHFPotential)
-       .def("GetAverageHFPotential", &HartreeFock::GetAverageHFPotential)
-       .def("GetValence3B", &HartreeFock::GetValence3B)
-       .def("FreeVmon", &HartreeFock::FreeVmon)
-       .def("UpdateDensityMatrix", &HartreeFock::UpdateDensityMatrix)
-       .def("UpdateF", &HartreeFock::UpdateF)
-       .def("BuildMonopoleV", &HartreeFock::BuildMonopoleV)
-       .def("CalcEHF", &HartreeFock::CalcEHF)
-       .def("PrintEHF", &HartreeFock::PrintEHF)
-       .def("FillLowestOrbits", &HartreeFock::FillLowestOrbits)
-       .def("DiscardNO2Bfrom3N", &HartreeFock::DiscardNO2Bfrom3N)
-       .def_static("Vmon3Hash", &HartreeFock::Vmon3Hash)
-       // Modifying arguments which were passed by reference causes trouble in python, so instead we bind a lambda function and return a tuple
-       .def_static("Vmon3UnHash", [](uint64_t key)
-                   {
-        int a, b, c, d, e, f;
-        HartreeFock::Vmon3UnHash(key, a, b, c, d, e, f);
-        return std::make_tuple(a, b, c, d, e, f); })
-       .def_readonly("EHF", &HartreeFock::EHF)
-       .def_readonly("F", &HartreeFock::F)     // Fock matrix
-       .def_readonly("rho", &HartreeFock::rho) // density matrix
-                                               //      .def_readonly("C",&HartreeFock::C) // Unitary transformation
-       .def_readwrite("C", &HartreeFock::C)    // Unitary transformation
-       .def_readwrite("Vmon3_keys", &HartreeFock::Vmon3_keys)
-       .def_readwrite("Vmon3", &HartreeFock::Vmon3);
+//    py::class_<HartreeFock>(m, "HartreeFock")
+//        .def(py::init<Operator &>())
+//        .def("Solve", &HartreeFock::Solve)
+//        .def("TransformToHFBasis", &HartreeFock::TransformToHFBasis)
+//        .def("GetHbare", &HartreeFock::GetHbare)
+//        //      .def("GetNormalOrderedH",&HF_GetNormalOrderedH)
+//        //      .def("GetNormalOrderedH",&HF_GetNormalOrderedH, py::arg("particle_rank")=2 )
+//        .def(
+//            "GetNormalOrderedH", [](HartreeFock &self, int pRank)
+//            {
+//         return self.GetNormalOrderedH(pRank); },
+//            py::arg("particle_rank") = 2)
+//        .def(
+//            "GetNormalOrderedH_Cin", [](HartreeFock &self, arma::mat &C, int pRank)
+//            {
+//         return self.GetNormalOrderedH(C, pRank); },
+//            py::arg("C"), py::arg("particle_rank") = 2)
+//        .def("GetOmega", &HartreeFock::GetOmega)
+//        .def("PrintSPE", &HartreeFock::PrintSPE)
+//        .def("PrintSPEandWF", &HartreeFock::PrintSPEandWF)
+//        .def("GetRadialWF_r", &HartreeFock::GetRadialWF_r)
+//        .def("GetHFPotential", &HartreeFock::GetHFPotential)
+//        .def("GetAverageHFPotential", &HartreeFock::GetAverageHFPotential)
+//        .def("GetValence3B", &HartreeFock::GetValence3B)
+//        .def("FreeVmon", &HartreeFock::FreeVmon)
+//        .def("UpdateDensityMatrix", &HartreeFock::UpdateDensityMatrix)
+//        .def("UpdateF", &HartreeFock::UpdateF)
+//        .def("BuildMonopoleV", &HartreeFock::BuildMonopoleV)
+//        .def("CalcEHF", &HartreeFock::CalcEHF)
+//        .def("PrintEHF", &HartreeFock::PrintEHF)
+//        .def("FillLowestOrbits", &HartreeFock::FillLowestOrbits)
+//        .def("DiscardNO2Bfrom3N", &HartreeFock::DiscardNO2Bfrom3N)
+//        .def_static("Vmon3Hash", &HartreeFock::Vmon3Hash)
+//        // Modifying arguments which were passed by reference causes trouble in python, so instead we bind a lambda function and return a tuple
+//        .def_static("Vmon3UnHash", [](uint64_t key)
+//                    {
+//         int a, b, c, d, e, f;
+//         HartreeFock::Vmon3UnHash(key, a, b, c, d, e, f);
+//         return std::make_tuple(a, b, c, d, e, f); })
+//        .def_readonly("EHF", &HartreeFock::EHF)
+//        .def_readonly("F", &HartreeFock::F)     // Fock matrix
+//        .def_readonly("rho", &HartreeFock::rho) // density matrix
+//                                                //      .def_readonly("C",&HartreeFock::C) // Unitary transformation
+//        .def_readwrite("C", &HartreeFock::C)    // Unitary transformation
+//        .def_readwrite("Vmon3_keys", &HartreeFock::Vmon3_keys)
+//        .def_readwrite("Vmon3", &HartreeFock::Vmon3);
 
 
 

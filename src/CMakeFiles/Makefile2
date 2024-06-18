@@ -78,8 +78,13 @@ all: CMakeFiles/ThreeBodyME.dir/all
 all: CMakeFiles/Operator.dir/all
 all: CMakeFiles/Version.dir/all
 all: CMakeFiles/ReadWrite.dir/all
+all: CMakeFiles/BCH.dir/all
 all: CMakeFiles/IMSRGSolver.dir/all
 all: CMakeFiles/Commutator232.dir/all
+all: CMakeFiles/TensorCommutators.dir/all
+all: CMakeFiles/IMSRG3Commutators.dir/all
+all: CMakeFiles/FactorizedDoubleCommutator.dir/all
+all: CMakeFiles/DaggerCommutators.dir/all
 all: CMakeFiles/Commutator.dir/all
 all: CMakeFiles/DarkMatterNREFT.dir/all
 all: CMakeFiles/Jacobi3BME.dir/all
@@ -93,12 +98,10 @@ all: CMakeFiles/RPA.dir/all
 all: CMakeFiles/ReferenceImplementations.dir/all
 all: CMakeFiles/UnitTest.dir/all
 all: CMakeFiles/imsrg++.dir/all
-all: CMakeFiles/unit_test.dir/all
 all: CMakeFiles/pyIMSRG.dir/all
 all: armadillo/all
 all: half/all
 all: boost_src/all
-all: profiling/all
 all: pybind11/all
 .PHONY : all
 
@@ -106,7 +109,6 @@ all: pybind11/all
 preinstall: armadillo/preinstall
 preinstall: half/preinstall
 preinstall: boost_src/preinstall
-preinstall: profiling/preinstall
 preinstall: pybind11/preinstall
 .PHONY : preinstall
 
@@ -126,8 +128,13 @@ clean: CMakeFiles/ThreeBodyME.dir/clean
 clean: CMakeFiles/Operator.dir/clean
 clean: CMakeFiles/Version.dir/clean
 clean: CMakeFiles/ReadWrite.dir/clean
+clean: CMakeFiles/BCH.dir/clean
 clean: CMakeFiles/IMSRGSolver.dir/clean
 clean: CMakeFiles/Commutator232.dir/clean
+clean: CMakeFiles/TensorCommutators.dir/clean
+clean: CMakeFiles/IMSRG3Commutators.dir/clean
+clean: CMakeFiles/FactorizedDoubleCommutator.dir/clean
+clean: CMakeFiles/DaggerCommutators.dir/clean
 clean: CMakeFiles/Commutator.dir/clean
 clean: CMakeFiles/DarkMatterNREFT.dir/clean
 clean: CMakeFiles/Jacobi3BME.dir/clean
@@ -141,12 +148,10 @@ clean: CMakeFiles/RPA.dir/clean
 clean: CMakeFiles/ReferenceImplementations.dir/clean
 clean: CMakeFiles/UnitTest.dir/clean
 clean: CMakeFiles/imsrg++.dir/clean
-clean: CMakeFiles/unit_test.dir/clean
 clean: CMakeFiles/pyIMSRG.dir/clean
 clean: armadillo/clean
 clean: half/clean
 clean: boost_src/clean
-clean: profiling/clean
 clean: pybind11/clean
 .PHONY : clean
 
@@ -194,37 +199,6 @@ half/preinstall:
 # Recursive "clean" directory target.
 half/clean:
 .PHONY : half/clean
-
-#=============================================================================
-# Directory level rules for directory profiling
-
-# Recursive "all" directory target.
-profiling/all: profiling/CMakeFiles/comm232.dir/all
-profiling/all: profiling/CMakeFiles/comm223.dir/all
-profiling/all: profiling/CMakeFiles/comm133.dir/all
-profiling/all: profiling/CMakeFiles/comm222pphh.dir/all
-profiling/all: profiling/CMakeFiles/comm222ph.dir/all
-profiling/all: profiling/CMakeFiles/comm132.dir/all
-profiling/all: profiling/CMakeFiles/comm231.dir/all
-profiling/all: profiling/CMakeFiles/comm330.dir/all
-profiling/all: profiling/CMakeFiles/comm331.dir/all
-.PHONY : profiling/all
-
-# Recursive "preinstall" directory target.
-profiling/preinstall:
-.PHONY : profiling/preinstall
-
-# Recursive "clean" directory target.
-profiling/clean: profiling/CMakeFiles/comm232.dir/clean
-profiling/clean: profiling/CMakeFiles/comm223.dir/clean
-profiling/clean: profiling/CMakeFiles/comm133.dir/clean
-profiling/clean: profiling/CMakeFiles/comm222pphh.dir/clean
-profiling/clean: profiling/CMakeFiles/comm222ph.dir/clean
-profiling/clean: profiling/CMakeFiles/comm132.dir/clean
-profiling/clean: profiling/CMakeFiles/comm231.dir/clean
-profiling/clean: profiling/CMakeFiles/comm330.dir/clean
-profiling/clean: profiling/CMakeFiles/comm331.dir/clean
-.PHONY : profiling/clean
 
 #=============================================================================
 # Directory level rules for directory pybind11
@@ -300,7 +274,7 @@ CMakeFiles/AngMomCache.dir/clean:
 CMakeFiles/IMSRGProfiler.dir/all:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/IMSRGProfiler.dir/build.make CMakeFiles/IMSRGProfiler.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/IMSRGProfiler.dir/build.make CMakeFiles/IMSRGProfiler.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/antoinebelley/Documents/TRIUMF/imsrg/src/CMakeFiles --progress-num=20,21 "Built target IMSRGProfiler"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/antoinebelley/Documents/TRIUMF/imsrg/src/CMakeFiles --progress-num=28,29 "Built target IMSRGProfiler"
 .PHONY : CMakeFiles/IMSRGProfiler.dir/all
 
 # Build rule for subdir invocation for target.
@@ -328,7 +302,7 @@ CMakeFiles/ModelSpace.dir/all: CMakeFiles/AngMomCache.dir/all
 CMakeFiles/ModelSpace.dir/all: CMakeFiles/IMSRGProfiler.dir/all
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/ModelSpace.dir/build.make CMakeFiles/ModelSpace.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/ModelSpace.dir/build.make CMakeFiles/ModelSpace.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/antoinebelley/Documents/TRIUMF/imsrg/src/CMakeFiles --progress-num=28,29,30,31 "Built target ModelSpace"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/antoinebelley/Documents/TRIUMF/imsrg/src/CMakeFiles --progress-num=36,37,38,39 "Built target ModelSpace"
 .PHONY : CMakeFiles/ModelSpace.dir/all
 
 # Build rule for subdir invocation for target.
@@ -357,7 +331,7 @@ CMakeFiles/TwoBodyME.dir/all: CMakeFiles/IMSRGProfiler.dir/all
 CMakeFiles/TwoBodyME.dir/all: CMakeFiles/ModelSpace.dir/all
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/TwoBodyME.dir/build.make CMakeFiles/TwoBodyME.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/TwoBodyME.dir/build.make CMakeFiles/TwoBodyME.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/antoinebelley/Documents/TRIUMF/imsrg/src/CMakeFiles --progress-num=56,57 "Built target TwoBodyME"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/antoinebelley/Documents/TRIUMF/imsrg/src/CMakeFiles --progress-num=66,67 "Built target TwoBodyME"
 .PHONY : CMakeFiles/TwoBodyME.dir/all
 
 # Build rule for subdir invocation for target.
@@ -386,7 +360,7 @@ CMakeFiles/ThreeLegME.dir/all: CMakeFiles/IMSRGProfiler.dir/all
 CMakeFiles/ThreeLegME.dir/all: CMakeFiles/ModelSpace.dir/all
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/ThreeLegME.dir/build.make CMakeFiles/ThreeLegME.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/ThreeLegME.dir/build.make CMakeFiles/ThreeLegME.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/antoinebelley/Documents/TRIUMF/imsrg/src/CMakeFiles --progress-num=54,55 "Built target ThreeLegME"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/antoinebelley/Documents/TRIUMF/imsrg/src/CMakeFiles --progress-num=64,65 "Built target ThreeLegME"
 .PHONY : CMakeFiles/ThreeLegME.dir/all
 
 # Build rule for subdir invocation for target.
@@ -415,7 +389,7 @@ CMakeFiles/ThreeBodyStorage.dir/all: CMakeFiles/IMSRGProfiler.dir/all
 CMakeFiles/ThreeBodyStorage.dir/all: CMakeFiles/ModelSpace.dir/all
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/ThreeBodyStorage.dir/build.make CMakeFiles/ThreeBodyStorage.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/ThreeBodyStorage.dir/build.make CMakeFiles/ThreeBodyStorage.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/antoinebelley/Documents/TRIUMF/imsrg/src/CMakeFiles --progress-num=44,45 "Built target ThreeBodyStorage"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/antoinebelley/Documents/TRIUMF/imsrg/src/CMakeFiles --progress-num=54,55 "Built target ThreeBodyStorage"
 .PHONY : CMakeFiles/ThreeBodyStorage.dir/all
 
 # Build rule for subdir invocation for target.
@@ -445,7 +419,7 @@ CMakeFiles/ThreeBodyStorage_pn.dir/all: CMakeFiles/ModelSpace.dir/all
 CMakeFiles/ThreeBodyStorage_pn.dir/all: CMakeFiles/ThreeBodyStorage.dir/all
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/ThreeBodyStorage_pn.dir/build.make CMakeFiles/ThreeBodyStorage_pn.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/ThreeBodyStorage_pn.dir/build.make CMakeFiles/ThreeBodyStorage_pn.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/antoinebelley/Documents/TRIUMF/imsrg/src/CMakeFiles --progress-num=52,53 "Built target ThreeBodyStorage_pn"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/antoinebelley/Documents/TRIUMF/imsrg/src/CMakeFiles --progress-num=62,63 "Built target ThreeBodyStorage_pn"
 .PHONY : CMakeFiles/ThreeBodyStorage_pn.dir/all
 
 # Build rule for subdir invocation for target.
@@ -476,7 +450,7 @@ CMakeFiles/ThreeBodyStorage_no2b.dir/all: CMakeFiles/ThreeBodyStorage.dir/all
 CMakeFiles/ThreeBodyStorage_no2b.dir/all: boost_src/CMakeFiles/IMSRGBoostZip.dir/all
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/ThreeBodyStorage_no2b.dir/build.make CMakeFiles/ThreeBodyStorage_no2b.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/ThreeBodyStorage_no2b.dir/build.make CMakeFiles/ThreeBodyStorage_no2b.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/antoinebelley/Documents/TRIUMF/imsrg/src/CMakeFiles --progress-num=50,51 "Built target ThreeBodyStorage_no2b"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/antoinebelley/Documents/TRIUMF/imsrg/src/CMakeFiles --progress-num=60,61 "Built target ThreeBodyStorage_no2b"
 .PHONY : CMakeFiles/ThreeBodyStorage_no2b.dir/all
 
 # Build rule for subdir invocation for target.
@@ -507,7 +481,7 @@ CMakeFiles/ThreeBodyStorage_mono.dir/all: CMakeFiles/ThreeBodyStorage.dir/all
 CMakeFiles/ThreeBodyStorage_mono.dir/all: boost_src/CMakeFiles/IMSRGBoostZip.dir/all
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/ThreeBodyStorage_mono.dir/build.make CMakeFiles/ThreeBodyStorage_mono.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/ThreeBodyStorage_mono.dir/build.make CMakeFiles/ThreeBodyStorage_mono.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/antoinebelley/Documents/TRIUMF/imsrg/src/CMakeFiles --progress-num=48,49 "Built target ThreeBodyStorage_mono"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/antoinebelley/Documents/TRIUMF/imsrg/src/CMakeFiles --progress-num=58,59 "Built target ThreeBodyStorage_mono"
 .PHONY : CMakeFiles/ThreeBodyStorage_mono.dir/all
 
 # Build rule for subdir invocation for target.
@@ -537,7 +511,7 @@ CMakeFiles/ThreeBodyStorage_iso.dir/all: CMakeFiles/ModelSpace.dir/all
 CMakeFiles/ThreeBodyStorage_iso.dir/all: CMakeFiles/ThreeBodyStorage.dir/all
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/ThreeBodyStorage_iso.dir/build.make CMakeFiles/ThreeBodyStorage_iso.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/ThreeBodyStorage_iso.dir/build.make CMakeFiles/ThreeBodyStorage_iso.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/antoinebelley/Documents/TRIUMF/imsrg/src/CMakeFiles --progress-num=46,47 "Built target ThreeBodyStorage_iso"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/antoinebelley/Documents/TRIUMF/imsrg/src/CMakeFiles --progress-num=56,57 "Built target ThreeBodyStorage_iso"
 .PHONY : CMakeFiles/ThreeBodyStorage_iso.dir/all
 
 # Build rule for subdir invocation for target.
@@ -572,7 +546,7 @@ CMakeFiles/ThreeBodyME.dir/all: CMakeFiles/ThreeBodyStorage_iso.dir/all
 CMakeFiles/ThreeBodyME.dir/all: boost_src/CMakeFiles/IMSRGBoostZip.dir/all
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/ThreeBodyME.dir/build.make CMakeFiles/ThreeBodyME.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/ThreeBodyME.dir/build.make CMakeFiles/ThreeBodyME.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/antoinebelley/Documents/TRIUMF/imsrg/src/CMakeFiles --progress-num=42,43 "Built target ThreeBodyME"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/antoinebelley/Documents/TRIUMF/imsrg/src/CMakeFiles --progress-num=52,53 "Built target ThreeBodyME"
 .PHONY : CMakeFiles/ThreeBodyME.dir/all
 
 # Build rule for subdir invocation for target.
@@ -610,7 +584,7 @@ CMakeFiles/Operator.dir/all: CMakeFiles/ThreeBodyME.dir/all
 CMakeFiles/Operator.dir/all: boost_src/CMakeFiles/IMSRGBoostZip.dir/all
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Operator.dir/build.make CMakeFiles/Operator.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Operator.dir/build.make CMakeFiles/Operator.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/antoinebelley/Documents/TRIUMF/imsrg/src/CMakeFiles --progress-num=32,33 "Built target Operator"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/antoinebelley/Documents/TRIUMF/imsrg/src/CMakeFiles --progress-num=40,41 "Built target Operator"
 .PHONY : CMakeFiles/Operator.dir/all
 
 # Build rule for subdir invocation for target.
@@ -636,7 +610,7 @@ CMakeFiles/Operator.dir/clean:
 CMakeFiles/Version.dir/all:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Version.dir/build.make CMakeFiles/Version.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Version.dir/build.make CMakeFiles/Version.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/antoinebelley/Documents/TRIUMF/imsrg/src/CMakeFiles --progress-num=60,61,62 "Built target Version"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/antoinebelley/Documents/TRIUMF/imsrg/src/CMakeFiles --progress-num=70,71,72 "Built target Version"
 .PHONY : CMakeFiles/Version.dir/all
 
 # Build rule for subdir invocation for target.
@@ -677,7 +651,7 @@ CMakeFiles/ReadWrite.dir/all: CMakeFiles/Jacobi3BME.dir/all
 CMakeFiles/ReadWrite.dir/all: boost_src/CMakeFiles/IMSRGBoostZip.dir/all
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/ReadWrite.dir/build.make CMakeFiles/ReadWrite.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/ReadWrite.dir/build.make CMakeFiles/ReadWrite.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/antoinebelley/Documents/TRIUMF/imsrg/src/CMakeFiles --progress-num=38,39 "Built target ReadWrite"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/antoinebelley/Documents/TRIUMF/imsrg/src/CMakeFiles --progress-num=46,47 "Built target ReadWrite"
 .PHONY : CMakeFiles/ReadWrite.dir/all
 
 # Build rule for subdir invocation for target.
@@ -697,18 +671,63 @@ CMakeFiles/ReadWrite.dir/clean:
 .PHONY : CMakeFiles/ReadWrite.dir/clean
 
 #=============================================================================
+# Target rules for target CMakeFiles/BCH.dir
+
+# All Build rule for target.
+CMakeFiles/BCH.dir/all: CMakeFiles/AngMom.dir/all
+CMakeFiles/BCH.dir/all: CMakeFiles/AngMomCache.dir/all
+CMakeFiles/BCH.dir/all: CMakeFiles/IMSRGProfiler.dir/all
+CMakeFiles/BCH.dir/all: CMakeFiles/ModelSpace.dir/all
+CMakeFiles/BCH.dir/all: CMakeFiles/TwoBodyME.dir/all
+CMakeFiles/BCH.dir/all: CMakeFiles/ThreeLegME.dir/all
+CMakeFiles/BCH.dir/all: CMakeFiles/ThreeBodyStorage.dir/all
+CMakeFiles/BCH.dir/all: CMakeFiles/ThreeBodyStorage_pn.dir/all
+CMakeFiles/BCH.dir/all: CMakeFiles/ThreeBodyStorage_no2b.dir/all
+CMakeFiles/BCH.dir/all: CMakeFiles/ThreeBodyStorage_mono.dir/all
+CMakeFiles/BCH.dir/all: CMakeFiles/ThreeBodyStorage_iso.dir/all
+CMakeFiles/BCH.dir/all: CMakeFiles/ThreeBodyME.dir/all
+CMakeFiles/BCH.dir/all: CMakeFiles/Operator.dir/all
+CMakeFiles/BCH.dir/all: CMakeFiles/Commutator232.dir/all
+CMakeFiles/BCH.dir/all: CMakeFiles/TensorCommutators.dir/all
+CMakeFiles/BCH.dir/all: CMakeFiles/IMSRG3Commutators.dir/all
+CMakeFiles/BCH.dir/all: CMakeFiles/FactorizedDoubleCommutator.dir/all
+CMakeFiles/BCH.dir/all: CMakeFiles/DaggerCommutators.dir/all
+CMakeFiles/BCH.dir/all: CMakeFiles/Commutator.dir/all
+CMakeFiles/BCH.dir/all: boost_src/CMakeFiles/IMSRGBoostZip.dir/all
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/BCH.dir/build.make CMakeFiles/BCH.dir/depend
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/BCH.dir/build.make CMakeFiles/BCH.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/antoinebelley/Documents/TRIUMF/imsrg/src/CMakeFiles --progress-num=5,6 "Built target BCH"
+.PHONY : CMakeFiles/BCH.dir/all
+
+# Build rule for subdir invocation for target.
+CMakeFiles/BCH.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/antoinebelley/Documents/TRIUMF/imsrg/src/CMakeFiles 45
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/BCH.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/antoinebelley/Documents/TRIUMF/imsrg/src/CMakeFiles 0
+.PHONY : CMakeFiles/BCH.dir/rule
+
+# Convenience name for target.
+BCH: CMakeFiles/BCH.dir/rule
+.PHONY : BCH
+
+# clean rule for target.
+CMakeFiles/BCH.dir/clean:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/BCH.dir/build.make CMakeFiles/BCH.dir/clean
+.PHONY : CMakeFiles/BCH.dir/clean
+
+#=============================================================================
 # Target rules for target CMakeFiles/IMSRGSolver.dir
 
 # All Build rule for target.
 CMakeFiles/IMSRGSolver.dir/all: CMakeFiles/M0nu.dir/all
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/IMSRGSolver.dir/build.make CMakeFiles/IMSRGSolver.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/IMSRGSolver.dir/build.make CMakeFiles/IMSRGSolver.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/antoinebelley/Documents/TRIUMF/imsrg/src/CMakeFiles --progress-num=22,23 "Built target IMSRGSolver"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/antoinebelley/Documents/TRIUMF/imsrg/src/CMakeFiles --progress-num=30,31 "Built target IMSRGSolver"
 .PHONY : CMakeFiles/IMSRGSolver.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/IMSRGSolver.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/antoinebelley/Documents/TRIUMF/imsrg/src/CMakeFiles 56
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/antoinebelley/Documents/TRIUMF/imsrg/src/CMakeFiles 66
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/IMSRGSolver.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /Users/antoinebelley/Documents/TRIUMF/imsrg/src/CMakeFiles 0
 .PHONY : CMakeFiles/IMSRGSolver.dir/rule
@@ -742,7 +761,7 @@ CMakeFiles/Commutator232.dir/all: CMakeFiles/Operator.dir/all
 CMakeFiles/Commutator232.dir/all: boost_src/CMakeFiles/IMSRGBoostZip.dir/all
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Commutator232.dir/build.make CMakeFiles/Commutator232.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Commutator232.dir/build.make CMakeFiles/Commutator232.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/antoinebelley/Documents/TRIUMF/imsrg/src/CMakeFiles --progress-num=7,8 "Built target Commutator232"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/antoinebelley/Documents/TRIUMF/imsrg/src/CMakeFiles --progress-num=9,10 "Built target Commutator232"
 .PHONY : CMakeFiles/Commutator232.dir/all
 
 # Build rule for subdir invocation for target.
@@ -762,6 +781,162 @@ CMakeFiles/Commutator232.dir/clean:
 .PHONY : CMakeFiles/Commutator232.dir/clean
 
 #=============================================================================
+# Target rules for target CMakeFiles/TensorCommutators.dir
+
+# All Build rule for target.
+CMakeFiles/TensorCommutators.dir/all: CMakeFiles/AngMom.dir/all
+CMakeFiles/TensorCommutators.dir/all: CMakeFiles/AngMomCache.dir/all
+CMakeFiles/TensorCommutators.dir/all: CMakeFiles/IMSRGProfiler.dir/all
+CMakeFiles/TensorCommutators.dir/all: CMakeFiles/ModelSpace.dir/all
+CMakeFiles/TensorCommutators.dir/all: CMakeFiles/TwoBodyME.dir/all
+CMakeFiles/TensorCommutators.dir/all: CMakeFiles/ThreeLegME.dir/all
+CMakeFiles/TensorCommutators.dir/all: CMakeFiles/ThreeBodyStorage.dir/all
+CMakeFiles/TensorCommutators.dir/all: CMakeFiles/ThreeBodyStorage_pn.dir/all
+CMakeFiles/TensorCommutators.dir/all: CMakeFiles/ThreeBodyStorage_no2b.dir/all
+CMakeFiles/TensorCommutators.dir/all: CMakeFiles/ThreeBodyStorage_mono.dir/all
+CMakeFiles/TensorCommutators.dir/all: CMakeFiles/ThreeBodyStorage_iso.dir/all
+CMakeFiles/TensorCommutators.dir/all: CMakeFiles/ThreeBodyME.dir/all
+CMakeFiles/TensorCommutators.dir/all: CMakeFiles/Operator.dir/all
+CMakeFiles/TensorCommutators.dir/all: boost_src/CMakeFiles/IMSRGBoostZip.dir/all
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/TensorCommutators.dir/build.make CMakeFiles/TensorCommutators.dir/depend
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/TensorCommutators.dir/build.make CMakeFiles/TensorCommutators.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/antoinebelley/Documents/TRIUMF/imsrg/src/CMakeFiles --progress-num=50,51 "Built target TensorCommutators"
+.PHONY : CMakeFiles/TensorCommutators.dir/all
+
+# Build rule for subdir invocation for target.
+CMakeFiles/TensorCommutators.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/antoinebelley/Documents/TRIUMF/imsrg/src/CMakeFiles 33
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/TensorCommutators.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/antoinebelley/Documents/TRIUMF/imsrg/src/CMakeFiles 0
+.PHONY : CMakeFiles/TensorCommutators.dir/rule
+
+# Convenience name for target.
+TensorCommutators: CMakeFiles/TensorCommutators.dir/rule
+.PHONY : TensorCommutators
+
+# clean rule for target.
+CMakeFiles/TensorCommutators.dir/clean:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/TensorCommutators.dir/build.make CMakeFiles/TensorCommutators.dir/clean
+.PHONY : CMakeFiles/TensorCommutators.dir/clean
+
+#=============================================================================
+# Target rules for target CMakeFiles/IMSRG3Commutators.dir
+
+# All Build rule for target.
+CMakeFiles/IMSRG3Commutators.dir/all: CMakeFiles/AngMom.dir/all
+CMakeFiles/IMSRG3Commutators.dir/all: CMakeFiles/AngMomCache.dir/all
+CMakeFiles/IMSRG3Commutators.dir/all: CMakeFiles/IMSRGProfiler.dir/all
+CMakeFiles/IMSRG3Commutators.dir/all: CMakeFiles/ModelSpace.dir/all
+CMakeFiles/IMSRG3Commutators.dir/all: CMakeFiles/TwoBodyME.dir/all
+CMakeFiles/IMSRG3Commutators.dir/all: CMakeFiles/ThreeLegME.dir/all
+CMakeFiles/IMSRG3Commutators.dir/all: CMakeFiles/ThreeBodyStorage.dir/all
+CMakeFiles/IMSRG3Commutators.dir/all: CMakeFiles/ThreeBodyStorage_pn.dir/all
+CMakeFiles/IMSRG3Commutators.dir/all: CMakeFiles/ThreeBodyStorage_no2b.dir/all
+CMakeFiles/IMSRG3Commutators.dir/all: CMakeFiles/ThreeBodyStorage_mono.dir/all
+CMakeFiles/IMSRG3Commutators.dir/all: CMakeFiles/ThreeBodyStorage_iso.dir/all
+CMakeFiles/IMSRG3Commutators.dir/all: CMakeFiles/ThreeBodyME.dir/all
+CMakeFiles/IMSRG3Commutators.dir/all: CMakeFiles/Operator.dir/all
+CMakeFiles/IMSRG3Commutators.dir/all: boost_src/CMakeFiles/IMSRGBoostZip.dir/all
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/IMSRG3Commutators.dir/build.make CMakeFiles/IMSRG3Commutators.dir/depend
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/IMSRG3Commutators.dir/build.make CMakeFiles/IMSRG3Commutators.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/antoinebelley/Documents/TRIUMF/imsrg/src/CMakeFiles --progress-num=23,24 "Built target IMSRG3Commutators"
+.PHONY : CMakeFiles/IMSRG3Commutators.dir/all
+
+# Build rule for subdir invocation for target.
+CMakeFiles/IMSRG3Commutators.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/antoinebelley/Documents/TRIUMF/imsrg/src/CMakeFiles 33
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/IMSRG3Commutators.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/antoinebelley/Documents/TRIUMF/imsrg/src/CMakeFiles 0
+.PHONY : CMakeFiles/IMSRG3Commutators.dir/rule
+
+# Convenience name for target.
+IMSRG3Commutators: CMakeFiles/IMSRG3Commutators.dir/rule
+.PHONY : IMSRG3Commutators
+
+# clean rule for target.
+CMakeFiles/IMSRG3Commutators.dir/clean:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/IMSRG3Commutators.dir/build.make CMakeFiles/IMSRG3Commutators.dir/clean
+.PHONY : CMakeFiles/IMSRG3Commutators.dir/clean
+
+#=============================================================================
+# Target rules for target CMakeFiles/FactorizedDoubleCommutator.dir
+
+# All Build rule for target.
+CMakeFiles/FactorizedDoubleCommutator.dir/all: CMakeFiles/AngMom.dir/all
+CMakeFiles/FactorizedDoubleCommutator.dir/all: CMakeFiles/AngMomCache.dir/all
+CMakeFiles/FactorizedDoubleCommutator.dir/all: CMakeFiles/IMSRGProfiler.dir/all
+CMakeFiles/FactorizedDoubleCommutator.dir/all: CMakeFiles/ModelSpace.dir/all
+CMakeFiles/FactorizedDoubleCommutator.dir/all: CMakeFiles/TwoBodyME.dir/all
+CMakeFiles/FactorizedDoubleCommutator.dir/all: CMakeFiles/ThreeLegME.dir/all
+CMakeFiles/FactorizedDoubleCommutator.dir/all: CMakeFiles/ThreeBodyStorage.dir/all
+CMakeFiles/FactorizedDoubleCommutator.dir/all: CMakeFiles/ThreeBodyStorage_pn.dir/all
+CMakeFiles/FactorizedDoubleCommutator.dir/all: CMakeFiles/ThreeBodyStorage_no2b.dir/all
+CMakeFiles/FactorizedDoubleCommutator.dir/all: CMakeFiles/ThreeBodyStorage_mono.dir/all
+CMakeFiles/FactorizedDoubleCommutator.dir/all: CMakeFiles/ThreeBodyStorage_iso.dir/all
+CMakeFiles/FactorizedDoubleCommutator.dir/all: CMakeFiles/ThreeBodyME.dir/all
+CMakeFiles/FactorizedDoubleCommutator.dir/all: CMakeFiles/Operator.dir/all
+CMakeFiles/FactorizedDoubleCommutator.dir/all: boost_src/CMakeFiles/IMSRGBoostZip.dir/all
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/FactorizedDoubleCommutator.dir/build.make CMakeFiles/FactorizedDoubleCommutator.dir/depend
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/FactorizedDoubleCommutator.dir/build.make CMakeFiles/FactorizedDoubleCommutator.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/antoinebelley/Documents/TRIUMF/imsrg/src/CMakeFiles --progress-num=15,16 "Built target FactorizedDoubleCommutator"
+.PHONY : CMakeFiles/FactorizedDoubleCommutator.dir/all
+
+# Build rule for subdir invocation for target.
+CMakeFiles/FactorizedDoubleCommutator.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/antoinebelley/Documents/TRIUMF/imsrg/src/CMakeFiles 33
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/FactorizedDoubleCommutator.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/antoinebelley/Documents/TRIUMF/imsrg/src/CMakeFiles 0
+.PHONY : CMakeFiles/FactorizedDoubleCommutator.dir/rule
+
+# Convenience name for target.
+FactorizedDoubleCommutator: CMakeFiles/FactorizedDoubleCommutator.dir/rule
+.PHONY : FactorizedDoubleCommutator
+
+# clean rule for target.
+CMakeFiles/FactorizedDoubleCommutator.dir/clean:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/FactorizedDoubleCommutator.dir/build.make CMakeFiles/FactorizedDoubleCommutator.dir/clean
+.PHONY : CMakeFiles/FactorizedDoubleCommutator.dir/clean
+
+#=============================================================================
+# Target rules for target CMakeFiles/DaggerCommutators.dir
+
+# All Build rule for target.
+CMakeFiles/DaggerCommutators.dir/all: CMakeFiles/AngMom.dir/all
+CMakeFiles/DaggerCommutators.dir/all: CMakeFiles/AngMomCache.dir/all
+CMakeFiles/DaggerCommutators.dir/all: CMakeFiles/IMSRGProfiler.dir/all
+CMakeFiles/DaggerCommutators.dir/all: CMakeFiles/ModelSpace.dir/all
+CMakeFiles/DaggerCommutators.dir/all: CMakeFiles/TwoBodyME.dir/all
+CMakeFiles/DaggerCommutators.dir/all: CMakeFiles/ThreeLegME.dir/all
+CMakeFiles/DaggerCommutators.dir/all: CMakeFiles/ThreeBodyStorage.dir/all
+CMakeFiles/DaggerCommutators.dir/all: CMakeFiles/ThreeBodyStorage_pn.dir/all
+CMakeFiles/DaggerCommutators.dir/all: CMakeFiles/ThreeBodyStorage_no2b.dir/all
+CMakeFiles/DaggerCommutators.dir/all: CMakeFiles/ThreeBodyStorage_mono.dir/all
+CMakeFiles/DaggerCommutators.dir/all: CMakeFiles/ThreeBodyStorage_iso.dir/all
+CMakeFiles/DaggerCommutators.dir/all: CMakeFiles/ThreeBodyME.dir/all
+CMakeFiles/DaggerCommutators.dir/all: CMakeFiles/Operator.dir/all
+CMakeFiles/DaggerCommutators.dir/all: boost_src/CMakeFiles/IMSRGBoostZip.dir/all
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/DaggerCommutators.dir/build.make CMakeFiles/DaggerCommutators.dir/depend
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/DaggerCommutators.dir/build.make CMakeFiles/DaggerCommutators.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/antoinebelley/Documents/TRIUMF/imsrg/src/CMakeFiles --progress-num=11,12 "Built target DaggerCommutators"
+.PHONY : CMakeFiles/DaggerCommutators.dir/all
+
+# Build rule for subdir invocation for target.
+CMakeFiles/DaggerCommutators.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/antoinebelley/Documents/TRIUMF/imsrg/src/CMakeFiles 33
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/DaggerCommutators.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/antoinebelley/Documents/TRIUMF/imsrg/src/CMakeFiles 0
+.PHONY : CMakeFiles/DaggerCommutators.dir/rule
+
+# Convenience name for target.
+DaggerCommutators: CMakeFiles/DaggerCommutators.dir/rule
+.PHONY : DaggerCommutators
+
+# clean rule for target.
+CMakeFiles/DaggerCommutators.dir/clean:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/DaggerCommutators.dir/build.make CMakeFiles/DaggerCommutators.dir/clean
+.PHONY : CMakeFiles/DaggerCommutators.dir/clean
+
+#=============================================================================
 # Target rules for target CMakeFiles/Commutator.dir
 
 # All Build rule for target.
@@ -779,15 +954,19 @@ CMakeFiles/Commutator.dir/all: CMakeFiles/ThreeBodyStorage_iso.dir/all
 CMakeFiles/Commutator.dir/all: CMakeFiles/ThreeBodyME.dir/all
 CMakeFiles/Commutator.dir/all: CMakeFiles/Operator.dir/all
 CMakeFiles/Commutator.dir/all: CMakeFiles/Commutator232.dir/all
+CMakeFiles/Commutator.dir/all: CMakeFiles/TensorCommutators.dir/all
+CMakeFiles/Commutator.dir/all: CMakeFiles/IMSRG3Commutators.dir/all
+CMakeFiles/Commutator.dir/all: CMakeFiles/FactorizedDoubleCommutator.dir/all
+CMakeFiles/Commutator.dir/all: CMakeFiles/DaggerCommutators.dir/all
 CMakeFiles/Commutator.dir/all: boost_src/CMakeFiles/IMSRGBoostZip.dir/all
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Commutator.dir/build.make CMakeFiles/Commutator.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Commutator.dir/build.make CMakeFiles/Commutator.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/antoinebelley/Documents/TRIUMF/imsrg/src/CMakeFiles --progress-num=5,6 "Built target Commutator"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/antoinebelley/Documents/TRIUMF/imsrg/src/CMakeFiles --progress-num=7,8 "Built target Commutator"
 .PHONY : CMakeFiles/Commutator.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/Commutator.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/antoinebelley/Documents/TRIUMF/imsrg/src/CMakeFiles 35
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/antoinebelley/Documents/TRIUMF/imsrg/src/CMakeFiles 43
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/Commutator.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /Users/antoinebelley/Documents/TRIUMF/imsrg/src/CMakeFiles 0
 .PHONY : CMakeFiles/Commutator.dir/rule
@@ -821,7 +1000,7 @@ CMakeFiles/DarkMatterNREFT.dir/all: CMakeFiles/Operator.dir/all
 CMakeFiles/DarkMatterNREFT.dir/all: boost_src/CMakeFiles/IMSRGBoostZip.dir/all
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/DarkMatterNREFT.dir/build.make CMakeFiles/DarkMatterNREFT.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/DarkMatterNREFT.dir/build.make CMakeFiles/DarkMatterNREFT.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/antoinebelley/Documents/TRIUMF/imsrg/src/CMakeFiles --progress-num=9,10 "Built target DarkMatterNREFT"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/antoinebelley/Documents/TRIUMF/imsrg/src/CMakeFiles --progress-num=13,14 "Built target DarkMatterNREFT"
 .PHONY : CMakeFiles/DarkMatterNREFT.dir/all
 
 # Build rule for subdir invocation for target.
@@ -847,7 +1026,7 @@ CMakeFiles/DarkMatterNREFT.dir/clean:
 CMakeFiles/Jacobi3BME.dir/all: CMakeFiles/HartreeFock.dir/all
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Jacobi3BME.dir/build.make CMakeFiles/Jacobi3BME.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Jacobi3BME.dir/build.make CMakeFiles/Jacobi3BME.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/antoinebelley/Documents/TRIUMF/imsrg/src/CMakeFiles --progress-num=24,25 "Built target Jacobi3BME"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/antoinebelley/Documents/TRIUMF/imsrg/src/CMakeFiles --progress-num=32,33 "Built target Jacobi3BME"
 .PHONY : CMakeFiles/Jacobi3BME.dir/all
 
 # Build rule for subdir invocation for target.
@@ -886,7 +1065,7 @@ CMakeFiles/HartreeFock.dir/all: CMakeFiles/Operator.dir/all
 CMakeFiles/HartreeFock.dir/all: boost_src/CMakeFiles/IMSRGBoostZip.dir/all
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/HartreeFock.dir/build.make CMakeFiles/HartreeFock.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/HartreeFock.dir/build.make CMakeFiles/HartreeFock.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/antoinebelley/Documents/TRIUMF/imsrg/src/CMakeFiles --progress-num=15,16 "Built target HartreeFock"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/antoinebelley/Documents/TRIUMF/imsrg/src/CMakeFiles --progress-num=21,22 "Built target HartreeFock"
 .PHONY : CMakeFiles/HartreeFock.dir/all
 
 # Build rule for subdir invocation for target.
@@ -912,7 +1091,7 @@ CMakeFiles/HartreeFock.dir/clean:
 CMakeFiles/Pwd.dir/all:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Pwd.dir/build.make CMakeFiles/Pwd.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Pwd.dir/build.make CMakeFiles/Pwd.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/antoinebelley/Documents/TRIUMF/imsrg/src/CMakeFiles --progress-num=34,35 "Built target Pwd"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/antoinebelley/Documents/TRIUMF/imsrg/src/CMakeFiles --progress-num=42,43 "Built target Pwd"
 .PHONY : CMakeFiles/Pwd.dir/all
 
 # Build rule for subdir invocation for target.
@@ -938,12 +1117,12 @@ CMakeFiles/Pwd.dir/clean:
 CMakeFiles/M0nu.dir/all: CMakeFiles/imsrg_util.dir/all
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/M0nu.dir/build.make CMakeFiles/M0nu.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/M0nu.dir/build.make CMakeFiles/M0nu.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/antoinebelley/Documents/TRIUMF/imsrg/src/CMakeFiles --progress-num=26,27 "Built target M0nu"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/antoinebelley/Documents/TRIUMF/imsrg/src/CMakeFiles --progress-num=34,35 "Built target M0nu"
 .PHONY : CMakeFiles/M0nu.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/M0nu.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/antoinebelley/Documents/TRIUMF/imsrg/src/CMakeFiles 54
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/antoinebelley/Documents/TRIUMF/imsrg/src/CMakeFiles 64
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/M0nu.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /Users/antoinebelley/Documents/TRIUMF/imsrg/src/CMakeFiles 0
 .PHONY : CMakeFiles/M0nu.dir/rule
@@ -964,12 +1143,12 @@ CMakeFiles/M0nu.dir/clean:
 CMakeFiles/imsrg_util.dir/all: CMakeFiles/Generator.dir/all
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/imsrg_util.dir/build.make CMakeFiles/imsrg_util.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/imsrg_util.dir/build.make CMakeFiles/imsrg_util.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/antoinebelley/Documents/TRIUMF/imsrg/src/CMakeFiles --progress-num=83,84 "Built target imsrg_util"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/antoinebelley/Documents/TRIUMF/imsrg/src/CMakeFiles --progress-num=75,76 "Built target imsrg_util"
 .PHONY : CMakeFiles/imsrg_util.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/imsrg_util.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/antoinebelley/Documents/TRIUMF/imsrg/src/CMakeFiles 52
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/antoinebelley/Documents/TRIUMF/imsrg/src/CMakeFiles 62
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/imsrg_util.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /Users/antoinebelley/Documents/TRIUMF/imsrg/src/CMakeFiles 0
 .PHONY : CMakeFiles/imsrg_util.dir/rule
@@ -1002,7 +1181,12 @@ CMakeFiles/Generator.dir/all: CMakeFiles/ThreeBodyME.dir/all
 CMakeFiles/Generator.dir/all: CMakeFiles/Operator.dir/all
 CMakeFiles/Generator.dir/all: CMakeFiles/Version.dir/all
 CMakeFiles/Generator.dir/all: CMakeFiles/ReadWrite.dir/all
+CMakeFiles/Generator.dir/all: CMakeFiles/BCH.dir/all
 CMakeFiles/Generator.dir/all: CMakeFiles/Commutator232.dir/all
+CMakeFiles/Generator.dir/all: CMakeFiles/TensorCommutators.dir/all
+CMakeFiles/Generator.dir/all: CMakeFiles/IMSRG3Commutators.dir/all
+CMakeFiles/Generator.dir/all: CMakeFiles/FactorizedDoubleCommutator.dir/all
+CMakeFiles/Generator.dir/all: CMakeFiles/DaggerCommutators.dir/all
 CMakeFiles/Generator.dir/all: CMakeFiles/Commutator.dir/all
 CMakeFiles/Generator.dir/all: CMakeFiles/DarkMatterNREFT.dir/all
 CMakeFiles/Generator.dir/all: CMakeFiles/Jacobi3BME.dir/all
@@ -1010,12 +1194,12 @@ CMakeFiles/Generator.dir/all: CMakeFiles/Pwd.dir/all
 CMakeFiles/Generator.dir/all: boost_src/CMakeFiles/IMSRGBoostZip.dir/all
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Generator.dir/build.make CMakeFiles/Generator.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Generator.dir/build.make CMakeFiles/Generator.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/antoinebelley/Documents/TRIUMF/imsrg/src/CMakeFiles --progress-num=11,12 "Built target Generator"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/antoinebelley/Documents/TRIUMF/imsrg/src/CMakeFiles --progress-num=17,18 "Built target Generator"
 .PHONY : CMakeFiles/Generator.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/Generator.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/antoinebelley/Documents/TRIUMF/imsrg/src/CMakeFiles 50
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/antoinebelley/Documents/TRIUMF/imsrg/src/CMakeFiles 60
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/Generator.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /Users/antoinebelley/Documents/TRIUMF/imsrg/src/CMakeFiles 0
 .PHONY : CMakeFiles/Generator.dir/rule
@@ -1050,7 +1234,7 @@ CMakeFiles/HFMBPT.dir/all: CMakeFiles/Jacobi3BME.dir/all
 CMakeFiles/HFMBPT.dir/all: boost_src/CMakeFiles/IMSRGBoostZip.dir/all
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/HFMBPT.dir/build.make CMakeFiles/HFMBPT.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/HFMBPT.dir/build.make CMakeFiles/HFMBPT.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/antoinebelley/Documents/TRIUMF/imsrg/src/CMakeFiles --progress-num=13,14 "Built target HFMBPT"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/antoinebelley/Documents/TRIUMF/imsrg/src/CMakeFiles --progress-num=19,20 "Built target HFMBPT"
 .PHONY : CMakeFiles/HFMBPT.dir/all
 
 # Build rule for subdir invocation for target.
@@ -1089,7 +1273,7 @@ CMakeFiles/RPA.dir/all: CMakeFiles/Operator.dir/all
 CMakeFiles/RPA.dir/all: boost_src/CMakeFiles/IMSRGBoostZip.dir/all
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/RPA.dir/build.make CMakeFiles/RPA.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/RPA.dir/build.make CMakeFiles/RPA.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/antoinebelley/Documents/TRIUMF/imsrg/src/CMakeFiles --progress-num=36,37 "Built target RPA"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/antoinebelley/Documents/TRIUMF/imsrg/src/CMakeFiles --progress-num=44,45 "Built target RPA"
 .PHONY : CMakeFiles/RPA.dir/all
 
 # Build rule for subdir invocation for target.
@@ -1127,8 +1311,13 @@ CMakeFiles/ReferenceImplementations.dir/all: CMakeFiles/ThreeBodyME.dir/all
 CMakeFiles/ReferenceImplementations.dir/all: CMakeFiles/Operator.dir/all
 CMakeFiles/ReferenceImplementations.dir/all: CMakeFiles/Version.dir/all
 CMakeFiles/ReferenceImplementations.dir/all: CMakeFiles/ReadWrite.dir/all
+CMakeFiles/ReferenceImplementations.dir/all: CMakeFiles/BCH.dir/all
 CMakeFiles/ReferenceImplementations.dir/all: CMakeFiles/IMSRGSolver.dir/all
 CMakeFiles/ReferenceImplementations.dir/all: CMakeFiles/Commutator232.dir/all
+CMakeFiles/ReferenceImplementations.dir/all: CMakeFiles/TensorCommutators.dir/all
+CMakeFiles/ReferenceImplementations.dir/all: CMakeFiles/IMSRG3Commutators.dir/all
+CMakeFiles/ReferenceImplementations.dir/all: CMakeFiles/FactorizedDoubleCommutator.dir/all
+CMakeFiles/ReferenceImplementations.dir/all: CMakeFiles/DaggerCommutators.dir/all
 CMakeFiles/ReferenceImplementations.dir/all: CMakeFiles/Commutator.dir/all
 CMakeFiles/ReferenceImplementations.dir/all: CMakeFiles/DarkMatterNREFT.dir/all
 CMakeFiles/ReferenceImplementations.dir/all: CMakeFiles/Jacobi3BME.dir/all
@@ -1136,12 +1325,12 @@ CMakeFiles/ReferenceImplementations.dir/all: CMakeFiles/Pwd.dir/all
 CMakeFiles/ReferenceImplementations.dir/all: boost_src/CMakeFiles/IMSRGBoostZip.dir/all
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/ReferenceImplementations.dir/build.make CMakeFiles/ReferenceImplementations.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/ReferenceImplementations.dir/build.make CMakeFiles/ReferenceImplementations.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/antoinebelley/Documents/TRIUMF/imsrg/src/CMakeFiles --progress-num=40,41 "Built target ReferenceImplementations"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/antoinebelley/Documents/TRIUMF/imsrg/src/CMakeFiles --progress-num=48,49 "Built target ReferenceImplementations"
 .PHONY : CMakeFiles/ReferenceImplementations.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/ReferenceImplementations.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/antoinebelley/Documents/TRIUMF/imsrg/src/CMakeFiles 58
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/antoinebelley/Documents/TRIUMF/imsrg/src/CMakeFiles 68
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/ReferenceImplementations.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /Users/antoinebelley/Documents/TRIUMF/imsrg/src/CMakeFiles 0
 .PHONY : CMakeFiles/ReferenceImplementations.dir/rule
@@ -1174,22 +1363,29 @@ CMakeFiles/UnitTest.dir/all: CMakeFiles/ThreeBodyME.dir/all
 CMakeFiles/UnitTest.dir/all: CMakeFiles/Operator.dir/all
 CMakeFiles/UnitTest.dir/all: CMakeFiles/Version.dir/all
 CMakeFiles/UnitTest.dir/all: CMakeFiles/ReadWrite.dir/all
+CMakeFiles/UnitTest.dir/all: CMakeFiles/BCH.dir/all
 CMakeFiles/UnitTest.dir/all: CMakeFiles/IMSRGSolver.dir/all
 CMakeFiles/UnitTest.dir/all: CMakeFiles/Commutator232.dir/all
+CMakeFiles/UnitTest.dir/all: CMakeFiles/TensorCommutators.dir/all
+CMakeFiles/UnitTest.dir/all: CMakeFiles/IMSRG3Commutators.dir/all
+CMakeFiles/UnitTest.dir/all: CMakeFiles/FactorizedDoubleCommutator.dir/all
+CMakeFiles/UnitTest.dir/all: CMakeFiles/DaggerCommutators.dir/all
 CMakeFiles/UnitTest.dir/all: CMakeFiles/Commutator.dir/all
 CMakeFiles/UnitTest.dir/all: CMakeFiles/DarkMatterNREFT.dir/all
 CMakeFiles/UnitTest.dir/all: CMakeFiles/Jacobi3BME.dir/all
 CMakeFiles/UnitTest.dir/all: CMakeFiles/Pwd.dir/all
+CMakeFiles/UnitTest.dir/all: CMakeFiles/HFMBPT.dir/all
+CMakeFiles/UnitTest.dir/all: CMakeFiles/RPA.dir/all
 CMakeFiles/UnitTest.dir/all: CMakeFiles/ReferenceImplementations.dir/all
 CMakeFiles/UnitTest.dir/all: boost_src/CMakeFiles/IMSRGBoostZip.dir/all
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/UnitTest.dir/build.make CMakeFiles/UnitTest.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/UnitTest.dir/build.make CMakeFiles/UnitTest.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/antoinebelley/Documents/TRIUMF/imsrg/src/CMakeFiles --progress-num=58,59 "Built target UnitTest"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/antoinebelley/Documents/TRIUMF/imsrg/src/CMakeFiles --progress-num=68,69 "Built target UnitTest"
 .PHONY : CMakeFiles/UnitTest.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/UnitTest.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/antoinebelley/Documents/TRIUMF/imsrg/src/CMakeFiles 60
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/antoinebelley/Documents/TRIUMF/imsrg/src/CMakeFiles 74
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/UnitTest.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /Users/antoinebelley/Documents/TRIUMF/imsrg/src/CMakeFiles 0
 .PHONY : CMakeFiles/UnitTest.dir/rule
@@ -1222,8 +1418,13 @@ CMakeFiles/imsrg++.dir/all: CMakeFiles/ThreeBodyME.dir/all
 CMakeFiles/imsrg++.dir/all: CMakeFiles/Operator.dir/all
 CMakeFiles/imsrg++.dir/all: CMakeFiles/Version.dir/all
 CMakeFiles/imsrg++.dir/all: CMakeFiles/ReadWrite.dir/all
+CMakeFiles/imsrg++.dir/all: CMakeFiles/BCH.dir/all
 CMakeFiles/imsrg++.dir/all: CMakeFiles/IMSRGSolver.dir/all
 CMakeFiles/imsrg++.dir/all: CMakeFiles/Commutator232.dir/all
+CMakeFiles/imsrg++.dir/all: CMakeFiles/TensorCommutators.dir/all
+CMakeFiles/imsrg++.dir/all: CMakeFiles/IMSRG3Commutators.dir/all
+CMakeFiles/imsrg++.dir/all: CMakeFiles/FactorizedDoubleCommutator.dir/all
+CMakeFiles/imsrg++.dir/all: CMakeFiles/DaggerCommutators.dir/all
 CMakeFiles/imsrg++.dir/all: CMakeFiles/Commutator.dir/all
 CMakeFiles/imsrg++.dir/all: CMakeFiles/DarkMatterNREFT.dir/all
 CMakeFiles/imsrg++.dir/all: CMakeFiles/Jacobi3BME.dir/all
@@ -1235,12 +1436,12 @@ CMakeFiles/imsrg++.dir/all: CMakeFiles/UnitTest.dir/all
 CMakeFiles/imsrg++.dir/all: boost_src/CMakeFiles/IMSRGBoostZip.dir/all
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/imsrg++.dir/build.make CMakeFiles/imsrg++.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/imsrg++.dir/build.make CMakeFiles/imsrg++.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/antoinebelley/Documents/TRIUMF/imsrg/src/CMakeFiles --progress-num=81,82 "Built target imsrg++"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/antoinebelley/Documents/TRIUMF/imsrg/src/CMakeFiles --progress-num=73,74 "Built target imsrg++"
 .PHONY : CMakeFiles/imsrg++.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/imsrg++.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/antoinebelley/Documents/TRIUMF/imsrg/src/CMakeFiles 66
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/antoinebelley/Documents/TRIUMF/imsrg/src/CMakeFiles 76
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/imsrg++.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /Users/antoinebelley/Documents/TRIUMF/imsrg/src/CMakeFiles 0
 .PHONY : CMakeFiles/imsrg++.dir/rule
@@ -1253,57 +1454,6 @@ imsrg++: CMakeFiles/imsrg++.dir/rule
 CMakeFiles/imsrg++.dir/clean:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/imsrg++.dir/build.make CMakeFiles/imsrg++.dir/clean
 .PHONY : CMakeFiles/imsrg++.dir/clean
-
-#=============================================================================
-# Target rules for target CMakeFiles/unit_test.dir
-
-# All Build rule for target.
-CMakeFiles/unit_test.dir/all: CMakeFiles/AngMom.dir/all
-CMakeFiles/unit_test.dir/all: CMakeFiles/AngMomCache.dir/all
-CMakeFiles/unit_test.dir/all: CMakeFiles/IMSRGProfiler.dir/all
-CMakeFiles/unit_test.dir/all: CMakeFiles/ModelSpace.dir/all
-CMakeFiles/unit_test.dir/all: CMakeFiles/TwoBodyME.dir/all
-CMakeFiles/unit_test.dir/all: CMakeFiles/ThreeLegME.dir/all
-CMakeFiles/unit_test.dir/all: CMakeFiles/ThreeBodyStorage.dir/all
-CMakeFiles/unit_test.dir/all: CMakeFiles/ThreeBodyStorage_pn.dir/all
-CMakeFiles/unit_test.dir/all: CMakeFiles/ThreeBodyStorage_no2b.dir/all
-CMakeFiles/unit_test.dir/all: CMakeFiles/ThreeBodyStorage_mono.dir/all
-CMakeFiles/unit_test.dir/all: CMakeFiles/ThreeBodyStorage_iso.dir/all
-CMakeFiles/unit_test.dir/all: CMakeFiles/ThreeBodyME.dir/all
-CMakeFiles/unit_test.dir/all: CMakeFiles/Operator.dir/all
-CMakeFiles/unit_test.dir/all: CMakeFiles/Version.dir/all
-CMakeFiles/unit_test.dir/all: CMakeFiles/ReadWrite.dir/all
-CMakeFiles/unit_test.dir/all: CMakeFiles/IMSRGSolver.dir/all
-CMakeFiles/unit_test.dir/all: CMakeFiles/Commutator232.dir/all
-CMakeFiles/unit_test.dir/all: CMakeFiles/Commutator.dir/all
-CMakeFiles/unit_test.dir/all: CMakeFiles/DarkMatterNREFT.dir/all
-CMakeFiles/unit_test.dir/all: CMakeFiles/Jacobi3BME.dir/all
-CMakeFiles/unit_test.dir/all: CMakeFiles/Pwd.dir/all
-CMakeFiles/unit_test.dir/all: CMakeFiles/HFMBPT.dir/all
-CMakeFiles/unit_test.dir/all: CMakeFiles/RPA.dir/all
-CMakeFiles/unit_test.dir/all: CMakeFiles/ReferenceImplementations.dir/all
-CMakeFiles/unit_test.dir/all: CMakeFiles/UnitTest.dir/all
-CMakeFiles/unit_test.dir/all: boost_src/CMakeFiles/IMSRGBoostZip.dir/all
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/unit_test.dir/build.make CMakeFiles/unit_test.dir/depend
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/unit_test.dir/build.make CMakeFiles/unit_test.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/antoinebelley/Documents/TRIUMF/imsrg/src/CMakeFiles --progress-num=87,88 "Built target unit_test"
-.PHONY : CMakeFiles/unit_test.dir/all
-
-# Build rule for subdir invocation for target.
-CMakeFiles/unit_test.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/antoinebelley/Documents/TRIUMF/imsrg/src/CMakeFiles 66
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/unit_test.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/antoinebelley/Documents/TRIUMF/imsrg/src/CMakeFiles 0
-.PHONY : CMakeFiles/unit_test.dir/rule
-
-# Convenience name for target.
-unit_test: CMakeFiles/unit_test.dir/rule
-.PHONY : unit_test
-
-# clean rule for target.
-CMakeFiles/unit_test.dir/clean:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/unit_test.dir/build.make CMakeFiles/unit_test.dir/clean
-.PHONY : CMakeFiles/unit_test.dir/clean
 
 #=============================================================================
 # Target rules for target CMakeFiles/pyIMSRG.dir
@@ -1324,8 +1474,13 @@ CMakeFiles/pyIMSRG.dir/all: CMakeFiles/ThreeBodyME.dir/all
 CMakeFiles/pyIMSRG.dir/all: CMakeFiles/Operator.dir/all
 CMakeFiles/pyIMSRG.dir/all: CMakeFiles/Version.dir/all
 CMakeFiles/pyIMSRG.dir/all: CMakeFiles/ReadWrite.dir/all
+CMakeFiles/pyIMSRG.dir/all: CMakeFiles/BCH.dir/all
 CMakeFiles/pyIMSRG.dir/all: CMakeFiles/IMSRGSolver.dir/all
 CMakeFiles/pyIMSRG.dir/all: CMakeFiles/Commutator232.dir/all
+CMakeFiles/pyIMSRG.dir/all: CMakeFiles/TensorCommutators.dir/all
+CMakeFiles/pyIMSRG.dir/all: CMakeFiles/IMSRG3Commutators.dir/all
+CMakeFiles/pyIMSRG.dir/all: CMakeFiles/FactorizedDoubleCommutator.dir/all
+CMakeFiles/pyIMSRG.dir/all: CMakeFiles/DaggerCommutators.dir/all
 CMakeFiles/pyIMSRG.dir/all: CMakeFiles/Commutator.dir/all
 CMakeFiles/pyIMSRG.dir/all: CMakeFiles/DarkMatterNREFT.dir/all
 CMakeFiles/pyIMSRG.dir/all: CMakeFiles/Jacobi3BME.dir/all
@@ -1337,12 +1492,12 @@ CMakeFiles/pyIMSRG.dir/all: CMakeFiles/UnitTest.dir/all
 CMakeFiles/pyIMSRG.dir/all: boost_src/CMakeFiles/IMSRGBoostZip.dir/all
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/pyIMSRG.dir/build.make CMakeFiles/pyIMSRG.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/pyIMSRG.dir/build.make CMakeFiles/pyIMSRG.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/antoinebelley/Documents/TRIUMF/imsrg/src/CMakeFiles --progress-num=85,86 "Built target pyIMSRG"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/antoinebelley/Documents/TRIUMF/imsrg/src/CMakeFiles --progress-num=77,78 "Built target pyIMSRG"
 .PHONY : CMakeFiles/pyIMSRG.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/pyIMSRG.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/antoinebelley/Documents/TRIUMF/imsrg/src/CMakeFiles 66
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/antoinebelley/Documents/TRIUMF/imsrg/src/CMakeFiles 76
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/pyIMSRG.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /Users/antoinebelley/Documents/TRIUMF/imsrg/src/CMakeFiles 0
 .PHONY : CMakeFiles/pyIMSRG.dir/rule
@@ -1363,7 +1518,7 @@ CMakeFiles/pyIMSRG.dir/clean:
 boost_src/CMakeFiles/IMSRGBoostZip.dir/all:
 	$(MAKE) $(MAKESILENT) -f boost_src/CMakeFiles/IMSRGBoostZip.dir/build.make boost_src/CMakeFiles/IMSRGBoostZip.dir/depend
 	$(MAKE) $(MAKESILENT) -f boost_src/CMakeFiles/IMSRGBoostZip.dir/build.make boost_src/CMakeFiles/IMSRGBoostZip.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/antoinebelley/Documents/TRIUMF/imsrg/src/CMakeFiles --progress-num=17,18,19 "Built target IMSRGBoostZip"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/antoinebelley/Documents/TRIUMF/imsrg/src/CMakeFiles --progress-num=25,26,27 "Built target IMSRGBoostZip"
 .PHONY : boost_src/CMakeFiles/IMSRGBoostZip.dir/all
 
 # Build rule for subdir invocation for target.
@@ -1381,465 +1536,6 @@ IMSRGBoostZip: boost_src/CMakeFiles/IMSRGBoostZip.dir/rule
 boost_src/CMakeFiles/IMSRGBoostZip.dir/clean:
 	$(MAKE) $(MAKESILENT) -f boost_src/CMakeFiles/IMSRGBoostZip.dir/build.make boost_src/CMakeFiles/IMSRGBoostZip.dir/clean
 .PHONY : boost_src/CMakeFiles/IMSRGBoostZip.dir/clean
-
-#=============================================================================
-# Target rules for target profiling/CMakeFiles/comm232.dir
-
-# All Build rule for target.
-profiling/CMakeFiles/comm232.dir/all: CMakeFiles/AngMom.dir/all
-profiling/CMakeFiles/comm232.dir/all: CMakeFiles/AngMomCache.dir/all
-profiling/CMakeFiles/comm232.dir/all: CMakeFiles/IMSRGProfiler.dir/all
-profiling/CMakeFiles/comm232.dir/all: CMakeFiles/ModelSpace.dir/all
-profiling/CMakeFiles/comm232.dir/all: CMakeFiles/TwoBodyME.dir/all
-profiling/CMakeFiles/comm232.dir/all: CMakeFiles/ThreeLegME.dir/all
-profiling/CMakeFiles/comm232.dir/all: CMakeFiles/ThreeBodyStorage.dir/all
-profiling/CMakeFiles/comm232.dir/all: CMakeFiles/ThreeBodyStorage_pn.dir/all
-profiling/CMakeFiles/comm232.dir/all: CMakeFiles/ThreeBodyStorage_no2b.dir/all
-profiling/CMakeFiles/comm232.dir/all: CMakeFiles/ThreeBodyStorage_mono.dir/all
-profiling/CMakeFiles/comm232.dir/all: CMakeFiles/ThreeBodyStorage_iso.dir/all
-profiling/CMakeFiles/comm232.dir/all: CMakeFiles/ThreeBodyME.dir/all
-profiling/CMakeFiles/comm232.dir/all: CMakeFiles/Operator.dir/all
-profiling/CMakeFiles/comm232.dir/all: CMakeFiles/Version.dir/all
-profiling/CMakeFiles/comm232.dir/all: CMakeFiles/ReadWrite.dir/all
-profiling/CMakeFiles/comm232.dir/all: CMakeFiles/IMSRGSolver.dir/all
-profiling/CMakeFiles/comm232.dir/all: CMakeFiles/Commutator232.dir/all
-profiling/CMakeFiles/comm232.dir/all: CMakeFiles/Commutator.dir/all
-profiling/CMakeFiles/comm232.dir/all: CMakeFiles/DarkMatterNREFT.dir/all
-profiling/CMakeFiles/comm232.dir/all: CMakeFiles/Jacobi3BME.dir/all
-profiling/CMakeFiles/comm232.dir/all: CMakeFiles/Pwd.dir/all
-profiling/CMakeFiles/comm232.dir/all: CMakeFiles/HFMBPT.dir/all
-profiling/CMakeFiles/comm232.dir/all: CMakeFiles/RPA.dir/all
-profiling/CMakeFiles/comm232.dir/all: CMakeFiles/ReferenceImplementations.dir/all
-profiling/CMakeFiles/comm232.dir/all: CMakeFiles/UnitTest.dir/all
-profiling/CMakeFiles/comm232.dir/all: boost_src/CMakeFiles/IMSRGBoostZip.dir/all
-	$(MAKE) $(MAKESILENT) -f profiling/CMakeFiles/comm232.dir/build.make profiling/CMakeFiles/comm232.dir/depend
-	$(MAKE) $(MAKESILENT) -f profiling/CMakeFiles/comm232.dir/build.make profiling/CMakeFiles/comm232.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/antoinebelley/Documents/TRIUMF/imsrg/src/CMakeFiles --progress-num=75,76 "Built target comm232"
-.PHONY : profiling/CMakeFiles/comm232.dir/all
-
-# Build rule for subdir invocation for target.
-profiling/CMakeFiles/comm232.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/antoinebelley/Documents/TRIUMF/imsrg/src/CMakeFiles 66
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 profiling/CMakeFiles/comm232.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/antoinebelley/Documents/TRIUMF/imsrg/src/CMakeFiles 0
-.PHONY : profiling/CMakeFiles/comm232.dir/rule
-
-# Convenience name for target.
-comm232: profiling/CMakeFiles/comm232.dir/rule
-.PHONY : comm232
-
-# clean rule for target.
-profiling/CMakeFiles/comm232.dir/clean:
-	$(MAKE) $(MAKESILENT) -f profiling/CMakeFiles/comm232.dir/build.make profiling/CMakeFiles/comm232.dir/clean
-.PHONY : profiling/CMakeFiles/comm232.dir/clean
-
-#=============================================================================
-# Target rules for target profiling/CMakeFiles/comm223.dir
-
-# All Build rule for target.
-profiling/CMakeFiles/comm223.dir/all: CMakeFiles/AngMom.dir/all
-profiling/CMakeFiles/comm223.dir/all: CMakeFiles/AngMomCache.dir/all
-profiling/CMakeFiles/comm223.dir/all: CMakeFiles/IMSRGProfiler.dir/all
-profiling/CMakeFiles/comm223.dir/all: CMakeFiles/ModelSpace.dir/all
-profiling/CMakeFiles/comm223.dir/all: CMakeFiles/TwoBodyME.dir/all
-profiling/CMakeFiles/comm223.dir/all: CMakeFiles/ThreeLegME.dir/all
-profiling/CMakeFiles/comm223.dir/all: CMakeFiles/ThreeBodyStorage.dir/all
-profiling/CMakeFiles/comm223.dir/all: CMakeFiles/ThreeBodyStorage_pn.dir/all
-profiling/CMakeFiles/comm223.dir/all: CMakeFiles/ThreeBodyStorage_no2b.dir/all
-profiling/CMakeFiles/comm223.dir/all: CMakeFiles/ThreeBodyStorage_mono.dir/all
-profiling/CMakeFiles/comm223.dir/all: CMakeFiles/ThreeBodyStorage_iso.dir/all
-profiling/CMakeFiles/comm223.dir/all: CMakeFiles/ThreeBodyME.dir/all
-profiling/CMakeFiles/comm223.dir/all: CMakeFiles/Operator.dir/all
-profiling/CMakeFiles/comm223.dir/all: CMakeFiles/Version.dir/all
-profiling/CMakeFiles/comm223.dir/all: CMakeFiles/ReadWrite.dir/all
-profiling/CMakeFiles/comm223.dir/all: CMakeFiles/IMSRGSolver.dir/all
-profiling/CMakeFiles/comm223.dir/all: CMakeFiles/Commutator232.dir/all
-profiling/CMakeFiles/comm223.dir/all: CMakeFiles/Commutator.dir/all
-profiling/CMakeFiles/comm223.dir/all: CMakeFiles/DarkMatterNREFT.dir/all
-profiling/CMakeFiles/comm223.dir/all: CMakeFiles/Jacobi3BME.dir/all
-profiling/CMakeFiles/comm223.dir/all: CMakeFiles/Pwd.dir/all
-profiling/CMakeFiles/comm223.dir/all: CMakeFiles/HFMBPT.dir/all
-profiling/CMakeFiles/comm223.dir/all: CMakeFiles/RPA.dir/all
-profiling/CMakeFiles/comm223.dir/all: CMakeFiles/ReferenceImplementations.dir/all
-profiling/CMakeFiles/comm223.dir/all: CMakeFiles/UnitTest.dir/all
-profiling/CMakeFiles/comm223.dir/all: boost_src/CMakeFiles/IMSRGBoostZip.dir/all
-	$(MAKE) $(MAKESILENT) -f profiling/CMakeFiles/comm223.dir/build.make profiling/CMakeFiles/comm223.dir/depend
-	$(MAKE) $(MAKESILENT) -f profiling/CMakeFiles/comm223.dir/build.make profiling/CMakeFiles/comm223.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/antoinebelley/Documents/TRIUMF/imsrg/src/CMakeFiles --progress-num=71,72 "Built target comm223"
-.PHONY : profiling/CMakeFiles/comm223.dir/all
-
-# Build rule for subdir invocation for target.
-profiling/CMakeFiles/comm223.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/antoinebelley/Documents/TRIUMF/imsrg/src/CMakeFiles 66
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 profiling/CMakeFiles/comm223.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/antoinebelley/Documents/TRIUMF/imsrg/src/CMakeFiles 0
-.PHONY : profiling/CMakeFiles/comm223.dir/rule
-
-# Convenience name for target.
-comm223: profiling/CMakeFiles/comm223.dir/rule
-.PHONY : comm223
-
-# clean rule for target.
-profiling/CMakeFiles/comm223.dir/clean:
-	$(MAKE) $(MAKESILENT) -f profiling/CMakeFiles/comm223.dir/build.make profiling/CMakeFiles/comm223.dir/clean
-.PHONY : profiling/CMakeFiles/comm223.dir/clean
-
-#=============================================================================
-# Target rules for target profiling/CMakeFiles/comm133.dir
-
-# All Build rule for target.
-profiling/CMakeFiles/comm133.dir/all: CMakeFiles/AngMom.dir/all
-profiling/CMakeFiles/comm133.dir/all: CMakeFiles/AngMomCache.dir/all
-profiling/CMakeFiles/comm133.dir/all: CMakeFiles/IMSRGProfiler.dir/all
-profiling/CMakeFiles/comm133.dir/all: CMakeFiles/ModelSpace.dir/all
-profiling/CMakeFiles/comm133.dir/all: CMakeFiles/TwoBodyME.dir/all
-profiling/CMakeFiles/comm133.dir/all: CMakeFiles/ThreeLegME.dir/all
-profiling/CMakeFiles/comm133.dir/all: CMakeFiles/ThreeBodyStorage.dir/all
-profiling/CMakeFiles/comm133.dir/all: CMakeFiles/ThreeBodyStorage_pn.dir/all
-profiling/CMakeFiles/comm133.dir/all: CMakeFiles/ThreeBodyStorage_no2b.dir/all
-profiling/CMakeFiles/comm133.dir/all: CMakeFiles/ThreeBodyStorage_mono.dir/all
-profiling/CMakeFiles/comm133.dir/all: CMakeFiles/ThreeBodyStorage_iso.dir/all
-profiling/CMakeFiles/comm133.dir/all: CMakeFiles/ThreeBodyME.dir/all
-profiling/CMakeFiles/comm133.dir/all: CMakeFiles/Operator.dir/all
-profiling/CMakeFiles/comm133.dir/all: CMakeFiles/Version.dir/all
-profiling/CMakeFiles/comm133.dir/all: CMakeFiles/ReadWrite.dir/all
-profiling/CMakeFiles/comm133.dir/all: CMakeFiles/IMSRGSolver.dir/all
-profiling/CMakeFiles/comm133.dir/all: CMakeFiles/Commutator232.dir/all
-profiling/CMakeFiles/comm133.dir/all: CMakeFiles/Commutator.dir/all
-profiling/CMakeFiles/comm133.dir/all: CMakeFiles/DarkMatterNREFT.dir/all
-profiling/CMakeFiles/comm133.dir/all: CMakeFiles/Jacobi3BME.dir/all
-profiling/CMakeFiles/comm133.dir/all: CMakeFiles/Pwd.dir/all
-profiling/CMakeFiles/comm133.dir/all: CMakeFiles/HFMBPT.dir/all
-profiling/CMakeFiles/comm133.dir/all: CMakeFiles/RPA.dir/all
-profiling/CMakeFiles/comm133.dir/all: CMakeFiles/ReferenceImplementations.dir/all
-profiling/CMakeFiles/comm133.dir/all: CMakeFiles/UnitTest.dir/all
-profiling/CMakeFiles/comm133.dir/all: boost_src/CMakeFiles/IMSRGBoostZip.dir/all
-	$(MAKE) $(MAKESILENT) -f profiling/CMakeFiles/comm133.dir/build.make profiling/CMakeFiles/comm133.dir/depend
-	$(MAKE) $(MAKESILENT) -f profiling/CMakeFiles/comm133.dir/build.make profiling/CMakeFiles/comm133.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/antoinebelley/Documents/TRIUMF/imsrg/src/CMakeFiles --progress-num=65,66 "Built target comm133"
-.PHONY : profiling/CMakeFiles/comm133.dir/all
-
-# Build rule for subdir invocation for target.
-profiling/CMakeFiles/comm133.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/antoinebelley/Documents/TRIUMF/imsrg/src/CMakeFiles 66
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 profiling/CMakeFiles/comm133.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/antoinebelley/Documents/TRIUMF/imsrg/src/CMakeFiles 0
-.PHONY : profiling/CMakeFiles/comm133.dir/rule
-
-# Convenience name for target.
-comm133: profiling/CMakeFiles/comm133.dir/rule
-.PHONY : comm133
-
-# clean rule for target.
-profiling/CMakeFiles/comm133.dir/clean:
-	$(MAKE) $(MAKESILENT) -f profiling/CMakeFiles/comm133.dir/build.make profiling/CMakeFiles/comm133.dir/clean
-.PHONY : profiling/CMakeFiles/comm133.dir/clean
-
-#=============================================================================
-# Target rules for target profiling/CMakeFiles/comm222pphh.dir
-
-# All Build rule for target.
-profiling/CMakeFiles/comm222pphh.dir/all: CMakeFiles/AngMom.dir/all
-profiling/CMakeFiles/comm222pphh.dir/all: CMakeFiles/AngMomCache.dir/all
-profiling/CMakeFiles/comm222pphh.dir/all: CMakeFiles/IMSRGProfiler.dir/all
-profiling/CMakeFiles/comm222pphh.dir/all: CMakeFiles/ModelSpace.dir/all
-profiling/CMakeFiles/comm222pphh.dir/all: CMakeFiles/TwoBodyME.dir/all
-profiling/CMakeFiles/comm222pphh.dir/all: CMakeFiles/ThreeLegME.dir/all
-profiling/CMakeFiles/comm222pphh.dir/all: CMakeFiles/ThreeBodyStorage.dir/all
-profiling/CMakeFiles/comm222pphh.dir/all: CMakeFiles/ThreeBodyStorage_pn.dir/all
-profiling/CMakeFiles/comm222pphh.dir/all: CMakeFiles/ThreeBodyStorage_no2b.dir/all
-profiling/CMakeFiles/comm222pphh.dir/all: CMakeFiles/ThreeBodyStorage_mono.dir/all
-profiling/CMakeFiles/comm222pphh.dir/all: CMakeFiles/ThreeBodyStorage_iso.dir/all
-profiling/CMakeFiles/comm222pphh.dir/all: CMakeFiles/ThreeBodyME.dir/all
-profiling/CMakeFiles/comm222pphh.dir/all: CMakeFiles/Operator.dir/all
-profiling/CMakeFiles/comm222pphh.dir/all: CMakeFiles/Version.dir/all
-profiling/CMakeFiles/comm222pphh.dir/all: CMakeFiles/ReadWrite.dir/all
-profiling/CMakeFiles/comm222pphh.dir/all: CMakeFiles/IMSRGSolver.dir/all
-profiling/CMakeFiles/comm222pphh.dir/all: CMakeFiles/Commutator232.dir/all
-profiling/CMakeFiles/comm222pphh.dir/all: CMakeFiles/Commutator.dir/all
-profiling/CMakeFiles/comm222pphh.dir/all: CMakeFiles/DarkMatterNREFT.dir/all
-profiling/CMakeFiles/comm222pphh.dir/all: CMakeFiles/Jacobi3BME.dir/all
-profiling/CMakeFiles/comm222pphh.dir/all: CMakeFiles/Pwd.dir/all
-profiling/CMakeFiles/comm222pphh.dir/all: CMakeFiles/HFMBPT.dir/all
-profiling/CMakeFiles/comm222pphh.dir/all: CMakeFiles/RPA.dir/all
-profiling/CMakeFiles/comm222pphh.dir/all: CMakeFiles/ReferenceImplementations.dir/all
-profiling/CMakeFiles/comm222pphh.dir/all: CMakeFiles/UnitTest.dir/all
-profiling/CMakeFiles/comm222pphh.dir/all: boost_src/CMakeFiles/IMSRGBoostZip.dir/all
-	$(MAKE) $(MAKESILENT) -f profiling/CMakeFiles/comm222pphh.dir/build.make profiling/CMakeFiles/comm222pphh.dir/depend
-	$(MAKE) $(MAKESILENT) -f profiling/CMakeFiles/comm222pphh.dir/build.make profiling/CMakeFiles/comm222pphh.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/antoinebelley/Documents/TRIUMF/imsrg/src/CMakeFiles --progress-num=69,70 "Built target comm222pphh"
-.PHONY : profiling/CMakeFiles/comm222pphh.dir/all
-
-# Build rule for subdir invocation for target.
-profiling/CMakeFiles/comm222pphh.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/antoinebelley/Documents/TRIUMF/imsrg/src/CMakeFiles 66
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 profiling/CMakeFiles/comm222pphh.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/antoinebelley/Documents/TRIUMF/imsrg/src/CMakeFiles 0
-.PHONY : profiling/CMakeFiles/comm222pphh.dir/rule
-
-# Convenience name for target.
-comm222pphh: profiling/CMakeFiles/comm222pphh.dir/rule
-.PHONY : comm222pphh
-
-# clean rule for target.
-profiling/CMakeFiles/comm222pphh.dir/clean:
-	$(MAKE) $(MAKESILENT) -f profiling/CMakeFiles/comm222pphh.dir/build.make profiling/CMakeFiles/comm222pphh.dir/clean
-.PHONY : profiling/CMakeFiles/comm222pphh.dir/clean
-
-#=============================================================================
-# Target rules for target profiling/CMakeFiles/comm222ph.dir
-
-# All Build rule for target.
-profiling/CMakeFiles/comm222ph.dir/all: CMakeFiles/AngMom.dir/all
-profiling/CMakeFiles/comm222ph.dir/all: CMakeFiles/AngMomCache.dir/all
-profiling/CMakeFiles/comm222ph.dir/all: CMakeFiles/IMSRGProfiler.dir/all
-profiling/CMakeFiles/comm222ph.dir/all: CMakeFiles/ModelSpace.dir/all
-profiling/CMakeFiles/comm222ph.dir/all: CMakeFiles/TwoBodyME.dir/all
-profiling/CMakeFiles/comm222ph.dir/all: CMakeFiles/ThreeLegME.dir/all
-profiling/CMakeFiles/comm222ph.dir/all: CMakeFiles/ThreeBodyStorage.dir/all
-profiling/CMakeFiles/comm222ph.dir/all: CMakeFiles/ThreeBodyStorage_pn.dir/all
-profiling/CMakeFiles/comm222ph.dir/all: CMakeFiles/ThreeBodyStorage_no2b.dir/all
-profiling/CMakeFiles/comm222ph.dir/all: CMakeFiles/ThreeBodyStorage_mono.dir/all
-profiling/CMakeFiles/comm222ph.dir/all: CMakeFiles/ThreeBodyStorage_iso.dir/all
-profiling/CMakeFiles/comm222ph.dir/all: CMakeFiles/ThreeBodyME.dir/all
-profiling/CMakeFiles/comm222ph.dir/all: CMakeFiles/Operator.dir/all
-profiling/CMakeFiles/comm222ph.dir/all: CMakeFiles/Version.dir/all
-profiling/CMakeFiles/comm222ph.dir/all: CMakeFiles/ReadWrite.dir/all
-profiling/CMakeFiles/comm222ph.dir/all: CMakeFiles/IMSRGSolver.dir/all
-profiling/CMakeFiles/comm222ph.dir/all: CMakeFiles/Commutator232.dir/all
-profiling/CMakeFiles/comm222ph.dir/all: CMakeFiles/Commutator.dir/all
-profiling/CMakeFiles/comm222ph.dir/all: CMakeFiles/DarkMatterNREFT.dir/all
-profiling/CMakeFiles/comm222ph.dir/all: CMakeFiles/Jacobi3BME.dir/all
-profiling/CMakeFiles/comm222ph.dir/all: CMakeFiles/Pwd.dir/all
-profiling/CMakeFiles/comm222ph.dir/all: CMakeFiles/HFMBPT.dir/all
-profiling/CMakeFiles/comm222ph.dir/all: CMakeFiles/RPA.dir/all
-profiling/CMakeFiles/comm222ph.dir/all: CMakeFiles/ReferenceImplementations.dir/all
-profiling/CMakeFiles/comm222ph.dir/all: CMakeFiles/UnitTest.dir/all
-profiling/CMakeFiles/comm222ph.dir/all: boost_src/CMakeFiles/IMSRGBoostZip.dir/all
-	$(MAKE) $(MAKESILENT) -f profiling/CMakeFiles/comm222ph.dir/build.make profiling/CMakeFiles/comm222ph.dir/depend
-	$(MAKE) $(MAKESILENT) -f profiling/CMakeFiles/comm222ph.dir/build.make profiling/CMakeFiles/comm222ph.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/antoinebelley/Documents/TRIUMF/imsrg/src/CMakeFiles --progress-num=67,68 "Built target comm222ph"
-.PHONY : profiling/CMakeFiles/comm222ph.dir/all
-
-# Build rule for subdir invocation for target.
-profiling/CMakeFiles/comm222ph.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/antoinebelley/Documents/TRIUMF/imsrg/src/CMakeFiles 66
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 profiling/CMakeFiles/comm222ph.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/antoinebelley/Documents/TRIUMF/imsrg/src/CMakeFiles 0
-.PHONY : profiling/CMakeFiles/comm222ph.dir/rule
-
-# Convenience name for target.
-comm222ph: profiling/CMakeFiles/comm222ph.dir/rule
-.PHONY : comm222ph
-
-# clean rule for target.
-profiling/CMakeFiles/comm222ph.dir/clean:
-	$(MAKE) $(MAKESILENT) -f profiling/CMakeFiles/comm222ph.dir/build.make profiling/CMakeFiles/comm222ph.dir/clean
-.PHONY : profiling/CMakeFiles/comm222ph.dir/clean
-
-#=============================================================================
-# Target rules for target profiling/CMakeFiles/comm132.dir
-
-# All Build rule for target.
-profiling/CMakeFiles/comm132.dir/all: CMakeFiles/AngMom.dir/all
-profiling/CMakeFiles/comm132.dir/all: CMakeFiles/AngMomCache.dir/all
-profiling/CMakeFiles/comm132.dir/all: CMakeFiles/IMSRGProfiler.dir/all
-profiling/CMakeFiles/comm132.dir/all: CMakeFiles/ModelSpace.dir/all
-profiling/CMakeFiles/comm132.dir/all: CMakeFiles/TwoBodyME.dir/all
-profiling/CMakeFiles/comm132.dir/all: CMakeFiles/ThreeLegME.dir/all
-profiling/CMakeFiles/comm132.dir/all: CMakeFiles/ThreeBodyStorage.dir/all
-profiling/CMakeFiles/comm132.dir/all: CMakeFiles/ThreeBodyStorage_pn.dir/all
-profiling/CMakeFiles/comm132.dir/all: CMakeFiles/ThreeBodyStorage_no2b.dir/all
-profiling/CMakeFiles/comm132.dir/all: CMakeFiles/ThreeBodyStorage_mono.dir/all
-profiling/CMakeFiles/comm132.dir/all: CMakeFiles/ThreeBodyStorage_iso.dir/all
-profiling/CMakeFiles/comm132.dir/all: CMakeFiles/ThreeBodyME.dir/all
-profiling/CMakeFiles/comm132.dir/all: CMakeFiles/Operator.dir/all
-profiling/CMakeFiles/comm132.dir/all: CMakeFiles/Version.dir/all
-profiling/CMakeFiles/comm132.dir/all: CMakeFiles/ReadWrite.dir/all
-profiling/CMakeFiles/comm132.dir/all: CMakeFiles/IMSRGSolver.dir/all
-profiling/CMakeFiles/comm132.dir/all: CMakeFiles/Commutator232.dir/all
-profiling/CMakeFiles/comm132.dir/all: CMakeFiles/Commutator.dir/all
-profiling/CMakeFiles/comm132.dir/all: CMakeFiles/DarkMatterNREFT.dir/all
-profiling/CMakeFiles/comm132.dir/all: CMakeFiles/Jacobi3BME.dir/all
-profiling/CMakeFiles/comm132.dir/all: CMakeFiles/Pwd.dir/all
-profiling/CMakeFiles/comm132.dir/all: CMakeFiles/HFMBPT.dir/all
-profiling/CMakeFiles/comm132.dir/all: CMakeFiles/RPA.dir/all
-profiling/CMakeFiles/comm132.dir/all: CMakeFiles/ReferenceImplementations.dir/all
-profiling/CMakeFiles/comm132.dir/all: CMakeFiles/UnitTest.dir/all
-profiling/CMakeFiles/comm132.dir/all: boost_src/CMakeFiles/IMSRGBoostZip.dir/all
-	$(MAKE) $(MAKESILENT) -f profiling/CMakeFiles/comm132.dir/build.make profiling/CMakeFiles/comm132.dir/depend
-	$(MAKE) $(MAKESILENT) -f profiling/CMakeFiles/comm132.dir/build.make profiling/CMakeFiles/comm132.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/antoinebelley/Documents/TRIUMF/imsrg/src/CMakeFiles --progress-num=63,64 "Built target comm132"
-.PHONY : profiling/CMakeFiles/comm132.dir/all
-
-# Build rule for subdir invocation for target.
-profiling/CMakeFiles/comm132.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/antoinebelley/Documents/TRIUMF/imsrg/src/CMakeFiles 66
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 profiling/CMakeFiles/comm132.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/antoinebelley/Documents/TRIUMF/imsrg/src/CMakeFiles 0
-.PHONY : profiling/CMakeFiles/comm132.dir/rule
-
-# Convenience name for target.
-comm132: profiling/CMakeFiles/comm132.dir/rule
-.PHONY : comm132
-
-# clean rule for target.
-profiling/CMakeFiles/comm132.dir/clean:
-	$(MAKE) $(MAKESILENT) -f profiling/CMakeFiles/comm132.dir/build.make profiling/CMakeFiles/comm132.dir/clean
-.PHONY : profiling/CMakeFiles/comm132.dir/clean
-
-#=============================================================================
-# Target rules for target profiling/CMakeFiles/comm231.dir
-
-# All Build rule for target.
-profiling/CMakeFiles/comm231.dir/all: CMakeFiles/AngMom.dir/all
-profiling/CMakeFiles/comm231.dir/all: CMakeFiles/AngMomCache.dir/all
-profiling/CMakeFiles/comm231.dir/all: CMakeFiles/IMSRGProfiler.dir/all
-profiling/CMakeFiles/comm231.dir/all: CMakeFiles/ModelSpace.dir/all
-profiling/CMakeFiles/comm231.dir/all: CMakeFiles/TwoBodyME.dir/all
-profiling/CMakeFiles/comm231.dir/all: CMakeFiles/ThreeLegME.dir/all
-profiling/CMakeFiles/comm231.dir/all: CMakeFiles/ThreeBodyStorage.dir/all
-profiling/CMakeFiles/comm231.dir/all: CMakeFiles/ThreeBodyStorage_pn.dir/all
-profiling/CMakeFiles/comm231.dir/all: CMakeFiles/ThreeBodyStorage_no2b.dir/all
-profiling/CMakeFiles/comm231.dir/all: CMakeFiles/ThreeBodyStorage_mono.dir/all
-profiling/CMakeFiles/comm231.dir/all: CMakeFiles/ThreeBodyStorage_iso.dir/all
-profiling/CMakeFiles/comm231.dir/all: CMakeFiles/ThreeBodyME.dir/all
-profiling/CMakeFiles/comm231.dir/all: CMakeFiles/Operator.dir/all
-profiling/CMakeFiles/comm231.dir/all: CMakeFiles/Version.dir/all
-profiling/CMakeFiles/comm231.dir/all: CMakeFiles/ReadWrite.dir/all
-profiling/CMakeFiles/comm231.dir/all: CMakeFiles/IMSRGSolver.dir/all
-profiling/CMakeFiles/comm231.dir/all: CMakeFiles/Commutator232.dir/all
-profiling/CMakeFiles/comm231.dir/all: CMakeFiles/Commutator.dir/all
-profiling/CMakeFiles/comm231.dir/all: CMakeFiles/DarkMatterNREFT.dir/all
-profiling/CMakeFiles/comm231.dir/all: CMakeFiles/Jacobi3BME.dir/all
-profiling/CMakeFiles/comm231.dir/all: CMakeFiles/Pwd.dir/all
-profiling/CMakeFiles/comm231.dir/all: CMakeFiles/HFMBPT.dir/all
-profiling/CMakeFiles/comm231.dir/all: CMakeFiles/RPA.dir/all
-profiling/CMakeFiles/comm231.dir/all: CMakeFiles/ReferenceImplementations.dir/all
-profiling/CMakeFiles/comm231.dir/all: CMakeFiles/UnitTest.dir/all
-profiling/CMakeFiles/comm231.dir/all: boost_src/CMakeFiles/IMSRGBoostZip.dir/all
-	$(MAKE) $(MAKESILENT) -f profiling/CMakeFiles/comm231.dir/build.make profiling/CMakeFiles/comm231.dir/depend
-	$(MAKE) $(MAKESILENT) -f profiling/CMakeFiles/comm231.dir/build.make profiling/CMakeFiles/comm231.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/antoinebelley/Documents/TRIUMF/imsrg/src/CMakeFiles --progress-num=73,74 "Built target comm231"
-.PHONY : profiling/CMakeFiles/comm231.dir/all
-
-# Build rule for subdir invocation for target.
-profiling/CMakeFiles/comm231.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/antoinebelley/Documents/TRIUMF/imsrg/src/CMakeFiles 66
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 profiling/CMakeFiles/comm231.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/antoinebelley/Documents/TRIUMF/imsrg/src/CMakeFiles 0
-.PHONY : profiling/CMakeFiles/comm231.dir/rule
-
-# Convenience name for target.
-comm231: profiling/CMakeFiles/comm231.dir/rule
-.PHONY : comm231
-
-# clean rule for target.
-profiling/CMakeFiles/comm231.dir/clean:
-	$(MAKE) $(MAKESILENT) -f profiling/CMakeFiles/comm231.dir/build.make profiling/CMakeFiles/comm231.dir/clean
-.PHONY : profiling/CMakeFiles/comm231.dir/clean
-
-#=============================================================================
-# Target rules for target profiling/CMakeFiles/comm330.dir
-
-# All Build rule for target.
-profiling/CMakeFiles/comm330.dir/all: CMakeFiles/AngMom.dir/all
-profiling/CMakeFiles/comm330.dir/all: CMakeFiles/AngMomCache.dir/all
-profiling/CMakeFiles/comm330.dir/all: CMakeFiles/IMSRGProfiler.dir/all
-profiling/CMakeFiles/comm330.dir/all: CMakeFiles/ModelSpace.dir/all
-profiling/CMakeFiles/comm330.dir/all: CMakeFiles/TwoBodyME.dir/all
-profiling/CMakeFiles/comm330.dir/all: CMakeFiles/ThreeLegME.dir/all
-profiling/CMakeFiles/comm330.dir/all: CMakeFiles/ThreeBodyStorage.dir/all
-profiling/CMakeFiles/comm330.dir/all: CMakeFiles/ThreeBodyStorage_pn.dir/all
-profiling/CMakeFiles/comm330.dir/all: CMakeFiles/ThreeBodyStorage_no2b.dir/all
-profiling/CMakeFiles/comm330.dir/all: CMakeFiles/ThreeBodyStorage_mono.dir/all
-profiling/CMakeFiles/comm330.dir/all: CMakeFiles/ThreeBodyStorage_iso.dir/all
-profiling/CMakeFiles/comm330.dir/all: CMakeFiles/ThreeBodyME.dir/all
-profiling/CMakeFiles/comm330.dir/all: CMakeFiles/Operator.dir/all
-profiling/CMakeFiles/comm330.dir/all: CMakeFiles/Version.dir/all
-profiling/CMakeFiles/comm330.dir/all: CMakeFiles/ReadWrite.dir/all
-profiling/CMakeFiles/comm330.dir/all: CMakeFiles/IMSRGSolver.dir/all
-profiling/CMakeFiles/comm330.dir/all: CMakeFiles/Commutator232.dir/all
-profiling/CMakeFiles/comm330.dir/all: CMakeFiles/Commutator.dir/all
-profiling/CMakeFiles/comm330.dir/all: CMakeFiles/DarkMatterNREFT.dir/all
-profiling/CMakeFiles/comm330.dir/all: CMakeFiles/Jacobi3BME.dir/all
-profiling/CMakeFiles/comm330.dir/all: CMakeFiles/Pwd.dir/all
-profiling/CMakeFiles/comm330.dir/all: CMakeFiles/HFMBPT.dir/all
-profiling/CMakeFiles/comm330.dir/all: CMakeFiles/RPA.dir/all
-profiling/CMakeFiles/comm330.dir/all: CMakeFiles/ReferenceImplementations.dir/all
-profiling/CMakeFiles/comm330.dir/all: CMakeFiles/UnitTest.dir/all
-profiling/CMakeFiles/comm330.dir/all: boost_src/CMakeFiles/IMSRGBoostZip.dir/all
-	$(MAKE) $(MAKESILENT) -f profiling/CMakeFiles/comm330.dir/build.make profiling/CMakeFiles/comm330.dir/depend
-	$(MAKE) $(MAKESILENT) -f profiling/CMakeFiles/comm330.dir/build.make profiling/CMakeFiles/comm330.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/antoinebelley/Documents/TRIUMF/imsrg/src/CMakeFiles --progress-num=77,78 "Built target comm330"
-.PHONY : profiling/CMakeFiles/comm330.dir/all
-
-# Build rule for subdir invocation for target.
-profiling/CMakeFiles/comm330.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/antoinebelley/Documents/TRIUMF/imsrg/src/CMakeFiles 66
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 profiling/CMakeFiles/comm330.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/antoinebelley/Documents/TRIUMF/imsrg/src/CMakeFiles 0
-.PHONY : profiling/CMakeFiles/comm330.dir/rule
-
-# Convenience name for target.
-comm330: profiling/CMakeFiles/comm330.dir/rule
-.PHONY : comm330
-
-# clean rule for target.
-profiling/CMakeFiles/comm330.dir/clean:
-	$(MAKE) $(MAKESILENT) -f profiling/CMakeFiles/comm330.dir/build.make profiling/CMakeFiles/comm330.dir/clean
-.PHONY : profiling/CMakeFiles/comm330.dir/clean
-
-#=============================================================================
-# Target rules for target profiling/CMakeFiles/comm331.dir
-
-# All Build rule for target.
-profiling/CMakeFiles/comm331.dir/all: CMakeFiles/AngMom.dir/all
-profiling/CMakeFiles/comm331.dir/all: CMakeFiles/AngMomCache.dir/all
-profiling/CMakeFiles/comm331.dir/all: CMakeFiles/IMSRGProfiler.dir/all
-profiling/CMakeFiles/comm331.dir/all: CMakeFiles/ModelSpace.dir/all
-profiling/CMakeFiles/comm331.dir/all: CMakeFiles/TwoBodyME.dir/all
-profiling/CMakeFiles/comm331.dir/all: CMakeFiles/ThreeLegME.dir/all
-profiling/CMakeFiles/comm331.dir/all: CMakeFiles/ThreeBodyStorage.dir/all
-profiling/CMakeFiles/comm331.dir/all: CMakeFiles/ThreeBodyStorage_pn.dir/all
-profiling/CMakeFiles/comm331.dir/all: CMakeFiles/ThreeBodyStorage_no2b.dir/all
-profiling/CMakeFiles/comm331.dir/all: CMakeFiles/ThreeBodyStorage_mono.dir/all
-profiling/CMakeFiles/comm331.dir/all: CMakeFiles/ThreeBodyStorage_iso.dir/all
-profiling/CMakeFiles/comm331.dir/all: CMakeFiles/ThreeBodyME.dir/all
-profiling/CMakeFiles/comm331.dir/all: CMakeFiles/Operator.dir/all
-profiling/CMakeFiles/comm331.dir/all: CMakeFiles/Version.dir/all
-profiling/CMakeFiles/comm331.dir/all: CMakeFiles/ReadWrite.dir/all
-profiling/CMakeFiles/comm331.dir/all: CMakeFiles/IMSRGSolver.dir/all
-profiling/CMakeFiles/comm331.dir/all: CMakeFiles/Commutator232.dir/all
-profiling/CMakeFiles/comm331.dir/all: CMakeFiles/Commutator.dir/all
-profiling/CMakeFiles/comm331.dir/all: CMakeFiles/DarkMatterNREFT.dir/all
-profiling/CMakeFiles/comm331.dir/all: CMakeFiles/Jacobi3BME.dir/all
-profiling/CMakeFiles/comm331.dir/all: CMakeFiles/Pwd.dir/all
-profiling/CMakeFiles/comm331.dir/all: CMakeFiles/HFMBPT.dir/all
-profiling/CMakeFiles/comm331.dir/all: CMakeFiles/RPA.dir/all
-profiling/CMakeFiles/comm331.dir/all: CMakeFiles/ReferenceImplementations.dir/all
-profiling/CMakeFiles/comm331.dir/all: CMakeFiles/UnitTest.dir/all
-profiling/CMakeFiles/comm331.dir/all: boost_src/CMakeFiles/IMSRGBoostZip.dir/all
-	$(MAKE) $(MAKESILENT) -f profiling/CMakeFiles/comm331.dir/build.make profiling/CMakeFiles/comm331.dir/depend
-	$(MAKE) $(MAKESILENT) -f profiling/CMakeFiles/comm331.dir/build.make profiling/CMakeFiles/comm331.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/antoinebelley/Documents/TRIUMF/imsrg/src/CMakeFiles --progress-num=79,80 "Built target comm331"
-.PHONY : profiling/CMakeFiles/comm331.dir/all
-
-# Build rule for subdir invocation for target.
-profiling/CMakeFiles/comm331.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/antoinebelley/Documents/TRIUMF/imsrg/src/CMakeFiles 66
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 profiling/CMakeFiles/comm331.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/antoinebelley/Documents/TRIUMF/imsrg/src/CMakeFiles 0
-.PHONY : profiling/CMakeFiles/comm331.dir/rule
-
-# Convenience name for target.
-comm331: profiling/CMakeFiles/comm331.dir/rule
-.PHONY : comm331
-
-# clean rule for target.
-profiling/CMakeFiles/comm331.dir/clean:
-	$(MAKE) $(MAKESILENT) -f profiling/CMakeFiles/comm331.dir/build.make profiling/CMakeFiles/comm331.dir/clean
-.PHONY : profiling/CMakeFiles/comm331.dir/clean
 
 #=============================================================================
 # Special targets to cleanup operation of make.

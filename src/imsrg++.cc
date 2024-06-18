@@ -1262,9 +1262,11 @@ int main(int argc, char** argv)
     }
 
     HNO = HNO.UndoNormalOrdering();
-    HNO.SetModelSpace(ms2);
+    
+    // HNO.SetModelSpace(ms2);
     std::cout << "Doing NO wrt A=" << ms2.GetAref() << " Z=" << ms2.GetZref() << "  norbits = " << ms2.GetNumberOrbits() << std::endl;
-    HNO = HNO.DoNormalOrdering();
+    HNO = HNO.DoNormalOrderingCore();
+    // HNO = HNO.DoNormalOrdering();
 
     imsrgsolver.FlowingOps[0] = HNO;
 
