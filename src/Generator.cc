@@ -36,7 +36,8 @@ void Generator::Update(Operator& H_s, Operator& Eta_s)
    AddToEta(H_s,Eta_s);
    if (use_isospin_averaging)
    {
-      Eta_s = Eta_s.DoIsospinAveraging();
+//      Eta_s = Eta_s.DoIsospinAveraging();
+      Eta_s = Eta_s.UndoNormalOrdering().DoIsospinAveraging().DoNormalOrdering();
    }
 }
 
