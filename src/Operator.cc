@@ -623,6 +623,7 @@ Operator Operator::DoNormalOrdering3(int sign, std::set<index_t> occupied) const
         int l = ket.q;
         Orbit &ok = modelspace->GetOrbit(k);
         Orbit &ol = modelspace->GetOrbit(l);
+        double Gamma_ijkl = 0;
         //            for (auto& a : modelspace->holes)
         for (auto &a : occupied)
         {
@@ -640,13 +641,19 @@ Operator Operator::DoNormalOrdering3(int sign, std::set<index_t> occupied) const
           //                   std::cout << " accessing 3bme   "<< tbc_bra.J << " " << tbc_ket.J << " " << K2 << "    " << i << " " << j << " " << a << "  " << k << " "  << l << " " << a << "       " << ThreeBody.GetME_pn(tbc_bra.J,tbc_ket.J,K2,i,j,a,k,l,a) << "  ->  " << Gamma(ibra,iket) << std::endl;
           //                                                   }
 
-          Gamma(ibra, iket) += sign * oa.occ * ThreeBody.GetME_pn_no2b(i, j, a, k, l, a, tbc_bra.J);
+//          Gamma(ibra, iket) += sign * oa.occ * ThreeBody.GetME_pn_no2b(i, j, a, k, l, a, tbc_bra.J);
+          Gamma_ijkl += sign * oa.occ * ThreeBody.GetME_pn_no2b(i, j, a, k, l, a, tbc_bra.J);
         }
-        Gamma(ibra, iket) /= (2 * tbc_bra.J + 1) * sqrt((1 + bra.delta_pq()) * (1 + ket.delta_pq()));
-        if (opNO3.GetTRank() != 0 or opNO3.GetParity() != 0)
-        {
-          Gamma(ibra, iket) *= sqrt(2 * tbc_bra.J + 1); // reduced matrix element
-        }
+        Gamma_ijkl /= (2 * tbc_bra.J + 1) * sqrt((1 + bra.delta_pq()) * (1 + ket.delta_pq()));
+//        Gamma(ibra, iket) /= (2 * tbc_bra.J + 1) * sqrt((1 + bra.delta_pq()) * (1 + ket.delta_pq()));
+//        if (opNO3.GetTRank() != 0 or opNO3.GetParity() != 0)
+ // SRS Commented out vvv because now include the 2J+1 factor in GetME_pn_no2b.
+//        if ( opNO3.IsReduced() )
+//        {
+////          Gamma(ibra, iket) *= sqrt(2 * tbc_bra.J + 1); // reduced matrix element
+//          Gamma_ijkl *= sqrt(2 * tbc_bra.J + 1); // reduced matrix element
+//        }
+        Gamma(ibra,iket) = Gamma_ijkl;
       }
     }
   }
@@ -825,8 +832,10 @@ Operator Operator::Truncate(ModelSpace &ms_new)
 
 Operator Operator::DoIsospinAveraging() const
 {
-   Operator OpIso = 0*(*this);
-   OpIso.ZeroBody = this->ZeroBody;
+   Operator OpIso(*this);
+//   Operator OpIso = this->UndoNormalOrdering();
+//   OpIso.ZeroBody = this->ZeroBody;
+//   OpIso = OpIso.UndoNormalOrdering();
 
    for (auto p : modelspace->proton_orbits )
    {
@@ -836,7 +845,7 @@ Operator Operator::DoIsospinAveraging() const
       {
          Orbit& opp = modelspace->GetOrbit(pp);
          int nn = modelspace->GetOrbitIndex( opp.n, opp.l, opp.j2, -opp.tz2 );
-         double vavg = (this->OneBody(p,pp) + this->OneBody(n,nn) )/2;
+         double vavg = (OpIso.OneBody(p,pp) + OpIso.OneBody(n,nn) )/2;
          OpIso.OneBody(p,pp) = vavg;
          OpIso.OneBody(n,nn) = vavg;
       }
@@ -871,12 +880,18 @@ Operator Operator::DoIsospinAveraging() const
            if ( ket.op->tz2==1 )  std::swap(cp,cn);
            if ( ket.oq->tz2==1 )  std::swap(dp,dn);
 //           double Vpppp = this->TwoBody.GetTBME(ch,ch,ibra,iket);
-           double Vpppp = this->TwoBody.GetTBME_J(tbc.J,tbc.J, ap,bp,cp,dp);
-           double Vnnnn = this->TwoBody.GetTBME_J(tbc.J,tbc.J, an,bn,cn,dn);
-           double Vpnpn = this->TwoBody.GetTBME_J(tbc.J,tbc.J, ap,bn,cp,dn);
-           double Vpnnp = this->TwoBody.GetTBME_J(tbc.J,tbc.J, ap,bn,cn,dp);
-           double Vnpnp = this->TwoBody.GetTBME_J(tbc.J,tbc.J, an,bp,cn,dp);
-           double Vnppn = this->TwoBody.GetTBME_J(tbc.J,tbc.J, an,bp,cp,dn);
+//           double Vpppp = this->TwoBody.GetTBME_J(tbc.J,tbc.J, ap,bp,cp,dp);
+//           double Vnnnn = this->TwoBody.GetTBME_J(tbc.J,tbc.J, an,bn,cn,dn);
+//           double Vpnpn = this->TwoBody.GetTBME_J(tbc.J,tbc.J, ap,bn,cp,dn);
+//           double Vpnnp = this->TwoBody.GetTBME_J(tbc.J,tbc.J, ap,bn,cn,dp);
+//           double Vnpnp = this->TwoBody.GetTBME_J(tbc.J,tbc.J, an,bp,cn,dp);
+//           double Vnppn = this->TwoBody.GetTBME_J(tbc.J,tbc.J, an,bp,cp,dn);
+           double Vpppp = OpIso.TwoBody.GetTBME_J(tbc.J,tbc.J, ap,bp,cp,dp);
+           double Vnnnn = OpIso.TwoBody.GetTBME_J(tbc.J,tbc.J, an,bn,cn,dn);
+           double Vpnpn = OpIso.TwoBody.GetTBME_J(tbc.J,tbc.J, ap,bn,cp,dn);
+           double Vpnnp = OpIso.TwoBody.GetTBME_J(tbc.J,tbc.J, ap,bn,cn,dp);
+           double Vnpnp = OpIso.TwoBody.GetTBME_J(tbc.J,tbc.J, an,bp,cn,dp);
+           double Vnppn = OpIso.TwoBody.GetTBME_J(tbc.J,tbc.J, an,bp,cp,dn);
            double VT1 = ( Vpppp + Vnnnn + 0.5*(Vpnpn + Vnpnp + Vpnnp + Vnppn) ) / 3;
            double VT0 = 0.5*(Vpnpn + Vnpnp - Vpnnp - Vnppn);
          
