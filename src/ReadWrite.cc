@@ -5076,8 +5076,8 @@ void ReadWrite::WriteTokyo(Operator& op, std::string filename, std::string mode)
   intfile.open(filename, std::ofstream::out);
   ModelSpace * modelspace = op.GetModelSpace();
   int wint = 4; // width for printing integers
-  int wdouble = 12; // width for printing doubles
-  int pdouble = 6; // precision for printing doubles
+  int wdouble = 16; // width for printing doubles
+  int pdouble = 10; // precision for printing doubles
   std::vector<int> valence_protons(modelspace->valence.size());
   std::vector<int> valence_neutrons(modelspace->valence.size());
   auto it = set_intersection(modelspace->valence.begin(), modelspace->valence.end(), modelspace->proton_orbits.begin(), modelspace->proton_orbits.end(),valence_protons.begin());
@@ -5210,8 +5210,8 @@ void ReadWrite::WriteTokyoFull(Operator& op, std::string filename)
   intfile.open(filename, std::ofstream::out);
   ModelSpace * modelspace = op.GetModelSpace();
   int wint = 4; // width for printing integers
-  int wdouble = 12; // width for printing doubles
-  int pdouble = 6; // precision for printing doubles
+  int wdouble = 15; // width for printing doubles
+  int pdouble = 9; // precision for printing doubles
 
    // protons first
    int Acore = modelspace->GetAref();
