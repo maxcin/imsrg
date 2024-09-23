@@ -1747,6 +1747,7 @@ namespace Commutator
     auto &Y3 = Y.ThreeBody;
     auto &Z1 = Z.OneBody;
     int Lambda = Z.GetJRank();
+    int hZ = Z.IsHermitian() ? +1 : -1;
     Z.modelspace->PreCalculateSixJ();
     size_t norb = Z.modelspace->GetNumberOrbits();
 
@@ -1760,6 +1761,8 @@ namespace Commutator
       {
         Orbit &oj = Z.modelspace->GetOrbit(j);
         double zij = 0;
+        if (j < i)
+          continue;
 
         for (size_t a : Z.modelspace->all_orbits)
         {
@@ -1855,6 +1858,10 @@ namespace Commutator
           } // b
         } // a
         Z1(i, j) += zij;
+
+        if ( i != j)
+          Z1(j, i) += AngMom::phase((oi.j2 - oj.j2)/2 ) * hZ * zij;
+
       } // j
     } // i
   

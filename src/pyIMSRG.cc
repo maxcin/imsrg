@@ -761,10 +761,19 @@ PYBIND11_MODULE(pyIMSRG, m)
        ReferenceImplementations.def("comm222_pp_hh_221ss", &ReferenceImplementations::comm222_pp_hh_221ss);
        ReferenceImplementations.def("comm222_phss", &ReferenceImplementations::comm222_phss);
        //
+       ReferenceImplementations.def("comm331ss", &ReferenceImplementations::comm331ss);
        ReferenceImplementations.def("comm223ss", &ReferenceImplementations::comm223ss);
-       ReferenceImplementations.def("comm232ss", &ReferenceImplementations::comm232ss);
        ReferenceImplementations.def("comm231ss", &ReferenceImplementations::comm231ss);
+       ReferenceImplementations.def("comm232ss", &ReferenceImplementations::comm232ss);
+       ReferenceImplementations.def("comm133ss", &ReferenceImplementations::comm133ss);
+       ReferenceImplementations.def("comm132ss", &ReferenceImplementations::comm132ss);
+       ReferenceImplementations.def("comm332_ppph_hhhpss", &ReferenceImplementations::comm332_ppph_hhhpss);
        ReferenceImplementations.def("comm332_pphhss", &ReferenceImplementations::comm332_pphhss);
+       ReferenceImplementations.def("comm233_pp_hhss", &ReferenceImplementations::comm233_pp_hhss); 
+       ReferenceImplementations.def("comm233_phss", &ReferenceImplementations::comm233_phss); 
+       ReferenceImplementations.def("comm333_ppp_hhhss", &ReferenceImplementations::comm333_ppp_hhhss); 
+       ReferenceImplementations.def("comm333_pph_hhpss", &ReferenceImplementations::comm333_pph_hhpss); 
+
        //
        ReferenceImplementations.def("diagram_CIa", &ReferenceImplementations::diagram_CIa);
        ReferenceImplementations.def("diagram_CIb", &ReferenceImplementations::diagram_CIb);
@@ -783,10 +792,6 @@ PYBIND11_MODULE(pyIMSRG, m)
        ReferenceImplementations.def("comm223_232_BruteForce", &ReferenceImplementations::comm223_232_BruteForce);
        ReferenceImplementations.def("comm223_231", &ReferenceImplementations::comm223_231);
        ReferenceImplementations.def("comm223_232", &ReferenceImplementations::comm223_232);
-       ReferenceImplementations.def("comm331ss", &ReferenceImplementations::comm331ss);
-       ReferenceImplementations.def("comm133ss", &ReferenceImplementations::comm133ss);
-       ReferenceImplementations.def("comm233_pp_hhss", &ReferenceImplementations::comm233_pp_hhss); 
-       ReferenceImplementations.def("comm233_phss", &ReferenceImplementations::comm233_phss); 
 
        ReferenceImplementations.def("comm331st", &ReferenceImplementations::comm331st);
        ReferenceImplementations.def("comm223st", &ReferenceImplementations::comm223st);

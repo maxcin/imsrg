@@ -818,7 +818,8 @@ double UnitTest::GetMschemeMatrixElement_1b(const Operator &Op, int a, int ma, i
 {
   double matel = 0;
   int Jop = Op.GetJRank();
-  if (Jop == 0) // scalar operator
+  int Top = Op.GetTRank();
+  if (Jop == 0 and Top == 0) // scalar operator
   {
     if (ma == mb)
     {
@@ -841,6 +842,7 @@ double UnitTest::GetMschemeMatrixElement_2b(const Operator &Op, int a, int ma, i
 {
   double matel = 0;
   int Jop = Op.GetJRank();
+  int Top = Op.GetTRank();
   Orbit &oa = Op.modelspace->GetOrbit(a);
   Orbit &ob = Op.modelspace->GetOrbit(b);
   Orbit &oc = Op.modelspace->GetOrbit(c);
@@ -849,7 +851,7 @@ double UnitTest::GetMschemeMatrixElement_2b(const Operator &Op, int a, int ma, i
     return 0;
   if (c == d and mc == md)
     return 0;
-  if (Jop == 0) // scalar operator
+  if (Jop == 0 and Top == 0) // scalar operator
   {
     if ((ma + mb) == (mc + md))
     {
@@ -939,7 +941,7 @@ double UnitTest::GetMschemeMatrixElement_3b(const Operator &Op, int a, int ma, i
   if (std::abs(oa.tz2 + ob.tz2 + oc.tz2 - od.tz2 - oe.tz2 - of.tz2) != 2 * Tzop)
     return 0;
 
-  if (Jop == 0)
+  if (Jop == 0 and Tzop == 0 and Pop == 0)
   {
     if ((ma + mb + mc) != (md + me + mf))
       return 0;
@@ -2759,7 +2761,8 @@ bool UnitTest::Mscheme_Test_comm332_ppph_hhhpss(const Operator &X, const Operato
   Z_J.SetHermitian();
   Z_J.Erase();
 
-  Commutator::comm332_ppph_hhhpss(X, Y, Z_J);
+  ///Commutator::comm332_ppph_hhhpss(X, Y, Z_J);
+  ReferenceImplementations::comm332_ppph_hhhpss(X, Y, Z_J);
 
   if (Z_J.IsHermitian())
     Z_J.Symmetrize();
@@ -2790,8 +2793,8 @@ bool UnitTest::Mscheme_Test_comm332_ppph_hhhpss(const Operator &X, const Operato
           Orbit &ol = X.modelspace->GetOrbit(l);
           if ((oi.l + oj.l + ok.l + ol.l) % 2 > 0)
             continue; // check parity
-          if ((oi.tz2 + oj.tz2) != (ok.tz2 + ol.tz2))
-            continue; // check isospin projection
+          // if ((oi.tz2 + oj.tz2) != (ok.tz2 + ol.tz2))
+          //  continue; // check isospin projection
 
           for (int mi = oi.j2; mi <= oi.j2; mi += 2) // notice the lack of minus sign in the initial mi value
           {
@@ -5260,9 +5263,10 @@ bool UnitTest::Mscheme_Test_comm331st(const Operator &X, const Operator &Y)
   Z_J.Erase();
 
   int Lambda = Y.GetJRank();
+  int TRank = Y.GetTRank();
 
   Operator Y_copy(Y);
-  if (Lambda == 0)
+  if (Lambda == 0 and TRank == 0)
   {
     Y_copy.MakeReduced();
     Z_J.MakeReduced();
@@ -5270,8 +5274,8 @@ bool UnitTest::Mscheme_Test_comm331st(const Operator &X, const Operator &Y)
 
   // Commutator::comm331st( X, Y, Z_J);
   ReferenceImplementations::comm331st(X, Y_copy, Z_J);
-  // ReferenceImplementations::comm331ss(X, Y, Z_J);
-  if (Lambda == 0)
+
+  if (Lambda == 0 and !Y.IsReduced())
   {
     // Y_copy.MakeNotReduced();
     Z_J.MakeNotReduced();
@@ -5290,8 +5294,8 @@ bool UnitTest::Mscheme_Test_comm331st(const Operator &X, const Operator &Y)
     mi = 1;
     for (auto j : Z_J.OneBodyChannels.at({oi.l, oi.j2, oi.tz2}))
     {
-      // if (j < i)
-      //   continue;
+      if (j < i)
+        continue;
       Orbit &oj = X.modelspace->GetOrbit(j);
 
       if (std::abs(oj.j2 - oi.j2) > Lambda * 2 or (oi.j2 + oj.j2) < Lambda * 2)
@@ -5432,7 +5436,7 @@ bool UnitTest::Mscheme_Test_comm223st(const Operator &X, const Operator &Y)
   Z_J.ThreeBody.Erase();
 
   Operator Y_copy(Y);
-  if (Lambda == 0)
+  if (Lambda == 0 and TzY == 0)
   {
     Y_copy.MakeReduced();
     Z_J.MakeReduced();
@@ -5441,7 +5445,7 @@ bool UnitTest::Mscheme_Test_comm223st(const Operator &X, const Operator &Y)
   std::cout << "Calling J-scheme commutator" << std::endl;
   ReferenceImplementations::comm223st(X, Y_copy, Z_J);
 
-  if (Lambda == 0)
+  if (Lambda == 0 and !Y.IsReduced())
   {
     // Y_copy.MakeNotReduced();
     Z_J.MakeNotReduced();
@@ -5623,12 +5627,13 @@ bool UnitTest::Mscheme_Test_comm231st(const Operator &X, const Operator &Y)
 {
   std::cout << __func__ << std::endl;
   int Lambda = Y.GetJRank();
+  int Top = Y.GetJRank();
 
   Operator Z_J(Y);
   Z_J.Erase();
 
   Operator Y_copy(Y);
-  if (Lambda == 0)
+  if (Lambda == 0 and Top == 0)
   {
     Y_copy.MakeReduced();
     Z_J.MakeReduced();
@@ -5637,7 +5642,7 @@ bool UnitTest::Mscheme_Test_comm231st(const Operator &X, const Operator &Y)
   std::cout << "Calling J-scheme commutator" << std::endl;
   ReferenceImplementations::comm231st(X, Y_copy, Z_J);
 
-  if (Lambda == 0)
+  if (Lambda == 0 and !Y.IsReduced())
   {
     // Y_copy.MakeNotReduced();
     Z_J.MakeNotReduced();
@@ -5759,19 +5764,20 @@ bool UnitTest::Mscheme_Test_comm232st(const Operator &X, const Operator &Y)
 {
   std::cout << __func__ << std::endl;
   int Lambda = Y.GetJRank();
+  int Top = Y.GetJRank();
   Operator Z_J(Y);
   Z_J.SetHermitian();
   Z_J.Erase();
 
   Operator Y_copy(Y);
-  if (Lambda == 0)
+  if (Lambda == 0 and Top == 0)
   {
     Y_copy.MakeReduced();
     Z_J.MakeReduced();
   }
   // Commutator::comm232ss(X, Y, Z_J);
   ReferenceImplementations::comm232st(X, Y_copy, Z_J);
-  if (Lambda == 0)
+  if (Lambda == 0 and !Y.IsReduced())
   {
     // Y_copy.MakeNotReduced();
     Z_J.MakeNotReduced();
@@ -5921,6 +5927,7 @@ bool UnitTest::Mscheme_Test_comm133st(const Operator &X, const Operator &Y)
 {
   std::cout << __func__ << std::endl;
   int Lambda = Y.GetJRank();
+  int Top = Y.GetJRank();
   Operator Z_J(Y);
   Z_J.SetHermitian();
   Z_J.Erase();
@@ -5928,14 +5935,14 @@ bool UnitTest::Mscheme_Test_comm133st(const Operator &X, const Operator &Y)
   Z_J.ThreeBody.Erase();
 
   Operator Y_copy(Y);
-  if (Lambda == 0)
+  if (Lambda == 0 and Top == 0)
   {
     Y_copy.MakeReduced();
     Z_J.MakeReduced();
   }
   // Commutator::comm133st(X, Y_copy, Z_J);
   ReferenceImplementations::comm133st(X, Y_copy, Z_J);
-  if (Lambda == 0)
+  if (Lambda == 0 and !Y.IsReduced())
   {
     // Y_copy.MakeNotReduced();
     Z_J.MakeNotReduced();
@@ -6185,19 +6192,20 @@ bool UnitTest::Mscheme_Test_comm132st(const Operator &X, const Operator &Y)
 {
   std::cout << __func__ << std::endl;
   int Lambda = Y.GetJRank();
+  int Top = Y.GetJRank();
   Operator Z_J(Y);
   Z_J.SetHermitian();
   Z_J.Erase();
 
   Operator Y_copy(Y);
-  if (Lambda == 0)
+  if (Lambda == 0 and Top == 0)
   {
     Y_copy.MakeReduced();
     Z_J.MakeReduced();
   }
   // Commutator::comm133st(X, Y_copy, Z_J);
   ReferenceImplementations::comm132st(X, Y_copy, Z_J);
-  if (Lambda == 0)
+  if (Lambda == 0 and !Y.IsReduced())
   {
     // Y_copy.MakeNotReduced();
     Z_J.MakeNotReduced();
@@ -6351,20 +6359,21 @@ bool UnitTest::Mscheme_Test_comm332_ppph_hhhpst(const Operator &X, const Operato
 {
   std::cout << __func__ << std::endl;
   int Lambda = Y.GetJRank();
+  int Top = Y.GetJRank();
   Operator Z_J(Y);
   Z_J.SetHermitian();
   Z_J.SetParticleRank(2);
   Z_J.Erase();
 
   Operator Y_copy(Y);
-  if (Lambda == 0)
+  if (Lambda == 0 and Top == 0)
   {
     Y_copy.MakeReduced();
     Z_J.MakeReduced();
   }
 
   ReferenceImplementations::comm332_ppph_hhhpst(X, Y_copy, Z_J);
-  if (Lambda == 0)
+  if (Lambda == 0 and !Y.IsReduced())
   {
     // Y_copy.MakeNotReduced();
     Z_J.MakeNotReduced();
@@ -6513,18 +6522,19 @@ bool UnitTest::Mscheme_Test_comm332_pphhst(const Operator &X, const Operator &Y)
 {
   std::cout << __func__ << std::endl;
   int Lambda = Y.GetJRank();
+  int Top = Y.GetTRank();
   Operator Z_J(Y);
   Z_J.SetHermitian();
   Z_J.Erase();
 
   Operator Y_copy(Y);
-  if (Lambda == 0)
+  if (Lambda == 0 and Top == 0)
   {
     Y_copy.MakeReduced();
     Z_J.MakeReduced();
   }
   ReferenceImplementations::comm332_pphhst(X, Y_copy, Z_J);
-  if (Lambda == 0)
+  if (Lambda == 0 and !Y.IsReduced())
   {
     // Y_copy.MakeNotReduced();
     Z_J.MakeNotReduced();
@@ -6702,13 +6712,13 @@ bool UnitTest::Mscheme_Test_comm233_pp_hhst(const Operator &X, const Operator &Y
 
 
   Operator Y_copy(Y);
-  if (Lambda == 0)
+  if (Lambda == 0 and TzY == 0)
   {
     Y_copy.MakeReduced();
     Z_J.MakeReduced();
   }
   ReferenceImplementations::comm233_pp_hhst(X, Y_copy, Z_J);
-  if (Lambda == 0)
+  if (Lambda == 0 and !Y.IsReduced())
   {
     // Y_copy.MakeNotReduced();
     Z_J.MakeNotReduced();
@@ -7159,13 +7169,13 @@ bool UnitTest::Mscheme_Test_comm333_ppp_hhhst(const Operator &X, const Operator 
   Z_J.ThreeBody.Erase();
 
   Operator Y_copy(Y);
-  if (Lambda == 0)
+  if (Lambda == 0 and TzY == 0)
   {
     Y_copy.MakeReduced();
     Z_J.MakeReduced();
   }
   ReferenceImplementations::comm333_ppp_hhhst(X, Y_copy, Z_J);
-  if (Lambda == 0)
+  if (Lambda == 0 and !Y.IsReduced())
   {
     // Y_copy.MakeNotReduced();
     Z_J.MakeNotReduced();
@@ -7332,13 +7342,13 @@ bool UnitTest::Mscheme_Test_comm333_pph_hhpst(const Operator &X, const Operator 
   Z_J.ThreeBody.Erase();
 
   Operator Y_copy(Y);
-  if (Lambda == 0)
+  if (Lambda == 0 and TzY == 0)
   {
     Y_copy.MakeReduced();
     Z_J.MakeReduced();
   }
   ReferenceImplementations::comm333_pph_hhpst(X, Y_copy, Z_J);
-  if (Lambda == 0)
+  if (Lambda == 0 and !Y.IsReduced())
   {
     // Y_copy.MakeNotReduced();
     Z_J.MakeNotReduced();
@@ -7388,8 +7398,8 @@ bool UnitTest::Mscheme_Test_comm333_pph_hhpst(const Operator &X, const Operator 
               Orbit &on = X.modelspace->GetOrbit(n);
               if ((oi.l + oj.l + ok.l + ol.l + om.l + on.l + parityZ) % 2 != 0)
                 continue;
-              if ((oi.tz2 + oj.tz2 + ok.tz2 - ol.tz2 - om.tz2 - on.tz2) != 2 * TzZ)
-                continue;
+              // if ((oi.tz2 + oj.tz2 + ok.tz2 - ol.tz2 - om.tz2 - on.tz2) != 2 * TzZ)
+              //   continue;
 
               // loop over projections
               for (int m_i = oi.j2; m_i <= oi.j2; m_i += 2)
