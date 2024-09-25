@@ -5069,6 +5069,107 @@ void ReadWrite::ReadTokyo(std::string filename, Operator& op)
   infile.close();
 }
 
+
+// Read Tokyo Tensor format Ascii added by B.C. He 
+void ReadWrite::ReadTensorTokyo(std::string filename, Operator& op)
+{
+  std::string line;
+  std::ifstream infile;
+  infile.open(filename);
+//  std::cout << __func__ << " filename = " << filename << std::endl;
+  if (!infile.good() )
+  {
+    std::cerr << "************************************" << std::endl
+          << "**    Trouble reading file  !!!   **" << filename << std::endl
+          << "************************************" << std::endl;
+     return;
+  }
+  ModelSpace * modelspace = op.GetModelSpace();
+  std::unordered_map<int,int> orbits_remap;
+
+  skip_comments(infile);
+  int prtorb, ntnorb, pcore, ncore;
+  std::getline(infile, line);
+  std::istringstream(line) >> prtorb >> ntnorb >> pcore >> ncore;
+//  infile >> prtorb >> ntnorb >> pcore >> ncore;
+  int num=prtorb+ntnorb;
+  int norb = modelspace->GetNumberOrbits();
+
+  for( int i=0; i<num; i++)
+  {
+     std::getline( infile, line );
+//    std::cout << "  i = " << i << "  num = " << num << std::endl;
+    int iorb, n, l, j, tz;
+    iorb = 1;
+    std::istringstream(line) >> iorb >> n >> l >> j >> tz;
+//    infile >> iorb >> n >> l >> j >> tz;
+    int io = modelspace->GetOrbitIndex(n, l, j, tz);
+//    std::cout << __func__ << "  " << io << " " << iorb << " " << n << " " << l << " " << j << " " << tz << std::endl;
+    if(io >= norb) continue;
+    orbits_remap[iorb] = io;
+  }
+
+
+  skip_comments(infile);
+//  double zerobody;
+//  infile >> zerobody;
+  // op.ZeroBody = zerobody;
+//  getline(infile, line);
+//  skip_comments(infile);
+
+  getline(infile, line);
+  std::istringstream(line) >> num;
+//  infile >> num;
+//  std::cout << "num  = " << num << std::endl;
+//  getline(infile, line);
+  skip_comments(infile);
+  for(int n=0; n<num; n++)
+  {
+    int i, j;
+    double h1;
+    getline(infile, line);
+    std::istringstream(line) >> i >> j >> h1;
+//    infile >> i >> j >> h1;
+    if( orbits_remap.find(i) == orbits_remap.end() ) continue;
+    if( orbits_remap.find(j) == orbits_remap.end() ) continue;
+    int io = orbits_remap.at(i);
+    int jo = orbits_remap.at(j);
+    op.OneBody(io,jo) = h1;
+  }
+
+  skip_comments(infile);
+  getline(infile, line);
+  std::istringstream(line) >> num;
+//  infile >> num;
+//  std::cout << "Now num is " << num << std::endl;
+//  getline(infile, line);
+  skip_comments(infile);
+  for(int n=0; n<num; n++)
+  {
+    int i, j, k, l, j1, j2;
+    double tbme;
+    std::getline(infile,line);
+    std::istringstream(line) >> i >> j >> k >> l >> j1 >> j2 >> tbme;
+//    infile >> i >> j >> k >> l >> jj >> tbme;
+    if( orbits_remap.find(i) == orbits_remap.end() ) continue;
+    if( orbits_remap.find(j) == orbits_remap.end() ) continue;
+    if( orbits_remap.find(k) == orbits_remap.end() ) continue;
+    if( orbits_remap.find(l) == orbits_remap.end() ) continue;
+    int io = orbits_remap.at(i);
+    int jo = orbits_remap.at(j);
+    int ko = orbits_remap.at(k);
+    int lo = orbits_remap.at(l);
+    if ( (io==jo) and (j1%2)>0 ) continue;
+    if ( (ko==lo) and (j2%2)>0 ) continue;
+    if (std::abs(tbme)<1e-6) continue;
+    op.TwoBody.SetTBME_J(j1, j2, io,jo,ko,lo,tbme);
+    //cout << io << " " << jo << " " << ko << " " << lo << " " <<  j1 <<" "<< j2 << " " << tbme << endl;
+  }
+  infile.close();
+}
+
+
+
 // Tokyo format (Kshell format, snt file)
 void ReadWrite::WriteTokyo(Operator& op, std::string filename, std::string mode)
 {

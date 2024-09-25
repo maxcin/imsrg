@@ -464,6 +464,10 @@ PYBIND11_MODULE(pyIMSRG, m)
               "ReadTokyo", [](ReadWrite &self, std::string s, Operator &op)
               { self.ReadTokyo(s, op); },
               py::arg("file_in"), py::arg("op"))
+          .def(
+              "ReadTensorTokyo", [](ReadWrite &self, std::string s, Operator &op)
+              { self.ReadTensorTokyo(s, op); },
+              py::arg("file_in"), py::arg("op"))
           .def("WriteOneBody_Oslo", &ReadWrite::WriteOneBody_Oslo)
           .def("WriteTwoBody_Oslo", &ReadWrite::WriteTwoBody_Oslo)
           .def("SetCoMCorr", &ReadWrite::SetCoMCorr)

@@ -114,6 +114,7 @@ class ReadWrite
    // added by T.Miyagi
    void ReadTokyo(std::string filename, Operator& op, std::string fmt);
    void ReadTokyo(std::string filename, Operator& op);
+   void ReadTensorTokyo(std::string filename, Operator& op);
    void WriteTokyo(Operator& op, std::string filename, std::string mode);
    void WriteTokyoFull(Operator& op, std::string filename); // only for Hamiltonian
    void WriteTensorTokyo(std::string filename, Operator& op);
