@@ -108,13 +108,22 @@ if not args.reference:
 else:
   ARGS['reference'] = f'{args.reference}'
 # Set the space (sp)
+if args.A == 3 and args.ZI == 1:
+ ARGS['valence_space'] = 's-shell'
+ MNU['Ec'] = 2.74
 if args.A == 6 and args.ZI == 2:
  ARGS['valence_space'] = 'p-shell'
  MNU['Ec'] = 2.74
 elif args.A == 8 and args.ZI == 2:
   ARGS['valence_space'] = 'p-shell' # AKA: p
   MNU['Ec'] = 3.17
-elif args.A == 10 and (args.ZI == 2 or args.ZI == 4):
+if args.A == 9 and args.ZI == 4:
+ ARGS['valence_space'] = 'p-shell'
+ MNU['Ec'] = 2.74
+if args.A == 14 and args.ZI == 7:
+ ARGS['valence_space'] = 'p-shell'
+ MNU['Ec'] = 2.74
+elif args.A == 10 and (args.ZI == 2 or args.ZI == 4 or args.ZI == 6):
   ARGS['valence_space'] = 'p-shell' # AKA: p
   MNU['Ec'] = 3.54
 elif args.A == 14 and args.ZI == 6:
@@ -178,15 +187,15 @@ if MNU['int'] == 'BARE' or MNU['BB'] == 'HF':
   ARGS['smax'] = '0'
 else:
   ARGS['smax'] = '500'
-ARGS['dsmax'] = '0.5'
+ARGS['dsmax'] = '0.3'
 # ARGS['eta_criterion'] = 1e-6
 ### Norm of Omega at which we split off and start a new transformation
-ARGS['omega_norm_max'] = '0.25'
+ARGS['omega_norm_max'] = '0.5'
 ### Solution method
 ARGS['method'] = 'magnus'
 if MNU['BB'] == '3N':
-  ARGS['write_HO_ops'] = 'true'
-  ARGS['write_HF_ops'] = 'true'
+  ARGS['write_HO_ops'] = 'False'
+  ARGS['write_HF_ops'] = 'False'
 #Name of a directory to write Omega operators so they don't need to be stored in memory. If not given, they'll just be stored in memory.
 #if args.emax == 14:
 #  ARGS['scratch'] = '/home/belleya/scratch/'
@@ -275,15 +284,15 @@ else:
   print('exiting...')
   exit()
 
-# ARGS['BetaCM'] = '0'
-# ARGS['hwBetaCM'] = f'{args.hw}'
+ARGS['BetaCM'] = '5'
+ARGS['hwBetaCM'] = f'{args.hw}'
 ARGS['input_op_fmt'] = 'miyagi'
 ARGS['hw'] = f'{args.hw}'
 ARGS['emax'] = f'{args.emax}'
 ARGS['e3max'] = f'{args.e3max}'
-# ARGS['denominator_delta'] =  20
+ARGS['denominator_delta'] =  10
 #ARGS["3bme_type"] = "no2b"
-ARGS['freeze_occupations'] =  "true"
+ARGS['freeze_occupations'] =  "false"
 
 # #Print the parameters choosen
 # print('smax      = ',ARGS['smax'])

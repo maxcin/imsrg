@@ -92,8 +92,10 @@ pyIMSRG_EXTERNAL_OBJECTS =
 
 pyIMSRG.cpython-310-darwin.so: CMakeFiles/pyIMSRG.dir/pyIMSRG.cc.o
 pyIMSRG.cpython-310-darwin.so: CMakeFiles/pyIMSRG.dir/build.make
-pyIMSRG.cpython-310-darwin.so: libHFMBPT.a
 pyIMSRG.cpython-310-darwin.so: libUnitTest.a
+pyIMSRG.cpython-310-darwin.so: libUnitTest.a
+pyIMSRG.cpython-310-darwin.so: libHFMBPT.a
+pyIMSRG.cpython-310-darwin.so: libRPA.a
 pyIMSRG.cpython-310-darwin.so: libReferenceImplementations.a
 pyIMSRG.cpython-310-darwin.so: libIMSRGSolver.a
 pyIMSRG.cpython-310-darwin.so: libGenerator.a
@@ -104,16 +106,18 @@ pyIMSRG.cpython-310-darwin.so: libGenerator.a
 pyIMSRG.cpython-310-darwin.so: libimsrg_util.a
 pyIMSRG.cpython-310-darwin.so: libM0nu.a
 pyIMSRG.cpython-310-darwin.so: libReadWrite.a
+pyIMSRG.cpython-310-darwin.so: libBCH.a
 pyIMSRG.cpython-310-darwin.so: libHartreeFock.a
 pyIMSRG.cpython-310-darwin.so: libJacobi3BME.a
 pyIMSRG.cpython-310-darwin.so: libHartreeFock.a
 pyIMSRG.cpython-310-darwin.so: libJacobi3BME.a
 pyIMSRG.cpython-310-darwin.so: libCommutator.a
 pyIMSRG.cpython-310-darwin.so: libCommutator232.a
+pyIMSRG.cpython-310-darwin.so: libTensorCommutators.a
+pyIMSRG.cpython-310-darwin.so: libIMSRG3Commutators.a
+pyIMSRG.cpython-310-darwin.so: libFactorizedDoubleCommutator.a
+pyIMSRG.cpython-310-darwin.so: libDaggerCommutators.a
 pyIMSRG.cpython-310-darwin.so: libDarkMatterNREFT.a
-pyIMSRG.cpython-310-darwin.so: libPwd.a
-pyIMSRG.cpython-310-darwin.so: libVersion.a
-pyIMSRG.cpython-310-darwin.so: libRPA.a
 pyIMSRG.cpython-310-darwin.so: libOperator.a
 pyIMSRG.cpython-310-darwin.so: libTwoBodyME.a
 pyIMSRG.cpython-310-darwin.so: libThreeBodyME.a
@@ -127,12 +131,14 @@ pyIMSRG.cpython-310-darwin.so: libThreeBodyStorage.a
 pyIMSRG.cpython-310-darwin.so: libThreeLegME.a
 pyIMSRG.cpython-310-darwin.so: libModelSpace.a
 pyIMSRG.cpython-310-darwin.so: libIMSRGProfiler.a
-pyIMSRG.cpython-310-darwin.so: /usr/local/lib/libomp.dylib
 pyIMSRG.cpython-310-darwin.so: libAngMomCache.a
+pyIMSRG.cpython-310-darwin.so: /usr/local/opt/openblas/lib/libopenblas.dylib
+pyIMSRG.cpython-310-darwin.so: libPwd.a
 pyIMSRG.cpython-310-darwin.so: libAngMom.a
 pyIMSRG.cpython-310-darwin.so: /usr/local/Cellar/gsl/2.7/lib/libgsl.dylib
 pyIMSRG.cpython-310-darwin.so: /usr/local/Cellar/gsl/2.7/lib/libgslcblas.dylib
-pyIMSRG.cpython-310-darwin.so: /usr/local/opt/openblas/lib/libopenblas.dylib
+pyIMSRG.cpython-310-darwin.so: /usr/local/lib/libomp.dylib
+pyIMSRG.cpython-310-darwin.so: libVersion.a
 pyIMSRG.cpython-310-darwin.so: CMakeFiles/pyIMSRG.dir/link.txt
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/Users/antoinebelley/Documents/TRIUMF/imsrg/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX shared module pyIMSRG.cpython-310-darwin.so"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/pyIMSRG.dir/link.txt --verbose=$(VERBOSE)

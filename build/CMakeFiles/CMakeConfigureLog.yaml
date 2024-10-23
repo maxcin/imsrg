@@ -484,3 +484,46 @@ events:
       
       
 ...
+
+---
+events:
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "/usr/local/Cellar/cmake/3.27.7/share/cmake/Modules/Internal/CheckSourceCompiles.cmake:101 (try_compile)"
+      - "/usr/local/Cellar/cmake/3.27.7/share/cmake/Modules/Internal/CheckCompilerFlag.cmake:18 (cmake_check_source_compiles)"
+      - "/usr/local/Cellar/cmake/3.27.7/share/cmake/Modules/CheckCXXCompilerFlag.cmake:34 (cmake_check_compiler_flag)"
+      - "pybind11/tools/pybind11Common.cmake:268 (check_cxx_compiler_flag)"
+      - "pybind11/tools/pybind11Common.cmake:304 (_pybind11_return_if_cxx_and_linker_flags_work)"
+      - "pybind11/tools/pybind11Common.cmake:379 (_pybind11_generate_lto)"
+      - "pybind11/CMakeLists.txt:208 (include)"
+    checks:
+      - "Performing Test HAS_FLTO_THIN"
+    directories:
+      source: "/Users/antoinebelley/Documents/TRIUMF/imsrg/build/CMakeFiles/CMakeScratch/TryCompile-KHRfSV"
+      binary: "/Users/antoinebelley/Documents/TRIUMF/imsrg/build/CMakeFiles/CMakeScratch/TryCompile-KHRfSV"
+    cmakeVariables:
+      CMAKE_CXX_FLAGS: ""
+      CMAKE_CXX_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: ""
+      CMAKE_OSX_ARCHITECTURES: ""
+      CMAKE_OSX_DEPLOYMENT_TARGET: ""
+      CMAKE_OSX_SYSROOT: "/Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk"
+      CMAKE_POSITION_INDEPENDENT_CODE: "TRUE"
+    buildResult:
+      variable: "HAS_FLTO_THIN"
+      cached: true
+      stdout: |
+        Change Dir: '/Users/antoinebelley/Documents/TRIUMF/imsrg/build/CMakeFiles/CMakeScratch/TryCompile-KHRfSV'
+        
+        Run Build Command(s): /usr/local/Cellar/cmake/3.27.7/bin/cmake -E env VERBOSE=1 /usr/bin/make -f Makefile cmTC_c0786/fast
+        /Library/Developer/CommandLineTools/usr/bin/make  -f CMakeFiles/cmTC_c0786.dir/build.make CMakeFiles/cmTC_c0786.dir/build
+        Building CXX object CMakeFiles/cmTC_c0786.dir/src.cxx.o
+        /Library/Developer/CommandLineTools/usr/bin/c++ -DHAS_FLTO_THIN  -std=gnu++11 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk -fPIE   -flto=thin -MD -MT CMakeFiles/cmTC_c0786.dir/src.cxx.o -MF CMakeFiles/cmTC_c0786.dir/src.cxx.o.d -o CMakeFiles/cmTC_c0786.dir/src.cxx.o -c /Users/antoinebelley/Documents/TRIUMF/imsrg/build/CMakeFiles/CMakeScratch/TryCompile-KHRfSV/src.cxx
+        Linking CXX executable cmTC_c0786
+        /usr/local/Cellar/cmake/3.27.7/bin/cmake -E cmake_link_script CMakeFiles/cmTC_c0786.dir/link.txt --verbose=1
+        /Library/Developer/CommandLineTools/usr/bin/c++  -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk -Wl,-search_paths_first -Wl,-headerpad_max_install_names CMakeFiles/cmTC_c0786.dir/src.cxx.o -o cmTC_c0786  -flto=thin 
+        
+      exitCode: 0
+...

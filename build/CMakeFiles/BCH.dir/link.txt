@@ -1,0 +1,2 @@
+/Library/Developer/CommandLineTools/usr/bin/ar qc libBCH.a CMakeFiles/BCH.dir/BCH.cc.o
+/Library/Developer/CommandLineTools/usr/bin/ranlib libBCH.a

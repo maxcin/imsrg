@@ -594,8 +594,8 @@ target_link_libraries(
     Operator
     Commutator
     PRIVATE
-    armadillo
-    # ${ARMADILLO_LIBRARIES}
+    #armadillo
+    ${ARMADILLO_LIBRARIES}
     PhysicalConstants
     Version
     imsrg_util

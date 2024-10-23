@@ -93,8 +93,10 @@ imsrg_______EXTERNAL_OBJECTS =
 imsrg++: CMakeFiles/imsrg++.dir/imsrg++.cc.o
 imsrg++: CMakeFiles/imsrg++.dir/build.make
 imsrg++: libVersion.a
-imsrg++: libHFMBPT.a
 imsrg++: libUnitTest.a
+imsrg++: libUnitTest.a
+imsrg++: libHFMBPT.a
+imsrg++: libRPA.a
 imsrg++: libReferenceImplementations.a
 imsrg++: libIMSRGSolver.a
 imsrg++: libGenerator.a
@@ -106,15 +108,18 @@ imsrg++: libimsrg_util.a
 imsrg++: libM0nu.a
 imsrg++: libReadWrite.a
 imsrg++: libVersion.a
+imsrg++: libBCH.a
 imsrg++: libHartreeFock.a
 imsrg++: libJacobi3BME.a
 imsrg++: libHartreeFock.a
 imsrg++: libJacobi3BME.a
 imsrg++: libCommutator.a
 imsrg++: libCommutator232.a
+imsrg++: libTensorCommutators.a
+imsrg++: libIMSRG3Commutators.a
+imsrg++: libFactorizedDoubleCommutator.a
+imsrg++: libDaggerCommutators.a
 imsrg++: libDarkMatterNREFT.a
-imsrg++: libPwd.a
-imsrg++: libRPA.a
 imsrg++: libOperator.a
 imsrg++: libTwoBodyME.a
 imsrg++: libThreeBodyME.a
@@ -130,10 +135,11 @@ imsrg++: libModelSpace.a
 imsrg++: libIMSRGProfiler.a
 imsrg++: /usr/local/lib/libomp.dylib
 imsrg++: libAngMomCache.a
+imsrg++: /usr/local/opt/openblas/lib/libopenblas.dylib
+imsrg++: libPwd.a
 imsrg++: libAngMom.a
 imsrg++: /usr/local/Cellar/gsl/2.7/lib/libgsl.dylib
 imsrg++: /usr/local/Cellar/gsl/2.7/lib/libgslcblas.dylib
-imsrg++: /usr/local/opt/openblas/lib/libopenblas.dylib
 imsrg++: CMakeFiles/imsrg++.dir/link.txt
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/Users/antoinebelley/Documents/TRIUMF/imsrg/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX executable imsrg++"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/imsrg++.dir/link.txt --verbose=$(VERBOSE)
