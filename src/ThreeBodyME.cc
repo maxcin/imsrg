@@ -156,6 +156,10 @@ ThreeBME_type ThreeBodyME::GetME_iso( int Jab_in, int Jde_in, int twoJ, int tab_
     return threebody_storage->GetME_iso(Jab_in, Jde_in, twoJ, tab_in, tde_in, twoT, twoT, a, b, c, d, e, f);
 }
 
+ThreeBME_type ThreeBodyME::GetME_pn(  int Jab_in, int j0, int Jde_in, int j1, int a, int b, int c, int d, int e, int f) const
+{
+  return threebody_storage->GetME_pn( Jab_in, j0, Jde_in, j1, a, b, c, d, e, f);
+}
 
 
 void ThreeBodyME::SetME_pn( int Jab_in, int Jde_in, int twoJ, int a, int b, int c, int d, int e, int f, ThreeBME_type V)
@@ -380,6 +384,7 @@ void ThreeBodyME::SetMode(std::string mode)
   {
     std::cout << " WARNING: I don't know 3N mode " << mode << " .  Continuing with what we had before which is " << threebody_storage->GetStorageMode() << std::endl;
   }
+  threebody_storage->SetHerm( this->herm );
   threebody_storage->Allocate();
 //  storage_mode = pn;
   IMSRGProfiler::timer[__func__] += omp_get_wtime() - t_start;

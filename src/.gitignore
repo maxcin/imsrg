@@ -13,10 +13,5 @@ build/
 .vscode/
 .cache/
 CMakeUserPresets.json
-../old_armadillo/
+imsrg++.cc
 imsrg++
-CMakeCache.txt
-cmake_install.cmake
-libIMSRG.dylib
-profiling/**
-CMakeFiles/**

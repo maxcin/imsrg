@@ -39,7 +39,10 @@ std::map<std::string, std::vector<std::string>> ModelSpace::ValenceSpaces{
     {"fpgdsNR-shell", {"Ca60", "p0f7", "p0f5", "p1p3", "p1p1", "n0g9", "n0g7", "n1d5", "n1d3", "n2s1"}}, // protons in the fp shell, neutrons in the gds shell
     {"sd3f7p3-shell", {"Si28", "p0d3", "n0d3", "p1s1", "n1s1", "p0f7", "n0f7", "p1p3", "n1p3"}},
     {"gds-shell", {"Zr80", "p0g9", "n0g9", "p0g7", "n0g7", "p1d5", "n1d5", "p1d3", "n1d3", "p2s1", "n2s1"}}, // This is a big valence space, more than a few particles will be a serious shell model diagonalization
-
+    {"jj44",{"Ni56","p0f5","n0f5","p1p3","n1p3","p1p1","n1p1","p0g9","n0g9"}},
+    {"jj45",{"Ni78","p0f5","p1p3","p1p1","p0g9","n0g7","n1d5","n1d3","n2s1","n0h11"}},
+    {"jj55",{"Sn100","p0g7","p1d5","p1d3","p2s1","p0h11","n0g7","n1d5","n1d3","n2s1","n0h11"}},
+    {"jj56",{"Sn132","p0g7","p1d5","p1d3","p2s1","p0h11","n0h9","n1f7","n1f5","n2p3","n2p1","n0i13"}},
     {"Ca28_sdSemiMagic-shell", {"Ca28", "n0d5", "n0d3", "n1s1"}},
     {"Ca40_fpg9SemiMagic-shell", {"Ca40", "n0f7", "n0f5", "n1p3", "n1p1", "n0g9"}},
     {"Ca40_fpSemiMagic-shell", {"Ca40", "n0f7", "n0f5", "n1p3", "n1p1"}},
@@ -229,6 +232,10 @@ void ModelSpace::Init(int emax, std::map<std::array<int, 4>, double> hole_list, 
   if (valence == "0hw-shell")
   {
     Get0hwSpace(Aref, Zref, core_list, valence_list);
+  }
+  else if (valence == "jj-shell")
+  {
+    GetjjSpace(Aref, Zref, core_list, valence_list);
   }
   else if (valence.find(",") != std::string::npos) // interpet as a comma-separated list of core followed by valence orbits
   {
@@ -687,6 +694,58 @@ void ModelSpace::Get0hwSpace(int Aref, int Zref, std::set<std::array<int, 4>> &c
     }
   }
 }
+
+void ModelSpace::GetjjSpace(int Aref, int Zref, std::set<std::array<int, 4>> &core_list, std::set<std::array<int, 4>> &valence_list)
+{
+  int Nref = Aref - Zref;
+  std::vector<int> jjmagic = {2,6,14,28,50,82,126,184,258}; // jj shell closures as far up as this would be reasonable
+  int iN=0,iZ=0;
+  while (Zref >= jjmagic[iZ]) iZ++;
+  while (Nref >= jjmagic[iN]) iN++;
+  iZ--;
+  iN--;
+  int Zcore = jjmagic[iZ];
+  int Ncore = jjmagic[iN];
+
+  for (auto &it_core : GetOrbitsAZ(Zcore + Ncore, Zcore))
+    core_list.insert(it_core.first);
+
+  if (Zref > Zcore) // if we have a closed jj shell of protons, then don't decouple any valence proton orbits
+  {
+    for (int L = iZ; L >= 0; L -= 2)
+    {
+      for (int j2 = 2 * L + 1; j2 > std::max(2 * L - 2, 0); j2 -= 2)
+      {
+        if (j2==2*iZ+1 )
+        {
+           valence_list.insert({ 0 , L+1, j2+2, -1});// instead take the largest j from the next shell up
+        }
+        else
+        {
+           valence_list.insert({(iZ - L) / 2, L, j2, -1});
+        }
+      }
+    }
+  }
+  if (Nref > Ncore) // likewise for neutrons
+  {
+    for (int L = iN; L >= 0; L -= 2)
+    {
+      for (int j2 = 2 * L + 1; j2 > std::max(2 * L - 2, 0); j2 -= 2)
+      {
+        if (j2==2*iN+1 )
+        {
+           valence_list.insert({ 0 , L+1, j2+2, +1});// instead take the largest j from the next shell up
+        }
+        else
+        {
+           valence_list.insert({(iN - L) / 2, L, j2, 1});
+        }
+      }
+    }
+  }
+}
+
 
 // Parse a std::string containing a comma-separated list of core + valence orbits
 // eg, the usual sd shell would look like "O16,p0d5,n0d5,p0d3,n0d3,p1s1,n1s1".
@@ -1350,6 +1409,7 @@ void ModelSpace::SetEmax(int e)
   Emax = e;
   EmaxUnocc = Emax;
   E2max = 2 * Emax;
+  SetEmax3Body(Emax);
   Lmax = Emax;
   if (e > old_emax)
   {
@@ -1398,6 +1458,17 @@ void ModelSpace::SetEmaxUnocc(int e)
 
   Init(holemap, corelist, valencelist);
 }
+
+
+
+std::map<int,double> ModelSpace::GetEFermi()
+{
+  if ( e_fermi.size() < 2 )  FindEFermi();
+  return e_fermi ;
+}
+
+
+
 
 void ModelSpace::ClearVectors()
 {
@@ -1631,15 +1702,19 @@ void ModelSpace::PreCalculateSixJ()
   std::cout << "Precalculating SixJ's" << std::endl;
   double t_start = omp_get_wtime();
   std::vector<uint64_t> KEYS;
-  for (int j2a = 1; j2a <= (2 * Emax + 1); j2a += 2)
+  int upperLimit_j2a = (2 * Emax + 1);
+  int upperLimit_j2b =  3 * (2 * Emax + 1);
+  int upperLimit_j2c = (2 * Emax + 1);
+  int upperLimit_j2d =  3 * (2 * Emax + 1);
+
+  for (int j2a = 1; j2a <= upperLimit_j2a; j2a += 2)
   {
-    //   for (int j2b=1; j2b<=(2*Emax+1); j2b+=2)
-    for (int j2b = 1; j2b <= 3 * (2 * Emax + 1); j2b += 2)
+    for (int j2b = 1; j2b <= upperLimit_j2b; j2b += 2)
     {
-      for (int j2c = 1; j2c <= (2 * Emax + 1); j2c += 2)
+      for (int j2c = 1; j2c <= upperLimit_j2c; j2c += 2)
       {
         // four half-integer j's,  two integer J's
-        for (int j2d = 1; j2d <= 3 * (2 * Emax + 1); j2d += 2)
+        for (int j2d = 1; j2d <= upperLimit_j2d; j2d += 2)
         {
           if (j2b > std::max(j2d, 2 * Emax + 1))
             continue;
@@ -2005,6 +2080,12 @@ void ModelSpace::Print()
     Orbit &oi = GetOrbit(i);
     std::cout << i << " : " << oi.n << " " << oi.l << " " << oi.j2 << " " << oi.tz2 << "  , " << oi.occ << " " << oi.cvq << std::endl;
   }
+  std::cout << "Valence orbits: " << std::endl;
+  for ( auto& v : valence )
+  {
+    std::cout << v << "  ";
+  }
+  std::cout << std::endl;
   std::cout << "Number of two body channels " << GetNumberTwoBodyChannels() << std::endl;
   for (size_t ch = 0; ch < GetNumberTwoBodyChannels(); ch++)
   {
