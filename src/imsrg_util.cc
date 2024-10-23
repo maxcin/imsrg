@@ -105,6 +105,7 @@ namespace imsrg_util
       else if (opname == "Trel")          theop =  Trel_Op(modelspace) ;
       else if (opname == "TCM")           theop =  TCM_Op(modelspace) ;
       else if (opname == "Tlab")          theop =  KineticEnergy_Op(modelspace) ;
+      else if (opname == "TrelMassCorrection")          theop =  Trel_Masscorrection_Op(modelspace) ;
       else if (opname == "Rso")           theop =  RpSpinOrbitCorrection(modelspace) ;
       else if (opname == "RadialOverlap") theop =  RadialOverlap(modelspace); // Untested...
       else if (opname == "Sigma")         theop =  Sigma_Op(modelspace);
@@ -112,6 +113,7 @@ namespace imsrg_util
       else if (opname == "Sigma_n")       theop =  Sigma_Op_pn(modelspace,"neutron");
       else if (opname == "L2rel")         theop =  L2rel_Op(modelspace); // Untested...
       else if (opname == "QdotQ")         theop =  QdotQ_Op(modelspace); // Untested...
+      else if (opname == "VQQ")           theop =  VQQ_Op(modelspace); 
       else if (opname == "VCoul")         theop =  VCoulomb_Op(modelspace); // Untested...
       else if (opname == "hfsNMS")        theop =  atomic_hfs::NormalMassShift(modelspace, 1);
       else if (opname == "hfsSMS")        theop =  atomic_hfs::SpecificMassShift(modelspace, 1);
@@ -131,6 +133,15 @@ namespace imsrg_util
            std::istringstream( opnamesplit[1] ) >> sigma;
          }
          theop =  GaussianPotential(modelspace,sigma);
+      }
+      else if (opnamesplit[0] =="VGausCSB")
+      {
+         double sigma = 1.0;
+         if ( opnamesplit.size() > 1 ) 
+         {
+           std::istringstream( opnamesplit[1] ) >> sigma;
+         }
+         theop =  GaussianCSBPotential(modelspace,sigma);
       }
       else if (opnamesplit[0] =="VSDI")
       {
@@ -1945,6 +1956,36 @@ Operator FourierBesselCoeff(ModelSpace& modelspace, int nu, double R, std::set<i
     return EL;
   }
 
+
+  /// Schiff Moment = Isoscalar dipole / 10 (where the sum is over proton orbits only)  with units e * fm^3  --added by DK. Ref. PHYSICAL REVIEW C 89, 014335 (2014)
+  Operator SchiffOp(ModelSpace& modelspace, int rL, int YL, double Rms)
+  {   
+    Operator EL(modelspace, YL,0,YL%2,2); 
+    double bL = pow( HBARC*HBARC/M_NUCLEON/modelspace.GetHbarOmega(),0.5*rL); // b^L where b=sqrt(hbar/mw)
+    double bLp = pow( HBARC*HBARC/M_NUCLEON/modelspace.GetHbarOmega(),0.5*1);
+    int norbits = modelspace.GetNumberOrbits();
+    for (int i : modelspace.proton_orbits)
+   // for (int i=0; i<norbits; ++i) //DK: modify for protons only
+    {     
+      Orbit& oi = modelspace.GetOrbit(i);
+      double ji = 0.5*oi.j2;
+      for ( int j : EL.OneBodyChannels.at({oi.l, oi.j2, oi.tz2}) )
+      {
+        if (j<i) continue;
+        Orbit& oj = modelspace.GetOrbit(j);
+        double jj = 0.5*oj.j2;
+        double r2int = RadialIntegral(oi.n,oi.l,oj.n,oj.l,rL) * bL ;
+        double r2intp = RadialIntegral(oi.n,oi.l,oj.n,oj.l,1) * bLp ;
+        r2int = r2int - 5.0/3.0*r2intp*Rms*Rms ;
+        EL.OneBody(i,j) = modelspace.phase(jj+YL-0.5) * sqrt( (2*ji+1)*(2*jj+1)*(2*YL+1)/4./3.1415926) * AngMom::ThreeJ(ji,jj,YL,0.5,-0.5,0) * r2int;
+        EL.OneBody(j,i) = modelspace.phase((oi.j2-oj.j2)/2) * EL.OneBody(i,j);
+      }
+    }
+    return EL/10;
+  }
+
+
+
   /// Returns a reduced electric multipole operator with units \f$ e\f$ fm\f$^{\lambda} \f$
   /// See Suhonen eq. (6.23)
   Operator ElectricMultipoleOp(ModelSpace& modelspace, int L)
@@ -2371,15 +2412,19 @@ Operator FourierBesselCoeff(ModelSpace& modelspace, int nu, double R, std::set<i
     Operator Fermi(modelspace,0,1,0,2);
     Fermi.SetHermitian();
     int norbits = modelspace.GetNumberOrbits();
-    for (int i=0; i<norbits; ++i)
+//    for (int i=0; i<norbits; ++i)
+    for ( auto i : modelspace.proton_orbits )
     {
       Orbit& oi = modelspace.GetOrbit(i);
-      for (int j : Fermi.OneBodyChannels[{oi.l,oi.j2,oi.tz2}] )
-      {
-        Orbit& oj = modelspace.GetOrbit(j);
-        if (oi.n!=oj.n or oi.tz2 == oj.tz2) continue;
-        Fermi.OneBody(i,j) = sqrt(oi.j2+1.0);  // Reduced matrix element
-      }
+      int j = modelspace.GetOrbitIndex( oi.n, oi.l, oi.j2, -oi.tz2);
+      Fermi.OneBody(i,j) = sqrt(oi.j2+1); // Reduced matrix element
+      Fermi.OneBody(j,i) = Fermi.OneBody(i,j); // Hermitian
+//      for (int j : Fermi.OneBodyChannels[{oi.l,oi.j2,oi.tz2}] )
+//      {
+//        Orbit& oj = modelspace.GetOrbit(j);
+//        if (oi.n!=oj.n or oi.tz2 == oj.tz2) continue;
+//        Fermi.OneBody(i,j) = sqrt(oi.j2+1.0);  // Reduced matrix element
+//      }
     }
     return Fermi;
   }
@@ -2594,6 +2639,8 @@ Operator FourierBesselCoeff(ModelSpace& modelspace, int nu, double R, std::set<i
 
 
  // < ij J || Q * Q || kl J > where Q is the quadrupole operator (possibly up to overall factors like square roots of pi, etc...)
+ // We use equation (A5) of Caurier et al Rev Mod Phys 2005
+ // S
  Operator QdotQ_Op(ModelSpace& modelspace)
  {
     
@@ -2601,6 +2648,83 @@ Operator FourierBesselCoeff(ModelSpace& modelspace, int nu, double R, std::set<i
    Operator QdotQ_op(modelspace,0,0,0,2);
    Operator E2op = ElectricMultipoleOp(modelspace,2) + NeutronElectricMultipoleOp(modelspace,2);
    auto& Qmat = E2op.OneBody;
+
+   std::cout << "Oops! This operator is still under construction! " << __FILE__ << "  line " << __LINE__ << std::endl;
+
+   // The one-body piece should be
+   // < i | Q*Q | j > = sqrt(2*2+1)/(2*ji+1) * sum_k <k||Q||i><k||Q||j>
+//   QdotQ_op.OneBody =  Qmat*Qmat.t() / sqrt(2);
+//   for (auto i : modelspace.all_orbits)
+//   {
+//      Orbit& oi = modelspace.GetOrbit(i);
+//      QdotQ_op.OneBody.row(i) /= oi.j2+1;
+//   }
+
+//   // We subtract off the one-body piece acting in the two-body space
+//   Embed1BodyIn2Body( QdotQ_op, 2);
+//   QdotQ_op.TwoBody *= -1;
+
+   int nchan = modelspace.GetNumberTwoBodyChannels();
+
+
+   for (int ch=0; ch<nchan; ++ch)
+   {
+      TwoBodyChannel& tbc = modelspace.GetTwoBodyChannel(ch);
+      int nkets = tbc.GetNumberKets();
+      int J = tbc.J;
+      for (int ibra=0;ibra<nkets;++ibra)
+      {
+         Ket & bra = tbc.GetKet(ibra);
+         int a = bra.p;
+         int b = bra.q;
+         Orbit & oa = modelspace.GetOrbit(a);
+         Orbit & ob = modelspace.GetOrbit(b);
+         double ja = oa.j2*0.5;
+         double jb = ob.j2*0.5;
+
+         for (int iket=ibra;iket<nkets;++iket)
+         {
+            
+            Ket & ket = tbc.GetKet(iket);
+            int c = ket.p;
+            int d = ket.q;
+            Orbit & oc = modelspace.GetOrbit(c);
+            Orbit & od = modelspace.GetOrbit(d);
+            double jc = oc.j2*0.5;
+            double jd = od.j2*0.5 ;
+
+            // Suhonen (8.56)
+            double Aabcd = modelspace.phase(ja+jb+J) * modelspace.GetSixJ(ja,jb,J,jd,jc,2) * Qmat(c,a) * Qmat(b,d);
+            double Aabdc = modelspace.phase(ja+jb+J) * modelspace.GetSixJ(ja,jb,J,jc,jd,2) * Qmat(d,a) * Qmat(b,c);
+            // Suhonen (8.55),(8.57),(8.58)
+            double QdQ;
+            QdQ = Aabcd - modelspace.phase(jc+jd+J)*Aabdc;  // pppp or nnnn
+            if (a==b) QdQ /= sqrt(2.0);
+            if (c==d) QdQ /= sqrt(2.0);
+
+
+//            QdotQ_op.TwoBody.SetTBME(ch,ibra,iket,QdQ);
+            QdotQ_op.TwoBody.AddToTBME(ch,ibra,iket,QdQ);
+         }
+
+      }
+   }
+
+   return QdotQ_op;
+ }
+
+
+
+ // Quadrupole-quadrupole interaction
+ // This is a pure two-body operator.
+ Operator VQQ_Op(ModelSpace& modelspace)
+ {
+   Operator VQQ = Operator(modelspace,0,0,0,2);
+   // temporarily store <i||Q||j> in a one-body operator.
+   Operator Q1b = Operator(modelspace,2,0,0,1);
+   Q1b.OneBody += ElectricMultipoleOp(modelspace,2).OneBody;
+   Q1b.OneBody += NeutronElectricMultipoleOp(modelspace,2).OneBody;
+   auto& Qmat = Q1b.OneBody;
 
    int nchan = modelspace.GetNumberTwoBodyChannels();
 
@@ -2612,51 +2736,49 @@ Operator FourierBesselCoeff(ModelSpace& modelspace, int nu, double R, std::set<i
       for (int ibra=0;ibra<nkets;++ibra)
       {
          Ket & bra = tbc.GetKet(ibra);
-         int i = bra.p;
-         int j = bra.q;
-         Orbit & oi = modelspace.GetOrbit(i);
-         Orbit & oj = modelspace.GetOrbit(j);
-         double ji = oi.j2*0.5;
-         double jj = oj.j2*0.5;
+         int a = bra.p;
+         int b = bra.q;
+         Orbit & oa = modelspace.GetOrbit(a);
+         Orbit & ob = modelspace.GetOrbit(b);
+         double ja = oa.j2*0.5;
+         double jb = ob.j2*0.5;
 
          for (int iket=ibra;iket<nkets;++iket)
          {
             
             Ket & ket = tbc.GetKet(iket);
-            int k = ket.p;
-            int l = ket.q;
-            Orbit & ok = modelspace.GetOrbit(k);
-            Orbit & ol = modelspace.GetOrbit(l);
-            double jk = ok.j2*0.5;
-            double jl = ol.j2*0.5 ;
+            int c = ket.p;
+            int d = ket.q;
+            Orbit & oc = modelspace.GetOrbit(c);
+            Orbit & od = modelspace.GetOrbit(d);
+            double jc = oc.j2*0.5;
+            double jd = od.j2*0.5 ;
 
             // Suhonen (8.56)
-            double Aijkl = modelspace.phase(ji+jj+J) * modelspace.GetSixJ(ji,jj,J,jl,jk,2) * Qmat(k,i) * Qmat(j,l);
-            double Aijlk = modelspace.phase(ji+jj+J) * modelspace.GetSixJ(ji,jj,J,jk,jl,2) * Qmat(l,i) * Qmat(j,k);
-//            double Aijlk = modelspace.phase(jk+jl+J) * modelspace.phase(ji+jj+J) * modelspace.GetSixJ(ji,jj,J,jk,jl,2) * Qmat(l,i) * Qmat(j,k);
+            double Aabcd = modelspace.phase(ja+jb+J) * modelspace.GetSixJ(ja,jb,J,jd,jc,2) * Qmat(c,a) * Qmat(b,d);
+            double Aabdc = modelspace.phase(ja+jb+J) * modelspace.GetSixJ(ja,jb,J,jc,jd,2) * Qmat(d,a) * Qmat(b,c);
             // Suhonen (8.55),(8.57),(8.58)
             double QdQ;
-            if ( tbc.Tz==0 ) // proton-neutron channel
-            {
-              if ( oi.tz2 == ok.tz2)   QdQ = Aijkl;  // pnpn
-              else                     QdQ = -modelspace.phase(jk+jl+J) * Aijlk;  // pnnp
-            }
-            else
-            {
-               QdQ = Aijkl - modelspace.phase(jk+jl+j)*Aijlk;  // pppp or nnnn
-               if (i==j) QdQ /= sqrt(2.0);
-               if (k==l) QdQ /= sqrt(2.0);
-            }
+            // I think that the pppp case can actually be applied to the pn case too...
+//            if ( tbc.Tz==0 ) // proton-neutron channel
+//            {
+//              if ( oa.tz2 == oc.tz2)   QdQ = Aabcd;  // pnpn, Suhonen (8.57)
+//              else                     QdQ = -modelspace.phase(jc+jd+J) * Aabdc;  // pnnp
+//            }
+//            else  // like-nucleon channel,  Suhonen (8.55)
+//            {
+               QdQ = Aabcd - modelspace.phase(jc+jd+J)*Aabdc;  // pppp or nnnn
+               if (a==b) QdQ /= sqrt(2.0);
+               if (c==d) QdQ /= sqrt(2.0);
+//            }
 
-            QdotQ_op.TwoBody.SetTBME(ch,ibra,iket,QdQ);
+            VQQ.TwoBody.SetTBME(ch,ibra,iket,QdQ);
          }
       }
    }
 
-   QdotQ_op.OneBody = Qmat*Qmat;
-   return QdotQ_op;
+   return VQQ;
  }
-
 
 
 
@@ -2903,14 +3025,11 @@ Operator FourierBesselCoeff(ModelSpace& modelspace, int nu, double R, std::set<i
 
   return AxCh;
 
-
  }
-
-
-
 
  Operator TViolatingPotential_Op( ModelSpace& modelspace, std::vector<double> LECs )
  {
+  //alpha0,alpha1,alpha2 are the inputs which are gg_0,2mpi/(8piMnucleon)
    double alpha0 = LECs[0];
    double alpha1 = LECs[1];
    double alpha2 = LECs[2];
@@ -2939,7 +3058,8 @@ Operator FourierBesselCoeff(ModelSpace& modelspace, int nu, double R, std::set<i
    double Bnpnp = 2 * alpha1;
    double Bpnpn = -Bnpnp;
 
-   auto isoA = [alpha0,alpha1,alpha2] (int T,int Tp,int Tz) { return alpha0*(4*T-3) + 2*alpha1*Tz + 2*alpha2*T*( 3*std::abs(Tz) - 2) * (T==Tp) ; } ;
+ //  auto isoA = [alpha0,alpha1,alpha2] (int T,int Tp,int Tz) { return alpha0*(4*T-3) + 2*alpha1*Tz + 2*alpha2*T*( 3*std::abs(Tz) - 2) * (T==Tp) ; } ;
+   auto isoA = [alpha0,alpha1,alpha2] (int T,int Tp,int Tz) { return (alpha0*(4*T-3) + 2*alpha1*Tz + 2*alpha2*(T==1)*((std::abs(Tz)==1) - 2*(Tz==0))) * (T==Tp) ; } ;
    auto isoB = [alpha1] (int T,int Tp) { return 2*alpha1 * ((T+Tp)==1) ; };
 
    double hw = modelspace.GetHbarOmega();
@@ -2948,6 +3068,7 @@ Operator FourierBesselCoeff(ModelSpace& modelspace, int nu, double R, std::set<i
    int emax = modelspace.Emax;
 
    std::map< std::array<int,4>,double> IntegralLookup;
+   #pragma omp parallel for 
    // Do the radial integral and cache it
    for (int n=0; n <= emax; n++)
    {
@@ -2977,10 +3098,21 @@ Operator FourierBesselCoeff(ModelSpace& modelspace, int nu, double R, std::set<i
 
    double sa,sb,sc,sd;
    sa=0.5; sb=0.5; sc=0.5; sd=0.5; // just for clarity...
+   std::vector<int> ch_bra_list, ch_ket_list;
    for (auto& itmat : VPT.TwoBody.MatEl )
    {
-     int ch_bra = itmat.first[0];
-     int ch_ket = itmat.first[1];
+     ch_bra_list.push_back(itmat.first[0]);
+     ch_ket_list.push_back(itmat.first[1]);
+   }
+   int nbraket = ch_bra_list.size();
+     #pragma omp parallel for 
+//   for (auto& itmat : VPT.TwoBody.MatEl )
+   for (int ibraket=0; ibraket<nbraket; ibraket++ )
+   {
+//     int ch_bra = itmat.first[0];
+//     int ch_ket = itmat.first[1];
+     int ch_bra = ch_bra_list[ibraket];
+     int ch_ket = ch_ket_list[ibraket];
      TwoBodyChannel& tbc_bra = modelspace.GetTwoBodyChannel(ch_bra);
      TwoBodyChannel& tbc_ket = modelspace.GetTwoBodyChannel(ch_ket);
      int J = tbc_bra.J;
@@ -3030,11 +3162,16 @@ Operator FourierBesselCoeff(ModelSpace& modelspace, int nu, double R, std::set<i
              for (int L=Lmin; L<=Lmax; L++)
              {
                double ninej1 = AngMom::NineJ( la,sa,ja,  lb,sb,jb, L,S,J);
+//std::cout << "la=" << la << "sa=" << sa << "ja=" << ja << "lb=" << lb << "sb="<< sb << "jb=" << jb << "L=" << L << "S=" << S << "J=" << J << "ninej1 = " << ninej1 << std::endl;
                for (int Lp=Lpmin; Lp<=Lpmax; Lp++)
                {
                  if ( std::abs(L-Lp)>1 ) continue;
-                 double sixj1 = AngMom::SixJ( L, S, J, Sp, Lp, 1);
+                 double sixj1 =  AngMom::SixJ( L, S, J, Sp, Lp, 1);
+//std::cout << "L=" << L << "S=" << S << "J=" << J << "Sp=" << Sp << "Lp=" << Lp << "sixj1 = " << sixj1 << std::endl;
+//std::cout << "sixj1 = " << sixj1 << std::endl;
                  double ninej2 = AngMom::NineJ( lc,sc,jc, ld,sd,jd, Lp,Sp,J);
+//std::cout << "lc=" << lc << "sc=" << sc << "jc=" << jc << "ld=" << ld << "sd="<< sd << "jd=" << jd << "Lp=" << Lp << "Sp=" << Sp << "J=" << J << "ninej2 = " << ninej2 << std::endl;
+//std::cout << "ninej2 = " << ninej2 << std::endl;
                  // Now sum over relative/CM coordinates
                  for (int Ncm=0; 2*Ncm<=std::min(ebra,eket); Ncm++ )
                  {
@@ -3059,18 +3196,38 @@ Operator FourierBesselCoeff(ModelSpace& modelspace, int nu, double R, std::set<i
                                if (pn_case == "pnnp") iso_to_pn_factor = 0.5 * AngMom::phase( Tp+1 ) ;
                                
                                if ( (S+Sp)==1)           AplusB += iso_to_pn_factor * asymmfactor * isoA(T,Tp,Tz);
-                               if ( (S==1) and (Sp==1) ) AplusB += iso_to_pn_factor * asymmfactor * isoB(T,Tp);
-                            }
+                               if ( (S==1) and (Sp==1) ) AplusB += iso_to_pn_factor * asymmfactor * isoB(T,Tp) * sqrt(2); //sqrt(2) missing here
+//std::cout << "asymmfactor = " << asymmfactor << std::endl; 
+                           }
                          }
 //                         if ((lprel + Sp)%2==0) continue; // factor [1 - (-1)^(lprel+Sp) ]
+//std::cout << "AplusB = " << AplusB << std::endl;
                          double threej = AngMom::ThreeJ( lrel,lprel,1, 0,0,0);
+//std::cout << "threej = " << threej << std::endl;
+//std::cout << "lrel=" << lrel << "lprel=" << lprel << "threej=" << threej << std::endl;
                          double sixj2 = AngMom::SixJ( lrel,L,Lcm,  Lp,lprel,1);
+//std::cout << "sixj2 = " << sixj2 << std::endl;
+//std::cout << "lrel=" << lrel << "L=" << L << "Lcm=" << Lcm << "Lp=" << Lp << "lprel=" << lprel << "sixj2 = " << sixj2 << std::endl;
                          double mosh1 = AngMom::Moshinsky(Ncm,Lcm,nrel,lrel,na,la,nb,lb,L);
-                         double mosh2 = AngMom::Moshinsky(Ncm,Lcm,nprel,lprel,nc,lc,nd,ld,L);
-                         double integral = IntegralLookup[{nrel,lrel,nprel,lprel}]; 
+//std::cout << "mosh1 = " << mosh1 << std::endl;
+//std::cout << "Ncm=" << Ncm << "Lcm=" << Lcm << "nrel=" << nrel << "lrel=" << lrel << "na="<< na << "la=" << la << "nb=" << nb << "lb=" << lb << "L=" << L << "mosh1 = " << mosh1 << std::endl;
+                         double mosh2 = AngMom::Moshinsky(Ncm,Lcm,nprel,lprel,nc,lc,nd,ld,Lp);
+//std::cout << "mosh2 = " << mosh2 << std::endl;
+//std::cout << "Ncm=" << Ncm << "Lcm=" << Lcm << "nprel=" << nprel << "lprel=" << lprel << "nc="<< nc << "lc=" << lc << "nd=" << nd << "ld=" << ld << "Lp=" << Lp << "mosh2 = " << mosh2 << std::endl;
+                         double integral = IntegralLookup[{nrel,lrel,nprel,lprel}];
+//std::cout << "integral = " << integral << std::endl;
                          vpt += sqrt((2*S+1)*(2*Sp+1)) * AplusB * (2*L+1) * (2*Lp+1) * sixj1 * ninej1 * ninej2
-                               * AngMom::phase(Lcm) * 2 * sqrt((2*lrel+1)*(2*lprel+1)) * threej * sixj2 * mosh1*mosh2 * integral;
-                       }//nprel
+                               * AngMom::phase(Lcm) * sqrt((2*lrel+1)*(2*lprel+1)) * threej * sixj2 * mosh1*mosh2 * integral; // *2 factor is from the integral, was already included bt Ragnar  
+//std::cout << "sixj1 = " << sixj1 << std::endl;
+//std::cout << "ninej1 = " << ninej1 << std::endl;
+//std::cout << "ninej2 = " << ninej2 << std::endl;
+//std::cout << "AplusB = " << AplusB << std::endl;
+//std::cout << "threej = " << threej << std::endl;
+//std::cout << "sixj2 = " << sixj2 << std::endl;
+//std::cout << "mosh1 = " << mosh1 << std::endl;
+//std::cout << "mosh2 = " << mosh2 << std::endl;
+//std::cout << "integral = " << integral << std::endl;
+                      }//nprel
                      }//nrel
                    }//Lcm
                  }//Ncm
@@ -3078,13 +3235,14 @@ Operator FourierBesselCoeff(ModelSpace& modelspace, int nu, double R, std::set<i
              }//L
            }//Sp
          }//S
-         vpt *= AngMom::phase(J) * 2*sqrt(3) * sqrt((2*ja+1)*(2*jb+1)*(2*jc+1)*(2*jd+1)) * (2*J+1);
+         vpt *= AngMom::phase(J) * 2*sqrt(3) * sqrt((2*ja+1)*(2*jb+1)*(2*jc+1)*(2*jd+1)) ;// * (2*J+1); //(2*J+1) should not be here?
          if (bra.p==bra.q) vpt /= SQRT2;
          if (ket.p==ket.q) vpt /= SQRT2;
-//         std::cout << "Setting  channels " << ch_bra << " " << ch_ket << " " << ibra << " " << iket << "  = " << vpt << std::endl;
+
+         //std::cout << "Setting  channels " << ch_bra << " " << ch_ket << " " << ibra << " " << iket << "  = " << vpt << std::endl;
+
 //         std::cout << "The Matrix: " << std::endl << VPT.TwoBody.GetMatrix(ch_bra,ch_ket) << std::endl;
          VPT.TwoBody.SetTBME(ch_bra,ch_ket,ibra,iket,vpt);
-//         std::cout << "   ok. " << std::endl;
        }//iket
      }//ibra
      
@@ -4448,6 +4606,45 @@ Operator FourierBesselCoeff(ModelSpace& modelspace, int nu, double R, std::set<i
    return Vminnesota;
  }
 
+ // A gaussian potential with strength 1.0
+ // We just reuse the Minnesota potential code and set the singlet and triplet strengths to zero
+ Operator GaussianCSBPotential( ModelSpace& modelspace, double sigma )
+ {
+   double VR = 1.0 ;
+////   double VT = -178. ;
+//   double VT = -178. * 0.2; // scaled to make things not crazy for finite nuclei
+//   double VS = -91.85 ;
+   double kR = 1.0 / (2*sigma*sigma); // make things dimensionless
+//   double kR = 1.487 * oscillator_b2; // make things dimensionless
+//   double kT = 0.639 * oscillator_b2;
+//   double kS = 0.465 * oscillator_b2;
+   std::array<double,6> params = {VR,0.0,0.0, kR,1,1};
+   Operator Vminnesota(modelspace, 0,0,0,2);
+
+   int nchan = modelspace.GetNumberTwoBodyChannels();
+   modelspace.PreCalculateMoshinsky();
+//   #pragma omp parallel for schedule(dynamic,1) 
+   for (int ch=0; ch<nchan; ++ch)
+   {
+    TwoBodyChannel& tbc = modelspace.GetTwoBodyChannel(ch);
+    int J = tbc.J;
+    int nkets = tbc.GetNumberKets();
+    for (int ibra=0;ibra<nkets;++ibra)
+    {
+     Ket& bra = tbc.GetKet(ibra);
+     for (int iket=ibra;iket<nkets;iket++)
+     {
+       Ket& ket = tbc.GetKet(iket);
+//       double vminn = MinnesotaMatEl( modelspace, bra, ket, J);
+       double vminn = -tbc.Tz * MinnesotaMatEl( modelspace, bra, ket, J, params);
+       Vminnesota.TwoBody.SetTBME(ch,ibra,iket,vminn);
+       Vminnesota.TwoBody.SetTBME(ch,iket,ibra,vminn);
+     }
+    }
+   }
+   return Vminnesota;
+ }
+
 
  // A bare delta function of the relative coordinate (effectively regulated by the finite oscillator basis).
  // The delta is a 1D delta of the relative coordinate, as defined by Moshinsky: r = 1/sqrt(2) |r1-r2|.
@@ -5220,4 +5417,3 @@ Operator FourierBesselCoeff(ModelSpace& modelspace, int nu, double R, std::set<i
  
 
 }// namespace imsrg_util
-

@@ -31,6 +31,7 @@ namespace Commutator
   bool use_imsrg3_mp4 = false;
 
   bool single_thread = false;
+  bool verbose = false;
 
   std::map<std::string, bool> comm_term_on = {
       {"comm110ss", true},
@@ -41,7 +42,7 @@ namespace Commutator
       {"comm122ss", true},
       {"comm222_pp_hhss", true},
       {"comm222_phss", true},
-//      {"comm222_pp_hh_221ss", true},
+      //      {"comm222_pp_hh_221ss", true},
       {"comm111st", true},
       {"comm121st", true},
       {"comm221st", true},
@@ -61,15 +62,39 @@ namespace Commutator
       {"comm233_pp_hhss", false},
       {"comm233_phss", false},
       {"comm333_ppp_hhhss", false},
-      {"comm333_pph_hhpss", false}
+      {"comm333_pph_hhpss", false},
+      ////////  tensor commutators in IMSRG(3)
+      ////////  by default IMSRG(3) terms are turned off.
+      /// 3n7
+      {"comm331st", false},
+      {"comm231st", false},
+      {"comm232st", false},
+      {"comm132st", false},
+      {"comm223st", false},
+      {"comm133st", false},
+      /// above 3n7
+      {"comm332_pphhst", false},
+      {"comm332_ppph_hhhpst", false},
+      {"comm233_pp_hhst", false},
+      {"comm233_phst", false},
+      {"comm333_ppp_hhhst", false},
+      {"comm333_pph_hhpst", false},
   };
-
-
 
   void TurnOffTerm(std::string term) { comm_term_on[term] = false; }
   void TurnOnTerm(std::string term) { comm_term_on[term] = true; }
 
-
+  void PrintSettings()
+  {
+    std::cout << "use_imsrg3 : " << use_imsrg3 << std::endl;
+    std::cout << "use_imsrg3_n7 : " << use_imsrg3_n7 << std::endl;
+    std::cout << "use_imsrg3_mp4 : " << use_imsrg3_mp4 << std::endl;
+    std::cout << "single_thread : " << single_thread << std::endl;
+    for (auto &it : comm_term_on)
+    {
+      std::cout << it.first << " : " << it.second << std::endl;
+    }
+  }
 
   void SetUseIMSRG3(bool tf)
   {
@@ -88,12 +113,12 @@ namespace Commutator
     use_imsrg3_n7 = tf;
     if (use_imsrg3_n7)
     {
-    for (std::string term : {
-             "comm332_ppph_hhhpss", "comm332_pphhss", 
-             "comm233_pp_hhss", "comm233_phss", "comm333_ppp_hhhss", "comm333_pph_hhpss"})
-    {
-      comm_term_on[term] = false;
-    }
+      for (std::string term : {
+               "comm332_ppph_hhhpss", "comm332_pphhss",
+               "comm233_pp_hhss", "comm233_phss", "comm333_ppp_hhhss", "comm333_pph_hhpss"})
+      {
+        comm_term_on[term] = false;
+      }
       for (std::string term : {
                "comm330ss", "comm331ss", "comm231ss", "comm132ss", "comm232ss",
                "comm133ss", "comm223ss"})
@@ -103,29 +128,58 @@ namespace Commutator
     }
   }
 
-  void SetUseIMSRG3_MP4(bool tf)
+  void SetUseIMSRG3N7_Tensor(bool tf)
   {
-    if ( tf )
+    use_imsrg3_n7 = tf;
+    use_imsrg3 = tf;
+    for (std::string term : {
+            "comm331st", "comm231st", "comm132st", "comm232st",
+            "comm133st", "comm223st"})
     {
-       for (std::string term : {
-                "comm331ss", "comm231ss", "comm132ss", 
-                "comm332_ppph_hhhpss", "comm332_pphhss", 
-                "comm233_pp_hhss", "comm233_phss", "comm333_ppp_hhhss", "comm333_pph_hhpss"})
-       {
-         comm_term_on[term] = false;
-       }
-       for (std::string term : {
-                "comm330ss", "comm232ss",
-                "comm133ss", "comm223ss"})
-       {
-         comm_term_on[term] = true;
-       }
+      comm_term_on[term] = tf;
+    }
+
+    for (std::string term : {
+            "comm332_pphhst", "comm332_ppph_hhhpst", "comm233_pp_hhst", 
+            "comm233_phst", "comm333_ppp_hhhst", "comm333_pph_hhpst"})
+    {
+      comm_term_on[term] = false;
+    }
+
+  }
+
+  void SetUseIMSRG3_Tensor(bool tf)
+  {
+    use_imsrg3 = tf;
+    for (std::string term : {
+            "comm331st", "comm231st", "comm132st", "comm232st",
+            "comm133st", "comm223st", 
+            "comm332_pphhst", "comm332_ppph_hhhpst", "comm233_pp_hhst", 
+            "comm233_phst", "comm333_ppp_hhhst", "comm333_pph_hhpst"})
+    {
+      comm_term_on[term] = tf;
     }
   }
 
-
-
-
+  void SetUseIMSRG3_MP4(bool tf)
+  {
+    if (tf)
+    {
+      for (std::string term : {
+               "comm331ss", "comm231ss", "comm132ss",
+               "comm332_ppph_hhhpss", "comm332_pphhss",
+               "comm233_pp_hhss", "comm233_phss", "comm333_ppp_hhhss", "comm333_pph_hhpss"})
+      {
+        comm_term_on[term] = false;
+      }
+      for (std::string term : {
+               "comm330ss", "comm232ss",
+               "comm133ss", "comm223ss"})
+      {
+        comm_term_on[term] = true;
+      }
+    }
+  }
 
   void SetIMSRG3Noqqq(bool tf)
   {
@@ -144,105 +198,115 @@ namespace Commutator
 
 
 
+  void SetVerbose(bool tf)
+  {
+    verbose = tf;
+  }
+
 
 
   // Operator Operator::Commutator( Operator& opright)
   /// Returns \f$ Z = [X,Y] \f$
   Operator Commutator(const Operator &X, const Operator &Y)
   {
-    int xrank = X.rank_J;
-    int yrank = Y.rank_J;
-    int xlegs = X.GetNumberLegs();
-    int ylegs = Y.GetNumberLegs();
 
-    X.modelspace->PreCalculateSixJ();
+    X.modelspace->PreCalculateSixJ(); // if we already called this, it does nothing.
 
-    if (xrank == 0)
+    if ( X.IsNumberConserving() and Y.IsNumberConserving() ) // X and Y are particle-number conserving
     {
-      if ((xlegs % 2 == 0) and (ylegs % 2 == 1))
-      {
-        return CommutatorScalarDagger(X, Y);
-      }
-      if ((xlegs % 2 == 1) and (ylegs % 2 == 0))
-      {
-        return -CommutatorScalarDagger(Y, X);
-      }
-      if ((xlegs % 2 == 1) and (ylegs % 2 == 1))
-      {
-        std::cout << "TROUBLE!!!! Called commutator with two Dagger operators. This isn't implemented. Dying..." << std::endl;
-        std::exit(EXIT_FAILURE);
-      }
-      if (yrank == 0)
-      {
-        if ( (not X.IsReduced() ) and (not Y.IsReduced() ) )
-        {
-           return CommutatorScalarScalar(X, Y); // [S,S]
-        }
-        else
-        {
-           if ( not X.IsReduced() )
-           {
-              Operator Ynred = Y;
-              Ynred.MakeNotReduced();
-              Operator Z = CommutatorScalarScalar(X,Ynred);
-              Z.MakeReduced();
-              return Z;
-           }
-           if ( not Y.IsReduced() )
-           {
-              Operator Xnred = X;
-              Xnred.MakeNotReduced();
-              Operator Z = CommutatorScalarScalar(Xnred,Y);
-              Z.MakeReduced();
-              return Z;
-           }
-           else if ( X.GetTRank()==0 and Y.GetTRank()==0) // if X and Y are parity-changing, then Z is parity conserving
-           {
-              Operator Xnred = X;
-              Xnred.MakeNotReduced();
-              Operator Ynred = Y;
-              Ynred.MakeNotReduced();
-              Operator Z = CommutatorScalarScalar(Xnred,Ynred);
-              return Z;
-           }
-           else
-           {
-              std::cout << " TROUBLE IN " << __FILE__ << " line " << __LINE__ << " Calling scalar commutators with two reduced isospin changing operators..." << std::endl;
-              std::exit(EXIT_FAILURE);
-           }
-        }
-      }
-      else
-      {
-        if ( (not X.IsReduced() ) and (Y.IsReduced() ) )
-        {
-          return CommutatorScalarTensor(X, Y); // [S,T]
-        }
-        else if ( Y.IsReduced() )
-        {
-          Operator Xnred = X;
-          Xnred.MakeNotReduced();
-          return CommutatorScalarTensor(Xnred, Y);
-        }
-        else
-        {
-          std::cout << " TROUBLE IN " << __FILE__ << " line " << __LINE__ << " not sure what to do with this." << std::endl;
-          std::exit(EXIT_FAILURE);
-        }
-      }
+       // Here, we use some temporary objects in case we need to change X and Y from reduced to non-reduced.
+       // We use temporary objects to preserve the const-ness of X and Y.
+       // We also use pointers so that we don't have to allocate copies if we don't need to.
+       Operator Xtmp,Ytmp;  // Declared, but not yet allocated, for reasons of scope.
+       if ( ( X.GetJRank()==0) and (Y.GetJRank()==0) ) // X and Y are scalars under rotation
+       {
+
+          const Operator * Xnred = &X;  // Pointer to the non-reduced version of the operator
+          const Operator * Ynred = &Y;
+          if ( X.IsReduced() ) // CommutatorScalarScalar doesn't expect reduced operators. Need to make it not reduced.
+          {
+             Xtmp = X;
+             Xtmp.MakeNotReduced();
+             Xnred = &Xtmp; // Now Xnred points to the not-reduced copy Xtmp
+          }
+          if ( Y.IsReduced() )
+          {
+             Ytmp = Y;
+             Ytmp.MakeNotReduced();
+             Ynred = &Ytmp;  // Now Ynred points to the not-reduced copy Ytmp
+          }
+
+          Operator Z = CommutatorScalarScalar( *Xnred, *Ynred); // CommutatorScalarScalar assumes X and Y are not reduced.
+
+          if ( (Z.GetParity() !=0) or (Z.GetTRank() !=0) )
+          {
+            Z.MakeReduced();  // If Z changes parity or Tz, we by default store it as reduced. So make it as expected. Is that a good idea? Not sure....
+          }
+
+          return Z;
+
+       }
+       else  // Either X or Y are non-scalar under rotation
+       {
+          if ( (X.GetJRank()==0) and (Y.GetJRank()!=0) )  // X is scalar, Y is tensor
+          {
+            const Operator * Xnred = &X;  // Pointer to the non-reduced version of the operator
+            if ( X.IsReduced() )
+            {
+               Xtmp = X;
+               Xtmp.MakeNotReduced();
+               Xnred = &Xtmp;
+            }
+            return CommutatorScalarTensor( *Xnred, Y );
+          }
+          else if ( (X.GetJRank()!=0) and (Y.GetJRank()==0) ) // Y is scalar, X is tensor
+          {
+            const Operator * Ynred = &Y;
+            if ( Y.IsReduced() )
+            {
+               Ytmp = Y;
+               Ytmp.MakeNotReduced();
+               Ynred = &Ytmp;
+            }
+            return -CommutatorScalarTensor( X, *Ynred );  // [T,S] = -[S,T]
+
+          }
+          else  // Both are tensor. Uh oh.
+          {
+             std::cout << __FILE__ << " line " << __LINE__ << "   " << __func__ << std::endl;
+             std::cout << " In Tensor-Tensor because X.rank_J = " << X.GetJRank() << "  X.rank_T = " << X.GetTRank() << "  X.parity = " << X.GetParity() << "   ";
+             std::cout << "  Y.rank_J = " << Y.GetJRank() << "  Y.rank_T = " << Y.GetTRank() << "  Y.parity = " << Y.GetParity() << std::endl;
+             std::cout << " Tensor-Tensor commutator not yet implemented." << std::endl;
+             std::exit(EXIT_FAILURE);
+          }
+       }
     }
-    else if (yrank == 0)
+    else // Either X or Y changes the number of particles. In principle, we should be checking that the non-changing operator is not reduced...
     {
-      return -CommutatorScalarTensor(Y, X); // [T,S]
+       if (X.IsNumberConserving() and (not Y.IsNumberConserving()) ) // Y is of a^dagger form
+       {
+         return CommutatorScalarDagger(X, Y);
+       }
+       else if ((not X.IsNumberConserving()) and Y.IsNumberConserving() ) // X is of a^dagger form
+       {
+         return -CommutatorScalarDagger(Y, X);
+       }
+       else // both X and Y are of a^dagger form. Uh oh.
+
+       {
+         std::cout << "TROUBLE!!!! Called commutator with two Dagger operators. This isn't implemented. Dying..." << std::endl;
+         std::exit(EXIT_FAILURE);
+       }
     }
-    else
-    {
-      std::cout << "In Tensor-Tensor because X.rank_J = " << X.rank_J << "  X.rank_T = " << X.rank_T << "  X.parity = " << X.parity << "   ";
-      std::cout << "  Y.rank_J = " << Y.rank_J << "  Y.rank_T = " << Y.rank_T << "  Y.parity = " << Y.parity << std::endl;
-      std::cout << " Tensor-Tensor commutator not yet implemented." << std::endl;
-    }
-    return 0 * Y;
-  }
+
+    // Shouldn't make it here...
+    std::cout << "Made it to the end of " << __func__ << "  without returning an operator. That's not good." << std::endl;
+    return 0*Y;
+
+  }// end of Commutator::Commutator
+
+
+
 
   /// Commutator where \f$ X \f$ and \f$Y\f$ are scalar operators.
   /// Should be called through Commutator()
@@ -252,11 +316,17 @@ namespace Commutator
     int z_Jrank = X.GetJRank() + Y.GetJRank(); // I sure hope this is zero.
     int z_Trank = X.GetTRank() + Y.GetTRank();
     int z_parity = (X.GetParity() + Y.GetParity()) % 2;
-    int z_particlerank = std::max(X.GetParticleRank(), Y.GetParticleRank());
-    if (use_imsrg3)
-      z_particlerank = std::max(z_particlerank, 3);
+    int z_particlerank = use_imsrg3 ? 3 : 2;
+//    int z_particlerank = std::max(X.GetParticleRank(), Y.GetParticleRank());
+//    if (use_imsrg3)
+//      z_particlerank = std::max(z_particlerank, 3);
     ModelSpace &ms = *(Y.GetModelSpace());
     Operator Z(ms, z_Jrank, z_Trank, z_parity, z_particlerank);
+
+
+
+    if (Z.IsReduced())
+       Z.MakeNotReduced();
 
     if ((X.IsHermitian() and Y.IsHermitian()) or (X.IsAntiHermitian() and Y.IsAntiHermitian()))
       Z.SetAntiHermitian();
@@ -265,18 +335,23 @@ namespace Commutator
     else
       Z.SetNonHermitian();
 
+    if ( z_particlerank>2)
+       Z.ThreeBody.SetMode("pn");
+
     bool save_single_thread = single_thread;
 
-    if (Z.GetParticleRank() > 2)
-    {
-      Z.ThreeBody.SwitchToPN_and_discard();
-    }
+//    if (Z.GetParticleRank() > 2)
+//    {
+//      Z.ThreeBody.SwitchToPN_and_discard();
+//    }
+
 
     // Here is where we start calling the IMSRG(2) commutator expressions.
     if (comm_term_on["comm110ss"])
       comm110ss(X, Y, Z);
     if (comm_term_on["comm220ss"])
       comm220ss(X, Y, Z);
+
 
     if (comm_term_on["comm111ss"])
       comm111ss(X, Y, Z);
@@ -285,23 +360,29 @@ namespace Commutator
     if (comm_term_on["comm122ss"])
       comm122ss(X, Y, Z);
 
+
     // The 222_pp_hh and 221ss terms can share a common intermediate
     // so if we're computing both, we do them together
     if (comm_term_on["comm222_pp_hhss"] and comm_term_on["comm221ss"])
     {
       comm222_pp_hh_221ss(X, Y, Z);
     }
-    else  // otherwise, just do the one that is turned on.
+    else // otherwise, just do the one that is turned on.
     {
-      if (comm_term_on["comm222_pp_hhss"] )
-         comm222_pp_hhss(X, Y, Z);
-      if ( comm_term_on["comm221ss"])
-         comm221ss(X, Y, Z);
+      if (comm_term_on["comm222_pp_hhss"])
+        comm222_pp_hhss(X, Y, Z);
+      if (comm_term_on["comm221ss"])
+        comm221ss(X, Y, Z);
     }
-//    if (comm_term_on["comm222_pp_hh_221ss"])
-//      comm222_pp_hh_221ss(X, Y, Z);
+
+
+    //    if (comm_term_on["comm222_pp_hh_221ss"])
+    //      comm222_pp_hh_221ss(X, Y, Z);
     if (comm_term_on["comm222_phss"])
       comm222_phss(X, Y, Z);
+
+
+
 
     if (use_imsrg3 and ((X.Norm() > threebody_threshold) and (Y.Norm() > threebody_threshold)))
     {
@@ -414,6 +495,12 @@ namespace Commutator
       Z.SetHermitian();
     else
       Z.SetNonHermitian();
+    
+    if (Z.GetParticleRank() > 2)
+    {
+      Z.ThreeBody.SwitchToPN_and_discard();
+    }
+
 
     // If it's the first time we're calling this, then we go single-threaded because there will be some sixj/ninej symbols
     // that we need to compute and store. After the first pass, they're all stored so we can go parallel.
@@ -421,44 +508,86 @@ namespace Commutator
     if (Z.modelspace->tensor_transform_first_pass[Z.GetJRank() * 4 + X.GetParity() + 2 * Y.GetParity()])
       SetSingleThread(true);
 
-    
     if (comm_term_on["comm111st"])
-       comm111st(X, Y, Z);
+      comm111st(X, Y, Z);
     if (comm_term_on["comm121st"])
-       comm121st(X, Y, Z);
+      comm121st(X, Y, Z);
 
     if (comm_term_on["comm122st"])
-       comm122st(X, Y, Z);
+      comm122st(X, Y, Z);
     // The 222_pp_hh and 221 terms can share a common intermediate
     // so if we're computing both, we do them together
     if (comm_term_on["comm222_pp_hhst"] and comm_term_on["comm221st"])
     {
       comm222_pp_hh_221st(X, Y, Z);
     }
-//    else  // otherwise, just do the one that is turned on.
-//    {
-//      if (comm_term_on["comm222_pp_hhst"] )
-//         comm222_pp_hhst(X, Y, Z);
-//      if ( comm_term_on["comm221st"])
-//         comm221st(X, Y, Z);
-//    }
+    //    else  // otherwise, just do the one that is turned on.
+    //    {
+    //      if (comm_term_on["comm222_pp_hhst"] )
+    //         comm222_pp_hhst(X, Y, Z);
+    //      if ( comm_term_on["comm221st"])
+    //         comm221st(X, Y, Z);
+    //    }
     if (comm_term_on["comm222_phst"])
-       comm222_phst(X, Y, Z);
+      comm222_phst(X, Y, Z);
 
-//    // We shouldn't be here, because Commutator calls CommutatorScalar Scalar if Z had J Rank = 0.
-//    if (use_imsrg3 and X.GetJRank() == 0 and Y.GetJRank() == 0 and Z.GetJRank() == 0)
-//    {
-//      if (Z.GetParticleRank() < 3)
-//      {
-//        Z.ThreeBody.SwitchToPN_and_discard();
-//      }
-//      std::cout << "tensor comm223ss" << std::endl;
-//      comm223ss(X, Y, Z);
-//      std::cout << "tensor comm232ss" << std::endl;
-//      comm232ss_slow(X, Y, Z);
-//      std::cout << "tensor comm231ss" << std::endl;
-//      comm231ss_slow(X, Y, Z);
-//    }
+    //    // We shouldn't be here, because Commutator calls CommutatorScalar Scalar if Z had J Rank = 0.
+    //    if (use_imsrg3 and X.GetJRank() == 0 and Y.GetJRank() == 0 and Z.GetJRank() == 0)
+    //    {
+    //      if (Z.GetParticleRank() < 3)
+    //      {
+    //        Z.ThreeBody.SwitchToPN_and_discard();
+    //      }
+    //      std::cout << "tensor comm223ss" << std::endl;
+    //      comm223ss(X, Y, Z);
+    //      std::cout << "tensor comm232ss" << std::endl;
+    //      comm232ss_slow(X, Y, Z);
+    //      std::cout << "tensor comm231ss" << std::endl;
+    //      comm231ss_slow(X, Y, Z);
+    //    }
+
+    if (use_imsrg3 and ((X.Norm() > threebody_threshold) and (Y.Norm() > threebody_threshold)))
+    {
+      if (comm_term_on["comm331st"])
+        comm331st(X, Y, Z);
+      if (comm_term_on["comm231st"])
+        comm231st(X, Y, Z);
+      if (comm_term_on["comm132st"])
+        comm132st(X, Y, Z);
+      if (comm_term_on["comm232st"])
+        comm232st(X, Y, Z);
+      if (comm_term_on["comm133st"])
+        comm133st(X, Y, Z);
+      if (comm_term_on["comm223st"])
+        comm223st(X, Y, Z);
+
+      // Not too bad, though naively n^8
+      if (comm_term_on["comm233_pp_hhst"])
+        comm233_pp_hhst(X, Y, Z);
+
+      // This one is super slow too. It involves 9js
+      // mat mult makes everything better!
+      if (comm_term_on["comm233_phst"])
+        comm233_phst(X, Y, Z);
+
+      // not too bad, though naively n^8
+      if (comm_term_on["comm332_ppph_hhhpst"])
+        comm332_ppph_hhhpst(X, Y, Z);
+
+      // naively n^8, but reasonably fast when implemented as a mat mult
+      if (comm_term_on["comm332_pphhst"])
+        comm332_pphhst(X, Y, Z);
+
+      // naively n^9 but pretty fast as a mat mult
+      if (comm_term_on["comm333_ppp_hhhst"])
+        comm333_ppp_hhhst(X, Y, Z);
+
+      // This one works, but it's incredibly slow.  naively n^9.
+      // Much improvement by going to mat mult
+      if (comm_term_on["comm333_pph_hhpst"])
+        comm333_pph_hhpst(X, Y, Z);
+
+    } // if imsrg3 and above threshold
 
     // This is a better place to put this.
     Z.modelspace->tensor_transform_first_pass.at(Z.GetJRank() * 4 + X.GetParity() + 2 * Y.GetParity()) = false;
@@ -493,9 +622,6 @@ namespace Commutator
     return Z;
   }
 
-
-
-
   ///////////////////////////////////////////////////////////////////////////////////////////
   ///////////////////////////////////////////////////////////////////////////////////////////
   // Below is the implementation of the commutators in the various channels
@@ -515,18 +641,18 @@ namespace Commutator
   void comm110ss(const Operator &X, const Operator &Y, Operator &Z)
   {
     double t_start = omp_get_wtime();
-    if (X.IsHermitian() and Y.IsHermitian())
-      return; // I think this is the case
-    if (X.IsAntiHermitian() and Y.IsAntiHermitian())
-      return; // I think this is the case
+    if ( Z.IsAntiHermitian() )
+      return;
     if (Z.GetJRank() > 0 or Z.GetTRank() > 0 or Z.GetParity() != 0)
       return;
 
-    arma::mat xyyx = X.OneBody * Y.OneBody - Y.OneBody * X.OneBody;
+    // SRS  Noticed that when running IMSRG(3), the time per commutator for this routine increased
+    //  by several orders of magnitude. Rewriting it this way seems to have fixed it, but I'm
+    //  not entirely clear on what was causing the issue. Maybe some caching magic???
     for (auto &a : Z.modelspace->holes)
     {
       Orbit &oa = Z.modelspace->GetOrbit(a);
-      Z.ZeroBody += (oa.j2 + 1) * oa.occ * xyyx(a, a);
+      Z.ZeroBody += (oa.j2 + 1) * oa.occ * arma::as_scalar( X.OneBody.row(a)*Y.OneBody.col(a) - Y.OneBody.row(a)*X.OneBody.col(a));
     }
     X.profiler.timer[__func__] += omp_get_wtime() - t_start;
   }
@@ -554,12 +680,11 @@ namespace Commutator
     double t_start = omp_get_wtime();
     if (X.GetParticleRank() < 2 or Y.GetParticleRank() < 2)
       return;
-    if (X.IsHermitian() and Y.IsHermitian())
-      return; // I think this is the case
-    if (X.IsAntiHermitian() and Y.IsAntiHermitian())
-      return; // I think this is the case
+    if ( Z.IsAntiHermitian() )
+      return;
     if (Z.GetJRank() > 0 or Z.GetTRank() > 0 or Z.GetParity() != 0)
       return;
+
 
     for (int ch = 0; ch < Y.nChannels; ++ch)
     {
@@ -654,7 +779,6 @@ namespace Commutator
               double yaibj = Y.TwoBody.GetTBMEmonopole(a, i, b, j);
               zij += (ob.j2 + 1) * nanb * X.OneBody(a, b) * ybiaj;
               zij -= (oa.j2 + 1) * nanb * X.OneBody(b, a) * yaibj;
-
             }
           }
           if (X.particle_rank > 1)
@@ -981,13 +1105,10 @@ namespace Commutator
           Z2.AddToTBME(ch_bra, ch_ket, ibra, iket, zijkl);
 
         } // iket
-      }   // ibra
-    }     // ch
+      } // ibra
+    } // ch
     X.profiler.timer[__func__] += omp_get_wtime() - t_start;
   }
-
-
-
 
   //*****************************************************************************************
   //
@@ -1165,8 +1286,6 @@ namespace Commutator
     X.profiler.timer[__func__] += omp_get_wtime() - t_start;
   }
 
-
-
   /// Since comm222_pp_hhss() and comm221ss() both require the construction of
   /// the intermediate matrices \f$\mathcal{M}_{pp} \f$ and \f$ \mathcal{M}_{hh} \f$, we can combine them and
   /// only calculate the intermediates once.
@@ -1186,13 +1305,21 @@ namespace Commutator
 
     ConstructScalarMpp_Mhh(X, Y, Z, Mpp, Mhh);
 
-    X.profiler.timer["_ConstructScalarMpp_Mhh"] += omp_get_wtime() - t_internal;
-    t_internal = omp_get_wtime();
+    if (Commutator::verbose)
+    {
+       X.profiler.timer["_ConstructScalarMpp_Mhh"] += omp_get_wtime() - t_internal;
+       t_internal = omp_get_wtime();
+    }
+
     Z.TwoBody += Mpp;
     Z.TwoBody -= Mhh;
-    X.profiler.timer["_pphh TwoBody bit"] += omp_get_wtime() - t_internal;
 
-    t_internal = omp_get_wtime();
+    if (Commutator::verbose)
+    {
+       X.profiler.timer["_pphh TwoBody bit"] += omp_get_wtime() - t_internal;
+       t_internal = omp_get_wtime();
+    }
+
     //   int norbits = Z.modelspace->GetNumberOrbits();
     int norbits = Z.modelspace->all_orbits.size();
     // The one body part
@@ -1241,14 +1368,14 @@ namespace Commutator
         if (jmin == i and i != j)
           Z.OneBody(j, i) += hZ * zij / (oi.j2 + 1.0);
       } // for j
-    }   // for i
+    } // for i
 
-    X.profiler.timer["_pphh One Body bit"] += omp_get_wtime() - t_internal;
+    if (Commutator::verbose)
+    {
+       X.profiler.timer["_pphh One Body bit"] += omp_get_wtime() - t_internal;
+    }
     X.profiler.timer[__func__] += omp_get_wtime() - t_start;
   }
-
-
-
 
   //**************************************************************************
   //
@@ -1339,9 +1466,6 @@ namespace Commutator
     }
   }
 
-
-
-
   void DoPandyaTransformation_SingleChannel_XandY(const Operator &X, const Operator &Y, arma::mat &X2_CC_ph, arma::mat &Y2_CC_ph, int ch_cc)
   {
     //   int hX = X.IsHermitian() ? 1 : -1;
@@ -1428,15 +1552,13 @@ namespace Commutator
             X.TwoBody.GetTBME_J_norm_twoOps(Y.TwoBody, J_std, J_std, c, b, a, d, xcbad, yadcb);
             Xbar -= (2 * J_std + 1) * sixj * xcbad;
             Ybar -= (2 * J_std + 1) * sixj * yadcb * hY;
-
           }
           X2_CC_ph(iket_cc, ibra + bra_shift) = Xbar * normfactor * na_nb_factor;
           Y2_CC_ph(ibra + bra_shift, iket_cc) = Ybar * normfactor;
 
-
         } // for iket_cc
-      }   // for ab_case
-    }     // for ibra
+      } // for ab_case
+    } // for ibra
   }
 
   void DoPandyaTransformation(const Operator &Z, std::deque<arma::mat> &TwoBody_CC_ph, std::string orientation = "normal")
@@ -1472,7 +1594,6 @@ namespace Commutator
       }
     }
     size_t nch_and_ibra = ch_vec.size();
-
 
 #pragma omp parallel for schedule(dynamic, 1)
     for (size_t ichbra = 0; ichbra < nch_and_ibra; ichbra++)
@@ -1564,14 +1685,12 @@ namespace Commutator
         double norm = bra.delta_pq() == ket.delta_pq() ? 1 + bra.delta_pq() : PhysConst::SQRT2;
         double zijkl = -(commij - Z.modelspace->phase(jk + jl - J) * commji) / norm;
 
-
         ZMat(ibra, iket) += zijkl;
         if (ibra != iket)
           ZMat(iket, ibra) += hZ * zijkl;
       } // for iket
-    }   // for ichbra
+    } // for ichbra
   }
-
 
   //*****************************************************************************************
   //
@@ -1647,41 +1766,43 @@ namespace Commutator
     // Z and Y are reduced, while X is not reduced.
     if (not(X.GetParity() == 0 and Y.GetParity() == 0 and Z.GetParity() == 0 and X.GetTRank() == 0 and Y.GetTRank() == 0 and Z.GetTRank() == 0))
     {
-      if ( X.GetParity()==0 and X.GetTRank()==0)
+      if (X.GetParity() == 0 and X.GetTRank() == 0)
       {
-         Operator Yred = Y;
-         Yred.MakeReduced();
-         Z.MakeReduced();
-         comm222_phst(X,Yred,Z);
+        Operator Yred = Y;
+        Yred.MakeReduced();
+        Z.MakeReduced();
+        comm222_phst(X, Yred, Z);
       }
-      else if ( Y.GetParity()==0 and Y.GetTRank()==0 )
+      else if (Y.GetParity() == 0 and Y.GetTRank() == 0)
       {
-         Operator Xred = -X; // because [X,Y] = -[Y,-X].
-         Xred.MakeReduced();
-         Z.MakeReduced();
-         comm222_phst(Y,Xred,Z);
+        Operator Xred = -X; // because [X,Y] = -[Y,X] = [Y,-X].
+        Xred.MakeReduced();
+        Z.MakeReduced();
+        comm222_phst(Y, Xred, Z);
       }
-      else if ( X.GetTRank()==0 and Y.GetTRank()==0 ) // We can treat two parity-changing operators, but not two isospin-changing operators
+      else if (X.GetTRank() == 0 and Y.GetTRank() == 0) // We can treat two parity-changing operators, but not two isospin-changing operators
       {
-         Operator Xnred = X;
-         Operator Yred = Y;
-         if (Xnred.IsReduced() )
-             Xnred.MakeNotReduced();
-         Yred.MakeReduced();
-         Z.MakeReduced();
-         comm222_phst(Xnred,Yred,Z);
+        Operator Xnred = X;
+        Operator Yred = Y;
+        if (Xnred.IsReduced())
+          Xnred.MakeNotReduced();
+        Yred.MakeReduced();
+        Z.MakeReduced();
+        comm222_phst(Xnred, Yred, Z);
       }
       else
       {
-          std::cout << " Uh Oh. " <<__func__ << " line " << __LINE__ << "  not supported with these two operators: "
-                    << "  parity " << X.GetParity() << " " << Y.GetParity()
-                    << "  isospin " << X.GetTRank() << " " << Y.GetTRank()
-                    << "  I quit." << std::endl;
-          std::exit(EXIT_FAILURE);
+        std::cout << " Uh Oh. " << __func__ << " line " << __LINE__ << "  not supported with these two operators: "
+                  << "  parity " << X.GetParity() << " " << Y.GetParity()
+                  << "  isospin " << X.GetTRank() << " " << Y.GetTRank()
+                  << "  I quit." << std::endl;
+        std::exit(EXIT_FAILURE);
       }
       Z.MakeNotReduced();
       return;
     }
+
+
 
     int hy = Y.IsHermitian() ? 1 : -1;
     // Create Pandya-transformed hp and ph matrix elements
@@ -1746,7 +1867,6 @@ namespace Commutator
       arma::mat Y_bar_ph_flip = arma::join_vert(Y_bar_ph.tail_rows(nph_kets) % PhaseMatY, Y_bar_ph.head_rows(nph_kets) % PhaseMatY);
       Zbar_ch = Xt_bar_ph * arma::join_horiz(Y_bar_ph, Y_bar_ph_flip);
 
-
       // If Z is hermitian, then XY is anti-hermitian, and so XY - YX = XY + (XY)^T
       if (Z.IsHermitian())
       {
@@ -1762,8 +1882,6 @@ namespace Commutator
       // up a factor hZ * phase(i+j+k+l). The hZ cancels the hXhY we have for the "head" part of the matrix
       // so we end up adding in either case.
       Zbar_ch.tail_cols(nKets_cc) += Zbar_ch.tail_cols(nKets_cc).t() % PhaseMatZ;
-
-
     }
 
     X.profiler.timer["Build Z_bar"] += omp_get_wtime() - t_start;
@@ -1914,7 +2032,7 @@ namespace Commutator
                 zbar_jlki += (oa.occ - ob.occ) * (xbar_jlab * ybar_abki - ybar_jlab * xbar_abki);
 
               } // b
-            }   // a
+            } // a
             int phase_ij = AngMom::phase((oi.j2 + oj.j2 - 2 * J) / 2);
             zijkl += (2 * Jp + 1) * sixj_ijkl * zbar_ilkj;            // Direct
             zijkl -= (2 * Jp + 1) * sixj_jikl * zbar_jlki * phase_ij; // Exchange, with phase
@@ -1930,14 +2048,11 @@ namespace Commutator
           Z2.AddToTBME(ch_bra, ch_ket, ibra, iket, zijkl);
 
         } // iket
-      }   // ibra
-    }     // ch
+      } // ibra
+    } // ch
 
     X.profiler.timer[__func__] += omp_get_wtime() - t_start;
   } // comm222_phss
-
-
-
 
   /// Product of two operators. Similar to commutator, and hopefully useful for some debugging
   //
@@ -1956,9 +2071,5 @@ namespace Commutator
       Z.ZeroBody += (oa.j2 + 1) * oa.occ * xyyx(a, a);
     }
   }
-
-
-
-
 
 } // namespace Commutator

@@ -56,8 +56,22 @@ namespace ReferenceImplementations
   // scalar-tensor commutators
   void comm222_phst(const Operator &X, const Operator &Y, Operator &Z);
 
-  /// Two-nested-commutator expressions Z = [X,[X,Y]_3]  where X and Y are 2-body.
+  // scalar-tensor with a 3b operator
+  void comm331st(const Operator &X, const Operator &Y, Operator &Z);            // PASS the unit test
+  void comm223st(const Operator &X, const Operator &Y, Operator &Z);            // PASS the unit test
+  void comm231st(const Operator &X, const Operator &Y, Operator &Z);            // PASS the unit test
+  void comm232st(const Operator &X, const Operator &Y, Operator &Z);            // PASS the unit test
+  void comm133st(const Operator &X, const Operator &Y, Operator &Z);            // PASS the unit test
+  void comm132st(const Operator &X, const Operator &Y, Operator &Z);            // PASS the unit test
+  void comm332_pphhst(const Operator &X, const Operator &Y, Operator &Z);       // PASS the unit test
+  void comm332_ppph_hhhpst(const Operator &X, const Operator &Y, Operator &Z);  // PASS the unit test
+  void comm233_pp_hhst(const Operator &X, const Operator &Y, Operator &Z);      // PASS the unit test
+  void comm233_phst(const Operator &X, const Operator &Y, Operator &Z);         // PASS the unit test
+  void comm333_ppp_hhhst(const Operator &X, const Operator &Y, Operator &Z);    // PASS the unit test
+  void comm333_pph_hhpst(const Operator &X, const Operator &Y, Operator &Z);    // PASS the unit test
 
+
+  /// Two-nested-commutator expressions Z = [X,[X,Y]_3]  where X and Y are 2-body.
   void diagram_CIa(const Operator &X, const Operator &Y, Operator &Z);
   void diagram_CIb(const Operator &X, const Operator &Y, Operator &Z);
   void diagram_CIIa(const Operator &X, const Operator &Y, Operator &Z);
@@ -81,6 +95,9 @@ namespace ReferenceImplementations
 
 
   void comm223_231_BruteForce_Test(const Operator &Eta, const Operator &Gamma, Operator &Z);
+
+  void comm223_231(const Operator &Eta, const Operator &Gamma, Operator &Z);
+  void comm223_232(const Operator &Eta, const Operator &Gamma, Operator &Z);
 
 } // namespace ReferenceImplementations
 

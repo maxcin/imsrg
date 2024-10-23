@@ -51,6 +51,7 @@ namespace imsrg_util
  Operator MultipoleResponseOp(ModelSpace &modelspace, int rL, int YL, int isospin);
  Operator IVDipoleOp(ModelSpace& modelspace, int rL, int YL);
  Operator ISDipoleOp(ModelSpace& modelspace, int rL, int YL, double Rms);
+ Operator SchiffOp(ModelSpace& modelspace, int rL, int YL, double Rms);
  Operator ElectricMultipoleOp(ModelSpace& modelspace, int L);
  Operator NeutronElectricMultipoleOp(ModelSpace& modelspace, int L);
  Operator IntrinsicElectricMultipoleOp(ModelSpace& modelspace, int L);
@@ -90,6 +91,7 @@ namespace imsrg_util
  Operator L2rel_Op(ModelSpace& modelspace);
  Operator LCM_Op(ModelSpace& modelspace);
  Operator QdotQ_Op(ModelSpace& modelspace);
+ Operator VQQ_Op(ModelSpace& modelspace);
  Operator VCoulomb_Op( ModelSpace& modelspace, int lmax=99999 );
  Operator VCentralCoulomb_Op( ModelSpace& modelspace, int lmax=99999 );
 
@@ -147,6 +149,7 @@ namespace imsrg_util
 
  Operator MinnesotaPotential( ModelSpace& modelspace );
  Operator GaussianPotential( ModelSpace& modelspace, double sigma );
+ Operator GaussianCSBPotential( ModelSpace& modelspace, double sigma );
  double MinnesotaMatEl( ModelSpace& modelspace, Ket& bra, Ket& ket, int J, const std::array<double,6>& params );
 // double MinnesotaMatEl( ModelSpace& modelspace, Ket& bra, Ket& ket, int J );
  Operator SerberTypePotential( ModelSpace& modelspace, double V0, double mu, double A, double B, double C, double D); // not yet implemented

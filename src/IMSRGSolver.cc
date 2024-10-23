@@ -36,6 +36,7 @@ IMSRGSolver::IMSRGSolver(Operator &H_in)
 {
   Eta.Erase();
   Eta.SetAntiHermitian();
+//  Eta.ThreeBody.SetMode("pn");  // DONT DO THIS, it allocates a 3N structure even if you don't want it.
   Omega.emplace_back(Eta);
 }
 
@@ -101,11 +102,12 @@ void IMSRGSolver::GatherOmega()
   {
     auto &last = Omega.back();
     Omega.emplace_back(last);
+    Omega.back().Erase(); // SRS: in this case the hunter should be zero. Fixes bug found by Matthias Heinz July 2024.
   }
   // the last omega in the list is the hunter. the one just preceeding it is the gatherer.
   auto &hunter = Omega.back();
   auto &gatherer = Omega[Omega.size() - 2];
-  if (hunter.Norm() > 1e-6)
+  if (hunter.Norm() > 1e-12) // SRS: changed this from 1e-6 to 1e-12. No reason for it to be so big.
   {
     gatherer = BCH::BCH_Product(hunter, gatherer);
   }
@@ -223,6 +225,11 @@ void IMSRGSolver::Solve()
   }
   else
     std::cout << "IMSRGSolver: I don't know method " << method << std::endl;
+
+  if (hunter_gatherer)
+  {
+    GatherOmega();
+  }
 }
 
 void IMSRGSolver::UpdateEta()
@@ -236,6 +243,14 @@ void IMSRGSolver::Solve_magnus_euler()
   istep = 0;
 
   generator.Update(FlowingOps[0], Eta);
+
+  // SRS noticed this on June 12 2024. If these two parameters are equal, and especially if we're using the hunter-gatherer mode, then we become sensitive to
+  // numerical precision when deciding if we should split omega, leading to machine-dependent behavior.
+  if ( std::abs( omega_norm_max - norm_domega)<1e-6 )
+  {
+     norm_domega += 1e-4;
+     std::cout << __func__ << ":  adjusting norm_domega to " << norm_domega << "  to avoid numerical trouble, since omega_norm_max = " << omega_norm_max << std::endl;
+  }
 
   Elast = H_0->ZeroBody;
   cumulative_error = 0;
@@ -273,8 +288,11 @@ void IMSRGSolver::Solve_magnus_euler()
       norm_omega = 0;
     }
     // ds should never be more than 1, as this is over-rotating
+    // Also, since we check if ||Omega|| < omega_norm_max, if we choose ds so that ||Omega|| = omega_norm_max, then we become sensitive
+    // to numerical precision details when evaluating the inequality and behavior becomes machine dependent. So we add 1e-5 to the omega_norm_max
+    // option to ensure that we're definitely on one side of the inequality.
     if (magnus_adaptive)
-      ds = std::min(std::min(std::min(norm_domega / norm_eta, norm_domega / norm_eta / (norm_omega + 1.0e-9)), omega_norm_max / norm_eta), ds_max);
+      ds = std::min( { norm_domega / norm_eta,   norm_domega / norm_eta / (norm_omega + 1.0e-9),    (omega_norm_max+1e-5) / norm_eta, ds_max   });
     ds = std::min(ds, smax - s);
 
     s += ds;
@@ -947,6 +965,12 @@ Operator IMSRGSolver::Transform_Partial(Operator &OpIn, int n)
   if (OpOut.GetParticleRank() == 1)
     OpOut.SetParticleRank(2);
 
+//  if (Commutator::use_imsrg3 and not OpIn.ThreeBody.Is_PN_Mode() )
+//  {
+//    OpIn.ThreeBody.SetMode("pn");
+//    OpOut.ThreeBody.SetMode("pn");
+//  }
+
   //  if ((rw != NULL) and rw->GetScratchDir() != "")
   if (scratchdir != "")
   {
@@ -981,6 +1005,11 @@ Operator IMSRGSolver::Transform_Partial(Operator &OpIn, int n)
     //     std::cout << " norm of op = " << OpOut.Norm() << std::endl;
     //     std::cout << " op zero body = " << OpOut.ZeroBody << std::endl;
     //    OpOut = OpOut.BCH_Transform( Omega[i] );
+//    if (Commutator::use_imsrg3 and not Omega[i].ThreeBody.Is_PN_Mode() )
+//    {
+//       
+//       Omega[i].ThreeBody.SetMode("pn");
+//    }
     OpOut = BCH::BCH_Transform(OpOut, Omega[i]);
     //     if (OpIn.GetJRank()>0)cout << "done" << endl;
   }
@@ -1135,6 +1164,13 @@ double IMSRGSolver::CalculatePerturbativeTriples()
   BCH::SetBCHSkipiEq1(true);
   Operator Htilde = Transform(*H_0);
   BCH::SetBCHSkipiEq1(false);
+//  // We double all the commutators beyond the first, because they account for [O,[O,H]_3]_3 diagrams which we would otherwise miss
+//  Dont do this for now.
+//  Htilde.TwoBody  += 0.5*Commutator::Commutator(omega,*H_0).TwoBody ;
+
+  // We double the first commutator account for [O,[O,H]_3]_3 diagrams which produce identical Wod and which we would otherwise miss
+  // Leave this off for now.
+//  Htilde.TwoBody  += 0.5*Commutator::Commutator(omega,*H_0).TwoBody ;
 
   // Need to put the one-body part of H into Wbar so we can get the denominators. I'm not sure this is the best way to do that...
   Wbar.OneBody = Hs.OneBody;
@@ -1142,6 +1178,35 @@ double IMSRGSolver::CalculatePerturbativeTriples()
 
   Commutator::perturbative_triples = true;
   Commutator::comm223ss(omega, Htilde, Wbar);
+  Commutator::perturbative_triples = false; // turn it back off in case we want to do any more transformations
+
+  double pert_triples = Wbar.ZeroBody;
+
+  return pert_triples;
+}
+
+double IMSRGSolver::CalculatePerturbativeTriples(Operator &Op_0)
+{
+  Operator Wbar((*modelspace), 0, 0, 0, 2);
+  // Wbar.ThreeBody.SetMode("pn");  // Dont do this. It automatically allocates and we don't want that.
+
+  // If we've split the Omegas up, we combine them here, implicitly summing the 3N generated by each.
+  Operator omega = Omega[0];
+//  for (size_t n=1; n<Omega.size(); n++) omega += Omega[n];
+  for (size_t n=1; n<Omega.size(); n++) omega = BCH::BCH_Product(omega,Omega[n]);
+
+  Operator &Hs = FlowingOps[0];
+
+  BCH::SetBCHSkipiEq1(true);
+  Operator Otilde = Transform(Op_0);
+  BCH::SetBCHSkipiEq1(false);
+
+  // Need to put the one-body part of H into Wbar so we can get the denominators. I'm not sure this is the best way to do that...
+  Wbar.OneBody = Hs.OneBody;
+  Wbar.TwoBody = Hs.TwoBody;
+
+  Commutator::perturbative_triples = true;
+  Commutator::comm223ss(omega, Otilde, Wbar);
   Commutator::perturbative_triples = false; // turn it back off in case we want to do any more transformations
 
   double pert_triples = Wbar.ZeroBody;

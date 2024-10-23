@@ -152,10 +152,14 @@ class Operator
 
   void MakeReduced();
   void MakeNotReduced();
-  bool IsReduced() const{ return is_reduced;};
+  void ApplyWignerEckartJFactor( bool multiply );// if argument is false, then we divide by sqrt(2J+1)
+  bool IsReduced()const { return is_reduced;};
   void ChangeNormalization(double coeff);
   void MakeNormalized();
   void MakeUnNormalized();
+
+  bool IsNumberConserving()const { return legs%2 == 0;}; // TODO: in principle, we could have a 2-leg number-changing operator like a+a+. Then we'd need to rethink this.
+
 
   void ScaleZeroBody(double x);
   void ScaleOneBody(double x);
@@ -175,6 +179,7 @@ class Operator
   Operator DoNormalOrdering2(int sign, std::set<index_t> occupied) const; ///< Returns the normal ordered two-body operator
   Operator DoNormalOrdering3(int sign, std::set<index_t> occupied) const; ///< Returns the normal ordered three-body operator
   Operator DoNormalOrderingCore() const; ///< Normal order with respect to core
+  Operator DoNormalOrderingFilledValence() const; ///< Normal order with respect to a filled valence space
 //  Operator DoNormalOrdering2(int sign=+1) const; ///< Returns the normal ordered two-body operator
 //  Operator DoNormalOrdering3(int sign=+1) const; ///< Returns the normal ordered three-body operator
   Operator DoNormalOrderingDagger(int sign, std::set<index_t> occupied) const; ///< Returns the normal ordered dagger operator
@@ -189,6 +194,7 @@ class Operator
 
   Operator Truncate(ModelSpace& ms_new); ///< Returns the operator trunacted to the new model space
 
+  Operator DoIsospinAveraging() const;
 
   // In principle, these methods should probably be factorized out, but I don't know where to put them...
   double GetMP2_Energy();

@@ -315,6 +315,11 @@ ThreeBodyStorage::ME_type ThreeBodyStorage_no2b<StoreType>::GetME_iso_no2b(int a
 {
 
   ThreeBodyStorage::ME_type vout = 0;
+  if ( IsReduced() )
+  {
+     std::cout << __FILE__ << " " << __func__ << "  Eeek. Can't use no2b with a reduced operator. Dying now." << std::endl;
+     std::exit(EXIT_FAILURE);
+  }
 //  if ( (a==b) and (Tab+J2)%2==0 ) return vout;
 //  if ( (d==e) and (Tde+J2)%2==0 ) return vout;
 
