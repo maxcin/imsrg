@@ -132,13 +132,13 @@ pyIMSRG.cpython-310-darwin.so: libThreeLegME.a
 pyIMSRG.cpython-310-darwin.so: libModelSpace.a
 pyIMSRG.cpython-310-darwin.so: libIMSRGProfiler.a
 pyIMSRG.cpython-310-darwin.so: libAngMomCache.a
+pyIMSRG.cpython-310-darwin.so: /usr/local/opt/openblas/lib/libopenblas.dylib
 pyIMSRG.cpython-310-darwin.so: libPwd.a
 pyIMSRG.cpython-310-darwin.so: libAngMom.a
 pyIMSRG.cpython-310-darwin.so: /usr/local/Cellar/gsl/2.7.1/lib/libgsl.dylib
 pyIMSRG.cpython-310-darwin.so: /usr/local/Cellar/gsl/2.7.1/lib/libgslcblas.dylib
 pyIMSRG.cpython-310-darwin.so: /usr/local/lib/libomp.dylib
 pyIMSRG.cpython-310-darwin.so: libVersion.a
-pyIMSRG.cpython-310-darwin.so: /usr/local/opt/openblas/lib/libopenblas.dylib
 pyIMSRG.cpython-310-darwin.so: CMakeFiles/pyIMSRG.dir/link.txt
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/Users/antoinebelley/Documents/TRIUMF/imsrg/src/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX shared module pyIMSRG.cpython-310-darwin.so"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/pyIMSRG.dir/link.txt --verbose=$(VERBOSE)

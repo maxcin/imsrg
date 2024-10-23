@@ -82,6 +82,14 @@ namespace M0nu
   std::unordered_map<uint64_t,double> PreCalculateDGTRComIntegrals(int e2max, double hw, double Rnucl);
   double GetDGTRcomIntegral(int Ncom, int Lam, double hw, std::unordered_map<uint64_t,double> &IntList);
   Operator DGT_R_SurfaceLocalization(ModelSpace& modelspace, double r12);
+
+  double dq_pp(int n, int l, int np, int lp, int S, int J, double hw, PWD &pwd, double p, double pp);
+  std::unordered_map<uint64_t, double> PreCalculateMomentumSpaceIntegrands(int e2max, int Smin, int Smax, double hw, int Lrank, PWD &pwd, int index_p, int index_pp);
+  // Operator TwoBody_Scalar_integrand(ModelSpace &modelspace, PWD &pwd, int Jrank, int Lrank, double p, double pp, int Smin = 0, int Smax = 1);
+  Operator GamowTeller_integrand(ModelSpace &modelspace, double Eclosure, std::string src, std::function<double(double)> formfactor, int index_p, int index_pp);
+  Operator Fermi_integrand(ModelSpace &modelspace, double Eclosure, std::string src, std::function<double(double)> formfactor, int index_p, int index_pp);
+  Operator Tensor_integrand(ModelSpace &modelspace, double Eclosure, std::string src, std::function<double(double)> formfactor, int index_p, int index_pp);
+  Operator Contact_integrand(ModelSpace &modelspace, double regulator_cutoff, int regualtor_power, int index_p, int index_pp);
 }
   
 
