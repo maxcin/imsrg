@@ -971,601 +971,601 @@ CMakeFiles/ThreeLegME.dir/ThreeLegME.cc.o: ThreeLegME.cc \
   /Library/Developer/CommandLineTools/usr/lib/clang/15.0.0/include/stdarg.h \
   /Library/Developer/CommandLineTools/usr/lib/clang/15.0.0/include/stddef.h \
   /Library/Developer/CommandLineTools/usr/lib/clang/15.0.0/include/stdint.h \
-  armadillo/armadillo \
-  armadillo/armadillo_bits/BaseCube_bones.hpp \
-  armadillo/armadillo_bits/BaseCube_meat.hpp \
-  armadillo/armadillo_bits/Base_bones.hpp \
-  armadillo/armadillo_bits/Base_meat.hpp \
-  armadillo/armadillo_bits/Col_bones.hpp \
-  armadillo/armadillo_bits/Col_meat.hpp \
-  armadillo/armadillo_bits/CubeToMatOp_bones.hpp \
-  armadillo/armadillo_bits/CubeToMatOp_meat.hpp \
-  armadillo/armadillo_bits/Cube_bones.hpp \
-  armadillo/armadillo_bits/Cube_meat.hpp \
-  armadillo/armadillo_bits/GenCube_bones.hpp \
-  armadillo/armadillo_bits/GenCube_meat.hpp \
-  armadillo/armadillo_bits/GenSpecialiser.hpp \
-  armadillo/armadillo_bits/Gen_bones.hpp \
-  armadillo/armadillo_bits/Gen_meat.hpp \
-  armadillo/armadillo_bits/GlueCube_bones.hpp \
-  armadillo/armadillo_bits/GlueCube_meat.hpp \
-  armadillo/armadillo_bits/Glue_bones.hpp \
-  armadillo/armadillo_bits/Glue_meat.hpp \
-  armadillo/armadillo_bits/MapMat_bones.hpp \
-  armadillo/armadillo_bits/MapMat_meat.hpp \
-  armadillo/armadillo_bits/Mat_bones.hpp \
-  armadillo/armadillo_bits/Mat_meat.hpp \
-  armadillo/armadillo_bits/OpCube_bones.hpp \
-  armadillo/armadillo_bits/OpCube_meat.hpp \
-  armadillo/armadillo_bits/Op_bones.hpp \
-  armadillo/armadillo_bits/Op_meat.hpp \
-  armadillo/armadillo_bits/Proxy.hpp \
-  armadillo/armadillo_bits/ProxyCube.hpp \
-  armadillo/armadillo_bits/Row_bones.hpp \
-  armadillo/armadillo_bits/Row_meat.hpp \
-  armadillo/armadillo_bits/SizeCube_bones.hpp \
-  armadillo/armadillo_bits/SizeCube_meat.hpp \
-  armadillo/armadillo_bits/SizeMat_bones.hpp \
-  armadillo/armadillo_bits/SizeMat_meat.hpp \
-  armadillo/armadillo_bits/SpBase_bones.hpp \
-  armadillo/armadillo_bits/SpBase_meat.hpp \
-  armadillo/armadillo_bits/SpCol_bones.hpp \
-  armadillo/armadillo_bits/SpCol_meat.hpp \
-  armadillo/armadillo_bits/SpGlue_bones.hpp \
-  armadillo/armadillo_bits/SpGlue_meat.hpp \
-  armadillo/armadillo_bits/SpMat_bones.hpp \
-  armadillo/armadillo_bits/SpMat_iterators_meat.hpp \
-  armadillo/armadillo_bits/SpMat_meat.hpp \
-  armadillo/armadillo_bits/SpOp_bones.hpp \
-  armadillo/armadillo_bits/SpOp_meat.hpp \
-  armadillo/armadillo_bits/SpProxy.hpp \
-  armadillo/armadillo_bits/SpRow_bones.hpp \
-  armadillo/armadillo_bits/SpRow_meat.hpp \
-  armadillo/armadillo_bits/SpSubview_bones.hpp \
-  armadillo/armadillo_bits/SpSubview_col_list_bones.hpp \
-  armadillo/armadillo_bits/SpSubview_col_list_meat.hpp \
-  armadillo/armadillo_bits/SpSubview_iterators_meat.hpp \
-  armadillo/armadillo_bits/SpSubview_meat.hpp \
-  armadillo/armadillo_bits/SpToDOp_bones.hpp \
-  armadillo/armadillo_bits/SpToDOp_meat.hpp \
-  armadillo/armadillo_bits/SpValProxy_bones.hpp \
-  armadillo/armadillo_bits/SpValProxy_meat.hpp \
-  armadillo/armadillo_bits/access.hpp \
-  armadillo/armadillo_bits/arma_cmath.hpp \
-  armadillo/armadillo_bits/arma_config.hpp \
-  armadillo/armadillo_bits/arma_forward.hpp \
-  armadillo/armadillo_bits/arma_ostream_bones.hpp \
-  armadillo/armadillo_bits/arma_ostream_meat.hpp \
-  armadillo/armadillo_bits/arma_rel_comparators.hpp \
-  armadillo/armadillo_bits/arma_rng.hpp \
-  armadillo/armadillo_bits/arma_rng_cxx11.hpp \
-  armadillo/armadillo_bits/arma_rng_cxx98.hpp \
-  armadillo/armadillo_bits/arma_static_check.hpp \
-  armadillo/armadillo_bits/arma_str.hpp \
-  armadillo/armadillo_bits/arma_version.hpp \
-  armadillo/armadillo_bits/arrayops_bones.hpp \
-  armadillo/armadillo_bits/arrayops_meat.hpp \
-  armadillo/armadillo_bits/auxlib_bones.hpp \
-  armadillo/armadillo_bits/auxlib_meat.hpp \
-  armadillo/armadillo_bits/band_helper.hpp \
-  armadillo/armadillo_bits/compiler_check.hpp \
-  armadillo/armadillo_bits/compiler_setup.hpp \
-  armadillo/armadillo_bits/compiler_setup_post.hpp \
-  armadillo/armadillo_bits/cond_rel_bones.hpp \
-  armadillo/armadillo_bits/cond_rel_meat.hpp \
-  armadillo/armadillo_bits/config.hpp \
-  armadillo/armadillo_bits/constants.hpp \
-  armadillo/armadillo_bits/constants_old.hpp \
-  armadillo/armadillo_bits/csv_name.hpp \
-  armadillo/armadillo_bits/debug.hpp \
-  armadillo/armadillo_bits/def_arpack.hpp \
-  armadillo/armadillo_bits/def_atlas.hpp \
-  armadillo/armadillo_bits/def_blas.hpp \
-  armadillo/armadillo_bits/def_hdf5.hpp \
-  armadillo/armadillo_bits/def_lapack.hpp \
-  armadillo/armadillo_bits/def_superlu.hpp \
-  armadillo/armadillo_bits/diagmat_proxy.hpp \
-  armadillo/armadillo_bits/diagview_bones.hpp \
-  armadillo/armadillo_bits/diagview_meat.hpp \
-  armadillo/armadillo_bits/diskio_bones.hpp \
-  armadillo/armadillo_bits/diskio_meat.hpp \
-  armadillo/armadillo_bits/distr_param.hpp \
-  armadillo/armadillo_bits/eGlueCube_bones.hpp \
-  armadillo/armadillo_bits/eGlueCube_meat.hpp \
-  armadillo/armadillo_bits/eGlue_bones.hpp \
-  armadillo/armadillo_bits/eGlue_meat.hpp \
-  armadillo/armadillo_bits/eOpCube_bones.hpp \
-  armadillo/armadillo_bits/eOpCube_meat.hpp \
-  armadillo/armadillo_bits/eOp_bones.hpp \
-  armadillo/armadillo_bits/eOp_meat.hpp \
-  armadillo/armadillo_bits/eglue_core_bones.hpp \
-  armadillo/armadillo_bits/eglue_core_meat.hpp \
-  armadillo/armadillo_bits/eop_aux.hpp \
-  armadillo/armadillo_bits/eop_core_bones.hpp \
-  armadillo/armadillo_bits/eop_core_meat.hpp \
-  armadillo/armadillo_bits/fft_engine.hpp \
-  armadillo/armadillo_bits/field_bones.hpp \
-  armadillo/armadillo_bits/field_meat.hpp \
-  armadillo/armadillo_bits/fill.hpp \
-  armadillo/armadillo_bits/fn_accu.hpp \
-  armadillo/armadillo_bits/fn_all.hpp \
-  armadillo/armadillo_bits/fn_any.hpp \
-  armadillo/armadillo_bits/fn_approx_equal.hpp \
-  armadillo/armadillo_bits/fn_as_scalar.hpp \
-  armadillo/armadillo_bits/fn_chi2rnd.hpp \
-  armadillo/armadillo_bits/fn_chol.hpp \
-  armadillo/armadillo_bits/fn_clamp.hpp \
-  armadillo/armadillo_bits/fn_cond.hpp \
-  armadillo/armadillo_bits/fn_conv.hpp \
-  armadillo/armadillo_bits/fn_conv_to.hpp \
-  armadillo/armadillo_bits/fn_cor.hpp \
-  armadillo/armadillo_bits/fn_cov.hpp \
-  armadillo/armadillo_bits/fn_cross.hpp \
-  armadillo/armadillo_bits/fn_cumprod.hpp \
-  armadillo/armadillo_bits/fn_cumsum.hpp \
-  armadillo/armadillo_bits/fn_det.hpp \
-  armadillo/armadillo_bits/fn_diagmat.hpp \
-  armadillo/armadillo_bits/fn_diagvec.hpp \
-  armadillo/armadillo_bits/fn_diff.hpp \
-  armadillo/armadillo_bits/fn_dot.hpp \
-  armadillo/armadillo_bits/fn_eig_gen.hpp \
-  armadillo/armadillo_bits/fn_eig_pair.hpp \
-  armadillo/armadillo_bits/fn_eig_sym.hpp \
-  armadillo/armadillo_bits/fn_eigs_gen.hpp \
-  armadillo/armadillo_bits/fn_eigs_sym.hpp \
-  armadillo/armadillo_bits/fn_elem.hpp \
-  armadillo/armadillo_bits/fn_eps.hpp \
-  armadillo/armadillo_bits/fn_expmat.hpp \
-  armadillo/armadillo_bits/fn_eye.hpp \
-  armadillo/armadillo_bits/fn_fft.hpp \
-  armadillo/armadillo_bits/fn_fft2.hpp \
-  armadillo/armadillo_bits/fn_find.hpp \
-  armadillo/armadillo_bits/fn_find_unique.hpp \
-  armadillo/armadillo_bits/fn_flip.hpp \
-  armadillo/armadillo_bits/fn_hess.hpp \
-  armadillo/armadillo_bits/fn_hist.hpp \
-  armadillo/armadillo_bits/fn_histc.hpp \
-  armadillo/armadillo_bits/fn_index_max.hpp \
-  armadillo/armadillo_bits/fn_index_min.hpp \
-  armadillo/armadillo_bits/fn_inplace_strans.hpp \
-  armadillo/armadillo_bits/fn_inplace_trans.hpp \
-  armadillo/armadillo_bits/fn_interp1.hpp \
-  armadillo/armadillo_bits/fn_interp2.hpp \
-  armadillo/armadillo_bits/fn_intersect.hpp \
-  armadillo/armadillo_bits/fn_inv.hpp \
-  armadillo/armadillo_bits/fn_join.hpp \
-  armadillo/armadillo_bits/fn_kmeans.hpp \
-  armadillo/armadillo_bits/fn_kron.hpp \
-  armadillo/armadillo_bits/fn_log_det.hpp \
-  armadillo/armadillo_bits/fn_log_normpdf.hpp \
-  armadillo/armadillo_bits/fn_logmat.hpp \
-  armadillo/armadillo_bits/fn_lu.hpp \
-  armadillo/armadillo_bits/fn_max.hpp \
-  armadillo/armadillo_bits/fn_mean.hpp \
-  armadillo/armadillo_bits/fn_median.hpp \
-  armadillo/armadillo_bits/fn_min.hpp \
-  armadillo/armadillo_bits/fn_misc.hpp \
-  armadillo/armadillo_bits/fn_mvnrnd.hpp \
-  armadillo/armadillo_bits/fn_n_unique.hpp \
-  armadillo/armadillo_bits/fn_nonzeros.hpp \
-  armadillo/armadillo_bits/fn_norm.hpp \
-  armadillo/armadillo_bits/fn_normalise.hpp \
-  armadillo/armadillo_bits/fn_normcdf.hpp \
-  armadillo/armadillo_bits/fn_normpdf.hpp \
-  armadillo/armadillo_bits/fn_numel.hpp \
-  armadillo/armadillo_bits/fn_ones.hpp \
-  armadillo/armadillo_bits/fn_orth_null.hpp \
-  armadillo/armadillo_bits/fn_pinv.hpp \
-  armadillo/armadillo_bits/fn_polyfit.hpp \
-  armadillo/armadillo_bits/fn_polyval.hpp \
-  armadillo/armadillo_bits/fn_powmat.hpp \
-  armadillo/armadillo_bits/fn_princomp.hpp \
-  armadillo/armadillo_bits/fn_prod.hpp \
-  armadillo/armadillo_bits/fn_qr.hpp \
-  armadillo/armadillo_bits/fn_quantile.hpp \
-  armadillo/armadillo_bits/fn_qz.hpp \
-  armadillo/armadillo_bits/fn_randg.hpp \
-  armadillo/armadillo_bits/fn_randi.hpp \
-  armadillo/armadillo_bits/fn_randn.hpp \
-  armadillo/armadillo_bits/fn_randperm.hpp \
-  armadillo/armadillo_bits/fn_randu.hpp \
-  armadillo/armadillo_bits/fn_range.hpp \
-  armadillo/armadillo_bits/fn_rank.hpp \
-  armadillo/armadillo_bits/fn_regspace.hpp \
-  armadillo/armadillo_bits/fn_repelem.hpp \
-  armadillo/armadillo_bits/fn_repmat.hpp \
-  armadillo/armadillo_bits/fn_reshape.hpp \
-  armadillo/armadillo_bits/fn_resize.hpp \
-  armadillo/armadillo_bits/fn_reverse.hpp \
-  armadillo/armadillo_bits/fn_roots.hpp \
-  armadillo/armadillo_bits/fn_schur.hpp \
-  armadillo/armadillo_bits/fn_shift.hpp \
-  armadillo/armadillo_bits/fn_shuffle.hpp \
-  armadillo/armadillo_bits/fn_size.hpp \
-  armadillo/armadillo_bits/fn_solve.hpp \
-  armadillo/armadillo_bits/fn_sort.hpp \
-  armadillo/armadillo_bits/fn_sort_index.hpp \
-  armadillo/armadillo_bits/fn_speye.hpp \
-  armadillo/armadillo_bits/fn_spones.hpp \
-  armadillo/armadillo_bits/fn_sprandn.hpp \
-  armadillo/armadillo_bits/fn_sprandu.hpp \
-  armadillo/armadillo_bits/fn_spsolve.hpp \
-  armadillo/armadillo_bits/fn_sqrtmat.hpp \
-  armadillo/armadillo_bits/fn_stddev.hpp \
-  armadillo/armadillo_bits/fn_strans.hpp \
-  armadillo/armadillo_bits/fn_sum.hpp \
-  armadillo/armadillo_bits/fn_svd.hpp \
-  armadillo/armadillo_bits/fn_svds.hpp \
-  armadillo/armadillo_bits/fn_sylvester.hpp \
-  armadillo/armadillo_bits/fn_symmat.hpp \
-  armadillo/armadillo_bits/fn_toeplitz.hpp \
-  armadillo/armadillo_bits/fn_trace.hpp \
-  armadillo/armadillo_bits/fn_trans.hpp \
-  armadillo/armadillo_bits/fn_trapz.hpp \
-  armadillo/armadillo_bits/fn_trig.hpp \
-  armadillo/armadillo_bits/fn_trimat.hpp \
-  armadillo/armadillo_bits/fn_trimat_ind.hpp \
-  armadillo/armadillo_bits/fn_trunc_exp.hpp \
-  armadillo/armadillo_bits/fn_trunc_log.hpp \
-  armadillo/armadillo_bits/fn_unique.hpp \
-  armadillo/armadillo_bits/fn_var.hpp \
-  armadillo/armadillo_bits/fn_vectorise.hpp \
-  armadillo/armadillo_bits/fn_wishrnd.hpp \
-  armadillo/armadillo_bits/fn_zeros.hpp \
-  armadillo/armadillo_bits/glue_affmul_bones.hpp \
-  armadillo/armadillo_bits/glue_affmul_meat.hpp \
-  armadillo/armadillo_bits/glue_atan2_bones.hpp \
-  armadillo/armadillo_bits/glue_atan2_meat.hpp \
-  armadillo/armadillo_bits/glue_conv_bones.hpp \
-  armadillo/armadillo_bits/glue_conv_meat.hpp \
-  armadillo/armadillo_bits/glue_cor_bones.hpp \
-  armadillo/armadillo_bits/glue_cor_meat.hpp \
-  armadillo/armadillo_bits/glue_cov_bones.hpp \
-  armadillo/armadillo_bits/glue_cov_meat.hpp \
-  armadillo/armadillo_bits/glue_cross_bones.hpp \
-  armadillo/armadillo_bits/glue_cross_meat.hpp \
-  armadillo/armadillo_bits/glue_hist_bones.hpp \
-  armadillo/armadillo_bits/glue_hist_meat.hpp \
-  armadillo/armadillo_bits/glue_histc_bones.hpp \
-  armadillo/armadillo_bits/glue_histc_meat.hpp \
-  armadillo/armadillo_bits/glue_hypot_bones.hpp \
-  armadillo/armadillo_bits/glue_hypot_meat.hpp \
-  armadillo/armadillo_bits/glue_intersect_bones.hpp \
-  armadillo/armadillo_bits/glue_intersect_meat.hpp \
-  armadillo/armadillo_bits/glue_join_bones.hpp \
-  armadillo/armadillo_bits/glue_join_meat.hpp \
-  armadillo/armadillo_bits/glue_kron_bones.hpp \
-  armadillo/armadillo_bits/glue_kron_meat.hpp \
-  armadillo/armadillo_bits/glue_max_bones.hpp \
-  armadillo/armadillo_bits/glue_max_meat.hpp \
-  armadillo/armadillo_bits/glue_min_bones.hpp \
-  armadillo/armadillo_bits/glue_min_meat.hpp \
-  armadillo/armadillo_bits/glue_mixed_bones.hpp \
-  armadillo/armadillo_bits/glue_mixed_meat.hpp \
-  armadillo/armadillo_bits/glue_mvnrnd_bones.hpp \
-  armadillo/armadillo_bits/glue_mvnrnd_meat.hpp \
-  armadillo/armadillo_bits/glue_polyfit_bones.hpp \
-  armadillo/armadillo_bits/glue_polyfit_meat.hpp \
-  armadillo/armadillo_bits/glue_polyval_bones.hpp \
-  armadillo/armadillo_bits/glue_polyval_meat.hpp \
-  armadillo/armadillo_bits/glue_quantile_bones.hpp \
-  armadillo/armadillo_bits/glue_quantile_meat.hpp \
-  armadillo/armadillo_bits/glue_relational_bones.hpp \
-  armadillo/armadillo_bits/glue_relational_meat.hpp \
-  armadillo/armadillo_bits/glue_solve_bones.hpp \
-  armadillo/armadillo_bits/glue_solve_meat.hpp \
-  armadillo/armadillo_bits/glue_times_bones.hpp \
-  armadillo/armadillo_bits/glue_times_meat.hpp \
-  armadillo/armadillo_bits/glue_toeplitz_bones.hpp \
-  armadillo/armadillo_bits/glue_toeplitz_meat.hpp \
-  armadillo/armadillo_bits/glue_trapz_bones.hpp \
-  armadillo/armadillo_bits/glue_trapz_meat.hpp \
-  armadillo/armadillo_bits/gmm_diag_bones.hpp \
-  armadillo/armadillo_bits/gmm_diag_meat.hpp \
-  armadillo/armadillo_bits/gmm_full_bones.hpp \
-  armadillo/armadillo_bits/gmm_full_meat.hpp \
-  armadillo/armadillo_bits/gmm_misc_bones.hpp \
-  armadillo/armadillo_bits/gmm_misc_meat.hpp \
-  armadillo/armadillo_bits/hdf5_misc.hpp \
-  armadillo/armadillo_bits/hdf5_name.hpp \
-  armadillo/armadillo_bits/include_atlas.hpp \
-  armadillo/armadillo_bits/include_hdf5.hpp \
-  armadillo/armadillo_bits/include_superlu.hpp \
-  armadillo/armadillo_bits/injector_bones.hpp \
-  armadillo/armadillo_bits/injector_meat.hpp \
-  armadillo/armadillo_bits/memory.hpp \
-  armadillo/armadillo_bits/mp_misc.hpp \
-  armadillo/armadillo_bits/mtGlueCube_bones.hpp \
-  armadillo/armadillo_bits/mtGlueCube_meat.hpp \
-  armadillo/armadillo_bits/mtGlue_bones.hpp \
-  armadillo/armadillo_bits/mtGlue_meat.hpp \
-  armadillo/armadillo_bits/mtOpCube_bones.hpp \
-  armadillo/armadillo_bits/mtOpCube_meat.hpp \
-  armadillo/armadillo_bits/mtOp_bones.hpp \
-  armadillo/armadillo_bits/mtOp_meat.hpp \
-  armadillo/armadillo_bits/mtSpGlue_bones.hpp \
-  armadillo/armadillo_bits/mtSpGlue_meat.hpp \
-  armadillo/armadillo_bits/mtSpOp_bones.hpp \
-  armadillo/armadillo_bits/mtSpOp_meat.hpp \
-  armadillo/armadillo_bits/mul_gemm.hpp \
-  armadillo/armadillo_bits/mul_gemm_mixed.hpp \
-  armadillo/armadillo_bits/mul_gemv.hpp \
-  armadillo/armadillo_bits/mul_herk.hpp \
-  armadillo/armadillo_bits/mul_syrk.hpp \
-  armadillo/armadillo_bits/newarp_DenseGenMatProd_bones.hpp \
-  armadillo/armadillo_bits/newarp_DenseGenMatProd_meat.hpp \
-  armadillo/armadillo_bits/newarp_DoubleShiftQR_bones.hpp \
-  armadillo/armadillo_bits/newarp_DoubleShiftQR_meat.hpp \
-  armadillo/armadillo_bits/newarp_EigsSelect.hpp \
-  armadillo/armadillo_bits/newarp_GenEigsSolver_bones.hpp \
-  armadillo/armadillo_bits/newarp_GenEigsSolver_meat.hpp \
-  armadillo/armadillo_bits/newarp_SortEigenvalue.hpp \
-  armadillo/armadillo_bits/newarp_SparseGenMatProd_bones.hpp \
-  armadillo/armadillo_bits/newarp_SparseGenMatProd_meat.hpp \
-  armadillo/armadillo_bits/newarp_SparseGenRealShiftSolve_bones.hpp \
-  armadillo/armadillo_bits/newarp_SparseGenRealShiftSolve_meat.hpp \
-  armadillo/armadillo_bits/newarp_SymEigsShiftSolver_bones.hpp \
-  armadillo/armadillo_bits/newarp_SymEigsShiftSolver_meat.hpp \
-  armadillo/armadillo_bits/newarp_SymEigsSolver_bones.hpp \
-  armadillo/armadillo_bits/newarp_SymEigsSolver_meat.hpp \
-  armadillo/armadillo_bits/newarp_TridiagEigen_bones.hpp \
-  armadillo/armadillo_bits/newarp_TridiagEigen_meat.hpp \
-  armadillo/armadillo_bits/newarp_UpperHessenbergEigen_bones.hpp \
-  armadillo/armadillo_bits/newarp_UpperHessenbergEigen_meat.hpp \
-  armadillo/armadillo_bits/newarp_UpperHessenbergQR_bones.hpp \
-  armadillo/armadillo_bits/newarp_UpperHessenbergQR_meat.hpp \
-  armadillo/armadillo_bits/newarp_cx_attrib.hpp \
-  armadillo/armadillo_bits/op_all_bones.hpp \
-  armadillo/armadillo_bits/op_all_meat.hpp \
-  armadillo/armadillo_bits/op_any_bones.hpp \
-  armadillo/armadillo_bits/op_any_meat.hpp \
-  armadillo/armadillo_bits/op_chi2rnd_bones.hpp \
-  armadillo/armadillo_bits/op_chi2rnd_meat.hpp \
-  armadillo/armadillo_bits/op_chol_bones.hpp \
-  armadillo/armadillo_bits/op_chol_meat.hpp \
-  armadillo/armadillo_bits/op_clamp_bones.hpp \
-  armadillo/armadillo_bits/op_clamp_meat.hpp \
-  armadillo/armadillo_bits/op_cond_bones.hpp \
-  armadillo/armadillo_bits/op_cond_meat.hpp \
-  armadillo/armadillo_bits/op_cor_bones.hpp \
-  armadillo/armadillo_bits/op_cor_meat.hpp \
-  armadillo/armadillo_bits/op_cov_bones.hpp \
-  armadillo/armadillo_bits/op_cov_meat.hpp \
-  armadillo/armadillo_bits/op_cumprod_bones.hpp \
-  armadillo/armadillo_bits/op_cumprod_meat.hpp \
-  armadillo/armadillo_bits/op_cumsum_bones.hpp \
-  armadillo/armadillo_bits/op_cumsum_meat.hpp \
-  armadillo/armadillo_bits/op_cx_scalar_bones.hpp \
-  armadillo/armadillo_bits/op_cx_scalar_meat.hpp \
-  armadillo/armadillo_bits/op_det_bones.hpp \
-  armadillo/armadillo_bits/op_det_meat.hpp \
-  armadillo/armadillo_bits/op_diagmat_bones.hpp \
-  armadillo/armadillo_bits/op_diagmat_meat.hpp \
-  armadillo/armadillo_bits/op_diagvec_bones.hpp \
-  armadillo/armadillo_bits/op_diagvec_meat.hpp \
-  armadillo/armadillo_bits/op_diff_bones.hpp \
-  armadillo/armadillo_bits/op_diff_meat.hpp \
-  armadillo/armadillo_bits/op_dot_bones.hpp \
-  armadillo/armadillo_bits/op_dot_meat.hpp \
-  armadillo/armadillo_bits/op_dotext_bones.hpp \
-  armadillo/armadillo_bits/op_dotext_meat.hpp \
-  armadillo/armadillo_bits/op_expmat_bones.hpp \
-  armadillo/armadillo_bits/op_expmat_meat.hpp \
-  armadillo/armadillo_bits/op_fft_bones.hpp \
-  armadillo/armadillo_bits/op_fft_meat.hpp \
-  armadillo/armadillo_bits/op_find_bones.hpp \
-  armadillo/armadillo_bits/op_find_meat.hpp \
-  armadillo/armadillo_bits/op_find_unique_bones.hpp \
-  armadillo/armadillo_bits/op_find_unique_meat.hpp \
-  armadillo/armadillo_bits/op_flip_bones.hpp \
-  armadillo/armadillo_bits/op_flip_meat.hpp \
-  armadillo/armadillo_bits/op_hist_bones.hpp \
-  armadillo/armadillo_bits/op_hist_meat.hpp \
-  armadillo/armadillo_bits/op_htrans_bones.hpp \
-  armadillo/armadillo_bits/op_htrans_meat.hpp \
-  armadillo/armadillo_bits/op_index_max_bones.hpp \
-  armadillo/armadillo_bits/op_index_max_meat.hpp \
-  armadillo/armadillo_bits/op_index_min_bones.hpp \
-  armadillo/armadillo_bits/op_index_min_meat.hpp \
-  armadillo/armadillo_bits/op_inv_bones.hpp \
-  armadillo/armadillo_bits/op_inv_meat.hpp \
-  armadillo/armadillo_bits/op_log_det_bones.hpp \
-  armadillo/armadillo_bits/op_log_det_meat.hpp \
-  armadillo/armadillo_bits/op_logmat_bones.hpp \
-  armadillo/armadillo_bits/op_logmat_meat.hpp \
-  armadillo/armadillo_bits/op_max_bones.hpp \
-  armadillo/armadillo_bits/op_max_meat.hpp \
-  armadillo/armadillo_bits/op_mean_bones.hpp \
-  armadillo/armadillo_bits/op_mean_meat.hpp \
-  armadillo/armadillo_bits/op_median_bones.hpp \
-  armadillo/armadillo_bits/op_median_meat.hpp \
-  armadillo/armadillo_bits/op_min_bones.hpp \
-  armadillo/armadillo_bits/op_min_meat.hpp \
-  armadillo/armadillo_bits/op_misc_bones.hpp \
-  armadillo/armadillo_bits/op_misc_meat.hpp \
-  armadillo/armadillo_bits/op_nonzeros_bones.hpp \
-  armadillo/armadillo_bits/op_nonzeros_meat.hpp \
-  armadillo/armadillo_bits/op_norm_bones.hpp \
-  armadillo/armadillo_bits/op_norm_meat.hpp \
-  armadillo/armadillo_bits/op_normalise_bones.hpp \
-  armadillo/armadillo_bits/op_normalise_meat.hpp \
-  armadillo/armadillo_bits/op_orth_null_bones.hpp \
-  armadillo/armadillo_bits/op_orth_null_meat.hpp \
-  armadillo/armadillo_bits/op_pinv_bones.hpp \
-  armadillo/armadillo_bits/op_pinv_meat.hpp \
-  armadillo/armadillo_bits/op_powmat_bones.hpp \
-  armadillo/armadillo_bits/op_powmat_meat.hpp \
-  armadillo/armadillo_bits/op_princomp_bones.hpp \
-  armadillo/armadillo_bits/op_princomp_meat.hpp \
-  armadillo/armadillo_bits/op_prod_bones.hpp \
-  armadillo/armadillo_bits/op_prod_meat.hpp \
-  armadillo/armadillo_bits/op_range_bones.hpp \
-  armadillo/armadillo_bits/op_range_meat.hpp \
-  armadillo/armadillo_bits/op_relational_bones.hpp \
-  armadillo/armadillo_bits/op_relational_meat.hpp \
-  armadillo/armadillo_bits/op_repelem_bones.hpp \
-  armadillo/armadillo_bits/op_repelem_meat.hpp \
-  armadillo/armadillo_bits/op_repmat_bones.hpp \
-  armadillo/armadillo_bits/op_repmat_meat.hpp \
-  armadillo/armadillo_bits/op_reshape_bones.hpp \
-  armadillo/armadillo_bits/op_reshape_meat.hpp \
-  armadillo/armadillo_bits/op_resize_bones.hpp \
-  armadillo/armadillo_bits/op_resize_meat.hpp \
-  armadillo/armadillo_bits/op_reverse_bones.hpp \
-  armadillo/armadillo_bits/op_reverse_meat.hpp \
-  armadillo/armadillo_bits/op_roots_bones.hpp \
-  armadillo/armadillo_bits/op_roots_meat.hpp \
-  armadillo/armadillo_bits/op_shift_bones.hpp \
-  armadillo/armadillo_bits/op_shift_meat.hpp \
-  armadillo/armadillo_bits/op_shuffle_bones.hpp \
-  armadillo/armadillo_bits/op_shuffle_meat.hpp \
-  armadillo/armadillo_bits/op_sort_bones.hpp \
-  armadillo/armadillo_bits/op_sort_index_bones.hpp \
-  armadillo/armadillo_bits/op_sort_index_meat.hpp \
-  armadillo/armadillo_bits/op_sort_meat.hpp \
-  armadillo/armadillo_bits/op_sp_minus_bones.hpp \
-  armadillo/armadillo_bits/op_sp_minus_meat.hpp \
-  armadillo/armadillo_bits/op_sp_plus_bones.hpp \
-  armadillo/armadillo_bits/op_sp_plus_meat.hpp \
-  armadillo/armadillo_bits/op_sqrtmat_bones.hpp \
-  armadillo/armadillo_bits/op_sqrtmat_meat.hpp \
-  armadillo/armadillo_bits/op_stddev_bones.hpp \
-  armadillo/armadillo_bits/op_stddev_meat.hpp \
-  armadillo/armadillo_bits/op_strans_bones.hpp \
-  armadillo/armadillo_bits/op_strans_meat.hpp \
-  armadillo/armadillo_bits/op_sum_bones.hpp \
-  armadillo/armadillo_bits/op_sum_meat.hpp \
-  armadillo/armadillo_bits/op_symmat_bones.hpp \
-  armadillo/armadillo_bits/op_symmat_meat.hpp \
-  armadillo/armadillo_bits/op_toeplitz_bones.hpp \
-  armadillo/armadillo_bits/op_toeplitz_meat.hpp \
-  armadillo/armadillo_bits/op_trimat_bones.hpp \
-  armadillo/armadillo_bits/op_trimat_meat.hpp \
-  armadillo/armadillo_bits/op_unique_bones.hpp \
-  armadillo/armadillo_bits/op_unique_meat.hpp \
-  armadillo/armadillo_bits/op_var_bones.hpp \
-  armadillo/armadillo_bits/op_var_meat.hpp \
-  armadillo/armadillo_bits/op_vectorise_bones.hpp \
-  armadillo/armadillo_bits/op_vectorise_meat.hpp \
-  armadillo/armadillo_bits/op_wishrnd_bones.hpp \
-  armadillo/armadillo_bits/op_wishrnd_meat.hpp \
-  armadillo/armadillo_bits/operator_cube_div.hpp \
-  armadillo/armadillo_bits/operator_cube_minus.hpp \
-  armadillo/armadillo_bits/operator_cube_plus.hpp \
-  armadillo/armadillo_bits/operator_cube_relational.hpp \
-  armadillo/armadillo_bits/operator_cube_schur.hpp \
-  armadillo/armadillo_bits/operator_cube_times.hpp \
-  armadillo/armadillo_bits/operator_div.hpp \
-  armadillo/armadillo_bits/operator_minus.hpp \
-  armadillo/armadillo_bits/operator_ostream.hpp \
-  armadillo/armadillo_bits/operator_plus.hpp \
-  armadillo/armadillo_bits/operator_relational.hpp \
-  armadillo/armadillo_bits/operator_schur.hpp \
-  armadillo/armadillo_bits/operator_times.hpp \
-  armadillo/armadillo_bits/podarray_bones.hpp \
-  armadillo/armadillo_bits/podarray_meat.hpp \
-  armadillo/armadillo_bits/promote_type.hpp \
-  armadillo/armadillo_bits/restrictors.hpp \
-  armadillo/armadillo_bits/running_stat_bones.hpp \
-  armadillo/armadillo_bits/running_stat_meat.hpp \
-  armadillo/armadillo_bits/running_stat_vec_bones.hpp \
-  armadillo/armadillo_bits/running_stat_vec_meat.hpp \
-  armadillo/armadillo_bits/sp_auxlib_bones.hpp \
-  armadillo/armadillo_bits/sp_auxlib_meat.hpp \
-  armadillo/armadillo_bits/span.hpp \
-  armadillo/armadillo_bits/spdiagview_bones.hpp \
-  armadillo/armadillo_bits/spdiagview_meat.hpp \
-  armadillo/armadillo_bits/spglue_join_bones.hpp \
-  armadillo/armadillo_bits/spglue_join_meat.hpp \
-  armadillo/armadillo_bits/spglue_kron_bones.hpp \
-  armadillo/armadillo_bits/spglue_kron_meat.hpp \
-  armadillo/armadillo_bits/spglue_max_bones.hpp \
-  armadillo/armadillo_bits/spglue_max_meat.hpp \
-  armadillo/armadillo_bits/spglue_merge_bones.hpp \
-  armadillo/armadillo_bits/spglue_merge_meat.hpp \
-  armadillo/armadillo_bits/spglue_min_bones.hpp \
-  armadillo/armadillo_bits/spglue_min_meat.hpp \
-  armadillo/armadillo_bits/spglue_minus_bones.hpp \
-  armadillo/armadillo_bits/spglue_minus_meat.hpp \
-  armadillo/armadillo_bits/spglue_plus_bones.hpp \
-  armadillo/armadillo_bits/spglue_plus_meat.hpp \
-  armadillo/armadillo_bits/spglue_relational_bones.hpp \
-  armadillo/armadillo_bits/spglue_relational_meat.hpp \
-  armadillo/armadillo_bits/spglue_schur_bones.hpp \
-  armadillo/armadillo_bits/spglue_schur_meat.hpp \
-  armadillo/armadillo_bits/spglue_times_bones.hpp \
-  armadillo/armadillo_bits/spglue_times_meat.hpp \
-  armadillo/armadillo_bits/spop_diagmat_bones.hpp \
-  armadillo/armadillo_bits/spop_diagmat_meat.hpp \
-  armadillo/armadillo_bits/spop_htrans_bones.hpp \
-  armadillo/armadillo_bits/spop_htrans_meat.hpp \
-  armadillo/armadillo_bits/spop_max_bones.hpp \
-  armadillo/armadillo_bits/spop_max_meat.hpp \
-  armadillo/armadillo_bits/spop_mean_bones.hpp \
-  armadillo/armadillo_bits/spop_mean_meat.hpp \
-  armadillo/armadillo_bits/spop_min_bones.hpp \
-  armadillo/armadillo_bits/spop_min_meat.hpp \
-  armadillo/armadillo_bits/spop_misc_bones.hpp \
-  armadillo/armadillo_bits/spop_misc_meat.hpp \
-  armadillo/armadillo_bits/spop_norm_bones.hpp \
-  armadillo/armadillo_bits/spop_norm_meat.hpp \
-  armadillo/armadillo_bits/spop_normalise_bones.hpp \
-  armadillo/armadillo_bits/spop_normalise_meat.hpp \
-  armadillo/armadillo_bits/spop_repmat_bones.hpp \
-  armadillo/armadillo_bits/spop_repmat_meat.hpp \
-  armadillo/armadillo_bits/spop_reverse_bones.hpp \
-  armadillo/armadillo_bits/spop_reverse_meat.hpp \
-  armadillo/armadillo_bits/spop_strans_bones.hpp \
-  armadillo/armadillo_bits/spop_strans_meat.hpp \
-  armadillo/armadillo_bits/spop_sum_bones.hpp \
-  armadillo/armadillo_bits/spop_sum_meat.hpp \
-  armadillo/armadillo_bits/spop_symmat_bones.hpp \
-  armadillo/armadillo_bits/spop_symmat_meat.hpp \
-  armadillo/armadillo_bits/spop_trimat_bones.hpp \
-  armadillo/armadillo_bits/spop_trimat_meat.hpp \
-  armadillo/armadillo_bits/spop_var_bones.hpp \
-  armadillo/armadillo_bits/spop_var_meat.hpp \
-  armadillo/armadillo_bits/spop_vectorise_bones.hpp \
-  armadillo/armadillo_bits/spop_vectorise_meat.hpp \
-  armadillo/armadillo_bits/strip.hpp \
-  armadillo/armadillo_bits/subview_bones.hpp \
-  armadillo/armadillo_bits/subview_cube_bones.hpp \
-  armadillo/armadillo_bits/subview_cube_each_bones.hpp \
-  armadillo/armadillo_bits/subview_cube_each_meat.hpp \
-  armadillo/armadillo_bits/subview_cube_meat.hpp \
-  armadillo/armadillo_bits/subview_cube_slices_bones.hpp \
-  armadillo/armadillo_bits/subview_cube_slices_meat.hpp \
-  armadillo/armadillo_bits/subview_each_bones.hpp \
-  armadillo/armadillo_bits/subview_each_meat.hpp \
-  armadillo/armadillo_bits/subview_elem1_bones.hpp \
-  armadillo/armadillo_bits/subview_elem1_meat.hpp \
-  armadillo/armadillo_bits/subview_elem2_bones.hpp \
-  armadillo/armadillo_bits/subview_elem2_meat.hpp \
-  armadillo/armadillo_bits/subview_field_bones.hpp \
-  armadillo/armadillo_bits/subview_field_meat.hpp \
-  armadillo/armadillo_bits/subview_meat.hpp \
-  armadillo/armadillo_bits/sympd_helper.hpp \
-  armadillo/armadillo_bits/traits.hpp \
-  armadillo/armadillo_bits/translate_arpack.hpp \
-  armadillo/armadillo_bits/translate_atlas.hpp \
-  armadillo/armadillo_bits/translate_blas.hpp \
-  armadillo/armadillo_bits/translate_lapack.hpp \
-  armadillo/armadillo_bits/translate_superlu.hpp \
-  armadillo/armadillo_bits/trimat_helper.hpp \
-  armadillo/armadillo_bits/typedef_elem.hpp \
-  armadillo/armadillo_bits/typedef_elem_check.hpp \
-  armadillo/armadillo_bits/typedef_mat.hpp \
-  armadillo/armadillo_bits/typedef_mat_fixed.hpp \
-  armadillo/armadillo_bits/unwrap.hpp \
-  armadillo/armadillo_bits/unwrap_cube.hpp \
-  armadillo/armadillo_bits/unwrap_spmat.hpp \
-  armadillo/armadillo_bits/upgrade_val.hpp \
-  armadillo/armadillo_bits/wall_clock_bones.hpp \
-  armadillo/armadillo_bits/wall_clock_meat.hpp \
-  armadillo/armadillo_bits/xtrans_mat_bones.hpp \
-  armadillo/armadillo_bits/xtrans_mat_meat.hpp \
-  armadillo/armadillo_bits/xvec_htrans_bones.hpp \
-  armadillo/armadillo_bits/xvec_htrans_meat.hpp \
+  extern/armadillo/armadillo \
+  extern/armadillo/armadillo_bits/BaseCube_bones.hpp \
+  extern/armadillo/armadillo_bits/BaseCube_meat.hpp \
+  extern/armadillo/armadillo_bits/Base_bones.hpp \
+  extern/armadillo/armadillo_bits/Base_meat.hpp \
+  extern/armadillo/armadillo_bits/Col_bones.hpp \
+  extern/armadillo/armadillo_bits/Col_meat.hpp \
+  extern/armadillo/armadillo_bits/CubeToMatOp_bones.hpp \
+  extern/armadillo/armadillo_bits/CubeToMatOp_meat.hpp \
+  extern/armadillo/armadillo_bits/Cube_bones.hpp \
+  extern/armadillo/armadillo_bits/Cube_meat.hpp \
+  extern/armadillo/armadillo_bits/GenCube_bones.hpp \
+  extern/armadillo/armadillo_bits/GenCube_meat.hpp \
+  extern/armadillo/armadillo_bits/GenSpecialiser.hpp \
+  extern/armadillo/armadillo_bits/Gen_bones.hpp \
+  extern/armadillo/armadillo_bits/Gen_meat.hpp \
+  extern/armadillo/armadillo_bits/GlueCube_bones.hpp \
+  extern/armadillo/armadillo_bits/GlueCube_meat.hpp \
+  extern/armadillo/armadillo_bits/Glue_bones.hpp \
+  extern/armadillo/armadillo_bits/Glue_meat.hpp \
+  extern/armadillo/armadillo_bits/MapMat_bones.hpp \
+  extern/armadillo/armadillo_bits/MapMat_meat.hpp \
+  extern/armadillo/armadillo_bits/Mat_bones.hpp \
+  extern/armadillo/armadillo_bits/Mat_meat.hpp \
+  extern/armadillo/armadillo_bits/OpCube_bones.hpp \
+  extern/armadillo/armadillo_bits/OpCube_meat.hpp \
+  extern/armadillo/armadillo_bits/Op_bones.hpp \
+  extern/armadillo/armadillo_bits/Op_meat.hpp \
+  extern/armadillo/armadillo_bits/Proxy.hpp \
+  extern/armadillo/armadillo_bits/ProxyCube.hpp \
+  extern/armadillo/armadillo_bits/Row_bones.hpp \
+  extern/armadillo/armadillo_bits/Row_meat.hpp \
+  extern/armadillo/armadillo_bits/SizeCube_bones.hpp \
+  extern/armadillo/armadillo_bits/SizeCube_meat.hpp \
+  extern/armadillo/armadillo_bits/SizeMat_bones.hpp \
+  extern/armadillo/armadillo_bits/SizeMat_meat.hpp \
+  extern/armadillo/armadillo_bits/SpBase_bones.hpp \
+  extern/armadillo/armadillo_bits/SpBase_meat.hpp \
+  extern/armadillo/armadillo_bits/SpCol_bones.hpp \
+  extern/armadillo/armadillo_bits/SpCol_meat.hpp \
+  extern/armadillo/armadillo_bits/SpGlue_bones.hpp \
+  extern/armadillo/armadillo_bits/SpGlue_meat.hpp \
+  extern/armadillo/armadillo_bits/SpMat_bones.hpp \
+  extern/armadillo/armadillo_bits/SpMat_iterators_meat.hpp \
+  extern/armadillo/armadillo_bits/SpMat_meat.hpp \
+  extern/armadillo/armadillo_bits/SpOp_bones.hpp \
+  extern/armadillo/armadillo_bits/SpOp_meat.hpp \
+  extern/armadillo/armadillo_bits/SpProxy.hpp \
+  extern/armadillo/armadillo_bits/SpRow_bones.hpp \
+  extern/armadillo/armadillo_bits/SpRow_meat.hpp \
+  extern/armadillo/armadillo_bits/SpSubview_bones.hpp \
+  extern/armadillo/armadillo_bits/SpSubview_col_list_bones.hpp \
+  extern/armadillo/armadillo_bits/SpSubview_col_list_meat.hpp \
+  extern/armadillo/armadillo_bits/SpSubview_iterators_meat.hpp \
+  extern/armadillo/armadillo_bits/SpSubview_meat.hpp \
+  extern/armadillo/armadillo_bits/SpToDOp_bones.hpp \
+  extern/armadillo/armadillo_bits/SpToDOp_meat.hpp \
+  extern/armadillo/armadillo_bits/SpValProxy_bones.hpp \
+  extern/armadillo/armadillo_bits/SpValProxy_meat.hpp \
+  extern/armadillo/armadillo_bits/access.hpp \
+  extern/armadillo/armadillo_bits/arma_cmath.hpp \
+  extern/armadillo/armadillo_bits/arma_config.hpp \
+  extern/armadillo/armadillo_bits/arma_forward.hpp \
+  extern/armadillo/armadillo_bits/arma_ostream_bones.hpp \
+  extern/armadillo/armadillo_bits/arma_ostream_meat.hpp \
+  extern/armadillo/armadillo_bits/arma_rel_comparators.hpp \
+  extern/armadillo/armadillo_bits/arma_rng.hpp \
+  extern/armadillo/armadillo_bits/arma_rng_cxx11.hpp \
+  extern/armadillo/armadillo_bits/arma_rng_cxx98.hpp \
+  extern/armadillo/armadillo_bits/arma_static_check.hpp \
+  extern/armadillo/armadillo_bits/arma_str.hpp \
+  extern/armadillo/armadillo_bits/arma_version.hpp \
+  extern/armadillo/armadillo_bits/arrayops_bones.hpp \
+  extern/armadillo/armadillo_bits/arrayops_meat.hpp \
+  extern/armadillo/armadillo_bits/auxlib_bones.hpp \
+  extern/armadillo/armadillo_bits/auxlib_meat.hpp \
+  extern/armadillo/armadillo_bits/band_helper.hpp \
+  extern/armadillo/armadillo_bits/compiler_check.hpp \
+  extern/armadillo/armadillo_bits/compiler_setup.hpp \
+  extern/armadillo/armadillo_bits/compiler_setup_post.hpp \
+  extern/armadillo/armadillo_bits/cond_rel_bones.hpp \
+  extern/armadillo/armadillo_bits/cond_rel_meat.hpp \
+  extern/armadillo/armadillo_bits/config.hpp \
+  extern/armadillo/armadillo_bits/constants.hpp \
+  extern/armadillo/armadillo_bits/constants_old.hpp \
+  extern/armadillo/armadillo_bits/csv_name.hpp \
+  extern/armadillo/armadillo_bits/debug.hpp \
+  extern/armadillo/armadillo_bits/def_arpack.hpp \
+  extern/armadillo/armadillo_bits/def_atlas.hpp \
+  extern/armadillo/armadillo_bits/def_blas.hpp \
+  extern/armadillo/armadillo_bits/def_hdf5.hpp \
+  extern/armadillo/armadillo_bits/def_lapack.hpp \
+  extern/armadillo/armadillo_bits/def_superlu.hpp \
+  extern/armadillo/armadillo_bits/diagmat_proxy.hpp \
+  extern/armadillo/armadillo_bits/diagview_bones.hpp \
+  extern/armadillo/armadillo_bits/diagview_meat.hpp \
+  extern/armadillo/armadillo_bits/diskio_bones.hpp \
+  extern/armadillo/armadillo_bits/diskio_meat.hpp \
+  extern/armadillo/armadillo_bits/distr_param.hpp \
+  extern/armadillo/armadillo_bits/eGlueCube_bones.hpp \
+  extern/armadillo/armadillo_bits/eGlueCube_meat.hpp \
+  extern/armadillo/armadillo_bits/eGlue_bones.hpp \
+  extern/armadillo/armadillo_bits/eGlue_meat.hpp \
+  extern/armadillo/armadillo_bits/eOpCube_bones.hpp \
+  extern/armadillo/armadillo_bits/eOpCube_meat.hpp \
+  extern/armadillo/armadillo_bits/eOp_bones.hpp \
+  extern/armadillo/armadillo_bits/eOp_meat.hpp \
+  extern/armadillo/armadillo_bits/eglue_core_bones.hpp \
+  extern/armadillo/armadillo_bits/eglue_core_meat.hpp \
+  extern/armadillo/armadillo_bits/eop_aux.hpp \
+  extern/armadillo/armadillo_bits/eop_core_bones.hpp \
+  extern/armadillo/armadillo_bits/eop_core_meat.hpp \
+  extern/armadillo/armadillo_bits/fft_engine.hpp \
+  extern/armadillo/armadillo_bits/field_bones.hpp \
+  extern/armadillo/armadillo_bits/field_meat.hpp \
+  extern/armadillo/armadillo_bits/fill.hpp \
+  extern/armadillo/armadillo_bits/fn_accu.hpp \
+  extern/armadillo/armadillo_bits/fn_all.hpp \
+  extern/armadillo/armadillo_bits/fn_any.hpp \
+  extern/armadillo/armadillo_bits/fn_approx_equal.hpp \
+  extern/armadillo/armadillo_bits/fn_as_scalar.hpp \
+  extern/armadillo/armadillo_bits/fn_chi2rnd.hpp \
+  extern/armadillo/armadillo_bits/fn_chol.hpp \
+  extern/armadillo/armadillo_bits/fn_clamp.hpp \
+  extern/armadillo/armadillo_bits/fn_cond.hpp \
+  extern/armadillo/armadillo_bits/fn_conv.hpp \
+  extern/armadillo/armadillo_bits/fn_conv_to.hpp \
+  extern/armadillo/armadillo_bits/fn_cor.hpp \
+  extern/armadillo/armadillo_bits/fn_cov.hpp \
+  extern/armadillo/armadillo_bits/fn_cross.hpp \
+  extern/armadillo/armadillo_bits/fn_cumprod.hpp \
+  extern/armadillo/armadillo_bits/fn_cumsum.hpp \
+  extern/armadillo/armadillo_bits/fn_det.hpp \
+  extern/armadillo/armadillo_bits/fn_diagmat.hpp \
+  extern/armadillo/armadillo_bits/fn_diagvec.hpp \
+  extern/armadillo/armadillo_bits/fn_diff.hpp \
+  extern/armadillo/armadillo_bits/fn_dot.hpp \
+  extern/armadillo/armadillo_bits/fn_eig_gen.hpp \
+  extern/armadillo/armadillo_bits/fn_eig_pair.hpp \
+  extern/armadillo/armadillo_bits/fn_eig_sym.hpp \
+  extern/armadillo/armadillo_bits/fn_eigs_gen.hpp \
+  extern/armadillo/armadillo_bits/fn_eigs_sym.hpp \
+  extern/armadillo/armadillo_bits/fn_elem.hpp \
+  extern/armadillo/armadillo_bits/fn_eps.hpp \
+  extern/armadillo/armadillo_bits/fn_expmat.hpp \
+  extern/armadillo/armadillo_bits/fn_eye.hpp \
+  extern/armadillo/armadillo_bits/fn_fft.hpp \
+  extern/armadillo/armadillo_bits/fn_fft2.hpp \
+  extern/armadillo/armadillo_bits/fn_find.hpp \
+  extern/armadillo/armadillo_bits/fn_find_unique.hpp \
+  extern/armadillo/armadillo_bits/fn_flip.hpp \
+  extern/armadillo/armadillo_bits/fn_hess.hpp \
+  extern/armadillo/armadillo_bits/fn_hist.hpp \
+  extern/armadillo/armadillo_bits/fn_histc.hpp \
+  extern/armadillo/armadillo_bits/fn_index_max.hpp \
+  extern/armadillo/armadillo_bits/fn_index_min.hpp \
+  extern/armadillo/armadillo_bits/fn_inplace_strans.hpp \
+  extern/armadillo/armadillo_bits/fn_inplace_trans.hpp \
+  extern/armadillo/armadillo_bits/fn_interp1.hpp \
+  extern/armadillo/armadillo_bits/fn_interp2.hpp \
+  extern/armadillo/armadillo_bits/fn_intersect.hpp \
+  extern/armadillo/armadillo_bits/fn_inv.hpp \
+  extern/armadillo/armadillo_bits/fn_join.hpp \
+  extern/armadillo/armadillo_bits/fn_kmeans.hpp \
+  extern/armadillo/armadillo_bits/fn_kron.hpp \
+  extern/armadillo/armadillo_bits/fn_log_det.hpp \
+  extern/armadillo/armadillo_bits/fn_log_normpdf.hpp \
+  extern/armadillo/armadillo_bits/fn_logmat.hpp \
+  extern/armadillo/armadillo_bits/fn_lu.hpp \
+  extern/armadillo/armadillo_bits/fn_max.hpp \
+  extern/armadillo/armadillo_bits/fn_mean.hpp \
+  extern/armadillo/armadillo_bits/fn_median.hpp \
+  extern/armadillo/armadillo_bits/fn_min.hpp \
+  extern/armadillo/armadillo_bits/fn_misc.hpp \
+  extern/armadillo/armadillo_bits/fn_mvnrnd.hpp \
+  extern/armadillo/armadillo_bits/fn_n_unique.hpp \
+  extern/armadillo/armadillo_bits/fn_nonzeros.hpp \
+  extern/armadillo/armadillo_bits/fn_norm.hpp \
+  extern/armadillo/armadillo_bits/fn_normalise.hpp \
+  extern/armadillo/armadillo_bits/fn_normcdf.hpp \
+  extern/armadillo/armadillo_bits/fn_normpdf.hpp \
+  extern/armadillo/armadillo_bits/fn_numel.hpp \
+  extern/armadillo/armadillo_bits/fn_ones.hpp \
+  extern/armadillo/armadillo_bits/fn_orth_null.hpp \
+  extern/armadillo/armadillo_bits/fn_pinv.hpp \
+  extern/armadillo/armadillo_bits/fn_polyfit.hpp \
+  extern/armadillo/armadillo_bits/fn_polyval.hpp \
+  extern/armadillo/armadillo_bits/fn_powmat.hpp \
+  extern/armadillo/armadillo_bits/fn_princomp.hpp \
+  extern/armadillo/armadillo_bits/fn_prod.hpp \
+  extern/armadillo/armadillo_bits/fn_qr.hpp \
+  extern/armadillo/armadillo_bits/fn_quantile.hpp \
+  extern/armadillo/armadillo_bits/fn_qz.hpp \
+  extern/armadillo/armadillo_bits/fn_randg.hpp \
+  extern/armadillo/armadillo_bits/fn_randi.hpp \
+  extern/armadillo/armadillo_bits/fn_randn.hpp \
+  extern/armadillo/armadillo_bits/fn_randperm.hpp \
+  extern/armadillo/armadillo_bits/fn_randu.hpp \
+  extern/armadillo/armadillo_bits/fn_range.hpp \
+  extern/armadillo/armadillo_bits/fn_rank.hpp \
+  extern/armadillo/armadillo_bits/fn_regspace.hpp \
+  extern/armadillo/armadillo_bits/fn_repelem.hpp \
+  extern/armadillo/armadillo_bits/fn_repmat.hpp \
+  extern/armadillo/armadillo_bits/fn_reshape.hpp \
+  extern/armadillo/armadillo_bits/fn_resize.hpp \
+  extern/armadillo/armadillo_bits/fn_reverse.hpp \
+  extern/armadillo/armadillo_bits/fn_roots.hpp \
+  extern/armadillo/armadillo_bits/fn_schur.hpp \
+  extern/armadillo/armadillo_bits/fn_shift.hpp \
+  extern/armadillo/armadillo_bits/fn_shuffle.hpp \
+  extern/armadillo/armadillo_bits/fn_size.hpp \
+  extern/armadillo/armadillo_bits/fn_solve.hpp \
+  extern/armadillo/armadillo_bits/fn_sort.hpp \
+  extern/armadillo/armadillo_bits/fn_sort_index.hpp \
+  extern/armadillo/armadillo_bits/fn_speye.hpp \
+  extern/armadillo/armadillo_bits/fn_spones.hpp \
+  extern/armadillo/armadillo_bits/fn_sprandn.hpp \
+  extern/armadillo/armadillo_bits/fn_sprandu.hpp \
+  extern/armadillo/armadillo_bits/fn_spsolve.hpp \
+  extern/armadillo/armadillo_bits/fn_sqrtmat.hpp \
+  extern/armadillo/armadillo_bits/fn_stddev.hpp \
+  extern/armadillo/armadillo_bits/fn_strans.hpp \
+  extern/armadillo/armadillo_bits/fn_sum.hpp \
+  extern/armadillo/armadillo_bits/fn_svd.hpp \
+  extern/armadillo/armadillo_bits/fn_svds.hpp \
+  extern/armadillo/armadillo_bits/fn_sylvester.hpp \
+  extern/armadillo/armadillo_bits/fn_symmat.hpp \
+  extern/armadillo/armadillo_bits/fn_toeplitz.hpp \
+  extern/armadillo/armadillo_bits/fn_trace.hpp \
+  extern/armadillo/armadillo_bits/fn_trans.hpp \
+  extern/armadillo/armadillo_bits/fn_trapz.hpp \
+  extern/armadillo/armadillo_bits/fn_trig.hpp \
+  extern/armadillo/armadillo_bits/fn_trimat.hpp \
+  extern/armadillo/armadillo_bits/fn_trimat_ind.hpp \
+  extern/armadillo/armadillo_bits/fn_trunc_exp.hpp \
+  extern/armadillo/armadillo_bits/fn_trunc_log.hpp \
+  extern/armadillo/armadillo_bits/fn_unique.hpp \
+  extern/armadillo/armadillo_bits/fn_var.hpp \
+  extern/armadillo/armadillo_bits/fn_vectorise.hpp \
+  extern/armadillo/armadillo_bits/fn_wishrnd.hpp \
+  extern/armadillo/armadillo_bits/fn_zeros.hpp \
+  extern/armadillo/armadillo_bits/glue_affmul_bones.hpp \
+  extern/armadillo/armadillo_bits/glue_affmul_meat.hpp \
+  extern/armadillo/armadillo_bits/glue_atan2_bones.hpp \
+  extern/armadillo/armadillo_bits/glue_atan2_meat.hpp \
+  extern/armadillo/armadillo_bits/glue_conv_bones.hpp \
+  extern/armadillo/armadillo_bits/glue_conv_meat.hpp \
+  extern/armadillo/armadillo_bits/glue_cor_bones.hpp \
+  extern/armadillo/armadillo_bits/glue_cor_meat.hpp \
+  extern/armadillo/armadillo_bits/glue_cov_bones.hpp \
+  extern/armadillo/armadillo_bits/glue_cov_meat.hpp \
+  extern/armadillo/armadillo_bits/glue_cross_bones.hpp \
+  extern/armadillo/armadillo_bits/glue_cross_meat.hpp \
+  extern/armadillo/armadillo_bits/glue_hist_bones.hpp \
+  extern/armadillo/armadillo_bits/glue_hist_meat.hpp \
+  extern/armadillo/armadillo_bits/glue_histc_bones.hpp \
+  extern/armadillo/armadillo_bits/glue_histc_meat.hpp \
+  extern/armadillo/armadillo_bits/glue_hypot_bones.hpp \
+  extern/armadillo/armadillo_bits/glue_hypot_meat.hpp \
+  extern/armadillo/armadillo_bits/glue_intersect_bones.hpp \
+  extern/armadillo/armadillo_bits/glue_intersect_meat.hpp \
+  extern/armadillo/armadillo_bits/glue_join_bones.hpp \
+  extern/armadillo/armadillo_bits/glue_join_meat.hpp \
+  extern/armadillo/armadillo_bits/glue_kron_bones.hpp \
+  extern/armadillo/armadillo_bits/glue_kron_meat.hpp \
+  extern/armadillo/armadillo_bits/glue_max_bones.hpp \
+  extern/armadillo/armadillo_bits/glue_max_meat.hpp \
+  extern/armadillo/armadillo_bits/glue_min_bones.hpp \
+  extern/armadillo/armadillo_bits/glue_min_meat.hpp \
+  extern/armadillo/armadillo_bits/glue_mixed_bones.hpp \
+  extern/armadillo/armadillo_bits/glue_mixed_meat.hpp \
+  extern/armadillo/armadillo_bits/glue_mvnrnd_bones.hpp \
+  extern/armadillo/armadillo_bits/glue_mvnrnd_meat.hpp \
+  extern/armadillo/armadillo_bits/glue_polyfit_bones.hpp \
+  extern/armadillo/armadillo_bits/glue_polyfit_meat.hpp \
+  extern/armadillo/armadillo_bits/glue_polyval_bones.hpp \
+  extern/armadillo/armadillo_bits/glue_polyval_meat.hpp \
+  extern/armadillo/armadillo_bits/glue_quantile_bones.hpp \
+  extern/armadillo/armadillo_bits/glue_quantile_meat.hpp \
+  extern/armadillo/armadillo_bits/glue_relational_bones.hpp \
+  extern/armadillo/armadillo_bits/glue_relational_meat.hpp \
+  extern/armadillo/armadillo_bits/glue_solve_bones.hpp \
+  extern/armadillo/armadillo_bits/glue_solve_meat.hpp \
+  extern/armadillo/armadillo_bits/glue_times_bones.hpp \
+  extern/armadillo/armadillo_bits/glue_times_meat.hpp \
+  extern/armadillo/armadillo_bits/glue_toeplitz_bones.hpp \
+  extern/armadillo/armadillo_bits/glue_toeplitz_meat.hpp \
+  extern/armadillo/armadillo_bits/glue_trapz_bones.hpp \
+  extern/armadillo/armadillo_bits/glue_trapz_meat.hpp \
+  extern/armadillo/armadillo_bits/gmm_diag_bones.hpp \
+  extern/armadillo/armadillo_bits/gmm_diag_meat.hpp \
+  extern/armadillo/armadillo_bits/gmm_full_bones.hpp \
+  extern/armadillo/armadillo_bits/gmm_full_meat.hpp \
+  extern/armadillo/armadillo_bits/gmm_misc_bones.hpp \
+  extern/armadillo/armadillo_bits/gmm_misc_meat.hpp \
+  extern/armadillo/armadillo_bits/hdf5_misc.hpp \
+  extern/armadillo/armadillo_bits/hdf5_name.hpp \
+  extern/armadillo/armadillo_bits/include_atlas.hpp \
+  extern/armadillo/armadillo_bits/include_hdf5.hpp \
+  extern/armadillo/armadillo_bits/include_superlu.hpp \
+  extern/armadillo/armadillo_bits/injector_bones.hpp \
+  extern/armadillo/armadillo_bits/injector_meat.hpp \
+  extern/armadillo/armadillo_bits/memory.hpp \
+  extern/armadillo/armadillo_bits/mp_misc.hpp \
+  extern/armadillo/armadillo_bits/mtGlueCube_bones.hpp \
+  extern/armadillo/armadillo_bits/mtGlueCube_meat.hpp \
+  extern/armadillo/armadillo_bits/mtGlue_bones.hpp \
+  extern/armadillo/armadillo_bits/mtGlue_meat.hpp \
+  extern/armadillo/armadillo_bits/mtOpCube_bones.hpp \
+  extern/armadillo/armadillo_bits/mtOpCube_meat.hpp \
+  extern/armadillo/armadillo_bits/mtOp_bones.hpp \
+  extern/armadillo/armadillo_bits/mtOp_meat.hpp \
+  extern/armadillo/armadillo_bits/mtSpGlue_bones.hpp \
+  extern/armadillo/armadillo_bits/mtSpGlue_meat.hpp \
+  extern/armadillo/armadillo_bits/mtSpOp_bones.hpp \
+  extern/armadillo/armadillo_bits/mtSpOp_meat.hpp \
+  extern/armadillo/armadillo_bits/mul_gemm.hpp \
+  extern/armadillo/armadillo_bits/mul_gemm_mixed.hpp \
+  extern/armadillo/armadillo_bits/mul_gemv.hpp \
+  extern/armadillo/armadillo_bits/mul_herk.hpp \
+  extern/armadillo/armadillo_bits/mul_syrk.hpp \
+  extern/armadillo/armadillo_bits/newarp_DenseGenMatProd_bones.hpp \
+  extern/armadillo/armadillo_bits/newarp_DenseGenMatProd_meat.hpp \
+  extern/armadillo/armadillo_bits/newarp_DoubleShiftQR_bones.hpp \
+  extern/armadillo/armadillo_bits/newarp_DoubleShiftQR_meat.hpp \
+  extern/armadillo/armadillo_bits/newarp_EigsSelect.hpp \
+  extern/armadillo/armadillo_bits/newarp_GenEigsSolver_bones.hpp \
+  extern/armadillo/armadillo_bits/newarp_GenEigsSolver_meat.hpp \
+  extern/armadillo/armadillo_bits/newarp_SortEigenvalue.hpp \
+  extern/armadillo/armadillo_bits/newarp_SparseGenMatProd_bones.hpp \
+  extern/armadillo/armadillo_bits/newarp_SparseGenMatProd_meat.hpp \
+  extern/armadillo/armadillo_bits/newarp_SparseGenRealShiftSolve_bones.hpp \
+  extern/armadillo/armadillo_bits/newarp_SparseGenRealShiftSolve_meat.hpp \
+  extern/armadillo/armadillo_bits/newarp_SymEigsShiftSolver_bones.hpp \
+  extern/armadillo/armadillo_bits/newarp_SymEigsShiftSolver_meat.hpp \
+  extern/armadillo/armadillo_bits/newarp_SymEigsSolver_bones.hpp \
+  extern/armadillo/armadillo_bits/newarp_SymEigsSolver_meat.hpp \
+  extern/armadillo/armadillo_bits/newarp_TridiagEigen_bones.hpp \
+  extern/armadillo/armadillo_bits/newarp_TridiagEigen_meat.hpp \
+  extern/armadillo/armadillo_bits/newarp_UpperHessenbergEigen_bones.hpp \
+  extern/armadillo/armadillo_bits/newarp_UpperHessenbergEigen_meat.hpp \
+  extern/armadillo/armadillo_bits/newarp_UpperHessenbergQR_bones.hpp \
+  extern/armadillo/armadillo_bits/newarp_UpperHessenbergQR_meat.hpp \
+  extern/armadillo/armadillo_bits/newarp_cx_attrib.hpp \
+  extern/armadillo/armadillo_bits/op_all_bones.hpp \
+  extern/armadillo/armadillo_bits/op_all_meat.hpp \
+  extern/armadillo/armadillo_bits/op_any_bones.hpp \
+  extern/armadillo/armadillo_bits/op_any_meat.hpp \
+  extern/armadillo/armadillo_bits/op_chi2rnd_bones.hpp \
+  extern/armadillo/armadillo_bits/op_chi2rnd_meat.hpp \
+  extern/armadillo/armadillo_bits/op_chol_bones.hpp \
+  extern/armadillo/armadillo_bits/op_chol_meat.hpp \
+  extern/armadillo/armadillo_bits/op_clamp_bones.hpp \
+  extern/armadillo/armadillo_bits/op_clamp_meat.hpp \
+  extern/armadillo/armadillo_bits/op_cond_bones.hpp \
+  extern/armadillo/armadillo_bits/op_cond_meat.hpp \
+  extern/armadillo/armadillo_bits/op_cor_bones.hpp \
+  extern/armadillo/armadillo_bits/op_cor_meat.hpp \
+  extern/armadillo/armadillo_bits/op_cov_bones.hpp \
+  extern/armadillo/armadillo_bits/op_cov_meat.hpp \
+  extern/armadillo/armadillo_bits/op_cumprod_bones.hpp \
+  extern/armadillo/armadillo_bits/op_cumprod_meat.hpp \
+  extern/armadillo/armadillo_bits/op_cumsum_bones.hpp \
+  extern/armadillo/armadillo_bits/op_cumsum_meat.hpp \
+  extern/armadillo/armadillo_bits/op_cx_scalar_bones.hpp \
+  extern/armadillo/armadillo_bits/op_cx_scalar_meat.hpp \
+  extern/armadillo/armadillo_bits/op_det_bones.hpp \
+  extern/armadillo/armadillo_bits/op_det_meat.hpp \
+  extern/armadillo/armadillo_bits/op_diagmat_bones.hpp \
+  extern/armadillo/armadillo_bits/op_diagmat_meat.hpp \
+  extern/armadillo/armadillo_bits/op_diagvec_bones.hpp \
+  extern/armadillo/armadillo_bits/op_diagvec_meat.hpp \
+  extern/armadillo/armadillo_bits/op_diff_bones.hpp \
+  extern/armadillo/armadillo_bits/op_diff_meat.hpp \
+  extern/armadillo/armadillo_bits/op_dot_bones.hpp \
+  extern/armadillo/armadillo_bits/op_dot_meat.hpp \
+  extern/armadillo/armadillo_bits/op_dotext_bones.hpp \
+  extern/armadillo/armadillo_bits/op_dotext_meat.hpp \
+  extern/armadillo/armadillo_bits/op_expmat_bones.hpp \
+  extern/armadillo/armadillo_bits/op_expmat_meat.hpp \
+  extern/armadillo/armadillo_bits/op_fft_bones.hpp \
+  extern/armadillo/armadillo_bits/op_fft_meat.hpp \
+  extern/armadillo/armadillo_bits/op_find_bones.hpp \
+  extern/armadillo/armadillo_bits/op_find_meat.hpp \
+  extern/armadillo/armadillo_bits/op_find_unique_bones.hpp \
+  extern/armadillo/armadillo_bits/op_find_unique_meat.hpp \
+  extern/armadillo/armadillo_bits/op_flip_bones.hpp \
+  extern/armadillo/armadillo_bits/op_flip_meat.hpp \
+  extern/armadillo/armadillo_bits/op_hist_bones.hpp \
+  extern/armadillo/armadillo_bits/op_hist_meat.hpp \
+  extern/armadillo/armadillo_bits/op_htrans_bones.hpp \
+  extern/armadillo/armadillo_bits/op_htrans_meat.hpp \
+  extern/armadillo/armadillo_bits/op_index_max_bones.hpp \
+  extern/armadillo/armadillo_bits/op_index_max_meat.hpp \
+  extern/armadillo/armadillo_bits/op_index_min_bones.hpp \
+  extern/armadillo/armadillo_bits/op_index_min_meat.hpp \
+  extern/armadillo/armadillo_bits/op_inv_bones.hpp \
+  extern/armadillo/armadillo_bits/op_inv_meat.hpp \
+  extern/armadillo/armadillo_bits/op_log_det_bones.hpp \
+  extern/armadillo/armadillo_bits/op_log_det_meat.hpp \
+  extern/armadillo/armadillo_bits/op_logmat_bones.hpp \
+  extern/armadillo/armadillo_bits/op_logmat_meat.hpp \
+  extern/armadillo/armadillo_bits/op_max_bones.hpp \
+  extern/armadillo/armadillo_bits/op_max_meat.hpp \
+  extern/armadillo/armadillo_bits/op_mean_bones.hpp \
+  extern/armadillo/armadillo_bits/op_mean_meat.hpp \
+  extern/armadillo/armadillo_bits/op_median_bones.hpp \
+  extern/armadillo/armadillo_bits/op_median_meat.hpp \
+  extern/armadillo/armadillo_bits/op_min_bones.hpp \
+  extern/armadillo/armadillo_bits/op_min_meat.hpp \
+  extern/armadillo/armadillo_bits/op_misc_bones.hpp \
+  extern/armadillo/armadillo_bits/op_misc_meat.hpp \
+  extern/armadillo/armadillo_bits/op_nonzeros_bones.hpp \
+  extern/armadillo/armadillo_bits/op_nonzeros_meat.hpp \
+  extern/armadillo/armadillo_bits/op_norm_bones.hpp \
+  extern/armadillo/armadillo_bits/op_norm_meat.hpp \
+  extern/armadillo/armadillo_bits/op_normalise_bones.hpp \
+  extern/armadillo/armadillo_bits/op_normalise_meat.hpp \
+  extern/armadillo/armadillo_bits/op_orth_null_bones.hpp \
+  extern/armadillo/armadillo_bits/op_orth_null_meat.hpp \
+  extern/armadillo/armadillo_bits/op_pinv_bones.hpp \
+  extern/armadillo/armadillo_bits/op_pinv_meat.hpp \
+  extern/armadillo/armadillo_bits/op_powmat_bones.hpp \
+  extern/armadillo/armadillo_bits/op_powmat_meat.hpp \
+  extern/armadillo/armadillo_bits/op_princomp_bones.hpp \
+  extern/armadillo/armadillo_bits/op_princomp_meat.hpp \
+  extern/armadillo/armadillo_bits/op_prod_bones.hpp \
+  extern/armadillo/armadillo_bits/op_prod_meat.hpp \
+  extern/armadillo/armadillo_bits/op_range_bones.hpp \
+  extern/armadillo/armadillo_bits/op_range_meat.hpp \
+  extern/armadillo/armadillo_bits/op_relational_bones.hpp \
+  extern/armadillo/armadillo_bits/op_relational_meat.hpp \
+  extern/armadillo/armadillo_bits/op_repelem_bones.hpp \
+  extern/armadillo/armadillo_bits/op_repelem_meat.hpp \
+  extern/armadillo/armadillo_bits/op_repmat_bones.hpp \
+  extern/armadillo/armadillo_bits/op_repmat_meat.hpp \
+  extern/armadillo/armadillo_bits/op_reshape_bones.hpp \
+  extern/armadillo/armadillo_bits/op_reshape_meat.hpp \
+  extern/armadillo/armadillo_bits/op_resize_bones.hpp \
+  extern/armadillo/armadillo_bits/op_resize_meat.hpp \
+  extern/armadillo/armadillo_bits/op_reverse_bones.hpp \
+  extern/armadillo/armadillo_bits/op_reverse_meat.hpp \
+  extern/armadillo/armadillo_bits/op_roots_bones.hpp \
+  extern/armadillo/armadillo_bits/op_roots_meat.hpp \
+  extern/armadillo/armadillo_bits/op_shift_bones.hpp \
+  extern/armadillo/armadillo_bits/op_shift_meat.hpp \
+  extern/armadillo/armadillo_bits/op_shuffle_bones.hpp \
+  extern/armadillo/armadillo_bits/op_shuffle_meat.hpp \
+  extern/armadillo/armadillo_bits/op_sort_bones.hpp \
+  extern/armadillo/armadillo_bits/op_sort_index_bones.hpp \
+  extern/armadillo/armadillo_bits/op_sort_index_meat.hpp \
+  extern/armadillo/armadillo_bits/op_sort_meat.hpp \
+  extern/armadillo/armadillo_bits/op_sp_minus_bones.hpp \
+  extern/armadillo/armadillo_bits/op_sp_minus_meat.hpp \
+  extern/armadillo/armadillo_bits/op_sp_plus_bones.hpp \
+  extern/armadillo/armadillo_bits/op_sp_plus_meat.hpp \
+  extern/armadillo/armadillo_bits/op_sqrtmat_bones.hpp \
+  extern/armadillo/armadillo_bits/op_sqrtmat_meat.hpp \
+  extern/armadillo/armadillo_bits/op_stddev_bones.hpp \
+  extern/armadillo/armadillo_bits/op_stddev_meat.hpp \
+  extern/armadillo/armadillo_bits/op_strans_bones.hpp \
+  extern/armadillo/armadillo_bits/op_strans_meat.hpp \
+  extern/armadillo/armadillo_bits/op_sum_bones.hpp \
+  extern/armadillo/armadillo_bits/op_sum_meat.hpp \
+  extern/armadillo/armadillo_bits/op_symmat_bones.hpp \
+  extern/armadillo/armadillo_bits/op_symmat_meat.hpp \
+  extern/armadillo/armadillo_bits/op_toeplitz_bones.hpp \
+  extern/armadillo/armadillo_bits/op_toeplitz_meat.hpp \
+  extern/armadillo/armadillo_bits/op_trimat_bones.hpp \
+  extern/armadillo/armadillo_bits/op_trimat_meat.hpp \
+  extern/armadillo/armadillo_bits/op_unique_bones.hpp \
+  extern/armadillo/armadillo_bits/op_unique_meat.hpp \
+  extern/armadillo/armadillo_bits/op_var_bones.hpp \
+  extern/armadillo/armadillo_bits/op_var_meat.hpp \
+  extern/armadillo/armadillo_bits/op_vectorise_bones.hpp \
+  extern/armadillo/armadillo_bits/op_vectorise_meat.hpp \
+  extern/armadillo/armadillo_bits/op_wishrnd_bones.hpp \
+  extern/armadillo/armadillo_bits/op_wishrnd_meat.hpp \
+  extern/armadillo/armadillo_bits/operator_cube_div.hpp \
+  extern/armadillo/armadillo_bits/operator_cube_minus.hpp \
+  extern/armadillo/armadillo_bits/operator_cube_plus.hpp \
+  extern/armadillo/armadillo_bits/operator_cube_relational.hpp \
+  extern/armadillo/armadillo_bits/operator_cube_schur.hpp \
+  extern/armadillo/armadillo_bits/operator_cube_times.hpp \
+  extern/armadillo/armadillo_bits/operator_div.hpp \
+  extern/armadillo/armadillo_bits/operator_minus.hpp \
+  extern/armadillo/armadillo_bits/operator_ostream.hpp \
+  extern/armadillo/armadillo_bits/operator_plus.hpp \
+  extern/armadillo/armadillo_bits/operator_relational.hpp \
+  extern/armadillo/armadillo_bits/operator_schur.hpp \
+  extern/armadillo/armadillo_bits/operator_times.hpp \
+  extern/armadillo/armadillo_bits/podarray_bones.hpp \
+  extern/armadillo/armadillo_bits/podarray_meat.hpp \
+  extern/armadillo/armadillo_bits/promote_type.hpp \
+  extern/armadillo/armadillo_bits/restrictors.hpp \
+  extern/armadillo/armadillo_bits/running_stat_bones.hpp \
+  extern/armadillo/armadillo_bits/running_stat_meat.hpp \
+  extern/armadillo/armadillo_bits/running_stat_vec_bones.hpp \
+  extern/armadillo/armadillo_bits/running_stat_vec_meat.hpp \
+  extern/armadillo/armadillo_bits/sp_auxlib_bones.hpp \
+  extern/armadillo/armadillo_bits/sp_auxlib_meat.hpp \
+  extern/armadillo/armadillo_bits/span.hpp \
+  extern/armadillo/armadillo_bits/spdiagview_bones.hpp \
+  extern/armadillo/armadillo_bits/spdiagview_meat.hpp \
+  extern/armadillo/armadillo_bits/spglue_join_bones.hpp \
+  extern/armadillo/armadillo_bits/spglue_join_meat.hpp \
+  extern/armadillo/armadillo_bits/spglue_kron_bones.hpp \
+  extern/armadillo/armadillo_bits/spglue_kron_meat.hpp \
+  extern/armadillo/armadillo_bits/spglue_max_bones.hpp \
+  extern/armadillo/armadillo_bits/spglue_max_meat.hpp \
+  extern/armadillo/armadillo_bits/spglue_merge_bones.hpp \
+  extern/armadillo/armadillo_bits/spglue_merge_meat.hpp \
+  extern/armadillo/armadillo_bits/spglue_min_bones.hpp \
+  extern/armadillo/armadillo_bits/spglue_min_meat.hpp \
+  extern/armadillo/armadillo_bits/spglue_minus_bones.hpp \
+  extern/armadillo/armadillo_bits/spglue_minus_meat.hpp \
+  extern/armadillo/armadillo_bits/spglue_plus_bones.hpp \
+  extern/armadillo/armadillo_bits/spglue_plus_meat.hpp \
+  extern/armadillo/armadillo_bits/spglue_relational_bones.hpp \
+  extern/armadillo/armadillo_bits/spglue_relational_meat.hpp \
+  extern/armadillo/armadillo_bits/spglue_schur_bones.hpp \
+  extern/armadillo/armadillo_bits/spglue_schur_meat.hpp \
+  extern/armadillo/armadillo_bits/spglue_times_bones.hpp \
+  extern/armadillo/armadillo_bits/spglue_times_meat.hpp \
+  extern/armadillo/armadillo_bits/spop_diagmat_bones.hpp \
+  extern/armadillo/armadillo_bits/spop_diagmat_meat.hpp \
+  extern/armadillo/armadillo_bits/spop_htrans_bones.hpp \
+  extern/armadillo/armadillo_bits/spop_htrans_meat.hpp \
+  extern/armadillo/armadillo_bits/spop_max_bones.hpp \
+  extern/armadillo/armadillo_bits/spop_max_meat.hpp \
+  extern/armadillo/armadillo_bits/spop_mean_bones.hpp \
+  extern/armadillo/armadillo_bits/spop_mean_meat.hpp \
+  extern/armadillo/armadillo_bits/spop_min_bones.hpp \
+  extern/armadillo/armadillo_bits/spop_min_meat.hpp \
+  extern/armadillo/armadillo_bits/spop_misc_bones.hpp \
+  extern/armadillo/armadillo_bits/spop_misc_meat.hpp \
+  extern/armadillo/armadillo_bits/spop_norm_bones.hpp \
+  extern/armadillo/armadillo_bits/spop_norm_meat.hpp \
+  extern/armadillo/armadillo_bits/spop_normalise_bones.hpp \
+  extern/armadillo/armadillo_bits/spop_normalise_meat.hpp \
+  extern/armadillo/armadillo_bits/spop_repmat_bones.hpp \
+  extern/armadillo/armadillo_bits/spop_repmat_meat.hpp \
+  extern/armadillo/armadillo_bits/spop_reverse_bones.hpp \
+  extern/armadillo/armadillo_bits/spop_reverse_meat.hpp \
+  extern/armadillo/armadillo_bits/spop_strans_bones.hpp \
+  extern/armadillo/armadillo_bits/spop_strans_meat.hpp \
+  extern/armadillo/armadillo_bits/spop_sum_bones.hpp \
+  extern/armadillo/armadillo_bits/spop_sum_meat.hpp \
+  extern/armadillo/armadillo_bits/spop_symmat_bones.hpp \
+  extern/armadillo/armadillo_bits/spop_symmat_meat.hpp \
+  extern/armadillo/armadillo_bits/spop_trimat_bones.hpp \
+  extern/armadillo/armadillo_bits/spop_trimat_meat.hpp \
+  extern/armadillo/armadillo_bits/spop_var_bones.hpp \
+  extern/armadillo/armadillo_bits/spop_var_meat.hpp \
+  extern/armadillo/armadillo_bits/spop_vectorise_bones.hpp \
+  extern/armadillo/armadillo_bits/spop_vectorise_meat.hpp \
+  extern/armadillo/armadillo_bits/strip.hpp \
+  extern/armadillo/armadillo_bits/subview_bones.hpp \
+  extern/armadillo/armadillo_bits/subview_cube_bones.hpp \
+  extern/armadillo/armadillo_bits/subview_cube_each_bones.hpp \
+  extern/armadillo/armadillo_bits/subview_cube_each_meat.hpp \
+  extern/armadillo/armadillo_bits/subview_cube_meat.hpp \
+  extern/armadillo/armadillo_bits/subview_cube_slices_bones.hpp \
+  extern/armadillo/armadillo_bits/subview_cube_slices_meat.hpp \
+  extern/armadillo/armadillo_bits/subview_each_bones.hpp \
+  extern/armadillo/armadillo_bits/subview_each_meat.hpp \
+  extern/armadillo/armadillo_bits/subview_elem1_bones.hpp \
+  extern/armadillo/armadillo_bits/subview_elem1_meat.hpp \
+  extern/armadillo/armadillo_bits/subview_elem2_bones.hpp \
+  extern/armadillo/armadillo_bits/subview_elem2_meat.hpp \
+  extern/armadillo/armadillo_bits/subview_field_bones.hpp \
+  extern/armadillo/armadillo_bits/subview_field_meat.hpp \
+  extern/armadillo/armadillo_bits/subview_meat.hpp \
+  extern/armadillo/armadillo_bits/sympd_helper.hpp \
+  extern/armadillo/armadillo_bits/traits.hpp \
+  extern/armadillo/armadillo_bits/translate_arpack.hpp \
+  extern/armadillo/armadillo_bits/translate_atlas.hpp \
+  extern/armadillo/armadillo_bits/translate_blas.hpp \
+  extern/armadillo/armadillo_bits/translate_lapack.hpp \
+  extern/armadillo/armadillo_bits/translate_superlu.hpp \
+  extern/armadillo/armadillo_bits/trimat_helper.hpp \
+  extern/armadillo/armadillo_bits/typedef_elem.hpp \
+  extern/armadillo/armadillo_bits/typedef_elem_check.hpp \
+  extern/armadillo/armadillo_bits/typedef_mat.hpp \
+  extern/armadillo/armadillo_bits/typedef_mat_fixed.hpp \
+  extern/armadillo/armadillo_bits/unwrap.hpp \
+  extern/armadillo/armadillo_bits/unwrap_cube.hpp \
+  extern/armadillo/armadillo_bits/unwrap_spmat.hpp \
+  extern/armadillo/armadillo_bits/upgrade_val.hpp \
+  extern/armadillo/armadillo_bits/wall_clock_bones.hpp \
+  extern/armadillo/armadillo_bits/wall_clock_meat.hpp \
+  extern/armadillo/armadillo_bits/xtrans_mat_bones.hpp \
+  extern/armadillo/armadillo_bits/xtrans_mat_meat.hpp \
+  extern/armadillo/armadillo_bits/xvec_htrans_bones.hpp \
+  extern/armadillo/armadillo_bits/xvec_htrans_meat.hpp \
   AngMomCache.hh \
   IMSRGProfiler.hh \
   ModelSpace.hh \
@@ -1577,625 +1577,715 @@ PhysicalConstants.hh:
 
 ModelSpace.hh:
 
+extern/armadillo/armadillo_bits/wall_clock_bones.hpp:
+
+extern/armadillo/armadillo_bits/unwrap_spmat.hpp:
+
+extern/armadillo/armadillo_bits/unwrap_cube.hpp:
+
+extern/armadillo/armadillo_bits/typedef_mat_fixed.hpp:
+
+extern/armadillo/armadillo_bits/typedef_elem_check.hpp:
+
+extern/armadillo/armadillo_bits/translate_superlu.hpp:
+
+extern/armadillo/armadillo_bits/subview_field_meat.hpp:
+
+extern/armadillo/armadillo_bits/subview_field_bones.hpp:
+
+extern/armadillo/armadillo_bits/subview_elem2_meat.hpp:
+
+extern/armadillo/armadillo_bits/subview_elem2_bones.hpp:
+
+extern/armadillo/armadillo_bits/subview_bones.hpp:
+
+extern/armadillo/armadillo_bits/strip.hpp:
+
+extern/armadillo/armadillo_bits/spop_trimat_meat.hpp:
+
+extern/armadillo/armadillo_bits/spop_symmat_meat.hpp:
+
+extern/armadillo/armadillo_bits/spop_symmat_bones.hpp:
+
+extern/armadillo/armadillo_bits/spop_sum_meat.hpp:
+
+extern/armadillo/armadillo_bits/spop_strans_bones.hpp:
+
+extern/armadillo/armadillo_bits/translate_atlas.hpp:
+
+extern/armadillo/armadillo_bits/spop_repmat_bones.hpp:
+
+extern/armadillo/armadillo_bits/spop_norm_meat.hpp:
+
+extern/armadillo/armadillo_bits/spop_min_meat.hpp:
+
+extern/armadillo/armadillo_bits/spop_mean_bones.hpp:
+
+extern/armadillo/armadillo_bits/spop_reverse_meat.hpp:
+
+extern/armadillo/armadillo_bits/spop_max_bones.hpp:
+
+extern/armadillo/armadillo_bits/spop_min_bones.hpp:
+
+extern/armadillo/armadillo_bits/spop_htrans_bones.hpp:
+
+extern/armadillo/armadillo_bits/spglue_schur_meat.hpp:
+
+extern/armadillo/armadillo_bits/spglue_minus_bones.hpp:
+
+extern/armadillo/armadillo_bits/spglue_max_bones.hpp:
+
+extern/armadillo/armadillo_bits/spglue_join_meat.hpp:
+
+extern/armadillo/armadillo_bits/spglue_join_bones.hpp:
+
+extern/armadillo/armadillo_bits/spdiagview_meat.hpp:
+
+extern/armadillo/armadillo_bits/spdiagview_bones.hpp:
+
+extern/armadillo/armadillo_bits/sp_auxlib_meat.hpp:
+
+extern/armadillo/armadillo_bits/sp_auxlib_bones.hpp:
+
+extern/armadillo/armadillo_bits/running_stat_vec_meat.hpp:
+
+extern/armadillo/armadillo_bits/running_stat_vec_bones.hpp:
+
+extern/armadillo/armadillo_bits/podarray_bones.hpp:
+
+extern/armadillo/armadillo_bits/operator_times.hpp:
+
+extern/armadillo/armadillo_bits/operator_plus.hpp:
+
+extern/armadillo/armadillo_bits/operator_ostream.hpp:
+
+extern/armadillo/armadillo_bits/operator_minus.hpp:
+
+extern/armadillo/armadillo_bits/operator_div.hpp:
+
+extern/armadillo/armadillo_bits/operator_cube_times.hpp:
+
+extern/armadillo/armadillo_bits/operator_cube_relational.hpp:
+
+extern/armadillo/armadillo_bits/operator_cube_plus.hpp:
+
+extern/armadillo/armadillo_bits/operator_cube_div.hpp:
+
+extern/armadillo/armadillo_bits/op_wishrnd_bones.hpp:
+
+extern/armadillo/armadillo_bits/op_vectorise_bones.hpp:
+
+extern/armadillo/armadillo_bits/op_var_meat.hpp:
+
+extern/armadillo/armadillo_bits/op_var_bones.hpp:
+
+extern/armadillo/armadillo_bits/op_unique_meat.hpp:
+
+extern/armadillo/armadillo_bits/subview_cube_meat.hpp:
+
+extern/armadillo/armadillo_bits/op_toeplitz_bones.hpp:
+
+extern/armadillo/armadillo_bits/op_symmat_meat.hpp:
+
+extern/armadillo/armadillo_bits/op_sum_bones.hpp:
+
+extern/armadillo/armadillo_bits/op_strans_bones.hpp:
+
+extern/armadillo/armadillo_bits/op_stddev_bones.hpp:
+
+extern/armadillo/armadillo_bits/op_sqrtmat_meat.hpp:
+
+extern/armadillo/armadillo_bits/op_sqrtmat_bones.hpp:
+
+extern/armadillo/armadillo_bits/op_sp_plus_meat.hpp:
+
+extern/armadillo/armadillo_bits/op_shuffle_meat.hpp:
+
+extern/armadillo/armadillo_bits/op_shuffle_bones.hpp:
+
+extern/armadillo/armadillo_bits/spop_strans_meat.hpp:
+
+extern/armadillo/armadillo_bits/op_shift_meat.hpp:
+
+extern/armadillo/armadillo_bits/subview_elem1_bones.hpp:
+
+extern/armadillo/armadillo_bits/op_roots_meat.hpp:
+
+extern/armadillo/armadillo_bits/translate_lapack.hpp:
+
+extern/armadillo/armadillo_bits/op_roots_bones.hpp:
+
+extern/armadillo/armadillo_bits/op_reverse_meat.hpp:
+
+extern/armadillo/armadillo_bits/op_resize_meat.hpp:
+
+extern/armadillo/armadillo_bits/op_reshape_meat.hpp:
+
+extern/armadillo/armadillo_bits/op_reshape_bones.hpp:
+
+extern/armadillo/armadillo_bits/op_repmat_bones.hpp:
+
+extern/armadillo/armadillo_bits/op_repelem_bones.hpp:
+
+extern/armadillo/armadillo_bits/op_relational_meat.hpp:
+
+extern/armadillo/armadillo_bits/op_range_meat.hpp:
+
+extern/armadillo/armadillo_bits/op_prod_meat.hpp:
+
+extern/armadillo/armadillo_bits/op_princomp_bones.hpp:
+
+extern/armadillo/armadillo_bits/op_pinv_bones.hpp:
+
+extern/armadillo/armadillo_bits/op_orth_null_meat.hpp:
+
+extern/armadillo/armadillo_bits/op_normalise_meat.hpp:
+
+extern/armadillo/armadillo_bits/op_min_meat.hpp:
+
+extern/armadillo/armadillo_bits/op_min_bones.hpp:
+
+extern/armadillo/armadillo_bits/op_median_meat.hpp:
+
+extern/armadillo/armadillo_bits/op_logmat_meat.hpp:
+
+extern/armadillo/armadillo_bits/op_log_det_bones.hpp:
+
+extern/armadillo/armadillo_bits/op_index_min_bones.hpp:
+
+extern/armadillo/armadillo_bits/op_htrans_meat.hpp:
+
+extern/armadillo/armadillo_bits/op_hist_meat.hpp:
+
+extern/armadillo/armadillo_bits/op_hist_bones.hpp:
+
+extern/armadillo/armadillo_bits/upgrade_val.hpp:
+
+extern/armadillo/armadillo_bits/op_flip_meat.hpp:
+
+extern/armadillo/armadillo_bits/op_flip_bones.hpp:
+
+extern/armadillo/armadillo_bits/op_find_unique_meat.hpp:
+
+extern/armadillo/armadillo_bits/spglue_relational_meat.hpp:
+
+extern/armadillo/armadillo_bits/op_find_unique_bones.hpp:
+
+extern/armadillo/armadillo_bits/op_find_bones.hpp:
+
+extern/armadillo/armadillo_bits/op_fft_meat.hpp:
+
+extern/armadillo/armadillo_bits/op_mean_bones.hpp:
+
+extern/armadillo/armadillo_bits/op_expmat_meat.hpp:
+
+extern/armadillo/armadillo_bits/op_dotext_bones.hpp:
+
+extern/armadillo/armadillo_bits/op_dot_meat.hpp:
+
+extern/armadillo/armadillo_bits/op_dot_bones.hpp:
+
+extern/armadillo/armadillo_bits/op_diff_meat.hpp:
+
+extern/armadillo/armadillo_bits/op_diagvec_meat.hpp:
+
+extern/armadillo/armadillo_bits/op_diagvec_bones.hpp:
+
+extern/armadillo/armadillo_bits/op_det_meat.hpp:
+
+extern/armadillo/armadillo_bits/op_cx_scalar_meat.hpp:
+
+extern/armadillo/armadillo_bits/op_cumsum_meat.hpp:
+
+extern/armadillo/armadillo_bits/op_cumprod_meat.hpp:
+
+extern/armadillo/armadillo_bits/op_cov_bones.hpp:
+
+extern/armadillo/armadillo_bits/subview_cube_each_meat.hpp:
+
+extern/armadillo/armadillo_bits/op_vectorise_meat.hpp:
+
+extern/armadillo/armadillo_bits/op_cor_meat.hpp:
+
+extern/armadillo/armadillo_bits/op_cond_meat.hpp:
+
+extern/armadillo/armadillo_bits/op_clamp_meat.hpp:
+
+extern/armadillo/armadillo_bits/op_chi2rnd_meat.hpp:
+
+extern/armadillo/armadillo_bits/op_chi2rnd_bones.hpp:
+
+extern/armadillo/armadillo_bits/op_any_meat.hpp:
+
+extern/armadillo/armadillo_bits/op_any_bones.hpp:
+
+extern/armadillo/armadillo_bits/op_all_meat.hpp:
+
 IMSRGProfiler.hh:
 
-armadillo/armadillo_bits/xvec_htrans_bones.hpp:
+extern/armadillo/armadillo_bits/newarp_UpperHessenbergQR_bones.hpp:
 
-armadillo/armadillo_bits/xtrans_mat_bones.hpp:
+extern/armadillo/armadillo_bits/newarp_SymEigsSolver_bones.hpp:
 
-armadillo/armadillo_bits/wall_clock_meat.hpp:
+extern/armadillo/armadillo_bits/newarp_SparseGenRealShiftSolve_meat.hpp:
 
-armadillo/armadillo_bits/unwrap_spmat.hpp:
+extern/armadillo/armadillo_bits/newarp_SparseGenMatProd_meat.hpp:
 
-armadillo/armadillo_bits/unwrap_cube.hpp:
+extern/armadillo/armadillo_bits/newarp_SparseGenMatProd_bones.hpp:
 
-armadillo/armadillo_bits/subview_field_meat.hpp:
+extern/armadillo/armadillo_bits/newarp_GenEigsSolver_bones.hpp:
 
-armadillo/armadillo_bits/xvec_htrans_meat.hpp:
+extern/armadillo/armadillo_bits/newarp_EigsSelect.hpp:
 
-armadillo/armadillo_bits/subview_field_bones.hpp:
+extern/armadillo/armadillo_bits/newarp_DoubleShiftQR_meat.hpp:
 
-armadillo/armadillo_bits/subview_elem2_meat.hpp:
+extern/armadillo/armadillo_bits/mul_syrk.hpp:
 
-armadillo/armadillo_bits/subview_elem2_bones.hpp:
+extern/armadillo/armadillo_bits/mul_herk.hpp:
 
-armadillo/armadillo_bits/subview_elem1_meat.hpp:
+extern/armadillo/armadillo_bits/mtSpOp_meat.hpp:
 
-armadillo/armadillo_bits/subview_cube_slices_bones.hpp:
+extern/armadillo/armadillo_bits/mtSpGlue_meat.hpp:
 
-armadillo/armadillo_bits/strip.hpp:
+extern/armadillo/armadillo_bits/op_dotext_meat.hpp:
 
-armadillo/armadillo_bits/spop_vectorise_bones.hpp:
+extern/armadillo/armadillo_bits/mtOp_bones.hpp:
 
-armadillo/armadillo_bits/spop_symmat_meat.hpp:
+extern/armadillo/armadillo_bits/mtOpCube_meat.hpp:
 
-armadillo/armadillo_bits/spop_symmat_bones.hpp:
+extern/armadillo/armadillo_bits/mtGlueCube_meat.hpp:
 
-armadillo/armadillo_bits/spop_strans_meat.hpp:
+extern/armadillo/armadillo_bits/newarp_DenseGenMatProd_bones.hpp:
 
-armadillo/armadillo_bits/spop_reverse_bones.hpp:
+extern/armadillo/armadillo_bits/memory.hpp:
 
-armadillo/armadillo_bits/spop_repmat_bones.hpp:
+extern/armadillo/armadillo_bits/injector_meat.hpp:
 
-armadillo/armadillo_bits/spop_normalise_bones.hpp:
+extern/armadillo/armadillo_bits/injector_bones.hpp:
 
-armadillo/armadillo_bits/spop_norm_bones.hpp:
+extern/armadillo/armadillo_bits/include_atlas.hpp:
 
-armadillo/armadillo_bits/spop_misc_bones.hpp:
+extern/armadillo/armadillo_bits/hdf5_name.hpp:
 
-armadillo/armadillo_bits/spop_htrans_meat.hpp:
+extern/armadillo/armadillo_bits/hdf5_misc.hpp:
 
-armadillo/armadillo_bits/spglue_times_meat.hpp:
+extern/armadillo/armadillo_bits/gmm_diag_bones.hpp:
 
-armadillo/armadillo_bits/spglue_schur_meat.hpp:
+extern/armadillo/armadillo_bits/glue_toeplitz_meat.hpp:
 
-armadillo/armadillo_bits/spglue_schur_bones.hpp:
+extern/armadillo/armadillo_bits/glue_solve_bones.hpp:
 
-armadillo/armadillo_bits/wall_clock_bones.hpp:
+extern/armadillo/armadillo_bits/glue_relational_meat.hpp:
 
-armadillo/armadillo_bits/spglue_relational_bones.hpp:
+extern/armadillo/armadillo_bits/glue_quantile_bones.hpp:
 
-armadillo/armadillo_bits/spglue_plus_meat.hpp:
+extern/armadillo/armadillo_bits/glue_polyfit_meat.hpp:
 
-armadillo/armadillo_bits/spglue_minus_meat.hpp:
+extern/armadillo/armadillo_bits/glue_min_bones.hpp:
 
-armadillo/armadillo_bits/spglue_minus_bones.hpp:
+extern/armadillo/armadillo_bits/glue_kron_meat.hpp:
 
-armadillo/armadillo_bits/spglue_min_bones.hpp:
+extern/armadillo/armadillo_bits/glue_kron_bones.hpp:
 
-armadillo/armadillo_bits/spglue_merge_meat.hpp:
+extern/armadillo/armadillo_bits/subview_elem1_meat.hpp:
 
-armadillo/armadillo_bits/spglue_max_meat.hpp:
+extern/armadillo/armadillo_bits/glue_intersect_meat.hpp:
 
-armadillo/armadillo_bits/spglue_join_meat.hpp:
+extern/armadillo/armadillo_bits/glue_mixed_bones.hpp:
 
-armadillo/armadillo_bits/spglue_join_bones.hpp:
+extern/armadillo/armadillo_bits/glue_histc_meat.hpp:
 
-armadillo/armadillo_bits/spdiagview_bones.hpp:
+extern/armadillo/armadillo_bits/glue_hist_meat.hpp:
 
-armadillo/armadillo_bits/sp_auxlib_bones.hpp:
+extern/armadillo/armadillo_bits/glue_hist_bones.hpp:
 
-armadillo/armadillo_bits/running_stat_vec_meat.hpp:
+extern/armadillo/armadillo_bits/glue_cross_bones.hpp:
 
-armadillo/armadillo_bits/running_stat_meat.hpp:
+extern/armadillo/armadillo_bits/spglue_kron_meat.hpp:
 
-armadillo/armadillo_bits/podarray_meat.hpp:
+extern/armadillo/armadillo_bits/glue_cov_bones.hpp:
 
-armadillo/armadillo_bits/operator_times.hpp:
+extern/armadillo/armadillo_bits/glue_cor_meat.hpp:
 
-armadillo/armadillo_bits/operator_minus.hpp:
+extern/armadillo/armadillo_bits/glue_conv_bones.hpp:
 
-armadillo/armadillo_bits/subview_bones.hpp:
+extern/armadillo/armadillo_bits/newarp_SymEigsShiftSolver_bones.hpp:
 
-armadillo/armadillo_bits/operator_cube_relational.hpp:
+extern/armadillo/armadillo_bits/newarp_DenseGenMatProd_meat.hpp:
 
-armadillo/armadillo_bits/operator_cube_plus.hpp:
+extern/armadillo/armadillo_bits/glue_atan2_bones.hpp:
 
-armadillo/armadillo_bits/operator_cube_minus.hpp:
+extern/armadillo/armadillo_bits/glue_affmul_meat.hpp:
 
-armadillo/armadillo_bits/op_wishrnd_meat.hpp:
+extern/armadillo/armadillo_bits/op_logmat_bones.hpp:
 
-armadillo/armadillo_bits/op_wishrnd_bones.hpp:
+extern/armadillo/armadillo_bits/glue_affmul_bones.hpp:
 
-armadillo/armadillo_bits/op_var_meat.hpp:
+extern/armadillo/armadillo_bits/fn_wishrnd.hpp:
 
-armadillo/armadillo_bits/operator_cube_schur.hpp:
+extern/armadillo/armadillo_bits/fn_var.hpp:
 
-armadillo/armadillo_bits/op_var_bones.hpp:
+extern/armadillo/armadillo_bits/op_sum_meat.hpp:
 
-armadillo/armadillo_bits/op_trimat_meat.hpp:
+extern/armadillo/armadillo_bits/fn_trig.hpp:
 
-armadillo/armadillo_bits/op_toeplitz_bones.hpp:
+extern/armadillo/armadillo_bits/spglue_times_bones.hpp:
 
-armadillo/armadillo_bits/op_strans_bones.hpp:
+extern/armadillo/armadillo_bits/fn_symmat.hpp:
 
-armadillo/armadillo_bits/op_stddev_meat.hpp:
+extern/armadillo/armadillo_bits/fn_sum.hpp:
 
-armadillo/armadillo_bits/op_sp_minus_bones.hpp:
+extern/armadillo/armadillo_bits/fn_strans.hpp:
 
-armadillo/armadillo_bits/op_sort_meat.hpp:
+extern/armadillo/armadillo_bits/fn_stddev.hpp:
 
-armadillo/armadillo_bits/op_sort_bones.hpp:
+extern/armadillo/armadillo_bits/fn_spsolve.hpp:
 
-armadillo/armadillo_bits/op_shift_bones.hpp:
+extern/armadillo/armadillo_bits/fn_sprandu.hpp:
 
-armadillo/armadillo_bits/op_reverse_meat.hpp:
+extern/armadillo/armadillo_bits/fn_sprandn.hpp:
 
-armadillo/armadillo_bits/op_resize_meat.hpp:
+extern/armadillo/armadillo_bits/fn_spones.hpp:
 
-armadillo/armadillo_bits/op_reshape_meat.hpp:
+extern/armadillo/armadillo_bits/fn_speye.hpp:
 
-armadillo/armadillo_bits/op_reshape_bones.hpp:
+extern/armadillo/armadillo_bits/spop_misc_bones.hpp:
 
-armadillo/armadillo_bits/op_repmat_bones.hpp:
+extern/armadillo/armadillo_bits/fn_sort_index.hpp:
 
-armadillo/armadillo_bits/op_repelem_meat.hpp:
+extern/armadillo/armadillo_bits/fn_sort.hpp:
 
-armadillo/armadillo_bits/spop_htrans_bones.hpp:
+extern/armadillo/armadillo_bits/fn_solve.hpp:
 
-armadillo/armadillo_bits/op_repelem_bones.hpp:
+extern/armadillo/armadillo_bits/fn_size.hpp:
 
-armadillo/armadillo_bits/spop_vectorise_meat.hpp:
+extern/armadillo/armadillo_bits/fn_repmat.hpp:
 
-armadillo/armadillo_bits/op_range_bones.hpp:
+extern/armadillo/armadillo_bits/fn_repelem.hpp:
 
-armadillo/armadillo_bits/op_prod_bones.hpp:
+extern/armadillo/armadillo_bits/fn_regspace.hpp:
 
-armadillo/armadillo_bits/op_princomp_meat.hpp:
+extern/armadillo/armadillo_bits/spglue_schur_bones.hpp:
 
-armadillo/armadillo_bits/op_princomp_bones.hpp:
+extern/armadillo/armadillo_bits/fn_rank.hpp:
 
-armadillo/armadillo_bits/op_pinv_bones.hpp:
+extern/armadillo/armadillo_bits/fn_qz.hpp:
 
-armadillo/armadillo_bits/op_orth_null_meat.hpp:
+extern/armadillo/armadillo_bits/fn_quantile.hpp:
 
-armadillo/armadillo_bits/op_sort_index_meat.hpp:
+extern/armadillo/armadillo_bits/fn_prod.hpp:
 
-armadillo/armadillo_bits/op_orth_null_bones.hpp:
+extern/armadillo/armadillo_bits/fn_powmat.hpp:
 
-armadillo/armadillo_bits/op_nonzeros_meat.hpp:
+extern/armadillo/armadillo_bits/fn_polyfit.hpp:
 
-armadillo/armadillo_bits/op_nonzeros_bones.hpp:
+extern/armadillo/armadillo_bits/fn_orth_null.hpp:
 
-armadillo/armadillo_bits/op_median_meat.hpp:
+extern/armadillo/armadillo_bits/fn_normpdf.hpp:
 
-armadillo/armadillo_bits/op_mean_meat.hpp:
+extern/armadillo/armadillo_bits/glue_max_meat.hpp:
 
-armadillo/armadillo_bits/op_max_bones.hpp:
+extern/armadillo/armadillo_bits/fn_normcdf.hpp:
 
-armadillo/armadillo_bits/op_logmat_meat.hpp:
+extern/armadillo/armadillo_bits/fn_normalise.hpp:
 
-armadillo/armadillo_bits/op_inv_meat.hpp:
+extern/armadillo/armadillo_bits/fn_nonzeros.hpp:
 
-armadillo/armadillo_bits/op_index_max_meat.hpp:
+extern/armadillo/armadillo_bits/fn_mvnrnd.hpp:
 
-armadillo/armadillo_bits/op_htrans_meat.hpp:
+extern/armadillo/armadillo_bits/fn_min.hpp:
 
-armadillo/armadillo_bits/op_flip_meat.hpp:
+extern/armadillo/armadillo_bits/fn_logmat.hpp:
 
-armadillo/armadillo_bits/op_find_unique_meat.hpp:
+extern/armadillo/armadillo_bits/glue_times_bones.hpp:
 
-armadillo/armadillo_bits/op_find_bones.hpp:
+extern/armadillo/armadillo_bits/fn_log_normpdf.hpp:
 
-armadillo/armadillo_bits/op_expmat_bones.hpp:
+extern/armadillo/armadillo_bits/spop_reverse_bones.hpp:
 
-armadillo/armadillo_bits/spop_diagmat_bones.hpp:
+extern/armadillo/armadillo_bits/fn_log_det.hpp:
 
-armadillo/armadillo_bits/op_dotext_meat.hpp:
+extern/armadillo/armadillo_bits/fn_kron.hpp:
 
-armadillo/armadillo_bits/op_dotext_bones.hpp:
+extern/armadillo/armadillo_bits/fn_inv.hpp:
 
-armadillo/armadillo_bits/op_dot_meat.hpp:
+extern/armadillo/armadillo_bits/fn_intersect.hpp:
 
-armadillo/armadillo_bits/typedef_mat_fixed.hpp:
+extern/armadillo/armadillo_bits/fn_interp2.hpp:
 
-armadillo/armadillo_bits/op_prod_meat.hpp:
+extern/armadillo/armadillo_bits/op_diagmat_bones.hpp:
 
-armadillo/armadillo_bits/op_diff_meat.hpp:
+extern/armadillo/armadillo_bits/fn_inplace_trans.hpp:
 
-armadillo/armadillo_bits/op_diagvec_meat.hpp:
+extern/armadillo/armadillo_bits/fn_inplace_strans.hpp:
 
-armadillo/armadillo_bits/op_det_bones.hpp:
+extern/armadillo/armadillo_bits/fn_index_min.hpp:
 
-armadillo/armadillo_bits/op_cx_scalar_meat.hpp:
+extern/armadillo/armadillo_bits/fn_index_max.hpp:
 
-armadillo/armadillo_bits/op_cumsum_bones.hpp:
+extern/armadillo/armadillo_bits/fn_hess.hpp:
 
-armadillo/armadillo_bits/op_cov_bones.hpp:
+extern/armadillo/armadillo_bits/fn_flip.hpp:
 
-armadillo/armadillo_bits/op_clamp_meat.hpp:
+extern/armadillo/armadillo_bits/fn_find.hpp:
 
-armadillo/armadillo_bits/newarp_cx_attrib.hpp:
+extern/armadillo/armadillo_bits/fn_unique.hpp:
 
-armadillo/armadillo_bits/newarp_UpperHessenbergEigen_meat.hpp:
+extern/armadillo/armadillo_bits/fn_fft2.hpp:
 
-armadillo/armadillo_bits/newarp_UpperHessenbergEigen_bones.hpp:
+extern/armadillo/armadillo_bits/spglue_minus_meat.hpp:
 
-armadillo/armadillo_bits/newarp_TridiagEigen_bones.hpp:
+extern/armadillo/armadillo_bits/fn_expmat.hpp:
 
-armadillo/armadillo_bits/newarp_SymEigsSolver_meat.hpp:
+extern/armadillo/armadillo_bits/fn_eps.hpp:
 
-armadillo/armadillo_bits/newarp_SymEigsShiftSolver_meat.hpp:
+extern/armadillo/armadillo_bits/fn_eigs_sym.hpp:
 
-armadillo/armadillo_bits/newarp_SymEigsShiftSolver_bones.hpp:
+extern/armadillo/armadillo_bits/fn_eig_pair.hpp:
 
-armadillo/armadillo_bits/newarp_SparseGenRealShiftSolve_meat.hpp:
+extern/armadillo/armadillo_bits/mtOp_meat.hpp:
 
-armadillo/armadillo_bits/newarp_SparseGenMatProd_bones.hpp:
+extern/armadillo/armadillo_bits/fn_eig_gen.hpp:
 
-armadillo/armadillo_bits/op_find_meat.hpp:
+extern/armadillo/armadillo_bits/mtSpOp_bones.hpp:
 
-armadillo/armadillo_bits/newarp_GenEigsSolver_bones.hpp:
+extern/armadillo/armadillo_bits/fn_diff.hpp:
 
-armadillo/armadillo_bits/op_sum_bones.hpp:
+extern/armadillo/armadillo_bits/fn_trunc_exp.hpp:
 
-armadillo/armadillo_bits/newarp_EigsSelect.hpp:
+extern/armadillo/armadillo_bits/fn_diagmat.hpp:
 
-armadillo/armadillo_bits/newarp_DoubleShiftQR_bones.hpp:
+extern/armadillo/armadillo_bits/gmm_misc_meat.hpp:
 
-armadillo/armadillo_bits/newarp_DenseGenMatProd_bones.hpp:
+extern/armadillo/armadillo_bits/fn_det.hpp:
 
-armadillo/armadillo_bits/mul_syrk.hpp:
+extern/armadillo/armadillo_bits/fn_cumsum.hpp:
 
-armadillo/armadillo_bits/mul_gemm.hpp:
+extern/armadillo/armadillo_bits/fn_eye.hpp:
 
-armadillo/armadillo_bits/mtSpOp_bones.hpp:
+extern/armadillo/armadillo_bits/fn_cumprod.hpp:
 
-armadillo/armadillo_bits/mtOp_meat.hpp:
+extern/armadillo/armadillo_bits/fn_clamp.hpp:
 
-armadillo/armadillo_bits/mtOpCube_bones.hpp:
+extern/armadillo/armadillo_bits/fn_chol.hpp:
 
-armadillo/armadillo_bits/op_relational_bones.hpp:
+extern/armadillo/armadillo_bits/fn_chi2rnd.hpp:
 
-armadillo/armadillo_bits/mtGlueCube_meat.hpp:
+extern/armadillo/armadillo_bits/fn_approx_equal.hpp:
 
-armadillo/armadillo_bits/mp_misc.hpp:
+extern/armadillo/armadillo_bits/fn_accu.hpp:
 
-armadillo/armadillo_bits/hdf5_misc.hpp:
+extern/armadillo/armadillo_bits/fill.hpp:
 
-armadillo/armadillo_bits/gmm_full_bones.hpp:
+extern/armadillo/armadillo_bits/spop_vectorise_meat.hpp:
 
-armadillo/armadillo_bits/spglue_relational_meat.hpp:
+extern/armadillo/armadillo_bits/field_meat.hpp:
 
-armadillo/armadillo_bits/glue_trapz_meat.hpp:
+extern/armadillo/armadillo_bits/fft_engine.hpp:
 
-armadillo/armadillo_bits/glue_toeplitz_meat.hpp:
+extern/armadillo/armadillo_bits/eop_core_meat.hpp:
 
-armadillo/armadillo_bits/glue_toeplitz_bones.hpp:
+extern/armadillo/armadillo_bits/eop_core_bones.hpp:
 
-armadillo/armadillo_bits/glue_times_meat.hpp:
+extern/armadillo/armadillo_bits/subview_each_meat.hpp:
 
-armadillo/armadillo_bits/translate_atlas.hpp:
+extern/armadillo/armadillo_bits/eglue_core_meat.hpp:
 
-armadillo/armadillo_bits/glue_relational_bones.hpp:
+extern/armadillo/armadillo_bits/operator_relational.hpp:
 
-armadillo/armadillo_bits/glue_polyval_bones.hpp:
+extern/armadillo/armadillo_bits/eglue_core_bones.hpp:
 
-armadillo/armadillo_bits/glue_polyfit_bones.hpp:
+extern/armadillo/armadillo_bits/eOp_meat.hpp:
 
-armadillo/armadillo_bits/glue_mixed_bones.hpp:
+extern/armadillo/armadillo_bits/eOp_bones.hpp:
 
-armadillo/armadillo_bits/glue_min_meat.hpp:
+extern/armadillo/armadillo_bits/mp_misc.hpp:
 
-armadillo/armadillo_bits/glue_max_meat.hpp:
+extern/armadillo/armadillo_bits/eOpCube_meat.hpp:
 
-armadillo/armadillo_bits/subview_cube_meat.hpp:
+extern/armadillo/armadillo_bits/eOpCube_bones.hpp:
 
-armadillo/armadillo_bits/glue_join_meat.hpp:
+extern/armadillo/armadillo_bits/op_inv_meat.hpp:
 
-armadillo/armadillo_bits/glue_join_bones.hpp:
+extern/armadillo/armadillo_bits/eGlue_meat.hpp:
 
-armadillo/armadillo_bits/glue_hypot_meat.hpp:
+extern/armadillo/armadillo_bits/op_norm_bones.hpp:
 
-armadillo/armadillo_bits/glue_histc_bones.hpp:
+extern/armadillo/armadillo_bits/fn_any.hpp:
 
-armadillo/armadillo_bits/glue_hist_bones.hpp:
+extern/armadillo/armadillo_bits/diskio_bones.hpp:
 
-armadillo/armadillo_bits/glue_quantile_bones.hpp:
+extern/armadillo/armadillo_bits/diagview_meat.hpp:
 
-armadillo/armadillo_bits/glue_cross_meat.hpp:
+extern/armadillo/armadillo_bits/def_superlu.hpp:
 
-armadillo/armadillo_bits/glue_cov_bones.hpp:
+extern/armadillo/armadillo_bits/def_atlas.hpp:
 
-armadillo/armadillo_bits/glue_cor_bones.hpp:
+extern/armadillo/armadillo_bits/def_arpack.hpp:
 
-armadillo/armadillo_bits/glue_conv_meat.hpp:
+extern/armadillo/armadillo_bits/subview_meat.hpp:
 
-armadillo/armadillo_bits/op_cumsum_meat.hpp:
+extern/armadillo/armadillo_bits/csv_name.hpp:
 
-armadillo/armadillo_bits/glue_atan2_meat.hpp:
+extern/armadillo/armadillo_bits/translate_arpack.hpp:
 
-armadillo/armadillo_bits/fn_wishrnd.hpp:
+extern/armadillo/armadillo_bits/config.hpp:
 
-armadillo/armadillo_bits/fn_unique.hpp:
+extern/armadillo/armadillo_bits/compiler_setup_post.hpp:
 
-armadillo/armadillo_bits/fn_trunc_log.hpp:
+extern/armadillo/armadillo_bits/fn_svd.hpp:
 
-armadillo/armadillo_bits/fn_trig.hpp:
+extern/armadillo/armadillo_bits/compiler_setup.hpp:
 
-armadillo/armadillo_bits/fn_trans.hpp:
+extern/armadillo/armadillo_bits/xvec_htrans_meat.hpp:
 
-armadillo/armadillo_bits/fn_symmat.hpp:
+extern/armadillo/armadillo_bits/compiler_check.hpp:
 
-armadillo/armadillo_bits/fn_sylvester.hpp:
+extern/armadillo/armadillo_bits/op_stddev_meat.hpp:
 
-armadillo/armadillo_bits/fn_svds.hpp:
+extern/armadillo/armadillo_bits/arrayops_bones.hpp:
 
-armadillo/armadillo_bits/fn_svd.hpp:
+extern/armadillo/armadillo_bits/translate_blas.hpp:
 
-armadillo/armadillo_bits/fn_sort_index.hpp:
+extern/armadillo/armadillo_bits/arma_ostream_meat.hpp:
 
-armadillo/armadillo_bits/fn_solve.hpp:
+extern/armadillo/armadillo_bits/arma_ostream_bones.hpp:
 
-armadillo/armadillo_bits/fn_size.hpp:
+extern/armadillo/armadillo_bits/arma_forward.hpp:
 
-armadillo/armadillo_bits/fn_shuffle.hpp:
+extern/armadillo/armadillo_bits/arma_config.hpp:
 
-armadillo/armadillo_bits/fn_repmat.hpp:
+extern/armadillo/armadillo_bits/newarp_UpperHessenbergEigen_bones.hpp:
 
-armadillo/armadillo_bits/fn_sum.hpp:
+extern/armadillo/armadillo_bits/access.hpp:
 
-armadillo/armadillo_bits/fn_repelem.hpp:
+extern/armadillo/armadillo_bits/op_reverse_bones.hpp:
 
-armadillo/armadillo_bits/fn_regspace.hpp:
+extern/armadillo/armadillo_bits/SpValProxy_meat.hpp:
 
-armadillo/armadillo_bits/fn_range.hpp:
+extern/armadillo/armadillo_bits/op_norm_meat.hpp:
 
-armadillo/armadillo_bits/subview_cube_each_meat.hpp:
+extern/armadillo/armadillo_bits/SpSubview_meat.hpp:
 
-armadillo/armadillo_bits/fn_randu.hpp:
+extern/armadillo/armadillo_bits/diskio_meat.hpp:
 
-armadillo/armadillo_bits/fn_randperm.hpp:
+extern/armadillo/armadillo_bits/SpSubview_col_list_bones.hpp:
 
-armadillo/armadillo_bits/typedef_elem_check.hpp:
+extern/armadillo/armadillo_bits/SpSubview_bones.hpp:
 
-armadillo/armadillo_bits/fn_randn.hpp:
+extern/armadillo/armadillo_bits/SpRow_meat.hpp:
 
-armadillo/armadillo_bits/subview_cube_slices_meat.hpp:
+extern/armadillo/armadillo_bits/fn_n_unique.hpp:
 
-armadillo/armadillo_bits/fn_randi.hpp:
+extern/armadillo/armadillo_bits/SpRow_bones.hpp:
 
-armadillo/armadillo_bits/spop_var_meat.hpp:
+extern/armadillo/armadillo_bits/SpOp_meat.hpp:
 
-armadillo/armadillo_bits/fn_qz.hpp:
+extern/armadillo/armadillo_bits/fn_reshape.hpp:
 
-armadillo/armadillo_bits/op_cor_bones.hpp:
+extern/armadillo/armadillo_bits/SpMat_meat.hpp:
 
-armadillo/armadillo_bits/fn_qr.hpp:
+extern/armadillo/armadillo_bits/SpGlue_bones.hpp:
 
-armadillo/armadillo_bits/spop_var_bones.hpp:
+extern/armadillo/armadillo_bits/SpCol_bones.hpp:
 
-armadillo/armadillo_bits/fn_powmat.hpp:
+extern/armadillo/armadillo_bits/spop_norm_bones.hpp:
 
-armadillo/armadillo_bits/fn_polyval.hpp:
+extern/armadillo/armadillo_bits/SpBase_meat.hpp:
 
-armadillo/armadillo_bits/mtGlueCube_bones.hpp:
+extern/armadillo/armadillo_bits/gmm_diag_meat.hpp:
 
-armadillo/armadillo_bits/fn_orth_null.hpp:
+extern/armadillo/armadillo_bits/SpBase_bones.hpp:
 
-armadillo/armadillo_bits/fn_numel.hpp:
+extern/armadillo/armadillo_bits/SizeMat_meat.hpp:
 
-armadillo/armadillo_bits/op_resize_bones.hpp:
+extern/armadillo/armadillo_bits/SizeMat_bones.hpp:
 
-armadillo/armadillo_bits/fn_normalise.hpp:
+extern/armadillo/armadillo_bits/SizeCube_bones.hpp:
 
-armadillo/armadillo_bits/fn_norm.hpp:
+extern/armadillo/armadillo_bits/Row_meat.hpp:
 
-armadillo/armadillo_bits/fn_nonzeros.hpp:
+extern/armadillo/armadillo_bits/Row_bones.hpp:
 
-armadillo/armadillo_bits/fn_reverse.hpp:
+extern/armadillo/armadillo_bits/fn_qr.hpp:
 
-armadillo/armadillo_bits/fn_mvnrnd.hpp:
+extern/armadillo/armadillo_bits/ProxyCube.hpp:
 
-armadillo/armadillo_bits/op_logmat_bones.hpp:
+extern/armadillo/armadillo_bits/Op_meat.hpp:
 
-armadillo/armadillo_bits/fn_misc.hpp:
+extern/armadillo/armadillo_bits/OpCube_bones.hpp:
 
-armadillo/armadillo_bits/fn_mean.hpp:
+extern/armadillo/armadillo_bits/Mat_meat.hpp:
 
-armadillo/armadillo_bits/fn_lu.hpp:
+extern/armadillo/armadillo_bits/MapMat_meat.hpp:
 
-armadillo/armadillo_bits/fn_logmat.hpp:
+extern/armadillo/armadillo_bits/MapMat_bones.hpp:
 
-armadillo/armadillo_bits/upgrade_val.hpp:
+extern/armadillo/armadillo_bits/Glue_bones.hpp:
 
-armadillo/armadillo_bits/operator_schur.hpp:
+extern/armadillo/armadillo_bits/Gen_bones.hpp:
 
-armadillo/armadillo_bits/fn_log_det.hpp:
+extern/armadillo/armadillo_bits/arma_static_check.hpp:
 
-armadillo/armadillo_bits/fn_kmeans.hpp:
+extern/armadillo/armadillo_bits/GenCube_meat.hpp:
 
-armadillo/armadillo_bits/fn_inv.hpp:
+extern/armadillo/armadillo_bits/glue_times_meat.hpp:
 
-armadillo/armadillo_bits/fn_intersect.hpp:
+extern/armadillo/armadillo_bits/distr_param.hpp:
 
-armadillo/armadillo_bits/fn_index_max.hpp:
+extern/armadillo/armadillo_bits/GenCube_bones.hpp:
 
-armadillo/armadillo_bits/op_index_max_bones.hpp:
+extern/armadillo/armadillo_bits/Cube_meat.hpp:
 
-armadillo/armadillo_bits/fn_histc.hpp:
+extern/armadillo/armadillo_bits/op_cor_bones.hpp:
 
-armadillo/armadillo_bits/fn_hist.hpp:
+extern/armadillo/armadillo_bits/CubeToMatOp_meat.hpp:
 
-armadillo/armadillo_bits/spop_sum_bones.hpp:
+extern/armadillo/armadillo_bits/Col_bones.hpp:
 
-armadillo/armadillo_bits/fn_hess.hpp:
+extern/armadillo/armadillo_bits/Base_meat.hpp:
 
-armadillo/armadillo_bits/fn_find_unique.hpp:
+extern/armadillo/armadillo_bits/BaseCube_meat.hpp:
 
-armadillo/armadillo_bits/fn_find.hpp:
+extern/armadillo/armadillo:
 
-armadillo/armadillo_bits/fn_fft2.hpp:
-
-armadillo/armadillo_bits/fn_expmat.hpp:
-
-armadillo/armadillo_bits/fn_eps.hpp:
-
-armadillo/armadillo_bits/fn_eigs_gen.hpp:
-
-armadillo/armadillo_bits/fn_dot.hpp:
-
-armadillo/armadillo_bits/fn_diff.hpp:
-
-armadillo/armadillo_bits/op_cond_meat.hpp:
-
-armadillo/armadillo_bits/fn_diagmat.hpp:
-
-armadillo/armadillo_bits/fn_det.hpp:
-
-armadillo/armadillo_bits/glue_polyfit_meat.hpp:
-
-armadillo/armadillo_bits/fn_conv.hpp:
-
-armadillo/armadillo_bits/fn_as_scalar.hpp:
-
-armadillo/armadillo_bits/fn_all.hpp:
-
-armadillo/armadillo_bits/eop_core_meat.hpp:
-
-armadillo/armadillo_bits/fn_kron.hpp:
-
-armadillo/armadillo_bits/eop_core_bones.hpp:
-
-armadillo/armadillo_bits/eop_aux.hpp:
-
-armadillo/armadillo_bits/eglue_core_meat.hpp:
-
-armadillo/armadillo_bits/eglue_core_bones.hpp:
-
-armadillo/armadillo_bits/eOpCube_bones.hpp:
-
-armadillo/armadillo_bits/diskio_meat.hpp:
-
-armadillo/armadillo_bits/diagview_meat.hpp:
-
-armadillo/armadillo_bits/diagview_bones.hpp:
-
-armadillo/armadillo_bits/diagmat_proxy.hpp:
-
-armadillo/armadillo_bits/def_hdf5.hpp:
-
-armadillo/armadillo_bits/def_blas.hpp:
-
-armadillo/armadillo_bits/def_atlas.hpp:
-
-armadillo/armadillo_bits/debug.hpp:
-
-armadillo/armadillo_bits/csv_name.hpp:
-
-armadillo/armadillo_bits/constants.hpp:
-
-armadillo/armadillo_bits/spglue_kron_bones.hpp:
-
-armadillo/armadillo_bits/cond_rel_meat.hpp:
-
-armadillo/armadillo_bits/cond_rel_bones.hpp:
-
-armadillo/armadillo_bits/compiler_setup_post.hpp:
-
-armadillo/armadillo_bits/compiler_check.hpp:
-
-armadillo/armadillo_bits/auxlib_meat.hpp:
-
-armadillo/armadillo_bits/arrayops_meat.hpp:
-
-armadillo/armadillo_bits/arma_version.hpp:
-
-armadillo/armadillo_bits/arma_str.hpp:
-
-armadillo/armadillo_bits/arma_rng.hpp:
-
-armadillo/armadillo_bits/fn_cross.hpp:
-
-armadillo/armadillo_bits/arma_config.hpp:
-
-armadillo/armadillo_bits/SpValProxy_meat.hpp:
-
-armadillo/armadillo_bits/op_misc_bones.hpp:
-
-armadillo/armadillo_bits/SpValProxy_bones.hpp:
-
-armadillo/armadillo_bits/SpToDOp_meat.hpp:
-
-armadillo/armadillo_bits/SpSubview_iterators_meat.hpp:
-
-armadillo/armadillo_bits/SpSubview_col_list_meat.hpp:
-
-armadillo/armadillo_bits/SpOp_meat.hpp:
-
-armadillo/armadillo_bits/SpMat_iterators_meat.hpp:
-
-armadillo/armadillo_bits/SpBase_meat.hpp:
-
-armadillo/armadillo_bits/SizeMat_meat.hpp:
-
-armadillo/armadillo_bits/SizeCube_bones.hpp:
-
-armadillo/armadillo_bits/Row_meat.hpp:
-
-armadillo/armadillo_bits/spglue_min_meat.hpp:
-
-armadillo/armadillo_bits/Row_bones.hpp:
-
-armadillo/armadillo_bits/ProxyCube.hpp:
-
-armadillo/armadillo_bits/Op_meat.hpp:
-
-armadillo/armadillo_bits/Op_bones.hpp:
-
-armadillo/armadillo_bits/OpCube_meat.hpp:
-
-armadillo/armadillo_bits/op_index_min_bones.hpp:
-
-armadillo/armadillo_bits/MapMat_meat.hpp:
-
-armadillo/armadillo_bits/op_htrans_bones.hpp:
-
-armadillo/armadillo_bits/gmm_misc_bones.hpp:
-
-armadillo/armadillo_bits/MapMat_bones.hpp:
-
-armadillo/armadillo_bits/glue_cor_meat.hpp:
-
-armadillo/armadillo_bits/Glue_meat.hpp:
-
-armadillo/armadillo_bits/GlueCube_meat.hpp:
-
-armadillo/armadillo_bits/GlueCube_bones.hpp:
-
-armadillo/armadillo_bits/Gen_meat.hpp:
-
-armadillo/armadillo_bits/GenSpecialiser.hpp:
-
-armadillo/armadillo_bits/GenCube_bones.hpp:
-
-armadillo/armadillo_bits/spop_strans_bones.hpp:
-
-armadillo/armadillo_bits/Cube_meat.hpp:
-
-armadillo/armadillo_bits/Cube_bones.hpp:
-
-armadillo/armadillo_bits/Base_meat.hpp:
-
-armadillo/armadillo:
+extern/armadillo/armadillo_bits/SizeCube_meat.hpp:
 
 /Library/Developer/CommandLineTools/usr/lib/clang/15.0.0/include/stdint.h:
 
-/Library/Developer/CommandLineTools/usr/lib/clang/15.0.0/include/stddef.h:
+extern/armadillo/armadillo_bits/spglue_kron_bones.hpp:
 
-armadillo/armadillo_bits/fn_prod.hpp:
+/Library/Developer/CommandLineTools/usr/lib/clang/15.0.0/include/stddef.h:
 
 /Library/Developer/CommandLineTools/usr/lib/clang/15.0.0/include/stdarg.h:
 
 /Library/Developer/CommandLineTools/usr/lib/clang/15.0.0/include/limits.h:
 
+extern/armadillo/armadillo_bits/newarp_SymEigsShiftSolver_meat.hpp:
+
 /Library/Developer/CommandLineTools/usr/lib/clang/15.0.0/include/__stddef_max_align_t.h:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/xlocale/_wchar.h:
 
-/Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/xlocale/_stdio.h:
+extern/armadillo/armadillo_bits/fn_sylvester.hpp:
 
-armadillo/armadillo_bits/subview_cube_bones.hpp:
+/Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/xlocale/_stdio.h:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/xlocale/_ctype.h:
 
-armadillo/armadillo_bits/op_symmat_bones.hpp:
-
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/wchar.h:
 
-armadillo/armadillo_bits/memory.hpp:
-
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/unistd.h:
+
+extern/armadillo/armadillo_bits/fn_polyval.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/sys/types.h:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/sys/syslimits.h:
 
-armadillo/armadillo_bits/op_any_bones.hpp:
-
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/sys/stdio.h:
 
-armadillo/armadillo_bits/subview_elem1_bones.hpp:
+extern/armadillo/armadillo_bits/glue_mvnrnd_meat.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/sys/select.h:
 
@@ -2203,45 +2293,45 @@ armadillo/armadillo_bits/subview_elem1_bones.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/sys/cdefs.h:
 
+extern/armadillo/armadillo_bits/spop_misc_meat.hpp:
+
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/sys/_types/_va_list.h:
 
-armadillo/armadillo_bits/translate_blas.hpp:
+extern/armadillo/armadillo_bits/Mat_bones.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/sys/_types/_uuid_t.h:
 
-armadillo/armadillo_bits/fn_join.hpp:
+extern/armadillo/armadillo_bits/fn_cond.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/sys/_types/_useconds_t.h:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/sys/_types/_u_int8_t.h:
 
-armadillo/armadillo_bits/op_diagvec_bones.hpp:
-
-armadillo/armadillo_bits/fn_trimat_ind.hpp:
-
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/sys/_types/_u_int32_t.h:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/sys/_types/_u_int16_t.h:
 
-armadillo/armadillo_bits/mtGlue_bones.hpp:
-
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/sys/_types/_u_char.h:
-
-armadillo/armadillo_bits/Mat_bones.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/sys/_types/_timeval.h:
 
+extern/armadillo/armadillo_bits/field_bones.hpp:
+
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/sys/_types/_time_t.h:
 
+extern/armadillo/armadillo_bits/fn_cor.hpp:
+
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/sys/_types/_suseconds_t.h:
+
+extern/armadillo/armadillo_bits/operator_schur.hpp:
+
+extern/armadillo/armadillo_bits/op_powmat_bones.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/sys/_types/_size_t.h:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/sys/_types/_sigset_t.h:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/sys/_types/_sigaltstack.h:
-
-armadillo/armadillo_bits/op_diagmat_bones.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/sys/_types/_rune_t.h:
 
@@ -2253,21 +2343,21 @@ armadillo/armadillo_bits/op_diagmat_bones.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/sys/_types/_nlink_t.h:
 
-/Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/sys/_types/_mode_t.h:
+extern/armadillo/armadillo_bits/op_cond_bones.hpp:
 
-armadillo/armadillo_bits/SpProxy.hpp:
+extern/armadillo/armadillo_bits/glue_mixed_meat.hpp:
+
+/Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/sys/_types/_mode_t.h:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/sys/_types/_mbstate_t.h:
 
-armadillo/armadillo_bits/fn_diagvec.hpp:
-
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/sys/_types/_mach_port_t.h:
 
-armadillo/armadillo_bits/op_diff_bones.hpp:
+extern/armadillo/armadillo_bits/spop_htrans_meat.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/sys/_types/_key_t.h:
 
-armadillo/armadillo_bits/op_mean_bones.hpp:
+extern/armadillo/armadillo_bits/fn_max.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/sys/_types/_intptr_t.h:
 
@@ -2277,17 +2367,9 @@ armadillo/armadillo_bits/op_mean_bones.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/sys/_types/_int16_t.h:
 
-armadillo/armadillo_bits/mul_gemv.hpp:
-
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/sys/_types/_ino_t.h:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/sys/_types/_ino64_t.h:
-
-armadillo/armadillo_bits/op_sqrtmat_meat.hpp:
-
-armadillo/armadillo_bits/op_roots_bones.hpp:
-
-armadillo/armadillo_bits/op_range_meat.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/sys/_types/_fsblkcnt_t.h:
 
@@ -2295,49 +2377,39 @@ armadillo/armadillo_bits/op_range_meat.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/sys/_types/_fd_copy.h:
 
+extern/armadillo/armadillo_bits/fn_conv_to.hpp:
+
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/sys/_types/_fd_clr.h:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/sys/_types/_errno_t.h:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/sys/_types/_dev_t.h:
 
-armadillo/armadillo_bits/fn_accu.hpp:
+extern/armadillo/armadillo_bits/newarp_cx_attrib.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/sys/appleapiopts.h:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/sys/_types/_caddr_t.h:
 
-armadillo/armadillo_bits/op_log_det_meat.hpp:
-
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/sys/_types/_blksize_t.h:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/sys/_types/_blkcnt_t.h:
 
-armadillo/armadillo_bits/glue_hist_meat.hpp:
-
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/sys/_types.h:
 
-armadillo/armadillo_bits/spglue_plus_bones.hpp:
-
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/sys/_symbol_aliasing.h:
-
-armadillo/armadillo_bits/op_cond_bones.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/sys/_pthread/_pthread_types.h:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/sys/_pthread/_pthread_t.h:
 
+extern/armadillo/armadillo_bits/newarp_SparseGenRealShiftSolve_bones.hpp:
+
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/sys/_pthread/_pthread_rwlockattr_t.h:
-
-armadillo/armadillo_bits/op_norm_bones.hpp:
-
-armadillo/armadillo_bits/distr_param.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/sys/_pthread/_pthread_rwlock_t.h:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/sys/_pthread/_pthread_once_t.h:
-
-armadillo/armadillo_bits/subview_each_bones.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/sys/_pthread/_pthread_mutexattr_t.h:
 
@@ -2349,39 +2421,29 @@ armadillo/armadillo_bits/subview_each_bones.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/sys/_posix_availability.h:
 
-armadillo/armadillo_bits/glue_mvnrnd_bones.hpp:
-
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/sys/_endian.h:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/strings.h:
 
+extern/armadillo/armadillo_bits/glue_conv_meat.hpp:
+
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/string.h:
 
-armadillo/armadillo_bits/spop_min_bones.hpp:
-
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/runetype.h:
-
-armadillo/armadillo_bits/fn_index_min.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/pthread/qos.h:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/pthread/pthread_impl.h:
 
-armadillo/armadillo_bits/span.hpp:
-
-armadillo/armadillo_bits/fn_roots.hpp:
-
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/nl_types.h:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/math.h:
 
-armadillo/armadillo_bits/glue_cov_meat.hpp:
-
-armadillo/armadillo_bits/fn_flip.hpp:
+extern/armadillo/armadillo_bits/fn_median.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/malloc/_ptrcheck.h:
 
-armadillo/armadillo_bits/SpSubview_bones.hpp:
+extern/armadillo/armadillo_bits/spop_vectorise_bones.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/xlocale/_stdlib.h:
 
@@ -2389,19 +2451,27 @@ armadillo/armadillo_bits/SpSubview_bones.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/malloc/_malloc.h:
 
-/Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/machine/types.h:
+extern/armadillo/armadillo_bits/op_expmat_bones.hpp:
 
-armadillo/armadillo_bits/traits.hpp:
+/Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/machine/types.h:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/machine/signal.h:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/machine/limits.h:
 
+extern/armadillo/armadillo_bits/podarray_meat.hpp:
+
+extern/armadillo/armadillo_bits/cond_rel_bones.hpp:
+
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/machine/endian.h:
+
+extern/armadillo/armadillo_bits/fn_schur.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/machine/_types.h:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/machine/_mcontext.h:
+
+extern/armadillo/armadillo_bits/gmm_full_meat.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/libkern/i386/_OSByteOrder.h:
 
@@ -2413,21 +2483,19 @@ armadillo/armadillo_bits/traits.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/i386/_limits.h:
 
+extern/armadillo/armadillo_bits/glue_cor_bones.hpp:
+
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/gethostuuid.h:
-
-armadillo/armadillo_bits/mtGlue_meat.hpp:
-
-armadillo/armadillo_bits/fn_chol.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/errno.h:
 
 ThreeLegME.hh:
 
-armadillo/armadillo_bits/spglue_times_bones.hpp:
+extern/armadillo/armadillo_bits/op_pinv_meat.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/ctype.h:
 
-armadillo/armadillo_bits/eOp_bones.hpp:
+extern/armadillo/armadillo_bits/operator_cube_schur.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/wctype.h:
 
@@ -2435,23 +2503,17 @@ armadillo/armadillo_bits/eOp_bones.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/version:
 
-armadillo/armadillo_bits/op_roots_meat.hpp:
-
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/mach/machine/_structs.h:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/utility:
-
-armadillo/armadillo_bits/fft_engine.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/typeinfo:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/type_traits:
 
-armadillo/armadillo_bits/fn_eye.hpp:
-
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/tuple:
 
-armadillo/armadillo_bits/glue_solve_bones.hpp:
+extern/armadillo/armadillo_bits/op_orth_null_bones.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/system_error:
 
@@ -2463,21 +2525,31 @@ armadillo/armadillo_bits/glue_solve_bones.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/stddef.h:
 
-armadillo/armadillo_bits/op_diagmat_meat.hpp:
-
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/sstream:
 
-armadillo/armadillo_bits/fn_vectorise.hpp:
+extern/armadillo/armadillo_bits/band_helper.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/set:
 
+extern/armadillo/armadillo_bits/arma_rel_comparators.hpp:
+
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/ratio:
 
+extern/armadillo/armadillo_bits/SpOp_bones.hpp:
+
+extern/armadillo/armadillo_bits/Proxy.hpp:
+
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/random:
+
+extern/armadillo/armadillo_bits/newarp_SortEigenvalue.hpp:
+
+extern/armadillo/armadillo_bits/glue_toeplitz_bones.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/sys/_types/_gid_t.h:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/optional:
+
+extern/armadillo/armadillo_bits/fn_cross.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/numeric:
 
@@ -2487,17 +2559,11 @@ armadillo/armadillo_bits/fn_vectorise.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/limits.h:
 
-armadillo/armadillo_bits/op_powmat_bones.hpp:
-
-armadillo/armadillo_bits/op_clamp_bones.hpp:
-
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/iterator:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__algorithm/ranges_upper_bound.h:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/istream:
-
-armadillo/armadillo_bits/BaseCube_bones.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/iostream:
 
@@ -2513,11 +2579,11 @@ armadillo/armadillo_bits/BaseCube_bones.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/fstream:
 
-armadillo/armadillo_bits/fn_ones.hpp:
-
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/filesystem:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/cwchar:
+
+extern/armadillo/armadillo_bits/SpToDOp_meat.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__algorithm/sift_down.h:
 
@@ -2527,6 +2593,8 @@ armadillo/armadillo_bits/fn_ones.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/cstdarg:
 
+extern/armadillo/armadillo_bits/op_princomp_meat.hpp:
+
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__charconv/tables.h:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/concepts:
@@ -2535,11 +2603,13 @@ armadillo/armadillo_bits/fn_ones.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/chrono:
 
+extern/armadillo/armadillo_bits/op_trimat_bones.hpp:
+
+extern/armadillo/armadillo_bits/fn_ones.hpp:
+
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/atomic:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__variant/monostate.h:
-
-armadillo/armadillo_bits/Col_bones.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__type_traits/common_reference.h:
 
@@ -2548,8 +2618,6 @@ armadillo/armadillo_bits/Col_bones.hpp:
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__utility/priority_tag.h:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__utility/piecewise_construct.h:
-
-armadillo/armadillo_bits/translate_superlu.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__utility/forward_like.h:
 
@@ -2563,25 +2631,19 @@ armadillo/armadillo_bits/translate_superlu.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__utility/convert_to_integral.h:
 
+extern/armadillo/armadillo_bits/op_nonzeros_bones.hpp:
+
+extern/armadillo/armadillo_bits/op_index_max_meat.hpp:
+
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__algorithm/ranges_none_of.h:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__utility/as_const.h:
-
-armadillo/armadillo_bits/gmm_full_meat.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/mutex:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__type_traits/void_t.h:
 
-armadillo/armadillo_bits/op_normalise_bones.hpp:
-
-armadillo/armadillo_bits/glue_relational_meat.hpp:
-
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__type_traits/underlying_type.h:
-
-armadillo/armadillo_bits/op_relational_meat.hpp:
-
-armadillo/armadillo_bits/op_all_bones.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/xlocale/_time.h:
 
@@ -2595,11 +2657,9 @@ armadillo/armadillo_bits/op_all_bones.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__type_traits/remove_reference.h:
 
-armadillo/armadillo_bits/arma_rng_cxx98.hpp:
+extern/armadillo/armadillo_bits/op_median_bones.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__type_traits/remove_cvref.h:
-
-armadillo/armadillo_bits/include_hdf5.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__type_traits/remove_cv.h:
 
@@ -2623,9 +2683,11 @@ armadillo/armadillo_bits/include_hdf5.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__type_traits/is_valid_expansion.h:
 
+extern/armadillo/armadillo_bits/fn_numel.hpp:
+
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__type_traits/is_trivially_lexicographically_comparable.h:
 
-armadillo/armadillo_bits/fn_sprandu.hpp:
+extern/armadillo/armadillo_bits/fn_pinv.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/variant:
 
@@ -2633,9 +2695,13 @@ armadillo/armadillo_bits/fn_sprandu.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__type_traits/is_trivially_destructible.h:
 
+extern/armadillo/armadillo_bits/spglue_max_meat.hpp:
+
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__type_traits/is_trivially_default_constructible.h:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__type_traits/is_trivially_copy_constructible.h:
+
+extern/armadillo/armadillo_bits/fn_norm.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__type_traits/is_trivially_constructible.h:
 
@@ -2647,15 +2713,9 @@ armadillo/armadillo_bits/fn_sprandu.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__type_traits/is_standard_layout.h:
 
-armadillo/armadillo_bits/op_index_min_meat.hpp:
-
-armadillo/armadillo_bits/gmm_diag_meat.hpp:
-
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__type_traits/is_specialization.h:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__type_traits/is_scoped_enum.h:
-
-armadillo/armadillo_bits/running_stat_bones.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__algorithm/ranges_copy_backward.h:
 
@@ -2663,7 +2723,7 @@ armadillo/armadillo_bits/running_stat_bones.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__type_traits/is_scalar.h:
 
-armadillo/armadillo_bits/SpSubview_col_list_bones.hpp:
+extern/armadillo/armadillo_bits/op_all_bones.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__algorithm/ranges_lexicographical_compare.h:
 
@@ -2693,10 +2753,6 @@ armadillo/armadillo_bits/SpSubview_col_list_bones.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__type_traits/is_move_assignable.h:
 
-armadillo/armadillo_bits/glue_times_bones.hpp:
-
-armadillo/armadillo_bits/fn_cumsum.hpp:
-
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__algorithm/pop_heap.h:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__type_traits/is_fundamental.h:
@@ -2704,6 +2760,10 @@ armadillo/armadillo_bits/fn_cumsum.hpp:
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__random/independent_bits_engine.h:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__type_traits/is_equality_comparable.h:
+
+extern/armadillo/armadillo_bits/xtrans_mat_bones.hpp:
+
+extern/armadillo/armadillo_bits/fn_trapz.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__type_traits/is_reference.h:
 
@@ -2723,8 +2783,6 @@ armadillo/armadillo_bits/fn_cumsum.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__type_traits/is_compound.h:
 
-armadillo/armadillo_bits/spglue_kron_meat.hpp:
-
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__type_traits/is_class.h:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__random/random_device.h:
@@ -2737,11 +2795,11 @@ armadillo/armadillo_bits/spglue_kron_meat.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__type_traits/is_array.h:
 
+extern/armadillo/armadillo_bits/spop_normalise_meat.hpp:
+
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__concepts/class_or_enum.h:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__type_traits/is_unbounded_array.h:
-
-armadillo/armadillo_bits/config.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__type_traits/is_always_bitcastable.h:
 
@@ -2757,27 +2815,33 @@ armadillo/armadillo_bits/config.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__type_traits/is_aggregate.h:
 
+extern/armadillo/armadillo_bits/op_sort_index_meat.hpp:
+
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/sys/_types/_id_t.h:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__type_traits/is_abstract.h:
 
-armadillo/armadillo_bits/op_chi2rnd_meat.hpp:
-
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__type_traits/integral_constant.h:
 
+extern/armadillo/armadillo_bits/op_symmat_bones.hpp:
+
+extern/armadillo/armadillo_bits/glue_quantile_meat.hpp:
+
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__type_traits/has_virtual_destructor.h:
+
+extern/armadillo/armadillo_bits/spop_max_meat.hpp:
+
+extern/armadillo/armadillo_bits/fn_dot.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__functional/reference_wrapper.h:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__type_traits/extent.h:
 
-armadillo/armadillo_bits/newarp_SparseGenMatProd_meat.hpp:
+extern/armadillo/armadillo_bits/fn_resize.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__type_traits/is_trivially_move_assignable.h:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__type_traits/disjunction.h:
-
-armadillo/armadillo_bits/op_cor_meat.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__iterator/mergeable.h:
 
@@ -2785,13 +2849,9 @@ armadillo/armadillo_bits/op_cor_meat.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__type_traits/decay.h:
 
-armadillo/armadillo_bits/glue_histc_meat.hpp:
-
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/sys/_types/_fd_set.h:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__type_traits/datasizeof.h:
-
-armadillo/armadillo_bits/op_find_unique_bones.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/memory:
 
@@ -2799,11 +2859,13 @@ armadillo/armadillo_bits/op_find_unique_bones.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__type_traits/common_type.h:
 
-armadillo/armadillo_bits/op_norm_meat.hpp:
-
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/ctime:
 
+extern/armadillo/armadillo_bits/sympd_helper.hpp:
+
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__type_traits/is_core_convertible.h:
+
+extern/armadillo/armadillo_bits/eGlueCube_meat.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__type_traits/apply_cv.h:
 
@@ -2811,21 +2873,27 @@ armadillo/armadillo_bits/op_norm_meat.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__type_traits/add_rvalue_reference.h:
 
+extern/armadillo/armadillo_bits/spglue_min_meat.hpp:
+
+extern/armadillo/armadillo_bits/mul_gemm_mixed.hpp:
+
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__algorithm/ranges_copy.h:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__random/uniform_real_distribution.h:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__type_traits/add_pointer.h:
 
-armadillo/armadillo_bits/constants_old.hpp:
+extern/armadillo/armadillo_bits/op_shift_bones.hpp:
 
-armadillo/armadillo_bits/SizeCube_meat.hpp:
+extern/armadillo/armadillo_bits/SpValProxy_bones.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__algorithm/unique_copy.h:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__tuple/tuple_element.h:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__tuple/pair_like.h:
+
+extern/armadillo/armadillo_bits/xvec_htrans_bones.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__tuple/make_tuple_types.h:
 
@@ -2841,6 +2909,10 @@ armadillo/armadillo_bits/SizeCube_meat.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__split_buffer:
 
+extern/armadillo/armadillo_bits/op_inv_bones.hpp:
+
+extern/armadillo/armadillo_bits/def_hdf5.hpp:
+
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__ranges/subrange.h:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__ranges/size.h:
@@ -2851,21 +2923,25 @@ armadillo/armadillo_bits/SizeCube_meat.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__ranges/empty.h:
 
-/Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/exception:
+extern/armadillo/armadillo_bits/SpMat_bones.hpp:
 
-armadillo/armadillo_bits/operator_div.hpp:
+/Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/exception:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__ranges/container_compatible_range.h:
 
-armadillo/armadillo_bits/typedef_mat.hpp:
-
-armadillo/armadillo_bits/fn_strans.hpp:
+extern/armadillo/armadillo_bits/fn_trimat_ind.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__ranges/concepts.h:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__random/uniform_random_bit_generator.h:
 
+extern/armadillo/armadillo_bits/fn_lu.hpp:
+
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__random/student_t_distribution.h:
+
+extern/armadillo/armadillo_bits/typedef_elem.hpp:
+
+extern/armadillo/armadillo_bits/constants_old.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__random/shuffle_order_engine.h:
 
@@ -2879,11 +2955,7 @@ armadillo/armadillo_bits/fn_strans.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__type_traits/copy_cv.h:
 
-armadillo/armadillo_bits/fn_log_normpdf.hpp:
-
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__random/piecewise_constant_distribution.h:
-
-armadillo/armadillo_bits/op_median_bones.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__random/piecewise_linear_distribution.h:
 
@@ -2891,9 +2963,11 @@ armadillo/armadillo_bits/op_median_bones.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__random/negative_binomial_distribution.h:
 
+extern/armadillo/armadillo_bits/spglue_relational_bones.hpp:
+
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__random/lognormal_distribution.h:
 
-armadillo/armadillo_bits/fn_eig_gen.hpp:
+extern/armadillo/armadillo_bits/fn_find_unique.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__random/log2.h:
 
@@ -2901,13 +2975,17 @@ armadillo/armadillo_bits/fn_eig_gen.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__random/is_valid.h:
 
+extern/armadillo/armadillo_bits/fn_eigs_gen.hpp:
+
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__random/is_seed_sequence.h:
+
+extern/armadillo/armadillo_bits/spop_diagmat_bones.hpp:
+
+extern/armadillo/armadillo_bits/op_sp_minus_meat.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__type_traits/is_union.h:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__random/generate_canonical.h:
-
-armadillo/armadillo_bits/Col_meat.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__algorithm/ranges_for_each_n.h:
 
@@ -2916,6 +2994,8 @@ armadillo/armadillo_bits/Col_meat.hpp:
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__algorithm/ranges_generate.h:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__random/gamma_distribution.h:
+
+extern/armadillo/armadillo_bits/op_powmat_meat.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__type_traits/is_execution_policy.h:
 
@@ -2929,9 +3009,9 @@ armadillo/armadillo_bits/Col_meat.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__random/cauchy_distribution.h:
 
-/Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__random/fisher_f_distribution.h:
+extern/armadillo/armadillo_bits/fn_sqrtmat.hpp:
 
-armadillo/armadillo_bits/SpRow_bones.hpp:
+/Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__random/fisher_f_distribution.h:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__random/binomial_distribution.h:
 
@@ -2945,27 +3025,19 @@ armadillo/armadillo_bits/SpRow_bones.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__type_traits/make_32_64_or_128_bit.h:
 
-armadillo/armadillo_bits/spop_diagmat_meat.hpp:
-
-armadillo/armadillo_bits/mul_herk.hpp:
-
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__numeric/transform_reduce.h:
-
-armadillo/armadillo_bits/spop_misc_meat.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/_types/_uint64_t.h:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__type_traits/is_integral.h:
 
+extern/armadillo/armadillo_bits/gmm_full_bones.hpp:
+
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__numeric/transform_inclusive_scan.h:
 
-armadillo/armadillo_bits/op_repmat_meat.hpp:
-
-armadillo/armadillo_bits/op_fft_meat.hpp:
+extern/armadillo/armadillo_bits/newarp_UpperHessenbergEigen_meat.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__numeric/transform_exclusive_scan.h:
-
-armadillo/armadillo_bits/fn_n_unique.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__locale_dir/locale_base_api/bsd_locale_defaults.h:
 
@@ -2973,19 +3045,19 @@ armadillo/armadillo_bits/fn_n_unique.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__numeric/reduce.h:
 
+extern/armadillo/armadillo_bits/glue_trapz_bones.hpp:
+
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__numeric/pstl_transform_reduce.h:
-
-armadillo/armadillo_bits/glue_solve_meat.hpp:
-
-armadillo/armadillo_bits/auxlib_bones.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__numeric/pstl_reduce.h:
 
+extern/armadillo/armadillo_bits/wall_clock_meat.hpp:
+
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/errno.h:
 
-/Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__tuple/sfinae_helpers.h:
+extern/armadillo/armadillo_bits/restrictors.hpp:
 
-armadillo/armadillo_bits/injector_meat.hpp:
+/Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__tuple/sfinae_helpers.h:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__threading_support:
 
@@ -2993,13 +3065,7 @@ armadillo/armadillo_bits/injector_meat.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__random/weibull_distribution.h:
 
-armadillo/armadillo_bits/op_reverse_bones.hpp:
-
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__numeric/partial_sum.h:
-
-armadillo/armadillo_bits/op_pinv_meat.hpp:
-
-armadillo/armadillo_bits/glue_mvnrnd_meat.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__numeric/iota.h:
 
@@ -3007,15 +3073,17 @@ armadillo/armadillo_bits/glue_mvnrnd_meat.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__numeric/inner_product.h:
 
-/Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__numeric/gcd_lcm.h:
+extern/armadillo/armadillo_bits/diagmat_proxy.hpp:
 
-armadillo/armadillo_bits/op_vectorise_meat.hpp:
+/Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__numeric/gcd_lcm.h:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__numeric/exclusive_scan.h:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__type_traits/is_assignable.h:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__mutex/tag_types.h:
+
+extern/armadillo/armadillo_bits/op_max_bones.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__type_traits/predicate_traits.h:
 
@@ -3026,6 +3094,8 @@ armadillo/armadillo_bits/op_vectorise_meat.hpp:
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__charconv/traits.h:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__utility/integer_sequence.h:
+
+extern/armadillo/armadillo_bits/newarp_DoubleShiftQR_bones.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/algorithm:
 
@@ -3041,11 +3111,9 @@ armadillo/armadillo_bits/op_vectorise_meat.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__type_traits/remove_all_extents.h:
 
-armadillo/armadillo_bits/op_unique_bones.hpp:
-
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__memory/uses_allocator.h:
 
-armadillo/armadillo_bits/op_powmat_meat.hpp:
+extern/armadillo/armadillo_bits/Glue_meat.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__verbose_abort:
 
@@ -3057,10 +3125,6 @@ armadillo/armadillo_bits/op_powmat_meat.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__memory/shared_ptr.h:
 
-armadillo/armadillo_bits/fn_trimat.hpp:
-
-armadillo/armadillo_bits/fn_schur.hpp:
-
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__algorithm/ranges_sample.h:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__type_traits/is_trivially_copyable.h:
@@ -3071,7 +3135,7 @@ armadillo/armadillo_bits/fn_schur.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__type_traits/strip_signature.h:
 
-armadillo/armadillo_bits/op_trimat_bones.hpp:
+extern/armadillo/armadillo_bits/spop_var_meat.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__memory/ranges_uninitialized_algorithms.h:
 
@@ -3087,13 +3151,13 @@ armadillo/armadillo_bits/op_trimat_bones.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__type_traits/is_pod.h:
 
+extern/armadillo/armadillo_bits/op_cov_meat.hpp:
+
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/sys/_types/_in_addr_t.h:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__algorithm/includes.h:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__memory/pointer_traits.h:
-
-armadillo/armadillo_bits/field_bones.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__atomic/aliases.h:
 
@@ -3107,19 +3171,21 @@ armadillo/armadillo_bits/field_bones.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__memory/builtin_new_allocator.h:
 
+extern/armadillo/armadillo_bits/fn_princomp.hpp:
+
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__algorithm/ranges_merge.h:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__memory/assume_aligned.h:
 
-armadillo/armadillo_bits/fn_approx_equal.hpp:
-
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__type_traits/is_floating_point.h:
-
-armadillo/armadillo_bits/fn_inplace_trans.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__algorithm/ranges_rotate_copy.h:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__memory/allocator_destructor.h:
+
+extern/armadillo/armadillo_bits/op_index_max_bones.hpp:
+
+extern/armadillo/armadillo_bits/Op_bones.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__concepts/constructible.h:
 
@@ -3139,17 +3205,15 @@ armadillo/armadillo_bits/fn_inplace_trans.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__iterator/wrap_iter.h:
 
-/Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__iterator/unreachable_sentinel.h:
+extern/armadillo/armadillo_bits/subview_cube_each_bones.hpp:
 
-armadillo/armadillo_bits/fn_rank.hpp:
+/Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__iterator/unreachable_sentinel.h:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__iterator/sortable.h:
 
-armadillo/armadillo_bits/op_all_meat.hpp:
+extern/armadillo/armadillo_bits/fn_interp1.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__iterator/size.h:
-
-armadillo/armadillo_bits/spop_mean_meat.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/sys/wait.h:
 
@@ -3159,11 +3223,17 @@ armadillo/armadillo_bits/spop_mean_meat.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__iterator/segmented_iterator.h:
 
-armadillo/armadillo_bits/SpRow_meat.hpp:
+extern/armadillo/armadillo_bits/spop_trimat_bones.hpp:
+
+extern/armadillo/armadillo_bits/include_superlu.hpp:
+
+extern/armadillo/armadillo_bits/fn_shift.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__algorithm/ranges_rotate.h:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__iterator/readable_traits.h:
+
+extern/armadillo/armadillo_bits/SpMat_iterators_meat.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__iterator/ranges_iterator_traits.h:
 
@@ -3171,17 +3241,11 @@ armadillo/armadillo_bits/SpRow_meat.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__iterator/prev.h:
 
-armadillo/armadillo_bits/newarp_SparseGenRealShiftSolve_bones.hpp:
-
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__memory/allocation_guard.h:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__iterator/ostreambuf_iterator.h:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__iterator/move_sentinel.h:
-
-armadillo/armadillo_bits/op_stddev_bones.hpp:
-
-armadillo/armadillo_bits/OpCube_bones.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/sys/_types/_wchar_t.h:
 
@@ -3191,6 +3255,8 @@ armadillo/armadillo_bits/OpCube_bones.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__iterator/permutable.h:
 
+extern/armadillo/armadillo_bits/GlueCube_bones.hpp:
+
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__iterator/move_iterator.h:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__numeric/accumulate.h:
@@ -3198,6 +3264,8 @@ armadillo/armadillo_bits/OpCube_bones.hpp:
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__iterator/iterator.h:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/cstddef:
+
+extern/armadillo/armadillo_bits/fn_conv.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__iterator/iter_swap.h:
 
@@ -3207,17 +3275,21 @@ armadillo/armadillo_bits/OpCube_bones.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__type_traits/copy_cvref.h:
 
+extern/armadillo/armadillo_bits/arma_rng.hpp:
+
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__iterator/istreambuf_iterator.h:
 
-armadillo/armadillo_bits/hdf5_name.hpp:
-
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__iterator/istream_iterator.h:
+
+extern/armadillo/armadillo_bits/fn_shuffle.hpp:
+
+extern/armadillo/armadillo_bits/eGlue_bones.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__type_traits/is_callable.h:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__iterator/front_insert_iterator.h:
 
-armadillo/armadillo_bits/op_sqrtmat_bones.hpp:
+extern/armadillo/armadillo_bits/fn_diagvec.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__type_traits/remove_extent.h:
 
@@ -3227,19 +3299,15 @@ armadillo/armadillo_bits/op_sqrtmat_bones.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__numeric/adjacent_difference.h:
 
-armadillo/armadillo_bits/fn_sprandn.hpp:
-
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__iterator/erase_if_container.h:
 
-armadillo/armadillo_bits/glue_affmul_bones.hpp:
-
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__iterator/empty.h:
-
-armadillo/armadillo_bits/fn_chi2rnd.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__undef_macros:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__iterator/default_sentinel.h:
+
+extern/armadillo/armadillo_bits/op_misc_bones.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__random/chi_squared_distribution.h:
 
@@ -3249,11 +3317,19 @@ armadillo/armadillo_bits/fn_chi2rnd.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__iterator/data.h:
 
+extern/armadillo/armadillo_bits/subview_cube_bones.hpp:
+
+extern/armadillo/armadillo_bits/SpSubview_col_list_meat.hpp:
+
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__thread/id.h:
+
+extern/armadillo/armadillo_bits/glue_join_bones.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__iterator/bounded_iter.h:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__type_traits/is_char_like_type.h:
+
+extern/armadillo/armadillo_bits/op_resize_bones.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/sched.h:
 
@@ -3267,7 +3343,7 @@ armadillo/armadillo_bits/fn_chi2rnd.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__fwd/tuple.h:
 
-armadillo/armadillo_bits/SpBase_bones.hpp:
+extern/armadillo/armadillo_bits/op_index_min_meat.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__fwd/string.h:
 
@@ -3275,19 +3351,17 @@ armadillo/armadillo_bits/SpBase_bones.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/iomanip:
 
-armadillo/armadillo_bits/operator_relational.hpp:
-
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/__wctype.h:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__fwd/streambuf.h:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__fwd/sstream.h:
 
+extern/armadillo/armadillo_bits/op_relational_bones.hpp:
+
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__fwd/pair.h:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__fwd/ostream.h:
-
-armadillo/armadillo_bits/fn_cond.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__fwd/istream.h:
 
@@ -3301,9 +3375,9 @@ armadillo/armadillo_bits/fn_cond.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__functional/unary_negate.h:
 
-armadillo/armadillo_bits/Glue_bones.hpp:
-
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__functional/pointer_to_unary_function.h:
+
+extern/armadillo/armadillo_bits/op_htrans_bones.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__std_mbstate_t.h:
 
@@ -3311,21 +3385,23 @@ armadillo/armadillo_bits/Glue_bones.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__iterator/cpp17_iterator_concepts.h:
 
+extern/armadillo/armadillo_bits/newarp_SymEigsSolver_meat.hpp:
+
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__functional/perfect_forward.h:
 
-armadillo/armadillo_bits/op_min_bones.hpp:
+extern/armadillo/armadillo_bits/glue_min_meat.hpp:
+
+extern/armadillo/armadillo_bits/arma_version.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__iterator/insert_iterator.h:
 
-armadillo/armadillo_bits/fn_spones.hpp:
-
-armadillo/armadillo_bits/fn_shift.hpp:
+extern/armadillo/armadillo_bits/SpSubview_iterators_meat.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__functional/operations.h:
 
-/Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__type_traits/is_nothrow_copy_assignable.h:
+extern/armadillo/armadillo_bits/spop_var_bones.hpp:
 
-armadillo/armadillo_bits/fn_trace.hpp:
+/Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__type_traits/is_nothrow_copy_assignable.h:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__chrono/high_resolution_clock.h:
 
@@ -3333,31 +3409,25 @@ armadillo/armadillo_bits/fn_trace.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__functional/is_transparent.h:
 
-armadillo/armadillo_bits/op_shuffle_meat.hpp:
+extern/armadillo/armadillo_bits/spop_normalise_bones.hpp:
 
-armadillo/armadillo_bits/mul_gemm_mixed.hpp:
+extern/armadillo/armadillo_bits/debug.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__type_traits/is_default_constructible.h:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__functional/invoke.h:
 
-armadillo/armadillo_bits/glue_trapz_bones.hpp:
-
-armadillo/armadillo_bits/glue_cross_bones.hpp:
-
-armadillo/armadillo_bits/CubeToMatOp_bones.hpp:
-
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__algorithm/in_in_out_result.h:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__functional/identity.h:
 
-/Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__functional/binder2nd.h:
+extern/armadillo/armadillo_bits/spop_sum_bones.hpp:
 
-armadillo/armadillo_bits/Mat_meat.hpp:
+/Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__functional/binder2nd.h:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__functional/bind_front.h:
 
-armadillo/armadillo_bits/arrayops_bones.hpp:
+extern/armadillo/armadillo_bits/fn_trunc_log.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/bitset:
 
@@ -3369,9 +3439,13 @@ armadillo/armadillo_bits/arrayops_bones.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__algorithm/rotate_copy.h:
 
+extern/armadillo/armadillo_bits/op_det_bones.hpp:
+
+extern/armadillo/armadillo_bits/mtGlue_bones.hpp:
+
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__functional/binary_function.h:
 
-armadillo/armadillo_bits/fn_sqrtmat.hpp:
+extern/armadillo/armadillo_bits/arrayops_meat.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__format/unicode.h:
 
@@ -3379,7 +3453,11 @@ armadillo/armadillo_bits/fn_sqrtmat.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__algorithm/ranges_find_end.h:
 
+extern/armadillo/armadillo_bits/op_cumsum_bones.hpp:
+
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__format/formatter.h:
+
+extern/armadillo/armadillo_bits/glue_polyval_meat.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/sys/_types/_u_short.h:
 
@@ -3389,33 +3467,25 @@ armadillo/armadillo_bits/fn_sqrtmat.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__format/format_parse_context.h:
 
+extern/armadillo/armadillo_bits/fn_trans.hpp:
+
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__algorithm/min_max_result.h:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__algorithm/pstl_backends/cpu_backends/libdispatch.h:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__format/format_arg.h:
 
-armadillo/armadillo_bits/SizeMat_bones.hpp:
-
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__format/enable_insertable.h:
+
+extern/armadillo/armadillo_bits/spglue_merge_bones.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__format/buffer.h:
 
-armadillo/armadillo_bits/op_symmat_meat.hpp:
-
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__filesystem/recursive_directory_iterator.h:
-
-armadillo/armadillo_bits/op_expmat_meat.hpp:
-
-armadillo/armadillo_bits/CubeToMatOp_meat.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/ctype.h:
 
-armadillo/armadillo_bits/glue_intersect_bones.hpp:
-
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__iterator/projected.h:
-
-armadillo/armadillo_bits/eGlueCube_meat.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/_types/_uint16_t.h:
 
@@ -3427,15 +3497,19 @@ armadillo/armadillo_bits/eGlueCube_meat.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/cerrno:
 
+extern/armadillo/armadillo_bits/glue_intersect_bones.hpp:
+
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__utility/in_place.h:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__filesystem/file_type.h:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__ranges/enable_borrowed_range.h:
 
-armadillo/armadillo_bits/arma_ostream_bones.hpp:
+extern/armadillo/armadillo_bits/Base_bones.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__filesystem/directory_options.h:
+
+extern/armadillo/armadillo_bits/op_prod_bones.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__filesystem/directory_iterator.h:
 
@@ -3443,33 +3517,31 @@ armadillo/armadillo_bits/arma_ostream_bones.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__exception/terminate.h:
 
-armadillo/armadillo_bits/spop_norm_meat.hpp:
-
-armadillo/armadillo_bits/op_strans_meat.hpp:
-
-armadillo/armadillo_bits/band_helper.hpp:
-
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/cstdint:
+
+extern/armadillo/armadillo_bits/newarp_GenEigsSolver_meat.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__exception/exception_ptr.h:
 
-armadillo/armadillo_bits/op_normalise_meat.hpp:
+extern/armadillo/armadillo_bits/glue_atan2_meat.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/ostream:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__filesystem/path_iterator.h:
 
+extern/armadillo/armadillo_bits/running_stat_bones.hpp:
+
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__type_traits/is_pointer.h:
 
-armadillo/armadillo_bits/diskio_bones.hpp:
-
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__functional/ranges_operations.h:
+
+extern/armadillo/armadillo_bits/op_diff_bones.hpp:
+
+extern/armadillo/armadillo_bits/fn_range.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/_ctermid.h:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/alloca.h:
-
-armadillo/armadillo_bits/spop_max_meat.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/string_view:
 
@@ -3477,13 +3549,11 @@ armadillo/armadillo_bits/spop_max_meat.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__debug_utils/strict_weak_ordering_check.h:
 
-armadillo/armadillo_bits/op_det_meat.hpp:
-
-armadillo/armadillo_bits/SpMat_bones.hpp:
-
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__atomic/fence.h:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__debug_utils/randomize_range.h:
+
+extern/armadillo/armadillo_bits/Col_meat.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__concepts/swappable.h:
 
@@ -3499,9 +3569,13 @@ armadillo/armadillo_bits/SpMat_bones.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__concepts/relation.h:
 
+extern/armadillo/armadillo_bits/GenSpecialiser.hpp:
+
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__algorithm/ranges_iterator_concept.h:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__concepts/movable.h:
+
+extern/armadillo/armadillo_bits/def_blas.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__algorithm/is_partitioned.h:
 
@@ -3513,9 +3587,11 @@ armadillo/armadillo_bits/SpMat_bones.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__concepts/convertible_to.h:
 
-/Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__concepts/totally_ordered.h:
+extern/armadillo/armadillo_bits/fn_reverse.hpp:
 
-armadillo/armadillo_bits/eGlueCube_bones.hpp:
+extern/armadillo/armadillo_bits/fn_cov.hpp:
+
+/Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__concepts/totally_ordered.h:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__concepts/common_with.h:
 
@@ -3527,25 +3603,27 @@ armadillo/armadillo_bits/eGlueCube_bones.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__concepts/boolean_testable.h:
 
+extern/armadillo/armadillo_bits/Gen_meat.hpp:
+
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__compare/weak_order.h:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/time.h:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__utility/cmp.h:
 
+extern/armadillo/armadillo_bits/fn_randg.hpp:
+
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__type_traits/invoke.h:
 
-armadillo/armadillo_bits/fn_spsolve.hpp:
+extern/armadillo/armadillo_bits/fn_eig_sym.hpp:
 
-armadillo/armadillo_bits/def_arpack.hpp:
+extern/armadillo/armadillo_bits/SpCol_meat.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__filesystem/file_status.h:
 
+extern/armadillo/armadillo_bits/op_wishrnd_meat.hpp:
+
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__memory/addressof.h:
-
-armadillo/armadillo_bits/spop_reverse_meat.hpp:
-
-armadillo/armadillo_bits/fn_cor.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__compare/three_way_comparable.h:
 
@@ -3555,15 +3633,17 @@ armadillo/armadillo_bits/fn_cor.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__compare/is_eq.h:
 
+extern/armadillo/armadillo_bits/promote_type.hpp:
+
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__concepts/same_as.h:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/cwctype:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__functional/hash.h:
 
-armadillo/armadillo_bits/op_dot_bones.hpp:
+extern/armadillo/armadillo_bits/typedef_mat.hpp:
 
-armadillo/armadillo_bits/arma_ostream_meat.hpp:
+extern/armadillo/armadillo_bits/op_mean_meat.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__algorithm/unwrap_iter.h:
 
@@ -3581,41 +3661,39 @@ armadillo/armadillo_bits/arma_ostream_meat.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__compare/compare_three_way.h:
 
-armadillo/armadillo_bits/SpSubview_meat.hpp:
-
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__algorithm/find_if_not.h:
-
-armadillo/armadillo_bits/newarp_GenEigsSolver_meat.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__compare/compare_partial_order_fallback.h:
 
-/Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__compare/common_comparison_category.h:
+extern/armadillo/armadillo_bits/mtGlueCube_bones.hpp:
 
-armadillo/armadillo_bits/subview_each_meat.hpp:
+/Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__compare/common_comparison_category.h:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__bit/rotate.h:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__type_traits/is_null_pointer.h:
 
+extern/armadillo/armadillo_bits/op_strans_meat.hpp:
+
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__chrono/year_month_weekday.h:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__chrono/year_month.h:
 
+extern/armadillo/armadillo_bits/fn_randperm.hpp:
+
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__string/char_traits.h:
+
+extern/armadillo/armadillo_bits/fn_trace.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__chrono/year.h:
 
-armadillo/armadillo_bits/spop_repmat_meat.hpp:
-
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__condition_variable/condition_variable.h:
-
-armadillo/armadillo_bits/eGlue_bones.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__random/subtract_with_carry_engine.h:
 
-/Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__chrono/time_point.h:
+extern/armadillo/armadillo_bits/mtOpCube_bones.hpp:
 
-armadillo/armadillo_bits/SpCol_meat.hpp:
+/Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__chrono/time_point.h:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__iterator/indirectly_comparable.h:
 
@@ -3631,7 +3709,11 @@ armadillo/armadillo_bits/SpCol_meat.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__functional/mem_fn.h:
 
+extern/armadillo/armadillo_bits/op_clamp_bones.hpp:
+
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__type_traits/rank.h:
+
+extern/armadillo/armadillo_bits/fn_kmeans.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__algorithm/minmax_element.h:
 
@@ -3643,7 +3725,7 @@ armadillo/armadillo_bits/SpCol_meat.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__chrono/monthday.h:
 
-armadillo/armadillo_bits/glue_max_bones.hpp:
+extern/armadillo/armadillo_bits/glue_histc_bones.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__utility/pair.h:
 
@@ -3659,13 +3741,9 @@ armadillo/armadillo_bits/glue_max_bones.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__algorithm/ranges_push_heap.h:
 
-armadillo/armadillo_bits/op_shift_meat.hpp:
-
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__functional/compose.h:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__compare/synth_three_way.h:
-
-armadillo/armadillo_bits/op_any_meat.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__format/format_error.h:
 
@@ -3674,6 +3752,8 @@ armadillo/armadillo_bits/op_any_meat.hpp:
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__node_handle:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__algorithm/ranges_transform.h:
+
+extern/armadillo/armadillo_bits/OpCube_meat.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__chrono/month_weekday.h:
 
@@ -3689,7 +3769,11 @@ armadillo/armadillo_bits/op_any_meat.hpp:
 
 AngMomCache.hh:
 
+extern/armadillo/armadillo_bits/op_range_bones.hpp:
+
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__chrono/concepts.h:
+
+extern/armadillo/armadillo_bits/spglue_plus_bones.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/sys/unistd.h:
 
@@ -3699,6 +3783,8 @@ AngMomCache.hh:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__mutex/unique_lock.h:
 
+extern/armadillo/armadillo_bits/SpGlue_meat.hpp:
+
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/string.h:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__algorithm/replace_copy.h:
@@ -3707,21 +3793,13 @@ AngMomCache.hh:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__chrono/month.h:
 
-armadillo/armadillo_bits/spop_min_meat.hpp:
-
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__type_traits/is_allocator.h:
-
-armadillo/armadillo_bits/SpGlue_bones.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__filesystem/directory_entry.h:
 
-armadillo/armadillo_bits/injector_bones.hpp:
-
-armadillo/armadillo_bits/fn_stddev.hpp:
+extern/armadillo/armadillo_bits/op_normalise_bones.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__bit_reference:
-
-armadillo/armadillo_bits/fn_cumprod.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/sys/_types/_u_int.h:
 
@@ -3730,6 +3808,8 @@ armadillo/armadillo_bits/fn_cumprod.hpp:
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__type_traits/is_member_object_pointer.h:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__bit/has_single_bit.h:
+
+extern/armadillo/armadillo_bits/spglue_min_bones.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__bit/endian.h:
 
@@ -3745,29 +3825,31 @@ armadillo/armadillo_bits/fn_cumprod.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__type_traits/is_destructible.h:
 
+extern/armadillo/armadillo_bits/unwrap.hpp:
+
+extern/armadillo/armadillo_bits/op_toeplitz_meat.hpp:
+
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__compare/ordering.h:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__bit/bit_log2.h:
 
-armadillo/armadillo_bits/fn_cov.hpp:
-
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__bit/bit_floor.h:
 
-/Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__algorithm/ranges_remove.h:
+extern/armadillo/armadillo_bits/GlueCube_meat.hpp:
 
-armadillo/armadillo_bits/fn_interp1.hpp:
+/Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__algorithm/ranges_remove.h:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__bit/bit_ceil.h:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__fwd/string_view.h:
+
+extern/armadillo/armadillo_bits/SpProxy.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__algorithm/pstl_copy.h:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__algorithm/ranges_starts_with.h:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__algorithm/unwrap_range.h:
-
-armadillo/armadillo_bits/field_meat.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__atomic/memory_order.h:
 
@@ -3781,19 +3863,11 @@ armadillo/armadillo_bits/field_meat.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__algorithm/pstl_backends/cpu_backend.h:
 
-armadillo/armadillo_bits/typedef_elem.hpp:
-
-armadillo/armadillo_bits/mtOp_bones.hpp:
-
-armadillo/armadillo_bits/gmm_diag_bones.hpp:
-
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__concepts/regular.h:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__atomic/is_always_lock_free.h:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__algorithm/replace_copy_if.h:
-
-armadillo/armadillo_bits/glue_hypot_bones.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__type_traits/remove_const.h:
 
@@ -3801,35 +3875,25 @@ armadillo/armadillo_bits/glue_hypot_bones.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__algorithm/swap_ranges.h:
 
-armadillo/armadillo_bits/spop_trimat_meat.hpp:
-
-armadillo/armadillo_bits/op_misc_meat.hpp:
-
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__atomic/check_memory_order.h:
 
-armadillo/armadillo_bits/fn_polyfit.hpp:
+extern/armadillo/armadillo_bits/op_nonzeros_meat.hpp:
+
+extern/armadillo/armadillo_bits/fn_zeros.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__type_traits/is_nothrow_destructible.h:
 
-armadillo/armadillo_bits/operator_cube_div.hpp:
+extern/armadillo/armadillo_bits/glue_hypot_meat.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__hash_table:
 
-armadillo/armadillo_bits/fill.hpp:
-
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__concepts/invocable.h:
-
-armadillo/armadillo_bits/op_chol_bones.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__atomic/atomic_sync.h:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__filesystem/perm_options.h:
 
-armadillo/armadillo_bits/glue_conv_bones.hpp:
-
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__atomic/atomic_lock_free.h:
-
-armadillo/armadillo_bits/running_stat_vec_bones.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__random/default_random_engine.h:
 
@@ -3839,25 +3903,21 @@ armadillo/armadillo_bits/running_stat_vec_bones.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__atomic/atomic_init.h:
 
-armadillo/armadillo_bits/op_hist_bones.hpp:
-
-armadillo/armadillo_bits/fn_eig_sym.hpp:
+extern/armadillo/armadillo_bits/BaseCube_bones.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__bit/bit_width.h:
 
+extern/armadillo/armadillo_bits/arma_rng_cxx98.hpp:
+
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__algorithm/set_union.h:
 
-armadillo/armadillo_bits/SpOp_bones.hpp:
+extern/armadillo/armadillo_bits/spop_diagmat_meat.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__algorithm/upper_bound.h:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__functional/function.h:
 
-armadillo/armadillo_bits/spop_trimat_bones.hpp:
-
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__algorithm/unique.h:
-
-armadillo/armadillo_bits/Gen_bones.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/i386/endian.h:
 
@@ -3866,8 +3926,6 @@ armadillo/armadillo_bits/Gen_bones.hpp:
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__utility/swap.h:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__functional/boyer_moore_searcher.h:
-
-armadillo/armadillo_bits/op_sum_meat.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/xlocale/_wctype.h:
 
@@ -3879,11 +3937,13 @@ armadillo/armadillo_bits/op_sum_meat.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__algorithm/sort_heap.h:
 
+extern/armadillo/armadillo_bits/fn_fft.hpp:
+
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__algorithm/shift_right.h:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__ranges/access.h:
 
-armadillo/armadillo_bits/newarp_DenseGenMatProd_meat.hpp:
+extern/armadillo/armadillo_bits/auxlib_bones.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__algorithm/shift_left.h:
 
@@ -3893,35 +3953,23 @@ armadillo/armadillo_bits/newarp_DenseGenMatProd_meat.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__bit/blsr.h:
 
-armadillo/armadillo_bits/fn_resize.hpp:
-
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__algorithm/set_symmetric_difference.h:
+
+extern/armadillo/armadillo_bits/subview_each_bones.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__algorithm/ranges_set_symmetric_difference.h:
 
+extern/armadillo/armadillo_bits/spglue_merge_meat.hpp:
+
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__chrono/calendar.h:
-
-armadillo/armadillo_bits/spop_sum_meat.hpp:
-
-armadillo/armadillo_bits/op_hist_meat.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__type_traits/is_constructible.h:
 
-armadillo/armadillo_bits/fn_eigs_sym.hpp:
-
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__compare/partial_order.h:
-
-armadillo/armadillo_bits/newarp_TridiagEigen_meat.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/locale.h:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__algorithm/set_intersection.h:
-
-armadillo/armadillo_bits/spop_mean_bones.hpp:
-
-armadillo/armadillo_bits/op_flip_bones.hpp:
-
-armadillo/armadillo_bits/op_chi2rnd_bones.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__bit/popcount.h:
 
@@ -3937,39 +3985,35 @@ armadillo/armadillo_bits/op_chi2rnd_bones.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__compare/compare_strong_order_fallback.h:
 
-armadillo/armadillo_bits/op_min_meat.hpp:
-
-armadillo/armadillo_bits/compiler_setup.hpp:
-
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/locale:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__type_traits/has_unique_object_representation.h:
 
-armadillo/armadillo_bits/op_cov_meat.hpp:
-
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__iterator/next.h:
-
-armadillo/armadillo_bits/operator_cube_times.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__algorithm/search.h:
 
+extern/armadillo/armadillo_bits/fn_toeplitz.hpp:
+
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__atomic/kill_dependency.h:
+
+extern/armadillo/armadillo_bits/spop_mean_meat.hpp:
+
+extern/armadillo/armadillo_bits/op_log_det_meat.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__type_traits/lazy.h:
 
-armadillo/armadillo_bits/op_chol_meat.hpp:
-
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__algorithm/rotate.h:
+
+extern/armadillo/armadillo_bits/mtGlue_meat.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__algorithm/find_first_of.h:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__algorithm/sample.h:
 
-armadillo/armadillo_bits/fn_reshape.hpp:
+extern/armadillo/armadillo_bits/trimat_helper.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__algorithm/ranges_fill.h:
-
-armadillo/armadillo_bits/mtSpGlue_meat.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/i386/limits.h:
 
@@ -3985,15 +4029,17 @@ armadillo/armadillo_bits/mtSpGlue_meat.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__algorithm/replace_if.h:
 
+extern/armadillo/armadillo_bits/fn_hist.hpp:
+
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__algorithm/remove_copy.h:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__atomic/atomic_flag.h:
 
+extern/armadillo/armadillo_bits/op_sp_minus_bones.hpp:
+
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__algorithm/ranges_copy_n.h:
 
-armadillo/armadillo_bits/gmm_misc_meat.hpp:
-
-armadillo/armadillo_bits/fn_normpdf.hpp:
+extern/armadillo/armadillo_bits/op_diagmat_meat.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/sys/_types/_pid_t.h:
 
@@ -4003,13 +4049,9 @@ armadillo/armadillo_bits/fn_normpdf.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__iterator/reverse_access.h:
 
-armadillo/armadillo_bits/eOpCube_meat.hpp:
-
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__algorithm/ranges_stable_partition.h:
 
-armadillo/armadillo_bits/spdiagview_meat.hpp:
-
-armadillo/armadillo_bits/op_toeplitz_meat.hpp:
+extern/armadillo/armadillo_bits/op_cumprod_bones.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__algorithm/pstl_merge.h:
 
@@ -4017,13 +4059,7 @@ armadillo/armadillo_bits/op_toeplitz_meat.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__type_traits/is_constant_evaluated.h:
 
-armadillo/armadillo_bits/translate_arpack.hpp:
-
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__algorithm/transform.h:
-
-armadillo/armadillo_bits/fn_normcdf.hpp:
-
-armadillo/armadillo_bits/SpToDOp_bones.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/clocale:
 
@@ -4037,9 +4073,11 @@ armadillo/armadillo_bits/SpToDOp_bones.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__chrono/statically_widen.h:
 
+extern/armadillo/armadillo_bits/mul_gemv.hpp:
+
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__algorithm/ranges_search_n.h:
 
-armadillo/armadillo_bits/op_cumprod_meat.hpp:
+extern/armadillo/armadillo_bits/glue_solve_meat.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__locale:
 
@@ -4049,7 +4087,7 @@ armadillo/armadillo_bits/op_cumprod_meat.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__format/parser_std_format_spec.h:
 
-armadillo/armadillo_bits/arma_static_check.hpp:
+extern/armadillo/armadillo_bits/span.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__config:
 
@@ -4057,21 +4095,13 @@ armadillo/armadillo_bits/arma_static_check.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__memory/allocate_at_least.h:
 
-armadillo/armadillo_bits/fn_pinv.hpp:
-
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/Availability.h:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__algorithm/pstl_transform.h:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__tuple/tuple_indices.h:
 
-armadillo/armadillo_bits/op_max_meat.hpp:
-
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__algorithm/make_heap.h:
-
-armadillo/armadillo_bits/glue_quantile_meat.hpp:
-
-armadillo/armadillo_bits/fn_min.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__type_traits/add_volatile.h:
 
@@ -4079,15 +4109,17 @@ armadillo/armadillo_bits/fn_min.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__algorithm/ranges_prev_permutation.h:
 
-/Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__algorithm/stable_sort.h:
+extern/armadillo/armadillo_bits/fn_randu.hpp:
 
-armadillo/armadillo_bits/fn_quantile.hpp:
+/Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__algorithm/stable_sort.h:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__algorithm/ranges_partition_point.h:
 
+extern/armadillo/armadillo_bits/arma_cmath.hpp:
+
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__type_traits/aligned_union.h:
 
-armadillo/armadillo_bits/restrictors.hpp:
+extern/armadillo/armadillo_bits/glue_join_meat.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/sys/_types/_off_t.h:
 
@@ -4105,17 +4137,19 @@ armadillo/armadillo_bits/restrictors.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__atomic/atomic_base.h:
 
-armadillo/armadillo_bits/SpCol_bones.hpp:
+extern/armadillo/armadillo_bits/glue_relational_bones.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/limits.h:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__algorithm/ranges_partition_copy.h:
 
+extern/armadillo/armadillo_bits/fn_misc.hpp:
+
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__exception/exception.h:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__algorithm/ranges_next_permutation.h:
 
-armadillo/armadillo_bits/fn_trunc_exp.hpp:
+extern/armadillo/armadillo_bits/glue_trapz_meat.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__algorithm/find.h:
 
@@ -4129,19 +4163,21 @@ armadillo/armadillo_bits/fn_trunc_exp.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__algorithm/ranges_find.h:
 
+extern/armadillo/armadillo_bits/xtrans_mat_meat.hpp:
+
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__functional/bind.h:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/_locale.h:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__algorithm/in_found_result.h:
 
-armadillo/armadillo_bits/fn_sort.hpp:
+extern/armadillo/armadillo_bits/op_sp_plus_bones.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/sys/_pthread/_pthread_cond_t.h:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/AvailabilityInternalLegacy.h:
 
-armadillo/armadillo_bits/operator_plus.hpp:
+extern/armadillo/armadillo_bits/op_sort_index_bones.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/_types/_uint32_t.h:
 
@@ -4149,19 +4185,15 @@ armadillo/armadillo_bits/operator_plus.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__algorithm/ranges_lower_bound.h:
 
-armadillo/armadillo_bits/spglue_merge_bones.hpp:
+extern/armadillo/armadillo_bits/glue_polyfit_bones.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__memory/allocator_arg_t.h:
 
-armadillo/armadillo_bits/op_sp_plus_bones.hpp:
-
-armadillo/armadillo_bits/mtSpOp_meat.hpp:
-
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__random/seed_seq.h:
 
-/Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__algorithm/ranges_min.h:
+extern/armadillo/armadillo_bits/eGlueCube_bones.hpp:
 
-armadillo/armadillo_bits/op_sp_plus_meat.hpp:
+/Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__algorithm/ranges_min.h:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__utility/exchange.h:
 
@@ -4169,21 +4201,11 @@ armadillo/armadillo_bits/op_sp_plus_meat.hpp:
 
 ThreeLegME.cc:
 
-armadillo/armadillo_bits/op_vectorise_bones.hpp:
-
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/sys/_types/_in_port_t.h:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__algorithm/pstl_any_all_none_of.h:
 
-armadillo/armadillo_bits/op_inv_bones.hpp:
-
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__algorithm/pstl_replace.h:
-
-armadillo/armadillo_bits/xtrans_mat_meat.hpp:
-
-armadillo/armadillo_bits/op_unique_meat.hpp:
-
-armadillo/armadillo_bits/include_superlu.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__algorithm/pstl_find.h:
 
@@ -4193,11 +4215,7 @@ armadillo/armadillo_bits/include_superlu.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__utility/terminate_on_exception.h:
 
-armadillo/armadillo_bits/op_cumprod_bones.hpp:
-
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__algorithm/ranges_partial_sort.h:
-
-armadillo/armadillo_bits/operator_ostream.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__algorithm/push_heap.h:
 
@@ -4207,7 +4225,7 @@ armadillo/armadillo_bits/operator_ostream.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__type_traits/add_cv.h:
 
-armadillo/armadillo_bits/translate_lapack.hpp:
+extern/armadillo/armadillo_bits/fn_all.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/pthread.h:
 
@@ -4221,8 +4239,6 @@ armadillo/armadillo_bits/translate_lapack.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__algorithm/ranges_is_heap_until.h:
 
-armadillo/armadillo_bits/glue_mixed_meat.hpp:
-
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__type_traits/is_arithmetic.h:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/sys/_select.h:
@@ -4230,6 +4246,8 @@ armadillo/armadillo_bits/glue_mixed_meat.hpp:
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__concepts/assignable.h:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/limits:
+
+extern/armadillo/armadillo_bits/fn_roots.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__algorithm/ranges_inplace_merge.h:
 
@@ -4249,7 +4267,13 @@ armadillo/armadillo_bits/glue_mixed_meat.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__type_traits/remove_volatile.h:
 
+extern/armadillo/armadillo_bits/gmm_misc_bones.hpp:
+
+extern/armadillo/armadillo_bits/cond_rel_meat.hpp:
+
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__algorithm/ranges_remove_copy.h:
+
+extern/armadillo/armadillo_bits/glue_mvnrnd_bones.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__type_traits/make_signed.h:
 
@@ -4263,8 +4287,6 @@ armadillo/armadillo_bits/glue_mixed_meat.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__algorithm/ranges_is_permutation.h:
 
-armadillo/armadillo_bits/def_superlu.hpp:
-
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/sys/_types/_fd_zero.h:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__algorithm/iterator_operations.h:
@@ -4272,8 +4294,6 @@ armadillo/armadillo_bits/def_superlu.hpp:
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__algorithm/ranges_count.h:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__algorithm/pstl_count.h:
-
-armadillo/armadillo_bits/GenCube_meat.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__algorithm/ranges_set_union.h:
 
@@ -4283,39 +4303,37 @@ armadillo/armadillo_bits/GenCube_meat.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__algorithm/pstl_backends/cpu_backends/transform_reduce.h:
 
-armadillo/armadillo_bits/mtSpGlue_bones.hpp:
+extern/armadillo/armadillo_bits/mul_gemm.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__type_traits/is_swappable.h:
 
-armadillo/armadillo_bits/SpMat_meat.hpp:
-
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__random/clamp_to_integral.h:
+
+extern/armadillo/armadillo_bits/auxlib_meat.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__algorithm/ranges_binary_search.h:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__algorithm/ranges_all_of.h:
 
-armadillo/armadillo_bits/arma_rng_cxx11.hpp:
-
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__algorithm/ranges_pop_heap.h:
+
+extern/armadillo/armadillo_bits/spop_repmat_meat.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__algorithm/ranges_copy_if.h:
 
-armadillo/armadillo_bits/fn_speye.hpp:
-
-armadillo/armadillo_bits/fn_randg.hpp:
-
-armadillo/armadillo_bits/fn_clamp.hpp:
+extern/armadillo/armadillo_bits/subview_cube_slices_meat.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__filesystem/copy_options.h:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__concepts/predicate.h:
 
-armadillo/armadillo_bits/glue_kron_meat.hpp:
-
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__algorithm/ranges_unique_copy.h:
 
+extern/armadillo/armadillo_bits/eop_aux.hpp:
+
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__algorithm/sort.h:
+
+extern/armadillo/armadillo_bits/newarp_TridiagEigen_meat.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__algorithm/copy_n.h:
 
@@ -4323,25 +4341,23 @@ armadillo/armadillo_bits/glue_kron_meat.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__ranges/data.h:
 
-armadillo/armadillo_bits/op_sp_minus_meat.hpp:
-
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__algorithm/ranges_generate_n.h:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__algorithm/ranges_minmax_element.h:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__ranges/dangling.h:
 
-armadillo/armadillo_bits/fn_inplace_strans.hpp:
+extern/armadillo/armadillo_bits/op_max_meat.hpp:
+
+extern/armadillo/armadillo_bits/op_chol_bones.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__algorithm/ranges_adjacent_find.h:
 
-armadillo/armadillo_bits/eOp_meat.hpp:
+extern/armadillo/armadillo_bits/glue_cross_meat.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__type_traits/conditional.h:
 
-armadillo/armadillo_bits/newarp_UpperHessenbergQR_bones.hpp:
-
-armadillo/armadillo_bits/fn_fft.hpp:
+extern/armadillo/armadillo_bits/op_sort_bones.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__algorithm/is_permutation.h:
 
@@ -4353,13 +4369,9 @@ armadillo/armadillo_bits/fn_fft.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__algorithm/ranges_fill_n.h:
 
-armadillo/armadillo_bits/sp_auxlib_meat.hpp:
-
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__filesystem/file_time_type.h:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__iterator/common_iterator.h:
-
-armadillo/armadillo_bits/fn_max.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__algorithm/shuffle.h:
 
@@ -4369,31 +4381,21 @@ armadillo/armadillo_bits/fn_max.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__system_error/errc.h:
 
-armadillo/armadillo_bits/newarp_DoubleShiftQR_meat.hpp:
-
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__algorithm/partition_copy.h:
 
-armadillo/armadillo_bits/fn_princomp.hpp:
+extern/armadillo/armadillo_bits/fn_svds.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__numeric/inclusive_scan.h:
-
-armadillo/armadillo_bits/fn_eig_pair.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__format/formatter_output.h:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__algorithm/pstl_for_each.h:
 
-armadillo/armadillo_bits/op_cx_scalar_bones.hpp:
-
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/AvailabilityVersions.h:
-
-armadillo/armadillo_bits/spop_normalise_meat.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__algorithm/ranges_replace_copy_if.h:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/new:
-
-armadillo/armadillo_bits/newarp_SortEigenvalue.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__algorithm/ranges_replace.h:
 
@@ -4403,7 +4405,7 @@ armadillo/armadillo_bits/newarp_SortEigenvalue.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/cstdlib:
 
-armadillo/armadillo_bits/newarp_SymEigsSolver_bones.hpp:
+extern/armadillo/armadillo_bits/op_unique_bones.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/stdexcept:
 
@@ -4411,25 +4413,19 @@ armadillo/armadillo_bits/newarp_SymEigsSolver_bones.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/array:
 
+extern/armadillo/armadillo_bits/subview_cube_slices_bones.hpp:
+
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__algorithm/pstl_is_partitioned.h:
 
-armadillo/armadillo_bits/subview_cube_each_bones.hpp:
-
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__algorithm/merge.h:
-
-armadillo/armadillo_bits/trimat_helper.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/stdint.h:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__bit/byteswap.h:
 
-armadillo/armadillo_bits/BaseCube_meat.hpp:
-
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__algorithm/none_of.h:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__algorithm/find_end.h:
-
-armadillo/armadillo_bits/arma_rel_comparators.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__type_traits/is_volatile.h:
 
@@ -4439,13 +4435,13 @@ armadillo/armadillo_bits/arma_rel_comparators.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/AvailabilityInternal.h:
 
-armadillo/armadillo_bits/spop_max_bones.hpp:
-
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__algorithm/minmax.h:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__chrono/hh_mm_ss.h:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__type_traits/conjunction.h:
+
+extern/armadillo/armadillo_bits/op_find_meat.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__functional/binder1st.h:
 
@@ -4455,21 +4451,19 @@ armadillo/armadillo_bits/spop_max_bones.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__algorithm/clamp.h:
 
-armadillo/armadillo_bits/glue_kron_bones.hpp:
-
-armadillo/armadillo_bits/Proxy.hpp:
-
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__algorithm/ranges_is_sorted_until.h:
+
+extern/armadillo/armadillo_bits/traits.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__algorithm/min.h:
 
-armadillo/armadillo_bits/spglue_max_bones.hpp:
+extern/armadillo/armadillo_bits/glue_polyval_bones.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__algorithm/binary_search.h:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__algorithm/for_each_segment.h:
 
-armadillo/armadillo_bits/op_fft_bones.hpp:
+extern/armadillo/armadillo_bits/diagview_bones.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__chrono/convert_to_timespec.h:
 
@@ -4477,27 +4471,23 @@ armadillo/armadillo_bits/op_fft_bones.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__algorithm/ranges_reverse.h:
 
-armadillo/armadillo_bits/glue_affmul_meat.hpp:
-
-armadillo/armadillo_bits/eGlue_meat.hpp:
-
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__algorithm/for_each_n.h:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__algorithm/make_projected.h:
 
-armadillo/armadillo_bits/def_lapack.hpp:
-
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__algorithm/pstl_backends/cpu_backends/for_each.h:
+
+extern/armadillo/armadillo_bits/SpToDOp_bones.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__algorithm/lower_bound.h:
 
-armadillo/armadillo_bits/include_atlas.hpp:
+extern/armadillo/armadillo_bits/running_stat_meat.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__type_traits/remove_pointer.h:
 
-armadillo/armadillo_bits/glue_atan2_bones.hpp:
-
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__algorithm/ranges_partition.h:
+
+extern/armadillo/armadillo_bits/op_misc_meat.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__algorithm/nth_element.h:
 
@@ -4521,31 +4511,25 @@ armadillo/armadillo_bits/glue_atan2_bones.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__tuple/tuple_types.h:
 
-armadillo/armadillo_bits/newarp_UpperHessenbergQR_meat.hpp:
-
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__algorithm/comp.h:
-
-armadillo/armadillo_bits/SpGlue_meat.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__chrono/weekday.h:
 
-armadillo/armadillo_bits/access.hpp:
-
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__algorithm/pstl_backends/cpu_backends/stable_sort.h:
+
+extern/armadillo/armadillo_bits/fn_trimat.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__type_traits/noexcept_move_assign_container.h:
 
+extern/armadillo/armadillo_bits/arma_str.hpp:
+
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__iterator/ostream_iterator.h:
 
-armadillo/armadillo_bits/fn_toeplitz.hpp:
+extern/armadillo/armadillo_bits/CubeToMatOp_bones.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__fwd/memory_resource.h:
 
-armadillo/armadillo_bits/fn_elem.hpp:
-
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__fwd/array.h:
-
-armadillo/armadillo_bits/Base_bones.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__algorithm/any_of.h:
 
@@ -4553,25 +4537,31 @@ armadillo/armadillo_bits/Base_bones.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__type_traits/is_nothrow_assignable.h:
 
-armadillo/armadillo_bits/glue_polyval_meat.hpp:
+extern/armadillo/armadillo_bits/newarp_TridiagEigen_bones.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__algorithm/prev_permutation.h:
 
-armadillo/armadillo_bits/mtOpCube_meat.hpp:
+extern/armadillo/armadillo_bits/op_chol_meat.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__availability:
 
-armadillo/armadillo_bits/fn_interp2.hpp:
-
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/_types/_intmax_t.h:
 
+extern/armadillo/armadillo_bits/spglue_plus_meat.hpp:
+
+extern/armadillo/armadillo_bits/Cube_bones.hpp:
+
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__filesystem/perms.h:
+
+extern/armadillo/armadillo_bits/glue_hypot_bones.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__algorithm/in_out_out_result.h:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__algorithm/fill.h:
 
-armadillo/armadillo_bits/subview_meat.hpp:
+extern/armadillo/armadillo_bits/op_repmat_meat.hpp:
+
+extern/armadillo/armadillo_bits/fn_histc.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__type_traits/is_reference_wrapper.h:
 
@@ -4581,13 +4571,13 @@ armadillo/armadillo_bits/subview_meat.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__concepts/common_reference_with.h:
 
+extern/armadillo/armadillo_bits/newarp_UpperHessenbergQR_meat.hpp:
+
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__algorithm/fill_n.h:
 
-armadillo/armadillo_bits/op_sort_index_bones.hpp:
+extern/armadillo/armadillo_bits/def_lapack.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__algorithm/stable_partition.h:
-
-armadillo/armadillo_bits/arma_cmath.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__algorithm/find_if.h:
 
@@ -4595,39 +4585,45 @@ armadillo/armadillo_bits/arma_cmath.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__algorithm/for_each.h:
 
+extern/armadillo/armadillo_bits/fn_vectorise.hpp:
+
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__utility/is_pointer_in_range.h:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/_wctype.h:
 
-armadillo/armadillo_bits/fn_any.hpp:
-
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__filesystem/u8path.h:
 
-armadillo/armadillo_bits/fn_var.hpp:
-
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__tuple/tuple_like.h:
+
+extern/armadillo/armadillo_bits/glue_max_bones.hpp:
+
+extern/armadillo/armadillo_bits/fn_randn.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/_types/_nl_item.h:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__algorithm/uniform_random_bit_generator_adaptor.h:
 
-armadillo/armadillo_bits/arma_forward.hpp:
-
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__algorithm/min_element.h:
+
+extern/armadillo/armadillo_bits/spglue_times_meat.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__algorithm/remove_copy_if.h:
 
-armadillo/armadillo_bits/fn_conv_to.hpp:
+extern/armadillo/armadillo_bits/op_trimat_meat.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__algorithm/ranges_search.h:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__chrono/year_month_day.h:
 
+extern/armadillo/armadillo_bits/fn_as_scalar.hpp:
+
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__algorithm/copy_backward.h:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__algorithm/pstl_backends/cpu_backends/any_of.h:
 
-armadillo/armadillo_bits/fn_zeros.hpp:
+extern/armadillo/armadillo_bits/mtSpGlue_bones.hpp:
+
+extern/armadillo/armadillo_bits/include_hdf5.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__algorithm/is_heap_until.h:
 
@@ -4635,21 +4631,27 @@ armadillo/armadillo_bits/fn_zeros.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__type_traits/aligned_storage.h:
 
-armadillo/armadillo_bits/op_shuffle_bones.hpp:
+extern/armadillo/armadillo_bits/operator_cube_minus.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__algorithm/in_in_result.h:
 
+extern/armadillo/armadillo_bits/fn_join.hpp:
+
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__algorithm/equal_range.h:
 
-armadillo/armadillo_bits/op_log_det_bones.hpp:
+extern/armadillo/armadillo_bits/glue_cov_meat.hpp:
+
+extern/armadillo/armadillo_bits/fn_randi.hpp:
+
+extern/armadillo/armadillo_bits/constants.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__algorithm/copy_if.h:
-
-armadillo/armadillo_bits/glue_intersect_meat.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__concepts/arithmetic.h:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/bit:
+
+extern/armadillo/armadillo_bits/op_repelem_meat.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__algorithm/ranges_mismatch.h:
 
@@ -4659,11 +4661,13 @@ armadillo/armadillo_bits/glue_intersect_meat.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__algorithm/ranges_shuffle.h:
 
+extern/armadillo/armadillo_bits/op_sort_meat.hpp:
+
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__fwd/subrange.h:
 
-/Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__algorithm/pstl_backend.h:
+extern/armadillo/armadillo_bits/fn_mean.hpp:
 
-armadillo/armadillo_bits/podarray_bones.hpp:
+/Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__algorithm/pstl_backend.h:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__memory/unique_ptr.h:
 
@@ -4671,37 +4675,33 @@ armadillo/armadillo_bits/podarray_bones.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__algorithm/ranges_equal_range.h:
 
+extern/armadillo/armadillo_bits/arma_rng_cxx11.hpp:
+
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/_xlocale.h:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__numeric/midpoint.h:
 
-armadillo/armadillo_bits/promote_type.hpp:
-
-armadillo/armadillo_bits/glue_min_bones.hpp:
+extern/armadillo/armadillo_bits/fn_elem.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__algorithm/ranges_find_if_not.h:
-
-armadillo/armadillo_bits/fn_median.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__algorithm/copy.h:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__algorithm/generate_n.h:
 
-armadillo/armadillo_bits/sympd_helper.hpp:
-
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/_types/_wctrans_t.h:
 
+extern/armadillo/armadillo_bits/op_fft_bones.hpp:
+
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__random/geometric_distribution.h:
+
+extern/armadillo/armadillo_bits/op_cx_scalar_bones.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__algorithm/ranges_replace_if.h:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__type_traits/is_object.h:
 
-armadillo/armadillo_bits/unwrap.hpp:
-
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__algorithm/ranges_move.h:
-
-armadillo/armadillo_bits/fn_trapz.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/sys/_types/_ucontext.h:
 

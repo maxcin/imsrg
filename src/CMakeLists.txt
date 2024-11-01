@@ -34,7 +34,7 @@ find_package(ZLIB REQUIRED)
 # include_directories(${ARMADILLO_INCLUDE_DIRS})
 
 add_compile_options(-frounding-math)
-set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_CXX_STANDARD 14)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
 
 set(IMSRGPLUSPLUS_ROOT_DIR ${CMAKE_CURRENT_SOURCE_DIR})
@@ -45,16 +45,16 @@ if(IMSRG_BUILD_PYTHON_BINDINGS)
     set(CMAKE_POSITION_INDEPENDENT_CODE TRUE)
 endif()
 
-add_subdirectory(armadillo)
-add_subdirectory(half)
+add_subdirectory(extern/armadillo)
+add_subdirectory(extern/half)
 
-add_subdirectory(boost_src)
+add_subdirectory(extern/boost_src)
 
 # add_subdirectory(profiling)
 
 
 if(IMSRG_BUILD_PYTHON_BINDINGS)
-    add_subdirectory(pybind11)
+    add_subdirectory(extern/pybind11)
 endif()
 
 # Add a custom command that produces version.cpp, plus
@@ -65,6 +65,7 @@ ADD_CUSTOM_COMMAND(
            ${CMAKE_CURRENT_BINARY_DIR}/_version.cc
     COMMAND ${CMAKE_COMMAND} -P
             ${CMAKE_CURRENT_SOURCE_DIR}/git_version.cmake)
+
 
 add_library(
     AngMom
@@ -109,7 +110,6 @@ target_link_libraries(
     IMSRGProfiler
     AngMomCache
     PRIVATE
-    # ${ARMADILLO_LIBRARIES}
     OpenMP::OpenMP_CXX
 )
 
@@ -323,6 +323,19 @@ target_link_libraries(
 )
 
 add_library(
+    IMSRGSolverPV
+    IMSRGSolverPV.hh IMSRGSolverPV.cc
+)
+target_link_libraries(
+    IMSRGSolverPV
+    PUBLIC
+    IMSRGSolver
+    GeneratorPV
+    PRIVATE
+    Commutator
+)
+
+add_library(
     Commutator232
     Commutator232.hh Commutator232.cc
 )
@@ -458,7 +471,6 @@ target_link_libraries(
     OpenMP::OpenMP_CXX
     GSL::gsl
     AngMom
-    # ${ARMADILLO_LIBRARIES}
     PhysicalConstants
 )
 
@@ -553,6 +565,25 @@ target_link_libraries(
 )
 
 add_library(
+    GeneratorPV
+    GeneratorPV.hh GeneratorPV.cc
+)
+target_link_libraries(
+    GeneratorPV
+    PUBLIC
+    ModelSpace
+    Operator
+    PRIVATE
+    Generator
+    GSL::gsl
+    imsrg_util
+    AngMom
+    Commutator
+    PhysicalConstants
+    OpenMP::OpenMP_CXX
+)
+
+add_library(
     HFMBPT
     HFMBPT.hh HFMBPT.cc
 )
@@ -563,7 +594,6 @@ target_link_libraries(
     HartreeFock
     PRIVATE
     PhysicalConstants
-    # ${ARMADILLO_LIBRARIES}
     OpenMP::OpenMP_CXX
 )
 
@@ -578,7 +608,6 @@ target_link_libraries(
     ModelSpace
     Operator
     PRIVATE
-    # ${ARMADILLO_LIBRARIES}
     PhysicalConstants
     AngMom
 )
@@ -594,8 +623,7 @@ target_link_libraries(
     Operator
     Commutator
     PRIVATE
-    #armadillo
-    ${ARMADILLO_LIBRARIES}
+    armadillo
     PhysicalConstants
     Version
     imsrg_util
@@ -615,7 +643,6 @@ target_link_libraries(
     Commutator
     PRIVATE
     armadillo
-    # ${ARMADILLO_LIBRARIES}
     PhysicalConstants
     Version
     imsrg_util
@@ -639,7 +666,9 @@ target_link_libraries(
     HartreeFock
     Commutator
     IMSRGSolver
+    IMSRGSolverPV
     Generator
+    GeneratorPV
     imsrg_util
     AngMom
     IMSRGProfiler
@@ -650,6 +679,7 @@ target_link_libraries(
     PhysicalConstants
     RPA
 )
+
 
 add_executable(
     imsrg++

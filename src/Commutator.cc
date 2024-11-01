@@ -1767,7 +1767,9 @@ namespace Commutator
     if (not(X.GetParity() == 0 and Y.GetParity() == 0 and Z.GetParity() == 0 and X.GetTRank() == 0 and Y.GetTRank() == 0 and Z.GetTRank() == 0))
     {
       if (X.GetParity() == 0 and X.GetTRank() == 0)
+      
       {
+        std::cout<< X.is_reduced << " "<<Y.is_reduced<<" "<< Z.is_reduced << std::endl;
         Operator Yred = Y;
         Yred.MakeReduced();
         Z.MakeReduced();

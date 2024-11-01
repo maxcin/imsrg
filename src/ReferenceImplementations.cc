@@ -411,7 +411,7 @@ namespace ReferenceImplementations
     auto &X2 = X.TwoBody;
     auto &Y2 = Y.TwoBody;
     auto &Z2 = Z.TwoBody;
-
+    std::cout << X.is_reduced << " " << Y.is_reduced << " " << Z.is_reduced << std::endl;
     std::vector<size_t> ch_bra_list, ch_ket_list;
     for (auto &iter : Z.TwoBody.MatEl)
     {
@@ -555,7 +555,6 @@ namespace ReferenceImplementations
         } // iket
       } // ibra
     } // ch
-
   } // comm222_phss
 
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////

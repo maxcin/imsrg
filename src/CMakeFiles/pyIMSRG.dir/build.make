@@ -94,6 +94,8 @@ pyIMSRG.cpython-310-darwin.so: CMakeFiles/pyIMSRG.dir/pyIMSRG.cc.o
 pyIMSRG.cpython-310-darwin.so: CMakeFiles/pyIMSRG.dir/build.make
 pyIMSRG.cpython-310-darwin.so: libUnitTest.a
 pyIMSRG.cpython-310-darwin.so: libUnitTest.a
+pyIMSRG.cpython-310-darwin.so: libIMSRGSolverPV.a
+pyIMSRG.cpython-310-darwin.so: libGeneratorPV.a
 pyIMSRG.cpython-310-darwin.so: libHFMBPT.a
 pyIMSRG.cpython-310-darwin.so: libRPA.a
 pyIMSRG.cpython-310-darwin.so: libReferenceImplementations.a
@@ -125,20 +127,20 @@ pyIMSRG.cpython-310-darwin.so: libThreeBodyStorage_iso.a
 pyIMSRG.cpython-310-darwin.so: libThreeBodyStorage_pn.a
 pyIMSRG.cpython-310-darwin.so: libThreeBodyStorage_no2b.a
 pyIMSRG.cpython-310-darwin.so: libThreeBodyStorage_mono.a
-pyIMSRG.cpython-310-darwin.so: boost_src/libIMSRGBoostZip.a
+pyIMSRG.cpython-310-darwin.so: extern/boost_src/libIMSRGBoostZip.a
 pyIMSRG.cpython-310-darwin.so: /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/lib/libz.tbd
 pyIMSRG.cpython-310-darwin.so: libThreeBodyStorage.a
 pyIMSRG.cpython-310-darwin.so: libThreeLegME.a
 pyIMSRG.cpython-310-darwin.so: libModelSpace.a
 pyIMSRG.cpython-310-darwin.so: libIMSRGProfiler.a
 pyIMSRG.cpython-310-darwin.so: libAngMomCache.a
-pyIMSRG.cpython-310-darwin.so: /usr/local/opt/openblas/lib/libopenblas.dylib
 pyIMSRG.cpython-310-darwin.so: libPwd.a
 pyIMSRG.cpython-310-darwin.so: libAngMom.a
 pyIMSRG.cpython-310-darwin.so: /usr/local/Cellar/gsl/2.7.1/lib/libgsl.dylib
 pyIMSRG.cpython-310-darwin.so: /usr/local/Cellar/gsl/2.7.1/lib/libgslcblas.dylib
 pyIMSRG.cpython-310-darwin.so: /usr/local/lib/libomp.dylib
 pyIMSRG.cpython-310-darwin.so: libVersion.a
+pyIMSRG.cpython-310-darwin.so: /usr/local/opt/openblas/lib/libopenblas.dylib
 pyIMSRG.cpython-310-darwin.so: CMakeFiles/pyIMSRG.dir/link.txt
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/Users/antoinebelley/Documents/TRIUMF/imsrg/src/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX shared module pyIMSRG.cpython-310-darwin.so"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/pyIMSRG.dir/link.txt --verbose=$(VERBOSE)

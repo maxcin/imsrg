@@ -326,6 +326,9 @@ PKG_CONFIG_ARGN:STRING=
 //pkg-config executable
 PKG_CONFIG_EXECUTABLE:FILEPATH=/usr/local/bin/pkg-config
 
+//To enforce that a handle_type_name<> specialization exists
+PYBIND11_DISABLE_HANDLE_TYPE_NAME_DEFAULT_IMPLEMENTATION:BOOL=OFF
+
 //Force new FindPython
 PYBIND11_FINDPYTHON:BOOL=OFF
 
@@ -338,6 +341,10 @@ PYBIND11_INTERNALS_VERSION:STRING=
 
 //Disable search for Python
 PYBIND11_NOPYTHON:BOOL=OFF
+
+//Disable NumPy 2 support to avoid changes to previous pybind11
+// versions.
+PYBIND11_NUMPY_1_ONLY:BOOL=OFF
 
 //Overwrite cached values read from Python library (classic search).
 // Turn off if cross-compiling and manually setting these values.
@@ -352,8 +359,11 @@ PYBIND11_SIMPLE_GIL_MANAGEMENT:BOOL=OFF
 //Build pybind11 test suite?
 PYBIND11_TEST:BOOL=OFF
 
-//No help, variable specified on the command line.
-PYTHON_EXECUTABLE:FILEPATH=/Users/antoinebelley/.pyenv/versions/3.10.2/bin/python
+//Respect CMAKE_CROSSCOMPILING
+PYBIND11_USE_CROSSCOMPILING:BOOL=OFF
+
+//Path to a program.
+PYTHON_EXECUTABLE:FILEPATH=/Users/antoinebelley/.pyenv/versions/3.10.2/bin/python3
 
 //Path to a library.
 PYTHON_LIBRARY:FILEPATH=/Users/antoinebelley/.pyenv/versions/3.10.2/lib/libpython3.10.a
@@ -389,13 +399,13 @@ pkgcfg_lib_GSL_gslcblas:FILEPATH=/usr/local/Cellar/gsl/2.7.1/lib/libgslcblas.dyl
 pkgcfg_lib_GSL_m:FILEPATH=/Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/lib/libm.tbd
 
 //Value Computed by CMake
-pybind11_BINARY_DIR:STATIC=/Users/antoinebelley/Documents/TRIUMF/imsrg/src/pybind11
+pybind11_BINARY_DIR:STATIC=/Users/antoinebelley/Documents/TRIUMF/imsrg/src/extern/pybind11
 
 //Value Computed by CMake
 pybind11_IS_TOP_LEVEL:STATIC=OFF
 
 //Value Computed by CMake
-pybind11_SOURCE_DIR:STATIC=/Users/antoinebelley/Documents/TRIUMF/imsrg/src/pybind11
+pybind11_SOURCE_DIR:STATIC=/Users/antoinebelley/Documents/TRIUMF/imsrg/src/extern/pybind11
 
 
 ########################
@@ -592,9 +602,9 @@ FIND_PACKAGE_MESSAGE_DETAILS_OpenMP_C:INTERNAL=[-Xclang -fopenmp][/usr/local/lib
 //Details about finding OpenMP_CXX
 FIND_PACKAGE_MESSAGE_DETAILS_OpenMP_CXX:INTERNAL=[-Xclang -fopenmp][/usr/local/lib/libomp.dylib][v5.0()]
 //Details about finding PYTHON
-FIND_PACKAGE_MESSAGE_DETAILS_PYTHON:INTERNAL=/Users/antoinebelley/.pyenv/versions/3.10.2/bin/python3.10.2
+FIND_PACKAGE_MESSAGE_DETAILS_PYTHON:INTERNAL=/Users/antoinebelley/.pyenv/versions/3.10.2/bin/python33.10.2
 //Details about finding PythonInterp
-FIND_PACKAGE_MESSAGE_DETAILS_PythonInterp:INTERNAL=[/Users/antoinebelley/.pyenv/versions/3.10.2/bin/python][v3.10.2(3.6)]
+FIND_PACKAGE_MESSAGE_DETAILS_PythonInterp:INTERNAL=[/Users/antoinebelley/.pyenv/versions/3.10.2/bin/python3][v3.10.2(3.6)]
 //Details about finding ZLIB
 FIND_PACKAGE_MESSAGE_DETAILS_ZLIB:INTERNAL=[/Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/lib/libz.tbd][/Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include][c ][v1.2.12()]
 //ADVANCED property for variable: GSL_CBLAS_LIBRARY
@@ -649,7 +659,7 @@ GSL_gsl_VERSION:INTERNAL=
 //Test HAS_FLTO
 HAS_FLTO:INTERNAL=1
 //Test HAS_FLTO_THIN
-HAS_FLTO_THIN:INTERNAL=1
+HAS_FLTO_THIN:INTERNAL=
 //Result of TRY_COMPILE
 OpenMP_COMPILE_RESULT_CXX_Xclang fopenmp:INTERNAL=TRUE
 //Result of TRY_COMPILE
@@ -676,7 +686,7 @@ OpenMP_libomp_LIBRARY-ADVANCED:INTERNAL=1
 PKG_CONFIG_ARGN-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: PKG_CONFIG_EXECUTABLE
 PKG_CONFIG_EXECUTABLE-ADVANCED:INTERNAL=1
-PYBIND11_INCLUDE_DIR:INTERNAL=/Users/antoinebelley/Documents/TRIUMF/imsrg/src/pybind11/include
+PYBIND11_INCLUDE_DIR:INTERNAL=/Users/antoinebelley/Documents/TRIUMF/imsrg/src/extern/pybind11/include
 //ADVANCED property for variable: PYTHON_EXECUTABLE
 PYTHON_EXECUTABLE-ADVANCED:INTERNAL=1
 PYTHON_INCLUDE_DIRS:INTERNAL=/Users/antoinebelley/.pyenv/versions/3.10.2/include/python3.10
@@ -684,12 +694,13 @@ PYTHON_IS_DEBUG:INTERNAL=0
 PYTHON_LIBRARIES:INTERNAL=/Users/antoinebelley/.pyenv/versions/3.10.2/lib/libpython3.10.a
 //ADVANCED property for variable: PYTHON_LIBRARY
 PYTHON_LIBRARY-ADVANCED:INTERNAL=1
+PYTHON_MODULE_DEBUG_POSTFIX:INTERNAL=
 PYTHON_MODULE_EXTENSION:INTERNAL=.cpython-310-darwin.so
 PYTHON_MODULE_PREFIX:INTERNAL=
 PYTHON_VERSION:INTERNAL=3.10.2
 PYTHON_VERSION_MAJOR:INTERNAL=3
 PYTHON_VERSION_MINOR:INTERNAL=10
-Python_ADDITIONAL_VERSIONS:INTERNAL=3.11;3.10;3.9;3.8;3.7;3.6
+Python_ADDITIONAL_VERSIONS:INTERNAL=3.12;3.11;3.10;3.9;3.8;3.7;3.6
 //ADVANCED property for variable: ZLIB_INCLUDE_DIR
 ZLIB_INCLUDE_DIR-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: ZLIB_LIBRARY_DEBUG
@@ -698,6 +709,7 @@ ZLIB_LIBRARY_DEBUG-ADVANCED:INTERNAL=1
 ZLIB_LIBRARY_RELEASE-ADVANCED:INTERNAL=1
 //CMAKE_INSTALL_PREFIX during last run
 _GNUInstallDirs_LAST_CMAKE_INSTALL_PREFIX:INTERNAL=/usr/local
+_PYBIND11_CROSSCOMPILING:INTERNAL=OFF
 _Python:INTERNAL=PYTHON
 __pkg_config_arguments_GSL:INTERNAL=QUIET;gsl
 __pkg_config_checked_GSL:INTERNAL=1
@@ -713,7 +725,7 @@ prefix_result:INTERNAL=/usr/local/Cellar/gsl/2.7.1/lib
 //True if pybind11 and all required components found on the system
 pybind11_FOUND:INTERNAL=TRUE
 //Directory where pybind11 headers are located
-pybind11_INCLUDE_DIR:INTERNAL=/Users/antoinebelley/Documents/TRIUMF/imsrg/src/pybind11/include
+pybind11_INCLUDE_DIR:INTERNAL=/Users/antoinebelley/Documents/TRIUMF/imsrg/src/extern/pybind11/include
 //Directories where pybind11 and possibly Python headers are located
-pybind11_INCLUDE_DIRS:INTERNAL=/Users/antoinebelley/Documents/TRIUMF/imsrg/src/pybind11/include;/Users/antoinebelley/.pyenv/versions/3.10.2/include/python3.10
+pybind11_INCLUDE_DIRS:INTERNAL=/Users/antoinebelley/Documents/TRIUMF/imsrg/src/extern/pybind11/include;/Users/antoinebelley/.pyenv/versions/3.10.2/include/python3.10
 
