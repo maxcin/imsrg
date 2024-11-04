@@ -268,7 +268,7 @@ namespace Commutator
                Ytmp.MakeNotReduced();
                Ynred = &Ytmp;
             }
-            return -CommutatorScalarTensor( X, *Ynred );  // [T,S] = -[S,T]
+            return -CommutatorScalarTensor( *Ynred , X );  // [T,S] = -[S,T]
 
           }
           else  // Both are tensor. Uh oh.
