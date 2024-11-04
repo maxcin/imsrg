@@ -536,6 +536,7 @@ bool UnitTest::TestCommutators_ParityChanging()
   Operator X = RandomOp(*modelspace, 0, 0, 0, 3, -1);
   Operator Y = RandomOp(*modelspace, 0, 0, 1, 3, +1);
   modelspace->PreCalculateSixJ();
+  Y.MakeNotReduced();
 
   bool all_good = true;
 
@@ -1136,8 +1137,23 @@ double UnitTest::GetMschemeMatrixElement_3leg(const Operator &Op, int a, int ma,
 bool UnitTest::Test_against_ref_impl(const Operator &X, const Operator &Y, commutator_func ComOpt, commutator_func ComRef, std::string output_tag)
 {
 
-  Operator Z(Y);
-  Z.Erase();
+  int z_Jrank = X.GetJRank() + Y.GetJRank(); // I sure hope this is zero.
+  int z_Trank = X.GetTRank() + Y.GetTRank();
+  int z_parity = (X.GetParity() + Y.GetParity()) % 2; 
+  int z_particlerank = Commutator::use_imsrg3 ? 3: 2;
+  int hx = X.IsHermitian() ? +1 : -1;
+  int hy = Y.IsHermitian() ? +1 : -1;
+  
+  ModelSpace &ms = *(Y.GetModelSpace());
+  Operator Z(ms, z_Jrank, z_Trank, z_parity, z_particlerank);
+  if (hx*hy > 0)
+  Z.SetAntiHermitian();
+  if ( z_particlerank > 2 )
+  {
+     Z.ThreeBody.SetMode("pn");
+  }
+//  Operator Z(Y);
+//  Z.Erase();
   Operator Zref(Z);
 
   ComOpt(X, Y, Z);
