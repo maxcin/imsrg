@@ -1190,7 +1190,7 @@ namespace Commutator
           if (Z.modelspace->phase((bra_ph.op->j2 + bra_ph.oq->j2) / 2) < 0)
             PhaseMatYJ1J2.row(iph) *= -1;
         }
-        PhaseMatXJ2 *= -1*hX;
+        PhaseMatXJ2 *= -1 * hX;
         PhaseMatYJ1J2 *= flipphaseY;
 
         //                J2                       J1         J2                       J2          J2
