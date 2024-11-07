@@ -411,7 +411,6 @@ namespace ReferenceImplementations
     auto &X2 = X.TwoBody;
     auto &Y2 = Y.TwoBody;
     auto &Z2 = Z.TwoBody;
-    std::cout << X.is_reduced << " " << Y.is_reduced << " " << Z.is_reduced << std::endl;
     std::vector<size_t> ch_bra_list, ch_ket_list;
     for (auto &iter : Z.TwoBody.MatEl)
     {
@@ -555,6 +554,7 @@ namespace ReferenceImplementations
         } // iket
       } // ibra
     } // ch
+    // Z.PrintTwoBody();
   } // comm222_phss
 
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -2338,18 +2338,18 @@ namespace ReferenceImplementations
                         double hats = sqrt((2 * J3 + 1) * (2 * J4 + 1) * (2 * J6 + 1) * (2 * J7 + 1));
                         int phaseY = AngMom::phase((ob.j2 + o2.j2) / 2 + J4 + J7);
                         Ybar_abrq -= hats * phaseY * ninejY * Y.TwoBody.GetTBME_J(J6, J7, a, I2, I3, b);
-                        if (ch_bra == 1)
-                        {
-                          std::cout << "  ========= J6,J7= " << J6 << " " << J7 << "  " << hats << " * " << phaseY << " * " << ninejY << " * " << Y.TwoBody.GetTBME_J(J6, J7, a, I2, I3, b) << " I got Ya23b from Y2.GetTBME_J(" << J6 << " " << J7 << " " << a << " " << I2 << " " << I3 << " " << b << " )" << std::endl;
-                        }
+                        // if (ch_bra == 1)
+                        // {
+                        //   std::cout << "  ========= J6,J7= " << J6 << " " << J7 << "  " << hats << " * " << phaseY << " * " << ninejY << " * " << Y.TwoBody.GetTBME_J(J6, J7, a, I2, I3, b) << " I got Ya23b from Y2.GetTBME_J(" << J6 << " " << J7 << " " << a << " " << I2 << " " << I3 << " " << b << " )" << std::endl;
+                        // }
                       }
                     }
                     Zbar_1432 += nanb * Xbar_psab * Ybar_abrq;
 
-                    if (ch_bra == 1)
-                    {
-                      std::cout << "     a b " << a << " " << b << " " << nanb << " *  ( " << Xbar_psab << " * " << Ybar_abrq << " ) -> zbar_1432 = " << Zbar_1432 << std::endl;
-                    }
+                    // if (ch_bra == 1)
+                    // {
+                    //   std::cout << "     a b " << a << " " << b << " " << nanb << " *  ( " << Xbar_psab << " * " << Ybar_abrq << " ) -> zbar_1432 = " << Zbar_1432 << std::endl;
+                    // }
 
                   } // for b
                 } // for a
@@ -2358,11 +2358,11 @@ namespace ReferenceImplementations
                 //                         zpqrs += phaseperm* sqrt( (2*J1+1)*(2*J2+1)*(2*J3+1)*(2*J4+1) ) * nanb * ninej * AngMom::phase((o2.j2+o4.j2)/2 +J2+J4) * Xbar_psab * Ybar_abrq;
                 zpqrs += phaseperm * sqrt((2 * J1 + 1) * (2 * J2 + 1) * (2 * J3 + 1) * (2 * J4 + 1)) * ninej * AngMom::phase((o2.j2 + o4.j2) / 2 + J2 + J4) * Zbar_1432;
 
-                if (ch_bra == 1)
-                {
-                  std::cout << __func__ << " " << __LINE__ << " channel J = " << tbc_bra.J << "  J3,J4 " << J3 << " " << J4 << " iperm " << iperm << " : "
-                            << phaseperm << " * " << sqrt((2 * J1 + 1) * (2 * J2 + 1) * (2 * J3 + 1) * (2 * J4 + 1)) << " * " << ninej << " * " << AngMom::phase((o2.j2 + o4.j2) / 2 + J2 + J4) << " * " << Zbar_1432 << " (<-Zbar_1432, zpqrs ->)  " << zpqrs << std::endl;
-                }
+                // if (ch_bra == 1)
+                // {
+                //   std::cout << __func__ << " " << __LINE__ << " channel J = " << tbc_bra.J << "  J3,J4 " << J3 << " " << J4 << " iperm " << iperm << " : "
+                //             << phaseperm << " * " << sqrt((2 * J1 + 1) * (2 * J2 + 1) * (2 * J3 + 1) * (2 * J4 + 1)) << " * " << ninej << " * " << AngMom::phase((o2.j2 + o4.j2) / 2 + J2 + J4) << " * " << Zbar_1432 << " (<-Zbar_1432, zpqrs ->)  " << zpqrs << std::endl;
+                // }
               } // for J4
             } // for J3
           } // for iperm

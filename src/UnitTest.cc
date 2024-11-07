@@ -533,8 +533,8 @@ bool UnitTest::TestCommutators_ParityChanging()
 {
   double t_start = omp_get_wtime();
   arma::arma_rng::set_seed(random_seed);
-  Operator X = RandomOp(*modelspace, 0, 0, 1, 2, -1);
-  Operator Y = RandomOp(*modelspace, 0, 0, 0, 2, +1);
+  Operator X = RandomOp(*modelspace, 0, 0, 0, 2, -1);
+  Operator Y = RandomOp(*modelspace, 0, 0, 1, 2, +1);
   modelspace->PreCalculateSixJ();
   bool all_good = true;
 
@@ -1157,9 +1157,30 @@ bool UnitTest::Test_against_ref_impl(const Operator &X, const Operator &Y, commu
   Operator Z(ms, z_Jrank, z_Trank, z_parity, 2);
   Operator Zref(Z);
 
+  if (Z.IsReduced())
+    Z.MakeNotReduced();
+
+  if ((X.IsHermitian() and Y.IsHermitian()) or (X.IsAntiHermitian() and Y.IsAntiHermitian()))
+    Z.SetAntiHermitian();
+  else if ((X.IsHermitian() and Y.IsAntiHermitian()) or (X.IsAntiHermitian() and Y.IsHermitian()))
+    Z.SetHermitian();
+  else
+    Z.SetNonHermitian();
+
+  if (Zref.IsReduced())
+    Zref.MakeNotReduced();
+
+  if ((X.IsHermitian() and Y.IsHermitian()) or (X.IsAntiHermitian() and Y.IsAntiHermitian()))
+    Zref.SetAntiHermitian();
+  else if ((X.IsHermitian() and Y.IsAntiHermitian()) or (X.IsAntiHermitian() and Y.IsHermitian()))
+    Zref.SetHermitian();
+  else
+    Zref.SetNonHermitian();
+
   ComOpt(*Xnred, *Ynred, Z);
   if ((Z.GetParity() != 0) or (Z.GetTRank() != 0))
   {
+    
     Z.MakeReduced(); // If Z changes parity or Tz, we by default store it as reduced. So make it as expected. Is that a good idea? Not sure....
   }
   double tstart = omp_get_wtime();

@@ -656,6 +656,7 @@ namespace Commutator
     if ((tbc_bra_cc.parity + tbc_ket_cc.parity + Z.GetParity()) % 2 > 0)
       return;
 
+
     // loop over ph bras <ad| in this channel
     for (int ibra = 0; ibra < nph_bras; ++ibra)
     {
@@ -698,7 +699,6 @@ namespace Commutator
             {
               ninej = Z.modelspace->GetNineJ(ja, jd, J1, jb, jc, J2, Jbra_cc, Jket_cc, Lambda);
             }
-
             if (std::abs(ninej) < 1e-8)
               continue;
             double hatfactor = sqrt((2 * J1 + 1) * (2 * J2 + 1) * (2 * Jbra_cc + 1) * (2 * Jket_cc + 1));
@@ -1059,8 +1059,9 @@ namespace Commutator
   void comm222_phst(const Operator &X, const Operator &Y, Operator &Z)
   {
 
-    int hX = X.IsHermitian() ? 1 : -1;
-    int hY = Y.IsHermitian() ? 1 : -1;
+
+    int hX = X.IsHermitian() ? 1  : -1;
+    int hY = Y.IsHermitian() ? 1  : -1;
 
     double t_start = omp_get_wtime();
     Z.modelspace->PreCalculateSixJ(); // if we already did it, this does nothing.
@@ -1204,7 +1205,7 @@ namespace Commutator
         //
         int halfncx2 = XJ2.n_cols / 2;
         int halfnry12 = YJ1J2.n_rows / 2;
-
+       
         arma::mat Mleft = join_horiz(XJ1, -flipphaseY * YJ2J1.t());
         arma::mat Mright = join_vert(join_horiz(YJ1J2, join_vert(YJ1J2.tail_rows(halfnry12) % PhaseMatYJ1J2,
                                                                  YJ1J2.head_rows(halfnry12) % PhaseMatYJ1J2)),
@@ -1220,7 +1221,7 @@ namespace Commutator
     }
     else // faster, more memory hungry way
     {
-      //      std::cout << "  in  " << __func__ << "  doing it the new way" << std::endl;
+          //  std::cout << "  in  " << __func__ << "  doing it the new way" << std::endl;
 
       std::deque<arma::mat> YJ1J2_list(counter);
       std::deque<arma::mat> YJ2J1_list(counter);
@@ -1233,7 +1234,6 @@ namespace Commutator
       {
         index_t ch_bra_cc = ybras[i];
         index_t ch_ket_cc = ykets[i];
-
         const auto &tbc_bra_cc = Z.modelspace->GetTwoBodyChannel_CC(ch_bra_cc);
         const auto &tbc_ket_cc = Z.modelspace->GetTwoBodyChannel_CC(ch_ket_cc);
         //         int Jbra = tbc_bra_cc.J;
@@ -1253,7 +1253,7 @@ namespace Commutator
         DoTensorPandyaTransformation_SingleChannel(Y, YJ1J2, ch_bra_cc, ch_ket_cc);
         if (ch_bra_cc == ch_ket_cc)
         {
-//          std::cout << __func__ << " " << __LINE__ << std::endl;
+        //  std::cout << __func__ << " " << __LINE__ << std::endl;
           //         YJ2J1 = YJ1J2;
           // Dont do nothing..
         }
@@ -1320,6 +1320,7 @@ namespace Commutator
           if (Z.modelspace->phase((bra_ph.op->j2 + bra_ph.oq->j2) / 2) < 0)
             PhaseMatYJ1J2.row(iph) *= -1;
         }
+        PhaseMatXJ2 *= -1*hX;
         PhaseMatYJ1J2 *= flipphaseY;
 
         //                J2                       J1         J2                       J2          J2
@@ -1339,27 +1340,28 @@ namespace Commutator
         arma::mat Mleft = join_horiz(XJ1, -flipphaseY * YJ2J1.t());
         arma::mat Mright = join_vert(join_horiz(YJ1J2, join_vert(YJ1J2.tail_rows(halfnry12) % PhaseMatYJ1J2,
                                                                  YJ1J2.head_rows(halfnry12) % PhaseMatYJ1J2)),
-                                     hX * join_vert(XJ2, join_horiz(XJ2.tail_cols(halfncx2) % PhaseMatXJ2,
+                                      hX * join_vert(XJ2, join_horiz(XJ2.tail_cols(halfncx2) % PhaseMatXJ2,
                                                                     XJ2.head_cols(halfncx2) % PhaseMatXJ2))
                                               .t());
 
         Z_bar.at({ch_bra_cc, ch_ket_cc}) = Mleft * Mright;
         //         if ( ch_bra_cc==2 or ch_bra_cc==3 or ch_bra_cc==8 or ch_bra_cc==9 )
-//        if (ch_bra_cc == 3)
-//        {
-//          std::cout << __func__ << "  ch_cc = " << ch_bra_cc << std::endl
-//                    << "Mleft " << std::endl
-//                    << Mleft << std::endl
-//                    << "Mright" << std::endl
-//                    << Mright
-//                    << std::endl
-//                    << "Zbar " << std::endl
-//                    << Z_bar.at({ch_bra_cc, ch_ket_cc}) << std::endl;
-//          std::cout << "   and also XJ1 = " << std::endl
-//                    << XJ1 << std::endl
-//                    << "   and  YJ1J2 = " << std::endl
-//                    << YJ1J2 << std::endl;
-//        }
+      //  if (ch_bra_cc == 5)
+      //  {
+      //    std::cout << __func__ << "  ch_cc = " << ch_bra_cc << std::endl
+      //              << "ch_ket = " << ch_ket_cc << std::endl
+      //              << "Mleft " << std::endl
+      //              << Mleft << std::endl
+      //              << "Mright" << std::endl
+      //              << Mright
+      //              << std::endl
+      //              << "Zbar " << std::endl
+      //              << Z_bar.at({ch_bra_cc, ch_ket_cc}) << std::endl;
+      //    std::cout << "   and also XJ2 = " << std::endl
+      //              << XJ2 << std::endl
+      //              << "   and  YJ1J2 = " << std::endl
+      //              << YJ1J2 << std::endl;
+      //  }
       }// for i looping over channels
 
     } // else J=0
@@ -1367,7 +1369,6 @@ namespace Commutator
 
     t_internal = omp_get_wtime();
     AddInverseTensorPandyaTransformation(Z, Z_bar);
-
     X.profiler.timer[__func__] += omp_get_wtime() - t_start;
   }
 

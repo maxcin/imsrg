@@ -24,6 +24,7 @@
 #include <map>
 #include <array>
 #include <armadillo>
+#include <iostream>
 
 namespace Commutator
 {

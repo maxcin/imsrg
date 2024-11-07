@@ -194,7 +194,7 @@ CMAKE_OSX_DEPLOYMENT_TARGET:STRING=
 
 //The product will be built against the headers and libraries located
 // inside the indicated SDK.
-CMAKE_OSX_SYSROOT:PATH=/Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk
+CMAKE_OSX_SYSROOT:PATH=/Library/Developer/CommandLineTools/SDKs/MacOSX15.1.sdk
 
 //Value Computed by CMake
 CMAKE_PROJECT_DESCRIPTION:STATIC=
@@ -369,13 +369,13 @@ PYTHON_EXECUTABLE:FILEPATH=/Users/antoinebelley/.pyenv/versions/3.10.2/bin/pytho
 PYTHON_LIBRARY:FILEPATH=/Users/antoinebelley/.pyenv/versions/3.10.2/lib/libpython3.10.a
 
 //Path to a file.
-ZLIB_INCLUDE_DIR:PATH=/Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include
+ZLIB_INCLUDE_DIR:PATH=/Library/Developer/CommandLineTools/SDKs/MacOSX15.1.sdk/usr/include
 
 //Path to a library.
 ZLIB_LIBRARY_DEBUG:FILEPATH=ZLIB_LIBRARY_DEBUG-NOTFOUND
 
 //Path to a library.
-ZLIB_LIBRARY_RELEASE:FILEPATH=/Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/lib/libz.tbd
+ZLIB_LIBRARY_RELEASE:FILEPATH=/Library/Developer/CommandLineTools/SDKs/MacOSX15.1.sdk/usr/lib/libz.tbd
 
 //The directory containing a CMake configuration file for boost_headers.
 boost_headers_DIR:PATH=/usr/local/lib/cmake/boost_headers-1.82.0
@@ -396,7 +396,7 @@ pkgcfg_lib_GSL_gsl:FILEPATH=/usr/local/Cellar/gsl/2.7.1/lib/libgsl.dylib
 pkgcfg_lib_GSL_gslcblas:FILEPATH=/usr/local/Cellar/gsl/2.7.1/lib/libgslcblas.dylib
 
 //Path to a library.
-pkgcfg_lib_GSL_m:FILEPATH=/Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/lib/libm.tbd
+pkgcfg_lib_GSL_m:FILEPATH=/Library/Developer/CommandLineTools/SDKs/MacOSX15.1.sdk/usr/lib/libm.tbd
 
 //Value Computed by CMake
 pybind11_BINARY_DIR:STATIC=/Users/antoinebelley/Documents/TRIUMF/imsrg/src/extern/pybind11
@@ -596,17 +596,17 @@ FIND_PACKAGE_MESSAGE_DETAILS_Boost:INTERNAL=[/usr/local/lib/cmake/Boost-1.82.0/B
 //Details about finding GSL
 FIND_PACKAGE_MESSAGE_DETAILS_GSL:INTERNAL=[/usr/local/Cellar/gsl/2.7.1/include][/usr/local/Cellar/gsl/2.7.1/lib/libgsl.dylib][/usr/local/Cellar/gsl/2.7.1/lib/libgslcblas.dylib][v2.7.1()]
 //Details about finding OpenMP
-FIND_PACKAGE_MESSAGE_DETAILS_OpenMP:INTERNAL=[TRUE][TRUE][c ][v5.0()]
+FIND_PACKAGE_MESSAGE_DETAILS_OpenMP:INTERNAL=[TRUE][TRUE][c ][v()]
 //Details about finding OpenMP_C
-FIND_PACKAGE_MESSAGE_DETAILS_OpenMP_C:INTERNAL=[-Xclang -fopenmp][/usr/local/lib/libomp.dylib][v5.0()]
+FIND_PACKAGE_MESSAGE_DETAILS_OpenMP_C:INTERNAL=[-Xclang -fopenmp][/usr/local/lib/libomp.dylib][v()]
 //Details about finding OpenMP_CXX
-FIND_PACKAGE_MESSAGE_DETAILS_OpenMP_CXX:INTERNAL=[-Xclang -fopenmp][/usr/local/lib/libomp.dylib][v5.0()]
+FIND_PACKAGE_MESSAGE_DETAILS_OpenMP_CXX:INTERNAL=[-Xclang -fopenmp][/usr/local/lib/libomp.dylib][v()]
 //Details about finding PYTHON
 FIND_PACKAGE_MESSAGE_DETAILS_PYTHON:INTERNAL=/Users/antoinebelley/.pyenv/versions/3.10.2/bin/python33.10.2
 //Details about finding PythonInterp
 FIND_PACKAGE_MESSAGE_DETAILS_PythonInterp:INTERNAL=[/Users/antoinebelley/.pyenv/versions/3.10.2/bin/python3][v3.10.2(3.6)]
 //Details about finding ZLIB
-FIND_PACKAGE_MESSAGE_DETAILS_ZLIB:INTERNAL=[/Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/lib/libz.tbd][/Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include][c ][v1.2.12()]
+FIND_PACKAGE_MESSAGE_DETAILS_ZLIB:INTERNAL=[/Library/Developer/CommandLineTools/SDKs/MacOSX15.1.sdk/usr/lib/libz.tbd][/Library/Developer/CommandLineTools/SDKs/MacOSX15.1.sdk/usr/include][c ][v1.2.12()]
 //ADVANCED property for variable: GSL_CBLAS_LIBRARY
 GSL_CBLAS_LIBRARY-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: GSL_CBLAS_LIBRARY_DEBUG
@@ -669,13 +669,13 @@ OpenMP_CXX_FLAGS-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: OpenMP_CXX_LIB_NAMES
 OpenMP_CXX_LIB_NAMES-ADVANCED:INTERNAL=1
 //CXX compiler's OpenMP specification date
-OpenMP_CXX_SPEC_DATE:INTERNAL=201811
+OpenMP_CXX_SPEC_DATE:INTERNAL=202011
 //ADVANCED property for variable: OpenMP_C_FLAGS
 OpenMP_C_FLAGS-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: OpenMP_C_LIB_NAMES
 OpenMP_C_LIB_NAMES-ADVANCED:INTERNAL=1
 //C compiler's OpenMP specification date
-OpenMP_C_SPEC_DATE:INTERNAL=201811
+OpenMP_C_SPEC_DATE:INTERNAL=202011
 //Result of TRY_COMPILE
 OpenMP_SPECTEST_CXX_:INTERNAL=TRUE
 //Result of TRY_COMPILE

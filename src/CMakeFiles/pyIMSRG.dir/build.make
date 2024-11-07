@@ -128,7 +128,7 @@ pyIMSRG.cpython-310-darwin.so: libThreeBodyStorage_pn.a
 pyIMSRG.cpython-310-darwin.so: libThreeBodyStorage_no2b.a
 pyIMSRG.cpython-310-darwin.so: libThreeBodyStorage_mono.a
 pyIMSRG.cpython-310-darwin.so: extern/boost_src/libIMSRGBoostZip.a
-pyIMSRG.cpython-310-darwin.so: /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/lib/libz.tbd
+pyIMSRG.cpython-310-darwin.so: /Library/Developer/CommandLineTools/SDKs/MacOSX15.1.sdk/usr/lib/libz.tbd
 pyIMSRG.cpython-310-darwin.so: libThreeBodyStorage.a
 pyIMSRG.cpython-310-darwin.so: libThreeLegME.a
 pyIMSRG.cpython-310-darwin.so: libModelSpace.a

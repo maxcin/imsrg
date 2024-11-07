@@ -22,6 +22,7 @@
 #define ReferenceImplementations_hh 1
 
 #include "Operator.hh"
+#include <iostream>
 
 namespace ReferenceImplementations
 {

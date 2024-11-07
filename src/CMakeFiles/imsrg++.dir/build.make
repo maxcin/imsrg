@@ -130,7 +130,7 @@ imsrg++: libThreeBodyStorage_pn.a
 imsrg++: libThreeBodyStorage_no2b.a
 imsrg++: libThreeBodyStorage_mono.a
 imsrg++: extern/boost_src/libIMSRGBoostZip.a
-imsrg++: /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/lib/libz.tbd
+imsrg++: /Library/Developer/CommandLineTools/SDKs/MacOSX15.1.sdk/usr/lib/libz.tbd
 imsrg++: libThreeBodyStorage.a
 imsrg++: libThreeLegME.a
 imsrg++: libModelSpace.a
