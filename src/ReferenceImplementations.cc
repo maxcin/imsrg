@@ -411,6 +411,10 @@ namespace ReferenceImplementations
     auto &X2 = X.TwoBody;
     auto &Y2 = Y.TwoBody;
     auto &Z2 = Z.TwoBody;
+    if (X.IsReduced() or Y.IsReduced() )
+    {
+       std::cout << "  " << __FILE__ << "  line " << __LINE__ <<  "  calling " << __func__ << "  with operators that are in reduced form. Things will be wrong." << std::endl;
+    }
 
     std::vector<size_t> ch_bra_list, ch_ket_list;
     for (auto &iter : Z.TwoBody.MatEl)
@@ -2241,6 +2245,251 @@ namespace ReferenceImplementations
 
   /// Start of scalar-tensor commutators
 
+  void comm111st(const Operator &X, const Operator &Y, Operator &Z)
+  {
+   
+     for (auto i : Z.modelspace->all_orbits )
+     {
+       for (auto j : Z.modelspace->all_orbits )
+       {
+         double zij = 0;
+         for (auto a : Z.modelspace->all_orbits )
+         {
+            zij += X.OneBody(i,a) * Y.OneBody(a,j) - Y.OneBody(i,a) * X.OneBody(a,j);
+         }// for a
+         Z.OneBody(i,j) += zij;
+       }// for j
+     }// for i
+  }// comm111st
+
+
+
+// Streightforward implementation of second term of equation (B2) in Parzuchowski et al PRC 96, 034324 (2017).
+//
+  void comm121st(const Operator &X, const Operator &Y, Operator &Z)
+  {
+   
+     Z.modelspace->PreCalculateNineJ();
+     int lambda = Y.GetJRank();
+     for (auto i : Z.modelspace->all_orbits )
+     {
+       Orbit& oi = Z.modelspace->GetOrbit(i);
+       double ji = 0.5*oi.j2;
+       for (auto j : Z.modelspace->all_orbits )
+       {
+         Orbit& oj = Z.modelspace->GetOrbit(j);
+         double jj = 0.5*oj.j2;
+         double zij = 0;
+         for (auto a : Z.modelspace->all_orbits )
+         {
+           Orbit& oa = Z.modelspace->GetOrbit(a);
+           double jahat = sqrt(oa.j2+1);
+           double ja = 0.5*oa.j2;
+           double na = oa.occ;
+           for (auto b : Z.modelspace->all_orbits )
+           {
+            Orbit& ob = Z.modelspace->GetOrbit(b);
+            double jb = 0.5*ob.j2;
+            double nb = ob.occ;
+            double Xbar_ijab = 0;
+            int J2min = std::max( std::abs(oi.j2-ob.j2), std::abs(oa.j2-oj.j2))/2;
+            int J2max = std::min( oi.j2+ob.j2, oj.j2+oa.j2)/2;
+            for (int J2=J2min; J2<=J2max; J2++)
+            {
+              double sixj = Z.modelspace->GetSixJ( ji,jj,lambda,ja,jb,J2);
+              Xbar_ijab -= (2*J2+1) * sixj * X.TwoBody.GetTBME_J(J2,J2,i,b,a,j);
+            }
+            double Ybar_ijab = 0;
+            int J3min =  std::abs(oi.j2-ob.j2)/2;
+            int J3max =  (oi.j2+ob.j2)/2;
+            for (int J3=J3min; J3<=J3max; J3++)
+            {
+              int J4min = std::max( std::abs(oj.j2-oa.j2), std::abs(2*J3-2*lambda))/2;
+              int J4max = std::min( oj.j2+oa.j2, 2*J3+2*lambda)/2;
+              for (int J4=J4min; J4<=J4max; J4++)
+              {
+                double ninej = Z.modelspace->GetNineJ( ji, jb, J3,  jj, ja, J4, lambda, 0, lambda);
+                Ybar_ijab -= sqrt((2*lambda+1)*(2*0+1)*(2*J3+1)*(2*J4+1)) * AngMom::phase(jj+jb+0+J4) * ninej * Y.TwoBody.GetTBME_J(J3,J4,i,b,a,j);
+              }
+            }
+            zij -= (na-nb)* ( Xbar_ijab * Y.OneBody(a,b) - jahat*Ybar_ijab * X.OneBody(a,b) );
+           }// for b
+         }// for a
+         Z.OneBody(i,j) += zij;
+       }// for j
+     }// for i
+  }// comm121st
+
+
+  // This seems to be working --SRS 12/17/2024.
+  void comm122st(const Operator &X, const Operator &Y, Operator &Z)
+  {
+    Z.modelspace->PreCalculateSixJ();
+    int lambda = Y.GetJRank();
+    int phase_lambda = Z.modelspace->phase(lambda); // (-1)^lambda
+    for (auto &iter : Z.TwoBody.MatEl)
+    {
+      size_t ch_bra = iter.first[0];
+      size_t ch_ket = iter.first[1];
+      auto &Z2MAT = iter.second;
+      TwoBodyChannel &tbc_bra = Z.modelspace->GetTwoBodyChannel(ch_bra);
+      TwoBodyChannel &tbc_ket = Z.modelspace->GetTwoBodyChannel(ch_ket);
+      size_t nbras = tbc_bra.GetNumberKets();
+      size_t nkets = tbc_ket.GetNumberKets();
+      int J1 = tbc_bra.J;
+      int J2 = tbc_ket.J;
+      double J1J2hat = sqrt( (2*J1+1)*(2*J2+1) );
+      for (size_t ibra = 0; ibra < nbras; ibra++)
+      {
+        Ket &bra = tbc_bra.GetKet(ibra);
+        size_t p = bra.p;
+        size_t q = bra.q;
+        Orbit &op = Z.modelspace->GetOrbit(p);
+        Orbit &oq = Z.modelspace->GetOrbit(q);
+        double jp = op.j2 * 0.5;
+        double jq = oq.j2 * 0.5;
+        for (size_t iket = 0; iket < nkets; iket++)
+        {
+          Ket &ket = tbc_ket.GetKet(iket);
+          size_t r = ket.p;
+          size_t s = ket.q;
+          Orbit &oR = Z.modelspace->GetOrbit(r);
+          Orbit &os = Z.modelspace->GetOrbit(s);
+          double jr = oR.j2 * 0.5;
+          double js = os.j2 * 0.5;
+          double zpqrs = 0;
+          if ((ch_bra==ch_ket)  and (iket>ibra)) continue;
+
+
+          for ( auto a : X.GetOneBodyChannel( op.l, op.j2, op.tz2 ))
+          {
+             zpqrs += X.OneBody(p,a) * Y.TwoBody.GetTBME_J(J1,J2,a,q,r,s) ;
+          }
+          for ( auto a : X.GetOneBodyChannel( oq.l, oq.j2, oq.tz2 ))
+          {
+             zpqrs += X.OneBody(q,a) * Y.TwoBody.GetTBME_J(J1,J2,p,a,r,s) ;
+          }
+          for ( auto a : X.GetOneBodyChannel( oR.l, oR.j2, oR.tz2 ))
+          {
+             zpqrs -= X.OneBody(a,r) * Y.TwoBody.GetTBME_J(J1,J2,p,q,a,s);
+          }
+          for ( auto a : X.GetOneBodyChannel( os.l, os.j2, os.tz2 ))
+          {
+             zpqrs -= X.OneBody(a,s) * Y.TwoBody.GetTBME_J(J1,J2,p,q,r,a);
+          }
+
+
+          for ( auto a : Y.GetOneBodyChannel( op.l, op.j2, op.tz2 ))
+          {
+             Orbit &oa = Z.modelspace->GetOrbit(a);
+             double ja = oa.j2 * 0.5;
+             double sixj = Z.modelspace->GetSixJ(J2,J1,lambda, jp,ja,jq);
+             zpqrs -= J1J2hat * phase_lambda * Z.modelspace->phase(jp+jq+J2) * sixj * Y.OneBody(p,a) * X.TwoBody.GetTBME_J(J2,J2,a,q,r,s);
+          }
+          for ( auto a : Y.GetOneBodyChannel( oq.l, oq.j2, oq.tz2 ))
+          {
+             Orbit &oa = Z.modelspace->GetOrbit(a);
+             double ja = oa.j2 * 0.5;
+             double sixj = Z.modelspace->GetSixJ(J2,J1,lambda, jq,ja,jp);
+             zpqrs += J1J2hat * phase_lambda * Z.modelspace->phase(J1-J2 ) * sixj * Y.OneBody(q,a) * X.TwoBody.GetTBME_J(J2,J2,a,p,r,s);
+          }
+          for ( auto a : Y.GetOneBodyChannel( os.l, os.j2, os.tz2 ))
+          {
+             Orbit &oa = Z.modelspace->GetOrbit(a);
+             double ja = oa.j2 * 0.5;
+             double sixj = Z.modelspace->GetSixJ(J1,J2,lambda, js,ja,jr);
+             zpqrs += J1J2hat * phase_lambda * Z.modelspace->phase(jr+js-J1) * sixj * Y.OneBody(a,s) * X.TwoBody.GetTBME_J(J1,J1,p,q,r,a);
+          }
+          for ( auto a : Y.GetOneBodyChannel( oR.l, oR.j2, oR.tz2 ))
+          {
+             Orbit &oa = Z.modelspace->GetOrbit(a);
+             double ja = oa.j2 * 0.5;
+             double sixj = Z.modelspace->GetSixJ(J1,J2,lambda, jr,ja,js);
+             zpqrs -= J1J2hat * phase_lambda * Z.modelspace->phase(J1+J2) * sixj * Y.OneBody(a,r) * X.TwoBody.GetTBME_J(J1,J1,p,q,s,a);
+          }
+
+          // Normalize
+          if (p == q)
+            zpqrs /= PhysConst::SQRT2;
+          if (r == s)
+            zpqrs /= PhysConst::SQRT2;
+
+          Z.TwoBody.AddToTBME(ch_bra, ch_ket, ibra, iket, zpqrs);
+        }// for iket
+      }// for ibra
+
+    }// for ch_bra/ch_ket
+
+
+  }
+
+
+  // This has not yet been validated, and is almost certainly wrong.
+  void comm221st(const Operator &X, const Operator &Y, Operator &Z)
+  {
+
+     int lambda = Y.GetJRank();
+     for (auto i : Z.modelspace->all_orbits )
+     {
+       Orbit& oi = Z.modelspace->GetOrbit(i);
+       double ji = 0.5*oi.j2;
+       for (auto j : Z.modelspace->all_orbits )
+       {
+         Orbit& oj = Z.modelspace->GetOrbit(j);
+         double jj = 0.5*oj.j2;
+         double zij = 0;
+
+         for (auto c : Z.modelspace->all_orbits )
+         {
+           Orbit& oc = Z.modelspace->GetOrbit(c);
+           double jc = oc.j2 * 0.5;
+           int J1min = std::abs( oi.j2 - oc.j2)/2;
+           int J1max = (oi.j2+oc.j2)/2;
+           int J2min = std::abs( oj.j2 - oc.j2)/2;
+           int J2max = (oj.j2+oc.j2)/2;
+           for (int J1=J1min; J1<=J1max; J1++)
+           {
+             for (int J2=J2min; J2<=J2max; J2++)
+             {
+               double sixj = Z.modelspace->GetSixJ(J1,J2,lambda,  jj,ji,jc);
+               double hats = sqrt( (2*J1+1) * (2*J2+1) );
+               int phase = AngMom::phase( jj+jc + J1+lambda );
+              
+               for (auto a : Z.modelspace->all_orbits )
+               {
+                 Orbit& oa = Z.modelspace->GetOrbit(a);
+                 for (auto b : Z.modelspace->all_orbits )
+                 {
+                   Orbit& ob = Z.modelspace->GetOrbit(b);
+                   double nanbnc = oa.occ * ob.occ * (1-oc.occ) + (1-oa.occ)*(1-ob.occ)*oc.occ;
+
+                   double Xciab = X.TwoBody.GetTBME_J(J1,J1,c,i,a,b);
+                   double Xabcj = X.TwoBody.GetTBME_J(J2,J2,a,b,c,j);
+                   double Yciab = Y.TwoBody.GetTBME_J(J1,J2,c,i,a,b);
+                   double Yabcj = Y.TwoBody.GetTBME_J(J1,J2,a,b,c,j);
+                   zij += 0.5 * nanbnc * hats * phase * sixj * ( Xciab * Yabcj - Yciab * Xabcj );
+
+                 }// for b
+               }// for a
+               
+             }//for J2
+           }// for J1
+         }// for c
+         Z.OneBody(i,j) += zij;
+
+       }// for j
+     }// for i
+
+  }// comm221st
+
+
+
+  // This has not yet been validated, and is almost certainly wrong.
+  void comm222_pp_hhst(const Operator &X, const Operator &Y, Operator &Z)
+  {
+    std::cout << __FILE__ << " " << __func__ << "  NOT YET IMPLEMENTED..." << std::endl;
+  }
+
   // This has not yet been validated, and is almost certainly wrong.
   void comm222_phst(const Operator &X, const Operator &Y, Operator &Z)
   {
@@ -2339,18 +2588,18 @@ namespace ReferenceImplementations
                         double hats = sqrt((2 * J3 + 1) * (2 * J4 + 1) * (2 * J6 + 1) * (2 * J7 + 1));
                         int phaseY = AngMom::phase((ob.j2 + o2.j2) / 2 + J4 + J7);
                         Ybar_abrq -= hats * phaseY * ninejY * Y.TwoBody.GetTBME_J(J6, J7, a, I2, I3, b);
-                        if (ch_bra == 1)
-                        {
-                          std::cout << "  ========= J6,J7= " << J6 << " " << J7 << "  " << hats << " * " << phaseY << " * " << ninejY << " * " << Y.TwoBody.GetTBME_J(J6, J7, a, I2, I3, b) << " I got Ya23b from Y2.GetTBME_J(" << J6 << " " << J7 << " " << a << " " << I2 << " " << I3 << " " << b << " )" << std::endl;
-                        }
+//                        if (ch_bra == 1)
+//                        {
+//                          std::cout << "  ========= J6,J7= " << J6 << " " << J7 << "  " << hats << " * " << phaseY << " * " << ninejY << " * " << Y.TwoBody.GetTBME_J(J6, J7, a, I2, I3, b) << " I got Ya23b from Y2.GetTBME_J(" << J6 << " " << J7 << " " << a << " " << I2 << " " << I3 << " " << b << " )" << std::endl;
+//                        }
                       }
                     }
                     Zbar_1432 += nanb * Xbar_psab * Ybar_abrq;
 
-                    if (ch_bra == 1)
-                    {
-                      std::cout << "     a b " << a << " " << b << " " << nanb << " *  ( " << Xbar_psab << " * " << Ybar_abrq << " ) -> zbar_1432 = " << Zbar_1432 << std::endl;
-                    }
+//                    if (ch_bra == 1)
+//                    {
+//                      std::cout << "     a b " << a << " " << b << " " << nanb << " *  ( " << Xbar_psab << " * " << Ybar_abrq << " ) -> zbar_1432 = " << Zbar_1432 << std::endl;
+//                    }
 
                   } // for b
                 } // for a
@@ -2359,11 +2608,11 @@ namespace ReferenceImplementations
                 //                         zpqrs += phaseperm* sqrt( (2*J1+1)*(2*J2+1)*(2*J3+1)*(2*J4+1) ) * nanb * ninej * AngMom::phase((o2.j2+o4.j2)/2 +J2+J4) * Xbar_psab * Ybar_abrq;
                 zpqrs += phaseperm * sqrt((2 * J1 + 1) * (2 * J2 + 1) * (2 * J3 + 1) * (2 * J4 + 1)) * ninej * AngMom::phase((o2.j2 + o4.j2) / 2 + J2 + J4) * Zbar_1432;
 
-                if (ch_bra == 1)
-                {
-                  std::cout << __func__ << " " << __LINE__ << " channel J = " << tbc_bra.J << "  J3,J4 " << J3 << " " << J4 << " iperm " << iperm << " : "
-                            << phaseperm << " * " << sqrt((2 * J1 + 1) * (2 * J2 + 1) * (2 * J3 + 1) * (2 * J4 + 1)) << " * " << ninej << " * " << AngMom::phase((o2.j2 + o4.j2) / 2 + J2 + J4) << " * " << Zbar_1432 << " (<-Zbar_1432, zpqrs ->)  " << zpqrs << std::endl;
-                }
+//                if (ch_bra == 1)
+//                {
+//                  std::cout << __func__ << " " << __LINE__ << " channel J = " << tbc_bra.J << "  J3,J4 " << J3 << " " << J4 << " iperm " << iperm << " : "
+//                            << phaseperm << " * " << sqrt((2 * J1 + 1) * (2 * J2 + 1) * (2 * J3 + 1) * (2 * J4 + 1)) << " * " << ninej << " * " << AngMom::phase((o2.j2 + o4.j2) / 2 + J2 + J4) << " * " << Zbar_1432 << " (<-Zbar_1432, zpqrs ->)  " << zpqrs << std::endl;
+//                }
               } // for J4
             } // for J3
           } // for iperm
