@@ -492,6 +492,8 @@ namespace ReferenceImplementations
                   ybar_ilab -= (2 * Jpp + 1) * sixj_ilab * yibal;
                 }
 
+
+
                 double xbar_abkj = 0;
                 double ybar_abkj = 0;
                 Jppmin = std::max(std::abs(oa.j2 - oj.j2), std::abs(ok.j2 - ob.j2)) / 2;
@@ -505,7 +507,9 @@ namespace ReferenceImplementations
                   ybar_abkj -= (2 * Jpp + 1) * sixj_abkj * yajkb;
                 }
 
+//                zbar_ilkj += (oa.occ - ob.occ) * (xbar_ilab * ybar_abkj - ybar_ilab * xbar_abkj);
                 zbar_ilkj += (oa.occ - ob.occ) * (xbar_ilab * ybar_abkj - ybar_ilab * xbar_abkj);
+               
 
 
                 // "Exchange" term obtained by exchanging i<->j.
@@ -537,6 +541,8 @@ namespace ReferenceImplementations
 
                 zbar_jlki += (oa.occ - ob.occ) * (xbar_jlab * ybar_abki - ybar_jlab * xbar_abki);
 
+
+
               } // b
             } // a
 
@@ -546,6 +552,7 @@ namespace ReferenceImplementations
             zijkl += (2 * Jp + 1) * sixj_ijkl * zbar_ilkj;            // Direct
             zijkl -= (2 * Jp + 1) * sixj_jikl * zbar_jlki * phase_ij; // Exchange, with phase
 
+
           } // Jp
 
           // Need to normalize here, because AddToTBME expects a normalized TBME.
@@ -553,6 +560,7 @@ namespace ReferenceImplementations
             zijkl /= PhysConst::SQRT2;
           if (k == l)
             zijkl /= PhysConst::SQRT2;
+
 
           Z2.AddToTBME(ch_bra, ch_ket, ibra, iket, zijkl);
 
@@ -2484,14 +2492,324 @@ namespace ReferenceImplementations
 
 
 
-  // This has not yet been validated, and is almost certainly wrong.
-  void comm222_pp_hhst(const Operator &X, const Operator &Y, Operator &Z)
-  {
-    std::cout << __FILE__ << " " << __func__ << "  NOT YET IMPLEMENTED..." << std::endl;
-  }
+
+
+
+
+
 
   // This has not yet been validated, and is almost certainly wrong.
+  // Formula:
+  // 
+  //    Zpqrs_J1,J2,lam = sum_ab s sum_J3J4 hat{J1J2J3J4} (na-nb) [ [1 - Ppq(J1)][1-Prs(J2)]  * (-1)^(q+s+J2+J4) { p  s  J3  } Xbar_psab^J3 * Ybar_abrq^J3,J4,lam ]
+  //                                                                                                             { q  r  J4  }
+  //                                                                                                             { J1 J2 lam }
+  // 
+/*
   void comm222_phst(const Operator &X, const Operator &Y, Operator &Z)
+  {
+    int lambda = Y.GetJRank();
+    for (auto &iter : Z.TwoBody.MatEl)
+    {
+      size_t ch_bra = iter.first[0];
+      size_t ch_ket = iter.first[1];
+      auto &Z2MAT = iter.second;
+      TwoBodyChannel &tbc_bra = Z.modelspace->GetTwoBodyChannel(ch_bra);
+      TwoBodyChannel &tbc_ket = Z.modelspace->GetTwoBodyChannel(ch_ket);
+      size_t nbras = tbc_bra.GetNumberKets();
+      size_t nkets = tbc_ket.GetNumberKets();
+      int J1 = tbc_bra.J;
+      int J2 = tbc_ket.J;
+      for (size_t ibra = 0; ibra < nbras; ibra++)
+      {
+        Ket &bra = tbc_bra.GetKet(ibra);
+        size_t p = bra.p;
+        size_t q = bra.q;
+        Orbit &op = Z.modelspace->GetOrbit(p);
+        Orbit &oq = Z.modelspace->GetOrbit(q);
+        double jp = op.j2 * 0.5;
+        double jq = oq.j2 * 0.5;
+        for (size_t iket = 0; iket < nkets; iket++)
+        {
+          Ket &ket = tbc_ket.GetKet(iket);
+          size_t r = ket.p;
+          size_t s = ket.q;
+          Orbit &oR = Z.modelspace->GetOrbit(r);
+          Orbit &os = Z.modelspace->GetOrbit(s);
+          double jr = oR.j2 * 0.5;
+          double js = os.j2 * 0.5;
+          double zpqrs = 0;
+
+          // 4 different permutations:   1,  Ppq,  Prs, PpqPrs.
+          // for each permutation, we'll loop over J3,J4,a,b.
+
+
+          //////////////////////////////////////////////
+          // Permutation: 1              
+          //////////////////////////////////////////////
+          int permutation_phase = 1;
+          int J3min = std::abs( op.j2 - os.j2)/2;
+          int J3max = (op.j2 + os.j2)/2;
+          int J4min = std::abs( oq.j2 - oR.j2)/2;
+          int J4max = (oq.j2 + oR.j2)/2;
+          for (int J3=J3min; J3<=J3max; J3++)
+          {
+            for (int J4=J4min; J4<=J4max; J4++)
+            {
+             double ninej = Z.modelspace->GetNineJ( jp, js, J3,  jq,jr,J4, J1,J2,lambda);
+             double hats = sqrt( (2*J1+1)*(2*J2+1)*(2*J3+1)*(2*J4+1));
+             double phase = AngMom::phase( jq+js+J2+J4);
+            
+             for (auto a : Z.modelspace->all_orbits )
+             {
+               Orbit& oa = Z.modelspace->GetOrbit(a);
+               double ja = oa.j2 * 0.5;
+               for (auto b : Z.modelspace->all_orbits )
+               {
+                 Orbit& ob = Z.modelspace->GetOrbit(b);
+                 double jb = ob.j2 * 0.5;
+                 double nanb = (oa.occ - ob.occ);
+                 if (std::abs(nanb)<1e-9) continue;
+
+                 // Build Pandya-transformed scalar operator Xbar_psab^J3
+                 double Xbar_psab = 0;
+                 int J5min = std::max( std::abs( op.j2-ob.j2), std::abs(os.j2-oa.j2) )/2;
+                 int J5max = std::min( op.j2+ob.j2 , os.j2+oa.j2)/2;
+                 for (int J5=J5min; J5<=J5max; J5++)
+                 {
+                   Xbar_psab -= sqrt(2*J5+1) * Z.modelspace->GetSixJ( jp,js,J3, ja,jb, J5) * X.TwoBody.GetTBME_J(J5,J5,p,b,a,s);
+                 }
+
+                 // Build Pandya-transformed tensor operator Ybar_abrq^J3J4lam
+                 double Ybar_abrq = 0;
+                 J5min = std::abs( oa.j2-oq.j2 )/2;
+                 J5max = (oq.j2+oa.j2)/2;
+                 int J6min = std::abs( oR.j2-ob.j2 )/2;
+                 int J6max = ( oR.j2+ob.j2 )/2;
+                 for ( int J5=J5min; J5<=J5max; J5++)
+                 {
+                   for ( int J6=J6min; J6<=J6max; J6++)
+                   {
+                      if (not AngMom::Triangle(J5,J6,lambda)) continue;
+                      double ninejy = Z.modelspace->GetNineJ( ja,jq,J5, jb,jr,J6, J3,J4,lambda);
+                      double hatsy = sqrt( (2*J3+1)*(2*J4+1)*(2*J5+1)*(2*J6+1) );
+                      int phasey = AngMom::phase(ja + jq + J4 + J6);
+                      Ybar_abrq -= hatsy * phasey * ninejy * Y.TwoBody.GetTBME_J(J5,J6,a,q,r,b);
+                   }
+                 }
+                 zpqrs += permutation_phase * hats * nanb * phase * ninej * Xbar_psab * Ybar_abrq;
+             
+                }//for b
+              }//for a
+            }//for J4
+          }// for J3
+
+
+          //////////////////////////////////////////////
+          // Permutation: Ppq            
+          //////////////////////////////////////////////
+          permutation_phase = -AngMom::phase(jp+jq-J1);
+          J3min = std::abs( oq.j2 - os.j2)/2;
+          J3max = (oq.j2 + os.j2)/2;
+          J4min = std::abs( op.j2 - oR.j2)/2;
+          J4max = (op.j2 + oR.j2)/2;
+          for (int J3=J3min; J3<=J3max; J3++)
+          {
+            for (int J4=J4min; J4<=J4max; J4++)
+            {
+             double ninej = Z.modelspace->GetNineJ( jq, js, J3,  jp,jr,J4, J1,J2,lambda);
+             double hats = sqrt( (2*J1+1)*(2*J2+1)*(2*J3+1)*(2*J4+1));
+             double phase = AngMom::phase( jp+js+J2+J4);
+            
+             for (auto a : Z.modelspace->all_orbits )
+             {
+               Orbit& oa = Z.modelspace->GetOrbit(a);
+               double ja = oa.j2 * 0.5;
+               for (auto b : Z.modelspace->all_orbits )
+               {
+                 Orbit& ob = Z.modelspace->GetOrbit(b);
+                 double jb = ob.j2 * 0.5;
+                 double nanb = (oa.occ - ob.occ);
+                 if (std::abs(nanb)<1e-9) continue;
+
+                 // Build Pandya-transformed scalar operator Xbar_psab^J3
+                 double Xbar_qsab = 0;
+                 int J5min = std::max( std::abs( oq.j2-ob.j2), std::abs(os.j2-oa.j2) )/2;
+                 int J5max = std::min( oq.j2+ob.j2 , os.j2+oa.j2)/2;
+                 for (int J5=J5min; J5<=J5max; J5++)
+                 {
+                   Xbar_qsab -= sqrt(2*J5+1) * Z.modelspace->GetSixJ( jq,js,J3, ja,jb, J5) * X.TwoBody.GetTBME_J(J5,J5,q,b,a,s);
+                 }
+
+                 // Build Pandya-transformed tensor operator Ybar_abrq^J3J4lam
+                 double Ybar_abrp = 0;
+                 J5min = std::abs( oa.j2-op.j2 )/2;
+                 J5max = (op.j2+oa.j2)/2;
+                 int J6min = std::abs( oR.j2-ob.j2 )/2;
+                 int J6max = ( oR.j2+ob.j2 )/2;
+                 for ( int J5=J5min; J5<=J5max; J5++)
+                 {
+                   for ( int J6=J6min; J6<=J6max; J6++)
+                   {
+                      if (not AngMom::Triangle(J5,J6,lambda)) continue;
+                      double ninejy = Z.modelspace->GetNineJ( ja,jp,J5, jb,jr,J6, J3,J4,lambda);
+                      double hatsy = sqrt( (2*J3+1)*(2*J4+1)*(2*J5+1)*(2*J6+1) );
+                      int phasey = AngMom::phase(ja + jp + J4 + J6);
+                      Ybar_abrp -= hatsy * phasey * ninejy * Y.TwoBody.GetTBME_J(J5,J6,a,p,r,b);
+                   }
+                 }
+                 zpqrs += permutation_phase * hats * nanb * phase * ninej * Xbar_qsab * Ybar_abrp;
+             
+                }//for b
+              }//for a
+            }//for J4
+          }// for J3
+
+
+
+
+
+
+
+          //////////////////////////////////////////////
+          // Permutation: Prs              
+          //////////////////////////////////////////////
+          permutation_phase = -AngMom::phase(jr+js-J2);
+          J3min = std::abs( op.j2 - oR.j2)/2;
+          J3max = (op.j2 + oR.j2)/2;
+          J4min = std::abs( oq.j2 - os.j2)/2;
+          J4max = (oq.j2 + os.j2)/2;
+          for (int J3=J3min; J3<=J3max; J3++)
+          {
+            for (int J4=J4min; J4<=J4max; J4++)
+            {
+             double ninej = Z.modelspace->GetNineJ( jp, jr, J3,  jq,js,J4, J1,J2,lambda);
+             double hats = sqrt( (2*J1+1)*(2*J2+1)*(2*J3+1)*(2*J4+1));
+             double phase = AngMom::phase( jq+jr+J2+J4);
+            
+             for (auto a : Z.modelspace->all_orbits )
+             {
+               Orbit& oa = Z.modelspace->GetOrbit(a);
+               double ja = oa.j2 * 0.5;
+               for (auto b : Z.modelspace->all_orbits )
+               {
+                 Orbit& ob = Z.modelspace->GetOrbit(b);
+                 double jb = ob.j2 * 0.5;
+                 double nanb = (oa.occ - ob.occ);
+                 if (std::abs(nanb)<1e-9) continue;
+
+                 // Build Pandya-transformed scalar operator Xbar_psab^J3
+                 double Xbar_prab = 0;
+                 int J5min = std::max( std::abs( op.j2-ob.j2), std::abs(oR.j2-oa.j2) )/2;
+                 int J5max = std::min( op.j2+ob.j2 , oR.j2+oa.j2)/2;
+                 for (int J5=J5min; J5<=J5max; J5++)
+                 {
+                   Xbar_prab -= sqrt(2*J5+1) * Z.modelspace->GetSixJ( jp,jr,J3, ja,jb, J5) * X.TwoBody.GetTBME_J(J5,J5,p,b,a,r);
+                 }
+
+                 // Build Pandya-transformed tensor operator Ybar_abrq^J3J4lam
+                 double Ybar_absq = 0;
+                 J5min = std::abs( oa.j2-oq.j2 )/2;
+                 J5max = (oq.j2+oa.j2)/2;
+                 int J6min = std::abs( os.j2-ob.j2 )/2;
+                 int J6max = ( os.j2+ob.j2 )/2;
+                 for ( int J5=J5min; J5<=J5max; J5++)
+                 {
+                   for ( int J6=J6min; J6<=J6max; J6++)
+                   {
+                      if (not AngMom::Triangle(J5,J6,lambda)) continue;
+                      double ninejy = Z.modelspace->GetNineJ( ja,jq,J5, jb,js,J6, J3,J4,lambda);
+                      double hatsy = sqrt( (2*J3+1)*(2*J4+1)*(2*J5+1)*(2*J6+1) );
+                      int phasey = AngMom::phase(ja + jq + J4 + J6);
+                      Ybar_absq -= hatsy * phasey * ninejy * Y.TwoBody.GetTBME_J(J5,J6,a,q,s,b);
+                   }
+                 }
+                 zpqrs += permutation_phase * hats * nanb * phase * ninej * Xbar_prab * Ybar_absq;
+             
+                }//for b
+              }//for a
+            }//for J4
+          }// for J3
+
+
+          //////////////////////////////////////////////
+          // Permutation: Ppq Prs           
+          //////////////////////////////////////////////
+          permutation_phase = +AngMom::phase(jp+jq-J1+jr+js-J2);
+          J3min = std::abs( oq.j2 - oR.j2)/2;
+          J3max = (oq.j2 + oR.j2)/2;
+          J4min = std::abs( op.j2 - os.j2)/2;
+          J4max = (op.j2 + os.j2)/2;
+          for (int J3=J3min; J3<=J3max; J3++)
+          {
+            for (int J4=J4min; J4<=J4max; J4++)
+            {
+             double ninej = Z.modelspace->GetNineJ( jq, jr, J3,  jp,js,J4, J1,J2,lambda);
+             double hats = sqrt( (2*J1+1)*(2*J2+1)*(2*J3+1)*(2*J4+1));
+             double phase = AngMom::phase( jp+jr+J2+J4);
+            
+             for (auto a : Z.modelspace->all_orbits )
+             {
+               Orbit& oa = Z.modelspace->GetOrbit(a);
+               double ja = oa.j2 * 0.5;
+               for (auto b : Z.modelspace->all_orbits )
+               {
+                 Orbit& ob = Z.modelspace->GetOrbit(b);
+                 double jb = ob.j2 * 0.5;
+                 double nanb = (oa.occ - ob.occ);
+                 if (std::abs(nanb)<1e-9) continue;
+
+                 // Build Pandya-transformed scalar operator Xbar_psab^J3
+                 double Xbar_qrab = 0;
+                 int J5min = std::max( std::abs( oq.j2-ob.j2), std::abs(oR.j2-oa.j2) )/2;
+                 int J5max = std::min( oq.j2+ob.j2 , oR.j2+oa.j2)/2;
+                 for (int J5=J5min; J5<=J5max; J5++)
+                 {
+                   Xbar_qrab -= sqrt(2*J5+1) * Z.modelspace->GetSixJ( jq,jr,J3, ja,jb, J5) * X.TwoBody.GetTBME_J(J5,J5,q,b,a,r);
+                 }
+
+                 // Build Pandya-transformed tensor operator Ybar_abrq^J3J4lam
+                 double Ybar_absp = 0;
+                 J5min = std::abs( oa.j2-op.j2 )/2;
+                 J5max = (op.j2+oa.j2)/2;
+                 int J6min = std::abs( os.j2-ob.j2 )/2;
+                 int J6max = ( os.j2+ob.j2 )/2;
+                 for ( int J5=J5min; J5<=J5max; J5++)
+                 {
+                   for ( int J6=J6min; J6<=J6max; J6++)
+                   {
+                      if (not AngMom::Triangle(J5,J6,lambda)) continue;
+                      double ninejy = Z.modelspace->GetNineJ( ja,jp,J5, jb,js,J6, J3,J4,lambda);
+                      double hatsy = sqrt( (2*J3+1)*(2*J4+1)*(2*J5+1)*(2*J6+1) );
+                      int phasey = AngMom::phase(ja + jp + J4 + J6);
+                      Ybar_absp -= hatsy * phasey * ninejy * Y.TwoBody.GetTBME_J(J5,J6,a,p,s,b);
+                   }
+                 }
+                 zpqrs += permutation_phase * hats * nanb * phase * ninej * Xbar_qrab * Ybar_absp;
+             
+                }//for b
+              }//for a
+            }//for J4
+          }// for J3
+
+
+
+
+          // Normalize and set the matrix element.
+          if (p == q)
+            zpqrs /= PhysConst::SQRT2;
+          if (r == s)
+            zpqrs /= PhysConst::SQRT2;
+
+          Z.TwoBody.AddToTBME(ch_bra, ch_ket, ibra, iket, zpqrs);
+        } // for iket
+      } // for ibra
+    } // for iter
+  }
+*/
+
+
+void comm222_phst(const Operator &X, const Operator &Y, Operator &Z)
   {
     int lambda = Y.GetJRank();
     for (auto &iter : Z.TwoBody.MatEl)
@@ -2514,6 +2832,7 @@ namespace ReferenceImplementations
         Orbit &oq = Z.modelspace->GetOrbit(q);
         for (size_t iket = 0; iket < nkets; iket++)
         {
+          if ( (ch_bra==ch_ket) and iket>ibra) continue;
           Ket &ket = tbc_ket.GetKet(iket);
           size_t r = ket.p;
           size_t s = ket.q;
@@ -2522,10 +2841,10 @@ namespace ReferenceImplementations
           double zpqrs = 0;
 
           std::vector<std::vector<size_t>> perms = {{p, q, r, s}, {q, p, r, s}, {p, q, s, r}, {q, p, s, r}};
-          std::vector<int> phases = {1,
-                                     -AngMom::phase((op.j2 + oq.j2) / 2 - J1),
-                                     -AngMom::phase((oR.j2 + os.j2) / 2 - J2),
-                                     AngMom::phase((op.j2 + oq.j2) / 2 - J1) * AngMom::phase((oR.j2 + os.j2) / 2 - J2)};
+          std::vector<int> phases = {+1 ,
+                                     -AngMom::phase((op.j2 + oq.j2) / 2 - J1) ,
+                                     -AngMom::phase((oR.j2 + os.j2) / 2 - J2) ,
+                                     +AngMom::phase((op.j2 + oq.j2) / 2 - J1) * AngMom::phase((oR.j2 + os.j2) / 2 - J2)};
 
           for (int iperm = 0; iperm < 4; iperm++)
           {
@@ -2548,10 +2867,7 @@ namespace ReferenceImplementations
             {
               for (int J4 = J4min; J4 <= J4max; J4++)
               {
-                if (std::abs(J3 - J4) > lambda)
-                  continue;
-                if ((J3 + J4) < lambda)
-                  continue;
+                if (not AngMom::Triangle(J3,J4,lambda)) continue;
                 double Zbar_1432 = 0;
 
                 for (size_t a : Z.modelspace->all_orbits)
@@ -2567,8 +2883,10 @@ namespace ReferenceImplementations
                     double Xbar_psab = 0;
                     double Ybar_abrq = 0;
 
-                    int J5min = std::max(std::abs(o1.j2 - o4.j2), std::abs(oa.j2 - ob.j2)) / 2.;
-                    int J5max = std::min(o1.j2 + o4.j2, oa.j2 + ob.j2) / 2.;
+//                    int J5min = std::max(std::abs(o1.j2 - o4.j2), std::abs(oa.j2 - ob.j2)) / 2.;
+//                    int J5max = std::min(o1.j2 + o4.j2, oa.j2 + ob.j2) / 2.;
+                    int J5min = std::max(std::abs(o1.j2 - ob.j2), std::abs(oa.j2 - o4.j2)) / 2.;
+                    int J5max = std::min(o1.j2 + ob.j2, oa.j2 + o4.j2) / 2.;
                     for (int J5 = J5min; J5 <= J5max; J5++)
                     {
                       double sixj = AngMom::SixJ(o1.j2 / 2., o4.j2 / 2., J3, oa.j2 / 2., ob.j2 / 2., J5);
@@ -2582,37 +2900,23 @@ namespace ReferenceImplementations
                     {
                       for (int J7 = J7min; J7 <= J7max; J7++)
                       {
-                        if (std::abs(J6 - J7) > lambda or (J6 + J7) < lambda)
-                          continue;
+                        if (not AngMom::Triangle(J6,J7,lambda)) continue;
                         double ninejY = AngMom::NineJ(oa.j2 / 2., o2.j2 / 2., J6, ob.j2 / 2., o3.j2 / 2., J7, J3, J4, lambda);
                         double hats = sqrt((2 * J3 + 1) * (2 * J4 + 1) * (2 * J6 + 1) * (2 * J7 + 1));
                         int phaseY = AngMom::phase((ob.j2 + o2.j2) / 2 + J4 + J7);
                         Ybar_abrq -= hats * phaseY * ninejY * Y.TwoBody.GetTBME_J(J6, J7, a, I2, I3, b);
-//                        if (ch_bra == 1)
-//                        {
-//                          std::cout << "  ========= J6,J7= " << J6 << " " << J7 << "  " << hats << " * " << phaseY << " * " << ninejY << " * " << Y.TwoBody.GetTBME_J(J6, J7, a, I2, I3, b) << " I got Ya23b from Y2.GetTBME_J(" << J6 << " " << J7 << " " << a << " " << I2 << " " << I3 << " " << b << " )" << std::endl;
-//                        }
                       }
                     }
                     Zbar_1432 += nanb * Xbar_psab * Ybar_abrq;
 
-//                    if (ch_bra == 1)
-//                    {
-//                      std::cout << "     a b " << a << " " << b << " " << nanb << " *  ( " << Xbar_psab << " * " << Ybar_abrq << " ) -> zbar_1432 = " << Zbar_1432 << std::endl;
-//                    }
 
                   } // for b
                 } // for a
 
                 double ninej = AngMom::NineJ(o1.j2 / 2., o4.j2 / 2., J3, o2.j2 / 2., o3.j2 / 2., J4, J1, J2, lambda);
-                //                         zpqrs += phaseperm* sqrt( (2*J1+1)*(2*J2+1)*(2*J3+1)*(2*J4+1) ) * nanb * ninej * AngMom::phase((o2.j2+o4.j2)/2 +J2+J4) * Xbar_psab * Ybar_abrq;
                 zpqrs += phaseperm * sqrt((2 * J1 + 1) * (2 * J2 + 1) * (2 * J3 + 1) * (2 * J4 + 1)) * ninej * AngMom::phase((o2.j2 + o4.j2) / 2 + J2 + J4) * Zbar_1432;
 
-//                if (ch_bra == 1)
-//                {
-//                  std::cout << __func__ << " " << __LINE__ << " channel J = " << tbc_bra.J << "  J3,J4 " << J3 << " " << J4 << " iperm " << iperm << " : "
-//                            << phaseperm << " * " << sqrt((2 * J1 + 1) * (2 * J2 + 1) * (2 * J3 + 1) * (2 * J4 + 1)) << " * " << ninej << " * " << AngMom::phase((o2.j2 + o4.j2) / 2 + J2 + J4) << " * " << Zbar_1432 << " (<-Zbar_1432, zpqrs ->)  " << zpqrs << std::endl;
-//                }
+
               } // for J4
             } // for J3
           } // for iperm
@@ -2625,9 +2929,71 @@ namespace ReferenceImplementations
           Z.TwoBody.AddToTBME(ch_bra, ch_ket, ibra, iket, zpqrs);
         } // for iket
       } // for ibra
-        //    if ( ch_bra==3) std::cout << __func__ << "   ch=3 Jpt " << tbc_bra.J << " " << tbc_bra.parity << " " << tbc_bra.Tz << "   " << tbc_bra.GetKet(0).p << " " << tbc_bra.GetKet(0).q << " Z2 = " << std::endl << iter.second << std::endl;
     } // for iter
   }
+
+
+
+
+void comm222_pp_hhst(const Operator &X, const Operator &Y, Operator &Z)
+  {
+    int lambda = Y.GetJRank();
+    for (auto &iter : Z.TwoBody.MatEl)
+    {
+      size_t ch_bra = iter.first[0];
+      size_t ch_ket = iter.first[1];
+      auto &Z2MAT = iter.second;
+      TwoBodyChannel &tbc_bra = Z.modelspace->GetTwoBodyChannel(ch_bra);
+      TwoBodyChannel &tbc_ket = Z.modelspace->GetTwoBodyChannel(ch_ket);
+      size_t nbras = tbc_bra.GetNumberKets();
+      size_t nkets = tbc_ket.GetNumberKets();
+      int J1 = tbc_bra.J;
+      int J2 = tbc_ket.J;
+      for (size_t ibra = 0; ibra < nbras; ibra++)
+      {
+        Ket &bra = tbc_bra.GetKet(ibra);
+        size_t p = bra.p;
+        size_t q = bra.q;
+        Orbit &op = Z.modelspace->GetOrbit(p);
+        Orbit &oq = Z.modelspace->GetOrbit(q);
+        for (size_t iket = 0; iket < nkets; iket++)
+        {
+          if ( (ch_bra==ch_ket) and iket>ibra) continue;
+          Ket &ket = tbc_ket.GetKet(iket);
+          size_t r = ket.p;
+          size_t s = ket.q;
+          Orbit &oR = Z.modelspace->GetOrbit(r);
+          Orbit &os = Z.modelspace->GetOrbit(s);
+          double zpqrs = 0;
+
+
+          for (auto a : Z.modelspace->all_orbits)
+          {
+            for (auto b : Z.modelspace->all_orbits)
+            {
+               Orbit& oa = Z.modelspace->GetOrbit(a);
+               Orbit& ob = Z.modelspace->GetOrbit(b);
+               double nanb = 1 - oa.occ - ob.occ;
+               double Xpqab = X.TwoBody.GetTBME_J(J1,J1,p,q,a,b);
+               double Xabrs = X.TwoBody.GetTBME_J(J2,J2,a,b,r,s);
+               double Ypqab = Y.TwoBody.GetTBME_J(J1,J2,p,q,a,b);
+               double Yabrs = Y.TwoBody.GetTBME_J(J1,J2,a,b,r,s);
+               zpqrs += 0.5*nanb * (Xpqab * Yabrs - Ypqab * Xabrs );
+            }// for b
+          }// for a
+
+          if (p == q)
+            zpqrs /= PhysConst::SQRT2;
+          if (r == s)
+            zpqrs /= PhysConst::SQRT2;
+
+          Z.TwoBody.AddToTBME(ch_bra, ch_ket, ibra, iket, zpqrs);
+
+      }//for iket
+   }// for ibra
+ }// for ch_bra,ch_ket
+
+}// comm222_pp_hhst
 
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////
   /// scalar-tensor commutators with 3-body
