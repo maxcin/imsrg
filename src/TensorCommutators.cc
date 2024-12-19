@@ -209,6 +209,7 @@ namespace Commutator
           double c2 = 0;
           double c3 = 0;
           double c4 = 0;
+          if ((ch_bra==ch_ket)  and (iket>ibra)) continue;
 
           //            for ( int a : X.OneBodyChannels.at({oi.l,oi.j2,oi.tz2}) )
           for (int a : X.GetOneBodyChannel(oi.l, oi.j2, oi.tz2))
@@ -256,27 +257,25 @@ namespace Commutator
           int phase3 = Z.modelspace->phase(J1 - J2 + Lambda);
           int phase4 = Z.modelspace->phase(jk + jl - J1 + Lambda);
 
-          //            for ( int a : Y.OneBodyChannels.at({oi.l,oi.j2,oi.tz2}) )
           for (int a : Y.GetOneBodyChannel(oi.l, oi.j2, oi.tz2))
           {
             double ja = Z.modelspace->GetOrbit(a).j2 * 0.5;
             c1 -= Z.modelspace->GetSixJ(J2, J1, Lambda, ji, ja, jj) * Y.OneBody(i, a) * X.TwoBody.GetTBME(ch_ket, ch_ket, a, j, k, l);
+//             std::cout << " " << __FILE__ << "  ch bra,ket" << ch_bra << " " << ch_ket <<  "   pqrs " << i << " " << j << " " << k << " " <<l << "  a = " << a << "   zpqrs = " << hatfactor * phase1*c1 << "  => " << cijkl <<  std::endl;
           }
 
-          if (i == j)
+          if (false and i == j)
           {
             c2 = -c1;
           }
           else
           {
-            //              for ( int a : Y.OneBodyChannels.at({oj.l,oj.j2,oj.tz2}) )
             for (int a : Y.GetOneBodyChannel(oj.l, oj.j2, oj.tz2))
             {
               double ja = Z.modelspace->GetOrbit(a).j2 * 0.5;
               c2 += Z.modelspace->GetSixJ(J2, J1, Lambda, jj, ja, ji) * Y.OneBody(j, a) * X.TwoBody.GetTBME(ch_ket, ch_ket, a, i, k, l);
             }
           }
-          //            for ( int a : Y.OneBodyChannels.at({ok.l,ok.j2,ok.tz2}) )
           for (int a : Y.GetOneBodyChannel(ok.l, ok.j2, ok.tz2))
           {
             double ja = Z.modelspace->GetOrbit(a).j2 * 0.5;
@@ -288,7 +287,6 @@ namespace Commutator
           }
           else
           {
-            //              for ( int a : Y.OneBodyChannels.at({ol.l,ol.j2,ol.tz2}) )
             for (int a : Y.GetOneBodyChannel(ol.l, ol.j2, ol.tz2))
             {
               double ja = Z.modelspace->GetOrbit(a).j2 * 0.5;
@@ -299,6 +297,7 @@ namespace Commutator
 
           double norm = bra.delta_pq() == ket.delta_pq() ? 1 + bra.delta_pq() : PhysConst::SQRT2;
           Z2(ibra, iket) += cijkl / norm;
+          if ( (ch_bra==ch_ket) and (iket<ibra) ) Z2(iket,ibra) += Z.modelspace->phase(J1-J2) * cijkl/norm;
         }
       }
     }
@@ -467,7 +466,7 @@ namespace Commutator
             {
               double hatfactor = sqrt((2 * J1 + 1) * (2 * J2 + 1));
               double sixj = Z.modelspace->GetSixJ(J1, J2, Lambda, jj, ji, jc);
-              cijJ += hatfactor * sixj * Z.modelspace->phase(jj + jc + J1 + Lambda) * Mhh.GetTBME_J(J1, J2, c, i, c, j);
+              cijJ += hatfactor * sixj * Z.modelspace->phase(jj + jc + J1 + Lambda) * Mhh.GetTBME_J(J1, J2, c, i, c, j);  // The phase here is different than in Parzuchowski et al. It appears that the published phase is wrong.
             }
           }
         }
@@ -478,6 +477,14 @@ namespace Commutator
       } // for j
     }   // for i
     X.profiler.timer["comm222_pp_hh_221st"] += omp_get_wtime() - tstart;
+  }
+
+
+  void comm221st(const Operator &X, const Operator &Y, Operator &Z)
+  {
+     auto Z2save = Z.TwoBody;
+     comm222_pp_hh_221st(X,Y,Z);
+     Z.TwoBody = Z2save;
   }
 
   //**************************************************************************
@@ -1058,12 +1065,12 @@ namespace Commutator
   // void Operator::comm222_phst( const Operator& X, const Operator& Y )
   void comm222_phst(const Operator &X, const Operator &Y, Operator &Z)
   {
-
     int hX = X.IsHermitian() ? 1 : -1;
     int hY = Y.IsHermitian() ? 1 : -1;
 
     double t_start = omp_get_wtime();
     Z.modelspace->PreCalculateSixJ(); // if we already did it, this does nothing.
+    Z.modelspace->PreCalculateNineJ(); // if we already did it, this does nothing.
     // We reuse Xt_bar multiple times, so it makes sense to calculate them once and store them in a deque.
     std::deque<arma::mat> Xt_bar_ph = InitializePandya(Z, Z.nChannels, "transpose"); // We re-use the scalar part multiple times, so there's a significant speed gain for saving it
     std::map<std::array<index_t, 2>, arma::mat> Y_bar_ph;
