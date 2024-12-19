@@ -1,2 +1,2 @@
-/Library/Developer/CommandLineTools/usr/bin/ar qc libOperator.a CMakeFiles/Operator.dir/Operator.cc.o
-/Library/Developer/CommandLineTools/usr/bin/ranlib libOperator.a
+/usr/bin/ar qc libOperator.a CMakeFiles/Operator.dir/Operator.cc.o
+/usr/bin/ranlib libOperator.a

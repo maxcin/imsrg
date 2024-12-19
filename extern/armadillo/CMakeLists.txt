@@ -1,4 +1,4 @@
-set(BLA_VENDER OpenBLAS)
+set(BLA_VENDOR OpenBLAS)
 add_library(
     armadillo
     INTERFACE

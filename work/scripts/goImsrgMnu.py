@@ -53,11 +53,11 @@ args = parser.parse_args()
 """USER SPECIFIC INFO'S! DON'T FORGET TO CHANGE THOSE"""
 #Path to the executables, make sure to change this one to match your path
 # exe = '/Users/antoinebelley/bin/imsrg++'
-exe = '/Users/antoinebelley/Documents/TRIUMF/imsrg/src/imsrg++'
+exe = '/usr/local/bin/imsrg++'
 #Don't forget to change this. I don't want emails about your calculations...
 mail_address = 'antoine.belley@mail.mcgill.ca'
 #Directory that contain all the result directories
-wrkdir = '/Users/antoinebelley/Documents/TRIUMF/results/'
+wrkdir = '/work/submit/abelley/results'
 # wrkdir = '/Users/antoinebelley/Documents/TRIUMF/Benchmark_TBME/'
 
 #Lists to find the isotope
@@ -111,16 +111,17 @@ else:
 if args.A == 3 and args.ZI == 1:
  ARGS['valence_space'] = 's-shell'
  MNU['Ec'] = 2.74
-if args.A == 6 and args.ZI == 2:
+elif args.A == 6 and args.ZI == 2:
+ print("here")
  ARGS['valence_space'] = 'p-shell'
  MNU['Ec'] = 2.74
 elif args.A == 8 and args.ZI == 2:
   ARGS['valence_space'] = 'p-shell' # AKA: p
   MNU['Ec'] = 3.17
-if args.A == 9 and args.ZI == 4:
+elif args.A == 9 and args.ZI == 4:
  ARGS['valence_space'] = 'p-shell'
  MNU['Ec'] = 2.74
-if args.A == 14 and args.ZI == 7:
+elif args.A == 14 and args.ZI == 7:
  ARGS['valence_space'] = 'p-shell'
  MNU['Ec'] = 2.74
 elif args.A == 10 and (args.ZI == 2 or args.ZI == 4 or args.ZI == 6):
@@ -136,9 +137,6 @@ elif args.A == 14 and args.ZI == 8:
 elif args.A == 22 and args.ZI == 8:
   ARGS['valence_space'] = 'sd-shell' # AKA: sd
   MNU['Ec'] = 5.25
-elif args.A<40 and args.ZI<20:
-  ARGS['valence_space'] = 'sd-shell' # AKA: sd
-  MNU['Ec'] = 1.12*args.A**(1/2)
 elif args.A == 40 and args.ZI == 20:
   # ARGS['valence_space'] = 'fp-shell' # AKA: fp
   ARGS['valence_space'] = 'sd-shell'  # AKA: fp
@@ -284,13 +282,13 @@ else:
   print('exiting...')
   exit()
 
-ARGS['BetaCM'] = '5'
-ARGS['hwBetaCM'] = f'{args.hw}'
+# ARGS['BetaCM'] = '5'
+# ARGS['hwBetaCM'] = f'{args.hw}'
 ARGS['input_op_fmt'] = 'miyagi'
 ARGS['hw'] = f'{args.hw}'
 ARGS['emax'] = f'{args.emax}'
 ARGS['e3max'] = f'{args.e3max}'
-ARGS['denominator_delta'] =  10
+# ARGS['denominator_delta'] =  10
 #ARGS["3bme_type"] = "no2b"
 ARGS['freeze_occupations'] =  "false"
 

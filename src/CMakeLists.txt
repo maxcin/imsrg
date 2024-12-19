@@ -1,10 +1,4 @@
-cmake_minimum_required(VERSION 3.18)
-# set(INSTDIR $ENV{HOME})
-set(BLA_VENDOR OpenBLAS)
-# set(CMAKE_SKIP_INSTALL_RPATH ON)
-# set(CMAKE_SYSTEM_PREFIX_PATH $ENV{EBROOTGENTOO})
-
-option(IMSRG_BUILD_PYTHON_BINDINGS "Build Python bindings" ON)
+cmake_minimum_required(VERSION 3.24)
 
 # Determine if imsrg++ is built as a subproject (using add_subdirectory)
 # or if it is the main project.
@@ -23,39 +17,13 @@ if(IMSRGPLUSPLUS_MAIN_PROJECT AND NOT CMAKE_BUILD_TYPE)
   set(CMAKE_BUILD_TYPE Release)
 endif()
 
-project(imsrg++ VERSION 0.1.0)
 
-find_package(OpenMP REQUIRED)
-find_package(BLAS REQUIRED)
-find_package(GSL REQUIRED)
-find_package(Boost REQUIRED)
-find_package(ZLIB REQUIRED)
-# find_package(Armadillo REQUIRED)
-# include_directories(${ARMADILLO_INCLUDE_DIRS})
 
-add_compile_options(-frounding-math)
-set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_CXX_STANDARD 14)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
 
 set(IMSRGPLUSPLUS_ROOT_DIR ${CMAKE_CURRENT_SOURCE_DIR})
 
-if(IMSRG_BUILD_PYTHON_BINDINGS)
-    # We only need this for the Python bindings.
-    # In principle, everything should be faster if we could avoid this.
-    set(CMAKE_POSITION_INDEPENDENT_CODE TRUE)
-endif()
-
-add_subdirectory(armadillo)
-add_subdirectory(half)
-
-add_subdirectory(boost_src)
-
-# add_subdirectory(profiling)
-
-
-if(IMSRG_BUILD_PYTHON_BINDINGS)
-    add_subdirectory(pybind11)
-endif()
 
 # Add a custom command that produces version.cpp, plus
 # a dummy output that's not actually produced, in order
@@ -109,7 +77,6 @@ target_link_libraries(
     IMSRGProfiler
     AngMomCache
     PRIVATE
-    # ${ARMADILLO_LIBRARIES}
     OpenMP::OpenMP_CXX
 )
 
@@ -323,6 +290,19 @@ target_link_libraries(
 )
 
 add_library(
+    IMSRGSolverPV
+    IMSRGSolverPV.hh IMSRGSolverPV.cc
+)
+target_link_libraries(
+    IMSRGSolverPV
+    PUBLIC
+    IMSRGSolver
+    GeneratorPV
+    PRIVATE
+    Commutator
+)
+
+add_library(
     Commutator232
     Commutator232.hh Commutator232.cc
 )
@@ -458,7 +438,6 @@ target_link_libraries(
     OpenMP::OpenMP_CXX
     GSL::gsl
     AngMom
-    # ${ARMADILLO_LIBRARIES}
     PhysicalConstants
 )
 
@@ -553,6 +532,25 @@ target_link_libraries(
 )
 
 add_library(
+    GeneratorPV
+    GeneratorPV.hh GeneratorPV.cc
+)
+target_link_libraries(
+    GeneratorPV
+    PUBLIC
+    ModelSpace
+    Operator
+    PRIVATE
+    Generator
+    GSL::gsl
+    imsrg_util
+    AngMom
+    Commutator
+    PhysicalConstants
+    OpenMP::OpenMP_CXX
+)
+
+add_library(
     HFMBPT
     HFMBPT.hh HFMBPT.cc
 )
@@ -563,7 +561,6 @@ target_link_libraries(
     HartreeFock
     PRIVATE
     PhysicalConstants
-    # ${ARMADILLO_LIBRARIES}
     OpenMP::OpenMP_CXX
 )
 
@@ -578,7 +575,6 @@ target_link_libraries(
     ModelSpace
     Operator
     PRIVATE
-    # ${ARMADILLO_LIBRARIES}
     PhysicalConstants
     AngMom
 )
@@ -594,8 +590,7 @@ target_link_libraries(
     Operator
     Commutator
     PRIVATE
-    #armadillo
-    ${ARMADILLO_LIBRARIES}
+    armadillo
     PhysicalConstants
     Version
     imsrg_util
@@ -615,7 +610,6 @@ target_link_libraries(
     Commutator
     PRIVATE
     armadillo
-    # ${ARMADILLO_LIBRARIES}
     PhysicalConstants
     Version
     imsrg_util
@@ -639,7 +633,9 @@ target_link_libraries(
     HartreeFock
     Commutator
     IMSRGSolver
+    IMSRGSolverPV
     Generator
+    GeneratorPV
     imsrg_util
     AngMom
     IMSRGProfiler
@@ -676,14 +672,6 @@ target_link_libraries(
     OpenMP::OpenMP_CXX
 )
 
-if(IMSRG_BUILD_PYTHON_BINDINGS)
-    pybind11_add_module(pyIMSRG pyIMSRG.cc)
-    target_link_libraries(
-        pyIMSRG
-        PRIVATE
-        IMSRG
-    )
-endif()
 
 # Install imsrg executable
 install(TARGETS imsrg++ 

@@ -1,0 +1,2 @@
+# Hashes of file build rules.
+94a6f7d86f4a16018a212b2fe659aa9b src/version.cc

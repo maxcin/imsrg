@@ -1,0 +1,2 @@
+/usr/bin/ar qc libGeneratorPV.a CMakeFiles/GeneratorPV.dir/GeneratorPV.cc.o
+/usr/bin/ranlib libGeneratorPV.a

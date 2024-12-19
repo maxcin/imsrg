@@ -1,2 +1,2 @@
-/Library/Developer/CommandLineTools/usr/bin/ar qc libModelSpace.a CMakeFiles/ModelSpace.dir/ModelSpace.cc.o CMakeFiles/ModelSpace.dir/TwoBodyChannel.cc.o CMakeFiles/ModelSpace.dir/ThreeBodyChannel.cc.o
-/Library/Developer/CommandLineTools/usr/bin/ranlib libModelSpace.a
+/usr/bin/ar qc libModelSpace.a CMakeFiles/ModelSpace.dir/ModelSpace.cc.o CMakeFiles/ModelSpace.dir/TwoBodyChannel.cc.o CMakeFiles/ModelSpace.dir/ThreeBodyChannel.cc.o
+/usr/bin/ranlib libModelSpace.a

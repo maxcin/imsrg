@@ -1,2 +1,2 @@
-/Library/Developer/CommandLineTools/usr/bin/ar qc libIMSRGBoostZip.a CMakeFiles/IMSRGBoostZip.dir/gzip.cpp.o CMakeFiles/IMSRGBoostZip.dir/zlib.cpp.o
-/Library/Developer/CommandLineTools/usr/bin/ranlib libIMSRGBoostZip.a
+/usr/bin/ar qc libIMSRGBoostZip.a CMakeFiles/IMSRGBoostZip.dir/gzip.cpp.o CMakeFiles/IMSRGBoostZip.dir/zlib.cpp.o
+/usr/bin/ranlib libIMSRGBoostZip.a

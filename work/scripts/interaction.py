@@ -72,8 +72,8 @@ class Interaction():
 ###########################################################################################
 # me2j_dir = "/home/belleya/projects/def-holt/shared/me2j"
 # me3j_dir = '/home/belleya/projects/def-holt/shared/me3j'
-me2j_dir = "/Users/antoinebelley/Documents/TRIUMF/Interactions"
-me3j_dir = '/Users/antoinebelley/Documents/TRIUMF/Interactions'
+me2j_dir = "/ceph/submit/data/group/ab-initio/me2j"
+me3j_dir = '/ceph/submit/data/group/ab-initio/me3j/'
 #Instances of the interraction implemented so far
 BARE    = Interaction(file2e1max = '0 file2e2max=0 file2lmax=0', file3e1max = '0 file3e2max=0 file3e3max=0', 
                       file2bme = 'none', file3bme = 'none', LECs = 'none', Threebme_type='none')
@@ -109,8 +109,8 @@ magic16iso   = Interaction(file2e1max = '14 file2e2max=28 file2lmax=14', file3e1
                       LECs     = 'EM1.8_2.0', Threebme_type = 'no2b') #for hw=16
 
 magic16high   = Interaction(file2e1max = '18 file2e2max=36 file2lmax=18', file3e1max = '16 file3e2max=32 file3e3max=28',
-                      file2bme = '/home/belleya/projects/def-holt/shared/me2j/TwBME-HO_NN-only_N3LO_EM500_srg1.80_hw%d_emax18_e2max36.me2j.gz', 
-                      file3bme = '/home/belleya/projects/def-holt/shared/me3j/NO2B_half_ThBME_EM1.8_2.0_3NFJmax15_IS_hw%d_ms16_32_28.stream.bin', 
+                      file2bme = f'{me2j_dir}/TwBME-HO_NN-only_N3LO_EM500_srg1.80_hw%d_emax18_e2max36.me2j.gz', 
+                      file3bme = f'{me3j_dir}/NO2B_half_ThBME_EM1.8_2.0_3NFJmax15_IS_hw%d_ms16_32_28.stream.bin', 
                       LECs     = 'EM1.8_2.0', Threebme_type = 'no2b') #for hw=16
 
 EM2   = Interaction(file2e1max = '16 file2e2max=32', file3e1max = '16 file3e2max=32 file3e3max=24',

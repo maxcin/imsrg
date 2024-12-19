@@ -1,2 +1,2 @@
-/Library/Developer/CommandLineTools/usr/bin/ar qc libThreeBodyStorage_no2b.a CMakeFiles/ThreeBodyStorage_no2b.dir/ThreeBodyStorage_no2b.cc.o
-/Library/Developer/CommandLineTools/usr/bin/ranlib libThreeBodyStorage_no2b.a
+/usr/bin/ar qc libThreeBodyStorage_no2b.a CMakeFiles/ThreeBodyStorage_no2b.dir/ThreeBodyStorage_no2b.cc.o
+/usr/bin/ranlib libThreeBodyStorage_no2b.a

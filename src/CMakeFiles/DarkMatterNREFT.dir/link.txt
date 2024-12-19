@@ -1,2 +1,2 @@
-/Library/Developer/CommandLineTools/usr/bin/ar qc libDarkMatterNREFT.a CMakeFiles/DarkMatterNREFT.dir/DarkMatterNREFT.cc.o
-/Library/Developer/CommandLineTools/usr/bin/ranlib libDarkMatterNREFT.a
+/usr/bin/ar qc libDarkMatterNREFT.a CMakeFiles/DarkMatterNREFT.dir/DarkMatterNREFT.cc.o
+/usr/bin/ranlib libDarkMatterNREFT.a
