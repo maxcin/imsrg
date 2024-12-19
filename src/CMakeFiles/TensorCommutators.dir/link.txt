@@ -1,2 +1,2 @@
-/usr/bin/ar qc libTensorCommutators.a CMakeFiles/TensorCommutators.dir/TensorCommutators.cc.o
-/usr/bin/ranlib libTensorCommutators.a
+/cvmfs/soft.computecanada.ca/gentoo/2023/x86-64-v3/usr/bin/ar qc libTensorCommutators.a CMakeFiles/TensorCommutators.dir/TensorCommutators.cc.o
+/cvmfs/soft.computecanada.ca/gentoo/2023/x86-64-v3/usr/bin/ranlib libTensorCommutators.a

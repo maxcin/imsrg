@@ -1,2 +1,2 @@
-/usr/bin/ar qc libIMSRGBoostZip.a CMakeFiles/IMSRGBoostZip.dir/gzip.cpp.o CMakeFiles/IMSRGBoostZip.dir/zlib.cpp.o
-/usr/bin/ranlib libIMSRGBoostZip.a
+/cvmfs/soft.computecanada.ca/gentoo/2023/x86-64-v3/usr/bin/ar qc libIMSRGBoostZip.a CMakeFiles/IMSRGBoostZip.dir/gzip.cpp.o CMakeFiles/IMSRGBoostZip.dir/zlib.cpp.o
+/cvmfs/soft.computecanada.ca/gentoo/2023/x86-64-v3/usr/bin/ranlib libIMSRGBoostZip.a

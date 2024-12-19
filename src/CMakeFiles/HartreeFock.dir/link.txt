@@ -1,2 +1,2 @@
-/usr/bin/ar qc libHartreeFock.a CMakeFiles/HartreeFock.dir/HartreeFock.cc.o
-/usr/bin/ranlib libHartreeFock.a
+/cvmfs/soft.computecanada.ca/gentoo/2023/x86-64-v3/usr/bin/ar qc libHartreeFock.a CMakeFiles/HartreeFock.dir/HartreeFock.cc.o
+/cvmfs/soft.computecanada.ca/gentoo/2023/x86-64-v3/usr/bin/ranlib libHartreeFock.a

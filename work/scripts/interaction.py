@@ -70,10 +70,10 @@ class Interaction():
       Dict['Operators'] = Decay
     
 ###########################################################################################
-# me2j_dir = "/home/belleya/projects/def-holt/shared/me2j"
-# me3j_dir = '/home/belleya/projects/def-holt/shared/me3j'
-me2j_dir = "/ceph/submit/data/group/ab-initio/me2j"
-me3j_dir = '/ceph/submit/data/group/ab-initio/me3j/'
+me2j_dir = "/home/belleya/projects/def-holt/shared/me2j"
+me3j_dir = '/home/belleya/projects/def-holt/shared/me3j'
+# me2j_dir = "/ceph/submit/data/group/ab-initio/me2j"
+# me3j_dir = '/ceph/submit/data/group/ab-initio/me3j/'
 #Instances of the interraction implemented so far
 BARE    = Interaction(file2e1max = '0 file2e2max=0 file2lmax=0', file3e1max = '0 file3e2max=0 file3e3max=0', 
                       file2bme = 'none', file3bme = 'none', LECs = 'none', Threebme_type='none')

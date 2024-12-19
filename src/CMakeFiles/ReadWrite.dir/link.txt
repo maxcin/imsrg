@@ -1,2 +1,2 @@
-/usr/bin/ar qc libReadWrite.a CMakeFiles/ReadWrite.dir/ReadWrite.cc.o
-/usr/bin/ranlib libReadWrite.a
+/cvmfs/soft.computecanada.ca/gentoo/2023/x86-64-v3/usr/bin/ar qc libReadWrite.a CMakeFiles/ReadWrite.dir/ReadWrite.cc.o
+/cvmfs/soft.computecanada.ca/gentoo/2023/x86-64-v3/usr/bin/ranlib libReadWrite.a

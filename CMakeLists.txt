@@ -2,7 +2,7 @@
 ### IMSRG LIBRARY MAIN
 ########################################################################################################################
 
-cmake_minimum_required(VERSION 3.24)
+cmake_minimum_required(VERSION 3.22)
 
 ########################################################################################################################
 ### PROJECT DESCRIPTION AND META INFO
@@ -13,6 +13,7 @@ set(CMAKE_BUILD_TYPE Release)
 set(CMAKE_CXX_STANDARD 14)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
 option(IMSRG_BUILD_PYTHON_BINDINGS "Build Python bindings" ON)
+option(USE_ARMADILLO_EXTERN "Use version of armadillo in extern" ON)
 ########################################################################################################################
 ### DECLARE PROJECT
 ########################################################################################################################
@@ -28,6 +29,9 @@ find_package(BLAS REQUIRED)
 find_package(GSL REQUIRED)
 find_package(ZLIB REQUIRED)
 find_package(Boost REQUIRED)
+if (NOT USE_ARMADILLO_EXTERN)
+    find_package(Armadillo)
+endif()
 
 if(IMSRG_BUILD_PYTHON_BINDINGS)
     # We only need this for the Python bindings.

@@ -1,2 +1,2 @@
-/usr/bin/ar qc libOperator.a CMakeFiles/Operator.dir/Operator.cc.o
-/usr/bin/ranlib libOperator.a
+/cvmfs/soft.computecanada.ca/gentoo/2023/x86-64-v3/usr/bin/ar qc libOperator.a CMakeFiles/Operator.dir/Operator.cc.o
+/cvmfs/soft.computecanada.ca/gentoo/2023/x86-64-v3/usr/bin/ranlib libOperator.a

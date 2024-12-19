@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.24)
+cmake_minimum_required(VERSION 3.22)
 
 # Determine if imsrg++ is built as a subproject (using add_subdirectory)
 # or if it is the main project.
@@ -33,6 +33,13 @@ ADD_CUSTOM_COMMAND(
            ${CMAKE_CURRENT_BINARY_DIR}/_version.cc
     COMMAND ${CMAKE_COMMAND} -P
             ${CMAKE_CURRENT_SOURCE_DIR}/git_version.cmake)
+
+if(USE_ARMADILLO_EXTERN)
+    list(APPEND ARMADILLO_LIBS armadillo)
+else()
+    list(APPEND ARMADILLO_LIBS ${ARMADILLO_LIBRARIES})
+endif()
+
 
 add_library(
     AngMom
@@ -73,7 +80,7 @@ add_library(
 target_link_libraries(
     ModelSpace
     PUBLIC
-    armadillo
+    ${ARMADILLO_LIBS}
     IMSRGProfiler
     AngMomCache
     PRIVATE
@@ -105,10 +112,9 @@ add_library(
 target_link_libraries(
     ThreeLegME
     PUBLIC
-    armadillo
+    ${ARMADILLO_LIBS}
     ModelSpace
     PRIVATE
-    # ${ARMADILLO_LIBRARIES}
     PhysicalConstants
 )
 
@@ -210,7 +216,7 @@ add_library(
 target_link_libraries(
     Operator
     PUBLIC
-    armadillo
+    ${ARMADILLO_LIBS}
     ModelSpace
     TwoBodyME
     ThreeBodyME
@@ -219,7 +225,6 @@ target_link_libraries(
     PRIVATE
     GSL::gsl
     OpenMP::OpenMP_CXX
-    # ${ARMADILLO_LIBRARIES}
     PhysicalConstants
     AngMom
 )
@@ -374,13 +379,12 @@ add_library(
 target_link_libraries(
     Commutator
     PUBLIC
-    armadillo
+    ${ARMADILLO_LIBS}
     Operator
     TwoBodyME
     ThreeLegME
     PRIVATE
     OpenMP::OpenMP_CXX
-    # ${ARMADILLO_LIBRARIES}
     PhysicalConstants
     Commutator232
     TensorCommutators
@@ -428,7 +432,7 @@ add_library(
 target_link_libraries(
     HartreeFock
     PUBLIC
-    armadillo
+    ${ARMADILLO_LIBS}
     ModelSpace
     Operator
     IMSRGProfiler
@@ -557,7 +561,7 @@ add_library(
 target_link_libraries(
     HFMBPT
     PUBLIC
-    armadillo
+    ${ARMADILLO_LIBS}
     HartreeFock
     PRIVATE
     PhysicalConstants
@@ -571,7 +575,7 @@ add_library(
 target_link_libraries(
     RPA
     PUBLIC
-    armadillo
+    ${ARMADILLO_LIBS}
     ModelSpace
     Operator
     PRIVATE
@@ -590,7 +594,7 @@ target_link_libraries(
     Operator
     Commutator
     PRIVATE
-    armadillo
+    ${ARMADILLO_LIBS}
     PhysicalConstants
     Version
     imsrg_util
@@ -609,7 +613,7 @@ target_link_libraries(
     Operator
     Commutator
     PRIVATE
-    armadillo
+    ${ARMADILLO_LIBS}
     PhysicalConstants
     Version
     imsrg_util

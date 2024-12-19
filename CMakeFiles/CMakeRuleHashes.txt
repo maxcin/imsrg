@@ -1,2 +1,2 @@
 # Hashes of file build rules.
-94a6f7d86f4a16018a212b2fe659aa9b src/version.cc
+d4d6c8184e62d74bf29f6d726b0f07f2 src/version.cc

@@ -1,4 +1,4 @@
-# Install script for directory: /work/submit/abelley/imsrg/extern/boost_src
+# Install script for directory: /home/belleya/projects/rrg-holt/belleya/imsrg/extern/boost_src
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -29,7 +29,7 @@ endif()
 
 # Install shared libraries without execute permission?
 if(NOT DEFINED CMAKE_INSTALL_SO_NO_EXE)
-  set(CMAKE_INSTALL_SO_NO_EXE "1")
+  set(CMAKE_INSTALL_SO_NO_EXE "0")
 endif()
 
 # Is this installation the result of a crosscompile?
@@ -39,6 +39,6 @@ endif()
 
 # Set default install directory permissions.
 if(NOT DEFINED CMAKE_OBJDUMP)
-  set(CMAKE_OBJDUMP "/usr/bin/objdump")
+  set(CMAKE_OBJDUMP "/cvmfs/soft.computecanada.ca/gentoo/2023/x86-64-v3/usr/bin/objdump")
 endif()
 

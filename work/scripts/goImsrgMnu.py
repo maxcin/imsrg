@@ -53,11 +53,11 @@ args = parser.parse_args()
 """USER SPECIFIC INFO'S! DON'T FORGET TO CHANGE THOSE"""
 #Path to the executables, make sure to change this one to match your path
 # exe = '/Users/antoinebelley/bin/imsrg++'
-exe = '/usr/local/bin/imsrg++'
+exe = '/home/belleya/projects/rrg-holt/belleya/imsrg/src/imsrg++'
 #Don't forget to change this. I don't want emails about your calculations...
 mail_address = 'antoine.belley@mail.mcgill.ca'
 #Directory that contain all the result directories
-wrkdir = '/work/submit/abelley/results'
+wrkdir = '/home/belleya/projects/rrg-holt/belleya/results'
 # wrkdir = '/Users/antoinebelley/Documents/TRIUMF/Benchmark_TBME/'
 
 #Lists to find the isotope

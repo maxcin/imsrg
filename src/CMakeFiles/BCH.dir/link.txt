@@ -1,2 +1,2 @@
-/usr/bin/ar qc libBCH.a CMakeFiles/BCH.dir/BCH.cc.o
-/usr/bin/ranlib libBCH.a
+/cvmfs/soft.computecanada.ca/gentoo/2023/x86-64-v3/usr/bin/ar qc libBCH.a CMakeFiles/BCH.dir/BCH.cc.o
+/cvmfs/soft.computecanada.ca/gentoo/2023/x86-64-v3/usr/bin/ranlib libBCH.a

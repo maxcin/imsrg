@@ -5,6 +5,7 @@ tmp*
 *.gz
 *.a
 ../*.so
+../*.sif
 ../output/*
 ../input/*
 ../doc/*

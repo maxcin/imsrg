@@ -1,2 +1,2 @@
-/usr/bin/ar qc libM0nu.a CMakeFiles/M0nu.dir/M0nu.cc.o
-/usr/bin/ranlib libM0nu.a
+/cvmfs/soft.computecanada.ca/gentoo/2023/x86-64-v3/usr/bin/ar qc libM0nu.a CMakeFiles/M0nu.dir/M0nu.cc.o
+/cvmfs/soft.computecanada.ca/gentoo/2023/x86-64-v3/usr/bin/ranlib libM0nu.a
