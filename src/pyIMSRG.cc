@@ -148,6 +148,8 @@ PYBIND11_MODULE(pyIMSRG, m)
                { self.SetReference(ref); })
           .def("SetReferenceStr", [](ModelSpace &self, std::string s)
                { self.SetReference(s); })
+          .def("SetReferenceOcc", [](ModelSpace &self, std::map<index_t,double> &ref)
+               { self.SetReference(ref); })
           .def("Init_occ_from_file", &ModelSpace::Init_occ_from_file)
           .def("InitSingleSpecies", &ModelSpace::InitSingleSpecies)
           .def(
@@ -164,6 +166,8 @@ PYBIND11_MODULE(pyIMSRG, m)
               py::arg("l"), py::arg("j2"), py::arg("tz2"))
           //      .def("GetOrbitIndex_fromString", &MS_GetOrbitIndex_Str)
           .def("PreCalculateSixJ", &ModelSpace::PreCalculateSixJ)
+          .def("PreCalculateMoshinsky",&ModelSpace::PreCalculateMoshinsky)
+          .def("GetMoshinsky",&ModelSpace::GetMoshinsky)
           .def("SetScalarFirstPass", &ModelSpace::SetScalarFirstPass)
           .def("SetScalar3bFirstPass", &ModelSpace::SetScalar3bFirstPass)
           .def("ClearVectors", &ModelSpace::ClearVectors)
@@ -771,6 +775,7 @@ PYBIND11_MODULE(pyIMSRG, m)
        ReferenceImplementations.def("comm221ss", &ReferenceImplementations::comm221ss);
        ReferenceImplementations.def("comm122ss", &ReferenceImplementations::comm122ss);
        ReferenceImplementations.def("comm222_pp_hh_221ss", &ReferenceImplementations::comm222_pp_hh_221ss);
+       ReferenceImplementations.def("comm222_pp_hhss", &ReferenceImplementations::comm222_pp_hhss);
        ReferenceImplementations.def("comm222_phss", &ReferenceImplementations::comm222_phss);
        //
        ReferenceImplementations.def("comm223ss", &ReferenceImplementations::comm223ss);
@@ -841,6 +846,7 @@ PYBIND11_MODULE(pyIMSRG, m)
           .def("SetRandomSeed", &UnitTest::SetRandomSeed)
           .def("RandomOp", &UnitTest::RandomOp, py::arg("modelspace"),py::arg("jrank"),py::arg("tz"),py::arg("parity"),py::arg("particle_rank"),py::arg("hermitian"))
           .def("TestCommutators", &UnitTest::TestCommutators)
+          .def("TestCommutators_Tensor", &UnitTest::TestCommutators_Tensor)
           .def("TestCommutators_IsospinChanging", &UnitTest::TestCommutators_IsospinChanging)
           .def("TestCommutators_ParityChanging", &UnitTest::TestCommutators_ParityChanging)
           .def("TestCommutators3", &UnitTest::TestCommutators3)
