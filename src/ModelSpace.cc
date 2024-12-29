@@ -1619,6 +1619,31 @@ uint64_t ModelSpace::NineJHash(double j1, double j2, double J12, double j3, doub
   return key;
 }
 
+void ModelSpace::NineJUnHash(uint64_t key, uint64_t& k1, uint64_t& k2, uint64_t& K12, uint64_t& k3, uint64_t k4, uint64_t& K34, uint64_t& K13, uint64_t& K24, uint64_t& K)
+{
+  uint64_t klist[9];
+  uint64_t key_so_far = 0;
+  uint64_t factor = 91;
+  uint64_t factor_last = 1;
+  for (int i = 0; i < 9; ++i)
+  {
+    klist[i] = (key % factor - key_so_far) / factor_last;
+    key_so_far += klist[i] * factor_last;
+    factor_last = factor;
+    factor *= 91;
+  }
+  k1  = klist[0];
+  k2  = klist[1];
+  K12 = klist[2];
+  k3  = klist[3];
+  k4  = klist[4];
+  K34 = klist[5];
+  K13 = klist[6];
+  K24 = klist[7];
+  K   = klist[8];
+
+}
+
 uint64_t ModelSpace::MoshinskyHash(uint64_t N, uint64_t Lam, uint64_t n, uint64_t lam, uint64_t n1, uint64_t l1, uint64_t n2, uint64_t l2, uint64_t L)
 {
   return (N << 54) + (Lam << 47) + (n << 41) + (lam << 34) + (n1 << 28) + (l1 << 21) + (n2 << 15) + (l2 << 8) + L;
@@ -1816,6 +1841,18 @@ void ModelSpace::PreCalculateNineJ()
       }
     }
   }
+#pragma omp parallel for schedule(dynamic, 1)
+  for (size_t i = 0; i < KEYS.size(); ++i)
+  {
+    uint64_t k1, k2, k3, k4,K12, K34, K13, K24, K;
+    uint64_t key = KEYS[i];
+    NineJUnHash(key, k1, k2, K12, k3,k4,K34, K13, K24, K);
+    NineJList[key] = AngMom::NineJ(0.5 * k1, 0.5 * k2, 0.5*K12, 0.5 * k3, 0.5*k4, 0.5 * K34, 0.5 * K13, 0.5*K24, 0.5 * K);
+  }
+  ninej_has_been_precalculated = true;
+  std::cout << "done calculating nineJs (" << KEYS.size() << " of them)" << std::endl;
+  std::cout << "Hash table has " << NineJList.bucket_count() << " buckets and a load factor " << NineJList.load_factor()
+            << "  estimated storage ~ " << ((NineJList.bucket_count() + NineJList.size()) * (sizeof(size_t) + sizeof(void *))) / (1024. * 1024. * 1024.) << " GB" << std::endl;
 
   profiler.timer[__func__] += omp_get_wtime() - t_start;
 }
@@ -1943,17 +1980,17 @@ double ModelSpace::GetMoshinsky(int N, int Lam, int n, int lam, int n1, int l1, 
 
 double ModelSpace::GetNineJ(double j1, double j2, double J12, double j3, double j4, double J34, double J13, double J24, double J)
 {
-  int k1 = 2 * j1;
-  int k2 = 2 * j2;
-  int K12 = 2 * J12;
-  int k3 = 2 * j3;
-  int k4 = 2 * j4;
-  int K34 = 2 * J34;
-  int K13 = 2 * J13;
-  int K24 = 2 * J24;
-  int K = 2 * J;
+  uint64_t k1 = 2 * j1;
+  uint64_t k2 = 2 * j2;
+  uint64_t K12 = 2 * J12;
+  uint64_t k3 = 2 * j3;
+  uint64_t k4 = 2 * j4;
+  uint64_t K34 = 2 * J34;
+  uint64_t K13 = 2 * J13;
+  uint64_t K24 = 2 * J24;
+  uint64_t K = 2 * J;
 
-  std::array<int, 9> klist = {k1, k2, K12, k3, k4, K34, K13, K24, K};
+  std::array<uint64_t, 9> klist = {k1, k2, K12, k3, k4, K34, K13, K24, K};
   std::array<double, 9> jlist = {j1, j2, J12, j3, j4, J34, J13, J24, J};
   int imin = std::min_element(klist.begin(), klist.end()) - klist.begin();
   switch (imin)
@@ -1994,7 +2031,8 @@ double ModelSpace::GetNineJ(double j1, double j2, double J12, double j3, double 
     break;
   }
 
-  uint64_t key = NineJHash(j1, j2, J12, j3, j4, J34, J13, J24, J);
+//  uint64_t key = NineJHash(j1, j2, J12, j3, j4, J34, J13, J24, J);
+  uint64_t key = NineJHash(k1, k2, K12, k3, k4, K34, K13, K24, K);
   auto it = NineJList.find(key);
   if (it != NineJList.end())
   {
