@@ -453,6 +453,7 @@ PYBIND11_MODULE(pyIMSRG, m)
           .def("Read3bodyHDF5", &ReadWrite::Read3bodyHDF5)
 #endif
           .def("Write_me2j", &ReadWrite::Write_me2j)
+          .def("Write_me2j_gz", &ReadWrite::Write_me2j_gz)
           .def("Write_me3j", &ReadWrite::Write_me3j)
           .def("WriteTBME_Navratil", &ReadWrite::WriteTBME_Navratil)
           .def("WriteNuShellX_sps", &ReadWrite::WriteNuShellX_sps, py::arg("op"), py::arg("filename"))
@@ -498,6 +499,8 @@ PYBIND11_MODULE(pyIMSRG, m)
           .def("SetScratchDir", &ReadWrite::SetScratchDir)
           .def("GetScratchDir", &ReadWrite::GetScratchDir)
           .def("CopyFile", &ReadWrite::CopyFile, py::arg("filein"), py::arg("fileout"))
+          .def("ReadDarmstadt_2bodyRel", &ReadWrite::ReadDarmstadt_2bodyRel)
+          .def("ReadH2_2body", &ReadWrite::ReadH2_2body)
           //      .def("WriteOmega",&ReadWrite::WriteOmega, py::arg("basename"),py::arg("scratch_dir"),py::arg("nOmegas"))
           ;
 
