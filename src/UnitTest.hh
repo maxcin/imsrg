@@ -42,6 +42,7 @@ class UnitTest
   // and make sure that they give the same answer
 //  void TestCommutators();
   bool TestCommutators();
+  bool TestCommutators_Tensor();
   bool TestCommutators_IsospinChanging();
   bool TestCommutators_ParityChanging();
 //  void TestCommutators3();
@@ -64,6 +65,9 @@ class UnitTest
   bool Mscheme_Test_comm222_pp_hhss( const Operator& X, const Operator& Y );
   bool Mscheme_Test_comm222_phss( const Operator& X, const Operator& Y ) ;
 
+  bool Mscheme_Test_comm121st( const Operator& X, const Operator& Y ); 
+  bool Mscheme_Test_comm221st( const Operator& X, const Operator& Y ); 
+
   bool Test_comm110ss( const Operator& X, const Operator& Y );
   bool Test_comm220ss( const Operator& X, const Operator& Y );
   bool Test_comm111ss( const Operator& X, const Operator& Y );
@@ -75,6 +79,12 @@ class UnitTest
   bool Test_comm222_pp_hh_221ss( const Operator& X, const Operator& Y );
 
 
+  // Tensor
+  bool Test_comm111st( const Operator& X, const Operator& Y );
+  bool Test_comm121st( const Operator& X, const Operator& Y );
+  bool Test_comm122st( const Operator& X, const Operator& Y );
+  bool Test_comm221st( const Operator& X, const Operator& Y ) ;
+  bool Test_comm222_pp_hhst( const Operator& X, const Operator& Y ) ;
   bool Test_comm222_phst( const Operator& X, const Operator& Y ) ;
 
   bool Mscheme_Test_comm330ss( const Operator& X, const Operator& Y );
