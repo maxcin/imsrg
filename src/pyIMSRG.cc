@@ -166,6 +166,7 @@ PYBIND11_MODULE(pyIMSRG, m)
               py::arg("l"), py::arg("j2"), py::arg("tz2"))
           //      .def("GetOrbitIndex_fromString", &MS_GetOrbitIndex_Str)
           .def("PreCalculateSixJ", &ModelSpace::PreCalculateSixJ)
+          .def("PreCalculateNineJ", &ModelSpace::PreCalculateNineJ)
           .def("PreCalculateMoshinsky",&ModelSpace::PreCalculateMoshinsky)
           .def("GetMoshinsky",&ModelSpace::GetMoshinsky)
           .def("SetScalarFirstPass", &ModelSpace::SetScalarFirstPass)
@@ -784,6 +785,8 @@ PYBIND11_MODULE(pyIMSRG, m)
        ReferenceImplementations.def("comm222_pp_hh_221ss", &ReferenceImplementations::comm222_pp_hh_221ss);
        ReferenceImplementations.def("comm222_pp_hhss", &ReferenceImplementations::comm222_pp_hhss);
        ReferenceImplementations.def("comm222_phss", &ReferenceImplementations::comm222_phss);
+       ReferenceImplementations.def("comm222_phst", &ReferenceImplementations::comm222_phst);
+
        //
        ReferenceImplementations.def("comm331ss", &ReferenceImplementations::comm331ss);
        ReferenceImplementations.def("comm223ss", &ReferenceImplementations::comm223ss);
@@ -816,6 +819,7 @@ PYBIND11_MODULE(pyIMSRG, m)
        ReferenceImplementations.def("comm223_232_BruteForce", &ReferenceImplementations::comm223_232_BruteForce);
        ReferenceImplementations.def("comm223_231", &ReferenceImplementations::comm223_231);
        ReferenceImplementations.def("comm223_232", &ReferenceImplementations::comm223_232);
+
 
        ReferenceImplementations.def("comm331st", &ReferenceImplementations::comm331st);
        ReferenceImplementations.def("comm223st", &ReferenceImplementations::comm223st);
