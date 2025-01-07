@@ -486,6 +486,12 @@ namespace Commutator
      comm222_pp_hh_221st(X,Y,Z);
      Z.TwoBody = Z2save;
   }
+  void comm222_pp_hhst(const Operator &X, const Operator &Y, Operator &Z)
+  {
+     auto Z1save = Z.OneBody;
+     comm222_pp_hh_221st(X,Y,Z);
+     Z.OneBody = Z1save;
+  }
 
   //**************************************************************************
   //
