@@ -2809,6 +2809,7 @@ namespace ReferenceImplementations
 */
 
 
+// This agrees with the direct M-scheme implementation. -SRS 12/27/2024
 void comm222_phst(const Operator &X, const Operator &Y, Operator &Z)
   {
     int lambda = Y.GetJRank();
@@ -2883,8 +2884,6 @@ void comm222_phst(const Operator &X, const Operator &Y, Operator &Z)
                     double Xbar_psab = 0;
                     double Ybar_abrq = 0;
 
-//                    int J5min = std::max(std::abs(o1.j2 - o4.j2), std::abs(oa.j2 - ob.j2)) / 2.;
-//                    int J5max = std::min(o1.j2 + o4.j2, oa.j2 + ob.j2) / 2.;
                     int J5min = std::max(std::abs(o1.j2 - ob.j2), std::abs(oa.j2 - o4.j2)) / 2.;
                     int J5max = std::min(o1.j2 + ob.j2, oa.j2 + o4.j2) / 2.;
                     for (int J5 = J5min; J5 <= J5max; J5++)

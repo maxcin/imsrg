@@ -166,8 +166,11 @@ PYBIND11_MODULE(pyIMSRG, m)
               py::arg("l"), py::arg("j2"), py::arg("tz2"))
           //      .def("GetOrbitIndex_fromString", &MS_GetOrbitIndex_Str)
           .def("PreCalculateSixJ", &ModelSpace::PreCalculateSixJ)
+          .def("PreCalculateNineJ", &ModelSpace::PreCalculateNineJ)
           .def("PreCalculateMoshinsky",&ModelSpace::PreCalculateMoshinsky)
           .def("GetMoshinsky",&ModelSpace::GetMoshinsky)
+          .def("GetSixJ",&ModelSpace::GetSixJ)
+          .def("GetNineJ",&ModelSpace::GetNineJ)
           .def("SetScalarFirstPass", &ModelSpace::SetScalarFirstPass)
           .def("SetScalar3bFirstPass", &ModelSpace::SetScalar3bFirstPass)
           .def("ClearVectors", &ModelSpace::ClearVectors)
@@ -777,6 +780,13 @@ PYBIND11_MODULE(pyIMSRG, m)
        ReferenceImplementations.def("comm222_pp_hh_221ss", &ReferenceImplementations::comm222_pp_hh_221ss);
        ReferenceImplementations.def("comm222_pp_hhss", &ReferenceImplementations::comm222_pp_hhss);
        ReferenceImplementations.def("comm222_phss", &ReferenceImplementations::comm222_phss);
+
+       ReferenceImplementations.def("comm111st", &ReferenceImplementations::comm111st);
+       ReferenceImplementations.def("comm121st", &ReferenceImplementations::comm121st);
+       ReferenceImplementations.def("comm122st", &ReferenceImplementations::comm122st);
+       ReferenceImplementations.def("comm221st", &ReferenceImplementations::comm221st);
+       ReferenceImplementations.def("comm222_pp_hhst", &ReferenceImplementations::comm222_pp_hhst);
+       ReferenceImplementations.def("comm222_phst", &ReferenceImplementations::comm222_phst);
        //
        ReferenceImplementations.def("comm223ss", &ReferenceImplementations::comm223ss);
        ReferenceImplementations.def("comm232ss", &ReferenceImplementations::comm232ss);
