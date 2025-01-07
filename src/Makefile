@@ -257,6 +257,12 @@ test-factorized:
 test-triples:
 	$(PYTHON_COMMAND) -c "import pyIMSRG; ms=pyIMSRG.ModelSpace(2,'He8','He8'); ut=pyIMSRG.UnitTest(ms); passed=ut.TestPerturbativeTriples(); \
                               print('passed? ',passed); "
+test-tensor:
+	$(PYTHON_COMMAND) -c "import pyIMSRG; ms=pyIMSRG.ModelSpace(2,'He8','He8');  ut=pyIMSRG.UnitTest(ms); passed =ut.TestCommutators_Tensor(); \
+                              print('passed? ',passed); "
+#	$(PYTHON_COMMAND) -c "import pyIMSRG; ms=pyIMSRG.ModelSpace(2,'He8','He8');  ut=pyIMSRG.UnitTest(ms); passed =ut.TestCommutators_Tensor(); \
+#                            ms=pyIMSRG.ModelSpace(1,'He4','He4'); ut=pyIMSRG.UnitTest(ms); pyIMSRG.Commutator.SetUseIMSRG3N7(True); passed &=ut.TestCommutators_Tensor();\
+#                              print('passed? ',passed); "
 
 install: splashscreen
 	@if [ ! -d $(INSTDIR)/lib ] ; then \

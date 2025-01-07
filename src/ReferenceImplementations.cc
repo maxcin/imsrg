@@ -1268,10 +1268,14 @@ namespace ReferenceImplementations
                       double hatfactor = (twoJp + 1) * (twoJpp + 1);
 
                       // I think having these in the inner loop may be disastrous for performance
-                      double ninej1 = Z.modelspace->GetNineJ(Jab, jk, Jpp, ji, J, jj, Jp, jl, Jcd);
-                      double ninej2 = Z.modelspace->GetNineJ(Jab, jk, Jpp, jj, J, ji, Jp, jl, Jcd); // permute i<->j
-                      double ninej3 = Z.modelspace->GetNineJ(Jab, jl, Jpp, ji, J, jj, Jp, jk, Jcd); // permute k<->l
-                      double ninej4 = Z.modelspace->GetNineJ(Jab, jl, Jpp, jj, J, ji, Jp, jk, Jcd); // permute i<->j and k<->l
+//                      double ninej1 = Z.modelspace->GetNineJ(Jab, jk, Jpp, ji, J, jj, Jp, jl, Jcd);
+//                      double ninej2 = Z.modelspace->GetNineJ(Jab, jk, Jpp, jj, J, ji, Jp, jl, Jcd); // permute i<->j
+//                      double ninej3 = Z.modelspace->GetNineJ(Jab, jl, Jpp, ji, J, jj, Jp, jk, Jcd); // permute k<->l
+//                      double ninej4 = Z.modelspace->GetNineJ(Jab, jl, Jpp, jj, J, ji, Jp, jk, Jcd); // permute i<->j and k<->l
+                      double ninej1 = AngMom::NineJ(Jab, jk, Jpp, ji, J, jj, Jp, jl, Jcd);
+                      double ninej2 = AngMom::NineJ(Jab, jk, Jpp, jj, J, ji, Jp, jl, Jcd); // permute i<->j
+                      double ninej3 = AngMom::NineJ(Jab, jl, Jpp, ji, J, jj, Jp, jk, Jcd); // permute k<->l
+                      double ninej4 = AngMom::NineJ(Jab, jl, Jpp, jj, J, ji, Jp, jk, Jcd); // permute i<->j and k<->l
 
                       // These phase factors account for the minus signs associated with the permutations
                       // so that all the permuted terms should just be added with their phase (no extra minus sign).
@@ -1968,8 +1972,8 @@ namespace ReferenceImplementations
                         double xb3a6 = X2.GetTBME_J(Ja6, b, I3, a, I6);
                         double yb3a6 = Y2.GetTBME_J(Ja6, b, I3, a, I6);
 
-                        double ninej = Z.modelspace->GetNineJ(ob.j2 * 0.5, twoJp * 0.5, J2p, o3.j2 * 0.5, J1p, twoJ * 0.5, Ja6, oa.j2 * 0.5, o6.j2 * 0.5);
-                        //                          double ninej = AngMom::NineJ( ob.j2*0.5, twoJp*0.5, J2p,  o3.j2*0.5, J1p, twoJ*0.5, Ja6, oa.j2*0.5, o6.j2*0.5);
+//                        double ninej = Z.modelspace->GetNineJ(ob.j2 * 0.5, twoJp * 0.5, J2p, o3.j2 * 0.5, J1p, twoJ * 0.5, Ja6, oa.j2 * 0.5, o6.j2 * 0.5);
+                        double ninej = AngMom::NineJ( ob.j2*0.5, twoJp*0.5, J2p,  o3.j2*0.5, J1p, twoJ*0.5, Ja6, oa.j2*0.5, o6.j2*0.5);
                         int phase = AngMom::phase((o3.j2 + o6.j2) / 2 + J1p + J2p + twoJ);
                         zijklmn -= (oa.occ - ob.occ) * Pijk * Plmn * (2 * Ja6 + 1) * (twoJp + 1) * phase * ninej * (xb3a6 * y12a45b - yb3a6 * x12a45b);
                       } // Ja6
@@ -2228,7 +2232,8 @@ namespace ReferenceImplementations
                               double JJy = 0.5 * twoJy;
                               size_t iJy = (twoJy - twoJy_min) / 2;
                               double hats = (twoJx + 1) * (twoJy + 1);
-                              double ninej = Z.modelspace->GetNineJ(j3, Jab, JJx, J1p, JJy, jc, Jtot, j6, J2p);
+//                              double ninej = Z.modelspace->GetNineJ(j3, Jab, JJx, J1p, JJy, jc, Jtot, j6, J2p);
+                              double ninej = AngMom::NineJ(j3, Jab, JJx, J1p, JJy, jc, Jtot, j6, J2p);
                               z_ijklmn += rec_ijk * rec_lmn * occ_factor * hats * ninej * (xab345c[iJx] * y12cab6[iJy] - yab345c[iJx] * x12cab6[iJy]);
                             } // for twoJy
                           } // for twoJx
@@ -2316,7 +2321,8 @@ namespace ReferenceImplementations
               int J4max = std::min( oj.j2+oa.j2, 2*J3+2*lambda)/2;
               for (int J4=J4min; J4<=J4max; J4++)
               {
-                double ninej = Z.modelspace->GetNineJ( ji, jb, J3,  jj, ja, J4, lambda, 0, lambda);
+//                double ninej = Z.modelspace->GetNineJ( ji, jb, J3,  jj, ja, J4, lambda, 0, lambda);
+                double ninej = AngMom::NineJ( ji, jb, J3,  jj, ja, J4, lambda, 0, lambda);
                 Ybar_ijab -= sqrt((2*lambda+1)*(2*0+1)*(2*J3+1)*(2*J4+1)) * AngMom::phase(jj+jb+0+J4) * ninej * Y.TwoBody.GetTBME_J(J3,J4,i,b,a,j);
               }
             }
@@ -2494,17 +2500,10 @@ namespace ReferenceImplementations
 
 
 
-
-
-
-
 // [2,2]->2 ph commutator. Tested against m-scheme expressions and it agrees. 
 // Formula:
 // 
 //    Zpqrs_J1,J2,lam = sum_ab s sum_J3J4 hat{J1J2J3J4} (na-nb) [ [1 - Ppq(J1)][1-Prs(J2)]  * (-1)^(q+s+J2+J4) { p  s  J3  } Xbar_psab^J3 * Ybar_abrq^J3,J4,lam ]
-//                                                                                                             { q  r  J4  }
-//                                                                                                             { J1 J2 lam }
-// 
 void comm222_phst(const Operator &X, const Operator &Y, Operator &Z)
   {
     int lambda = Y.GetJRank();

@@ -169,6 +169,11 @@ PYBIND11_MODULE(pyIMSRG, m)
           .def("PreCalculateNineJ", &ModelSpace::PreCalculateNineJ)
           .def("PreCalculateMoshinsky",&ModelSpace::PreCalculateMoshinsky)
           .def("GetMoshinsky",&ModelSpace::GetMoshinsky)
+          .def("GetSixJ",&ModelSpace::GetSixJ)
+          .def("GetNineJ",&ModelSpace::GetNineJ)
+          .def("NineJHash",&ModelSpace::NineJHash)
+//          .def("NineJUnHash",&ModelSpace::NineJUnHash)
+          .def("NineJUnHash",[](ModelSpace &self, uint64_t key){ uint64_t k1,k2,k3,k4,k5,k6,k7,k8,k9; self.NineJUnHash(key,k1,k2,k3,k4,k5,k6,k7,k8,k9); return py::make_tuple(k1,k2,k3,k4,k5,k6,k7,k8,k9);  }     )
           .def("SetScalarFirstPass", &ModelSpace::SetScalarFirstPass)
           .def("SetScalar3bFirstPass", &ModelSpace::SetScalar3bFirstPass)
           .def("ClearVectors", &ModelSpace::ClearVectors)
@@ -779,14 +784,12 @@ PYBIND11_MODULE(pyIMSRG, m)
        ReferenceImplementations.def("comm222_pp_hhss", &ReferenceImplementations::comm222_pp_hhss);
        ReferenceImplementations.def("comm222_phss", &ReferenceImplementations::comm222_phss);
 
-
        ReferenceImplementations.def("comm111st", &ReferenceImplementations::comm111st);
        ReferenceImplementations.def("comm121st", &ReferenceImplementations::comm121st);
        ReferenceImplementations.def("comm122st", &ReferenceImplementations::comm122st);
        ReferenceImplementations.def("comm221st", &ReferenceImplementations::comm221st);
        ReferenceImplementations.def("comm222_pp_hhst", &ReferenceImplementations::comm222_pp_hhst);
        ReferenceImplementations.def("comm222_phst", &ReferenceImplementations::comm222_phst);
-
        //
        ReferenceImplementations.def("comm223ss", &ReferenceImplementations::comm223ss);
        ReferenceImplementations.def("comm232ss", &ReferenceImplementations::comm232ss);

@@ -260,6 +260,7 @@ namespace Commutator
           for (int a : Y.GetOneBodyChannel(oi.l, oi.j2, oi.tz2))
           {
             double ja = Z.modelspace->GetOrbit(a).j2 * 0.5;
+            if ( not  AngMom::Triangle(J2,ja,jj)  ) continue;
             c1 -= Z.modelspace->GetSixJ(J2, J1, Lambda, ji, ja, jj) * Y.OneBody(i, a) * X.TwoBody.GetTBME(ch_ket, ch_ket, a, j, k, l);
 //             std::cout << " " << __FILE__ << "  ch bra,ket" << ch_bra << " " << ch_ket <<  "   pqrs " << i << " " << j << " " << k << " " <<l << "  a = " << a << "   zpqrs = " << hatfactor * phase1*c1 << "  => " << cijkl <<  std::endl;
           }
@@ -273,12 +274,14 @@ namespace Commutator
             for (int a : Y.GetOneBodyChannel(oj.l, oj.j2, oj.tz2))
             {
               double ja = Z.modelspace->GetOrbit(a).j2 * 0.5;
+              if ( not  AngMom::Triangle(J2,ja,ji)  ) continue;
               c2 += Z.modelspace->GetSixJ(J2, J1, Lambda, jj, ja, ji) * Y.OneBody(j, a) * X.TwoBody.GetTBME(ch_ket, ch_ket, a, i, k, l);
             }
           }
           for (int a : Y.GetOneBodyChannel(ok.l, ok.j2, ok.tz2))
           {
             double ja = Z.modelspace->GetOrbit(a).j2 * 0.5;
+            if ( not  AngMom::Triangle(J1,ja,jl)  ) continue;
             c3 -= Z.modelspace->GetSixJ(J1, J2, Lambda, jk, ja, jl) * Y.OneBody(a, k) * X.TwoBody.GetTBME(ch_bra, ch_bra, i, j, l, a);
           }
           if (k == l)
@@ -290,6 +293,7 @@ namespace Commutator
             for (int a : Y.GetOneBodyChannel(ol.l, ol.j2, ol.tz2))
             {
               double ja = Z.modelspace->GetOrbit(a).j2 * 0.5;
+              if ( not  AngMom::Triangle(J1,ja,jk)  ) continue;
               c4 += Z.modelspace->GetSixJ(J1, J2, Lambda, jl, ja, jk) * Y.OneBody(a, l) * X.TwoBody.GetTBME(ch_bra, ch_bra, i, j, k, a);
             }
           }
@@ -877,16 +881,9 @@ namespace Commutator
                   tbme = Zmat(indx_kj, indx_il + (i > l ? 0 : nbras)) * Z.modelspace->phase(ji + jj + jk + jl); // Z_ilkj = Z_kjil * (phase)
               }
 
-              /*
-               */
               commij += hatfactor * Z.modelspace->phase(jj + jl + J2 + J4) * ninej * tbme;
-              // if ( ch_bra==1)
-              // {
-              //   std::cout << "   " << __func__ << " " << __LINE__ << " iklj " << i << " " << l << " " << k << " " << j << "   J3J4 " << J3 << " " << J4
-              //             << "   me " << tbme << "   ninej =" << ninej << "   commij = " << commij << "   depends on cc channels " << ch_bra_cc << " " << ch_ket_cc << std::endl;
-              // }
-            }
-          }
+            }// for J4
+          }// for J3
 
           if (i == j)
           {
@@ -959,21 +956,19 @@ namespace Commutator
                   else
                     tbme = Zmat(indx_ki, indx_jl + (j > l ? 0 : nbras)) * Z.modelspace->phase(ji + jj + jk + jl); // Z_ilkj = Z_kjil * (phase)
                 }
-                /*
-                 */
 
                 commji += hatfactor * Z.modelspace->phase(ji + jl + J2 + J4) * ninej * tbme;
-              }
-            }
+              }// for J4
+            }// for J3
           }
 
           double norm = bra.delta_pq() == ket.delta_pq() ? 1 + bra.delta_pq() : PhysConst::SQRT2;
           Zijkl(ibra, iket) += (commij - Z.modelspace->phase(ji + jj - J1) * commji) / norm;
           if (ch_bra == ch_ket)
             Zijkl(iket, ibra) = hZ * Zijkl(ibra, iket);
-        }
-      }
-    }
+        }// for iket
+      }// for ibra
+    }// for i in niter (loop over ch_bra,ch_ket)
   }
 
 
