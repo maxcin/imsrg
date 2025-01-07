@@ -1856,7 +1856,7 @@ void ModelSpace::PreCalculateSixJ()
     SixJList[key] = AngMom::SixJ(0.5 * j1, 0.5 * j2, 0.5 * j3, 0.5 * J1, 0.5 * J2, 0.5 * J3);
   }
   sixj_has_been_precalculated = true;
-  std::cout << "done calculating sixJs (" << KEYS.size() << " of them)" << std::endl;
+  std::cout << "done calculating sixJs (" << KEYS.size() << " of them)  now there are " << SixJList.size() << " entries " << std::endl;
   std::cout << "Hash table has " << SixJList.bucket_count() << " buckets and a load factor " << SixJList.load_factor()
             << "  estimated storage ~ " << ((SixJList.bucket_count() + SixJList.size()) * (sizeof(size_t) + sizeof(void *))) / (1024. * 1024. * 1024.) << " GB" << std::endl;
   profiler.timer[__func__] += omp_get_wtime() - t_start;
