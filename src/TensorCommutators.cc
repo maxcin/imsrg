@@ -1064,7 +1064,7 @@ namespace Commutator
   ///
   // void Operator::comm222_phst( Operator& Y, Operator& Z )
   // void Operator::comm222_phst( const Operator& X, const Operator& Y )
-  /**
+
   void comm222_phst(const Operator &X, const Operator &Y, Operator &Z)
   {
     int hX = X.IsHermitian() ? 1 : -1;
@@ -1383,9 +1383,9 @@ namespace Commutator
 
     X.profiler.timer[__func__] += omp_get_wtime() - t_start;
   }
-  */
 
-  void comm222_phst(const Operator &X, const Operator &Y, Operator &Z)
+
+  void comm222_phst_new(const Operator &X, const Operator &Y, Operator &Z)
   {
     int hX = X.IsHermitian() ? 1 : -1;
     int hY = Y.IsHermitian() ? 1 : -1;
