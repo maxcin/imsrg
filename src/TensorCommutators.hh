@@ -37,7 +37,10 @@ namespace Commutator
     void comm111st(const Operator &X, const Operator &Y, Operator &Z);
     void comm121st(const Operator &X, const Operator &Y, Operator &Z);
     void comm122st(const Operator &X, const Operator &Y, Operator &Z);
+    void comm221st(const Operator &X, const Operator &Y, Operator &Z);
+    void comm222_pp_hhst(const Operator &X, const Operator &Y, Operator &Z);
     void comm222_pp_hh_221st(const Operator &X, const Operator &Y, Operator &Z);
+    void comm222_pp_hhst(const Operator &X, const Operator &Y, Operator &Z);
     void comm222_phst(const Operator &X, const Operator &Y, Operator &Z);
 
     // scalar-tensor with a 3b operator

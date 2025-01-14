@@ -80,6 +80,7 @@ namespace imsrg_util
           std::istringstream( opnamesplit[1] ) >> Rms ;
           theop =  ISDipoleOp(modelspace,3,1,Rms) ;
       }
+      else if (opname == "E0")            theop =  E0Op(modelspace) ;
       else if (opname == "E1")            theop =  ElectricMultipoleOp(modelspace,1) ;
       else if (opname == "E2")            theop =  ElectricMultipoleOp(modelspace,2) ;
       else if (opname == "E3")            theop =  ElectricMultipoleOp(modelspace,3) ;

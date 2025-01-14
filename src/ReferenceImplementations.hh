@@ -61,6 +61,7 @@ namespace ReferenceImplementations
   void comm222_pp_hhst(const Operator &X, const Operator &Y, Operator &Z);
   void comm222_phst(const Operator &X, const Operator &Y, Operator &Z);
 
+
   // scalar-tensor with a 3b operator
   void comm331st(const Operator &X, const Operator &Y, Operator &Z);           // PASS the unit test
   void comm223st(const Operator &X, const Operator &Y, Operator &Z);           // PASS the unit test
