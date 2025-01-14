@@ -762,6 +762,7 @@ namespace Commutator
       iteratorlist.push_back(iter);
     int niter = iteratorlist.size();
     int hZ = Z.IsHermitian() ? 1 : -1;
+    
 
     // Only go parallel if we've previously calculated the SixJs/NineJs. Otherwise, it's not thread safe.
     //   #pragma omp parallel for schedule(dynamic,1) if (not Z.modelspace->tensor_transform_first_pass[Z.GetJRank()*2+Z.GetParity()])
@@ -1059,7 +1060,6 @@ namespace Commutator
   void comm222_phst(const Operator &X, const Operator &Y, Operator &Z)
   {
 
-
     int hX = X.IsHermitian() ? 1  : -1;
     int hY = Y.IsHermitian() ? 1  : -1;
 
@@ -1070,7 +1070,6 @@ namespace Commutator
     std::map<std::array<index_t, 2>, arma::mat> Y_bar_ph;
     DoPandyaTransformation(X, Xt_bar_ph, "transpose");
     X.profiler.timer["_DoTensorPandyaTransformationX"] += omp_get_wtime() - t_start;
-
     t_start = omp_get_wtime();
     // Construct the intermediate matrix Z_bar
     // First, we initialize the map Z_bar with empty matrices
@@ -1121,15 +1120,17 @@ namespace Commutator
     X.profiler.timer["_Allocate Z_bar_tensor"] += omp_get_wtime() - t_internal;
 
     t_internal = omp_get_wtime();
-
+    
     // BEGIN OLD WAY
     if (Z.GetJRank() > 0)
     {
-      //      std::cout << "  in  " << __func__ << "  doing it the old way. Counter = " << counter << std::endl;
+          //  std::cout << "  in  " << __func__ << "  doing it the old way. Counter = " << counter << std::endl;
+
 #ifndef OPENBLAS_NOUSEOMP
-      //      #pragma omp parallel for schedule(dynamic,1) if (not Z.modelspace->tensor_transform_first_pass[Z.GetJRank()*2+Z.GetParity()])
+          //  #pragma omp parallel for schedule(dynamic,1) if (not Z.modelspace->tensor_transform_first_pass[Z.GetJRank()*2+Z.GetParity()])
 #pragma omp parallel for schedule(dynamic, 1) if (not single_thread)
 #endif
+
       for (int i = 0; i < counter; ++i)
       {
         //         std::cout << "      i = " << i << std::endl;
@@ -1367,7 +1368,6 @@ namespace Commutator
 
     } // else J=0
     X.profiler.timer["_Build Z_bar_tensor"] += omp_get_wtime() - t_internal;
-
     t_internal = omp_get_wtime();
     AddInverseTensorPandyaTransformation(Z, Z_bar);
     X.profiler.timer[__func__] += omp_get_wtime() - t_start;

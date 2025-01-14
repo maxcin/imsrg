@@ -6,5 +6,5 @@ CXX_DEFINES =
 
 CXX_INCLUDES = -isystem /usr/local/include
 
-CXX_FLAGS = -O3 -DNDEBUG -std=gnu++14 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX15.1.sdk -fPIC -frounding-math
+CXX_FLAGS = -O3 -DNDEBUG -std=gnu++14 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX15.2.sdk -fPIC -frounding-math
 

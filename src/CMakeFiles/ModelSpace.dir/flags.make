@@ -6,5 +6,5 @@ CXX_DEFINES =
 
 CXX_INCLUDES = -I/Users/antoinebelley/Documents/TRIUMF/imsrg/src/extern/armadillo
 
-CXX_FLAGS = -O3 -DNDEBUG -std=gnu++14 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX15.1.sdk -fPIC -frounding-math -Xclang -fopenmp
+CXX_FLAGS = -O3 -DNDEBUG -std=gnu++14 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX15.2.sdk -fPIC -frounding-math -Xclang -fopenmp
 
