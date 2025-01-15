@@ -67,6 +67,8 @@ class UnitTest
 
   bool Mscheme_Test_comm121st( const Operator& X, const Operator& Y ); 
   bool Mscheme_Test_comm221st( const Operator& X, const Operator& Y ); 
+  bool Mscheme_Test_comm222_pp_hhst( const Operator& X, const Operator& Y );
+  bool Mscheme_Test_comm222_phst( const Operator& X, const Operator& Y ) ;
 
   bool Test_comm110ss( const Operator& X, const Operator& Y );
   bool Test_comm220ss( const Operator& X, const Operator& Y );

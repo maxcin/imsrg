@@ -1528,6 +1528,64 @@ void ModelSpace::ResetFirstPass()
     tensor_transform_first_pass[i] = true;
 }
 
+
+uint64_t ModelSpace::SixJHash(double j1, double j2, double j3, double J1, double J2, double J3)
+{
+    
+  uint64_t twoj1 = 2*j1;
+  uint64_t twoj2 = 2*j2;
+  uint64_t twoj3 = 2*j3;
+  uint64_t twoJ1 = 2*J1;
+  uint64_t twoJ2 = 2*J2;
+  uint64_t twoJ3 = 2*J3;
+  // The 6j can contain 0,3, or 4 half-integer arguments
+  // If there are 3, then they can always be permuted so all the half-integers are on the bottom row.
+   if ( (twoj1+twoj2+twoj3+twoJ1+twoJ2+twoJ3)%2==1)
+   {
+    if ( (twoj1%2)==1 )
+    { 
+      std::swap( twoj1, twoJ1);
+      std::swap( twoj2, twoJ2);
+    }
+    if ( (twoj2%2)==1 )
+    { 
+      std::swap( twoj2, twoJ2);
+      std::swap( twoj3, twoJ3);
+    }
+   }
+   else // otherwise, we can permute so the larger entries are on the bottom row
+   {
+    if ( (twoj1>twoJ1) )
+    { 
+      std::swap( twoj1, twoJ1);
+      std::swap( twoj2, twoJ2);
+    }
+    if ( (twoj2>twoJ2) )
+    { 
+      std::swap( twoj2, twoJ2);
+      std::swap( twoj3, twoJ3);
+    }
+   }
+
+  // Use the 6J symmettry under permutation of columns. Combine each column into a single integer
+  // then sort the column indices so that any of the 6 equivalent permutations will give the same key
+  uint64_t jJ1 = twoj1 + (twoJ1 << 10);
+  uint64_t jJ2 = twoj2 + (twoJ2 << 10);
+  uint64_t jJ3 = twoj3 + (twoJ3 << 10);
+
+
+  if (jJ3 < jJ2)
+    std::swap(jJ3, jJ2);
+  if (jJ2 < jJ1)
+    std::swap(jJ2, jJ1);
+  if (jJ3 < jJ2)
+    std::swap(jJ3, jJ2);
+
+  return jJ1 + (jJ2 << 20) + (jJ3 << 40);
+}
+
+
+/*
 uint64_t ModelSpace::SixJHash(double j1, double j2, double j3, double J1, double J2, double J3)
 {
   // Use the 6J symmettry under permutation of columns. Combine each column into a single integer
@@ -1545,6 +1603,8 @@ uint64_t ModelSpace::SixJHash(double j1, double j2, double j3, double J1, double
 
   return jJ1 + (jJ2 << 20) + (jJ3 << 40);
 }
+*/
+
 
 void ModelSpace::SixJUnHash(uint64_t key, uint64_t &j1, uint64_t &j2, uint64_t &j3, uint64_t &J1, uint64_t &J2, uint64_t &J3)
 {
@@ -1619,7 +1679,7 @@ uint64_t ModelSpace::NineJHash(double j1, double j2, double J12, double j3, doub
   return key;
 }
 
-void ModelSpace::NineJUnHash(uint64_t key, uint64_t& k1, uint64_t& k2, uint64_t& K12, uint64_t& k3, uint64_t k4, uint64_t& K34, uint64_t& K13, uint64_t& K24, uint64_t& K)
+void ModelSpace::NineJUnHash(uint64_t key, uint64_t& k1, uint64_t& k2, uint64_t& K12, uint64_t& k3, uint64_t& k4, uint64_t& K34, uint64_t& K13, uint64_t& K24, uint64_t& K)
 {
   uint64_t klist[9];
   uint64_t key_so_far = 0;
@@ -1796,11 +1856,13 @@ void ModelSpace::PreCalculateSixJ()
     SixJList[key] = AngMom::SixJ(0.5 * j1, 0.5 * j2, 0.5 * j3, 0.5 * J1, 0.5 * J2, 0.5 * J3);
   }
   sixj_has_been_precalculated = true;
-  std::cout << "done calculating sixJs (" << KEYS.size() << " of them)" << std::endl;
+  std::cout << "done calculating sixJs (" << KEYS.size() << " of them)  now there are " << SixJList.size() << " entries " << std::endl;
   std::cout << "Hash table has " << SixJList.bucket_count() << " buckets and a load factor " << SixJList.load_factor()
             << "  estimated storage ~ " << ((SixJList.bucket_count() + SixJList.size()) * (sizeof(size_t) + sizeof(void *))) / (1024. * 1024. * 1024.) << " GB" << std::endl;
   profiler.timer[__func__] += omp_get_wtime() - t_start;
 }
+
+
 
 void ModelSpace::PreCalculateNineJ()
 {
@@ -1827,7 +1889,6 @@ void ModelSpace::PreCalculateNineJ()
               {
                 if (((j2a + j2b) < 2 * J) or (std::abs(j2a - j2b) > 2 * J))
                   continue;
-                //                  uint64_t key = SixJHash(0.5*j2a,0.5*j2b,0.5*J1,0.5*j2c,0.5*j2d,0.5*J2);
                 uint64_t key = NineJHash(la, lb, L, 0.5, 0.5, S, 0.5 * j2a, 0.5 * j2b, J);
                 if (NineJList.count(key) == 0)
                 {
@@ -1980,6 +2041,56 @@ double ModelSpace::GetMoshinsky(int N, int Lam, int n, int lam, int n1, int l1, 
 
 double ModelSpace::GetNineJ(double j1, double j2, double J12, double j3, double j4, double J34, double J13, double J24, double J)
 {
+
+  uint64_t key = NineJHash(j1,j2,J12,j3,j4,J34,J13,J24,J);
+  auto it = NineJList.find(key);
+  if (it != NineJList.end())
+  {
+    return it->second;
+  }
+
+  double ninej=0;
+  int twoxmin =  std::max( { std::abs( j1-J), std::abs(j2-J34), std::abs(j3-J24)} )*2  ;
+  int twoxmax = std::min( { j1+J, j2+J34, j3+J24} )*2;
+  for (int twox=twoxmin; twox<=twoxmax; twox+=2)
+  {
+     double x = 0.5*twox;
+//     ninej += AngMom::phase(twox) * (twox+1) * AngMom::SixJ( j1,j2,J12, J34,J,x) * AngMom::SixJ(j3,j4,J34, j2,x,J24) * AngMom::SixJ(J13,J24,J, x, j1,j3);
+     ninej += AngMom::phase(twox) * (twox+1) * GetSixJ( j1,j2,J12, J34,J,x) * GetSixJ(j3,j4,J34, j2,x,J24) * GetSixJ(J13,J24,J, x, j1,j3);
+  }
+//  double ninej = AngMom::NineJ(j1,j2,J12,j3,j4,J34,J13,J24,J);
+
+  if (omp_get_num_threads() < 2)
+  {
+#pragma omp critical
+    NineJList[key] = ninej;
+  }
+//  else
+//  {
+//#pragma omp critical
+//   {
+//    uint64_t Q[9];
+//    NineJUnHash( key, Q[0],Q[1],Q[2],Q[3],Q[4],Q[5],Q[6],Q[7],Q[8]);
+//    std::cout << "DANGER!!!!!!!  Updating NineJList inside a parellel loop breaks thread safety!" << std::endl;
+//    std::cout << "  I shouldn't be here in GetNineJ(";
+//    for (int i = 0; i < 9; i++)
+//      std::cout << std::setprecision(1) << std::fixed << jlist[i] << " ";
+//
+//    std::cout << "). key = " << std::hex << key << "   ninej = " << std::dec << ninej << std::endl;
+//    std::cout << "Unhashing I get ";
+//    for (int i=0; i<9; i++) std::cout << Q[i] << " " ;
+//    std::cout << std::endl;
+//    profiler.counter["N_CalcNineJ_in_Parallel_loop"] += 1;
+//    exit(EXIT_FAILURE);
+//   }
+//  }
+
+  return ninej;
+}
+
+/*
+double ModelSpace::GetNineJ(double j1, double j2, double J12, double j3, double j4, double J34, double J13, double J24, double J)
+{
   uint64_t k1 = 2 * j1;
   uint64_t k2 = 2 * j2;
   uint64_t K12 = 2 * J12;
@@ -2032,7 +2143,8 @@ double ModelSpace::GetNineJ(double j1, double j2, double J12, double j3, double 
   }
 
 //  uint64_t key = NineJHash(j1, j2, J12, j3, j4, J34, J13, J24, J);
-  uint64_t key = NineJHash(k1, k2, K12, k3, k4, K34, K13, K24, K);
+//  uint64_t key = NineJHash(k1, k2, K12, k3, k4, K34, K13, K24, K);
+  uint64_t key = NineJHash(jlist[0], jlist[1], jlist[2], jlist[3], jlist[4], jlist[5], jlist[6], jlist[7], jlist[8]);
   auto it = NineJList.find(key);
   if (it != NineJList.end())
   {
@@ -2048,18 +2160,28 @@ double ModelSpace::GetNineJ(double j1, double j2, double J12, double j3, double 
   }
   else
   {
+#pragma omp critical
+   {
+    uint64_t Q[9];
+    NineJUnHash( key, Q[0],Q[1],Q[2],Q[3],Q[4],Q[5],Q[6],Q[7],Q[8]);
     std::cout << "DANGER!!!!!!!  Updating NineJList inside a parellel loop breaks thread safety!" << std::endl;
     std::cout << "  I shouldn't be here in GetNineJ(";
     for (int i = 0; i < 9; i++)
       std::cout << std::setprecision(1) << std::fixed << jlist[i] << " ";
 
     std::cout << "). key = " << std::hex << key << "   ninej = " << std::dec << ninej << std::endl;
-    profiler.counter["N_CalcSixJ_in_Parallel_loop"] += 1;
+    std::cout << "Unhashing I get ";
+    for (int i=0; i<9; i++) std::cout << Q[i] << " " ;
+    std::cout << std::endl;
+    profiler.counter["N_CalcNineJ_in_Parallel_loop"] += 1;
     exit(EXIT_FAILURE);
+   }
   }
 
   return ninej;
 }
+*/
+
 
 std::vector<size_t> &ModelSpace::GetPandyaLookup(int rank_J, int rank_T, int parity)
 {
