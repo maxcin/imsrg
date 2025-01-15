@@ -782,7 +782,7 @@ namespace Commutator
 
     // Only go parallel if we've previously calculated the SixJs/NineJs. Otherwise, it's not thread safe.
     //   #pragma omp parallel for schedule(dynamic,1) if (not Z.modelspace->tensor_transform_first_pass[Z.GetJRank()*2+Z.GetParity()])
-#pragma omp parallel for schedule(dynamic, 1) if (not single_thread)
+    #pragma omp parallel for schedule(dynamic, 1) if (not single_thread)
     for (int i = 0; i < niter; ++i)
     {
       const auto iter = iteratorlist[i];
@@ -855,7 +855,9 @@ namespace Commutator
               }
               else
               {
-                ninej = Z.modelspace->GetNineJ(ji, jl, J3, jj, jk, J4, J1, J2, Lambda);
+                ninej = Z.modelspace->GetNineJ(ji, jl, J3, 
+                                               jj, jk, J4, 
+                                               J1, J2, Lambda);
               }
               if (std::abs(ninej) < 1e-8)
                 continue;
@@ -871,14 +873,14 @@ namespace Commutator
                 if (i <= l)
                   tbme = Zmat(indx_il, indx_kj + (k > j ? nkets : 0));
                 else
-                  tbme = Zmat(indx_il, indx_kj + (k > j ? 0 : nkets)) * hZ * Z.modelspace->phase(J3 - J4 + ji + jj + jk + jl);
+                  tbme = Zmat(indx_il, indx_kj + (k > j ? 0 : nkets)) * hZ * Z.modelspace->phase(Lambda + J3 + J4 + int(ji + jj + jk + jl));
               }
               else
               {
                 if (k <= j)
                   tbme = Zmat(indx_kj, indx_il + (i > l ? nbras : 0)) * hZ * Z.modelspace->phase(J3 - J4); // Z_ilkj = Z_kjil * (phase)
                 else
-                  tbme = Zmat(indx_kj, indx_il + (i > l ? 0 : nbras)) * Z.modelspace->phase(ji + jj + jk + jl); // Z_ilkj = Z_kjil * (phase)
+                  tbme = Zmat(indx_kj, indx_il + (i > l ? 0 : nbras)) * Z.modelspace->phase(Lambda + int(ji + jj + jk + jl)); // Z_ilkj = Z_kjil * (phase)
               }
 
               commij += hatfactor * Z.modelspace->phase(jj + jl + J2 + J4) * ninej * tbme;
@@ -929,7 +931,9 @@ namespace Commutator
                 }
                 else
                 {
-                  ninej = Z.modelspace->GetNineJ(jj, jl, J3, ji, jk, J4, J1, J2, Lambda);
+                  ninej = Z.modelspace->GetNineJ(jj, jl, J3, 
+                                                 ji, jk, J4, 
+                                                 J1, J2, Lambda);
                 }
 
                 if (std::abs(ninej) < 1e-8)
@@ -947,14 +951,14 @@ namespace Commutator
                   if (j <= l)
                     tbme = Zmat(indx_jl, indx_ki + (k > i ? nkets : 0));
                   else
-                    tbme = Zmat(indx_jl, indx_ki + (k > i ? 0 : nkets)) * hZ * Z.modelspace->phase(J3 - J4 + ji + jj + jk + jl);
+                    tbme = Zmat(indx_jl, indx_ki + (k > i ? 0 : nkets)) * hZ * Z.modelspace->phase(Lambda + J3 + J4 + int(ji + jj + jk + jl));
                 }
                 else
                 {
                   if (k <= i)
                     tbme = Zmat(indx_ki, indx_jl + (j > l ? nbras : 0)) * hZ * Z.modelspace->phase(J3 - J4); // Z_ilkj = Z_kjil * (phase)
                   else
-                    tbme = Zmat(indx_ki, indx_jl + (j > l ? 0 : nbras)) * Z.modelspace->phase(ji + jj + jk + jl); // Z_ilkj = Z_kjil * (phase)
+                    tbme = Zmat(indx_ki, indx_jl + (j > l ? 0 : nbras)) * Z.modelspace->phase(Lambda+ int(ji + jj + jk + jl)); // Z_ilkj = Z_kjil * (phase)
                 }
 
                 commji += hatfactor * Z.modelspace->phase(ji + jl + J2 + J4) * ninej * tbme;
@@ -964,6 +968,7 @@ namespace Commutator
 
           double norm = bra.delta_pq() == ket.delta_pq() ? 1 + bra.delta_pq() : PhysConst::SQRT2;
           Zijkl(ibra, iket) += (commij - Z.modelspace->phase(ji + jj - J1) * commji) / norm;
+
           if (ch_bra == ch_ket)
             Zijkl(iket, ibra) = hZ * Zijkl(ibra, iket);
         }// for iket
@@ -1064,10 +1069,12 @@ namespace Commutator
   ///
   // void Operator::comm222_phst( Operator& Y, Operator& Z )
   // void Operator::comm222_phst( const Operator& X, const Operator& Y )
+
   void comm222_phst(const Operator &X, const Operator &Y, Operator &Z)
   {
     int hX = X.IsHermitian() ? 1 : -1;
     int hY = Y.IsHermitian() ? 1 : -1;
+    int Lambda = Y.GetJRank();
 
     double t_start = omp_get_wtime();
     Z.modelspace->PreCalculateSixJ(); // if we already did it, this does nothing.
@@ -1133,10 +1140,10 @@ namespace Commutator
     if (Z.GetJRank() > 0)
     {
       //      std::cout << "  in  " << __func__ << "  doing it the old way. Counter = " << counter << std::endl;
-#ifndef OPENBLAS_NOUSEOMP
-      //      #pragma omp parallel for schedule(dynamic,1) if (not Z.modelspace->tensor_transform_first_pass[Z.GetJRank()*2+Z.GetParity()])
-#pragma omp parallel for schedule(dynamic, 1) if (not single_thread)
-#endif
+    #ifndef OPENBLAS_NOUSEOMP
+          //      #pragma omp parallel for schedule(dynamic,1) if (not Z.modelspace->tensor_transform_first_pass[Z.GetJRank()*2+Z.GetParity()])
+    #pragma omp parallel for schedule(dynamic, 1) if (not single_thread)
+    #endif
       for (int i = 0; i < counter; ++i)
       {
         //         std::cout << "      i = " << i << std::endl;
@@ -1163,6 +1170,7 @@ namespace Commutator
         arma::uvec bras_ph = arma::join_cols(tbc_bra_cc.GetKetIndex_hh(), tbc_bra_cc.GetKetIndex_ph());
 
         DoTensorPandyaTransformation_SingleChannel(Y, YJ1J2, ch_bra_cc, ch_ket_cc);
+
         if (ch_bra_cc == ch_ket_cc)
         {
           YJ2J1 = YJ1J2;
@@ -1197,13 +1205,16 @@ namespace Commutator
           if (Z.modelspace->phase((bra_ph.op->j2 + bra_ph.oq->j2) / 2) < 0)
             PhaseMatYJ1J2.row(iph) *= -1;
         }
-        PhaseMatYJ1J2 *= flipphaseY;
+        // PhaseMatYJ1J2 *= flipphaseY;
+
+        PhaseMatYJ1J2 *= hY * Z.modelspace->phase(Jbra + Jket + Lambda);
+        
 
         //                J2                       J1         J2                       J2          J2
         //             k<=j     k>=j                hp  -ph    hp   ph                 k<=j       k<=j
         //      J1   [       |       ]       J1   [           |          ]         [hp        |ph        ]
         //     i<=j  [  Zbar | Zbar  ]  =   i<=j  [   Xbar    | -Ybar    ]   * J1  [   Ybar   |   Ybar'  ]
-        //           [       |       ]            [           |          ]         [ph        |hp        ]      where Ybar'_phkj = Ybar_hpkj * (-1)^{p+h+k+j}*(-1)^{J1-J2}*hY
+        //           [       |       ]            [           |          ]         [ph        |hp        ]      where Ybar'_phkj = Ybar_hpkj * (-1)^{p+h+k+j}*(-1)^{Lambda + J1 + J2}*hY
         //                                                                         [----------|----------]       and
         //                                                                     J2  [hp        |ph        ]            Xbar'_phkj = Xbar_hpkj * (-1)^{p+h+k+j}*hX
         //                                                                         [   Xbar   |   Xbar'  ]
@@ -1235,7 +1246,7 @@ namespace Commutator
 
       //   #ifndef OPENBLAS_NOUSEOMP
       //      #pragma omp parallel for schedule(dynamic,1) if (not Z.modelspace->tensor_transform_first_pass[Z.GetJRank()*2+Z.GetParity()])
-#pragma omp parallel for schedule(dynamic, 1) if (not single_thread)
+      #pragma omp parallel for schedule(dynamic, 1) if (not single_thread)
       //   #endif
       for (int i = 0; i < counter; ++i)
       {
@@ -1257,17 +1268,17 @@ namespace Commutator
         arma::uvec kets_ph = arma::join_cols(tbc_ket_cc.GetKetIndex_hh(), tbc_ket_cc.GetKetIndex_ph());
         arma::uvec bras_ph = arma::join_cols(tbc_bra_cc.GetKetIndex_hh(), tbc_bra_cc.GetKetIndex_ph());
 
-//        std::cout << __func__ << " " << __LINE__ << std::endl;
+        //        std::cout << __func__ << " " << __LINE__ << std::endl;
         DoTensorPandyaTransformation_SingleChannel(Y, YJ1J2, ch_bra_cc, ch_ket_cc);
         if (ch_bra_cc == ch_ket_cc)
         {
-//          std::cout << __func__ << " " << __LINE__ << std::endl;
+        //          std::cout << __func__ << " " << __LINE__ << std::endl;
           //         YJ2J1 = YJ1J2;
           // Dont do nothing..
         }
         else
         {
-//          std::cout << __func__ << " " << __LINE__ << std::endl;
+        //          std::cout << __func__ << " " << __LINE__ << std::endl;
           DoTensorPandyaTransformation_SingleChannel(Y, YJ2J1, ch_ket_cc, ch_bra_cc);
         }
       }
@@ -1276,10 +1287,10 @@ namespace Commutator
 
       t_internal = omp_get_wtime();
 
-#ifndef OPENBLAS_NOUSEOMP
-      //      #pragma omp parallel for schedule(dynamic,1) if (not Z.modelspace->tensor_transform_first_pass[Z.GetJRank()*2+Z.GetParity()])
-#pragma omp parallel for schedule(dynamic, 1) if (not single_thread)
-#endif
+      #ifndef OPENBLAS_NOUSEOMP
+            //      #pragma omp parallel for schedule(dynamic,1) if (not Z.modelspace->tensor_transform_first_pass[Z.GetJRank()*2+Z.GetParity()])
+      #pragma omp parallel for schedule(dynamic, 1) if (not single_thread)
+      #endif
       for (int i = 0; i < counter; ++i)
       {
         index_t ch_bra_cc = ybras[i];
@@ -1352,35 +1363,18 @@ namespace Commutator
                                               .t());
 
         Z_bar.at({ch_bra_cc, ch_ket_cc}) = Mleft * Mright;
-        //         if ( ch_bra_cc==2 or ch_bra_cc==3 or ch_bra_cc==8 or ch_bra_cc==9 )
-//        if (ch_bra_cc == 3)
-//        {
-//          std::cout << __func__ << "  ch_cc = " << ch_bra_cc << std::endl
-//                    << "Mleft " << std::endl
-//                    << Mleft << std::endl
-//                    << "Mright" << std::endl
-//                    << Mright
-//                    << std::endl
-//                    << "Zbar " << std::endl
-//                    << Z_bar.at({ch_bra_cc, ch_ket_cc}) << std::endl;
-//          std::cout << "   and also XJ1 = " << std::endl
-//                    << XJ1 << std::endl
-//                    << "   and  YJ1J2 = " << std::endl
-//                    << YJ1J2 << std::endl;
-//        }
       }// for i looping over channels
 
     } // else J=0
     X.profiler.timer["_Build Z_bar_tensor"] += omp_get_wtime() - t_internal;
+
+
 
     t_internal = omp_get_wtime();
     AddInverseTensorPandyaTransformation(Z, Z_bar);
 
     X.profiler.timer[__func__] += omp_get_wtime() - t_start;
   }
-
-
-
 
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////
   /// scalar-tensor commutators with 3-body
@@ -1755,6 +1749,7 @@ namespace Commutator
     auto &Y3 = Y.ThreeBody;
     auto &Z1 = Z.OneBody;
     int Lambda = Z.GetJRank();
+    int hZ = Z.IsHermitian() ? +1 : -1;
     Z.modelspace->PreCalculateSixJ();
     size_t norb = Z.modelspace->GetNumberOrbits();
 
@@ -1768,6 +1763,8 @@ namespace Commutator
       {
         Orbit &oj = Z.modelspace->GetOrbit(j);
         double zij = 0;
+        if (j < i)
+          continue;
 
         for (size_t a : Z.modelspace->all_orbits)
         {
@@ -1863,6 +1860,10 @@ namespace Commutator
           } // b
         } // a
         Z1(i, j) += zij;
+
+        if ( i != j)
+          Z1(j, i) += AngMom::phase((oi.j2 - oj.j2)/2 ) * hZ * zij;
+
       } // j
     } // i
   
