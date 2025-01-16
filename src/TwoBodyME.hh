@@ -81,6 +81,7 @@ class TwoBodyME
   void SetHermitian();
   void SetAntiHermitian();
   void SetNonHermitian();
+  bool IsAllocated()const;
 
   arma::mat& GetMatrix(size_t chbra, size_t chket){return MatEl.at({chbra,chket});};
   arma::mat& GetMatrix(size_t ch){return GetMatrix(ch,ch);};
