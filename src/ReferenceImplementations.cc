@@ -1086,17 +1086,11 @@ namespace ReferenceImplementations
     auto &Y3 = Y.ThreeBody;
     auto &Z2 = Z.TwoBody;
 
-<<<<<<< HEAD
-    int nch2 = Z.modelspace->GetNumberTwoBodyChannels();
-    #pragma omp parallel for schedule(dynamic, 1)
-    for (int ch2 = 0; ch2 < nch2; ch2++)
-=======
     // int nch2 = Z.modelspace->GetNumberTwoBodyChannels();
     Z.modelspace->PreCalculateSixJ();
     std::vector<int> bra_channels;
     std::vector<int> ket_channels;
     for (auto &itmat : Z2.MatEl)
->>>>>>> upstream/devel
     {
       bra_channels.push_back(itmat.first[0]);
       ket_channels.push_back(itmat.first[1]);
@@ -1197,15 +1191,9 @@ namespace ReferenceImplementations
     auto &Z2 = Z.TwoBody;
     std::map<int, double> e_fermi = Z.modelspace->GetEFermi();
 
-<<<<<<< HEAD
-    int nch = Z.modelspace->GetNumberTwoBodyChannels();
-    #pragma omp parallel for schedule(dynamic, 1) if (not Z.modelspace->scalar3b_transform_first_pass)
-    for (int ch = 0; ch < nch; ch++)
-=======
     std::vector<int> bra_channels;
     std::vector<int> ket_channels;
     for (auto &itmat : Z.TwoBody.MatEl)
->>>>>>> upstream/devel
     {
       bra_channels.push_back(itmat.first[0]);
       ket_channels.push_back(itmat.first[1]);
@@ -5059,14 +5047,9 @@ void comm222_pp_hhst(const Operator &X, const Operator &Y, Operator &Z)
                         occ_factor *= 0.5; // because we only sum b<a
                       double jc = 0.5 * oc.j2;
 
-<<<<<<< HEAD
-                      if ((((oa.l + ob.l + o3.l + o4.l + o5.l + oc.l + parityZ) % 2 == 0) and ((oa.tz2 + ob.tz2 + o3.tz2 - o4.tz2 - o5.tz2 - oc.tz2) == 2 * TzZ)) or
-                          (((o1.l + o2.l + oc.l + oa.l + ob.l + o6.l + parityZ) % 2 == 0) and ((o1.tz2 + o2.tz2 + oc.tz2 - oa.tz2 - ob.tz2 - o6.tz2) == 2 * TzZ)))
-=======
                       if ( (    ((oa.l + ob.l + o3.l + o4.l + o5.l + oc.l + parityZ) % 2 == 0)  )
                            or
                            (   ((o1.l + o2.l + oc.l + oa.l + ob.l + o6.l + parityZ) % 2 == 0)  ))
->>>>>>> upstream/devel
                       {
                         int twoj3_min = std::abs(oc.j2 - 2 * J1p); // J1 + jc
                         int twoj3_max = oc.j2 + 2 * J1p;
