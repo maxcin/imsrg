@@ -52,22 +52,36 @@ TwoBodyME::TwoBodyME(ModelSpace* ms, int rJ, int rT, int p)
 
  TwoBodyME& TwoBodyME::operator+=(const TwoBodyME& rhs)
  {
-   for ( auto& itmat : MatEl )
+   if (not this->IsAllocated() )
    {
-      auto ch_bra = itmat.first[0];
-      auto ch_ket = itmat.first[1];
-      itmat.second += rhs.GetMatrix(ch_bra,ch_ket);
+      *this = rhs;
+   }
+   else
+   {
+     for ( auto& itmat : MatEl )
+     {
+        auto ch_bra = itmat.first[0];
+        auto ch_ket = itmat.first[1];
+        itmat.second += rhs.GetMatrix(ch_bra,ch_ket);
+     }
    }
    return *this;
  }
 
  TwoBodyME& TwoBodyME::operator-=(const TwoBodyME& rhs)
  {
-   for ( auto& itmat : rhs.MatEl )
+   if (not this->IsAllocated() )
    {
-      auto ch_bra = itmat.first[0];
-      auto ch_ket = itmat.first[1];
-      GetMatrix(ch_bra,ch_ket) -= itmat.second;
+      *this = rhs * (-1.0);
+   }
+   else
+   {
+      for ( auto& itmat : rhs.MatEl )
+      {
+         auto ch_bra = itmat.first[0];
+         auto ch_ket = itmat.first[1];
+         GetMatrix(ch_bra,ch_ket) -= itmat.second;
+      }
    }
    return *this;
  }
@@ -118,6 +132,11 @@ void TwoBodyME::SetNonHermitian()
   antihermitian = false;
 }
 
+
+bool TwoBodyME::IsAllocated()const
+{
+   return allocated;
+}
 
 
 /// This returns the matrix element times a factor \f$ \sqrt{(1+\delta_{ij})(1+\delta_{kl})} \f$
