@@ -54,7 +54,7 @@ namespace Commutator
     Z.modelspace->PreCalculateSixJ();
     std::vector<index_t> allorb_vec(Z.modelspace->all_orbits.begin(), Z.modelspace->all_orbits.end());
     //   #pragma omp parallel for schedule(dynamic,1) if (not Z.modelspace->tensor_transform_first_pass.at(Z.GetJRank()*2+Z.GetParity()) )
-#pragma omp parallel for schedule(dynamic, 1) if (not single_thread)
+    #pragma omp parallel for schedule(dynamic, 1) if (not single_thread)
     for (int indexi = 0; indexi < norbits; ++indexi)
     //   for (int i=0;i<norbits;++i)
     {
@@ -170,7 +170,7 @@ namespace Commutator
     }
     int nmat = bra_channels.size();
     //   #pragma omp parallel for schedule(dynamic,1) if (not Z.modelspace->tensor_transform_first_pass[Z.GetJRank()*2+Z.GetParity()])
-#pragma omp parallel for schedule(dynamic, 1) if (not single_thread)
+    #pragma omp parallel for schedule(dynamic, 1) if (not single_thread)
     for (int ii = 0; ii < nmat; ++ii)
     {
       int ch_bra = bra_channels[ii];
@@ -262,7 +262,7 @@ namespace Commutator
             double ja = Z.modelspace->GetOrbit(a).j2 * 0.5;
             if ( not  AngMom::Triangle(J2,ja,jj)  ) continue;
             c1 -= Z.modelspace->GetSixJ(J2, J1, Lambda, ji, ja, jj) * Y.OneBody(i, a) * X.TwoBody.GetTBME(ch_ket, ch_ket, a, j, k, l);
-//             std::cout << " " << __FILE__ << "  ch bra,ket" << ch_bra << " " << ch_ket <<  "   pqrs " << i << " " << j << " " << k << " " <<l << "  a = " << a << "   zpqrs = " << hatfactor * phase1*c1 << "  => " << cijkl <<  std::endl;
+            //             std::cout << " " << __FILE__ << "  ch bra,ket" << ch_bra << " " << ch_ket <<  "   pqrs " << i << " " << j << " " << k << " " <<l << "  a = " << a << "   zpqrs = " << hatfactor * phase1*c1 << "  => " << cijkl <<  std::endl;
           }
 
           if (false and i == j)
@@ -419,7 +419,7 @@ namespace Commutator
     int norbits = Z.modelspace->all_orbits.size();
     std::vector<index_t> allorb_vec(Z.modelspace->all_orbits.begin(), Z.modelspace->all_orbits.end());
     //   #pragma omp parallel for schedule(dynamic,1) if (not Z.modelspace->tensor_transform_first_pass[Z.GetJRank()*2+Z.GetParity()])
-#pragma omp parallel for schedule(dynamic, 1) if (not single_thread)
+    #pragma omp parallel for schedule(dynamic, 1) if (not single_thread)
     for (int indexi = 0; indexi < norbits; ++indexi)
     //   for (int i=0;i<norbits;++i)
     {
@@ -536,7 +536,7 @@ namespace Commutator
     }
 
     //   #pragma omp parallel for schedule(dynamic,1) if (not Z.modelspace->tensor_transform_first_pass[Z.GetJRank()*2+Z.GetParity()])
-#pragma omp parallel for schedule(dynamic, 1) if (not single_thread)
+    #pragma omp parallel for schedule(dynamic, 1) if (not single_thread)
     for (index_t ich = 0; ich < nch; ++ich)
     {
       index_t ch_bra_cc = Z.modelspace->SortedTwoBodyChannels_CC[ich];
@@ -654,14 +654,12 @@ namespace Commutator
   void DoTensorPandyaTransformation_SingleChannel(const Operator &Z, arma::mat &MatCC_ph, int ch_bra_cc, int ch_ket_cc)
   {
     int Lambda = Z.rank_J;
-
     TwoBodyChannel_CC &tbc_bra_cc = Z.modelspace->GetTwoBodyChannel_CC(ch_bra_cc);
     arma::uvec bras_ph = arma::join_cols(tbc_bra_cc.GetKetIndex_hh(), tbc_bra_cc.GetKetIndex_ph());
     int nph_bras = bras_ph.n_rows;
 
     TwoBodyChannel_CC &tbc_ket_cc = Z.modelspace->GetTwoBodyChannel_CC(ch_ket_cc);
     int nKets_cc = tbc_ket_cc.GetNumberKets();
-
     // The Pandya-transformed (formerly cross-coupled) particle-hole type matrix elements
     // (this is the output of this method)
     MatCC_ph = arma::mat(2 * nph_bras, nKets_cc, arma::fill::zeros);
@@ -671,7 +669,9 @@ namespace Commutator
     if ((Jbra_cc + Jket_cc < Z.GetJRank()) or std::abs(Jbra_cc - Jket_cc) > Z.GetJRank())
       return;
     if ((tbc_bra_cc.parity + tbc_ket_cc.parity + Z.GetParity()) % 2 > 0)
+    {
       return;
+    }
 
 
     // loop over ph bras <ad| in this channel
@@ -783,7 +783,7 @@ namespace Commutator
 
     // Only go parallel if we've previously calculated the SixJs/NineJs. Otherwise, it's not thread safe.
     //   #pragma omp parallel for schedule(dynamic,1) if (not Z.modelspace->tensor_transform_first_pass[Z.GetJRank()*2+Z.GetParity()])
-#pragma omp parallel for schedule(dynamic, 1) if (not single_thread)
+    #pragma omp parallel for schedule(dynamic, 1) if (not single_thread)
     for (int i = 0; i < niter; ++i)
     {
       const auto iter = iteratorlist[i];
@@ -977,20 +977,27 @@ namespace Commutator
   /// convenience function
   /// called by comm222_phst
   ///*************************************
-  std::deque<arma::mat> InitializePandya(Operator &Z, size_t nch, std::string orientation = "normal")
+  std::deque<arma::mat> InitializePandya(Operator &Z, size_t nch, std::string orientation = "normal", int X_parity = 0)
   {
     std::deque<arma::mat> X(nch);
     int n_nonzero = Z.modelspace->SortedTwoBodyChannels_CC.size();
     for (int ich = 0; ich < n_nonzero; ++ich)
     {
       int ch_cc = Z.modelspace->SortedTwoBodyChannels_CC[ich];
-      TwoBodyChannel_CC &tbc_cc = Z.modelspace->GetTwoBodyChannel_CC(ch_cc);
-      int nKets_cc = tbc_cc.GetNumberKets();
-      int nph_kets = tbc_cc.GetKetIndex_hh().size() + tbc_cc.GetKetIndex_ph().size();
+      TwoBodyChannel_CC &tbc_cc_ket = Z.modelspace->GetTwoBodyChannel_CC(ch_cc);
+      // If the operator X violates parity, we need to construct the matrix for the opposite parity channel as bra
+      int parity = (tbc_cc_ket.parity + X_parity)%2;
+      int ch_cc_bra = Z.modelspace->GetTwoBodyChannelIndex(tbc_cc_ket.J, parity, tbc_cc_ket.Tz);
+      TwoBodyChannel_CC &tbc_cc_bra = Z.modelspace->GetTwoBodyChannel_CC(ch_cc_bra);
+      int nKets_cc = tbc_cc_ket.GetNumberKets();
+      arma::uvec bras_ph = arma::join_cols(tbc_cc_bra.GetKetIndex_hh(), tbc_cc_bra.GetKetIndex_ph());
+      int nph_bras = bras_ph.n_rows;  
+      if (nph_bras == 0 and nKets_cc == 0)
+        continue;
       if (orientation == "normal")
-        X[ch_cc] = arma::mat(2 * nph_kets, nKets_cc, arma::fill::zeros);
+        X[ch_cc] = arma::mat(2 * nph_bras, nKets_cc, arma::fill::zeros);
       else if (orientation == "transpose")
-        X[ch_cc] = arma::mat(nKets_cc, 2 * nph_kets, arma::fill::zeros);
+        X[ch_cc] = arma::mat(nKets_cc, 2 * nph_bras, arma::fill::zeros);
     }
     return X;
   }
@@ -1067,24 +1074,20 @@ namespace Commutator
   // void Operator::comm222_phst( const Operator& X, const Operator& Y )
   void comm222_phst(const Operator &X, const Operator &Y, Operator &Z)
   {
-<<<<<<< HEAD
-
-    int hX = X.IsHermitian() ? 1  : -1;
-    int hY = Y.IsHermitian() ? 1  : -1;
-=======
     int hX = X.IsHermitian() ? 1 : -1;
     int hY = Y.IsHermitian() ? 1 : -1;
->>>>>>> upstream/devel
 
     double t_start = omp_get_wtime();
     Z.modelspace->PreCalculateSixJ(); // if we already did it, this does nothing.
     Z.modelspace->PreCalculateNineJ(); // if we already did it, this does nothing.
+    bool PVPV = false; //Flag to handle the case where both X and Y violate parity
+    if (X.GetParity() == 1 and Y.GetParity() == 1)
+      PVPV = true;
     // We reuse Xt_bar multiple times, so it makes sense to calculate them once and store them in a deque.
-    std::deque<arma::mat> Xt_bar_ph = InitializePandya(Z, Z.nChannels, "transpose"); // We re-use the scalar part multiple times, so there's a significant speed gain for saving it
-    std::map<std::array<index_t, 2>, arma::mat> Y_bar_ph;
+    std::deque<arma::mat> Xt_bar_ph; // We re-use the scalar part multiple times, so there's a significant speed gain for saving it
+    Xt_bar_ph = InitializePandya(Z, Z.nChannels, "transpose", X.GetParity());
     DoPandyaTransformation(X, Xt_bar_ph, "transpose");
     X.profiler.timer["_DoTensorPandyaTransformationX"] += omp_get_wtime() - t_start;
-    t_start = omp_get_wtime();
     // Construct the intermediate matrix Z_bar
     // First, we initialize the map Z_bar with empty matrices
     // to avoid problems in the parallel loop -- (do we even want a parallel loop here?)
@@ -1096,8 +1099,26 @@ namespace Commutator
     X.profiler.timer["_PandyaLookup"] += omp_get_wtime() - t_internal;
     t_internal = omp_get_wtime();
 
-    std::vector<index_t> ybras;
-    std::vector<index_t> ykets;
+    // If X violates parity, we need the intermediate states where the parity is flipped.
+    // (Note that I changed DoPandyaTransformation to look for the parity of the operator
+    // so that part is already handled, just need to call the right channels for the Pandya
+    // transform of Y later on and the phase matrices.)
+    // We need them both cases when only X violates parity, i.e.
+    // <J+|X|J-><J-|Y|J'->
+    // and
+    // <J+|Y|J'+><J'+|X|J'->
+    // or when both X and Y violate parity, i.e.
+    // <J+|X|J-><J-|Y|J'+>
+    // and
+    // <J+|Y|J'-><J'-|X|J'+>.
+    // This means that wee need to sort 2 extra lists of channels.
+    // Otherwise, we the codes stays the same as before except
+    // that certain channels are changed for the intermediate ones accordingly.
+    // A. Belley
+    std::vector<index_t> zbras;
+    std::vector<index_t> inter_x_states;
+    std::vector<index_t> inter_y_states;
+    std::vector<index_t> zkets;
     for (auto ich_bra : pandya_lookup)
     {
       auto tbc_bra_cc = Z.modelspace->GetTwoBodyChannel_CC(ich_bra);
@@ -1122,42 +1143,44 @@ namespace Commutator
         // For RankT=2, we can have <pn|pn>   (Tz_bra,Tz_ket) => (1,1)
         if (not((tbc_bra_cc.Tz + tbc_ket_cc.Tz == Z.GetTRank()) or (std::abs(tbc_bra_cc.Tz - tbc_ket_cc.Tz) == Z.GetTRank())))
           continue;
+    
+        
+        int i_interx = Z.modelspace->GetTwoBodyChannelIndex(tbc_bra_cc.J, (tbc_bra_cc.parity + X.GetParity()) % 2, tbc_bra_cc.Tz);
+        int i_intery = Z.modelspace->GetTwoBodyChannelIndex(tbc_ket_cc.J, (tbc_ket_cc.parity + X.GetParity()) % 2, tbc_ket_cc.Tz); 
 
-        ybras.push_back(ich_bra);
-        ykets.push_back(ich_ket);
+        zbras.push_back(ich_bra);
+        inter_y_states.push_back(i_intery);
+        inter_x_states.push_back(i_interx);
+        zkets.push_back(ich_ket);
         Z_bar[{ich_bra, ich_ket}] = arma::mat(n_rows, n_cols);
         //         Z_bar[{ich_bra,ich_ket}] = arma::mat();
       }
     }
-    int counter = ybras.size();
+    int counter = zbras.size();
 
     X.profiler.timer["_Allocate Z_bar_tensor"] += omp_get_wtime() - t_internal;
 
     t_internal = omp_get_wtime();
-    
     // BEGIN OLD WAY
     if (Z.GetJRank() > 0)
     {
           //  std::cout << "  in  " << __func__ << "  doing it the old way. Counter = " << counter << std::endl;
 
-#ifndef OPENBLAS_NOUSEOMP
-          //  #pragma omp parallel for schedule(dynamic,1) if (not Z.modelspace->tensor_transform_first_pass[Z.GetJRank()*2+Z.GetParity()])
-#pragma omp parallel for schedule(dynamic, 1) if (not single_thread)
-#endif
+      #ifndef OPENBLAS_NOUSEOMP
+                //  #pragma omp parallel for schedule(dynamic,1) if (not Z.modelspace->tensor_transform_first_pass[Z.GetJRank()*2+Z.GetParity()])
+      #pragma omp parallel for schedule(dynamic, 1) if (not single_thread)
+      #endif
 
       for (int i = 0; i < counter; ++i)
       {
-        //         std::cout << "      i = " << i << std::endl;
-        index_t ch_bra_cc = ybras[i];
-        index_t ch_ket_cc = ykets[i];
-        ////      const auto plookup = pandya_lookup.find({(int)ch_bra_cc,(int)ch_ket_cc});
-        //      const auto plookup = pandya_lookup.find({ch_bra_cc,ch_ket_cc});
-        //      if ( plookup == pandya_lookup.end() or plookup->second[0].size()<1 )
-        //      {
-        //       continue;
-        //      }
+        index_t ch_bra_cc = zbras[i];
+        index_t ch_ix_cc = inter_x_states[i];
+        index_t ch_iy_cc = inter_y_states[i];
+        index_t ch_ket_cc = zkets[i];
 
         const auto &tbc_bra_cc = Z.modelspace->GetTwoBodyChannel_CC(ch_bra_cc);
+        const auto &tbc_ix_cc = Z.modelspace->GetTwoBodyChannel_CC(ch_ix_cc);
+        const auto &tbc_iy_cc = Z.modelspace->GetTwoBodyChannel_CC(ch_iy_cc);
         const auto &tbc_ket_cc = Z.modelspace->GetTwoBodyChannel_CC(ch_ket_cc);
         int Jbra = tbc_bra_cc.J;
         int Jket = tbc_ket_cc.J;
@@ -1167,19 +1190,17 @@ namespace Commutator
         const auto &XJ1 = Xt_bar_ph[ch_bra_cc];
         const auto &XJ2 = Xt_bar_ph[ch_ket_cc];
 
-        arma::uvec kets_ph = arma::join_cols(tbc_ket_cc.GetKetIndex_hh(), tbc_ket_cc.GetKetIndex_ph());
-        arma::uvec bras_ph = arma::join_cols(tbc_bra_cc.GetKetIndex_hh(), tbc_bra_cc.GetKetIndex_ph());
-
-        DoTensorPandyaTransformation_SingleChannel(Y, YJ1J2, ch_bra_cc, ch_ket_cc);
-        if (ch_bra_cc == ch_ket_cc)
+        arma::uvec kets_ph = arma::join_cols(tbc_iy_cc.GetKetIndex_hh(), tbc_iy_cc.GetKetIndex_ph());
+        arma::uvec bras_ph = arma::join_cols(tbc_ix_cc.GetKetIndex_hh(), tbc_ix_cc.GetKetIndex_ph());
+        DoTensorPandyaTransformation_SingleChannel(Y, YJ1J2, ch_ix_cc, ch_ket_cc);
+        if (ch_bra_cc == ch_ket_cc and ch_ix_cc == ch_iy_cc)
         {
           YJ2J1 = YJ1J2;
         }
         else
         {
-          DoTensorPandyaTransformation_SingleChannel(Y, YJ2J1, ch_ket_cc, ch_bra_cc);
+          DoTensorPandyaTransformation_SingleChannel(Y, YJ2J1, ch_iy_cc, ch_bra_cc);
         }
-
         int flipphaseY = hY * Z.modelspace->phase(Jbra - Jket);
         // construct a matrix of phases (-1)^{k+j+p+h} used below to generate X_phkj for k>j
         arma::mat PhaseMatXJ2(tbc_ket_cc.GetNumberKets(), kets_ph.size(), arma::fill::ones);
@@ -1195,13 +1216,13 @@ namespace Commutator
         }
         for (index_t iph = 0; iph < kets_ph.size(); iph++)
         {
-          const Ket &ket_ph = tbc_ket_cc.GetKet(kets_ph[iph]);
+          const Ket &ket_ph = tbc_iy_cc.GetKet(kets_ph[iph]);
           if (Z.modelspace->phase((ket_ph.op->j2 + ket_ph.oq->j2) / 2) < 0)
             PhaseMatXJ2.col(iph) *= -1;
         }
         for (index_t iph = 0; iph < bras_ph.size(); iph++)
         {
-          const Ket &bra_ph = tbc_bra_cc.GetKet(bras_ph[iph]);
+          const Ket &bra_ph = tbc_ix_cc.GetKet(bras_ph[iph]);
           if (Z.modelspace->phase((bra_ph.op->j2 + bra_ph.oq->j2) / 2) < 0)
             PhaseMatYJ1J2.row(iph) *= -1;
         }
@@ -1238,83 +1259,74 @@ namespace Commutator
     else // faster, more memory hungry way
     {
           //  std::cout << "  in  " << __func__ << "  doing it the new way" << std::endl;
-
       std::deque<arma::mat> YJ1J2_list(counter);
       std::deque<arma::mat> YJ2J1_list(counter);
 
-      //   #ifndef OPENBLAS_NOUSEOMP
-      //      #pragma omp parallel for schedule(dynamic,1) if (not Z.modelspace->tensor_transform_first_pass[Z.GetJRank()*2+Z.GetParity()])
-#pragma omp parallel for schedule(dynamic, 1) if (not single_thread)
-      //   #endif
+      #pragma omp parallel for schedule(dynamic, 1) if (not single_thread)
       for (int i = 0; i < counter; ++i)
       {
-        index_t ch_bra_cc = ybras[i];
-        index_t ch_ket_cc = ykets[i];
-        const auto &tbc_bra_cc = Z.modelspace->GetTwoBodyChannel_CC(ch_bra_cc);
-        const auto &tbc_ket_cc = Z.modelspace->GetTwoBodyChannel_CC(ch_ket_cc);
-        //         int Jbra = tbc_bra_cc.J;
-        //         int Jket = tbc_ket_cc.J;
-
-        //      arma::mat YJ1J2;
-        //      arma::mat YJ2J1;
+        index_t ch_bra_cc = zbras[i];
+        index_t ch_ix_cc = inter_x_states[i];
+        index_t ch_iy_cc = inter_y_states[i];
+        index_t ch_ket_cc = zkets[i];
+        
         arma::mat &YJ1J2 = YJ1J2_list[i];
         arma::mat &YJ2J1 = YJ2J1_list[i];
-        //         const auto& XJ1 = Xt_bar_ph[ch_bra_cc];
-        //         const auto& XJ2 = Xt_bar_ph[ch_ket_cc];
 
-        arma::uvec kets_ph = arma::join_cols(tbc_ket_cc.GetKetIndex_hh(), tbc_ket_cc.GetKetIndex_ph());
-        arma::uvec bras_ph = arma::join_cols(tbc_bra_cc.GetKetIndex_hh(), tbc_bra_cc.GetKetIndex_ph());
 
-//        std::cout << __func__ << " " << __LINE__ << std::endl;
-        DoTensorPandyaTransformation_SingleChannel(Y, YJ1J2, ch_bra_cc, ch_ket_cc);
-        if (ch_bra_cc == ch_ket_cc)
+        DoTensorPandyaTransformation_SingleChannel(Y, YJ1J2, ch_ix_cc, ch_ket_cc);
+        if (ch_bra_cc != ch_ket_cc or ch_ix_cc != ch_iy_cc)
         {
-        //  std::cout << __func__ << " " << __LINE__ << std::endl;
-          //         YJ2J1 = YJ1J2;
-          // Dont do nothing..
+          DoTensorPandyaTransformation_SingleChannel(Y, YJ2J1, ch_iy_cc, ch_bra_cc);
         }
-        else
-        {
-//          std::cout << __func__ << " " << __LINE__ << std::endl;
-          DoTensorPandyaTransformation_SingleChannel(Y, YJ2J1, ch_ket_cc, ch_bra_cc);
-        }
+        
       }
 
       X.profiler.timer["_DoTensorPandyaTransformationY"] += omp_get_wtime() - t_internal;
 
       t_internal = omp_get_wtime();
 
-#ifndef OPENBLAS_NOUSEOMP
-      //      #pragma omp parallel for schedule(dynamic,1) if (not Z.modelspace->tensor_transform_first_pass[Z.GetJRank()*2+Z.GetParity()])
-#pragma omp parallel for schedule(dynamic, 1) if (not single_thread)
-#endif
+      #ifndef OPENBLAS_NOUSEOMP
+      #pragma omp parallel for schedule(dynamic, 1) if (not single_thread)
+      #endif
       for (int i = 0; i < counter; ++i)
       {
-        index_t ch_bra_cc = ybras[i];
-        index_t ch_ket_cc = ykets[i];
+
+        index_t ch_bra_cc = zbras[i];
+        index_t ch_ix_cc = inter_x_states[i];
+        index_t ch_iy_cc = inter_y_states[i];
+        index_t ch_ket_cc = zkets[i];
 
         const auto &tbc_bra_cc = Z.modelspace->GetTwoBodyChannel_CC(ch_bra_cc);
+        const auto &tbc_ix_cc = Z.modelspace->GetTwoBodyChannel_CC(ch_ix_cc);
+        const auto &tbc_iy_cc = Z.modelspace->GetTwoBodyChannel_CC(ch_iy_cc);
         const auto &tbc_ket_cc = Z.modelspace->GetTwoBodyChannel_CC(ch_ket_cc);
+
+    
         int Jbra = tbc_bra_cc.J;
         int Jket = tbc_ket_cc.J;
-
-        //      arma::mat YJ1J2;
-        //      arma::mat YJ2J1;
+        
         arma::mat &YJ1J2 = YJ1J2_list[i];
-        arma::mat &YJ2J1 = (ch_bra_cc == ch_ket_cc) ? YJ1J2_list[i] : YJ2J1_list[i];
-
-        //      arma::mat& YJ2J1 = YJ2J1_list[i];
+        arma::mat &YJ2J1 = (ch_ket_cc == ch_bra_cc and ch_ix_cc == ch_iy_cc) ? YJ1J2_list[i] : YJ2J1_list[i];
+        
 
         const auto &XJ1 = Xt_bar_ph[ch_bra_cc];
         const auto &XJ2 = Xt_bar_ph[ch_ket_cc];
 
-        arma::uvec kets_ph = arma::join_cols(tbc_ket_cc.GetKetIndex_hh(), tbc_ket_cc.GetKetIndex_ph());
-        arma::uvec bras_ph = arma::join_cols(tbc_bra_cc.GetKetIndex_hh(), tbc_bra_cc.GetKetIndex_ph());
 
-        int flipphaseY = hY * Z.modelspace->phase(Jbra - Jket);
+        arma::uvec kets_ph = arma::join_cols(tbc_iy_cc.GetKetIndex_hh(), tbc_iy_cc.GetKetIndex_ph());
+        arma::uvec bras_ph = arma::join_cols(tbc_ix_cc.GetKetIndex_hh(), tbc_ix_cc.GetKetIndex_ph());
+
+        
+        int size_XJ2 = kets_ph.size();
+        int size_YJ1J2 = bras_ph.size();
+
+        
         // construct a matrix of phases (-1)^{k+j+p+h} used below to generate X_phkj for k>j
-        arma::mat PhaseMatXJ2(tbc_ket_cc.GetNumberKets(), kets_ph.size(), arma::fill::ones);
-        arma::mat PhaseMatYJ1J2(bras_ph.size(), tbc_ket_cc.GetNumberKets(), arma::fill::ones);
+        arma::mat PhaseMatXJ2(tbc_ket_cc.GetNumberKets(), size_XJ2, arma::fill::ones);
+        arma::mat PhaseMatYJ1J2(size_YJ1J2, tbc_ket_cc.GetNumberKets(), arma::fill::ones);
+        int flipphaseY = hY * Z.modelspace->phase(Jbra - Jket);
+
         for (index_t iket = 0; iket < (index_t)tbc_ket_cc.GetNumberKets(); iket++)
         {
           const Ket &ket = tbc_ket_cc.GetKet(iket);
@@ -1324,21 +1336,20 @@ namespace Commutator
             PhaseMatYJ1J2.col(iket) *= -1;
           }
         }
-        for (index_t iph = 0; iph < kets_ph.size(); iph++)
+        for (index_t iph = 0; iph < size_XJ2; iph++)
         {
-          const Ket &ket_ph = tbc_ket_cc.GetKet(kets_ph[iph]);
+          const Ket &ket_ph = tbc_iy_cc.GetKet(kets_ph[iph]);
           if (Z.modelspace->phase((ket_ph.op->j2 + ket_ph.oq->j2) / 2) < 0)
             PhaseMatXJ2.col(iph) *= -1;
         }
-        for (index_t iph = 0; iph < bras_ph.size(); iph++)
+        for (index_t iph = 0; iph < size_YJ1J2; iph++)
         {
-          const Ket &bra_ph = tbc_bra_cc.GetKet(bras_ph[iph]);
+          const Ket &bra_ph = tbc_ix_cc.GetKet(bras_ph[iph]);
           if (Z.modelspace->phase((bra_ph.op->j2 + bra_ph.oq->j2) / 2) < 0)
             PhaseMatYJ1J2.row(iph) *= -1;
         }
         PhaseMatXJ2 *= -1*hX;
         PhaseMatYJ1J2 *= flipphaseY;
-
         //                J2                       J1         J2                       J2          J2
         //             k<=j     k>=j                hp  -ph    hp   ph                 k<=j       k<=j
         //      J1   [       |       ]       J1   [           |          ]         [hp        |ph        ]
@@ -1354,14 +1365,18 @@ namespace Commutator
         int halfnry12 = YJ1J2.n_rows / 2;
 
         arma::mat Mleft = join_horiz(XJ1, -flipphaseY * YJ2J1.t());
+        // std::cout<<YJ1J2<<std::endl;
+        // std::cout<<XJ2<<std::endl;
         arma::mat Mright = join_vert(join_horiz(YJ1J2, join_vert(YJ1J2.tail_rows(halfnry12) % PhaseMatYJ1J2,
                                                                  YJ1J2.head_rows(halfnry12) % PhaseMatYJ1J2)),
-                                      hX * join_vert(XJ2, join_horiz(XJ2.tail_cols(halfncx2) % PhaseMatXJ2,
+                                     hX * join_vert(XJ2, join_horiz(XJ2.tail_cols(halfncx2) % PhaseMatXJ2,
                                                                     XJ2.head_cols(halfncx2) % PhaseMatXJ2))
                                               .t());
 
         Z_bar.at({ch_bra_cc, ch_ket_cc}) = Mleft * Mright;
-        //         if ( ch_bra_cc==2 or ch_bra_cc==3 or ch_bra_cc==8 or ch_bra_cc==9 )
+        
+
+      //         if ( ch_bra_cc==2 or ch_bra_cc==3 or ch_bra_cc==8 or ch_bra_cc==9 )
       //  if (ch_bra_cc == 5)
       //  {
       //    std::cout << __func__ << "  ch_cc = " << ch_bra_cc << std::endl
@@ -1387,9 +1402,7 @@ namespace Commutator
     X.profiler.timer[__func__] += omp_get_wtime() - t_start;
   }
 
-
-
-
+  
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////
   /// scalar-tensor commutators with 3-body
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -1412,7 +1425,7 @@ namespace Commutator
     int hZ = Z.IsHermitian() ? +1 : -1;
 
     size_t norb = Z.modelspace->GetNumberOrbits();
-#pragma omp parallel for schedule(dynamic, 1)
+    #pragma omp parallel for schedule(dynamic, 1)
     for (size_t i = 0; i < norb; i++)
     {
       Orbit &oi = Z.modelspace->GetOrbit(i);
@@ -1578,7 +1591,7 @@ namespace Commutator
     }
     size_t n_bra_ket_ch = bra_ket_channels.size();
 
-#pragma omp parallel for schedule(dynamic, 1)
+    #pragma omp parallel for schedule(dynamic, 1)
     for (size_t ibra_ket = 0; ibra_ket < n_bra_ket_ch; ibra_ket++)
     {
       size_t ch3bra = bra_ket_channels[ibra_ket][0];
@@ -1768,7 +1781,7 @@ namespace Commutator
 
     double tstart = omp_get_wtime();
 
-  #pragma omp parallel for schedule(dynamic,1)
+    #pragma omp parallel for schedule(dynamic,1)
     for (size_t i = 0; i < norb; i++)
     {
       Orbit &oi = Z.modelspace->GetOrbit(i);
@@ -1915,7 +1928,7 @@ namespace Commutator
     for (auto &iter : Z.TwoBody.MatEl)
       channels.push_back(iter.first);
     size_t nchans = channels.size();
-#pragma omp parallel for schedule(dynamic, 1)
+    #pragma omp parallel for schedule(dynamic, 1)
     for (size_t ich = 0; ich < nchans; ich++)
     {
       size_t ch_bra = channels[ich][0];
@@ -2257,7 +2270,7 @@ namespace Commutator
     }
     size_t n_bra_ket_ch = bra_ket_channels.size();
 
-#pragma omp parallel for schedule(dynamic, 1)
+    #pragma omp parallel for schedule(dynamic, 1)
     for (size_t ich = 0; ich < n_bra_ket_ch; ich++)
     {
       size_t ch_bra = bra_ket_channels[ich][0];
@@ -2526,7 +2539,7 @@ namespace Commutator
     }
     int nch = ch_bra_list.size();
 
-#pragma omp parallel for schedule(dynamic, 1)
+    #pragma omp parallel for schedule(dynamic, 1)
     for (int ich = 0; ich < nch; ich++)
     {
       size_t ch_bra = ch_bra_list[ich];
@@ -2629,7 +2642,7 @@ namespace Commutator
       ket_channels.push_back(itmat.first[1]);
     }
     int nmat = bra_channels.size();
-#pragma omp parallel for schedule(dynamic, 1)
+    #pragma omp parallel for schedule(dynamic, 1)
     for (int ch2 = 0; ch2 < nmat; ch2++)
     {
       int ch_bra = bra_channels[ch2];
@@ -2753,7 +2766,7 @@ namespace Commutator
     }
     int nmat = bra_channels.size();
     int nch = Z.modelspace->GetNumberTwoBodyChannels();
-#pragma omp parallel for schedule(dynamic, 1) if (not Z.modelspace->scalar3b_transform_first_pass)
+    #pragma omp parallel for schedule(dynamic, 1) if (not Z.modelspace->scalar3b_transform_first_pass)
     for (int ch = 0; ch < nmat; ch++) // loop bra and ket channels
     {
       int ch_bra = bra_channels[ch];
@@ -3017,7 +3030,7 @@ namespace Commutator
     size_t n_bra_ket_ch = bra_ket_channels.size();
     int n2bch = Z.modelspace->GetNumberTwoBodyChannels();
 
-#pragma omp parallel for schedule(dynamic, 1)
+    #pragma omp parallel for schedule(dynamic, 1)
     for (size_t ibra_ket = 0; ibra_ket < n_bra_ket_ch; ibra_ket++)
     {
       size_t ch3bra = bra_ket_channels[ibra_ket][0];
@@ -3253,7 +3266,7 @@ namespace Commutator
     }
     size_t n_bra_ket_ch = bra_ket_channels.size();
 
-#pragma omp parallel for schedule(dynamic,1) 
+    #pragma omp parallel for schedule(dynamic,1) 
     for (size_t ibra_ket = 0; ibra_ket < n_bra_ket_ch; ibra_ket++)
     {
       size_t ch3bra = bra_ket_channels[ibra_ket][0];
@@ -3475,7 +3488,7 @@ namespace Commutator
     }
     size_t n_bra_ket_ch = bra_ket_channels.size();
     double tstart = omp_get_wtime();
-#pragma omp parallel for schedule(dynamic, 1)
+    #pragma omp parallel for schedule(dynamic, 1)
     for (size_t ibra_ket = 0; ibra_ket < n_bra_ket_ch; ibra_ket++)
     {
       size_t ch3bra = bra_ket_channels[ibra_ket][0];
@@ -3573,7 +3586,7 @@ namespace Commutator
     size_t nch3 = Z.modelspace->GetNumberThreeBodyChannels();
 
 
-#pragma omp parallel for schedule(dynamic, 1)
+    #pragma omp parallel for schedule(dynamic, 1)
     for (size_t ibra_ket = 0; ibra_ket < n_bra_ket_ch; ibra_ket++)
     {
       size_t ch3bra = bra_ket_channels[ibra_ket][0];

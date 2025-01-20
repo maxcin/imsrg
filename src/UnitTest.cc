@@ -589,11 +589,8 @@ bool UnitTest::TestCommutators_ParityChanging()
   Operator X = RandomOp(*modelspace, 0, 0, 0, 2, -1);
   Operator Y = RandomOp(*modelspace, 0, 0, 1, 2, +1);
   modelspace->PreCalculateSixJ();
-<<<<<<< HEAD
-=======
   Y.MakeNotReduced();
 
->>>>>>> upstream/devel
   bool all_good = true;
 
   if (Commutator::comm_term_on["comm110ss"])
@@ -1214,11 +1211,6 @@ bool UnitTest::Test_against_ref_impl(const Operator &X, const Operator &Y, commu
 
   int z_Jrank = X.GetJRank() + Y.GetJRank(); // I sure hope this is zero.
   int z_Trank = X.GetTRank() + Y.GetTRank();
-<<<<<<< HEAD
-  int z_parity = (X.GetParity() + Y.GetParity()) % 2;
-  ModelSpace &ms = *(Y.GetModelSpace());
-  Operator Z(ms, z_Jrank, z_Trank, z_parity, 2);
-=======
   int z_parity = (X.GetParity() + Y.GetParity()) % 2; 
   int z_particlerank = Commutator::use_imsrg3 ? 3: 2;
   int hx = X.IsHermitian() ? +1 : -1;
@@ -1234,7 +1226,6 @@ bool UnitTest::Test_against_ref_impl(const Operator &X, const Operator &Y, commu
   }
 //  Operator Z(Y);
 //  Z.Erase();
->>>>>>> upstream/devel
   Operator Zref(Z);
 
   if (Z.IsReduced())

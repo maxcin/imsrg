@@ -566,6 +566,7 @@ namespace ReferenceImplementations
         } // iket
       } // ibra
     } // ch
+    // Z.PrintTwoBody();
 
   } // comm222_phss
 
@@ -597,7 +598,7 @@ namespace ReferenceImplementations
 
     size_t norb = Z.modelspace->GetNumberOrbits();
     //   for ( size_t a : Z.modelspace->all_orbits )
-#pragma omp parallel for schedule(dynamic, 1) reduction(+ : z0)
+    #pragma omp parallel for schedule(dynamic, 1) reduction(+ : z0)
     for (size_t a = 0; a < norb; a++)
     {
       Orbit &oa = Z.modelspace->GetOrbit(a);
@@ -671,7 +672,7 @@ namespace ReferenceImplementations
     auto &Z1 = Z.OneBody;
 
     size_t norb = Z.modelspace->GetNumberOrbits();
-#pragma omp parallel for schedule(dynamic, 1)
+    #pragma omp parallel for schedule(dynamic, 1)
     for (size_t i = 0; i < norb; i++)
     {
       Orbit &oi = Z.modelspace->GetOrbit(i);
@@ -841,7 +842,7 @@ namespace ReferenceImplementations
     }
     int nch = ch_bra_list.size();
 
-#pragma omp parallel for schedule(dynamic, 1)
+    #pragma omp parallel for schedule(dynamic, 1)
     for (int ich = 0; ich < nch; ich++)
     //    int nch2 = Z.modelspace->GetNumberTwoBodyChannels();
     // #pragma omp parallel for schedule(dynamic, 1)
@@ -921,7 +922,7 @@ namespace ReferenceImplementations
     size_t nchans = channels.size();
     //  for (int ch=0; ch<nch; ch++)
     //  #pragma omp parallel for schedule(dynamic,1) if (not Z.modelspace->scalar3b_transform_first_pass)
-#pragma omp parallel for schedule(dynamic, 1)
+    #pragma omp parallel for schedule(dynamic, 1)
     for (size_t ich = 0; ich < nchans; ich++)
     {
       size_t ch_bra = channels[ich][0];
@@ -1086,7 +1087,7 @@ namespace ReferenceImplementations
     auto &Z2 = Z.TwoBody;
 
     int nch2 = Z.modelspace->GetNumberTwoBodyChannels();
-#pragma omp parallel for schedule(dynamic, 1)
+    #pragma omp parallel for schedule(dynamic, 1)
     for (int ch2 = 0; ch2 < nch2; ch2++)
     {
       TwoBodyChannel &tbc = Z.modelspace->GetTwoBodyChannel(ch2);
@@ -1172,7 +1173,7 @@ namespace ReferenceImplementations
     std::map<int, double> e_fermi = Z.modelspace->GetEFermi();
 
     int nch = Z.modelspace->GetNumberTwoBodyChannels();
-#pragma omp parallel for schedule(dynamic, 1) if (not Z.modelspace->scalar3b_transform_first_pass)
+    #pragma omp parallel for schedule(dynamic, 1) if (not Z.modelspace->scalar3b_transform_first_pass)
     for (int ch = 0; ch < nch; ch++)
     {
       TwoBodyChannel &tbc = Z.modelspace->GetTwoBodyChannel(ch);
@@ -6170,7 +6171,7 @@ void comm222_pp_hhst(const Operator &X, const Operator &Y, Operator &Z)
     size_t norb = Z.modelspace->GetNumberOrbits();
 
     //  for ( auto p : Z.modelspace->all_orbits)
-#pragma omp parallel for schedule(dynamic)
+    #pragma omp parallel for schedule(dynamic)
     for (size_t p = 0; p < norb; p++)
     {
       Orbit &op = Z.modelspace->GetOrbit(p);
@@ -6245,7 +6246,7 @@ void comm222_pp_hhst(const Operator &X, const Operator &Y, Operator &Z)
     size_t nch = ch_bra_list.size();
 
     //   int nch = Z.modelspace->GetNumberTwoBodyChannels();
-#pragma omp parallel for schedule(dynamic, 1)
+    #pragma omp parallel for schedule(dynamic, 1)
     for (int ich = 0; ich < nch; ich++)
     {
       size_t ch_bra = ch_bra_list[ich];
@@ -7204,7 +7205,7 @@ void comm222_pp_hhst(const Operator &X, const Operator &Y, Operator &Z)
   }
 
   void comm223_232_BruteForce(const Operator &Eta, const Operator &Gamma, Operator &Z)
-  {
+  { 
     // global variables
     Z.modelspace->PreCalculateSixJ();
     int nch = Z.modelspace->GetNumberTwoBodyChannels(); // number of TB channels
@@ -7226,7 +7227,7 @@ void comm222_pp_hhst(const Operator &X, const Operator &Y, Operator &Z)
     //                   ( \bar{n_a} \bar{n_c} n_b + \bar{n_b} n_a n_c )
     //                   ( 2 * J2 + 1 ) * eta^J2_bpac eta^J2_acbd Gamma^J0_dgqh
     // ####################################################################################
-#pragma omp parallel for
+    #pragma omp parallel for
     for (int ch = 0; ch < nch; ++ch)
     {
       TwoBodyChannel &tbc = Z.modelspace->GetTwoBodyChannel(ch);
@@ -7327,7 +7328,7 @@ void comm222_pp_hhst(const Operator &X, const Operator &Y, Operator &Z)
       //                   ( \bar{n_a} n_b n_c + \bar{n_b} \bar{n_c} n_a )
       //                   ( 2 * J2 + 1 ) * eta^J2_adbc eta^J2_bcaq Gamma^J0_pgdh
       // ####################################################################################
-#pragma omp parallel for
+    #pragma omp parallel for
     for (int ch = 0; ch < nch; ++ch)
     {
       TwoBodyChannel &tbc = Z.modelspace->GetTwoBodyChannel(ch);
@@ -7432,7 +7433,7 @@ void comm222_pp_hhst(const Operator &X, const Operator &Y, Operator &Z)
       //                   ( \bar{n_a} n_b n_c + \bar{n_b} \bar{n_c} n_a )
       //                   ( 2 * J2 + 1 ) * eta^J2_bcaq eta^J0_pgdh Gamma^J2_adbc
       // ####################################################################################
-#pragma omp parallel for
+    #pragma omp parallel for
     for (int ch = 0; ch < nch; ++ch)
     {
       TwoBodyChannel &tbc = Z.modelspace->GetTwoBodyChannel(ch);
@@ -7539,7 +7540,7 @@ void comm222_pp_hhst(const Operator &X, const Operator &Y, Operator &Z)
       //                   ( \bar{n_a} \bar{n_c} n_b + \bar{n_b} n_a n_c )
       //                   ( 2 * J2 + 1 ) * eta^J2_bpac eta^J0_dgqh Gamma^J2_acbd
       // ####################################################################################
-#pragma omp parallel for
+    #pragma omp parallel for
     for (int ch = 0; ch < nch; ++ch)
     {
       TwoBodyChannel &tbc = Z.modelspace->GetTwoBodyChannel(ch);
@@ -7643,7 +7644,7 @@ void comm222_pp_hhst(const Operator &X, const Operator &Y, Operator &Z)
       //                   ( \bar{n_b} \bar{n_d} n_c + \bar{n_c} n_b n_d )
       //                   eta^J2_cgdb eta^J3_pbca Gamma^J0_daqh
       // ####################################################################################
-#pragma omp parallel for
+    #pragma omp parallel for
     for (int ch = 0; ch < nch; ++ch)
     {
       TwoBodyChannel &tbc = Z.modelspace->GetTwoBodyChannel(ch);
@@ -7813,7 +7814,7 @@ void comm222_pp_hhst(const Operator &X, const Operator &Y, Operator &Z)
       //                   ( \bar{n_b} n_c n_d + \bar{n_c} \bar{n_d} n_b )
       //                   eta^J2_dcbq eta^J3_bpac Gamma^J4_gahd
       // ####################################################################################
-#pragma omp parallel for
+    #pragma omp parallel for
     for (int ch = 0; ch < nch; ++ch)
     {
       TwoBodyChannel &tbc = Z.modelspace->GetTwoBodyChannel(ch);
@@ -8048,7 +8049,7 @@ void comm222_pp_hhst(const Operator &X, const Operator &Y, Operator &Z)
       //                   ( \bar{n_b} n_c n_d + \bar{n_c} \bar{n_d} n_b )
       //                   eta^J2_cdqb eta^J3_abch Gamma^J0_pgad
       // ####################################################################################
-#pragma omp parallel for
+    #pragma omp parallel for
     for (int ch = 0; ch < nch; ++ch)
     {
       TwoBodyChannel &tbc = Z.modelspace->GetTwoBodyChannel(ch);
@@ -8197,7 +8198,7 @@ void comm222_pp_hhst(const Operator &X, const Operator &Y, Operator &Z)
       //                   ( \bar{n_c} n_b n_d - \bar{n_b} \bar{n_d} n_c )
       //                   eta^J2_gcbd eta^J3_bahc Gamma^J4_dpaq
       // ####################################################################################
-#pragma omp parallel for
+    #pragma omp parallel for
     for (int ch = 0; ch < nch; ++ch)
     {
       TwoBodyChannel &tbc = Z.modelspace->GetTwoBodyChannel(ch);
@@ -8434,7 +8435,7 @@ void comm222_pp_hhst(const Operator &X, const Operator &Y, Operator &Z)
       //                   ( \bar{n_b} n_a n_c + \bar{n_a} \bar{n_c} n_b )
       //                   eta^J2_acbh eta^J2_pdac Gamma^J3_bgqd
       // ####################################################################################
-#pragma omp parallel for
+    #pragma omp parallel for
     for (int ch = 0; ch < nch; ++ch)
     {
       TwoBodyChannel &tbc = Z.modelspace->GetTwoBodyChannel(ch);
@@ -8641,7 +8642,7 @@ void comm222_pp_hhst(const Operator &X, const Operator &Y, Operator &Z)
       //                   ( \bar{n_a} \bar{n_c} n_b + \bar{n_b} n_a n_c )
       //                   eta^J2_pbac eta^J2_acdh Gamma^J3_dgqb
       // ####################################################################################
-#pragma omp parallel for
+    #pragma omp parallel for
     for (int ch = 0; ch < nch; ++ch)
     {
       TwoBodyChannel &tbc = Z.modelspace->GetTwoBodyChannel(ch);
@@ -8847,7 +8848,7 @@ void comm222_pp_hhst(const Operator &X, const Operator &Y, Operator &Z)
       //                   ( \bar{n_a} \bar{n_c} n_b + \bar{n_b} n_a n_c )
       //                   eta^J2_bpca eta^J3_gchd Gamma^J4_dabq
       // ####################################################################################
-#pragma omp parallel for
+      #pragma omp parallel for
     for (int ch = 0; ch < nch; ++ch)
     {
       TwoBodyChannel &tbc = Z.modelspace->GetTwoBodyChannel(ch);
@@ -9104,7 +9105,7 @@ void comm222_pp_hhst(const Operator &X, const Operator &Y, Operator &Z)
       //                   ( \bar{n_a} n_b n_c + \bar{n_b} \bar{n_c} n_a )
       //                   eta^J2_cbaq eta^J3_gdhc Gamma^J4_apdb
       // ####################################################################################
-#pragma omp parallel for
+    #pragma omp parallel for
     for (int ch = 0; ch < nch; ++ch)
     {
       TwoBodyChannel &tbc = Z.modelspace->GetTwoBodyChannel(ch);
@@ -9337,7 +9338,7 @@ void comm222_pp_hhst(const Operator &X, const Operator &Y, Operator &Z)
       //                   ( \bar{n_a} n_b n_c + \bar{n_b} \bar{n_c} n_a )
       //                   eta^J2_bcaq eta^J0_pgcd Gamma^J3_dahb
       // ####################################################################################
-#pragma omp parallel for
+    #pragma omp parallel for
     for (int ch = 0; ch < nch; ++ch)
     {
       TwoBodyChannel &tbc = Z.modelspace->GetTwoBodyChannel(ch);
@@ -9485,7 +9486,7 @@ void comm222_pp_hhst(const Operator &X, const Operator &Y, Operator &Z)
       //                   ( \bar{n_a} \bar{n_c} n_b + \bar{n_b} n_a n_c )
       //                   eta^J2_bpac eta^J0_cdqh Gamma^J3_gadb
       // ####################################################################################
-#pragma omp parallel for
+    #pragma omp parallel for
     for (int ch = 0; ch < nch; ++ch)
     {
       TwoBodyChannel &tbc = Z.modelspace->GetTwoBodyChannel(ch);
@@ -9637,7 +9638,7 @@ void comm222_pp_hhst(const Operator &X, const Operator &Y, Operator &Z)
       //                   ( \bar{n_d} n_a n_b + \bar{n_a} \bar{n_b} n_d )
       //                   eta^J2_abhd eta^J3_dpcq Gamma^J2_gcab
       // ####################################################################################
-#pragma omp parallel for
+    #pragma omp parallel for
     for (int ch = 0; ch < nch; ++ch)
     {
       TwoBodyChannel &tbc = Z.modelspace->GetTwoBodyChannel(ch);
@@ -9843,7 +9844,7 @@ void comm222_pp_hhst(const Operator &X, const Operator &Y, Operator &Z)
       //                   ( \bar{n_c} n_a n_b + \bar{n_a} \bar{n_b} n_c )
       //                   eta^J2_gcab eta^J3_dpcq Gamma^J2_abhd
       // ####################################################################################
-#pragma omp parallel for
+    #pragma omp parallel for
     for (int ch = 0; ch < nch; ++ch)
     {
       TwoBodyChannel &tbc = Z.modelspace->GetTwoBodyChannel(ch);
@@ -10042,7 +10043,7 @@ void comm222_pp_hhst(const Operator &X, const Operator &Y, Operator &Z)
   }
 
   void comm223_231(const Operator &Eta, const Operator &Gamma, Operator &Z)
-  {
+  { 
     double t_internal = omp_get_wtime(); // timer
     double t_start = omp_get_wtime();    // timer
 
@@ -10073,7 +10074,7 @@ void comm222_pp_hhst(const Operator &X, const Operator &Y, Operator &Z)
     int norbits = Z.modelspace->all_orbits.size();
     std::vector<index_t> allorb_vec(Z.modelspace->all_orbits.begin(), Z.modelspace->all_orbits.end());
 
-#pragma omp parallel for
+    #pragma omp parallel for
     for (int indexd = 0; indexd < norbits; ++indexd)
     {
       auto d = allorb_vec[indexd];
@@ -10131,7 +10132,7 @@ void comm222_pp_hhst(const Operator &X, const Operator &Y, Operator &Z)
       } // e
     } // d
 
-#pragma omp parallel for
+    #pragma omp parallel for
     for (int indexp = 0; indexp < norbits; ++indexp)
     {
       auto p = allorb_vec[indexp];
@@ -10194,7 +10195,7 @@ void comm222_pp_hhst(const Operator &X, const Operator &Y, Operator &Z)
       Gamma_bar[ch_cc] = arma::mat(nKets_cc * 2, nKets_cc * 2, arma::fill::zeros);
     }
 
-#pragma omp parallel for
+    #pragma omp parallel for
     for (int ch_cc = 0; ch_cc < n_nonzero; ++ch_cc)
     {
       TwoBodyChannel_CC &tbc_cc = Z.modelspace->GetTwoBodyChannel_CC(ch_cc);
@@ -10309,7 +10310,7 @@ void comm222_pp_hhst(const Operator &X, const Operator &Y, Operator &Z)
     }
 
     //  (nbar_e * nbar_d * n_f * n_c - nbar_f * nbar_c * n_e * n_d ) <ab|cd> <cd|ef> in cross-coupled
-#pragma omp parallel for
+    #pragma omp parallel for
     for (size_t ch_cc = 0; ch_cc < n_nonzero; ch_cc++)
     {
       TwoBodyChannel_CC &tbc_cc = Z.modelspace->GetTwoBodyChannel_CC(ch_cc);
@@ -10415,7 +10416,7 @@ void comm222_pp_hhst(const Operator &X, const Operator &Y, Operator &Z)
       IntermediateTwobody[ch_cc] = arma::mat(nKets_cc * 2, nKets_cc * 2, arma::fill::zeros);
     }
 
-#pragma omp parallel for
+      #pragma omp parallel for
     for (size_t ch_cc = 0; ch_cc < n_nonzero; ch_cc++)
     {
       IntermediateTwobody[ch_cc] = Chi_222_a[ch_cc] * Gamma_bar[ch_cc];
@@ -10431,7 +10432,7 @@ void comm222_pp_hhst(const Operator &X, const Operator &Y, Operator &Z)
     //  IIc_pq = - 1/ (2 jp + 1) \sum_abe J3 Chi_222_a_eqab * Gamma_bar_abep
     // ###########################################################
 
-#pragma omp parallel for
+    #pragma omp parallel for
     for (int indexd = 0; indexd < norbits; ++indexd)
     {
       auto p = allorb_vec[indexd];
@@ -10491,7 +10492,7 @@ void comm222_pp_hhst(const Operator &X, const Operator &Y, Operator &Z)
 
     TwoBodyME Chi_222_b = Eta.TwoBody;
     Chi_222_b.Erase();
-#pragma omp parallel for
+    #pragma omp parallel for
     for (int ch = 0; ch < nch; ++ch)
     {
       TwoBodyChannel &tbc = Z.modelspace->GetTwoBodyChannel(ch);
@@ -10573,7 +10574,7 @@ void comm222_pp_hhst(const Operator &X, const Operator &Y, Operator &Z)
     //  diagram II_b
     // IIb_pq = 1/4 1/(2 jp + 1) \sum_acdJ0 Chi_222_b_cpad * Gamma_bar_adcq
 
-#pragma omp parallel for
+    #pragma omp parallel for
     for (int indexp = 0; indexp < norbits; ++indexp)
     {
       auto p = allorb_vec[indexp];
@@ -10627,7 +10628,7 @@ void comm222_pp_hhst(const Operator &X, const Operator &Y, Operator &Z)
     //
     // IId_pq = - 1/4 1/(2 jp + 1) \sum_abeJ0  Chi_222_a_bqae * Gamma_bar_bqae
     // ###########################################################
-#pragma omp parallel for
+    #pragma omp parallel for
     for (int indexp = 0; indexp < norbits; ++indexp)
     {
       auto p = allorb_vec[indexp];
@@ -10693,7 +10694,7 @@ void comm222_pp_hhst(const Operator &X, const Operator &Y, Operator &Z)
     auto Chi_221_b = Z.OneBody;
     Chi_221_b.zeros(); // Set all elements to zero
 
-#pragma omp parallel for
+    #pragma omp parallel for
     for (int indexd = 0; indexd < norbits; ++indexd)
     {
       auto d = allorb_vec[indexd];
@@ -10749,7 +10750,7 @@ void comm222_pp_hhst(const Operator &X, const Operator &Y, Operator &Z)
     } // d
 
     //  diagram III_a and diagram III_b together
-#pragma omp parallel for
+    #pragma omp parallel for
     for (int indexd = 0; indexd < norbits; ++indexd)
     {
       auto p = allorb_vec[indexd];
@@ -10841,7 +10842,7 @@ void comm222_pp_hhst(const Operator &X, const Operator &Y, Operator &Z)
     // CHI_II_pq = 1/2 \sum_abcJ2 \hat(J_2) ( \bar{n}_b \bar{n}_c n_a - \bar{n}_a n_b n_c )
     //             eta^J2_bcaq gamma^J2_apbc
     //-------------------------------------------------------------------------------------
-#pragma omp parallel for schedule(dynamic)
+    #pragma omp parallel for schedule(dynamic)
     for (size_t p = 0; p < norbits; p++)
     {
       Orbit &op = Z.modelspace->GetOrbit(p);
@@ -10911,7 +10912,7 @@ void comm222_pp_hhst(const Operator &X, const Operator &Y, Operator &Z)
       } // for q
     } // for p
 
-#pragma omp parallel for schedule(dynamic, 1)
+    #pragma omp parallel for schedule(dynamic, 1)
     for (int ich = 0; ich < nch; ich++)
     {
       size_t ch_bra = ch_bra_list[ich];
@@ -11001,7 +11002,7 @@ void comm222_pp_hhst(const Operator &X, const Operator &Y, Operator &Z)
     }
 
     /// Pandya transformation
-#pragma omp parallel for
+    #pragma omp parallel for
     for (int ch_cc = 0; ch_cc < n_nonzero; ++ch_cc)
     {
       TwoBodyChannel_CC &tbc_cc = Z.modelspace->GetTwoBodyChannel_CC(ch_cc);
@@ -11114,7 +11115,7 @@ void comm222_pp_hhst(const Operator &X, const Operator &Y, Operator &Z)
     }
 
     // full matrix
-#pragma omp parallel for
+    #pragma omp parallel for
     for (int ch = 0; ch < nch; ++ch)
     {
       TwoBodyChannel &tbc = Z.modelspace->GetTwoBodyChannel(ch);
@@ -11235,7 +11236,7 @@ void comm222_pp_hhst(const Operator &X, const Operator &Y, Operator &Z)
       barCHI_III_RC[ch_cc] = arma::mat(nKets_cc * 2, nKets_cc * 2, arma::fill::zeros);
     }
 
-#pragma omp parallel for
+    #pragma omp parallel for
     for (size_t ch_cc = 0; ch_cc < n_nonzero; ch_cc++)
     {
       barCHI_III[ch_cc] = bar_Eta[ch_cc] * nnnbar_Eta[ch_cc];
@@ -11253,7 +11254,7 @@ void comm222_pp_hhst(const Operator &X, const Operator &Y, Operator &Z)
     // Inverse Pandya transformation
     //  X^J_ijkl  = - ( 1- P_ij )  sum_J' (2J'+1)  { i j J }  \bar{X}^J'_il`kj`
     //                                             { k l J'}
-#pragma omp parallel for
+    #pragma omp parallel for
     for (int ch = 0; ch < nch; ++ch)
     {
       TwoBodyChannel &tbc = Z.modelspace->GetTwoBodyChannel(ch);
@@ -11352,7 +11353,7 @@ void comm222_pp_hhst(const Operator &X, const Operator &Y, Operator &Z)
 
     // IIa_pgqh = \sum_ad Chi_III^J0_pgda * Gamma^J0_daqh
     // IIc_pgqh = \sum_ad Gamma^J0_pgad * Chi_III^J0_adqh
-#pragma omp parallel for
+    #pragma omp parallel for
     for (int ch = 0; ch < nch; ++ch)
     {
       TwoBodyChannel &tbc = Z.modelspace->GetTwoBodyChannel(ch);
@@ -11427,7 +11428,7 @@ void comm222_pp_hhst(const Operator &X, const Operator &Y, Operator &Z)
 
     /// Pandya transformation only recouple the angula momentum
     /// IIb and IId
-#pragma omp parallel for
+    #pragma omp parallel for
     for (int ch_cc = 0; ch_cc < n_nonzero; ++ch_cc)
     {
       TwoBodyChannel_CC &tbc_cc = Z.modelspace->GetTwoBodyChannel_CC(ch_cc);
@@ -11517,7 +11518,7 @@ void comm222_pp_hhst(const Operator &X, const Operator &Y, Operator &Z)
       }
     }
 
-#pragma omp parallel for
+    #pragma omp parallel for
     for (int ch = 0; ch < n_nonzero; ++ch)
     {
       CHI_III_final[ch] = bar_Gamma[ch] * barCHI_III_RC[ch];
@@ -11527,7 +11528,7 @@ void comm222_pp_hhst(const Operator &X, const Operator &Y, Operator &Z)
     //  X^J_ijkl  = - ( 1- P_ij ) ( 1- P_kl ) (-)^{J + ji + jj}  sum_J' (2J'+1)
     //                (-)^{J' + ji + jk}  { j i J }  \bar{X}^J'_jl`ki`
     //                                    { k l J'}
-#pragma omp parallel for
+    #pragma omp parallel for
     for (int ch = 0; ch < nch; ++ch)
     {
       TwoBodyChannel &tbc = Z.modelspace->GetTwoBodyChannel(ch);
@@ -11665,7 +11666,7 @@ void comm222_pp_hhst(const Operator &X, const Operator &Y, Operator &Z)
       CHI_IV[ch] = arma::mat(nKets * 2, nKets * 2, arma::fill::zeros);
       CHI_IV_II[ch] = arma::mat(nKets * 2, nKets * 2, arma::fill::zeros);
     }
-#pragma omp parallel for
+    #pragma omp parallel for
     for (int ch = 0; ch < nch; ++ch)
     {
       TwoBodyChannel &tbc = Z.modelspace->GetTwoBodyChannel(ch);
@@ -11694,7 +11695,7 @@ void comm222_pp_hhst(const Operator &X, const Operator &Y, Operator &Z)
     }
 
     /// Pandya transformation
-#pragma omp parallel for
+    #pragma omp parallel for
     for (int ch_cc = 0; ch_cc < n_nonzero; ++ch_cc)
     {
       TwoBodyChannel_CC &tbc_cc = Z.modelspace->GetTwoBodyChannel_CC(ch_cc);
@@ -11801,7 +11802,7 @@ void comm222_pp_hhst(const Operator &X, const Operator &Y, Operator &Z)
     }
 
     // calculate bat_chi_IV * bar_gamma
-#pragma omp parallel for
+    #pragma omp parallel for
     for (int ch_cc = 0; ch_cc < n_nonzero; ++ch_cc)
     {
       TwoBodyChannel_CC &tbc_cc = Z.modelspace->GetTwoBodyChannel_CC(ch_cc);
@@ -11816,7 +11817,7 @@ void comm222_pp_hhst(const Operator &X, const Operator &Y, Operator &Z)
     //  II(f)^J_ijkl  = - 1/2 ( 1- P_ij ) ( 1- P_kl ) sum_J' (2J'+1)  { i j J }  \bar{bar_CHI_gamma_II}^J'_il`kj`
     //
     //  Inverse Pandya transformation                                                              { k l J'}
-#pragma omp parallel for
+    #pragma omp parallel for
     for (int ch = 0; ch < nch; ++ch)
     {
       TwoBodyChannel &tbc = Z.modelspace->GetTwoBodyChannel(ch);
@@ -11967,7 +11968,7 @@ void comm222_pp_hhst(const Operator &X, const Operator &Y, Operator &Z)
     }
 
     // build bar_CHI_V
-#pragma omp parallel for
+    #pragma omp parallel for
     for (size_t ch_cc = 0; ch_cc < n_nonzero; ch_cc++)
     {
       bar_CHI_V[ch_cc] = bar_Gamma[ch_cc] * nnnbar_Eta[ch_cc];
@@ -11999,7 +12000,7 @@ void comm222_pp_hhst(const Operator &X, const Operator &Y, Operator &Z)
 
     /// Pandya transformation only recouple the angula momentum
     /// diagram IIIa - diagram IIIb
-#pragma omp parallel for
+    #pragma omp parallel for
     for (int ch_cc = 0; ch_cc < n_nonzero; ++ch_cc)
     {
       TwoBodyChannel_CC &tbc_cc = Z.modelspace->GetTwoBodyChannel_CC(ch_cc);
@@ -12107,7 +12108,7 @@ void comm222_pp_hhst(const Operator &X, const Operator &Y, Operator &Z)
       CHI_V_final[ch] = arma::mat(nKets * 2, nKets * 2, arma::fill::zeros);
     }
 
-#pragma omp parallel for
+    #pragma omp parallel for
     for (int ch = 0; ch < n_nonzero; ++ch)
     {
       CHI_V_final[ch] = bar_Eta[ch] * bar_CHI_V_RC[ch];
@@ -12117,7 +12118,7 @@ void comm222_pp_hhst(const Operator &X, const Operator &Y, Operator &Z)
     //  X^J_ijkl  = - ( 1- P_ij ) ( 1- P_kl ) (-)^{J + ji + jj}  sum_J' (2J'+1)
     //                (-)^{J' + ji + jk}  { j i J }  \bar{X}^J'_jl`ki`
     //                                    { k l J'}
-#pragma omp parallel for
+    #pragma omp parallel for
     for (int ch = 0; ch < nch; ++ch)
     {
       TwoBodyChannel &tbc = Z.modelspace->GetTwoBodyChannel(ch);
@@ -12266,7 +12267,7 @@ void comm222_pp_hhst(const Operator &X, const Operator &Y, Operator &Z)
 
     // BUILD bar_CHI_VI
     // bar_CHI_VI = (bar{na} nb nc + bar{nb} bar{nc} na) \bar{Gamma}_dhba \bar{Eta}_baqc
-#pragma omp parallel for
+    #pragma omp parallel for
     for (int ch_cc = 0; ch_cc < n_nonzero; ++ch_cc)
     {
       bar_CHI_VI[ch_cc] = bar_Gamma[ch_cc] * nnnbar_Eta_d[ch_cc];
@@ -12283,7 +12284,7 @@ void comm222_pp_hhst(const Operator &X, const Operator &Y, Operator &Z)
 
     // BUILD CHI_VI
     // Inverse Pandya transformation
-#pragma omp parallel for
+    #pragma omp parallel for
     for (int ch = 0; ch < nch; ++ch)
     {
       TwoBodyChannel &tbc = Z.modelspace->GetTwoBodyChannel(ch);
@@ -12382,8 +12383,8 @@ void comm222_pp_hhst(const Operator &X, const Operator &Y, Operator &Z)
       }
     }
 
-// Diagram IIIc and Diagram IIId
-#pragma omp parallel for
+    // Diagram IIIc and Diagram IIId
+    #pragma omp parallel for
     for (int ch = 0; ch < nch; ++ch)
     {
       TwoBodyChannel &tbc = Z.modelspace->GetTwoBodyChannel(ch);
@@ -12451,7 +12452,7 @@ void comm222_pp_hhst(const Operator &X, const Operator &Y, Operator &Z)
       CHI_VII[ch] = arma::mat(nKets * 2, nKets * 2, arma::fill::zeros);
     }
 
-#pragma omp parallel for
+    #pragma omp parallel for
     for (int ch = 0; ch < nch; ++ch)
     {
       TwoBodyChannel &tbc = Z.modelspace->GetTwoBodyChannel(ch);
@@ -12476,7 +12477,7 @@ void comm222_pp_hhst(const Operator &X, const Operator &Y, Operator &Z)
     /// Modified Pandya transformation
     //  \bar{X}^J_ij`kl` =   sum_J' (-)^{jk + jj + J'} { i j J } (2J'+1) X^J'_ilkj
     //                                                 { k l J'}
-#pragma omp parallel for
+    #pragma omp parallel for
     for (int ch_cc = 0; ch_cc < n_nonzero; ++ch_cc)
     {
       TwoBodyChannel_CC &tbc_cc = Z.modelspace->GetTwoBodyChannel_CC(ch_cc);
@@ -12570,7 +12571,7 @@ void comm222_pp_hhst(const Operator &X, const Operator &Y, Operator &Z)
     t_internal = omp_get_wtime();
 
     // bar_CHI_VII_CC_ef = bar_CHI_VII_CC * bar_Eta
-#pragma omp parallel for
+    #pragma omp parallel for
     for (int ch_cc = 0; ch_cc < n_nonzero; ++ch_cc)
     {
       bar_CHI_VII_CC_ef[ch_cc] = bar_CHI_VII_CC[ch_cc] * bar_Eta[ch_cc];
@@ -12584,7 +12585,7 @@ void comm222_pp_hhst(const Operator &X, const Operator &Y, Operator &Z)
     //  X^J_ijkl  = - 1/2 ( 1- P_ij ) ( 1- P_kl ) sum_J' (2J'+1) (-)^{J0 + jp + jg}
     //                { j i J }  \bar{X}^J'_jl`ki`
     //                { k l J'}
-#pragma omp parallel for
+    #pragma omp parallel for
     for (int ch = 0; ch < nch; ++ch)
     {
       TwoBodyChannel &tbc = Z.modelspace->GetTwoBodyChannel(ch);
