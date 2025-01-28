@@ -39,10 +39,10 @@ std::map<std::string, std::vector<std::string>> ModelSpace::ValenceSpaces{
     {"fpgdsNR-shell", {"Ca60", "p0f7", "p0f5", "p1p3", "p1p1", "n0g9", "n0g7", "n1d5", "n1d3", "n2s1"}}, // protons in the fp shell, neutrons in the gds shell
     {"sd3f7p3-shell", {"Si28", "p0d3", "n0d3", "p1s1", "n1s1", "p0f7", "n0f7", "p1p3", "n1p3"}},
     {"gds-shell", {"Zr80", "p0g9", "n0g9", "p0g7", "n0g7", "p1d5", "n1d5", "p1d3", "n1d3", "p2s1", "n2s1"}}, // This is a big valence space, more than a few particles will be a serious shell model diagonalization
-    {"jj44",{"Ni56","p0f5","n0f5","p1p3","n1p3","p1p1","n1p1","p0g9","n0g9"}},
-    {"jj45",{"Ni78","p0f5","p1p3","p1p1","p0g9","n0g7","n1d5","n1d3","n2s1","n0h11"}},
-    {"jj55",{"Sn100","p0g7","p1d5","p1d3","p2s1","p0h11","n0g7","n1d5","n1d3","n2s1","n0h11"}},
-    {"jj56",{"Sn132","p0g7","p1d5","p1d3","p2s1","p0h11","n0h9","n1f7","n1f5","n2p3","n2p1","n0i13"}},
+    {"jj44", {"Ni56", "p0f5", "n0f5", "p1p3", "n1p3", "p1p1", "n1p1", "p0g9", "n0g9"}},
+    {"jj45", {"Ni78", "p0f5", "p1p3", "p1p1", "p0g9", "n0g7", "n1d5", "n1d3", "n2s1", "n0h11"}},
+    {"jj55", {"Sn100", "p0g7", "p1d5", "p1d3", "p2s1", "p0h11", "n0g7", "n1d5", "n1d3", "n2s1", "n0h11"}},
+    {"jj56", {"Sn132", "p0g7", "p1d5", "p1d3", "p2s1", "p0h11", "n0h9", "n1f7", "n1f5", "n2p3", "n2p1", "n0i13"}},
     {"Ca28_sdSemiMagic-shell", {"Ca28", "n0d5", "n0d3", "n1s1"}},
     {"Ca40_fpg9SemiMagic-shell", {"Ca40", "n0f7", "n0f5", "n1p3", "n1p1", "n0g9"}},
     {"Ca40_fpSemiMagic-shell", {"Ca40", "n0f7", "n0f5", "n1p3", "n1p1"}},
@@ -64,10 +64,8 @@ std::map<std::string, std::vector<std::string>> ModelSpace::ValenceSpaces{
     {"pfhi13NR_NeutronSemiMagic", {"Sn132", "n2p3", "n2p1", "n1f5", "n1f7", "n0h9", "n0i13"}}, // for Sn isotopes above Sn132
     {"sdgh11_NeutronSn100SemiMagic", {"Sn100", "n0h11", "n0g7", "n1d5", "n1d3", "n2s1"}},      // for Sn isotopes between Sn100 and Sn132
 
-
-    {"Zr68_pfg9_NeutronSemiMagic", {"Zr68", "n0g9", "n0f5", "n1p3", "n1p1"}},             // for Zr isotopes between Zr68 and Zr90
-    {"Zr90_sdg9_NeutronSemiMagic", {"Zr90", "n0h11", "n0g7", "n1d5", "n1d3", "n2s1"}},    // for Zr isotopes between Zr90 and Zr122
-
+    {"Zr68_pfg9_NeutronSemiMagic", {"Zr68", "n0g9", "n0f5", "n1p3", "n1p1"}},          // for Zr isotopes between Zr68 and Zr90
+    {"Zr90_sdg9_NeutronSemiMagic", {"Zr90", "n0h11", "n0g7", "n1d5", "n1d3", "n2s1"}}, // for Zr isotopes between Zr90 and Zr122
 
 };
 
@@ -563,8 +561,8 @@ std::string ModelSpace::Index2String(index_t ind)
   std::ostringstream oss;
   oss << pn << oi.n << lstr << oi.j2;
   return oss.str();
-//  sprintf(c, "%c%d%c%d", pn, oi.n, lstr, oi.j2);
-//  return std::string(c);
+  //  sprintf(c, "%c%d%c%d", pn, oi.n, lstr, oi.j2);
+  //  return std::string(c);
 }
 
 void ModelSpace::GetAZfromString(std::string str, double &A, double &Z) // TODO: accept different formats, e.g. 22Na vs Na22
@@ -698,10 +696,12 @@ void ModelSpace::Get0hwSpace(int Aref, int Zref, std::set<std::array<int, 4>> &c
 void ModelSpace::GetjjSpace(int Aref, int Zref, std::set<std::array<int, 4>> &core_list, std::set<std::array<int, 4>> &valence_list)
 {
   int Nref = Aref - Zref;
-  std::vector<int> jjmagic = {2,6,14,28,50,82,126,184,258}; // jj shell closures as far up as this would be reasonable
-  int iN=0,iZ=0;
-  while (Zref >= jjmagic[iZ]) iZ++;
-  while (Nref >= jjmagic[iN]) iN++;
+  std::vector<int> jjmagic = {2, 6, 14, 28, 50, 82, 126, 184, 258}; // jj shell closures as far up as this would be reasonable
+  int iN = 0, iZ = 0;
+  while (Zref >= jjmagic[iZ])
+    iZ++;
+  while (Nref >= jjmagic[iN])
+    iN++;
   iZ--;
   iN--;
   int Zcore = jjmagic[iZ];
@@ -716,13 +716,13 @@ void ModelSpace::GetjjSpace(int Aref, int Zref, std::set<std::array<int, 4>> &co
     {
       for (int j2 = 2 * L + 1; j2 > std::max(2 * L - 2, 0); j2 -= 2)
       {
-        if (j2==2*iZ+1 )
+        if (j2 == 2 * iZ + 1)
         {
-           valence_list.insert({ 0 , L+1, j2+2, -1});// instead take the largest j from the next shell up
+          valence_list.insert({0, L + 1, j2 + 2, -1}); // instead take the largest j from the next shell up
         }
         else
         {
-           valence_list.insert({(iZ - L) / 2, L, j2, -1});
+          valence_list.insert({(iZ - L) / 2, L, j2, -1});
         }
       }
     }
@@ -733,19 +733,18 @@ void ModelSpace::GetjjSpace(int Aref, int Zref, std::set<std::array<int, 4>> &co
     {
       for (int j2 = 2 * L + 1; j2 > std::max(2 * L - 2, 0); j2 -= 2)
       {
-        if (j2==2*iN+1 )
+        if (j2 == 2 * iN + 1)
         {
-           valence_list.insert({ 0 , L+1, j2+2, +1});// instead take the largest j from the next shell up
+          valence_list.insert({0, L + 1, j2 + 2, +1}); // instead take the largest j from the next shell up
         }
         else
         {
-           valence_list.insert({(iN - L) / 2, L, j2, 1});
+          valence_list.insert({(iN - L) / 2, L, j2, 1});
         }
       }
     }
   }
 }
-
 
 // Parse a std::string containing a comma-separated list of core + valence orbits
 // eg, the usual sd shell would look like "O16,p0d5,n0d5,p0d3,n0d3,p1s1,n1s1".
@@ -1399,7 +1398,7 @@ std::array<size_t, 2> ModelSpace::CountThreeBodyStatesInsideCut()
         continue;
       nstates++;
     } // for iket
-  }   // for ch3
+  } // for ch3
   return {nstates, ntotal};
 }
 
@@ -1459,16 +1458,12 @@ void ModelSpace::SetEmaxUnocc(int e)
   Init(holemap, corelist, valencelist);
 }
 
-
-
-std::map<int,double> ModelSpace::GetEFermi()
+std::map<int, double> ModelSpace::GetEFermi()
 {
-  if ( e_fermi.size() < 2 )  FindEFermi();
-  return e_fermi ;
+  if (e_fermi.size() < 2)
+    FindEFermi();
+  return e_fermi;
 }
-
-
-
 
 void ModelSpace::ClearVectors()
 {
@@ -1588,6 +1583,61 @@ uint64_t ModelSpace::SixJHash(double j1, double j2, double j3, double J1, double
 /*
 uint64_t ModelSpace::SixJHash(double j1, double j2, double j3, double J1, double J2, double J3)
 {
+
+  uint64_t twoj1 = 2 * j1;
+  uint64_t twoj2 = 2 * j2;
+  uint64_t twoj3 = 2 * j3;
+  uint64_t twoJ1 = 2 * J1;
+  uint64_t twoJ2 = 2 * J2;
+  uint64_t twoJ3 = 2 * J3;
+  // The 6j can contain 0,3, or 4 half-integer arguments
+  // If there are 3, then they can always be permuted so all the half-integers are on the bottom row.
+  if ((twoj1 + twoj2 + twoj3 + twoJ1 + twoJ2 + twoJ3) % 2 == 1)
+  {
+    if ((twoj1 % 2) == 1)
+    {
+      std::swap(twoj1, twoJ1);
+      std::swap(twoj2, twoJ2);
+    }
+    if ((twoj2 % 2) == 1)
+    {
+      std::swap(twoj2, twoJ2);
+      std::swap(twoj3, twoJ3);
+    }
+  }
+  else // otherwise, we can permute so the larger entries are on the bottom row
+  {
+    if ((twoj1 > twoJ1))
+    {
+      std::swap(twoj1, twoJ1);
+      std::swap(twoj2, twoJ2);
+    }
+    if ((twoj2 > twoJ2))
+    {
+      std::swap(twoj2, twoJ2);
+      std::swap(twoj3, twoJ3);
+    }
+  }
+
+  // Use the 6J symmettry under permutation of columns. Combine each column into a single integer
+  // then sort the column indices so that any of the 6 equivalent permutations will give the same key
+  uint64_t jJ1 = twoj1 + (twoJ1 << 10);
+  uint64_t jJ2 = twoj2 + (twoJ2 << 10);
+  uint64_t jJ3 = twoj3 + (twoJ3 << 10);
+
+  if (jJ3 < jJ2)
+    std::swap(jJ3, jJ2);
+  if (jJ2 < jJ1)
+    std::swap(jJ2, jJ1);
+  if (jJ3 < jJ2)
+    std::swap(jJ3, jJ2);
+
+  return jJ1 + (jJ2 << 20) + (jJ3 << 40);
+}
+
+/*
+uint64_t ModelSpace::SixJHash(double j1, double j2, double j3, double J1, double J2, double J3)
+{
   // Use the 6J symmettry under permutation of columns. Combine each column into a single integer
   // then sort the column indices so we only need to store one of the 6 equivalent permutations
   uint64_t jJ1 = (uint64_t)(2 * j1) + ((uint64_t)(2 * J1) << 10);
@@ -1605,7 +1655,6 @@ uint64_t ModelSpace::SixJHash(double j1, double j2, double j3, double J1, double
 }
 */
 
-
 void ModelSpace::SixJUnHash(uint64_t key, uint64_t &j1, uint64_t &j2, uint64_t &j3, uint64_t &J1, uint64_t &J2, uint64_t &J3)
 {
   J3 = (key >> 50) & 0x3FFL;
@@ -1613,7 +1662,7 @@ void ModelSpace::SixJUnHash(uint64_t key, uint64_t &j1, uint64_t &j2, uint64_t &
   J2 = (key >> 30) & 0x3FFL;
   j2 = (key >> 20) & 0x3FFL;
   J1 = (key >> 10) & 0x3FFL;
-  j1 = (key)&0x3FFL;
+  j1 = (key) & 0x3FFL;
 }
 
 uint64_t ModelSpace::NineJHash(double j1, double j2, double J12, double j3, double j4, double J34, double J13, double J24, double J)
@@ -1719,7 +1768,7 @@ void ModelSpace::MoshinskyUnHash(uint64_t key, uint64_t &N, uint64_t &Lam, uint6
   l1 = (key >> 21) & 0x7FL;
   n2 = (key >> 15) & 0x3FL;
   l2 = (key >> 8) & 0x7FL;
-  L = (key)&0xFFL;
+  L = (key) & 0xFFL;
 }
 
 double ModelSpace::GetSixJ(double j1, double j2, double j3, double J1, double J2, double J3)
@@ -1788,9 +1837,9 @@ void ModelSpace::PreCalculateSixJ()
   double t_start = omp_get_wtime();
   std::vector<uint64_t> KEYS;
   int upperLimit_j2a = (2 * Emax + 1);
-  int upperLimit_j2b =  3 * (2 * Emax + 1);
+  int upperLimit_j2b = 3 * (2 * Emax + 1);
   int upperLimit_j2c = (2 * Emax + 1);
-  int upperLimit_j2d =  3 * (2 * Emax + 1);
+  int upperLimit_j2d = 3 * (2 * Emax + 1);
 
   for (int j2a = 1; j2a <= upperLimit_j2a; j2a += 2)
   {
@@ -1817,8 +1866,8 @@ void ModelSpace::PreCalculateSixJ()
                 SixJList[key] = 0.; // Make sure eveything's in there to avoid a rehash in the parallel loop
               }
             } // for J2
-          }   // for J1
-        }     // for j2d
+          } // for J1
+        } // for j2d
 
         // three half-integer j's, three integer J's
         // <J1,J2|J3>  <a,b|J3>,  <J1,b|c>  <a,J2|c>
@@ -1841,11 +1890,11 @@ void ModelSpace::PreCalculateSixJ()
                 SixJList[key] = 0.; // Make sure eveything's in there to avoid a rehash in the parallel loop
               }
             } // for J3
-          }   // for J2
-        }     // for J1
-      }       // for j2c
-    }         // for j2b
-  }           // for j2a
+          } // for J2
+        } // for J1
+      } // for j2c
+    } // for j2b
+  } // for j2a
 
 #pragma omp parallel for schedule(dynamic, 1)
   for (size_t i = 0; i < KEYS.size(); ++i)
@@ -2182,7 +2231,6 @@ double ModelSpace::GetNineJ(double j1, double j2, double J12, double j3, double 
 }
 */
 
-
 std::vector<size_t> &ModelSpace::GetPandyaLookup(int rank_J, int rank_T, int parity)
 {
   CalculatePandyaLookup(rank_J, rank_T, parity);
@@ -2241,7 +2289,7 @@ void ModelSpace::Print()
     std::cout << i << " : " << oi.n << " " << oi.l << " " << oi.j2 << " " << oi.tz2 << "  , " << oi.occ << " " << oi.cvq << std::endl;
   }
   std::cout << "Valence orbits: " << std::endl;
-  for ( auto& v : valence )
+  for (auto &v : valence)
   {
     std::cout << v << "  ";
   }

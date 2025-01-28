@@ -1,0 +1,418 @@
+{
+	"artifacts" : 
+	[
+		{
+			"path" : "profiling/comm331"
+		}
+	],
+	"backtrace" : 1,
+	"backtraceGraph" : 
+	{
+		"commands" : 
+		[
+			"add_executable",
+			"target_link_libraries"
+		],
+		"files" : 
+		[
+			"profiling/CMakeLists.txt"
+		],
+		"nodes" : 
+		[
+			{
+				"file" : 0
+			},
+			{
+				"command" : 0,
+				"file" : 0,
+				"line" : 65,
+				"parent" : 0
+			},
+			{
+				"command" : 1,
+				"file" : 0,
+				"line" : 66,
+				"parent" : 0
+			}
+		]
+	},
+	"compileGroups" : 
+	[
+		{
+			"compileCommandFragments" : 
+			[
+				{
+					"fragment" : "-g -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk -fPIE"
+				},
+				{
+					"fragment" : "-std=gnu++11"
+				}
+			],
+			"defines" : 
+			[
+				{
+					"backtrace" : 2,
+					"define" : "BOOST_ALL_NO_LIB"
+				},
+				{
+					"backtrace" : 2,
+					"define" : "NO_HDF5=\"true\""
+				}
+			],
+			"includes" : 
+			[
+				{
+					"backtrace" : 2,
+					"path" : "/Users/antoinebelley/Documents/TRIUMF/imsrg/src/armadillo"
+				},
+				{
+					"backtrace" : 2,
+					"path" : "/Users/antoinebelley/Documents/TRIUMF/imsrg/src/half/include"
+				},
+				{
+					"backtrace" : 2,
+					"isSystem" : true,
+					"path" : "/usr/local/include"
+				},
+				{
+					"backtrace" : 2,
+					"isSystem" : true,
+					"path" : "/usr/local/Cellar/gsl/2.7/include"
+				}
+			],
+			"language" : "CXX",
+			"languageStandard" : 
+			{
+				"backtraces" : 
+				[
+					1
+				],
+				"standard" : "11"
+			},
+			"sourceIndexes" : 
+			[
+				0
+			]
+		}
+	],
+	"dependencies" : 
+	[
+		{
+			"backtrace" : 2,
+			"id" : "AngMom::@6890427a1f51a3e7e1df"
+		},
+		{
+			"backtrace" : 2,
+			"id" : "AngMomCache::@6890427a1f51a3e7e1df"
+		},
+		{
+			"backtrace" : 2,
+			"id" : "IMSRGProfiler::@6890427a1f51a3e7e1df"
+		},
+		{
+			"backtrace" : 2,
+			"id" : "ModelSpace::@6890427a1f51a3e7e1df"
+		},
+		{
+			"backtrace" : 2,
+			"id" : "TwoBodyME::@6890427a1f51a3e7e1df"
+		},
+		{
+			"backtrace" : 2,
+			"id" : "ThreeLegME::@6890427a1f51a3e7e1df"
+		},
+		{
+			"backtrace" : 2,
+			"id" : "ThreeBodyStorage::@6890427a1f51a3e7e1df"
+		},
+		{
+			"backtrace" : 2,
+			"id" : "ThreeBodyStorage_pn::@6890427a1f51a3e7e1df"
+		},
+		{
+			"backtrace" : 2,
+			"id" : "ThreeBodyStorage_no2b::@6890427a1f51a3e7e1df"
+		},
+		{
+			"backtrace" : 2,
+			"id" : "ThreeBodyStorage_mono::@6890427a1f51a3e7e1df"
+		},
+		{
+			"backtrace" : 2,
+			"id" : "ThreeBodyStorage_iso::@6890427a1f51a3e7e1df"
+		},
+		{
+			"backtrace" : 2,
+			"id" : "ThreeBodyME::@6890427a1f51a3e7e1df"
+		},
+		{
+			"backtrace" : 2,
+			"id" : "Operator::@6890427a1f51a3e7e1df"
+		},
+		{
+			"backtrace" : 2,
+			"id" : "Version::@6890427a1f51a3e7e1df"
+		},
+		{
+			"backtrace" : 2,
+			"id" : "ReadWrite::@6890427a1f51a3e7e1df"
+		},
+		{
+			"backtrace" : 2,
+			"id" : "IMSRGSolver::@6890427a1f51a3e7e1df"
+		},
+		{
+			"backtrace" : 2,
+			"id" : "Commutator232::@6890427a1f51a3e7e1df"
+		},
+		{
+			"backtrace" : 2,
+			"id" : "Commutator::@6890427a1f51a3e7e1df"
+		},
+		{
+			"backtrace" : 2,
+			"id" : "DarkMatterNREFT::@6890427a1f51a3e7e1df"
+		},
+		{
+			"backtrace" : 2,
+			"id" : "Jacobi3BME::@6890427a1f51a3e7e1df"
+		},
+		{
+			"backtrace" : 2,
+			"id" : "Pwd::@6890427a1f51a3e7e1df"
+		},
+		{
+			"backtrace" : 2,
+			"id" : "HFMBPT::@6890427a1f51a3e7e1df"
+		},
+		{
+			"backtrace" : 2,
+			"id" : "RPA::@6890427a1f51a3e7e1df"
+		},
+		{
+			"backtrace" : 2,
+			"id" : "ReferenceImplementations::@6890427a1f51a3e7e1df"
+		},
+		{
+			"backtrace" : 2,
+			"id" : "UnitTest::@6890427a1f51a3e7e1df"
+		},
+		{
+			"backtrace" : 2,
+			"id" : "IMSRGBoostZip::@3e315167f11fa48c5fdc"
+		}
+	],
+	"id" : "comm331::@1a90e58e9d4ac35d4612",
+	"link" : 
+	{
+		"commandFragments" : 
+		[
+			{
+				"fragment" : "-g",
+				"role" : "flags"
+			},
+			{
+				"fragment" : "",
+				"role" : "flags"
+			},
+			{
+				"backtrace" : 2,
+				"fragment" : "../libVersion.a",
+				"role" : "libraries"
+			},
+			{
+				"fragment" : "../libHFMBPT.a",
+				"role" : "libraries"
+			},
+			{
+				"fragment" : "../libUnitTest.a",
+				"role" : "libraries"
+			},
+			{
+				"fragment" : "../libReferenceImplementations.a",
+				"role" : "libraries"
+			},
+			{
+				"fragment" : "../libIMSRGSolver.a",
+				"role" : "libraries"
+			},
+			{
+				"fragment" : "../libGenerator.a",
+				"role" : "libraries"
+			},
+			{
+				"fragment" : "../libimsrg_util.a",
+				"role" : "libraries"
+			},
+			{
+				"fragment" : "../libM0nu.a",
+				"role" : "libraries"
+			},
+			{
+				"fragment" : "../libIMSRGSolver.a",
+				"role" : "libraries"
+			},
+			{
+				"fragment" : "../libGenerator.a",
+				"role" : "libraries"
+			},
+			{
+				"fragment" : "../libimsrg_util.a",
+				"role" : "libraries"
+			},
+			{
+				"fragment" : "../libM0nu.a",
+				"role" : "libraries"
+			},
+			{
+				"fragment" : "../libReadWrite.a",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 2,
+				"fragment" : "../libVersion.a",
+				"role" : "libraries"
+			},
+			{
+				"fragment" : "../libHartreeFock.a",
+				"role" : "libraries"
+			},
+			{
+				"fragment" : "../libJacobi3BME.a",
+				"role" : "libraries"
+			},
+			{
+				"fragment" : "../libHartreeFock.a",
+				"role" : "libraries"
+			},
+			{
+				"fragment" : "../libJacobi3BME.a",
+				"role" : "libraries"
+			},
+			{
+				"fragment" : "../libCommutator.a",
+				"role" : "libraries"
+			},
+			{
+				"fragment" : "../libCommutator232.a",
+				"role" : "libraries"
+			},
+			{
+				"fragment" : "../libDarkMatterNREFT.a",
+				"role" : "libraries"
+			},
+			{
+				"fragment" : "../libPwd.a",
+				"role" : "libraries"
+			},
+			{
+				"fragment" : "../libRPA.a",
+				"role" : "libraries"
+			},
+			{
+				"fragment" : "../libOperator.a",
+				"role" : "libraries"
+			},
+			{
+				"fragment" : "../libTwoBodyME.a",
+				"role" : "libraries"
+			},
+			{
+				"fragment" : "../libThreeBodyME.a",
+				"role" : "libraries"
+			},
+			{
+				"fragment" : "../libThreeBodyStorage_iso.a",
+				"role" : "libraries"
+			},
+			{
+				"fragment" : "../libThreeBodyStorage_pn.a",
+				"role" : "libraries"
+			},
+			{
+				"fragment" : "../libThreeBodyStorage_no2b.a",
+				"role" : "libraries"
+			},
+			{
+				"fragment" : "../libThreeBodyStorage_mono.a",
+				"role" : "libraries"
+			},
+			{
+				"fragment" : "../boost_src/libIMSRGBoostZip.a",
+				"role" : "libraries"
+			},
+			{
+				"fragment" : "/Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk/usr/lib/libz.tbd",
+				"role" : "libraries"
+			},
+			{
+				"fragment" : "../libThreeBodyStorage.a",
+				"role" : "libraries"
+			},
+			{
+				"fragment" : "../libThreeLegME.a",
+				"role" : "libraries"
+			},
+			{
+				"fragment" : "../libModelSpace.a",
+				"role" : "libraries"
+			},
+			{
+				"fragment" : "../libIMSRGProfiler.a",
+				"role" : "libraries"
+			},
+			{
+				"fragment" : "/usr/local/lib/libomp.dylib",
+				"role" : "libraries"
+			},
+			{
+				"fragment" : "../libAngMomCache.a",
+				"role" : "libraries"
+			},
+			{
+				"fragment" : "../libAngMom.a",
+				"role" : "libraries"
+			},
+			{
+				"fragment" : "/usr/local/Cellar/gsl/2.7/lib/libgsl.dylib",
+				"role" : "libraries"
+			},
+			{
+				"fragment" : "/usr/local/Cellar/gsl/2.7/lib/libgslcblas.dylib",
+				"role" : "libraries"
+			},
+			{
+				"fragment" : "/usr/local/opt/openblas/lib/libopenblas.dylib",
+				"role" : "libraries"
+			}
+		],
+		"language" : "CXX"
+	},
+	"name" : "comm331",
+	"nameOnDisk" : "comm331",
+	"paths" : 
+	{
+		"build" : "profiling",
+		"source" : "profiling"
+	},
+	"sourceGroups" : 
+	[
+		{
+			"name" : "Source Files",
+			"sourceIndexes" : 
+			[
+				0
+			]
+		}
+	],
+	"sources" : 
+	[
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "profiling/comm331.cc",
+			"sourceGroupIndex" : 0
+		}
+	],
+	"type" : "EXECUTABLE"
+}

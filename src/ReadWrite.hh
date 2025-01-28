@@ -121,7 +121,7 @@ class ReadWrite
    void WriteTokyo(Operator& op, std::string filename, std::string mode);
    void WriteTokyoFull(Operator& op, std::string filename);  // only for Hamiltonian
    void WriteTensorTokyo(std::string filename, Operator& op);
-   Operator ReadOperator2b_Miyagi(std::string, ModelSpace&); // general operator me2j-like format
+   Operator ReadOperator2b_Miyagi(std::string, ModelSpace &); // general operator me2j-like format
    void skip_comments(std::ifstream&);
 
 

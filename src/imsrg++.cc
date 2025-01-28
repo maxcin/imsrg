@@ -791,9 +791,9 @@ int main(int argc, char** argv)
       else if ( input_op_fmt == "miyagi" )
       {
         if (opff.file2name != "")
-        {   
-            Operator optmp = rw.ReadOperator2b_Miyagi( opff.file2name, modelspace );
-            op.TwoBody = optmp.TwoBody;
+        {
+          Operator optmp = rw.ReadOperator2b_Miyagi(opff.file2name, modelspace);
+          op.TwoBody = optmp.TwoBody;
         }
         if ( opff.r>2 and opff.file3name != "")  rw.Read_Darmstadt_3body( opff.file3name, op,  file3e1max,file3e2max,file3e3max);
       }
@@ -1261,9 +1261,11 @@ int main(int argc, char** argv)
     }
 
     HNO = HNO.UndoNormalOrdering();
-    HNO.SetModelSpace(ms2);
+    
+    // HNO.SetModelSpace(ms2);
     std::cout << "Doing NO wrt A=" << ms2.GetAref() << " Z=" << ms2.GetZref() << "  norbits = " << ms2.GetNumberOrbits() << std::endl;
-    HNO = HNO.DoNormalOrdering();
+    HNO = HNO.DoNormalOrderingCore();
+    // HNO = HNO.DoNormalOrdering();
 
     imsrgsolver.FlowingOps[0] = HNO;
 
@@ -1416,9 +1418,9 @@ int main(int argc, char** argv)
         else if ( input_op_fmt == "miyagi" )
         {
           if (opff.file2name != "")
-          {   
-              Operator optmp = rw.ReadOperator2b_Miyagi( opff.file2name, modelspace );
-              op.TwoBody = optmp.TwoBody;
+          {
+            Operator optmp = rw.ReadOperator2b_Miyagi(opff.file2name, modelspace);
+            op.TwoBody = optmp.TwoBody;
           }
           if ( opff.r>2 and opff.file3name != "")  rw.Read_Darmstadt_3body( opff.file3name, op,  file3e1max,file3e2max,file3e3max);
         }
@@ -1455,7 +1457,7 @@ int main(int argc, char** argv)
 
 
 
-
+      
       if ( basis == "oscillator" or opname=="OccRef")
       {
         op = op.DoNormalOrdering();
@@ -1468,6 +1470,8 @@ int main(int argc, char** argv)
       {
         op = hf.TransformHOToNATBasis(op).DoNormalOrdering();
       }
+
+      
       std::cout << "   HF: " << op.ZeroBody << std::endl;
 
       if ( (eMax_imsrg != -1) or (e2Max_imsrg != -1) or (e3Max_imsrg) != -1)

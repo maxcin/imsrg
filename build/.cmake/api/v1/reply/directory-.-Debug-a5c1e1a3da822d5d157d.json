@@ -1,0 +1,94 @@
+{
+	"backtraceGraph" : 
+	{
+		"commands" : 
+		[
+			"install"
+		],
+		"files" : 
+		[
+			"CMakeLists.txt"
+		],
+		"nodes" : 
+		[
+			{
+				"file" : 0
+			},
+			{
+				"command" : 0,
+				"file" : 0,
+				"line" : 623,
+				"parent" : 0
+			},
+			{
+				"command" : 0,
+				"file" : 0,
+				"line" : 634,
+				"parent" : 0
+			}
+		]
+	},
+	"installers" : 
+	[
+		{
+			"backtrace" : 1,
+			"component" : "Unspecified",
+			"destination" : "/bin",
+			"paths" : 
+			[
+				"imsrg++"
+			],
+			"targetId" : "imsrg++::@6890427a1f51a3e7e1df",
+			"targetIndex" : 38,
+			"type" : "target"
+		},
+		{
+			"backtrace" : 2,
+			"component" : "Unspecified",
+			"destination" : "/include",
+			"paths" : 
+			[
+				"AngMom.hh",
+				"AngMomCache.hh",
+				"Commutator.hh",
+				"Commutator232.hh",
+				"DarkMatterNREFT.hh",
+				"GaussLaguerre.hh",
+				"Generator.hh",
+				"HFMBPT.hh",
+				"HartreeFock.hh",
+				"Helicity.hh",
+				"IMSRG.hh",
+				"IMSRGProfiler.hh",
+				"IMSRGSolver.hh",
+				"Jacobi3BME.hh",
+				"M0nu.hh",
+				"ModelSpace.hh",
+				"Operator.hh",
+				"Parameters.hh",
+				"PhysicalConstants.hh",
+				"Pwd.hh",
+				"RPA.hh",
+				"ReadWrite.hh",
+				"ReferenceImplementations.hh",
+				"ThreeBodyME.hh",
+				"ThreeBodyStorage.hh",
+				"ThreeBodyStorage_iso.hh",
+				"ThreeBodyStorage_mono.hh",
+				"ThreeBodyStorage_no2b.hh",
+				"ThreeBodyStorage_pn.hh",
+				"ThreeLegME.hh",
+				"TwoBodyME.hh",
+				"UnitTest.hh",
+				"imsrg_util.hh",
+				"version.hh"
+			],
+			"type" : "file"
+		}
+	],
+	"paths" : 
+	{
+		"build" : ".",
+		"source" : "."
+	}
+}

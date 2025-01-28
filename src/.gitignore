@@ -3,6 +3,7 @@ tmp*
 *.o
 *.so
 *.gz
+*.a
 ../output/*
 ../input/*
 ../doc/*

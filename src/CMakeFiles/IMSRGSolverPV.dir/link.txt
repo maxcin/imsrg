@@ -1,0 +1,2 @@
+/Library/Developer/CommandLineTools/usr/bin/ar qc libIMSRGSolverPV.a CMakeFiles/IMSRGSolverPV.dir/IMSRGSolverPV.cc.o
+/Library/Developer/CommandLineTools/usr/bin/ranlib libIMSRGSolverPV.a
