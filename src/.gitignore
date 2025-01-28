@@ -7,6 +7,7 @@ tmp*
 ../input/*
 ../doc/*
 ../work/*
+../work/.*
 ../old_armadillo/*
 build/
 .vscode/
