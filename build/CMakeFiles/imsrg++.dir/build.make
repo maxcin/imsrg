@@ -95,6 +95,8 @@ imsrg++: CMakeFiles/imsrg++.dir/build.make
 imsrg++: libVersion.a
 imsrg++: libUnitTest.a
 imsrg++: libUnitTest.a
+imsrg++: libIMSRGSolverPV.a
+imsrg++: libGeneratorPV.a
 imsrg++: libHFMBPT.a
 imsrg++: libRPA.a
 imsrg++: libReferenceImplementations.a
@@ -127,7 +129,7 @@ imsrg++: libThreeBodyStorage_iso.a
 imsrg++: libThreeBodyStorage_pn.a
 imsrg++: libThreeBodyStorage_no2b.a
 imsrg++: libThreeBodyStorage_mono.a
-imsrg++: boost_src/libIMSRGBoostZip.a
+imsrg++: extern/boost_src/libIMSRGBoostZip.a
 imsrg++: /Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk/usr/lib/libz.tbd
 imsrg++: libThreeBodyStorage.a
 imsrg++: libThreeLegME.a
@@ -135,11 +137,11 @@ imsrg++: libModelSpace.a
 imsrg++: libIMSRGProfiler.a
 imsrg++: /usr/local/lib/libomp.dylib
 imsrg++: libAngMomCache.a
-imsrg++: /usr/local/opt/openblas/lib/libopenblas.dylib
 imsrg++: libPwd.a
 imsrg++: libAngMom.a
 imsrg++: /usr/local/Cellar/gsl/2.7/lib/libgsl.dylib
 imsrg++: /usr/local/Cellar/gsl/2.7/lib/libgslcblas.dylib
+imsrg++: /usr/local/opt/openblas/lib/libopenblas.dylib
 imsrg++: CMakeFiles/imsrg++.dir/link.txt
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/Users/antoinebelley/Documents/TRIUMF/imsrg/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX executable imsrg++"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/imsrg++.dir/link.txt --verbose=$(VERBOSE)

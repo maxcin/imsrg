@@ -457,6 +457,7 @@ PYBIND11_MODULE(pyIMSRG, m)
           .def("ReadBareTBME_Navratil", &ReadWrite::ReadBareTBME_Navratil)
           .def("ReadBareTBME_Darmstadt", &ReadWrite::ReadBareTBME_Darmstadt, py::arg("filename"), py::arg("H"), py::arg("e1max"), py::arg("e2max"), py::arg("lmax"))
           .def("Read_Darmstadt_3body", &ReadWrite::Read_Darmstadt_3body, py::arg("filename"), py::arg("H"), py::arg("e1max"), py::arg("e2max"), py::arg("e3max"))
+          .def("ReadOperator2b_Miyagi", &ReadWrite::ReadOperator2b_Miyagi, py::arg("filename"), py::arg("ms"))
 #ifndef NO_HDF5
           .def("Read3bodyHDF5", &ReadWrite::Read3bodyHDF5)
 #endif

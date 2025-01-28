@@ -664,7 +664,6 @@ namespace M0nu
     pwd.freeAngularMesh();
     std::cout << "Done precomputing A's." << std::endl;
     Operator M0nuF_TBME = TwoBody_Scalar_operator(modelspace, pwd, 0, 0);
-    M0nuF_TBME.PrintTwoBody();
     return M0nuF_TBME;
   }
 

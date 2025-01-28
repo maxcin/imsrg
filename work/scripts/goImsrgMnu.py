@@ -187,10 +187,10 @@ if MNU['int'] == 'BARE' or MNU['BB'] == 'HF':
   ARGS['smax'] = '0'
 else:
   ARGS['smax'] = '500'
-ARGS['dsmax'] = '0.3'
+ARGS['dsmax'] = '0.5'
 # ARGS['eta_criterion'] = 1e-6
 ### Norm of Omega at which we split off and start a new transformation
-ARGS['omega_norm_max'] = '0.5'
+ARGS['omega_norm_max'] = '0.25'
 ### Solution method
 ARGS['method'] = 'magnus'
 if MNU['BB'] == '3N':
@@ -284,13 +284,13 @@ else:
   print('exiting...')
   exit()
 
-ARGS['BetaCM'] = '5'
+# ARGS['BetaCM'] = '5'
 ARGS['hwBetaCM'] = f'{args.hw}'
 ARGS['input_op_fmt'] = 'miyagi'
 ARGS['hw'] = f'{args.hw}'
 ARGS['emax'] = f'{args.emax}'
 ARGS['e3max'] = f'{args.e3max}'
-ARGS['denominator_delta'] =  10
+# ARGS['denominator_delta'] =  10
 #ARGS["3bme_type"] = "no2b"
 ARGS['freeze_occupations'] =  "false"
 

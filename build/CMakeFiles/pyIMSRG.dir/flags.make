@@ -4,7 +4,7 @@
 # compile CXX with /Library/Developer/CommandLineTools/usr/bin/c++
 CXX_DEFINES = -DNO_HDF5=\"true\" -DpyIMSRG_EXPORTS
 
-CXX_INCLUDES = -I/Users/antoinebelley/Documents/TRIUMF/imsrg/src/armadillo -I/Users/antoinebelley/Documents/TRIUMF/imsrg/src/half/include -isystem /Users/antoinebelley/Documents/TRIUMF/imsrg/src/pybind11/include -isystem /usr/local/opt/python@3.10/Frameworks/Python.framework/Versions/3.10/include/python3.10 -isystem /usr/local/include -isystem /usr/local/Cellar/gsl/2.7/include
+CXX_INCLUDES = -I/Users/antoinebelley/Documents/TRIUMF/imsrg/src/extern/armadillo -I/Users/antoinebelley/Documents/TRIUMF/imsrg/src/extern/half/include -isystem /Users/antoinebelley/Documents/TRIUMF/imsrg/src/extern/pybind11/include -isystem /usr/local/opt/python@3.10/Frameworks/Python.framework/Versions/3.10/include/python3.10 -isystem /usr/local/include -isystem /usr/local/Cellar/gsl/2.7/include
 
-CXX_FLAGS = -g -std=gnu++11 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk -fPIC -fvisibility=hidden -frounding-math -Xclang -fopenmp
+CXX_FLAGS = -g -std=gnu++14 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk -fPIC -fvisibility=hidden -frounding-math -Xclang -fopenmp
 

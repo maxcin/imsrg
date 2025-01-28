@@ -4,7 +4,7 @@
 # compile CXX with /Library/Developer/CommandLineTools/usr/bin/c++
 CXX_DEFINES = 
 
-CXX_INCLUDES = -I/Users/antoinebelley/Documents/TRIUMF/imsrg/src/armadillo
+CXX_INCLUDES = -I/Users/antoinebelley/Documents/TRIUMF/imsrg/src/extern/armadillo
 
-CXX_FLAGS = -g -std=gnu++11 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk -fPIC -frounding-math
+CXX_FLAGS = -g -std=gnu++14 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk -fPIC -frounding-math
 

@@ -6,5 +6,5 @@ CXX_DEFINES = -DNO_HDF5=\"true\"
 
 CXX_INCLUDES = 
 
-CXX_FLAGS = -g -std=gnu++11 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk -fPIC -frounding-math -Xclang -fopenmp
+CXX_FLAGS = -g -std=gnu++14 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk -fPIC -frounding-math -Xclang -fopenmp
 
