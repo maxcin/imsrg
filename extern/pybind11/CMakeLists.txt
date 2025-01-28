@@ -5,10 +5,14 @@
 # All rights reserved. Use of this source code is governed by a
 # BSD-style license that can be found in the LICENSE file.
 
+<<<<<<< HEAD:src/pybind11/CMakeLists.txt
+cmake_minimum_required(VERSION 3.15)
+=======
 # Propagate this policy (FindPythonInterp removal) so it can be detected later
 if(NOT CMAKE_VERSION VERSION_LESS "3.27")
   cmake_policy(GET CMP0148 _pybind11_cmp0148)
 endif()
+>>>>>>> upstream/devel:extern/pybind11/CMakeLists.txt
 
 cmake_minimum_required(VERSION 3.5)
 

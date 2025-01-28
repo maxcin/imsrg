@@ -132,6 +132,17 @@ double Generator::Get1bDenominator(int i, int j)
    if (denominator_delta_index==-12345 or i == denominator_delta_index or j==denominator_delta_index)
      denominator += denominator_delta;
 
+   // if (std::abs(denominator) < denominator_cutoff)
+   // {
+   //    if (denominator > 0)
+   //    {
+   //       denominator = denominator_cutoff;
+   //    }
+   //    else
+   //    {
+   //       denominator = - denominator_cutoff;
+   //    }    
+   // }
    if (std::abs(denominator)<denominator_cutoff)
      denominator = denominator_cutoff;
 
@@ -182,6 +193,17 @@ double Generator::Get2bDenominator(int ch_bra, int ch_ket, int ibra, int iket)
      denominator       += ( nj-nl )   * H->TwoBody.GetTBMEmonopole(j,l,j,l); // p'h'p'h'
    }
 
+   // if (std::abs(denominator) < denominator_cutoff)
+   // {
+   //   if (denominator > 0)
+   //   {
+   //       denominator = denominator_cutoff;
+   //   }
+   //   else
+   //   {
+   //       denominator = -denominator_cutoff;
+   //   }
+   // }
    if (std::abs(denominator)<denominator_cutoff)
      denominator = denominator_cutoff;
 

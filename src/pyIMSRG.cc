@@ -1,5 +1,4 @@
 #include <Python.h>
-
 #include "IMSRG.hh"
 #include <string>
 #include <sstream>
@@ -9,6 +8,7 @@
 #include <pybind11/pybind11.h>
 #include <pybind11/operators.h>
 #include <pybind11/stl.h>
+#include <pybind11/numpy.h>
 
 namespace py = pybind11;
 
@@ -136,6 +136,8 @@ PYBIND11_MODULE(pyIMSRG, m)
           //      .def("GetOrbit", &MS_GetOrbit)
           .def("GetOrbit", [](ModelSpace &self, int i)
                { return self.GetOrbit(i); })
+          .def("GetKet", [](ModelSpace &self, int i)
+               { return self.GetKet(i); })
           .def("GetTwoBodyChannelIndex", &ModelSpace::GetTwoBodyChannelIndex)
           .def("GetTwoBodyChannel", [](ModelSpace &self, int ch)
                { return self.GetTwoBodyChannel(ch); })
