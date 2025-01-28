@@ -354,6 +354,12 @@ namespace imsrg_util
          std::istringstream( opnamesplit[1] ) >> hw_trap;
          theop = HOtrap_Op( modelspace, hw_trap);
       }
+      else if (opnamesplit[0] == "Schiff")
+      {
+        double R;
+        std::istringstream( opnamesplit[1]) >> R;
+        theop =  SchiffOp( modelspace,3,1,R);
+      }
       else if (opnamesplit[0] == "VPT" )
       {
         std::vector<double> LECs;
