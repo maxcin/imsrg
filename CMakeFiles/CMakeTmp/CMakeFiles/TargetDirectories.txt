@@ -1,3 +1,0 @@
-/home/belleya/projects/rrg-holt/belleya/imsrg/CMakeFiles/CMakeTmp/CMakeFiles/cmTC_5084a.dir
-/home/belleya/projects/rrg-holt/belleya/imsrg/CMakeFiles/CMakeTmp/CMakeFiles/edit_cache.dir
-/home/belleya/projects/rrg-holt/belleya/imsrg/CMakeFiles/CMakeTmp/CMakeFiles/rebuild_cache.dir

@@ -1,2 +1,0 @@
-/Library/Developer/CommandLineTools/usr/bin/ar qc libRPA.a CMakeFiles/RPA.dir/RPA.cc.o
-/Library/Developer/CommandLineTools/usr/bin/ranlib libRPA.a

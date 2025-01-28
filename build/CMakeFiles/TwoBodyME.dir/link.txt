@@ -1,2 +1,0 @@
-/Library/Developer/CommandLineTools/usr/bin/ar qc libTwoBodyME.a CMakeFiles/TwoBodyME.dir/TwoBodyME.cc.o
-/Library/Developer/CommandLineTools/usr/bin/ranlib libTwoBodyME.a
