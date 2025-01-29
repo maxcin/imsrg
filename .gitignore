@@ -6,6 +6,8 @@ CMakeCache.txt
 cmake_install.cmake
 Makefile
 CMakeUserPresets.json
+CTestTestfile.cmake
+Testing/
 #Output compiled libraries
 *.o
 *.so
@@ -21,4 +23,5 @@ src/.*.swp
 #Image files for apptained
 *.sifs
 #Work folders should only contain the examples scripts
-work/*
+work/
+__pycache__

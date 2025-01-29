@@ -48,5 +48,12 @@ if(IMSRG_BUILD_PYTHON_BINDINGS)
         PRIVATE
         IMSRG
     )
+    #ADD tests to be run directly in the build process
+    enable_testing()
+    add_test (
+        NAME UnitTest
+        COMMAND ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/tests/UnitTest.py 
+        WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}
+    )
 endif()
 
