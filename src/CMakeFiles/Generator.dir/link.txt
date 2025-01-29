@@ -1,2 +1,2 @@
-/cvmfs/soft.computecanada.ca/gentoo/2023/x86-64-v3/usr/bin/ar qc libGenerator.a CMakeFiles/Generator.dir/Generator.cc.o
-/cvmfs/soft.computecanada.ca/gentoo/2023/x86-64-v3/usr/bin/ranlib libGenerator.a
+/Library/Developer/CommandLineTools/usr/bin/ar qc libGenerator.a CMakeFiles/Generator.dir/Generator.cc.o
+/Library/Developer/CommandLineTools/usr/bin/ranlib libGenerator.a

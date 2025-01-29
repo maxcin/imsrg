@@ -1,2 +1,2 @@
-/cvmfs/soft.computecanada.ca/gentoo/2023/x86-64-v3/usr/bin/ar qc libThreeBodyStorage_no2b.a CMakeFiles/ThreeBodyStorage_no2b.dir/ThreeBodyStorage_no2b.cc.o
-/cvmfs/soft.computecanada.ca/gentoo/2023/x86-64-v3/usr/bin/ranlib libThreeBodyStorage_no2b.a
+/Library/Developer/CommandLineTools/usr/bin/ar qc libThreeBodyStorage_no2b.a CMakeFiles/ThreeBodyStorage_no2b.dir/ThreeBodyStorage_no2b.cc.o
+/Library/Developer/CommandLineTools/usr/bin/ranlib libThreeBodyStorage_no2b.a

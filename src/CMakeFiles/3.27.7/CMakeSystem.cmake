@@ -1,13 +1,25 @@
+<<<<<<< HEAD
 set(CMAKE_HOST_SYSTEM "Darwin-23.4.0")
 set(CMAKE_HOST_SYSTEM_NAME "Darwin")
 set(CMAKE_HOST_SYSTEM_VERSION "23.4.0")
+=======
+set(CMAKE_HOST_SYSTEM "Darwin-24.2.0")
+set(CMAKE_HOST_SYSTEM_NAME "Darwin")
+set(CMAKE_HOST_SYSTEM_VERSION "24.2.0")
+>>>>>>> devel
 set(CMAKE_HOST_SYSTEM_PROCESSOR "x86_64")
 
 
 
+<<<<<<< HEAD
 set(CMAKE_SYSTEM "Darwin-23.4.0")
 set(CMAKE_SYSTEM_NAME "Darwin")
 set(CMAKE_SYSTEM_VERSION "23.4.0")
+=======
+set(CMAKE_SYSTEM "Darwin-24.2.0")
+set(CMAKE_SYSTEM_NAME "Darwin")
+set(CMAKE_SYSTEM_VERSION "24.2.0")
+>>>>>>> devel
 set(CMAKE_SYSTEM_PROCESSOR "x86_64")
 
 set(CMAKE_CROSSCOMPILING "FALSE")

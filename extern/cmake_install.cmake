@@ -1,4 +1,4 @@
-# Install script for directory: /home/belleya/projects/rrg-holt/belleya/imsrg/extern
+# Install script for directory: /Users/antoinebelley/Documents/TRIUMF/imsrg/extern
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -27,11 +27,6 @@ if(NOT CMAKE_INSTALL_COMPONENT)
   endif()
 endif()
 
-# Install shared libraries without execute permission?
-if(NOT DEFINED CMAKE_INSTALL_SO_NO_EXE)
-  set(CMAKE_INSTALL_SO_NO_EXE "0")
-endif()
-
 # Is this installation the result of a crosscompile?
 if(NOT DEFINED CMAKE_CROSSCOMPILING)
   set(CMAKE_CROSSCOMPILING "FALSE")
@@ -39,21 +34,26 @@ endif()
 
 # Set default install directory permissions.
 if(NOT DEFINED CMAKE_OBJDUMP)
-  set(CMAKE_OBJDUMP "/cvmfs/soft.computecanada.ca/gentoo/2023/x86-64-v3/usr/bin/objdump")
+  set(CMAKE_OBJDUMP "/Library/Developer/CommandLineTools/usr/bin/objdump")
 endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for the subdirectory.
-  include("/home/belleya/projects/rrg-holt/belleya/imsrg/extern/boost_src/cmake_install.cmake")
+  include("/Users/antoinebelley/Documents/TRIUMF/imsrg/extern/armadillo/cmake_install.cmake")
 endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for the subdirectory.
-  include("/home/belleya/projects/rrg-holt/belleya/imsrg/extern/half/cmake_install.cmake")
+  include("/Users/antoinebelley/Documents/TRIUMF/imsrg/extern/boost_src/cmake_install.cmake")
 endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for the subdirectory.
-  include("/home/belleya/projects/rrg-holt/belleya/imsrg/extern/pybind11/cmake_install.cmake")
+  include("/Users/antoinebelley/Documents/TRIUMF/imsrg/extern/half/cmake_install.cmake")
+endif()
+
+if(NOT CMAKE_INSTALL_LOCAL_ONLY)
+  # Include the install script for the subdirectory.
+  include("/Users/antoinebelley/Documents/TRIUMF/imsrg/extern/pybind11/cmake_install.cmake")
 endif()
 

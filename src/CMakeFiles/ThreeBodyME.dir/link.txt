@@ -1,2 +1,2 @@
-/cvmfs/soft.computecanada.ca/gentoo/2023/x86-64-v3/usr/bin/ar qc libThreeBodyME.a CMakeFiles/ThreeBodyME.dir/ThreeBodyME.cc.o
-/cvmfs/soft.computecanada.ca/gentoo/2023/x86-64-v3/usr/bin/ranlib libThreeBodyME.a
+/Library/Developer/CommandLineTools/usr/bin/ar qc libThreeBodyME.a CMakeFiles/ThreeBodyME.dir/ThreeBodyME.cc.o
+/Library/Developer/CommandLineTools/usr/bin/ranlib libThreeBodyME.a

@@ -1,2 +1,2 @@
-/cvmfs/soft.computecanada.ca/gentoo/2023/x86-64-v3/usr/bin/ar qc libCommutator232.a CMakeFiles/Commutator232.dir/Commutator232.cc.o
-/cvmfs/soft.computecanada.ca/gentoo/2023/x86-64-v3/usr/bin/ranlib libCommutator232.a
+/Library/Developer/CommandLineTools/usr/bin/ar qc libCommutator232.a CMakeFiles/Commutator232.dir/Commutator232.cc.o
+/Library/Developer/CommandLineTools/usr/bin/ranlib libCommutator232.a

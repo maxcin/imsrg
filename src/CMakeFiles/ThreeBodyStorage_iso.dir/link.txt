@@ -1,2 +1,2 @@
-/cvmfs/soft.computecanada.ca/gentoo/2023/x86-64-v3/usr/bin/ar qc libThreeBodyStorage_iso.a CMakeFiles/ThreeBodyStorage_iso.dir/ThreeBodyStorage_iso.cc.o
-/cvmfs/soft.computecanada.ca/gentoo/2023/x86-64-v3/usr/bin/ranlib libThreeBodyStorage_iso.a
+/Library/Developer/CommandLineTools/usr/bin/ar qc libThreeBodyStorage_iso.a CMakeFiles/ThreeBodyStorage_iso.dir/ThreeBodyStorage_iso.cc.o
+/Library/Developer/CommandLineTools/usr/bin/ranlib libThreeBodyStorage_iso.a

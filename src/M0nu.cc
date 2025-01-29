@@ -664,7 +664,6 @@ namespace M0nu
     pwd.freeAngularMesh();
     std::cout << "Done precomputing A's." << std::endl;
     Operator M0nuF_TBME = TwoBody_Scalar_operator(modelspace, pwd, 0, 0);
-    M0nuF_TBME.PrintTwoBody();
     return M0nuF_TBME;
   }
 
@@ -929,7 +928,7 @@ namespace M0nu
       if (omp_get_num_threads() >= 2)
       {
         printf("DANGER!!!!!!!  Updating IntList inside a parellel loop breaks thread safety!\n");
-        printf("   I shouldn't be here in GetIntegral(%d, %d, %d, %d, %d, %d):   key =%lx   integral=%f\n",n,l,np,lp,S,J,key,integral);
+        printf("   I shouldn't be here in GetIntegral(%d, %d, %d, %d, %d, %d):   key =%llx   integral=%f\n",n,l,np,lp,S,J,key,integral);
         exit(EXIT_FAILURE);
       }
       IntList[key] = integral;
@@ -1295,7 +1294,7 @@ namespace M0nu
       if (omp_get_num_threads() >= 2)
       {
         printf("DANGER!!!!!!!  Updating IntList inside a parellel loop breaks thread safety!\n");
-        printf("   I shouldn't be here in GetIntegral(%d, %d):   key =%lx   integral=%f\n",Ncom,Lam,key,integral);
+        printf("   I shouldn't be here in GetIntegral(%d, %d):   key =%llx   integral=%f\n",Ncom,Lam,key,integral);
         exit(EXIT_FAILURE);
       }
       IntList[key] = integral;

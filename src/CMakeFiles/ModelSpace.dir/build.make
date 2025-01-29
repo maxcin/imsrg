@@ -44,19 +44,19 @@ cmake_force:
 SHELL = /bin/sh
 
 # The CMake executable.
-CMAKE_COMMAND = /cvmfs/soft.computecanada.ca/easybuild/software/2023/x86-64-v3/Core/cmake/3.27.7/bin/cmake
+CMAKE_COMMAND = /usr/local/Cellar/cmake/3.27.7/bin/cmake
 
 # The command to remove a file.
-RM = /cvmfs/soft.computecanada.ca/easybuild/software/2023/x86-64-v3/Core/cmake/3.27.7/bin/cmake -E rm -f
+RM = /usr/local/Cellar/cmake/3.27.7/bin/cmake -E rm -f
 
 # Escaping for special characters.
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/belleya/projects/rrg-holt/belleya/imsrg
+CMAKE_SOURCE_DIR = /Users/antoinebelley/Documents/TRIUMF/imsrg
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/belleya/projects/rrg-holt/belleya/imsrg
+CMAKE_BINARY_DIR = /Users/antoinebelley/Documents/TRIUMF/imsrg
 
 # Include any dependencies generated for this target.
 include src/CMakeFiles/ModelSpace.dir/depend.make
@@ -72,44 +72,44 @@ include src/CMakeFiles/ModelSpace.dir/flags.make
 src/CMakeFiles/ModelSpace.dir/ModelSpace.cc.o: src/CMakeFiles/ModelSpace.dir/flags.make
 src/CMakeFiles/ModelSpace.dir/ModelSpace.cc.o: src/ModelSpace.cc
 src/CMakeFiles/ModelSpace.dir/ModelSpace.cc.o: src/CMakeFiles/ModelSpace.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/belleya/projects/rrg-holt/belleya/imsrg/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object src/CMakeFiles/ModelSpace.dir/ModelSpace.cc.o"
-	cd /home/belleya/projects/rrg-holt/belleya/imsrg/src && /cvmfs/soft.computecanada.ca/gentoo/2023/x86-64-v3/usr/x86_64-pc-linux-gnu/gcc-bin/12/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT src/CMakeFiles/ModelSpace.dir/ModelSpace.cc.o -MF CMakeFiles/ModelSpace.dir/ModelSpace.cc.o.d -o CMakeFiles/ModelSpace.dir/ModelSpace.cc.o -c /home/belleya/projects/rrg-holt/belleya/imsrg/src/ModelSpace.cc
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/antoinebelley/Documents/TRIUMF/imsrg/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object src/CMakeFiles/ModelSpace.dir/ModelSpace.cc.o"
+	cd /Users/antoinebelley/Documents/TRIUMF/imsrg/src && /Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT src/CMakeFiles/ModelSpace.dir/ModelSpace.cc.o -MF CMakeFiles/ModelSpace.dir/ModelSpace.cc.o.d -o CMakeFiles/ModelSpace.dir/ModelSpace.cc.o -c /Users/antoinebelley/Documents/TRIUMF/imsrg/src/ModelSpace.cc
 
 src/CMakeFiles/ModelSpace.dir/ModelSpace.cc.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/ModelSpace.dir/ModelSpace.cc.i"
-	cd /home/belleya/projects/rrg-holt/belleya/imsrg/src && /cvmfs/soft.computecanada.ca/gentoo/2023/x86-64-v3/usr/x86_64-pc-linux-gnu/gcc-bin/12/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/belleya/projects/rrg-holt/belleya/imsrg/src/ModelSpace.cc > CMakeFiles/ModelSpace.dir/ModelSpace.cc.i
+	cd /Users/antoinebelley/Documents/TRIUMF/imsrg/src && /Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/antoinebelley/Documents/TRIUMF/imsrg/src/ModelSpace.cc > CMakeFiles/ModelSpace.dir/ModelSpace.cc.i
 
 src/CMakeFiles/ModelSpace.dir/ModelSpace.cc.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/ModelSpace.dir/ModelSpace.cc.s"
-	cd /home/belleya/projects/rrg-holt/belleya/imsrg/src && /cvmfs/soft.computecanada.ca/gentoo/2023/x86-64-v3/usr/x86_64-pc-linux-gnu/gcc-bin/12/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/belleya/projects/rrg-holt/belleya/imsrg/src/ModelSpace.cc -o CMakeFiles/ModelSpace.dir/ModelSpace.cc.s
+	cd /Users/antoinebelley/Documents/TRIUMF/imsrg/src && /Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/antoinebelley/Documents/TRIUMF/imsrg/src/ModelSpace.cc -o CMakeFiles/ModelSpace.dir/ModelSpace.cc.s
 
 src/CMakeFiles/ModelSpace.dir/TwoBodyChannel.cc.o: src/CMakeFiles/ModelSpace.dir/flags.make
 src/CMakeFiles/ModelSpace.dir/TwoBodyChannel.cc.o: src/TwoBodyChannel.cc
 src/CMakeFiles/ModelSpace.dir/TwoBodyChannel.cc.o: src/CMakeFiles/ModelSpace.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/belleya/projects/rrg-holt/belleya/imsrg/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object src/CMakeFiles/ModelSpace.dir/TwoBodyChannel.cc.o"
-	cd /home/belleya/projects/rrg-holt/belleya/imsrg/src && /cvmfs/soft.computecanada.ca/gentoo/2023/x86-64-v3/usr/x86_64-pc-linux-gnu/gcc-bin/12/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT src/CMakeFiles/ModelSpace.dir/TwoBodyChannel.cc.o -MF CMakeFiles/ModelSpace.dir/TwoBodyChannel.cc.o.d -o CMakeFiles/ModelSpace.dir/TwoBodyChannel.cc.o -c /home/belleya/projects/rrg-holt/belleya/imsrg/src/TwoBodyChannel.cc
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/antoinebelley/Documents/TRIUMF/imsrg/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object src/CMakeFiles/ModelSpace.dir/TwoBodyChannel.cc.o"
+	cd /Users/antoinebelley/Documents/TRIUMF/imsrg/src && /Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT src/CMakeFiles/ModelSpace.dir/TwoBodyChannel.cc.o -MF CMakeFiles/ModelSpace.dir/TwoBodyChannel.cc.o.d -o CMakeFiles/ModelSpace.dir/TwoBodyChannel.cc.o -c /Users/antoinebelley/Documents/TRIUMF/imsrg/src/TwoBodyChannel.cc
 
 src/CMakeFiles/ModelSpace.dir/TwoBodyChannel.cc.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/ModelSpace.dir/TwoBodyChannel.cc.i"
-	cd /home/belleya/projects/rrg-holt/belleya/imsrg/src && /cvmfs/soft.computecanada.ca/gentoo/2023/x86-64-v3/usr/x86_64-pc-linux-gnu/gcc-bin/12/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/belleya/projects/rrg-holt/belleya/imsrg/src/TwoBodyChannel.cc > CMakeFiles/ModelSpace.dir/TwoBodyChannel.cc.i
+	cd /Users/antoinebelley/Documents/TRIUMF/imsrg/src && /Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/antoinebelley/Documents/TRIUMF/imsrg/src/TwoBodyChannel.cc > CMakeFiles/ModelSpace.dir/TwoBodyChannel.cc.i
 
 src/CMakeFiles/ModelSpace.dir/TwoBodyChannel.cc.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/ModelSpace.dir/TwoBodyChannel.cc.s"
-	cd /home/belleya/projects/rrg-holt/belleya/imsrg/src && /cvmfs/soft.computecanada.ca/gentoo/2023/x86-64-v3/usr/x86_64-pc-linux-gnu/gcc-bin/12/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/belleya/projects/rrg-holt/belleya/imsrg/src/TwoBodyChannel.cc -o CMakeFiles/ModelSpace.dir/TwoBodyChannel.cc.s
+	cd /Users/antoinebelley/Documents/TRIUMF/imsrg/src && /Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/antoinebelley/Documents/TRIUMF/imsrg/src/TwoBodyChannel.cc -o CMakeFiles/ModelSpace.dir/TwoBodyChannel.cc.s
 
 src/CMakeFiles/ModelSpace.dir/ThreeBodyChannel.cc.o: src/CMakeFiles/ModelSpace.dir/flags.make
 src/CMakeFiles/ModelSpace.dir/ThreeBodyChannel.cc.o: src/ThreeBodyChannel.cc
 src/CMakeFiles/ModelSpace.dir/ThreeBodyChannel.cc.o: src/CMakeFiles/ModelSpace.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/belleya/projects/rrg-holt/belleya/imsrg/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object src/CMakeFiles/ModelSpace.dir/ThreeBodyChannel.cc.o"
-	cd /home/belleya/projects/rrg-holt/belleya/imsrg/src && /cvmfs/soft.computecanada.ca/gentoo/2023/x86-64-v3/usr/x86_64-pc-linux-gnu/gcc-bin/12/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT src/CMakeFiles/ModelSpace.dir/ThreeBodyChannel.cc.o -MF CMakeFiles/ModelSpace.dir/ThreeBodyChannel.cc.o.d -o CMakeFiles/ModelSpace.dir/ThreeBodyChannel.cc.o -c /home/belleya/projects/rrg-holt/belleya/imsrg/src/ThreeBodyChannel.cc
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/antoinebelley/Documents/TRIUMF/imsrg/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object src/CMakeFiles/ModelSpace.dir/ThreeBodyChannel.cc.o"
+	cd /Users/antoinebelley/Documents/TRIUMF/imsrg/src && /Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT src/CMakeFiles/ModelSpace.dir/ThreeBodyChannel.cc.o -MF CMakeFiles/ModelSpace.dir/ThreeBodyChannel.cc.o.d -o CMakeFiles/ModelSpace.dir/ThreeBodyChannel.cc.o -c /Users/antoinebelley/Documents/TRIUMF/imsrg/src/ThreeBodyChannel.cc
 
 src/CMakeFiles/ModelSpace.dir/ThreeBodyChannel.cc.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/ModelSpace.dir/ThreeBodyChannel.cc.i"
-	cd /home/belleya/projects/rrg-holt/belleya/imsrg/src && /cvmfs/soft.computecanada.ca/gentoo/2023/x86-64-v3/usr/x86_64-pc-linux-gnu/gcc-bin/12/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/belleya/projects/rrg-holt/belleya/imsrg/src/ThreeBodyChannel.cc > CMakeFiles/ModelSpace.dir/ThreeBodyChannel.cc.i
+	cd /Users/antoinebelley/Documents/TRIUMF/imsrg/src && /Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/antoinebelley/Documents/TRIUMF/imsrg/src/ThreeBodyChannel.cc > CMakeFiles/ModelSpace.dir/ThreeBodyChannel.cc.i
 
 src/CMakeFiles/ModelSpace.dir/ThreeBodyChannel.cc.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/ModelSpace.dir/ThreeBodyChannel.cc.s"
-	cd /home/belleya/projects/rrg-holt/belleya/imsrg/src && /cvmfs/soft.computecanada.ca/gentoo/2023/x86-64-v3/usr/x86_64-pc-linux-gnu/gcc-bin/12/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/belleya/projects/rrg-holt/belleya/imsrg/src/ThreeBodyChannel.cc -o CMakeFiles/ModelSpace.dir/ThreeBodyChannel.cc.s
+	cd /Users/antoinebelley/Documents/TRIUMF/imsrg/src && /Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/antoinebelley/Documents/TRIUMF/imsrg/src/ThreeBodyChannel.cc -o CMakeFiles/ModelSpace.dir/ThreeBodyChannel.cc.s
 
 # Object files for target ModelSpace
 ModelSpace_OBJECTS = \
@@ -125,19 +125,19 @@ src/libModelSpace.a: src/CMakeFiles/ModelSpace.dir/TwoBodyChannel.cc.o
 src/libModelSpace.a: src/CMakeFiles/ModelSpace.dir/ThreeBodyChannel.cc.o
 src/libModelSpace.a: src/CMakeFiles/ModelSpace.dir/build.make
 src/libModelSpace.a: src/CMakeFiles/ModelSpace.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/home/belleya/projects/rrg-holt/belleya/imsrg/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Linking CXX static library libModelSpace.a"
-	cd /home/belleya/projects/rrg-holt/belleya/imsrg/src && $(CMAKE_COMMAND) -P CMakeFiles/ModelSpace.dir/cmake_clean_target.cmake
-	cd /home/belleya/projects/rrg-holt/belleya/imsrg/src && $(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/ModelSpace.dir/link.txt --verbose=$(VERBOSE)
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/Users/antoinebelley/Documents/TRIUMF/imsrg/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Linking CXX static library libModelSpace.a"
+	cd /Users/antoinebelley/Documents/TRIUMF/imsrg/src && $(CMAKE_COMMAND) -P CMakeFiles/ModelSpace.dir/cmake_clean_target.cmake
+	cd /Users/antoinebelley/Documents/TRIUMF/imsrg/src && $(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/ModelSpace.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
 src/CMakeFiles/ModelSpace.dir/build: src/libModelSpace.a
 .PHONY : src/CMakeFiles/ModelSpace.dir/build
 
 src/CMakeFiles/ModelSpace.dir/clean:
-	cd /home/belleya/projects/rrg-holt/belleya/imsrg/src && $(CMAKE_COMMAND) -P CMakeFiles/ModelSpace.dir/cmake_clean.cmake
+	cd /Users/antoinebelley/Documents/TRIUMF/imsrg/src && $(CMAKE_COMMAND) -P CMakeFiles/ModelSpace.dir/cmake_clean.cmake
 .PHONY : src/CMakeFiles/ModelSpace.dir/clean
 
 src/CMakeFiles/ModelSpace.dir/depend:
-	cd /home/belleya/projects/rrg-holt/belleya/imsrg && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/belleya/projects/rrg-holt/belleya/imsrg /home/belleya/projects/rrg-holt/belleya/imsrg/src /home/belleya/projects/rrg-holt/belleya/imsrg /home/belleya/projects/rrg-holt/belleya/imsrg/src /home/belleya/projects/rrg-holt/belleya/imsrg/src/CMakeFiles/ModelSpace.dir/DependInfo.cmake "--color=$(COLOR)"
+	cd /Users/antoinebelley/Documents/TRIUMF/imsrg && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /Users/antoinebelley/Documents/TRIUMF/imsrg /Users/antoinebelley/Documents/TRIUMF/imsrg/src /Users/antoinebelley/Documents/TRIUMF/imsrg /Users/antoinebelley/Documents/TRIUMF/imsrg/src /Users/antoinebelley/Documents/TRIUMF/imsrg/src/CMakeFiles/ModelSpace.dir/DependInfo.cmake "--color=$(COLOR)"
 .PHONY : src/CMakeFiles/ModelSpace.dir/depend
 

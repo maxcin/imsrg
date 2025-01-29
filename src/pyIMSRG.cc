@@ -61,6 +61,18 @@ PYBIND11_MODULE(pyIMSRG, m)
                { auto& x=self.GetKetIndex_hh(); std::vector<size_t> v(x.begin(),x.end()); return v; })
           .def("GetKetIndex_ph", [](TwoBodyChannel &self)
                { auto& x=self.GetKetIndex_ph(); std::vector<size_t> v(x.begin(),x.end()); return v; })
+          .def("GetKetIndex_cc", [](TwoBodyChannel &self)
+               { auto& x=self.GetKetIndex_cc(); std::vector<size_t> v(x.begin(),x.end()); return v; })
+          .def("GetKetIndex_vc", [](TwoBodyChannel &self)
+               { auto& x=self.GetKetIndex_vc(); std::vector<size_t> v(x.begin(),x.end()); return v; })
+          .def("GetKetIndex_qc", [](TwoBodyChannel &self)
+               { auto& x=self.GetKetIndex_qc(); std::vector<size_t> v(x.begin(),x.end()); return v; })
+          .def("GetKetIndex_vv", [](TwoBodyChannel &self)
+               { auto& x=self.GetKetIndex_vv(); std::vector<size_t> v(x.begin(),x.end()); return v; })
+          .def("GetKetIndex_qv", [](TwoBodyChannel &self)
+               { auto& x=self.GetKetIndex_qv(); std::vector<size_t> v(x.begin(),x.end()); return v; })
+          .def("GetKetIndex_qq", [](TwoBodyChannel &self)
+               { auto& x=self.GetKetIndex_qq(); std::vector<size_t> v(x.begin(),x.end()); return v; })
           .def_readwrite("J", &TwoBodyChannel::J)
           .def_readwrite("parity", &TwoBodyChannel::parity)
           .def_readwrite("Tz", &TwoBodyChannel::Tz);
@@ -156,8 +168,14 @@ PYBIND11_MODULE(pyIMSRG, m)
               py::arg("l"), py::arg("j2"), py::arg("tz2"))
           //      .def("GetOrbitIndex_fromString", &MS_GetOrbitIndex_Str)
           .def("PreCalculateSixJ", &ModelSpace::PreCalculateSixJ)
+          .def("PreCalculateNineJ", &ModelSpace::PreCalculateNineJ)
           .def("PreCalculateMoshinsky",&ModelSpace::PreCalculateMoshinsky)
           .def("GetMoshinsky",&ModelSpace::GetMoshinsky)
+          .def("GetSixJ",&ModelSpace::GetSixJ)
+          .def("GetNineJ",&ModelSpace::GetNineJ)
+          .def("NineJHash",&ModelSpace::NineJHash)
+//          .def("NineJUnHash",&ModelSpace::NineJUnHash)
+          .def("NineJUnHash",[](ModelSpace &self, uint64_t key){ uint64_t k1,k2,k3,k4,k5,k6,k7,k8,k9; self.NineJUnHash(key,k1,k2,k3,k4,k5,k6,k7,k8,k9); return py::make_tuple(k1,k2,k3,k4,k5,k6,k7,k8,k9);  }     )
           .def("SetScalarFirstPass", &ModelSpace::SetScalarFirstPass)
           .def("SetScalar3bFirstPass", &ModelSpace::SetScalar3bFirstPass)
           .def("ClearVectors", &ModelSpace::ClearVectors)
@@ -240,7 +258,6 @@ PYBIND11_MODULE(pyIMSRG, m)
           .def("SetE3max", &Operator::SetE3max)
           .def("PrintTimes", &Operator::PrintTimes)
           .def("Size", &Operator::Size)
-          .def("Erase", &Operator::Erase)
           .def("MakeNormalized", &Operator::MakeNormalized)
           .def("MakeUnNormalized", &Operator::MakeUnNormalized)
           .def("GetOneBodyChannel", &Operator::GetOneBodyChannel, py::arg("l"), py::arg("j2"), py::arg("tz2"))
@@ -440,10 +457,12 @@ PYBIND11_MODULE(pyIMSRG, m)
           .def("ReadBareTBME_Navratil", &ReadWrite::ReadBareTBME_Navratil)
           .def("ReadBareTBME_Darmstadt", &ReadWrite::ReadBareTBME_Darmstadt, py::arg("filename"), py::arg("H"), py::arg("e1max"), py::arg("e2max"), py::arg("lmax"))
           .def("Read_Darmstadt_3body", &ReadWrite::Read_Darmstadt_3body, py::arg("filename"), py::arg("H"), py::arg("e1max"), py::arg("e2max"), py::arg("e3max"))
+          .def("ReadOperator2b_Miyagi", &ReadWrite::ReadOperator2b_Miyagi, py::arg("filename"), py::arg("ms"))
 #ifndef NO_HDF5
           .def("Read3bodyHDF5", &ReadWrite::Read3bodyHDF5)
 #endif
           .def("Write_me2j", &ReadWrite::Write_me2j)
+          .def("Write_me2j_gz", &ReadWrite::Write_me2j_gz)
           .def("Write_me3j", &ReadWrite::Write_me3j)
           .def("WriteTBME_Navratil", &ReadWrite::WriteTBME_Navratil)
           .def("WriteNuShellX_sps", &ReadWrite::WriteNuShellX_sps, py::arg("op"), py::arg("filename"))
@@ -471,6 +490,10 @@ PYBIND11_MODULE(pyIMSRG, m)
               "ReadTokyo", [](ReadWrite &self, std::string s, Operator &op)
               { self.ReadTokyo(s, op); },
               py::arg("file_in"), py::arg("op"))
+          .def(
+              "ReadTensorTokyo", [](ReadWrite &self, std::string s, Operator &op)
+              { self.ReadTensorTokyo(s, op); },
+              py::arg("file_in"), py::arg("op"))
           .def("WriteOneBody_Oslo", &ReadWrite::WriteOneBody_Oslo)
           .def("WriteTwoBody_Oslo", &ReadWrite::WriteTwoBody_Oslo)
           .def("SetCoMCorr", &ReadWrite::SetCoMCorr)
@@ -485,6 +508,8 @@ PYBIND11_MODULE(pyIMSRG, m)
           .def("SetScratchDir", &ReadWrite::SetScratchDir)
           .def("GetScratchDir", &ReadWrite::GetScratchDir)
           .def("CopyFile", &ReadWrite::CopyFile, py::arg("filein"), py::arg("fileout"))
+          .def("ReadDarmstadt_2bodyRel", &ReadWrite::ReadDarmstadt_2bodyRel)
+          .def("ReadH2_2body", &ReadWrite::ReadH2_2body)
           //      .def("WriteOmega",&ReadWrite::WriteOmega, py::arg("basename"),py::arg("scratch_dir"),py::arg("nOmegas"))
           ;
 
@@ -768,11 +793,28 @@ PYBIND11_MODULE(pyIMSRG, m)
        ReferenceImplementations.def("comm222_pp_hh_221ss", &ReferenceImplementations::comm222_pp_hh_221ss);
        ReferenceImplementations.def("comm222_pp_hhss", &ReferenceImplementations::comm222_pp_hhss);
        ReferenceImplementations.def("comm222_phss", &ReferenceImplementations::comm222_phss);
+
+       ReferenceImplementations.def("comm111st", &ReferenceImplementations::comm111st);
+       ReferenceImplementations.def("comm121st", &ReferenceImplementations::comm121st);
+       ReferenceImplementations.def("comm122st", &ReferenceImplementations::comm122st);
+       ReferenceImplementations.def("comm221st", &ReferenceImplementations::comm221st);
+       ReferenceImplementations.def("comm222_pp_hhst", &ReferenceImplementations::comm222_pp_hhst);
+       ReferenceImplementations.def("comm222_phst", &ReferenceImplementations::comm222_phst);
+
        //
+       ReferenceImplementations.def("comm331ss", &ReferenceImplementations::comm331ss);
        ReferenceImplementations.def("comm223ss", &ReferenceImplementations::comm223ss);
-       ReferenceImplementations.def("comm232ss", &ReferenceImplementations::comm232ss);
        ReferenceImplementations.def("comm231ss", &ReferenceImplementations::comm231ss);
+       ReferenceImplementations.def("comm232ss", &ReferenceImplementations::comm232ss);
+       ReferenceImplementations.def("comm133ss", &ReferenceImplementations::comm133ss);
+       ReferenceImplementations.def("comm132ss", &ReferenceImplementations::comm132ss);
+       ReferenceImplementations.def("comm332_ppph_hhhpss", &ReferenceImplementations::comm332_ppph_hhhpss);
        ReferenceImplementations.def("comm332_pphhss", &ReferenceImplementations::comm332_pphhss);
+       ReferenceImplementations.def("comm233_pp_hhss", &ReferenceImplementations::comm233_pp_hhss); 
+       ReferenceImplementations.def("comm233_phss", &ReferenceImplementations::comm233_phss); 
+       ReferenceImplementations.def("comm333_ppp_hhhss", &ReferenceImplementations::comm333_ppp_hhhss); 
+       ReferenceImplementations.def("comm333_pph_hhpss", &ReferenceImplementations::comm333_pph_hhpss); 
+
        //
        ReferenceImplementations.def("diagram_CIa", &ReferenceImplementations::diagram_CIa);
        ReferenceImplementations.def("diagram_CIb", &ReferenceImplementations::diagram_CIb);
@@ -791,10 +833,7 @@ PYBIND11_MODULE(pyIMSRG, m)
        ReferenceImplementations.def("comm223_232_BruteForce", &ReferenceImplementations::comm223_232_BruteForce);
        ReferenceImplementations.def("comm223_231", &ReferenceImplementations::comm223_231);
        ReferenceImplementations.def("comm223_232", &ReferenceImplementations::comm223_232);
-       ReferenceImplementations.def("comm331ss", &ReferenceImplementations::comm331ss);
-       ReferenceImplementations.def("comm133ss", &ReferenceImplementations::comm133ss);
-       ReferenceImplementations.def("comm233_pp_hhss", &ReferenceImplementations::comm233_pp_hhss); 
-       ReferenceImplementations.def("comm233_phss", &ReferenceImplementations::comm233_phss); 
+
 
        ReferenceImplementations.def("comm331st", &ReferenceImplementations::comm331st);
        ReferenceImplementations.def("comm223st", &ReferenceImplementations::comm223st);

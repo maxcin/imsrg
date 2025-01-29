@@ -48,19 +48,19 @@ cmake_force:
 SHELL = /bin/sh
 
 # The CMake executable.
-CMAKE_COMMAND = /cvmfs/soft.computecanada.ca/easybuild/software/2023/x86-64-v3/Core/cmake/3.27.7/bin/cmake
+CMAKE_COMMAND = /usr/local/Cellar/cmake/3.27.7/bin/cmake
 
 # The command to remove a file.
-RM = /cvmfs/soft.computecanada.ca/easybuild/software/2023/x86-64-v3/Core/cmake/3.27.7/bin/cmake -E rm -f
+RM = /usr/local/Cellar/cmake/3.27.7/bin/cmake -E rm -f
 
 # Escaping for special characters.
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/belleya/projects/rrg-holt/belleya/imsrg
+CMAKE_SOURCE_DIR = /Users/antoinebelley/Documents/TRIUMF/imsrg
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/belleya/projects/rrg-holt/belleya/imsrg
+CMAKE_BINARY_DIR = /Users/antoinebelley/Documents/TRIUMF/imsrg
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -68,7 +68,7 @@ CMAKE_BINARY_DIR = /home/belleya/projects/rrg-holt/belleya/imsrg
 # Special rule for the target edit_cache
 edit_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --cyan "Running CMake cache editor..."
-	/cvmfs/soft.computecanada.ca/easybuild/software/2023/x86-64-v3/Core/cmake/3.27.7/bin/ccmake -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
+	/usr/local/Cellar/cmake/3.27.7/bin/ccmake -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
 .PHONY : edit_cache
 
 # Special rule for the target edit_cache
@@ -78,7 +78,7 @@ edit_cache/fast: edit_cache
 # Special rule for the target rebuild_cache
 rebuild_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --cyan "Running CMake to regenerate build system..."
-	/cvmfs/soft.computecanada.ca/easybuild/software/2023/x86-64-v3/Core/cmake/3.27.7/bin/cmake --regenerate-during-build -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
+	/usr/local/Cellar/cmake/3.27.7/bin/cmake --regenerate-during-build -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
 .PHONY : rebuild_cache
 
 # Special rule for the target rebuild_cache
@@ -97,49 +97,49 @@ list_install_components/fast: list_install_components
 # Special rule for the target install
 install: preinstall
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --cyan "Install the project..."
-	/cvmfs/soft.computecanada.ca/easybuild/software/2023/x86-64-v3/Core/cmake/3.27.7/bin/cmake -P cmake_install.cmake
+	/usr/local/Cellar/cmake/3.27.7/bin/cmake -P cmake_install.cmake
 .PHONY : install
 
 # Special rule for the target install
 install/fast: preinstall/fast
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --cyan "Install the project..."
-	/cvmfs/soft.computecanada.ca/easybuild/software/2023/x86-64-v3/Core/cmake/3.27.7/bin/cmake -P cmake_install.cmake
+	/usr/local/Cellar/cmake/3.27.7/bin/cmake -P cmake_install.cmake
 .PHONY : install/fast
 
 # Special rule for the target install/local
 install/local: preinstall
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --cyan "Installing only the local directory..."
-	/cvmfs/soft.computecanada.ca/easybuild/software/2023/x86-64-v3/Core/cmake/3.27.7/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
+	/usr/local/Cellar/cmake/3.27.7/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
 .PHONY : install/local
 
 # Special rule for the target install/local
 install/local/fast: preinstall/fast
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --cyan "Installing only the local directory..."
-	/cvmfs/soft.computecanada.ca/easybuild/software/2023/x86-64-v3/Core/cmake/3.27.7/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
+	/usr/local/Cellar/cmake/3.27.7/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
 .PHONY : install/local/fast
 
 # Special rule for the target install/strip
 install/strip: preinstall
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --cyan "Installing the project stripped..."
-	/cvmfs/soft.computecanada.ca/easybuild/software/2023/x86-64-v3/Core/cmake/3.27.7/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
+	/usr/local/Cellar/cmake/3.27.7/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
 .PHONY : install/strip
 
 # Special rule for the target install/strip
 install/strip/fast: preinstall/fast
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --cyan "Installing the project stripped..."
-	/cvmfs/soft.computecanada.ca/easybuild/software/2023/x86-64-v3/Core/cmake/3.27.7/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
+	/usr/local/Cellar/cmake/3.27.7/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
 .PHONY : install/strip/fast
 
 # The main all target
 all: cmake_check_build_system
-	cd /home/belleya/projects/rrg-holt/belleya/imsrg && $(CMAKE_COMMAND) -E cmake_progress_start /home/belleya/projects/rrg-holt/belleya/imsrg/CMakeFiles /home/belleya/projects/rrg-holt/belleya/imsrg/extern/pybind11//CMakeFiles/progress.marks
-	cd /home/belleya/projects/rrg-holt/belleya/imsrg && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 extern/pybind11/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/belleya/projects/rrg-holt/belleya/imsrg/CMakeFiles 0
+	cd /Users/antoinebelley/Documents/TRIUMF/imsrg && $(CMAKE_COMMAND) -E cmake_progress_start /Users/antoinebelley/Documents/TRIUMF/imsrg/CMakeFiles /Users/antoinebelley/Documents/TRIUMF/imsrg/extern/pybind11//CMakeFiles/progress.marks
+	cd /Users/antoinebelley/Documents/TRIUMF/imsrg && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 extern/pybind11/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/antoinebelley/Documents/TRIUMF/imsrg/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
 clean:
-	cd /home/belleya/projects/rrg-holt/belleya/imsrg && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 extern/pybind11/clean
+	cd /Users/antoinebelley/Documents/TRIUMF/imsrg && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 extern/pybind11/clean
 .PHONY : clean
 
 # The main clean target
@@ -148,17 +148,17 @@ clean/fast: clean
 
 # Prepare targets for installation.
 preinstall: all
-	cd /home/belleya/projects/rrg-holt/belleya/imsrg && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 extern/pybind11/preinstall
+	cd /Users/antoinebelley/Documents/TRIUMF/imsrg && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 extern/pybind11/preinstall
 .PHONY : preinstall
 
 # Prepare targets for installation.
 preinstall/fast:
-	cd /home/belleya/projects/rrg-holt/belleya/imsrg && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 extern/pybind11/preinstall
+	cd /Users/antoinebelley/Documents/TRIUMF/imsrg && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 extern/pybind11/preinstall
 .PHONY : preinstall/fast
 
 # clear depends
 depend:
-	cd /home/belleya/projects/rrg-holt/belleya/imsrg && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
+	cd /Users/antoinebelley/Documents/TRIUMF/imsrg && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
 .PHONY : depend
 
 # Help Target
@@ -184,6 +184,6 @@ help:
 # No rule that depends on this can have commands that come from listfiles
 # because they might be regenerated.
 cmake_check_build_system:
-	cd /home/belleya/projects/rrg-holt/belleya/imsrg && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
+	cd /Users/antoinebelley/Documents/TRIUMF/imsrg && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
 .PHONY : cmake_check_build_system
 

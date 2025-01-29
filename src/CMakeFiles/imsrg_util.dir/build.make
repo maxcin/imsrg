@@ -44,19 +44,19 @@ cmake_force:
 SHELL = /bin/sh
 
 # The CMake executable.
-CMAKE_COMMAND = /cvmfs/soft.computecanada.ca/easybuild/software/2023/x86-64-v3/Core/cmake/3.27.7/bin/cmake
+CMAKE_COMMAND = /usr/local/Cellar/cmake/3.27.7/bin/cmake
 
 # The command to remove a file.
-RM = /cvmfs/soft.computecanada.ca/easybuild/software/2023/x86-64-v3/Core/cmake/3.27.7/bin/cmake -E rm -f
+RM = /usr/local/Cellar/cmake/3.27.7/bin/cmake -E rm -f
 
 # Escaping for special characters.
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/belleya/projects/rrg-holt/belleya/imsrg
+CMAKE_SOURCE_DIR = /Users/antoinebelley/Documents/TRIUMF/imsrg
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/belleya/projects/rrg-holt/belleya/imsrg
+CMAKE_BINARY_DIR = /Users/antoinebelley/Documents/TRIUMF/imsrg
 
 # Include any dependencies generated for this target.
 include src/CMakeFiles/imsrg_util.dir/depend.make
@@ -72,16 +72,16 @@ include src/CMakeFiles/imsrg_util.dir/flags.make
 src/CMakeFiles/imsrg_util.dir/imsrg_util.cc.o: src/CMakeFiles/imsrg_util.dir/flags.make
 src/CMakeFiles/imsrg_util.dir/imsrg_util.cc.o: src/imsrg_util.cc
 src/CMakeFiles/imsrg_util.dir/imsrg_util.cc.o: src/CMakeFiles/imsrg_util.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/belleya/projects/rrg-holt/belleya/imsrg/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object src/CMakeFiles/imsrg_util.dir/imsrg_util.cc.o"
-	cd /home/belleya/projects/rrg-holt/belleya/imsrg/src && /cvmfs/soft.computecanada.ca/gentoo/2023/x86-64-v3/usr/x86_64-pc-linux-gnu/gcc-bin/12/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT src/CMakeFiles/imsrg_util.dir/imsrg_util.cc.o -MF CMakeFiles/imsrg_util.dir/imsrg_util.cc.o.d -o CMakeFiles/imsrg_util.dir/imsrg_util.cc.o -c /home/belleya/projects/rrg-holt/belleya/imsrg/src/imsrg_util.cc
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/antoinebelley/Documents/TRIUMF/imsrg/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object src/CMakeFiles/imsrg_util.dir/imsrg_util.cc.o"
+	cd /Users/antoinebelley/Documents/TRIUMF/imsrg/src && /Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT src/CMakeFiles/imsrg_util.dir/imsrg_util.cc.o -MF CMakeFiles/imsrg_util.dir/imsrg_util.cc.o.d -o CMakeFiles/imsrg_util.dir/imsrg_util.cc.o -c /Users/antoinebelley/Documents/TRIUMF/imsrg/src/imsrg_util.cc
 
 src/CMakeFiles/imsrg_util.dir/imsrg_util.cc.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/imsrg_util.dir/imsrg_util.cc.i"
-	cd /home/belleya/projects/rrg-holt/belleya/imsrg/src && /cvmfs/soft.computecanada.ca/gentoo/2023/x86-64-v3/usr/x86_64-pc-linux-gnu/gcc-bin/12/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/belleya/projects/rrg-holt/belleya/imsrg/src/imsrg_util.cc > CMakeFiles/imsrg_util.dir/imsrg_util.cc.i
+	cd /Users/antoinebelley/Documents/TRIUMF/imsrg/src && /Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/antoinebelley/Documents/TRIUMF/imsrg/src/imsrg_util.cc > CMakeFiles/imsrg_util.dir/imsrg_util.cc.i
 
 src/CMakeFiles/imsrg_util.dir/imsrg_util.cc.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/imsrg_util.dir/imsrg_util.cc.s"
-	cd /home/belleya/projects/rrg-holt/belleya/imsrg/src && /cvmfs/soft.computecanada.ca/gentoo/2023/x86-64-v3/usr/x86_64-pc-linux-gnu/gcc-bin/12/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/belleya/projects/rrg-holt/belleya/imsrg/src/imsrg_util.cc -o CMakeFiles/imsrg_util.dir/imsrg_util.cc.s
+	cd /Users/antoinebelley/Documents/TRIUMF/imsrg/src && /Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/antoinebelley/Documents/TRIUMF/imsrg/src/imsrg_util.cc -o CMakeFiles/imsrg_util.dir/imsrg_util.cc.s
 
 # Object files for target imsrg_util
 imsrg_util_OBJECTS = \
@@ -93,19 +93,19 @@ imsrg_util_EXTERNAL_OBJECTS =
 src/libimsrg_util.a: src/CMakeFiles/imsrg_util.dir/imsrg_util.cc.o
 src/libimsrg_util.a: src/CMakeFiles/imsrg_util.dir/build.make
 src/libimsrg_util.a: src/CMakeFiles/imsrg_util.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/home/belleya/projects/rrg-holt/belleya/imsrg/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX static library libimsrg_util.a"
-	cd /home/belleya/projects/rrg-holt/belleya/imsrg/src && $(CMAKE_COMMAND) -P CMakeFiles/imsrg_util.dir/cmake_clean_target.cmake
-	cd /home/belleya/projects/rrg-holt/belleya/imsrg/src && $(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/imsrg_util.dir/link.txt --verbose=$(VERBOSE)
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/Users/antoinebelley/Documents/TRIUMF/imsrg/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX static library libimsrg_util.a"
+	cd /Users/antoinebelley/Documents/TRIUMF/imsrg/src && $(CMAKE_COMMAND) -P CMakeFiles/imsrg_util.dir/cmake_clean_target.cmake
+	cd /Users/antoinebelley/Documents/TRIUMF/imsrg/src && $(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/imsrg_util.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
 src/CMakeFiles/imsrg_util.dir/build: src/libimsrg_util.a
 .PHONY : src/CMakeFiles/imsrg_util.dir/build
 
 src/CMakeFiles/imsrg_util.dir/clean:
-	cd /home/belleya/projects/rrg-holt/belleya/imsrg/src && $(CMAKE_COMMAND) -P CMakeFiles/imsrg_util.dir/cmake_clean.cmake
+	cd /Users/antoinebelley/Documents/TRIUMF/imsrg/src && $(CMAKE_COMMAND) -P CMakeFiles/imsrg_util.dir/cmake_clean.cmake
 .PHONY : src/CMakeFiles/imsrg_util.dir/clean
 
 src/CMakeFiles/imsrg_util.dir/depend:
-	cd /home/belleya/projects/rrg-holt/belleya/imsrg && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/belleya/projects/rrg-holt/belleya/imsrg /home/belleya/projects/rrg-holt/belleya/imsrg/src /home/belleya/projects/rrg-holt/belleya/imsrg /home/belleya/projects/rrg-holt/belleya/imsrg/src /home/belleya/projects/rrg-holt/belleya/imsrg/src/CMakeFiles/imsrg_util.dir/DependInfo.cmake "--color=$(COLOR)"
+	cd /Users/antoinebelley/Documents/TRIUMF/imsrg && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /Users/antoinebelley/Documents/TRIUMF/imsrg /Users/antoinebelley/Documents/TRIUMF/imsrg/src /Users/antoinebelley/Documents/TRIUMF/imsrg /Users/antoinebelley/Documents/TRIUMF/imsrg/src /Users/antoinebelley/Documents/TRIUMF/imsrg/src/CMakeFiles/imsrg_util.dir/DependInfo.cmake "--color=$(COLOR)"
 .PHONY : src/CMakeFiles/imsrg_util.dir/depend
 

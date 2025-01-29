@@ -1,2 +1,2 @@
-/cvmfs/soft.computecanada.ca/gentoo/2023/x86-64-v3/usr/bin/ar qc libModelSpace.a CMakeFiles/ModelSpace.dir/ModelSpace.cc.o CMakeFiles/ModelSpace.dir/TwoBodyChannel.cc.o CMakeFiles/ModelSpace.dir/ThreeBodyChannel.cc.o
-/cvmfs/soft.computecanada.ca/gentoo/2023/x86-64-v3/usr/bin/ranlib libModelSpace.a
+/Library/Developer/CommandLineTools/usr/bin/ar qc libModelSpace.a CMakeFiles/ModelSpace.dir/ModelSpace.cc.o CMakeFiles/ModelSpace.dir/TwoBodyChannel.cc.o CMakeFiles/ModelSpace.dir/ThreeBodyChannel.cc.o
+/Library/Developer/CommandLineTools/usr/bin/ranlib libModelSpace.a
