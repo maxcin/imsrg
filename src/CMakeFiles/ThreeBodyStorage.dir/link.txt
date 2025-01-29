@@ -1,2 +1,0 @@
-/Library/Developer/CommandLineTools/usr/bin/ar qc libThreeBodyStorage.a CMakeFiles/ThreeBodyStorage.dir/ThreeBodyStorage.cc.o
-/Library/Developer/CommandLineTools/usr/bin/ranlib libThreeBodyStorage.a

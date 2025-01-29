@@ -1,2 +1,0 @@
-/Library/Developer/CommandLineTools/usr/bin/ar qc libAngMom.a CMakeFiles/AngMom.dir/AngMom.cc.o
-/Library/Developer/CommandLineTools/usr/bin/ranlib libAngMom.a
