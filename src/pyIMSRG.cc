@@ -724,6 +724,7 @@ PYBIND11_MODULE(pyIMSRG, m)
        // scalar-tensor commutators
        Commutator.def("comm111st", &Commutator::comm111st);
        Commutator.def("comm121st", &Commutator::comm121st);
+       Commutator.def("comm221st", &Commutator::comm221st);
        Commutator.def("comm122st", &Commutator::comm122st);
        Commutator.def("comm222_pp_hh_221st", &Commutator::comm222_pp_hh_221st);
        Commutator.def("comm222_phst", &Commutator::comm222_phst);

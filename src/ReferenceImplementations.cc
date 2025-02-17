@@ -7288,7 +7288,7 @@ void comm222_pp_hhst(const Operator &X, const Operator &Y, Operator &Z)
     std::vector<index_t> allorb_vec(Z.modelspace->all_orbits.begin(), Z.modelspace->all_orbits.end());
     auto &Z2 = Z.TwoBody;
     bool EraseTB = false;
-    EraseTB = true;
+    // EraseTB = true;
 
     // determine symmetry
     int hEta = Eta.IsHermitian() ? 1 : -1;
@@ -7375,6 +7375,7 @@ void comm222_pp_hhst(const Operator &X, const Operator &Y, Operator &Z)
                     {
                       // zpgqh += phase_pg * occfactor * (2 * J2 + 1) / denominator_g * Eta.TwoBody.GetTBME_J(J2, b, g, a, c) * Eta.TwoBody.GetTBME_J(J2, a, c, b, d) * Gamma.TwoBody.GetTBME_J(J0, d, p, q, h);
                       zpgqh += occfactor * (2 * J2 + 1) / denominator_g * Eta.TwoBody.GetTBME_J(J2, b, g, a, c) * Eta.TwoBody.GetTBME_J(J2, a, c, b, d) * Gamma.TwoBody.GetTBME_J(J0, p, d, q, h);
+                      //                    zpgqh -= occfactor * (2 * J2 + 1) / denominator_g * Eta.TwoBody.GetTBME_J(J2, b, g, a, c) * Eta.TwoBody.GetTBME_J(J0, p, d, q, h) * Gamma.TwoBody.GetTBME_J(J2, a, c, b, d);
                     }
                 }
               }
@@ -7391,19 +7392,18 @@ void comm222_pp_hhst(const Operator &X, const Operator &Y, Operator &Z)
         } // iket
       } // ibra
     } // J0 channel
-    // std::cout << "diagram Ia   " << Z.TwoBodyNorm() << std::endl;
-    // Z.TwoBody.PrintMatrix(0,0);
+    std::cout << "diagram Ia " << Z.TwoBodyNorm() << std::endl;
     if (EraseTB)
       Z.EraseTwoBody();
 
-      // ####################################################################################
-      //   diagram Ib
-      //
-      //   I(b)^J0_pgqh = 1/2 *  P_qh  *  1/ (2 jq + 1) \sum_abcd J2  \delta_{jd, jq}
-      //                   ( \bar{n_a} n_b n_c + \bar{n_b} \bar{n_c} n_a )
-      //                   ( 2 * J2 + 1 ) * eta^J2_adbc eta^J2_bcaq Gamma^J0_pgdh
-      // ####################################################################################
-    #pragma omp parallel for
+    // ####################################################################################
+    //   diagram Ib
+    //
+    //   I(b)^J0_pgqh = 1/2 *  P_qh  *  1/ (2 jq + 1) \sum_abcd J2  \delta_{jd, jq}
+    //                   ( \bar{n_a} n_b n_c + \bar{n_b} \bar{n_c} n_a )
+    //                   ( 2 * J2 + 1 ) * eta^J2_adbc eta^J2_bcaq Gamma^J0_pgdh
+    // ####################################################################################
+#pragma omp parallel for
     for (int ch = 0; ch < nch; ++ch)
     {
       TwoBodyChannel &tbc = Z.modelspace->GetTwoBodyChannel(ch);
@@ -7476,11 +7476,6 @@ void comm222_pp_hhst(const Operator &X, const Operator &Y, Operator &Z)
                     {
                       // zpgqh += phase_qh * occfactor * (2 * J2 + 1) / denominator_h * Eta.TwoBody.GetTBME_J(J2, a, d, b, c) * Eta.TwoBody.GetTBME_J(J2, b, c, a, h) * Gamma.TwoBody.GetTBME_J(J0, p, g, d, q);
                       zpgqh += occfactor * (2 * J2 + 1) / denominator_h * Eta.TwoBody.GetTBME_J(J2, a, d, b, c) * Eta.TwoBody.GetTBME_J(J2, b, c, a, h) * Gamma.TwoBody.GetTBME_J(J0, p, g, q, d);
-                      if (ch == 0 and ibra == 2 and iket == 4)
-                      {
-                        std::cout << " Ib " << occfactor * (2 * J2 + 1) / denominator_h * Eta.TwoBody.GetTBME_J(J2, a, d, b, c) * Eta.TwoBody.GetTBME_J(J2, b, c, a, h) * Gamma.TwoBody.GetTBME_J(J0, p, g, q, d)
-                                  << std::endl;
-                      }
                     }
                 }
               }
@@ -7497,18 +7492,18 @@ void comm222_pp_hhst(const Operator &X, const Operator &Y, Operator &Z)
         } // iket
       } // ibra
     } // J0 channel
-    // std::cout << "diagram Ib   " << Z.TwoBodyNorm() << std::endl;
+    std::cout << "diagram Ib " << Z.TwoBodyNorm() << std::endl;
     if (EraseTB)
       Z.EraseTwoBody();
 
-      // ####################################################################################
-      //   diagram IVa
-      //
-      //   IV(a)^J0_pgqh = - P(q/h) * 1/2 1/ (2jq + 1) \sum_abcd J2 \delta_{jd, jq}
-      //                   ( \bar{n_a} n_b n_c + \bar{n_b} \bar{n_c} n_a )
-      //                   ( 2 * J2 + 1 ) * eta^J2_bcaq eta^J0_pgdh Gamma^J2_adbc
-      // ####################################################################################
-    #pragma omp parallel for
+    // ####################################################################################
+    //   diagram IVa
+    //
+    //   IV(a)^J0_pgqh = - P(q/h) * 1/2 1/ (2jq + 1) \sum_abcd J2 \delta_{jd, jq}
+    //                   ( \bar{n_a} n_b n_c + \bar{n_b} \bar{n_c} n_a )
+    //                   ( 2 * J2 + 1 ) * eta^J2_bcaq eta^J0_pgdh Gamma^J2_adbc
+    // ####################################################################################
+#pragma omp parallel for
     for (int ch = 0; ch < nch; ++ch)
     {
       TwoBodyChannel &tbc = Z.modelspace->GetTwoBodyChannel(ch);
@@ -7581,11 +7576,6 @@ void comm222_pp_hhst(const Operator &X, const Operator &Y, Operator &Z)
                     {
                       // zpgqh -= phase_qh * occfactor * (2 * J2 + 1) / denominator_h * Eta.TwoBody.GetTBME_J(J2, b, c, a, h) * Eta.TwoBody.GetTBME_J(J0, p, g, d, q) * Gamma.TwoBody.GetTBME_J(J2, a, d, b, c);
                       zpgqh -= occfactor * (2 * J2 + 1) / denominator_h * Eta.TwoBody.GetTBME_J(J2, b, c, a, h) * Eta.TwoBody.GetTBME_J(J0, p, g, q, d) * Gamma.TwoBody.GetTBME_J(J2, a, d, b, c);
-                      if (ch == 0 and ibra == 2 and iket == 4)
-                      {
-                        std::cout << " IVa " << -occfactor * (2 * J2 + 1) / denominator_h * Eta.TwoBody.GetTBME_J(J2, b, c, a, h) * Eta.TwoBody.GetTBME_J(J0, p, g, q, d) * Gamma.TwoBody.GetTBME_J(J2, a, d, b, c)
-                                  << std::endl;
-                      }
                     }
 
                   // *****************************************
@@ -7604,18 +7594,18 @@ void comm222_pp_hhst(const Operator &X, const Operator &Y, Operator &Z)
         } // iket
       } // ibra
     } // J0 channel
-    // std::cout << "diagram IVa  " << Z.TwoBodyNorm() << std::endl;
+    std::cout << "diagram IVa " << Z.TwoBodyNorm() << std::endl;
     if (EraseTB)
       Z.EraseTwoBody();
 
-      // ####################################################################################
-      //   diagram IVb
-      //
-      //   IV(b)^J0_pgqh = -  P(p/g) * 1/2 1/ (2jp + 1) \sum_abcd J2 \delta_{jd, jp}
-      //                   ( \bar{n_a} \bar{n_c} n_b + \bar{n_b} n_a n_c )
-      //                   ( 2 * J2 + 1 ) * eta^J2_bpac eta^J0_dgqh Gamma^J2_acbd
-      // ####################################################################################
-    #pragma omp parallel for
+    // ####################################################################################
+    //   diagram IVb
+    //
+    //   IV(b)^J0_pgqh = -  P(p/g) * 1/2 1/ (2jp + 1) \sum_abcd J2 \delta_{jd, jp}
+    //                   ( \bar{n_a} \bar{n_c} n_b + \bar{n_b} n_a n_c )
+    //                   ( 2 * J2 + 1 ) * eta^J2_bpac eta^J0_dgqh Gamma^J2_acbd
+    // ####################################################################################
+#pragma omp parallel for
     for (int ch = 0; ch < nch; ++ch)
     {
       TwoBodyChannel &tbc = Z.modelspace->GetTwoBodyChannel(ch);
@@ -7701,25 +7691,24 @@ void comm222_pp_hhst(const Operator &X, const Operator &Y, Operator &Z)
           Z2.AddToTBME(ch, ch, ibra, iket, 0.5 * zpgqh);
 
         } // iket
-
       } // ibra
     } // J0 channel
-    // std::cout << "diagram IVb  " << Z.TwoBodyNorm() << std::endl;
+    std::cout << "diagram IVb " << Z.TwoBodyNorm() << std::endl;
     if (EraseTB)
       Z.EraseTwoBody();
 
-      // ####################################################################################
-      //   diagram IIa
-      //
-      //   II(a)^J0_pgqh = - P_pg \sum_{abcd J2 J3 J4} ( 2 * J2 + 1 ) ( 2 * J3 + 1 ) ( 2 * J4 + 1 )
-      //
-      //                   { jd jg J4 } { jp ja J4 } { jg jp J0 }
-      //                   { jc jb J2 } { jc jb J3 } { ja jd J4 }
-      //
-      //                   ( \bar{n_b} \bar{n_d} n_c + \bar{n_c} n_b n_d )
-      //                   eta^J2_cgdb eta^J3_pbca Gamma^J0_daqh
-      // ####################################################################################
-    #pragma omp parallel for
+    // ####################################################################################
+    //   diagram IIa
+    //
+    //   II(a)^J0_pgqh = - P_pg \sum_{abcd J2 J3 J4} ( 2 * J2 + 1 ) ( 2 * J3 + 1 ) ( 2 * J4 + 1 )
+    //
+    //                   { jd jg J4 } { jp ja J4 } { jg jp J0 }
+    //                   { jc jb J2 } { jc jb J3 } { ja jd J4 }
+    //
+    //                   ( \bar{n_b} \bar{n_d} n_c + \bar{n_c} n_b n_d )
+    //                   eta^J2_cgdb eta^J3_pbca Gamma^J0_daqh
+    // ####################################################################################
+#pragma omp parallel for
     for (int ch = 0; ch < nch; ++ch)
     {
       TwoBodyChannel &tbc = Z.modelspace->GetTwoBodyChannel(ch);
@@ -7780,21 +7769,6 @@ void comm222_pp_hhst(const Operator &X, const Operator &Y, Operator &Z)
                   double occfactor = (nbar_b * nbar_d * n_c + nbar_c * n_b * n_d);
                   if (fabs(occfactor) < 1.e-7)
                     continue;
-
-                  if ((oc.l + og.l + od.l + ob.l) % 2 != Eta.GetParity())
-                    continue;
-                  if ((op.l + ob.l + oc.l + oa.l) % 2 != Eta.GetParity())
-                    continue;
-                  if ((od.l + oa.l + oq.l + oh.l) % 2 != Gamma.GetParity())
-                    continue;
-
-                  if (std::abs(oc.tz2 + og.tz2 - od.tz2 - ob.tz2) != Eta.GetTRank())
-                    continue;
-                  if (std::abs(op.tz2 + ob.tz2 - oc.tz2 - oa.tz2) != Eta.GetTRank())
-                    continue;
-                  if (std::abs(od.tz2 + oa.tz2 - oq.tz2 - oh.tz2) != Gamma.GetTRank())
-                    continue;
-
                   /// direct term
                   int j2min = std::max(std::abs(oc.j2 - og.j2), std::abs(ob.j2 - od.j2)) / 2;
                   int j2max = std::min(oc.j2 + og.j2, ob.j2 + od.j2) / 2;
@@ -7849,11 +7823,6 @@ void comm222_pp_hhst(const Operator &X, const Operator &Y, Operator &Z)
                         double sixj3 = Z.modelspace->GetSixJ(jp, jg, J0, ja, jd, J4);
 
                         zpgqh -= phase_pg * occfactor * sixj1 * sixj2 * sixj3 * (2 * J2 + 1) * (2 * J3 + 1) * (2 * J4 + 1) * Eta.TwoBody.GetTBME_J(J2, c, p, d, b) * Eta.TwoBody.GetTBME_J(J3, g, b, c, a) * Gamma.TwoBody.GetTBME_J(J0, d, a, q, h);
-                        if (ch == 0 and ibra == 2 and iket == 4)
-                        {
-                          std::cout << " IIa " << -phase_pg * occfactor * sixj1 * sixj2 * sixj3 * (2 * J2 + 1) * (2 * J3 + 1) * (2 * J4 + 1) * Eta.TwoBody.GetTBME_J(J2, c, p, d, b) * Eta.TwoBody.GetTBME_J(J3, g, b, c, a) * Gamma.TwoBody.GetTBME_J(J0, d, a, q, h)
-                                    << std::endl;
-                        }
                       }
                     }
                   }
@@ -7873,23 +7842,23 @@ void comm222_pp_hhst(const Operator &X, const Operator &Y, Operator &Z)
         } // iket
       } // ibra
     } // J0 channel
-    // std::cout << "diagram IIa  " << Z.TwoBodyNorm() << std::endl;
+    std::cout << "diagram IIa " << Z.TwoBodyNorm() << std::endl;
     if (EraseTB)
       Z.EraseTwoBody();
 
-      // ####################################################################################
-      //   diagram IIb
-      //
-      //   II(b)^J0_pghq = - P(p/g) * P(q/h) * \sum_{abcd J2 J3 J4 J5} ( 2 * J2 + 1 ) ( 2 * J3 + 1 )
-      //                   ( 2 * J4 + 1 ) ( 2 * J5 + 1 )
-      //
-      //                   { jq jd J5 } { jp ja J5 } { J0 J5 J4 } { J0 J4 J5 }
-      //                   { jc jb J2 } { jc jb J3 } { jd jh jq } { ja jp jg }
-      //
-      //                   ( \bar{n_b} n_c n_d + \bar{n_c} \bar{n_d} n_b )
-      //                   eta^J2_dcbq eta^J3_bpac Gamma^J4_gahd
-      // ####################################################################################
-    #pragma omp parallel for
+    // ####################################################################################
+    //   diagram IIb
+    //
+    //   II(b)^J0_pghq = - P(p/g) * P(q/h) * \sum_{abcd J2 J3 J4 J5} ( 2 * J2 + 1 ) ( 2 * J3 + 1 )
+    //                   ( 2 * J4 + 1 ) ( 2 * J5 + 1 )
+    //
+    //                   { jq jd J5 } { jp ja J5 } { J0 J5 J4 } { J0 J4 J5 }
+    //                   { jc jb J2 } { jc jb J3 } { jd jh jq } { ja jp jg }
+    //
+    //                   ( \bar{n_b} n_c n_d + \bar{n_c} \bar{n_d} n_b )
+    //                   eta^J2_dcbq eta^J3_bpac Gamma^J4_gahd
+    // ####################################################################################
+#pragma omp parallel for
     for (int ch = 0; ch < nch; ++ch)
     {
       TwoBodyChannel &tbc = Z.modelspace->GetTwoBodyChannel(ch);
@@ -8109,22 +8078,22 @@ void comm222_pp_hhst(const Operator &X, const Operator &Y, Operator &Z)
         } // iket
       } // ibra
     } // J0 channel
-    // std::cout << "diagram IIb  " << Z.TwoBodyNorm() << std::endl;
+    std::cout << "diagram IIb " << Z.TwoBodyNorm() << std::endl;
     if (EraseTB)
       Z.EraseTwoBody();
 
-      // ####################################################################################
-      //   diagram IIc
-      //
-      //   II(c)^J0_pgqh = - P_qh * \sum_{abcd J2 J3 J4} ( 2 * J2 + 1 ) ( 2 * J3 + 1 ) ( 2 * J4 + 1 )
-      //
-      //                   { jq jd J4 } { ja jh J4 } { jq jh J0 }
-      //                   { jc jb J2 } { jc jb J3 } { ja jd J4 }
-      //
-      //                   ( \bar{n_b} n_c n_d + \bar{n_c} \bar{n_d} n_b )
-      //                   eta^J2_cdqb eta^J3_abch Gamma^J0_pgad
-      // ####################################################################################
-    #pragma omp parallel for
+    // ####################################################################################
+    //   diagram IIc
+    //
+    //   II(c)^J0_pgqh = - P_qh * \sum_{abcd J2 J3 J4} ( 2 * J2 + 1 ) ( 2 * J3 + 1 ) ( 2 * J4 + 1 )
+    //
+    //                   { jq jd J4 } { ja jh J4 } { jq jh J0 }
+    //                   { jc jb J2 } { jc jb J3 } { ja jd J4 }
+    //
+    //                   ( \bar{n_b} n_c n_d + \bar{n_c} \bar{n_d} n_b )
+    //                   eta^J2_cdqb eta^J3_abch Gamma^J0_pgad
+    // ####################################################################################
+#pragma omp parallel for
     for (int ch = 0; ch < nch; ++ch)
     {
       TwoBodyChannel &tbc = Z.modelspace->GetTwoBodyChannel(ch);
@@ -8257,23 +8226,23 @@ void comm222_pp_hhst(const Operator &X, const Operator &Y, Operator &Z)
         } // iket
       } // ibra
     } // J0 channel
-    // std::cout << "diagram IIc  " << Z.TwoBodyNorm() << std::endl;
+    std::cout << "diagram IIc " << Z.TwoBodyNorm() << std::endl;
     if (EraseTB)
       Z.EraseTwoBody();
 
-      // ####################################################################################
-      //   diagram IId
-      //
-      //   II(d)^J0_pgqh = - P(p/g) * P(q/h) * \sum_{abcd J2 J3 J4 J5} ( 2 * J2 + 1 )
-      //                   ( 2 * J3 + 1 ) ( 2 * J4 + 1 ) ( 2 * J5 + 1 )
-      //
-      //                   { jd jg J5 } { ja jh J5 } { J0 J5 J4 } { J5 J4 J0 }
-      //                   { jc jb J2 } { jc jb J3 } { jd jp jg } { jq jh ja }
-      //
-      //                   ( \bar{n_c} n_b n_d - \bar{n_b} \bar{n_d} n_c )
-      //                   eta^J2_gcbd eta^J3_bahc Gamma^J4_dpaq
-      // ####################################################################################
-    #pragma omp parallel for
+    // ####################################################################################
+    //   diagram IId
+    //
+    //   II(d)^J0_pgqh = - P(p/g) * P(q/h) * \sum_{abcd J2 J3 J4 J5} ( 2 * J2 + 1 )
+    //                   ( 2 * J3 + 1 ) ( 2 * J4 + 1 ) ( 2 * J5 + 1 )
+    //
+    //                   { jd jg J5 } { ja jh J5 } { J0 J5 J4 } { J5 J4 J0 }
+    //                   { jc jb J2 } { jc jb J3 } { jd jp jg } { jq jh ja }
+    //
+    //                   ( \bar{n_c} n_b n_d - \bar{n_b} \bar{n_d} n_c )
+    //                   eta^J2_gcbd eta^J3_bahc Gamma^J4_dpaq
+    // ####################################################################################
+#pragma omp parallel for
     for (int ch = 0; ch < nch; ++ch)
     {
       TwoBodyChannel &tbc = Z.modelspace->GetTwoBodyChannel(ch);
@@ -8494,23 +8463,23 @@ void comm222_pp_hhst(const Operator &X, const Operator &Y, Operator &Z)
         } // iket
       } // ibra
     } // J0 channel
-    // std::cout << "diagram IId  " << Z.TwoBodyNorm() << std::endl;
+    std::cout << "diagram IId " << Z.TwoBodyNorm() << std::endl;
     if (EraseTB)
       Z.EraseTwoBody();
 
-      // ####################################################################################
-      //   diagram IIe
-      //
-      //   II(e)^J0_pgqh = - 1/2 * P(p/g) * P(q/h) *  \sum_{abcd J2 J3 J4}
-      //                     ( 2 * J2 + 1 ) ( 2 * J3 + 1 ) ( 2 * J4 + 1 )
-      //
-      //                   { jp jh J4 } { jq jg J4 } { jh jq J0 }
-      //                   { jb jd J2 } { jb jd J3 } { jg jp J4 }
-      //
-      //                   ( \bar{n_b} n_a n_c + \bar{n_a} \bar{n_c} n_b )
-      //                   eta^J2_acbh eta^J2_pdac Gamma^J3_bgqd
-      // ####################################################################################
-    #pragma omp parallel for
+    // ####################################################################################
+    //   diagram IIe
+    //
+    //   II(e)^J0_pgqh = - 1/2 * P(p/g) * P(q/h) *  \sum_{abcd J2 J3 J4}
+    //                     ( 2 * J2 + 1 ) ( 2 * J3 + 1 ) ( 2 * J4 + 1 )
+    //
+    //                   { jp jh J4 } { jq jg J4 } { jh jq J0 }
+    //                   { jb jd J2 } { jb jd J3 } { jg jp J4 }
+    //
+    //                   ( \bar{n_b} n_a n_c + \bar{n_a} \bar{n_c} n_b )
+    //                   eta^J2_acbh eta^J2_pdac Gamma^J3_bgqd
+    // ####################################################################################
+#pragma omp parallel for
     for (int ch = 0; ch < nch; ++ch)
     {
       TwoBodyChannel &tbc = Z.modelspace->GetTwoBodyChannel(ch);
@@ -8701,23 +8670,23 @@ void comm222_pp_hhst(const Operator &X, const Operator &Y, Operator &Z)
         } // iket
       } // ibra
     } // J0 channel
-    // std::cout << "diagram IIe  " << Z.TwoBodyNorm() << std::endl;
+    std::cout << "diagram IIe " << Z.TwoBodyNorm() << std::endl;
     if (EraseTB)
       Z.EraseTwoBody();
 
-      // ####################################################################################
-      //   diagram IIf
-      //
-      //   II(f)^J0_pgqh = - 1/2 * P(p/g) * P(q/h) * \sum_{abcd J2 J3 J4}
-      //                     ( 2 * J2 + 1 ) ( 2 * J3 + 1 ) ( 2 * J4 + 1 )
-      //
-      //                   { jh jp J4 } { jg jq J4 } { jh jq J0 }
-      //                   { jb jd J2 } { jb jd J3 } { jg jp J4 }
-      //
-      //                   ( \bar{n_a} \bar{n_c} n_b + \bar{n_b} n_a n_c )
-      //                   eta^J2_pbac eta^J2_acdh Gamma^J3_dgqb
-      // ####################################################################################
-    #pragma omp parallel for
+    // ####################################################################################
+    //   diagram IIf
+    //
+    //   II(f)^J0_pgqh = - 1/2 * P(p/g) * P(q/h) * \sum_{abcd J2 J3 J4}
+    //                     ( 2 * J2 + 1 ) ( 2 * J3 + 1 ) ( 2 * J4 + 1 )
+    //
+    //                   { jh jp J4 } { jg jq J4 } { jh jq J0 }
+    //                   { jb jd J2 } { jb jd J3 } { jg jp J4 }
+    //
+    //                   ( \bar{n_a} \bar{n_c} n_b + \bar{n_b} n_a n_c )
+    //                   eta^J2_pbac eta^J2_acdh Gamma^J3_dgqb
+    // ####################################################################################
+#pragma omp parallel for
     for (int ch = 0; ch < nch; ++ch)
     {
       TwoBodyChannel &tbc = Z.modelspace->GetTwoBodyChannel(ch);
@@ -8907,23 +8876,23 @@ void comm222_pp_hhst(const Operator &X, const Operator &Y, Operator &Z)
         } // iket
       } // ibra
     } // J0 channel
-    // std::cout << "diagram IIf  " << Z.TwoBodyNorm() << std::endl;
+    std::cout << "diagram IIf " << Z.TwoBodyNorm() << std::endl;
     if (EraseTB)
       Z.EraseTwoBody();
 
-      // ####################################################################################
-      //   diagram IIIa
-      //
-      //   III(a)^J0_pgqh = P(p/g) * P(q/h) * \sum_{abcd J2 J3 J4 J5}
-      //                   ( 2 * J2 + 1 ) ( 2 * J3 + 1 ) ( 2 * J4 + 1 ) ( 2 * J5 + 1 )
-      //
-      //                   { ja jb J5 } { J3 J0 J5 } { jq jd J5 } { J3 J0 J5 }
-      //                   { jp jc J2 } { jp jc jg } { ja jb J4 } { jq jd jh }
-      //
-      //                   ( \bar{n_a} \bar{n_c} n_b + \bar{n_b} n_a n_c )
-      //                   eta^J2_bpca eta^J3_gchd Gamma^J4_dabq
-      // ####################################################################################
-      #pragma omp parallel for
+    // ####################################################################################
+    //   diagram IIIa
+    //
+    //   III(a)^J0_pgqh = P(p/g) * P(q/h) * \sum_{abcd J2 J3 J4 J5}
+    //                   ( 2 * J2 + 1 ) ( 2 * J3 + 1 ) ( 2 * J4 + 1 ) ( 2 * J5 + 1 )
+    //
+    //                   { ja jb J5 } { J3 J0 J5 } { jq jd J5 } { J3 J0 J5 }
+    //                   { jp jc J2 } { jp jc jg } { ja jb J4 } { jq jd jh }
+    //
+    //                   ( \bar{n_a} \bar{n_c} n_b + \bar{n_b} n_a n_c )
+    //                   eta^J2_bpca eta^J3_gchd Gamma^J4_dabq
+    // ####################################################################################
+#pragma omp parallel for
     for (int ch = 0; ch < nch; ++ch)
     {
       TwoBodyChannel &tbc = Z.modelspace->GetTwoBodyChannel(ch);
@@ -9015,11 +8984,6 @@ void comm222_pp_hhst(const Operator &X, const Operator &Y, Operator &Z)
                           double sixj4 = Z.modelspace->GetSixJ(J3, J0, J5, jq, jd, jh);
 
                           zpgqh += occfactor * sixj1 * sixj2 * sixj3 * sixj4 * (2 * J2 + 1) * (2 * J3 + 1) * (2 * J4 + 1) * (2 * J5 + 1) * Eta.TwoBody.GetTBME_J(J2, b, p, c, a) * Eta.TwoBody.GetTBME_J(J3, g, c, h, d) * Gamma.TwoBody.GetTBME_J(J4, d, a, b, q);
-                          if (ch == 0 and ibra == 2 and iket == 4)
-                          {
-                            std::cout << " IIIa " << occfactor * sixj1 * sixj2 * sixj3 * sixj4 * (2 * J2 + 1) * (2 * J3 + 1) * (2 * J4 + 1) * (2 * J5 + 1) * Eta.TwoBody.GetTBME_J(J2, b, p, c, a) * Eta.TwoBody.GetTBME_J(J3, g, c, h, d) * Gamma.TwoBody.GetTBME_J(J4, d, a, b, q)
-                                      << std::endl;
-                          }
                         }
                       }
                     }
@@ -9057,11 +9021,6 @@ void comm222_pp_hhst(const Operator &X, const Operator &Y, Operator &Z)
                           double sixj4 = Z.modelspace->GetSixJ(J3, J0, J5, jh, jd, jq);
 
                           zpgqh += phase_qh * occfactor * sixj1 * sixj2 * sixj3 * sixj4 * (2 * J2 + 1) * (2 * J3 + 1) * (2 * J4 + 1) * (2 * J5 + 1) * Eta.TwoBody.GetTBME_J(J2, b, p, c, a) * Eta.TwoBody.GetTBME_J(J3, g, c, q, d) * Gamma.TwoBody.GetTBME_J(J4, d, a, b, h);
-                          if (ch == 0 and ibra == 2 and iket == 4)
-                          {
-                            std::cout << " IIIa " << phase_qh * occfactor * sixj1 * sixj2 * sixj3 * sixj4 * (2 * J2 + 1) * (2 * J3 + 1) * (2 * J4 + 1) * (2 * J5 + 1) * Eta.TwoBody.GetTBME_J(J2, b, p, c, a) * Eta.TwoBody.GetTBME_J(J3, g, c, q, d) * Gamma.TwoBody.GetTBME_J(J4, d, a, b, h)
-                                      << std::endl;
-                          }
                         }
                       }
                     }
@@ -9099,11 +9058,6 @@ void comm222_pp_hhst(const Operator &X, const Operator &Y, Operator &Z)
                           double sixj4 = Z.modelspace->GetSixJ(J3, J0, J5, jq, jd, jh);
 
                           zpgqh += phase_pg * occfactor * sixj1 * sixj2 * sixj3 * sixj4 * (2 * J2 + 1) * (2 * J3 + 1) * (2 * J4 + 1) * (2 * J5 + 1) * Eta.TwoBody.GetTBME_J(J2, b, g, c, a) * Eta.TwoBody.GetTBME_J(J3, p, c, h, d) * Gamma.TwoBody.GetTBME_J(J4, d, a, b, q);
-                          if (ch == 0 and ibra == 2 and iket == 4)
-                          {
-                            std::cout << " IIIa " << phase_pg * occfactor * sixj1 * sixj2 * sixj3 * sixj4 * (2 * J2 + 1) * (2 * J3 + 1) * (2 * J4 + 1) * (2 * J5 + 1) * Eta.TwoBody.GetTBME_J(J2, b, g, c, a) * Eta.TwoBody.GetTBME_J(J3, p, c, h, d) * Gamma.TwoBody.GetTBME_J(J4, d, a, b, q)
-                                      << std::endl;
-                          }
                         }
                       }
                     }
@@ -9141,11 +9095,6 @@ void comm222_pp_hhst(const Operator &X, const Operator &Y, Operator &Z)
                           double sixj4 = Z.modelspace->GetSixJ(J3, J0, J5, jh, jd, jq);
 
                           zpgqh += phase_pg * phase_qh * occfactor * sixj1 * sixj2 * sixj3 * sixj4 * (2 * J2 + 1) * (2 * J3 + 1) * (2 * J4 + 1) * (2 * J5 + 1) * Eta.TwoBody.GetTBME_J(J2, b, g, c, a) * Eta.TwoBody.GetTBME_J(J3, p, c, q, d) * Gamma.TwoBody.GetTBME_J(J4, d, a, b, h);
-                          if (ch == 0 and ibra == 2 and iket == 4)
-                          {
-                            std::cout << " IIIa " << phase_pg * phase_qh * occfactor * sixj1 * sixj2 * sixj3 * sixj4 * (2 * J2 + 1) * (2 * J3 + 1) * (2 * J4 + 1) * (2 * J5 + 1) * Eta.TwoBody.GetTBME_J(J2, b, g, c, a) * Eta.TwoBody.GetTBME_J(J3, p, c, q, d) * Gamma.TwoBody.GetTBME_J(J4, d, a, b, h)
-                                      << std::endl;
-                          }
                         }
                       }
                     }
@@ -9168,19 +9117,19 @@ void comm222_pp_hhst(const Operator &X, const Operator &Y, Operator &Z)
     if (EraseTB)
       Z.EraseTwoBody();
 
-      // ####################################################################################
-      //   diagram IIIb
-      //
-      //   III(b)^J0_pgqh = P(p/g) * P(q/h) * \sum_{abcd J2 J3 J4 J5}
-      //                   ( 2 * J2 + 1 ) ( 2 * J3 + 1 ) ( 2 * J4 + 1 ) ( 2 * J5 + 1 )
-      //
-      //                   { ja jb J5 }  { jd jp J5 } { J0 J3 J5 } { J0 J3 J5 }
-      //                   { jc jq J2 }  { ja jb J4 } { jc jq jh } { jd jp jg }
-      //
-      //                   ( \bar{n_a} n_b n_c + \bar{n_b} \bar{n_c} n_a )
-      //                   eta^J2_cbaq eta^J3_gdhc Gamma^J4_apdb
-      // ####################################################################################
-    #pragma omp parallel for
+    // ####################################################################################
+    //   diagram IIIb
+    //
+    //   III(b)^J0_pgqh = P(p/g) * P(q/h) * \sum_{abcd J2 J3 J4 J5}
+    //                   ( 2 * J2 + 1 ) ( 2 * J3 + 1 ) ( 2 * J4 + 1 ) ( 2 * J5 + 1 )
+    //
+    //                   { ja jb J5 }  { jd jp J5 } { J0 J3 J5 } { J0 J3 J5 }
+    //                   { jc jq J2 }  { ja jb J4 } { jc jq jh } { jd jp jg }
+    //
+    //                   ( \bar{n_a} n_b n_c + \bar{n_b} \bar{n_c} n_a )
+    //                   eta^J2_cbaq eta^J3_gdhc Gamma^J4_apdb
+    // ####################################################################################
+#pragma omp parallel for
     for (int ch = 0; ch < nch; ++ch)
     {
       TwoBodyChannel &tbc = Z.modelspace->GetTwoBodyChannel(ch);
@@ -9402,18 +9351,18 @@ void comm222_pp_hhst(const Operator &X, const Operator &Y, Operator &Z)
     if (EraseTB)
       Z.EraseTwoBody();
 
-      // ####################################################################################
-      //   diagram IIIc
-      //
-      //   III(c)^J0_pgqh = - P(q/h) * \sum_{abcd J2 J3 J4} ( 2 * J2 + 1 ) ( 2 * J3 + 1 ) ( 2 * J4 + 1 )
-      //
-      //                   { jq jb J4 } { J3 J0 J4 } { J4 J3 J0 }
-      //                   { jc ja J2 } { jc ja jd } { jh jq Jb }
-      //
-      //                   ( \bar{n_a} n_b n_c + \bar{n_b} \bar{n_c} n_a )
-      //                   eta^J2_bcaq eta^J0_pgcd Gamma^J3_dahb
-      // ####################################################################################
-    #pragma omp parallel for
+    // ####################################################################################
+    //   diagram IIIc
+    //
+    //   III(c)^J0_pgqh = - P(q/h) * \sum_{abcd J2 J3 J4} ( 2 * J2 + 1 ) ( 2 * J3 + 1 ) ( 2 * J4 + 1 )
+    //
+    //                   { jq jb J4 } { J3 J0 J4 } { J4 J3 J0 }
+    //                   { jc ja J2 } { jc ja jd } { jh jq Jb }
+    //
+    //                   ( \bar{n_a} n_b n_c + \bar{n_b} \bar{n_c} n_a )
+    //                   eta^J2_bcaq eta^J0_pgcd Gamma^J3_dahb
+    // ####################################################################################
+#pragma omp parallel for
     for (int ch = 0; ch < nch; ++ch)
     {
       TwoBodyChannel &tbc = Z.modelspace->GetTwoBodyChannel(ch);
@@ -9549,19 +9498,19 @@ void comm222_pp_hhst(const Operator &X, const Operator &Y, Operator &Z)
     if (EraseTB)
       Z.EraseTwoBody();
 
-      // ####################################################################################
-      //   diagram IIId
-      //
-      //   III(d)^J0_pgqh = - P(p/g) *  \sum_{abcd J2 J3 J4}
-      //                      ( 2 * J2 + 1 ) ( 2 * J3 + 1 ) ( 2 * J4 + 1 )
-      //
-      //                   { ja jp J4 } { J0 J3 J4 } { J4 J3 J0 }
-      //                   { jb jc J2 } { jb jc jd } { jg jp ja }
-      //
-      //                   ( \bar{n_a} \bar{n_c} n_b + \bar{n_b} n_a n_c )
-      //                   eta^J2_bpac eta^J0_cdqh Gamma^J3_gadb
-      // ####################################################################################
-    #pragma omp parallel for
+    // ####################################################################################
+    //   diagram IIId
+    //
+    //   III(d)^J0_pgqh = - P(p/g) *  \sum_{abcd J2 J3 J4}
+    //                      ( 2 * J2 + 1 ) ( 2 * J3 + 1 ) ( 2 * J4 + 1 )
+    //
+    //                   { ja jp J4 } { J0 J3 J4 } { J4 J3 J0 }
+    //                   { jb jc J2 } { jb jc jd } { jg jp ja }
+    //
+    //                   ( \bar{n_a} \bar{n_c} n_b + \bar{n_b} n_a n_c )
+    //                   eta^J2_bpac eta^J0_cdqh Gamma^J3_gadb
+    // ####################################################################################
+#pragma omp parallel for
     for (int ch = 0; ch < nch; ++ch)
     {
       TwoBodyChannel &tbc = Z.modelspace->GetTwoBodyChannel(ch);
@@ -9701,19 +9650,19 @@ void comm222_pp_hhst(const Operator &X, const Operator &Y, Operator &Z)
     if (EraseTB)
       Z.EraseTwoBody();
 
-      // ####################################################################################
-      //   diagram IIIe
-      //
-      //   III(e)^J0_pgqh = - 1/2 * P(p/g) * P(q/h) * \sum_{abcd J2 J3 J4}
-      //                   ( 2 * J2 + 1 ) ( 2 * J3 + 1 ) ( 2 * J4 + 1 )
-      //
-      //                   { jh jq J0 } { J2 J3 J4 } { J2 J3 J4 }
-      //                   { jg jp J4 } { jp jh jd } { jq jg Jc }
-      //
-      //                   ( \bar{n_d} n_a n_b + \bar{n_a} \bar{n_b} n_d )
-      //                   eta^J2_abhd eta^J3_dpcq Gamma^J2_gcab
-      // ####################################################################################
-    #pragma omp parallel for
+    // ####################################################################################
+    //   diagram IIIe
+    //
+    //   III(e)^J0_pgqh = - 1/2 * P(p/g) * P(q/h) * \sum_{abcd J2 J3 J4}
+    //                   ( 2 * J2 + 1 ) ( 2 * J3 + 1 ) ( 2 * J4 + 1 )
+    //
+    //                   { jh jq J0 } { J2 J3 J4 } { J2 J3 J4 }
+    //                   { jg jp J4 } { jp jh jd } { jq jg Jc }
+    //
+    //                   ( \bar{n_d} n_a n_b + \bar{n_a} \bar{n_b} n_d )
+    //                   eta^J2_abhd eta^J3_dpcq Gamma^J2_gcab
+    // ####################################################################################
+#pragma omp parallel for
     for (int ch = 0; ch < nch; ++ch)
     {
       TwoBodyChannel &tbc = Z.modelspace->GetTwoBodyChannel(ch);
@@ -9907,19 +9856,19 @@ void comm222_pp_hhst(const Operator &X, const Operator &Y, Operator &Z)
     if (EraseTB)
       Z.EraseTwoBody();
 
-      // ####################################################################################
-      //   diagram IIIf
-      //
-      //   III(f)^J0_pgqh = - 1/2 * P(p/g) * P(q/h) * \sum_{abcd J2 J3 J4}
-      //                    ( 2 * J2 + 1 ) ( 2 * J3 + 1 ) ( 2 * J4 + 1 )
-      //
-      //                   { jh jq J0 } { J2 J3 J4 } { J2 J3 J4 }
-      //                   { jg jp J4 } { jp jh jd } { jq jg Jc }
-      //
-      //                   ( \bar{n_c} n_a n_b + \bar{n_a} \bar{n_b} n_c )
-      //                   eta^J2_gcab eta^J3_dpcq Gamma^J2_abhd
-      // ####################################################################################
-    #pragma omp parallel for
+    // ####################################################################################
+    //   diagram IIIf
+    //
+    //   III(f)^J0_pgqh = - 1/2 * P(p/g) * P(q/h) * \sum_{abcd J2 J3 J4}
+    //                    ( 2 * J2 + 1 ) ( 2 * J3 + 1 ) ( 2 * J4 + 1 )
+    //
+    //                   { jh jq J0 } { J2 J3 J4 } { J2 J3 J4 }
+    //                   { jg jp J4 } { jp jh jd } { jq jg Jc }
+    //
+    //                   ( \bar{n_c} n_a n_b + \bar{n_a} \bar{n_b} n_c )
+    //                   eta^J2_gcab eta^J3_dpcq Gamma^J2_abhd
+    // ####################################################################################
+#pragma omp parallel for
     for (int ch = 0; ch < nch; ++ch)
     {
       TwoBodyChannel &tbc = Z.modelspace->GetTwoBodyChannel(ch);
@@ -10116,6 +10065,8 @@ void comm222_pp_hhst(const Operator &X, const Operator &Y, Operator &Z)
 
     return;
   }
+
+
 
   void comm223_231(const Operator &Eta, const Operator &Gamma, Operator &Z)
   { 
