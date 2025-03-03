@@ -731,3 +731,11 @@ install(FILES ${HEADERS}
         DESTINATION ${INSTDIR}/include
         PERMISSIONS OWNER_READ OWNER_WRITE OWNER_EXECUTE GROUP_READ  GROUP_EXECUTE WORLD_READ WORLD_EXECUTE)
 
+include(CTest)
+list(APPEND CMAKE_CTEST_ARGUMENTS "--verbose")
+# Unit Tests
+add_test(NAME Commutators2 COMMAND  python3 ../test/UnitTestCommutators2.py )
+add_test(NAME Commutators3 COMMAND  python3 ../test/UnitTestCommutators3.py )
+add_test(NAME Factorized   COMMAND  python3 ../test/UnitTestFactorized.py )
+add_test(NAME Triples      COMMAND  python3 ../test/UnitTestTriples.py )
+add_test(NAME Tensor       COMMAND  python3 ../test/UnitTestTensor.py )
