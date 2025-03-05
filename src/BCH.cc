@@ -97,17 +97,21 @@ namespace BCH
     {
       OpOut.SetParticleRank(2);
     }
-    //   if (use_imsrg3 and not OpOut.ThreeBody.is_allocated )
-    //   This was a bug, intruduced Feb 2022, fixed May 2022.
-    //   Only call SetMode and SetParticleRank if ThreeBody is not already allocated.
-    //   Otherwise, we are erasing the 3N inherited from OpIn.
-    //   if (use_imsrg3  )
-    if (Commutator::use_imsrg3 and not(OpOut.GetParticleRank() >= 3 and OpOut.ThreeBody.IsAllocated() and OpOut.ThreeBody.Is_PN_Mode())) // IMSRG(3) commutators work in PN mode only so far.
+    if (OpOut.GetJRank() == 0 and (OpOut.GetTRank() != 0 or OpOut.GetParity() != 0) and OpOut.IsReduced() == false)
     {
-      std::cout << __func__ << "  Allocating Three Body with pn mode" << std::endl;
-      OpOut.ThreeBody.SetMode("pn");
-      OpOut.SetParticleRank(3);
+      OpOut.MakeReduced();
     }
+      //   if (use_imsrg3 and not OpOut.ThreeBody.is_allocated )
+      //   This was a bug, intruduced Feb 2022, fixed May 2022.
+      //   Only call SetMode and SetParticleRank if ThreeBody is not already allocated.
+      //   Otherwise, we are erasing the 3N inherited from OpIn.
+      //   if (use_imsrg3  )
+      if (Commutator::use_imsrg3 and not(OpOut.GetParticleRank() >= 3 and OpOut.ThreeBody.IsAllocated() and OpOut.ThreeBody.Is_PN_Mode())) // IMSRG(3) commutators work in PN mode only so far.
+      {
+        std::cout << __func__ << "  Allocating Three Body with pn mode" << std::endl;
+        OpOut.ThreeBody.SetMode("pn");
+        OpOut.SetParticleRank(3);
+      }
     double factorial_denom = 1.0;
 
     Operator chi, chi2; // auxiliary one-body operator used to recover 4th-order quadruples.
@@ -129,7 +133,6 @@ namespace BCH
       double epsilon = nx * exp(-2 * ny) * bch_transform_threshold / (2 * ny); // this should probably be explained somewhere...
       for (int i = 1; i <= max_iter; ++i)
       {
-
         // Put this before the bch_skip step, so we still copy and allocate chi2.
         if (use_factorized_correction)
         {

@@ -400,6 +400,7 @@ namespace M0nu
     int e2max = modelspace.GetE2max();             // 2*emax
     Operator Op_TBME(modelspace, Jrank, 2, 0, 2);      // NOTE: from the constructor -- Operator::Operator(ModelSpace& ms, int Jrank, int Trank, int p, int part_rank)
     Op_TBME.SetHermitian();                        // it should be Hermitian
+    Op_TBME.is_reduced = true;
     modelspace.PreCalculateMoshinsky();            // pre-calculate the needed Moshinsky brackets, for efficiency
     if (pwd.getAsize() == 0)
     {

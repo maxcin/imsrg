@@ -219,8 +219,7 @@ namespace Commutator
        // We also use pointers so that we don't have to allocate copies if we don't need to.
        Operator Xtmp,Ytmp;  // Declared, but not yet allocated, for reasons of scope.
        if ( ( X.GetJRank()==0) and (Y.GetJRank()==0) ) // X and Y are scalars under rotation
-       {
-
+       {  
           const Operator * Xnred = &X;  // Pointer to the non-reduced version of the operator
           const Operator * Ynred = &Y;
           if ( X.IsReduced() ) // CommutatorScalarScalar doesn't expect reduced operators. Need to make it not reduced.
@@ -231,11 +230,10 @@ namespace Commutator
           }
           if ( Y.IsReduced() )
           {
-             Ytmp = Y;
-             Ytmp.MakeNotReduced();
-             Ynred = &Ytmp;  // Now Ynred points to the not-reduced copy Ytmp
+            Ytmp = Y;
+            Ytmp.MakeNotReduced();
+            Ynred = &Ytmp; // Now Ynred points to the not-reduced copy Ytmp
           }
-
           Operator Z = CommutatorScalarScalar( *Xnred, *Ynred); // CommutatorScalarScalar assumes X and Y are not reduced.
 
           if ( (Z.GetParity() !=0) or (Z.GetTRank() !=0) )

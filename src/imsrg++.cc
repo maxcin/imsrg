@@ -1497,12 +1497,10 @@ int main(int argc, char** argv)
         }
       }
 
-
-
-
+  
       op = imsrgsolver.Transform(op);
-
-//      std::cout << "Before renormal ordering Op(5,4) is " << std::setprecision(10) << op.OneBody(5,4) << std::endl;
+      
+      //      std::cout << "Before renormal ordering Op(5,4) is " << std::setprecision(10) << op.OneBody(5,4) << std::endl;
       if (renormal_order) 
       {
         if ( op.GetParticleRank()>2) op.SetParticleRank(2); // Discard the residual 3N because we don't want to deal with it in the valence calculation
