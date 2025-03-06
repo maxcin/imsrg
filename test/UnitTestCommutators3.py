@@ -9,3 +9,4 @@ passed = ut.TestCommutators()
 
 print('passed? ',passed)
 
+exit(not passed)

@@ -2,9 +2,9 @@
 
 import pyIMSRG
 
-ms = pyIMSRG.ModelSpace(3,'He8','He8')
+ms = pyIMSRG.ModelSpace(3,'C14','C14')
 ut = pyIMSRG.UnitTest(ms)
 passed = ut.TestPerturbativeTriples()
 
 print('passed? ',passed)
-
+exit(not passed)
