@@ -3,10 +3,12 @@ tmp*
 *.o
 *.so
 *.gz
+*.a
 ../output/*
 ../input/*
 ../doc/*
 ../work/*
+../work/.*
 ../old_armadillo/*
 build/
 .vscode/

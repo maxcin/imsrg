@@ -175,14 +175,15 @@ Operator Operator::operator/(const double rhs) const
 // Add operators
 Operator &Operator::operator+=(const Operator &rhs)
 {
+  int rank_lhs = this->GetParticleRank();
+  int rank_rhs = rhs.GetParticleRank();
+  int maxrank = std::max( rank_lhs, rank_rhs );
   ZeroBody += rhs.ZeroBody;
   OneBody += rhs.OneBody;
-  if (rhs.GetParticleRank() > 1)
-    TwoBody += rhs.TwoBody;
-  if (rhs.GetParticleRank() > 2)
-    ThreeBody += rhs.ThreeBody;
-  //   if (rhs.GetParticleRank() >2 )
-  //     ThreeBodyNO2B += rhs.ThreeBodyNO2B;
+  TwoBody += rhs.TwoBody;
+  ThreeBody += rhs.ThreeBody;
+  if ( maxrank > rank_lhs ) this->SetParticleRank(maxrank);
+
   if (rhs.GetNumberLegs() % 2 == 1)
     ThreeLeg += rhs.ThreeLeg;
   return *this;
@@ -210,14 +211,14 @@ Operator Operator::operator+(const double &rhs) const
 // Subtract operators
 Operator &Operator::operator-=(const Operator &rhs)
 {
+  int rank_lhs = this->GetParticleRank();
+  int rank_rhs = rhs.GetParticleRank();
+  int maxrank = std::max( rank_lhs, rank_rhs );
   ZeroBody -= rhs.ZeroBody;
   OneBody -= rhs.OneBody;
-  if (rhs.GetParticleRank() > 1)
-    TwoBody -= rhs.TwoBody;
-  if (rhs.GetParticleRank() > 2)
-    ThreeBody -= rhs.ThreeBody;
-  //   if (rhs.GetParticleRank() > 2)
-  //     ThreeBodyNO2B -= rhs.ThreeBodyNO2B;
+  TwoBody -= rhs.TwoBody;
+  ThreeBody -= rhs.ThreeBody;
+  if ( maxrank > rank_lhs ) this->SetParticleRank(maxrank);
   if (rhs.GetNumberLegs() % 2 == 1)
     ThreeLeg -= rhs.ThreeLeg;
   return *this;
@@ -981,6 +982,27 @@ void Operator::SetNonHermitian()
   hermitian = false;
   antihermitian = false;
   TwoBody.SetNonHermitian();
+}
+
+
+// As the code is currently set up, operators have an instance of ThreeBodyME
+// even if particle_rank < 3. In that case it should be unallocated. However,
+// it is possible to call Op.ThreeBody.SetMode("pn") or Op.ThreeBody.Allocate()
+// and this action does not modify the particle_rank property of the owning Operator instance.
+// This can lead to confusing results if the Operator thinks it is particle_rank=2, but it has
+// a fully allocated ThreeBodyME. If that happens, we throw an error here so that the code can be fixed.
+int Operator::GetParticleRank() const
+{
+   if ( this->IsNumberConserving()
+        and ( (TwoBody.IsAllocated() and particle_rank < 2 )
+           or (ThreeBody.IsAllocated() and particle_rank < 3 ) ) )
+   {
+      std::cout << __FILE__ << " " << __func__ << " :  Something's wrong. particle_rank = " << particle_rank
+                << "   but 2b allocated = " << TwoBody.IsAllocated() << "  and 3b allocated = " << ThreeBody.IsAllocated()
+                << "   dying... " << std::endl;
+      std::exit(EXIT_FAILURE);
+   }
+   return particle_rank;
 }
 
 void Operator::SetNumberLegs(int l)
