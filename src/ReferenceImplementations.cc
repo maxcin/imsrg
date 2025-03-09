@@ -6554,10 +6554,6 @@ void comm222_pp_hhst(const Operator &X, const Operator &Y, Operator &Z)
   {
     Z.modelspace->PreCalculateSixJ();
     bool EraseOB = false;
-    EraseOB = true;
-
-    int orbit_print = 2;
-
     // determine symmetry
     int hEta = Eta.IsHermitian() ? 1 : -1;
     int hGamma = Gamma.IsHermitian() ? 1 : -1;
@@ -6642,12 +6638,6 @@ void comm222_pp_hhst(const Operator &X, const Operator &Y, Operator &Z)
                     for (int J1 = J1min; J1 <= J1max; J1++)
                     {
                       zij += (2 * J0 + 1) * (2 * J1 + 1) / (od.j2 + 1.0) * occfactor * Eta.TwoBody.GetTBME_J(J0, J0, b, d, a, c) * Eta.TwoBody.GetTBME_J(J0, J0, a, c, b, e) * Gamma.TwoBody.GetTBME_J(J1, J1, e, p, d, q);
-                      if (p == orbit_print and q == orbit_print)
-                      {
-                        std::cout << " I " << a << " " << b << " " << c << " " << d << "  " << J0 << " " << J1 << "   "
-                                  << (2 * J0 + 1) * (2 * J1 + 1) / (od.j2 + 1.0) * occfactor * Eta.TwoBody.GetTBME_J(J0, J0, b, d, a, c) * Eta.TwoBody.GetTBME_J(J0, J0, a, c, b, e) * Gamma.TwoBody.GetTBME_J(J1, J1, e, p, d, q)
-                                  << std::endl;
-                      }
                     }
                   } // J0
                 }
@@ -6766,12 +6756,6 @@ void comm222_pp_hhst(const Operator &X, const Operator &Y, Operator &Z)
                           sixj *= Z.modelspace->GetSixJ(jp, je, J3, jd, jc, J1);
                           sixj *= Z.modelspace->GetSixJ(jb, jp, J2, je, ja, J3);
                           zij += phasefactor * (2 * J0 + 1) * (2 * J1 + 1) * (2 * J2 + 1) * (2 * J3 + 1) * sixj * occfactor * Eta.TwoBody.GetTBME_J(J0, J0, b, d, a, c) * Eta.TwoBody.GetTBME_J(J1, J1, c, p, d, e) * Gamma.TwoBody.GetTBME_J(J2, J2, a, e, b, q);
-                          if (p == orbit_print and q == orbit_print)
-                          {
-                            std::cout << " IIa " << a << " " << b << " " << c << " " << d << "  " << J0 << " " << J1 << "   "
-                                      << phasefactor * (2 * J0 + 1) * (2 * J1 + 1) * (2 * J2 + 1) * (2 * J3 + 1) * sixj * occfactor * Eta.TwoBody.GetTBME_J(J0, J0, b, d, a, c) * Eta.TwoBody.GetTBME_J(J1, J1, c, p, d, e) * Gamma.TwoBody.GetTBME_J(J2, J2, a, e, b, q)
-                                      << std::endl;
-                          }
                         }
                       }
                     }
@@ -6869,12 +6853,6 @@ void comm222_pp_hhst(const Operator &X, const Operator &Y, Operator &Z)
                   for (int J0 = J0min; J0 <= J0max; J0++)
                   {
                     zij += (2 * J0 + 1) * occfactor * Eta.TwoBody.GetTBME_J(J0, J0, b, e, a, d) * Eta.TwoBody.GetTBME_J(J0, J0, c, p, b, e) * Gamma.TwoBody.GetTBME_J(J0, J0, a, d, c, q);
-                    if (p == orbit_print and q == orbit_print)
-                    {
-                      std::cout << " IIb " << a << " " << b << " " << c << " " << d << "  " << e << " " << J0 << "   "
-                                << (2 * J0 + 1) * occfactor * Eta.TwoBody.GetTBME_J(J0, J0, b, e, a, d) * Eta.TwoBody.GetTBME_J(J0, J0, c, p, b, e) * Gamma.TwoBody.GetTBME_J(J0, J0, a, d, c, q)
-                                << std::endl;
-                    }
 
                   } // J0
                 }
@@ -6991,12 +6969,6 @@ void comm222_pp_hhst(const Operator &X, const Operator &Y, Operator &Z)
                           sixj *= Z.modelspace->GetSixJ(jc, jp, J3, jb, ja, J1);
                           sixj *= Z.modelspace->GetSixJ(je, jc, J2, jp, jd, J3);
                           zij += (2 * J0 + 1) * (2 * J1 + 1) * (2 * J2 + 1) * (2 * J3 + 1) * sixj * occfactor * Eta.TwoBody.GetTBME_J(J0, J0, b, e, d, a) * Eta.TwoBody.GetTBME_J(J1, J1, c, a, b, q) * Gamma.TwoBody.GetTBME_J(J2, J2, d, p, c, e);
-                          if (p == orbit_print and q == orbit_print)
-                          {
-                            std::cout << " IIc " << a << " " << b << " " << c << " " << d << "  " << J0 << " " << J1 << "   "
-                                      << (2 * J0 + 1) * (2 * J1 + 1) * (2 * J2 + 1) * (2 * J3 + 1) * sixj * occfactor * Eta.TwoBody.GetTBME_J(J0, J0, b, e, d, a) * Eta.TwoBody.GetTBME_J(J1, J1, c, a, b, q) * Gamma.TwoBody.GetTBME_J(J2, J2, d, p, c, e)
-                                      << std::endl;
-                          }
                         }
                       }
                     }
@@ -10195,12 +10167,12 @@ void comm222_pp_hhst(const Operator &X, const Operator &Y, Operator &Z)
     // std::cout << "diagram I  " << Z.OneBodyNorm() << std::endl;
     // Z.EraseOneBody();
 
+    Z.profiler.timer["231_diagram_I"] += omp_get_wtime() - t_internal;
+    t_internal = omp_get_wtime(); // timer
+
     // *********************************************************************************** //
     //                                  Diagram II                                         //
     // *********************************************************************************** //
-
-    Z.profiler.timer["231_diagram_I"] += omp_get_wtime() - t_internal;
-    t_internal = omp_get_wtime(); // timer
 
     // ###########################################################
     //  diagram II_a
