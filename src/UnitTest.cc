@@ -5678,19 +5678,25 @@ bool UnitTest::TestFactorizedDoubleCommutators()
   Operator OpOut_direct(*modelspace, jrank, tz, parity, 3);
   Operator OpOut_factorized(*modelspace, jrank, tz, parity, 2);
   OpOut_direct.ThreeBody.SetMode("pn");
-  H.ThreeBody.SetMode("pn");
-  eta.ThreeBody.SetMode("pn");
+  // H.ThreeBody.SetMode("pn");
+  // eta.ThreeBody.SetMode("pn");
+  OpOut_direct.ThreeBody.Erase();
 
   Commutator::comm223ss(eta, H, OpOut_direct);
   Commutator::comm231ss(eta, OpOut_direct, OpOut_direct);
   Commutator::comm232ss(eta, OpOut_direct, OpOut_direct);
 
   OpOut_direct.ThreeBody.Erase();
+  // OpOut_factorized.EraseOneBody();  
+  // OpOut_factorized.TwoBody.Erase();
+
+  Commutator::FactorizedDoubleCommutator::SetUse_1b_Intermediates(true);
+  Commutator::FactorizedDoubleCommutator::SetUse_2b_Intermediates(true);
 
   Commutator::FactorizedDoubleCommutator::comm223_231(eta, H, OpOut_factorized);
   Commutator::FactorizedDoubleCommutator::comm223_232(eta, H, OpOut_factorized);
 
-  std::cout << "Norm of OpOut_direct: " << OpOut_direct.Norm() << "  1b : " << OpOut_direct.OneBodyNorm() << "  2b : " << OpOut_direct.TwoBodyNorm() << std::endl;
+  std::cout << "Norm of OpOut_direct:     " << OpOut_direct.Norm()     << "  1b : " << OpOut_direct.OneBodyNorm()     << "  2b : " << OpOut_direct.TwoBodyNorm() << std::endl;
   std::cout << "Norm of OpOut_factorized: " << OpOut_factorized.Norm() << "  1b : " << OpOut_factorized.OneBodyNorm() << "  2b : " << OpOut_factorized.TwoBodyNorm() << std::endl;
 
   OpOut_direct -= OpOut_factorized;
@@ -5698,7 +5704,7 @@ bool UnitTest::TestFactorizedDoubleCommutators()
   if (not passed)
   {
     std::cout << __func__ << "  Uh Oh. Norm of difference is " << OpOut_direct.Norm()
-              << "  1b part: " << OpOut_direct.OneBodyNorm() << "  2b part: " << OpOut_direct.TwoBodyNorm()
+              << "  1b part: " << OpOut_direct.OneBodyNorm()   << "  2b part: " << OpOut_direct.TwoBodyNorm()
               << std::endl;
   }
 
