@@ -19,3 +19,4 @@ build/
 CMakeUserPresets.json
 imsrg++.cc
 imsrg++
+local_settings.cmake

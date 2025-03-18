@@ -7,6 +7,11 @@ set(CMAKE_CURRENT_BINARY_DIR "../build")
 
 option(IMSRG_BUILD_PYTHON_BINDINGS "Build Python bindings" ON)
 
+# Place to put any settings for quirks of your specific environment
+# e.g. maybe you want a different BLAS, or maybe you need to
+# explicitly set some additional variables for whatever reason
+include(local_settings.cmake OPTIONAL)
+
 # Determine if imsrg++ is built as a subproject (using add_subdirectory)
 # or if it is the main project.
 if(NOT DEFINED IMSRGPLUSPLUS_MAIN_PROJECT)
@@ -34,10 +39,6 @@ find_package(ZLIB REQUIRED)
 # find_package(Armadillo REQUIRED)
 # include_directories(${ARMADILLO_INCLUDE_DIRS})
 
-# Place to put any settings for quirks of your specific environment
-# e.g. maybe you want a different BLAS, or maybe you need to
-# explicitly set some additional variables for whatever reason
-include(local_settings.cmake OPTIONAL)
 
 add_compile_options(-frounding-math)
 set(CMAKE_CXX_STANDARD 14)
