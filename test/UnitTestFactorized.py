@@ -2,7 +2,7 @@
 
 import pyIMSRG
 
-ms = pyIMSRG.ModelSpace(2,'He8','He8')
+ms = pyIMSRG.ModelSpace(2,'He6','He6')
 ut = pyIMSRG.UnitTest(ms)
 passed = ut.TestFactorizedDoubleCommutators()
 

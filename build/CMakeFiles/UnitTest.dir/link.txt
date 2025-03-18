@@ -1,2 +1,0 @@
-/Library/Developer/CommandLineTools/usr/bin/ar qc libUnitTest.a CMakeFiles/UnitTest.dir/UnitTest.cc.o
-/Library/Developer/CommandLineTools/usr/bin/ranlib libUnitTest.a

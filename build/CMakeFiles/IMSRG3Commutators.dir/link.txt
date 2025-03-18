@@ -1,2 +1,0 @@
-/Library/Developer/CommandLineTools/usr/bin/ar qc libIMSRG3Commutators.a CMakeFiles/IMSRG3Commutators.dir/IMSRG3Commutators.cc.o
-/Library/Developer/CommandLineTools/usr/bin/ranlib libIMSRG3Commutators.a

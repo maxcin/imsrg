@@ -1,2 +1,0 @@
-/Library/Developer/CommandLineTools/usr/bin/ar qc libCommutator232.a CMakeFiles/Commutator232.dir/Commutator232.cc.o
-/Library/Developer/CommandLineTools/usr/bin/ranlib libCommutator232.a

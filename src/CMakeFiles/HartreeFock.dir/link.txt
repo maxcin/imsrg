@@ -1,2 +1,0 @@
-/Library/Developer/CommandLineTools/usr/bin/ar qc libHartreeFock.a CMakeFiles/HartreeFock.dir/HartreeFock.cc.o
-/Library/Developer/CommandLineTools/usr/bin/ranlib libHartreeFock.a
