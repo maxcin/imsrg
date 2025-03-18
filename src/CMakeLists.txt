@@ -3,6 +3,7 @@ cmake_minimum_required(VERSION 3.18)
 set(BLA_VENDOR OpenBLAS)
 # set(CMAKE_SKIP_INSTALL_RPATH ON)
 # set(CMAKE_SYSTEM_PREFIX_PATH $ENV{EBROOTGENTOO})
+set(CMAKE_CURRENT_BINARY_DIR "../build")
 
 option(IMSRG_BUILD_PYTHON_BINDINGS "Build Python bindings" ON)
 
@@ -32,6 +33,11 @@ find_package(Boost REQUIRED)
 find_package(ZLIB REQUIRED)
 # find_package(Armadillo REQUIRED)
 # include_directories(${ARMADILLO_INCLUDE_DIRS})
+
+# Place to put any settings for quirks of your specific environment
+# e.g. maybe you want a different BLAS, or maybe you need to
+# explicitly set some additional variables for whatever reason
+include(local_settings.cmake OPTIONAL)
 
 add_compile_options(-frounding-math)
 set(CMAKE_CXX_STANDARD 14)

@@ -6,11 +6,14 @@ tmp*
 *.a
 ../output/*
 ../input/*
-../doc/*
+../doc/latex
+../doc/html
 ../work/*
 ../work/.*
 ../old_armadillo/*
 build/
+../test/*.swp
+../build/
 .vscode/
 .cache/
 CMakeUserPresets.json

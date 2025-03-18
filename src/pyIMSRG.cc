@@ -724,6 +724,7 @@ PYBIND11_MODULE(pyIMSRG, m)
        // scalar-tensor commutators
        Commutator.def("comm111st", &Commutator::comm111st);
        Commutator.def("comm121st", &Commutator::comm121st);
+       Commutator.def("comm221st", &Commutator::comm221st);
        Commutator.def("comm122st", &Commutator::comm122st);
        Commutator.def("comm222_pp_hh_221st", &Commutator::comm222_pp_hh_221st);
        Commutator.def("comm222_phst", &Commutator::comm222_phst);
@@ -752,6 +753,12 @@ PYBIND11_MODULE(pyIMSRG, m)
        py::module FactorizedDoubleCommutator = Commutator.def_submodule("FactorizedDoubleCommutator", "FactorizedDoubleCommutator namespace");
         FactorizedDoubleCommutator.def("comm223_231",      &Commutator::FactorizedDoubleCommutator::comm223_231);
         FactorizedDoubleCommutator.def("comm223_232",      &Commutator::FactorizedDoubleCommutator::comm223_232);
+
+        FactorizedDoubleCommutator.def("comm223_231_chi2b",        &Commutator::FactorizedDoubleCommutator::comm223_231_chi2b);
+        FactorizedDoubleCommutator.def("comm223_231_chi1b",        &Commutator::FactorizedDoubleCommutator::comm223_231_chi1b);
+        FactorizedDoubleCommutator.def("comm223_232_chi2b",        &Commutator::FactorizedDoubleCommutator::comm223_232_chi2b);
+        FactorizedDoubleCommutator.def("comm223_232_chi1b",        &Commutator::FactorizedDoubleCommutator::comm223_232_chi1b);
+
 //        FactorizedDoubleCommutator.def("comm223_231_slow", &Commutator::FactorizedDoubleCommutator::comm223_231_slow);
 //        FactorizedDoubleCommutator.def("comm223_232_slow", &Commutator::FactorizedDoubleCommutator::comm223_232_slow);
 //        FactorizedDoubleCommutator.def("UseSlowVersion",   &Commutator::FactorizedDoubleCommutator::UseSlowVersion);

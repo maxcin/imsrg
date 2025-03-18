@@ -1,2 +1,0 @@
-/Library/Developer/CommandLineTools/usr/bin/ar qc libGenerator.a CMakeFiles/Generator.dir/Generator.cc.o
-/Library/Developer/CommandLineTools/usr/bin/ranlib libGenerator.a

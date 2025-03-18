@@ -1,0 +1,10 @@
+To install using CMake, go to the build directory, then do
+> cmake ../src
+
+This will set things up. Next, do 
+> make
+
+This will build the code, and produce some temporary library files as well as
+imsrg++
+libIMSRG.so
+pyIMSRG.<something>.so

@@ -1,2 +1,0 @@
-/Library/Developer/CommandLineTools/usr/bin/ar qc libJacobi3BME.a CMakeFiles/Jacobi3BME.dir/Jacobi3BME.cc.o
-/Library/Developer/CommandLineTools/usr/bin/ranlib libJacobi3BME.a

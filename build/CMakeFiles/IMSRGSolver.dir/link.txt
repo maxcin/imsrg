@@ -1,2 +1,0 @@
-/Library/Developer/CommandLineTools/usr/bin/ar qc libIMSRGSolver.a CMakeFiles/IMSRGSolver.dir/IMSRGSolver.cc.o
-/Library/Developer/CommandLineTools/usr/bin/ranlib libIMSRGSolver.a
