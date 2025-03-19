@@ -34,7 +34,7 @@ project(imsrg++ VERSION 0.1.0)
 find_package(OpenMP REQUIRED)
 find_package(BLAS REQUIRED)
 find_package(GSL REQUIRED)
-find_package(Boost REQUIRED)
+find_package(Boost REQUIRED CONFIG)
 find_package(ZLIB REQUIRED)
 # find_package(Armadillo REQUIRED)
 # include_directories(${ARMADILLO_INCLUDE_DIRS})
@@ -720,6 +720,7 @@ if(IMSRG_BUILD_PYTHON_BINDINGS)
         PRIVATE
         IMSRG
     )
+    set_target_properties(pyIMSRG PROPERTIES SUFFIX ".so")
 endif()
 
 # Install imsrg executable
