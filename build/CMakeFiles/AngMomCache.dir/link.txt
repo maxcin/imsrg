@@ -1,2 +1,0 @@
-/Library/Developer/CommandLineTools/usr/bin/ar qc libAngMomCache.a CMakeFiles/AngMomCache.dir/AngMomCache.cc.o
-/Library/Developer/CommandLineTools/usr/bin/ranlib libAngMomCache.a

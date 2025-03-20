@@ -12,7 +12,7 @@
 /// as described in https://doi.org/10.1016/0375-9474(71)90279-X. The advantages
 /// is that any 2B scalar potential can be splitted into 
 /// \f[
-///        V_(q) = \Sum_i [Psi^{(0)}_i(q)\tau_1\tau_2+Psi^{(1)}_i(q)]\Omega_i
+///        V_(q) = \sum_i [\Psi^{(0)}_i(q)\tau_1\tau_2+\Psi^{(1)}_i(q)]\Omega_i
 /// \f]
 /// where q is the momentum transfer, psi is a scalar function and Omega is 
 /// one of the six possibility for the spin operator. It is therefore very easy

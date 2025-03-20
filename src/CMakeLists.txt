@@ -3,8 +3,14 @@ cmake_minimum_required(VERSION 3.18)
 set(BLA_VENDOR OpenBLAS)
 # set(CMAKE_SKIP_INSTALL_RPATH ON)
 # set(CMAKE_SYSTEM_PREFIX_PATH $ENV{EBROOTGENTOO})
+set(CMAKE_CURRENT_BINARY_DIR "../build")
 
 option(IMSRG_BUILD_PYTHON_BINDINGS "Build Python bindings" ON)
+
+# Place to put any settings for quirks of your specific environment
+# e.g. maybe you want a different BLAS, or maybe you need to
+# explicitly set some additional variables for whatever reason
+include(local_settings.cmake OPTIONAL)
 
 # Determine if imsrg++ is built as a subproject (using add_subdirectory)
 # or if it is the main project.
@@ -32,6 +38,7 @@ find_package(Boost REQUIRED)
 find_package(ZLIB REQUIRED)
 # find_package(Armadillo REQUIRED)
 # include_directories(${ARMADILLO_INCLUDE_DIRS})
+
 
 add_compile_options(-frounding-math)
 set(CMAKE_CXX_STANDARD 14)
@@ -713,6 +720,7 @@ if(IMSRG_BUILD_PYTHON_BINDINGS)
         PRIVATE
         IMSRG
     )
+    set_target_properties(pyIMSRG PROPERTIES SUFFIX ".so")
 endif()
 
 # Install imsrg executable
@@ -731,3 +739,11 @@ install(FILES ${HEADERS}
         DESTINATION ${INSTDIR}/include
         PERMISSIONS OWNER_READ OWNER_WRITE OWNER_EXECUTE GROUP_READ  GROUP_EXECUTE WORLD_READ WORLD_EXECUTE)
 
+include(CTest)
+list(APPEND CMAKE_CTEST_ARGUMENTS "--verbose")
+# Unit Tests
+add_test(NAME Commutators2 COMMAND  python3 ../test/UnitTestCommutators2.py )
+add_test(NAME Commutators3 COMMAND  python3 ../test/UnitTestCommutators3.py )
+add_test(NAME Factorized   COMMAND  python3 ../test/UnitTestFactorized.py )
+add_test(NAME Triples      COMMAND  python3 ../test/UnitTestTriples.py )
+add_test(NAME Tensor       COMMAND  python3 ../test/UnitTestTensor.py )

@@ -1197,7 +1197,6 @@ double UnitTest::GetMschemeMatrixElement_3leg(const Operator &Op, int a, int ma,
 
 bool UnitTest::Test_against_ref_impl(const Operator &X, const Operator &Y, commutator_func ComOpt, commutator_func ComRef, std::string output_tag)
 {
-  
   int z_Jrank = X.GetJRank() + Y.GetJRank(); // I sure hope this is zero.
   int z_Trank = X.GetTRank() + Y.GetTRank();
   int z_parity = (X.GetParity() + Y.GetParity()) % 2;
@@ -1205,6 +1204,23 @@ bool UnitTest::Test_against_ref_impl(const Operator &X, const Operator &Y, commu
   int hx = X.IsHermitian() ? +1 : -1;
   int hy = Y.IsHermitian() ? +1 : -1;
 
+  Operator Xtmp, Ytmp;        // Declared, but not yet allocated, for reasons of scope.
+  const Operator *Xnred = &X; // Pointer to the non-reduced version of the operator
+  const Operator *Ynred = &Y;
+  if (X.IsReduced() and z_Jrank==0) // CommutatorScalarScalar doesn't expect reduced operators. Need to make it not reduced.
+  {
+    Xtmp = X;
+    Xtmp.MakeNotReduced();
+    Xnred = &Xtmp; // Now Xnred points to the not-reduced copy Xtmp
+  }
+  if (Y.IsReduced() and z_Jrank==0)
+  {
+    Ytmp = Y;
+    Ytmp.MakeNotReduced();
+    Ynred = &Ytmp; // Now Ynred points to the not-reduced copy Ytmp
+  }
+
+  
   ModelSpace &ms = *(Y.GetModelSpace());
   Operator Z(ms, z_Jrank, z_Trank, z_parity, z_particlerank);
   if (hx*hy > 0)
@@ -1216,10 +1232,40 @@ bool UnitTest::Test_against_ref_impl(const Operator &X, const Operator &Y, commu
 //  Operator Z(Y);
 //  Z.Erase();
   Operator Zref(Z);
-      
-  ComOpt(X, Y, Z);
+
+
+  if (Z.IsReduced() and z_Jrank==0)
+    Z.MakeNotReduced();
+
+  if ((X.IsHermitian() and Y.IsHermitian()) or (X.IsAntiHermitian() and Y.IsAntiHermitian()))
+    Z.SetAntiHermitian();
+  else if ((X.IsHermitian() and Y.IsAntiHermitian()) or (X.IsAntiHermitian() and Y.IsHermitian()))
+    Z.SetHermitian();
+  else
+    Z.SetNonHermitian();
+
+  if (Zref.IsReduced() and z_Jrank==0)
+    Zref.MakeNotReduced();
+
+  if ((X.IsHermitian() and Y.IsHermitian()) or (X.IsAntiHermitian() and Y.IsAntiHermitian()))
+    Zref.SetAntiHermitian();
+  else if ((X.IsHermitian() and Y.IsAntiHermitian()) or (X.IsAntiHermitian() and Y.IsHermitian()))
+    Zref.SetHermitian();
+  else
+    Zref.SetNonHermitian();
+
+  ComOpt(*Xnred, *Ynred, Z);
+  if ((Z.GetParity() != 0) or (Z.GetTRank() != 0))
+  {
+    
+    Z.MakeReduced(); // If Z changes parity or Tz, we by default store it as reduced. So make it as expected. Is that a good idea? Not sure....
+  }
   double tstart = omp_get_wtime();
-  ComRef(X, Y, Zref);
+  ComRef(*Xnred, *Ynred, Zref);
+  if ((Zref.GetParity() != 0) or (Zref.GetTRank() != 0) and z_Jrank==0)
+  {
+    Zref.MakeReduced(); // If Z changes parity or Tz, we by default store it as reduced. So make it as expected. Is that a good idea? Not sure....
+  }
   Z.profiler.timer["_ref_" + output_tag] += omp_get_wtime() - tstart;
 
   double normOpt = Z.Norm() + Z.ZeroBody;
@@ -1282,32 +1328,26 @@ bool UnitTest::Test_comm222_pp_hh_221ss(const Operator &X, const Operator &Y)
 /// scalar-tensor commutators
 bool UnitTest::Test_comm111st(const Operator &X, const Operator &Y)
 {
-  std::cout << __func__ << " about to run test" << std::endl;
   return Test_against_ref_impl(X, Y, Commutator::comm111st, ReferenceImplementations::comm111st, "comm111st");
 }
 bool UnitTest::Test_comm121st(const Operator &X, const Operator &Y)
 {
-  std::cout << __func__ << " about to run test" << std::endl;
   return Test_against_ref_impl(X, Y, Commutator::comm121st, ReferenceImplementations::comm121st, "comm121st");
 }
 bool UnitTest::Test_comm122st(const Operator &X, const Operator &Y)
 {
-  std::cout << __func__ << " about to run test" << std::endl;
   return Test_against_ref_impl(X, Y, Commutator::comm122st, ReferenceImplementations::comm122st, "comm122st");
 }
 bool UnitTest::Test_comm221st(const Operator &X, const Operator &Y)
 {
-  std::cout << __func__ << " about to run test" << std::endl;
   return Test_against_ref_impl(X, Y, Commutator::comm221st, ReferenceImplementations::comm221st, "comm221st");
 }
 bool UnitTest::Test_comm222_pp_hhst(const Operator &X, const Operator &Y)
 {
-  std::cout << __func__ << " about to run test" << std::endl;
   return Test_against_ref_impl(X, Y, Commutator::comm222_pp_hhst, ReferenceImplementations::comm222_pp_hhst, "comm222_pp_hhst");
 }
 bool UnitTest::Test_comm222_phst(const Operator &X, const Operator &Y)
 {
-  std::cout << __func__ << " about to run test" << std::endl;
   return Test_against_ref_impl(X, Y, Commutator::comm222_phst, ReferenceImplementations::comm222_phst, "comm222_phst");
 }
 
@@ -5634,19 +5674,23 @@ bool UnitTest::TestFactorizedDoubleCommutators()
   Operator OpOut_direct(*modelspace, jrank, tz, parity, 3);
   Operator OpOut_factorized(*modelspace, jrank, tz, parity, 2);
   OpOut_direct.ThreeBody.SetMode("pn");
-  H.ThreeBody.SetMode("pn");
-  eta.ThreeBody.SetMode("pn");
+
 
   Commutator::comm223ss(eta, H, OpOut_direct);
   Commutator::comm231ss(eta, OpOut_direct, OpOut_direct);
   Commutator::comm232ss(eta, OpOut_direct, OpOut_direct);
 
   OpOut_direct.ThreeBody.Erase();
+  // OpOut_factorized.EraseOneBody();  
+  // OpOut_factorized.TwoBody.Erase();
+
+  Commutator::FactorizedDoubleCommutator::SetUse_1b_Intermediates(true);
+  Commutator::FactorizedDoubleCommutator::SetUse_2b_Intermediates(true);
 
   Commutator::FactorizedDoubleCommutator::comm223_231(eta, H, OpOut_factorized);
   Commutator::FactorizedDoubleCommutator::comm223_232(eta, H, OpOut_factorized);
 
-  std::cout << "Norm of OpOut_direct: " << OpOut_direct.Norm() << "  1b : " << OpOut_direct.OneBodyNorm() << "  2b : " << OpOut_direct.TwoBodyNorm() << std::endl;
+  std::cout << "Norm of OpOut_direct:     " << OpOut_direct.Norm()     << "  1b : " << OpOut_direct.OneBodyNorm()     << "  2b : " << OpOut_direct.TwoBodyNorm() << std::endl;
   std::cout << "Norm of OpOut_factorized: " << OpOut_factorized.Norm() << "  1b : " << OpOut_factorized.OneBodyNorm() << "  2b : " << OpOut_factorized.TwoBodyNorm() << std::endl;
 
   OpOut_direct -= OpOut_factorized;
@@ -5654,7 +5698,7 @@ bool UnitTest::TestFactorizedDoubleCommutators()
   if (not passed)
   {
     std::cout << __func__ << "  Uh Oh. Norm of difference is " << OpOut_direct.Norm()
-              << "  1b part: " << OpOut_direct.OneBodyNorm() << "  2b part: " << OpOut_direct.TwoBodyNorm()
+              << "  1b part: " << OpOut_direct.OneBodyNorm()   << "  2b part: " << OpOut_direct.TwoBodyNorm()
               << std::endl;
   }
 
@@ -5669,34 +5713,44 @@ bool UnitTest::TestPerturbativeTriples()
 
   Operator H = RandomOp( *modelspace, 0,0,0, 2, +1);
   Operator Omega = RandomOp( *modelspace, 0,0,0, 2, -1);
-  H /= H.Norm();
-  Omega /= Omega.Norm();
+  H *= 1e3/H.Norm();
+  Omega *= 1.0/Omega.Norm();
 
   IMSRGSolver imsrgsolver( H );
+  imsrgsolver.SetGenerator("white");
+  imsrgsolver.SetDenominatorPartitioning("Moller_Plesset");
+
+  Omega += 10* imsrgsolver.generator.GetHod(Omega);
   imsrgsolver.SetOmega(0, Omega);
+
   double triples = imsrgsolver.CalculatePerturbativeTriples();
 
   /// Now we do it out explicitly as a cross check.
-  Operator W = H;
-  W.ThreeBody.SetMode("pn");
-  W.SetParticleRank(3);
-
+  /// As described in PRC 110, 044316 (2024), section IIIB
+  /// The triples correction is
+  /// Delta E[3] = 1/2 [Omegabar, Wbar]_0
+  /// with
+  /// Wbar = [Omega_2, Htilde_2]_3  (eq 26)
+  /// Htilde = sum_k 1/(k+1)! [Omega,H](k)  (eq 27)
+  /// Omegabar = Wbar^od / Deltabar (eq 21)
   BCH::SetBCHSkipiEq1(true);
   Operator Htilde = imsrgsolver.Transform(H);
   BCH::SetBCHSkipiEq1(false);
 
-  Operator Eta = W;
-  Eta.SetAntiHermitian();
-  Commutator::comm223ss( Omega, Htilde, W);
-  imsrgsolver.SetGenerator("white");
-  imsrgsolver.SetDenominatorPartitioning("Moller_Plesset");
-  imsrgsolver.generator.Update(W,Eta);
-  Eta.EraseOneBody();
-  Eta.EraseTwoBody();
-  Operator Wtmp = 0.5*W;
-  Commutator::comm133ss(Eta,Wtmp,W);
+  Operator W = H; // We will use the 1b part of H in the denominators below
   W.ZeroBody =0;
-  Commutator::comm330ss(Eta,W,W);
+  W.ThreeBody.SetMode("pn");
+  W.SetParticleRank(3);
+  Commutator::comm223ss( Omega, Htilde, W);
+
+
+  Operator Omegabar = W*0;
+  Omegabar.SetAntiHermitian();
+
+  imsrgsolver.generator.Update(W,Omegabar); // Omegabar = Wbar_od / Deltabar
+
+  Commutator::comm330ss(Omegabar,W,W);
+  W.ZeroBody *=0.5;
   double diff = W.ZeroBody - triples;
   passed = std::abs( diff ) < 1e-6;
   if (not passed)

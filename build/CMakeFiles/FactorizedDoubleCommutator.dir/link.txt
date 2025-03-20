@@ -1,2 +1,0 @@
-/Library/Developer/CommandLineTools/usr/bin/ar qc libFactorizedDoubleCommutator.a CMakeFiles/FactorizedDoubleCommutator.dir/FactorizedDoubleCommutator.cc.o
-/Library/Developer/CommandLineTools/usr/bin/ranlib libFactorizedDoubleCommutator.a
