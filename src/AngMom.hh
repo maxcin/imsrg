@@ -20,7 +20,7 @@
 #ifndef AngMom_hh
 #define AngMom_hh 1
 
-#include <cmath>
+//#include <cmath>
 #include <vector>
 
 #define MOSH_BETA_1 M_PI_4   // Moshinksy beta parameter for mass ratio 1:1

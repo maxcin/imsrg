@@ -1583,61 +1583,6 @@ uint64_t ModelSpace::SixJHash(double j1, double j2, double j3, double J1, double
 /*
 uint64_t ModelSpace::SixJHash(double j1, double j2, double j3, double J1, double J2, double J3)
 {
-
-  uint64_t twoj1 = 2 * j1;
-  uint64_t twoj2 = 2 * j2;
-  uint64_t twoj3 = 2 * j3;
-  uint64_t twoJ1 = 2 * J1;
-  uint64_t twoJ2 = 2 * J2;
-  uint64_t twoJ3 = 2 * J3;
-  // The 6j can contain 0,3, or 4 half-integer arguments
-  // If there are 3, then they can always be permuted so all the half-integers are on the bottom row.
-  if ((twoj1 + twoj2 + twoj3 + twoJ1 + twoJ2 + twoJ3) % 2 == 1)
-  {
-    if ((twoj1 % 2) == 1)
-    {
-      std::swap(twoj1, twoJ1);
-      std::swap(twoj2, twoJ2);
-    }
-    if ((twoj2 % 2) == 1)
-    {
-      std::swap(twoj2, twoJ2);
-      std::swap(twoj3, twoJ3);
-    }
-  }
-  else // otherwise, we can permute so the larger entries are on the bottom row
-  {
-    if ((twoj1 > twoJ1))
-    {
-      std::swap(twoj1, twoJ1);
-      std::swap(twoj2, twoJ2);
-    }
-    if ((twoj2 > twoJ2))
-    {
-      std::swap(twoj2, twoJ2);
-      std::swap(twoj3, twoJ3);
-    }
-  }
-
-  // Use the 6J symmettry under permutation of columns. Combine each column into a single integer
-  // then sort the column indices so that any of the 6 equivalent permutations will give the same key
-  uint64_t jJ1 = twoj1 + (twoJ1 << 10);
-  uint64_t jJ2 = twoj2 + (twoJ2 << 10);
-  uint64_t jJ3 = twoj3 + (twoJ3 << 10);
-
-  if (jJ3 < jJ2)
-    std::swap(jJ3, jJ2);
-  if (jJ2 < jJ1)
-    std::swap(jJ2, jJ1);
-  if (jJ3 < jJ2)
-    std::swap(jJ3, jJ2);
-
-  return jJ1 + (jJ2 << 20) + (jJ3 << 40);
-}
-
-/*
-uint64_t ModelSpace::SixJHash(double j1, double j2, double j3, double J1, double J2, double J3)
-{
   // Use the 6J symmettry under permutation of columns. Combine each column into a single integer
   // then sort the column indices so we only need to store one of the 6 equivalent permutations
   uint64_t jJ1 = (uint64_t)(2 * j1) + ((uint64_t)(2 * J1) << 10);

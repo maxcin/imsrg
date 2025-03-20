@@ -1197,29 +1197,14 @@ double UnitTest::GetMschemeMatrixElement_3leg(const Operator &Op, int a, int ma,
 
 bool UnitTest::Test_against_ref_impl(const Operator &X, const Operator &Y, commutator_func ComOpt, commutator_func ComRef, std::string output_tag)
 {
-  Operator Xtmp, Ytmp;        // Declared, but not yet allocated, for reasons of scope.
-  const Operator *Xnred = &X; // Pointer to the non-reduced version of the operator
-  const Operator *Ynred = &Y;
-  if (X.IsReduced()) // CommutatorScalarScalar doesn't expect reduced operators. Need to make it not reduced.
-  {
-    Xtmp = X;
-    Xtmp.MakeNotReduced();
-    Xnred = &Xtmp; // Now Xnred points to the not-reduced copy Xtmp
-  }
-  if (Y.IsReduced())
-  {
-    Ytmp = Y;
-    Ytmp.MakeNotReduced();
-    Ynred = &Ytmp; // Now Ynred points to the not-reduced copy Ytmp
-  }
-
+  
   int z_Jrank = X.GetJRank() + Y.GetJRank(); // I sure hope this is zero.
   int z_Trank = X.GetTRank() + Y.GetTRank();
-  int z_parity = (X.GetParity() + Y.GetParity()) % 2; 
+  int z_parity = (X.GetParity() + Y.GetParity()) % 2;
   int z_particlerank = Commutator::use_imsrg3 ? 3: 2;
   int hx = X.IsHermitian() ? +1 : -1;
   int hy = Y.IsHermitian() ? +1 : -1;
-  
+
   ModelSpace &ms = *(Y.GetModelSpace());
   Operator Z(ms, z_Jrank, z_Trank, z_parity, z_particlerank);
   if (hx*hy > 0)
@@ -1227,43 +1212,14 @@ bool UnitTest::Test_against_ref_impl(const Operator &X, const Operator &Y, commu
   if ( z_particlerank > 2 )
   {
      Z.ThreeBody.SetMode("pn");
-  }
+  } 
 //  Operator Z(Y);
 //  Z.Erase();
   Operator Zref(Z);
-
-  if (Z.IsReduced())
-    Z.MakeNotReduced();
-
-  if ((X.IsHermitian() and Y.IsHermitian()) or (X.IsAntiHermitian() and Y.IsAntiHermitian()))
-    Z.SetAntiHermitian();
-  else if ((X.IsHermitian() and Y.IsAntiHermitian()) or (X.IsAntiHermitian() and Y.IsHermitian()))
-    Z.SetHermitian();
-  else
-    Z.SetNonHermitian();
-
-  if (Zref.IsReduced())
-    Zref.MakeNotReduced();
-
-  if ((X.IsHermitian() and Y.IsHermitian()) or (X.IsAntiHermitian() and Y.IsAntiHermitian()))
-    Zref.SetAntiHermitian();
-  else if ((X.IsHermitian() and Y.IsAntiHermitian()) or (X.IsAntiHermitian() and Y.IsHermitian()))
-    Zref.SetHermitian();
-  else
-    Zref.SetNonHermitian();
-
-  ComOpt(*Xnred, *Ynred, Z);
-  if ((Z.GetParity() != 0) or (Z.GetTRank() != 0))
-  {
-    
-    Z.MakeReduced(); // If Z changes parity or Tz, we by default store it as reduced. So make it as expected. Is that a good idea? Not sure....
-  }
+      
+  ComOpt(X, Y, Z);
   double tstart = omp_get_wtime();
-  ComRef(*Xnred, *Ynred, Zref);
-  if ((Zref.GetParity() != 0) or (Zref.GetTRank() != 0))
-  {
-    Zref.MakeReduced(); // If Z changes parity or Tz, we by default store it as reduced. So make it as expected. Is that a good idea? Not sure....
-  }
+  ComRef(X, Y, Zref);
   Z.profiler.timer["_ref_" + output_tag] += omp_get_wtime() - tstart;
 
   double normOpt = Z.Norm() + Z.ZeroBody;

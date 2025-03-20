@@ -834,6 +834,7 @@ namespace Commutator
   void comm223_232(const Operator &Eta, const Operator &Gamma, Operator &Z)
   {
 
+//    std::cout << " LINE " << __LINE__ << std::endl;
     if( use_1b_intermediates)
     {
       comm223_232_chi1b( Eta, Gamma, Z);  // topology with 1-body intermediate (fast)
@@ -854,6 +855,7 @@ namespace Commutator
 ////////////////////////////////////////////////////////////////////////////
   void comm223_232_chi1b(const Operator &Eta, const Operator &Gamma, Operator &Z)
   {
+//    std::cout << " LINE " << __LINE__ << std::endl;
     // global variables
     double t_start = omp_get_wtime();
     double t_internal = omp_get_wtime();
@@ -1004,6 +1006,7 @@ namespace Commutator
       Z.profiler.timer["_"+std::string(__func__) + "_" + std::to_string(__LINE__)] += omp_get_wtime() - t_internal;
       t_internal = omp_get_wtime();
     }
+//    std::cout << "CHI1b_I = " << std::endl << CHI_I << std::endl;
 
 /// Now use the intermediate to form the double commutator
 #pragma omp parallel for schedule(dynamic, 1)
