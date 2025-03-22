@@ -12,12 +12,12 @@ This code also uses the Armadillo library, which is covered under the Mozilla Pu
 
 Credits:
 
-	- Most of this code was written by Ragnar Stroberg, who benefitted greatly from the codes of Koshiroh Tsukiyama, Heiko Hergert, and Nathan Parzuchowski.
+	Most of this code was written by Ragnar Stroberg, who benefitted greatly from the codes of Koshiroh Tsukiyama, Heiko Hergert, and Nathan Parzuchowski.
 
-	- A substantial amount of additional machinery was added by Takayuki Miyagi, including the HFMBPT, ThreeBodyMENO2B, and Pwd classes.
+	A substantial amount of additional machinery was added by Takayuki Miyagi, including the HFMBPT, ThreeBodyMENO2B, and Pwd classes.
 
-	- Implementation of operators for neutrinoless double beta decay was done by Charlie Payne, and these were ported back to the main fork by Antoine Belley.
+	Implementation of operators for neutrinoless double beta decay was done by Charlie Payne, and these were ported back to the main fork by Antoine Belley.
 
-	- Some tweaks to the 3rd order MBPT code were contributed by Johannes Simonis.
+	 Some tweaks to the 3rd order MBPT code were contributed by Johannes Simonis.
 
-	- Implementation of the IMSRG(3f2) routines, and tensor IMSRG(3) commutators by Bingcheng He.
+	Implementation of the IMSRG(3f2) routines, and tensor IMSRG(3) commutators by Bingcheng He.
