@@ -210,9 +210,9 @@ PYBIND11_MODULE(pyIMSRG, m)
           .def_readwrite("OneBody", &Operator::OneBody)
           .def_readwrite("TwoBody", &Operator::TwoBody)
           .def_readwrite("ThreeBody", &Operator::ThreeBody)
-          .def("GetOneBody", &Operator::GetOneBody, py::arg("i"),py::arg("j"))
-          .def("SetOneBody", &Operator::SetOneBody, py::arg("i"),py::arg("j"),py::arg("MatEl") )
-          .def("GetTwoBody", &Operator::GetTwoBody, py::arg("ch_bra"),py::arg("ch_ket"),py::arg("ibra"),py::arg("iket"))
+          .def("GetOneBody", &Operator::GetOneBody, py::arg("i"), py::arg("j"))
+          .def("SetOneBody", &Operator::SetOneBody, py::arg("i"), py::arg("j"), py::arg("MatEl"))
+          .def("GetTwoBody", &Operator::GetTwoBody, py::arg("ch_bra"), py::arg("ch_ket"), py::arg("ibra"), py::arg("iket"))
           .def("SetTwoBody", &Operator::SetTwoBody)
           .def("GetTwoBodyDimension", &Operator::GetTwoBodyDimension)
           .def("ScaleOneBody", &Operator::ScaleOneBody)
@@ -223,6 +223,8 @@ PYBIND11_MODULE(pyIMSRG, m)
           .def("DoNormalOrderingCore", &Operator::DoNormalOrderingCore)
           .def("DoNormalOrderingFilledValence", &Operator::DoNormalOrderingFilledValence)
           .def("UndoNormalOrdering", &Operator::UndoNormalOrdering)
+          .def("UndoNormalOrderingCore", &Operator::UndoNormalOrderingCore)
+          .def("DoNormalOrdering", &Operator::UndoNormalOrdering)
           .def("SetModelSpace", &Operator::SetModelSpace)
           .def("Truncate", &Operator::Truncate)
           .def("DoIsospinAveraging", &Operator::DoIsospinAveraging)
@@ -631,31 +633,32 @@ PYBIND11_MODULE(pyIMSRG, m)
           .def_readwrite("n_omega_written", &IMSRGSolver::n_omega_written) // I'm not sure I like just directly exposing this...
           ;
 
-   py::class_<IMSRGSolverPV,IMSRGSolver>(m,"IMSRGSolverPV")
-      .def(py::init<Operator&,Operator&,Operator&,Operator&>())
-      .def("Solve_RK4",&IMSRGSolverPV::Solve_flow_RK4_PV)
-      .def("GetH_s",&IMSRGSolverPV::GetH_s)
-      .def("GetVPT_s",&IMSRGSolverPV::GetVPT_s)
-      .def("GetSchiff_s",&IMSRGSolverPV::GetSchiff_s)
-      .def("GetSchiffpp_s",&IMSRGSolverPV::GetSchiffpp_s)
-      .def("SetGeneratorPV",&IMSRGSolverPV::SetGeneratorPV)
-   ;      
+      py::class_<IMSRGSolverPV, IMSRGSolver>(m, "IMSRGSolverPV")
+          .def(py::init<Operator &, Operator &>())
+          .def("Solve_RK4", &IMSRGSolverPV::Solve_flow_RK4_PV)
+          .def("Solve_magnus_euler", &IMSRGSolverPV::Solve_magnus_euler_PV)
+          .def("AddOperatorPV", &IMSRGSolverPV::AddOperatorPV)
+          .def("GetOperatorPV", &IMSRGSolverPV::GetOperatorPV)
+          .def("GetVPT_s", &IMSRGSolverPV::GetVPT_s)
+          .def("SetGeneratorPV", &IMSRGSolverPV::SetGeneratorPV)
+          .def("SetOnly1bEta", [](IMSRGSolverPV &self, bool tf)
+               { self.GetGeneratorPV().SetOnly1bEta(tf); })
+          .def("Transform", [](IMSRGSolverPV &self, Operator &op, Operator &opPV)
+           { return self.Transform(op, opPV); });
 
+          py::class_<Generator>(m, "Generator")
+              .def(py::init<>())
+              .def("SetType", &Generator::SetType, py::arg("gen_type"))
+              .def("SetDenominatorPartitioning", &Generator::SetDenominatorPartitioning, py::arg("Moller_Plessett or Epstein_Nesbet"))
+              .def("SetUseIsospinAveraging", &Generator::SetUseIsospinAveraging, py::arg("tf"))
+              .def("Update", &Generator::Update, py::arg("H"), py::arg("Eta"))
+              .def("GetHod_SingleRef", &Generator::GetHod_SingleRef, py::arg("H"))
+              .def("GetHod", &Generator::GetHod, py::arg("H"));
 
-      py::class_<Generator>(m, "Generator")
+      py::class_<GeneratorPV, Generator>(m, "GeneratorPV")
           .def(py::init<>())
           .def("SetType", &Generator::SetType, py::arg("gen_type"))
-          .def("SetDenominatorPartitioning", &Generator::SetDenominatorPartitioning, py::arg("Moller_Plessett or Epstein_Nesbet"))
-          .def("SetUseIsospinAveraging", &Generator::SetUseIsospinAveraging, py::arg("tf"))
-          .def("Update", &Generator::Update, py::arg("H"), py::arg("Eta"))
-          .def("GetHod_SingleRef", &Generator::GetHod_SingleRef, py::arg("H"))
-          .def("GetHod", &Generator::GetHod, py::arg("H"));
-
-    py::class_<GeneratorPV,Generator>(m,"GeneratorPV")
-        .def(py::init<>())
-        .def("SetType", &Generator::SetType, py::arg("gen_type"))
-        .def("Update", &GeneratorPV::Update, py::arg("H"), py::arg("V"), py::arg("Eta"), py::arg("Etapv"))
-         ;
+          .def("Update", &GeneratorPV::Update, py::arg("H"), py::arg("V"), py::arg("Eta"), py::arg("Etapv"));
 
 
 

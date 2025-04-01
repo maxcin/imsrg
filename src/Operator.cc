@@ -392,7 +392,7 @@ void Operator::ReadBinary(std::ifstream &ifs)
 
 Operator Operator::DoNormalOrdering() const
 {
-//  if (legs % 2 > 0)
+  // if (legs % 2 > 0)
   if ( not this->IsNumberConserving() )
     return DoNormalOrderingDagger(+1, modelspace->holes);
   if ( this->GetParticleRank() >= 3 )
@@ -410,6 +410,17 @@ Operator Operator::UndoNormalOrdering() const
     return DoNormalOrdering3(-1, modelspace->holes);
   else
     return DoNormalOrdering2(-1, modelspace->holes);
+}
+
+Operator Operator::UndoNormalOrderingCore() const
+{
+  //  std::cout << " IN " << __func__ << "   legs = " << legs << std::endl;
+  if (not this->IsNumberConserving())
+    return DoNormalOrderingDagger(-1, modelspace->core);
+  if (this->GetParticleRank() >= 3)
+    return DoNormalOrdering3(-1, modelspace->core);
+  else
+    return DoNormalOrdering2(-1, modelspace->core);
 }
 
 // Operator Operator::UndoNormalOrdering2() const

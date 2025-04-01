@@ -6029,6 +6029,7 @@ Operator ReadWrite::ReadOperator2b_Miyagi(std::string filename, ModelSpace& mode
   // std::cout << filename << std::endl;
   getline(zipstream, line);
   getline(zipstream, line);
+  // std::cout<< line << std::endl;
   int J = 0, P = 0, Z = 0;
   int emax = modelspace.GetEmax(), e2max = modelspace.GetE2max();
   std::istringstream tmp( line.c_str() );
@@ -6037,7 +6038,6 @@ Operator ReadWrite::ReadOperator2b_Miyagi(std::string filename, ModelSpace& mode
   Operator op = Operator(modelspace, J, Z, (1-P)/2, 2);
   zipstream >> op.ZeroBody;
   std::vector<int> orbits_remap;
-
   std::vector<int> energy_vals;
   std::vector<int> n_vals;
   std::vector<int> l_vals;
@@ -6110,13 +6110,13 @@ Operator ReadWrite::ReadOperator2b_Miyagi(std::string filename, ModelSpace& mode
               if( energy_vals[nlj2] > modelspace.GetEmax() ) continue;
               if( energy_vals[nlj3] > modelspace.GetEmax() ) continue;
               if( energy_vals[nlj4] > modelspace.GetEmax() ) continue;
-            
+
               if( std::abs(me_pppp) > 1.e-10 ) op.TwoBody.SetTBME_J(Jij, Jkl, ip, jp, kp, lp, me_pppp);
               if( std::abs(me_nnnn) > 1.e-10 ) op.TwoBody.SetTBME_J(Jij, Jkl, in, jn, kn, ln, me_nnnn);
               if( std::abs(me_pnpn) > 1.e-10 ) op.TwoBody.SetTBME_J(Jij, Jkl, ip, jn, kp, ln, me_pnpn);
               if( std::abs(me_pnnp) > 1.e-10 ) op.TwoBody.SetTBME_J(Jij, Jkl, ip, jn, kn, lp, me_pnnp);
               if( std::abs(me_npnp) > 1.e-10 ) op.TwoBody.SetTBME_J(Jij, Jkl, in, jp, kn, lp, me_npnp);
-            
+
               if( std::abs(me_pppn) > 1.e-10 ) op.TwoBody.SetTBME_J(Jij, Jkl, ip, jp, kp, ln, me_pppn);
               if( std::abs(me_ppnp) > 1.e-10 ) op.TwoBody.SetTBME_J(Jij, Jkl, ip, jp, kn, lp, me_ppnp);
               if( std::abs(me_pnnn) > 1.e-10 ) op.TwoBody.SetTBME_J(Jij, Jkl, ip, jn, kn, ln, me_pnnn);

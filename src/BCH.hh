@@ -40,6 +40,10 @@ namespace BCH
     void Set_BCH_Transform_Threshold(double x);
     void Set_BCH_Product_Threshold(double x);
 
+    std::tuple<Operator, Operator> BCH_ProductPV(Operator &X, Operator &XPV, Operator &Y, Operator &YPV);
+    std::tuple<Operator, Operator> BCH_TransformPV(const Operator &Op,const Operator &OpPV, const Operator &Omega, const Operator &OmegaPV);
+    std::tuple<Operator, Operator> Standard_BCH_TransformPV(const Operator &Op,const Operator &OpPV, const Operator &Omega, const Operator &OmegaPV);
+
 }// namespace BCH
 
 #endif
