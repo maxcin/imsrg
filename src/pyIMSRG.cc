@@ -841,7 +841,6 @@ PYBIND11_MODULE(pyIMSRG, m)
        ReferenceImplementations.def("comm223_231", &ReferenceImplementations::comm223_231);
        ReferenceImplementations.def("comm223_232", &ReferenceImplementations::comm223_232);
 
-
        ReferenceImplementations.def("comm331st", &ReferenceImplementations::comm331st);
        ReferenceImplementations.def("comm223st", &ReferenceImplementations::comm223st);
        ReferenceImplementations.def("comm231st", &ReferenceImplementations::comm231st);
