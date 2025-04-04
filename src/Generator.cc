@@ -267,7 +267,8 @@ void Generator::ConstructGenerator_SingleRef(std::function<double (double,double
          Eta->OneBody(a,i) = - Eta->OneBody(i,a);
       }
    }
-
+   if (only_1b_eta)
+      return;
    // Two body piece -- eliminate pp'hh' bits
    for ( auto& iter : Eta->TwoBody.MatEl )
    {
@@ -389,8 +390,9 @@ void Generator::ConstructGenerator_ShellModel(std::function<double (double,doubl
    }
 
 
-   // Two body piece -- eliminate ppvh and pqvv  
-
+   // Two body piece -- eliminate ppvh and pqvv
+   if (only_1b_eta)
+      return;
    int nchan = H->modelspace->GetNumberTwoBodyChannels();
    for (int ch=0;ch<nchan;++ch)
    {

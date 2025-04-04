@@ -170,7 +170,7 @@ namespace Commutator
     }
     int nmat = bra_channels.size();
     //   #pragma omp parallel for schedule(dynamic,1) if (not Z.modelspace->tensor_transform_first_pass[Z.GetJRank()*2+Z.GetParity()])
-    #pragma omp parallel for schedule(dynamic, 1) if (not single_thread)
+    // #pragma omp parallel for schedule(dynamic, 1) if (not single_thread)
     for (int ii = 0; ii < nmat; ++ii)
     {
       int ch_bra = bra_channels[ii];
@@ -178,6 +178,9 @@ namespace Commutator
 
       TwoBodyChannel &tbc_bra = Z.modelspace->GetTwoBodyChannel(ch_bra);
       TwoBodyChannel &tbc_ket = Z.modelspace->GetTwoBodyChannel(ch_ket);
+      int ch_bra_x = Z.modelspace->GetTwoBodyChannelIndex(tbc_ket.J, (tbc_ket.parity + X.GetParity()) % 2, tbc_ket.Tz);
+      int ch_ket_x = Z.modelspace->GetTwoBodyChannelIndex(tbc_bra.J, (tbc_bra.parity + X.GetParity()) % 2, tbc_bra.Tz);
+      int ch_intery = Z.modelspace->GetTwoBodyChannelIndex(tbc_ket.J, (tbc_ket.parity + Y.GetParity()) % 2, tbc_ket.Tz);
       int J1 = tbc_bra.J;
       int J2 = tbc_ket.J;
       int nbras = tbc_bra.GetNumberKets();
@@ -209,12 +212,13 @@ namespace Commutator
           double c2 = 0;
           double c3 = 0;
           double c4 = 0;
-          if ((ch_bra==ch_ket)  and (iket>ibra)) continue;
+          if ((ch_bra == ch_ket) and (iket > ibra))
+            continue;
 
           //            for ( int a : X.OneBodyChannels.at({oi.l,oi.j2,oi.tz2}) )
           for (int a : X.GetOneBodyChannel(oi.l, oi.j2, oi.tz2))
           {
-            c1 += X.OneBody(i, a) * Y.TwoBody.GetTBME(ch_bra, ch_ket, a, j, k, l);
+            c1 += X.OneBody(i, a) * Y.TwoBody.GetTBME(ch_ket_x, ch_ket, a, j, k, l);
           }
           if (i == j)
           {
@@ -225,13 +229,13 @@ namespace Commutator
             //              for ( int a : X.OneBodyChannels.at({oj.l,oj.j2,oj.tz2}) )
             for (int a : X.GetOneBodyChannel(oj.l, oj.j2, oj.tz2))
             {
-              c2 += X.OneBody(j, a) * Y.TwoBody.GetTBME(ch_bra, ch_ket, i, a, k, l);
+              c2 += X.OneBody(j, a) * Y.TwoBody.GetTBME(ch_ket_x, ch_ket, i, a, k, l);
             }
           }
           //            for ( int a : X.OneBodyChannels.at({ok.l,ok.j2,ok.tz2}) )
           for (int a : X.GetOneBodyChannel(ok.l, ok.j2, ok.tz2))
           {
-            c3 += X.OneBody(a, k) * Y.TwoBody.GetTBME(ch_bra, ch_ket, i, j, a, l);
+            c3 += X.OneBody(a, k) * Y.TwoBody.GetTBME(ch_bra, ch_bra_x, i, j, a, l);
           }
           if (k == l)
           {
@@ -242,7 +246,7 @@ namespace Commutator
             //              for ( int a : X.OneBodyChannels.at({ol.l,ol.j2,ol.tz2}) )
             for (int a : X.GetOneBodyChannel(ol.l, ol.j2, ol.tz2))
             {
-              c4 += X.OneBody(a, l) * Y.TwoBody.GetTBME(ch_bra, ch_ket, i, j, k, a);
+              c4 += X.OneBody(a, l) * Y.TwoBody.GetTBME(ch_bra, ch_bra_x, i, j, k, a);
             }
           }
 
@@ -260,12 +264,13 @@ namespace Commutator
           for (int a : Y.GetOneBodyChannel(oi.l, oi.j2, oi.tz2))
           {
             double ja = Z.modelspace->GetOrbit(a).j2 * 0.5;
-            if ( not  AngMom::Triangle(J2,ja,jj)  ) continue;
-            c1 -= Z.modelspace->GetSixJ(J2, J1, Lambda, ji, ja, jj) * Y.OneBody(i, a) * X.TwoBody.GetTBME(ch_ket, ch_ket, a, j, k, l);
+            if (not AngMom::Triangle(J2, ja, jj))
+              continue;
+            c1 -= Z.modelspace->GetSixJ(J2, J1, Lambda, ji, ja, jj) * Y.OneBody(i, a) * X.TwoBody.GetTBME(ch_bra_x, ch_ket, a, j, k, l);
             //             std::cout << " " << __FILE__ << "  ch bra,ket" << ch_bra << " " << ch_ket <<  "   pqrs " << i << " " << j << " " << k << " " <<l << "  a = " << a << "   zpqrs = " << hatfactor * phase1*c1 << "  => " << cijkl <<  std::endl;
           }
 
-          if (false and i == j)
+          if (i == j)
           {
             c2 = -c1;
           }
@@ -274,15 +279,17 @@ namespace Commutator
             for (int a : Y.GetOneBodyChannel(oj.l, oj.j2, oj.tz2))
             {
               double ja = Z.modelspace->GetOrbit(a).j2 * 0.5;
-              if ( not  AngMom::Triangle(J2,ja,ji)  ) continue;
-              c2 += Z.modelspace->GetSixJ(J2, J1, Lambda, jj, ja, ji) * Y.OneBody(j, a) * X.TwoBody.GetTBME(ch_ket, ch_ket, a, i, k, l);
+              if (not AngMom::Triangle(J2, ja, ji))
+                continue;
+              c2 += Z.modelspace->GetSixJ(J2, J1, Lambda, jj, ja, ji) * Y.OneBody(j, a) * X.TwoBody.GetTBME(ch_bra_x, ch_ket, a, i, k, l);
             }
           }
           for (int a : Y.GetOneBodyChannel(ok.l, ok.j2, ok.tz2))
           {
             double ja = Z.modelspace->GetOrbit(a).j2 * 0.5;
-            if ( not  AngMom::Triangle(J1,ja,jl)  ) continue;
-            c3 -= Z.modelspace->GetSixJ(J1, J2, Lambda, jk, ja, jl) * Y.OneBody(a, k) * X.TwoBody.GetTBME(ch_bra, ch_bra, i, j, l, a);
+            if (not AngMom::Triangle(J1, ja, jl))
+              continue;
+            c3 -= Z.modelspace->GetSixJ(J1, J2, Lambda, jk, ja, jl) * Y.OneBody(a, k) * X.TwoBody.GetTBME(ch_bra, ch_ket_x, i, j, l, a);
           }
           if (k == l)
           {
@@ -293,15 +300,17 @@ namespace Commutator
             for (int a : Y.GetOneBodyChannel(ol.l, ol.j2, ol.tz2))
             {
               double ja = Z.modelspace->GetOrbit(a).j2 * 0.5;
-              if ( not  AngMom::Triangle(J1,ja,jk)  ) continue;
-              c4 += Z.modelspace->GetSixJ(J1, J2, Lambda, jl, ja, jk) * Y.OneBody(a, l) * X.TwoBody.GetTBME(ch_bra, ch_bra, i, j, k, a);
+              if (not AngMom::Triangle(J1, ja, jk))
+                continue;
+              c4 += Z.modelspace->GetSixJ(J1, J2, Lambda, jl, ja, jk) * Y.OneBody(a, l) * X.TwoBody.GetTBME(ch_bra, ch_ket_x, i, j, k, a);
             }
           }
           cijkl += hatfactor * (phase1 * c1 + phase2 * c2 + phase3 * c3 + phase4 * c4);
 
           double norm = bra.delta_pq() == ket.delta_pq() ? 1 + bra.delta_pq() : PhysConst::SQRT2;
           Z2(ibra, iket) += cijkl / norm;
-          if ( (ch_bra==ch_ket) and (iket<ibra) ) Z2(iket,ibra) += Z.modelspace->phase(J1-J2) * cijkl/norm;
+          if ((ch_bra == ch_ket) and (iket < ibra))
+            Z2(iket, ibra) += Z.modelspace->phase(J1 - J2) * cijkl / norm;
         }
       }
     }

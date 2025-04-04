@@ -502,7 +502,6 @@ namespace BCH
         Operator OptmpPV = Commutator::Commutator(OmegaPV, OpNested) + Commutator::Commutator(Omega, OpNestedPV);
         OpNested = Optmp; // the ith nested commutator
         OpNestedPV = OptmpPV;
-        
         factorial_denom /= i;
 
         OpOut += factorial_denom * OpNested;

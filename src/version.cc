@@ -4,6 +4,6 @@
 
 namespace version {
 std::string BuildVersion() {
-    return "docker_ff225b3+";
+    return "docker_04c94c9+";
 }
 }

@@ -613,11 +613,11 @@ PYBIND11_MODULE(pyIMSRG, m)
           .def("SetMagnusAdaptive", &IMSRGSolver::SetMagnusAdaptive)
           .def("SetReadWrite", &IMSRGSolver::SetReadWrite)
           .def("SetHunterGatherer", &IMSRGSolver::SetHunterGatherer)
-//          .def("SetPerturbativeTriples", &IMSRGSolver::SetPerturbativeTriples)
-//          .def("GetPerturbativeTriples", &IMSRGSolver::GetPerturbativeTriples)
-//          .def("CalculatePerturbativeTriples", &IMSRGSolver::CalculatePerturbativeTriples)
+          //          .def("SetPerturbativeTriples", &IMSRGSolver::SetPerturbativeTriples)
+          //          .def("GetPerturbativeTriples", &IMSRGSolver::GetPerturbativeTriples)
+          //          .def("CalculatePerturbativeTriples", &IMSRGSolver::CalculatePerturbativeTriples)
           .def("CalculatePerturbativeTriples", py::overload_cast<>(&IMSRGSolver::CalculatePerturbativeTriples))
-          .def("CalculatePerturbativeTriples", py::overload_cast<Operator&>(&IMSRGSolver::CalculatePerturbativeTriples))
+          .def("CalculatePerturbativeTriples", py::overload_cast<Operator &>(&IMSRGSolver::CalculatePerturbativeTriples))
           .def("AddOperator", &IMSRGSolver::AddOperator)
           .def("GetOperator", &IMSRGSolver::GetOperator)
           .def("EstimateBCHError", &IMSRGSolver::EstimateBCHError)
@@ -631,7 +631,8 @@ PYBIND11_MODULE(pyIMSRG, m)
           .def_readwrite("generator", &IMSRGSolver::generator)
           .def_readwrite("Eta", &IMSRGSolver::Eta)
           .def_readwrite("n_omega_written", &IMSRGSolver::n_omega_written) // I'm not sure I like just directly exposing this...
-          ;
+          .def("SetOnly1bEta", [](IMSRGSolver &self, bool tf)
+               { self.GetGenerator().SetOnly1bEta(tf); });
 
       py::class_<IMSRGSolverPV, IMSRGSolver>(m, "IMSRGSolverPV")
           .def(py::init<Operator &, Operator &>())
@@ -877,7 +878,7 @@ PYBIND11_MODULE(pyIMSRG, m)
           //      .def(py::init<>())
           .def(py::init<ModelSpace &>())
           .def("SetRandomSeed", &UnitTest::SetRandomSeed)
-          .def("RandomOp", &UnitTest::RandomOp, py::arg("modelspace"),py::arg("jrank"),py::arg("tz"),py::arg("parity"),py::arg("particle_rank"),py::arg("hermitian"))
+          .def("RandomOp", &UnitTest::RandomOp, py::arg("modelspace"), py::arg("jrank"), py::arg("tz"), py::arg("parity"), py::arg("particle_rank"), py::arg("hermitian"))
           .def("TestCommutators", &UnitTest::TestCommutators)
           .def("TestCommutators_Tensor", &UnitTest::TestCommutators_Tensor)
           .def("TestCommutators_IsospinChanging", &UnitTest::TestCommutators_IsospinChanging)
@@ -901,6 +902,11 @@ PYBIND11_MODULE(pyIMSRG, m)
           .def("Test_comm222_phss", &UnitTest::Test_comm222_phss)
           .def("Test_comm222_pp_hh_221ss", &UnitTest::Test_comm222_pp_hh_221ss)
 
+          .def("Test_comm111st", &UnitTest::Test_comm111st)
+          .def("Test_comm121st", &UnitTest::Test_comm121st)
+          .def("Test_comm221st", &UnitTest::Test_comm221st)
+          .def("Test_comm122st", &UnitTest::Test_comm122st)
+          .def("Test_comm222_pp_hhst", &UnitTest::Test_comm222_pp_hhst)
           .def("Test_comm222_phst", &UnitTest::Test_comm222_phst)
           ///
           .def("Test_comm330ss", &UnitTest::Test_comm330ss)
@@ -957,8 +963,6 @@ PYBIND11_MODULE(pyIMSRG, m)
           .def("Mscheme_Test_comm233_phst", &UnitTest::Mscheme_Test_comm233_phst)
           .def("Mscheme_Test_comm333_ppp_hhhst", &UnitTest::Mscheme_Test_comm333_ppp_hhhst)
           .def("Mscheme_Test_comm333_pph_hhpst", &UnitTest::Mscheme_Test_comm333_pph_hhpst)
-
-
 
           .def("GetMschemeMatrixElement_1b", &UnitTest::GetMschemeMatrixElement_1b, py::arg("Op"), py::arg("a"), py::arg("ma"), py::arg("b"), py::arg("mb")) // Op, a,ma, b,mb...
           .def("GetMschemeMatrixElement_2b", &UnitTest::GetMschemeMatrixElement_2b)                                                                          // Op, a,ma, b,mb...

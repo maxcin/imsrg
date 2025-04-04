@@ -1200,13 +1200,13 @@ bool UnitTest::Test_against_ref_impl(const Operator &X, const Operator &Y, commu
   Operator Xtmp, Ytmp;        // Declared, but not yet allocated, for reasons of scope.
   const Operator *Xnred = &X; // Pointer to the non-reduced version of the operator
   const Operator *Ynred = &Y;
-  if (X.IsReduced()) // CommutatorScalarScalar doesn't expect reduced operators. Need to make it not reduced.
+  if (X.IsReduced() and X.GetJRank() == 0) // CommutatorScalarScalar doesn't expect reduced operators. Need to make it not reduced.
   {
     Xtmp = X;
     Xtmp.MakeNotReduced();
     Xnred = &Xtmp; // Now Xnred points to the not-reduced copy Xtmp
   }
-  if (Y.IsReduced())
+  if (Y.IsReduced() and  Y.GetJRank() == 0) // CommutatorScalarScalar doesn't expect reduced operators. Need to make it not reduced.
   {
     Ytmp = Y;
     Ytmp.MakeNotReduced();
@@ -1232,7 +1232,7 @@ bool UnitTest::Test_against_ref_impl(const Operator &X, const Operator &Y, commu
 //  Z.Erase();
   Operator Zref(Z);
 
-  if (Z.IsReduced())
+  if (Z.IsReduced() and Z.GetJRank() == 0) // CommutatorScalarScalar doesn't expect reduced operators. Need to make it not reduced.
     Z.MakeNotReduced();
 
   if ((X.IsHermitian() and Y.IsHermitian()) or (X.IsAntiHermitian() and Y.IsAntiHermitian()))
@@ -1242,7 +1242,7 @@ bool UnitTest::Test_against_ref_impl(const Operator &X, const Operator &Y, commu
   else
     Z.SetNonHermitian();
 
-  if (Zref.IsReduced())
+  if (Zref.IsReduced() and Zref.GetJRank() == 0) // CommutatorScalarScalar doesn't expect reduced operators. Need to make it not reduced.
     Zref.MakeNotReduced();
 
   if ((X.IsHermitian() and Y.IsHermitian()) or (X.IsAntiHermitian() and Y.IsAntiHermitian()))
@@ -1253,14 +1253,14 @@ bool UnitTest::Test_against_ref_impl(const Operator &X, const Operator &Y, commu
     Zref.SetNonHermitian();
 
   ComOpt(*Xnred, *Ynred, Z);
-  if ((Z.GetParity() != 0) or (Z.GetTRank() != 0))
+  if ((Z.GetParity() != 0) or (Z.GetTRank() != 0) and Z.GetJRank() == 0)
   {
     
     Z.MakeReduced(); // If Z changes parity or Tz, we by default store it as reduced. So make it as expected. Is that a good idea? Not sure....
   }
   double tstart = omp_get_wtime();
   ComRef(*Xnred, *Ynred, Zref);
-  if ((Zref.GetParity() != 0) or (Zref.GetTRank() != 0))
+  if ((Zref.GetParity() != 0) or (Zref.GetTRank() != 0) and Zref.GetJRank() == 0)
   {
     Zref.MakeReduced(); // If Z changes parity or Tz, we by default store it as reduced. So make it as expected. Is that a good idea? Not sure....
   }

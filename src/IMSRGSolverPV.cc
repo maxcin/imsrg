@@ -50,7 +50,6 @@ void IMSRGSolverPV::Solve_flow_RK4_PV()
       WriteFlowStatusPV(std::cout);
       for (istep = 1; s < smax; ++istep)
       {
-
             double norm_eta = Eta.Norm();
             double norm_etapv = Etapv.Norm();
             if (sqrt(norm_eta*norm_eta+norm_etapv*norm_etapv) < eta_criterion)
@@ -172,8 +171,6 @@ void IMSRGSolverPV::NewOmega_PV()
 
 void IMSRGSolverPV::Solve_magnus_euler_PV()
 {
-  std::cout<<Omega.size()<<std::endl;
-  std::cout << OmegaPV.size() << std::endl;
   istep = 0;
   
   generatorPV.Update(FlowingOps[0], FlowingOpsPV[0], Eta, Etapv);
@@ -241,7 +238,6 @@ void IMSRGSolverPV::Solve_magnus_euler_PV()
     std::tuple<Operator, Operator> Omega_tmp = BCH::BCH_ProductPV(Eta, Etapv, Omega.back(), OmegaPV.back());
     Omega.back() = std::get<0>(Omega_tmp);
     OmegaPV.back() = std::get<1>(Omega_tmp);
-    // std::cout<<Omega.size()<<n_omega_written<<std::endl;
     // transformed Hamiltonian H_s = exp(Omega) H_0 exp(-Omega)
     std::tuple<Operator, Operator> H_tmp; 
     if ((Omega.size() + n_omega_written) < 2)
