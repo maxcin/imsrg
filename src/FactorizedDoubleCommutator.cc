@@ -2096,7 +2096,7 @@ namespace Commutator
         CHI_IV[ch] = Eta_matrix * Eta_matrix_c;
         CHI_IV[ch] += (Eta_matrix * Eta_matrix_d).t();
         if (Z_is_scalar)
-          CHI_VII[ch] = Gamma_matrix * Eta_matrix_d + + hEta * Eta_matrix_d.t() * Gamma_matrix;
+          CHI_VII[ch] = Gamma_matrix * Eta_matrix_d + hEta * Eta_matrix_d.t() * Gamma_matrix;
       }
 
       //// Full Isospin tensor CHI_VII
@@ -2309,7 +2309,7 @@ namespace Commutator
       }
 
       /// Pandya transformation only recouple the angula momentum
-      /// IIe and IIf                 barCHI_III_RC
+      /// IIe and IIf                 barCHI_III_RC   bar_CHI_IV
       /// diagram IIIe and IIIf       bar_CHI_VII_CC
 #pragma omp parallel for
       for (int ch_cc = 0; ch_cc < n_nonzero; ++ch_cc)
@@ -2381,10 +2381,6 @@ namespace Commutator
               double sixj1 = Z.modelspace->GetSixJ(ja, jb, J_cc, jc, jd, J_std);
               if (std::abs(sixj1) > 1e-8)
               {
-                int parity_cc = (oa.l + od.l) % 2;
-                int Tz_J2 = (ob.tz2 + oc.tz2) / 2;
-                int ch_J2 = Z.modelspace->GetTwoBodyChannelIndex(J_std, parity_cc, Tz_J2);
-
                 int ch_J2_bc = Z.modelspace->GetTwoBodyChannelIndex(J_std, parity_J2, Tz_J2_bc);
                 int ch_J2_ad = Z.modelspace->GetTwoBodyChannelIndex(J_std, parity_J2, Tz_J2_ad);
 
@@ -2428,7 +2424,7 @@ namespace Commutator
                   }
                 }
 
-                XbarIIef -= (2 * J_std + 1) * sixj1 * CHI_IV[ch_J2](indx_ad, indx_cb);
+                XbarIIef -= (2 * J_std + 1) * sixj1 * CHI_IV[ch_J2_bc](indx_ad, indx_cb);
                 if (std::abs(Tz_J2_ad - Tz_J2_bc) == Z.TwoBody.rank_T)
                   XbarIIIef += phaseFactor * (2 * J_std + 1) * sixj1 * CHI_VII[index_ch](indx_ad, indx_bc);
               }
@@ -2458,183 +2454,6 @@ namespace Commutator
       CHI_IV.clear();
       CHI_VII.clear();
 
-      // ######################################################
-      //                 Diagram IIb and IId
-      // ######################################################
-      std::deque<arma::mat> CHI_III_final(n_nonzero);
-      for (int ch_cc = 0; ch_cc < n_nonzero; ++ch_cc)
-      {
-        TwoBodyChannel_CC &tbc_cc_bra = Z.modelspace->GetTwoBodyChannel_CC(ch_cc);
-        int nbras = tbc_cc_bra.GetNumberKets();
-        if (nbras < 1)
-          continue;
-        // Not symmetric
-        CHI_III_final[ch_cc] = arma::mat(nbras * 2, nbras * 2, arma::fill::zeros);
-      }
-
-#pragma omp parallel for
-      for (int ch_cc = 0; ch_cc < n_nonzero; ++ch_cc)
-      {
-        CHI_III_final[ch_cc] = bar_Gamma[ch_cc] * barCHI_III_RC[ch_cc];
-      }
-      /// release memory
-      for (size_t ch_cc = 0; ch_cc < n_nonzero; ch_cc++)
-      {
-        barCHI_III_RC[ch_cc].clear();
-      }
-      barCHI_III_RC.clear();
-
-      if (Commutator::verbose)
-      {
-        Z.profiler.timer["_" + std::string(__func__) + "_" + std::to_string(__LINE__)] += omp_get_wtime() - t_internal;
-        t_internal = omp_get_wtime();
-      }
-      //  Inverse Pandya transformation
-      //  diagram IIb and IId
-      //  X^J_ijkl  = - ( 1- P_ij ) ( 1- P_kl ) (-)^{J + ji + jj}  sum_J' (2J'+1)
-      //                (-)^{J' + ji + jk}  { j i J }  \bar{X}^J'_jl`ki`
-      //                                    { k l J'}
-#pragma omp parallel for
-      for (int ch = 0; ch < nch; ++ch)
-      {
-        size_t ch_bra = ch_bra_list[ch];
-        size_t ch_ket = ch_ket_list[ch];
-        TwoBodyChannel &tbc_bra = Z.modelspace->GetTwoBodyChannel(ch_bra);
-        TwoBodyChannel &tbc_ket = Z.modelspace->GetTwoBodyChannel(ch_ket);
-        size_t nbras = tbc_bra.GetNumberKets();
-        size_t nKets = tbc_ket.GetNumberKets();
-        if (nbras == 0 or nKets == 0)
-          continue;
-
-        int J0 = tbc_bra.J;
-        for (int ibra = 0; ibra < nbras; ++ibra)
-        {
-          Ket &bra = tbc_bra.GetKet(ibra);
-          size_t i = bra.p;
-          size_t j = bra.q;
-          Orbit &oi = *(bra.op);
-          Orbit &oj = *(bra.oq);
-          int ji = oi.j2;
-          int jj = oj.j2;
-          int phaseFactor = Z.modelspace->phase(J0 + (ji + jj) / 2);
-
-          int ketmin = 0;
-          if (ch_bra == ch_ket)
-            ketmin = ibra;
-          for (int iket = ketmin; iket < nKets; ++iket)
-          {
-            size_t k, l;
-            Ket &ket = tbc_ket.GetKet(iket);
-            k = ket.p;
-            l = ket.q;
-
-            Orbit &ok = Z.modelspace->GetOrbit(k);
-            Orbit &ol = Z.modelspace->GetOrbit(l);
-            int jk = ok.j2;
-            int jl = ol.j2;
-            double commijkl = 0;
-            double commjikl = 0;
-            double commijlk = 0;
-            double commjilk = 0;
-
-            // jikl, direct term        -->  jl  ki
-            // ijlk, exchange ij and kl -->  lj  ik
-            int parity_cc = (oi.l + ok.l) % 2;
-            int Tz_cc = std::abs(oi.tz2 - ok.tz2) / 2;
-            int Jpmin = std::max(std::abs(jj - jl), std::abs(ji - jk)) / 2;
-            int Jpmax = std::min(jj + jl, ji + jk) / 2;
-
-            for (int Jprime = Jpmin; Jprime <= Jpmax; ++Jprime)
-            {
-              double sixj1 = Z.modelspace->GetSixJ(jj * 0.5, ji * 0.5, J0, jk * 0.5, jl * 0.5, Jprime);
-              if (std::abs(sixj1) < 1e-8)
-                continue;
-              int ch_cc = Z.modelspace->GetTwoBodyChannelIndex(Jprime, parity_cc, Tz_cc);
-
-              TwoBodyChannel_CC &tbc_cc = Z.modelspace->GetTwoBodyChannel_CC(ch_cc);
-              int nkets_cc = tbc_cc.GetNumberKets();
-              if (nkets_cc < 1)
-                continue;
-
-              int indx_jl = tbc_cc.GetLocalIndex(std::min(j, l), std::max(j, l));
-              int indx_ik = tbc_cc.GetLocalIndex(std::min(k, i), std::max(k, i));
-              if (indx_jl < 0 or indx_ik < 0)
-                continue;
-
-              int phase1 = Z.modelspace->phase(Jprime + (ji + jk) / 2);
-              // direct term
-              indx_jl += (j > l ? nkets_cc : 0);
-              indx_ik += (i > k ? nkets_cc : 0);
-              double me1 = CHI_III_final[ch_cc](indx_jl, indx_ik);
-              commjikl -= phase1 * (2 * Jprime + 1) * sixj1 * me1;
-
-              int phase2 = Z.modelspace->phase(Jprime + (jj + jl) / 2);
-              // exchange ij and kl
-              double me2 = CHI_III_final[ch_cc](indx_ik, indx_jl);
-              commijlk -= phase2 * (2 * Jprime + 1) * sixj1 * me2;
-            }
-
-            // ijkl,  exchange i and j -->  il  kj
-            // jilk,  exchange k and l -->  jk li
-            parity_cc = (oi.l + ol.l) % 2;
-            Tz_cc = std::abs(oi.tz2 - ol.tz2) / 2;
-            Jpmin = std::max(std::abs(ji - jl), std::abs(jj - jk)) / 2;
-            Jpmax = std::min(ji + jl, jj + jk) / 2;
-
-            for (int Jprime = Jpmin; Jprime <= Jpmax; ++Jprime)
-            {
-              double sixj1 = Z.modelspace->GetSixJ(ji * 0.5, jj * 0.5, J0, jk * 0.5, jl * 0.5, Jprime);
-              if (std::abs(sixj1) < 1e-8)
-                continue;
-              int ch_cc = Z.modelspace->GetTwoBodyChannelIndex(Jprime, parity_cc, Tz_cc);
-              TwoBodyChannel_CC &tbc_cc = Z.modelspace->GetTwoBodyChannel_CC(ch_cc);
-              int nkets_cc = tbc_cc.GetNumberKets();
-              if (nkets_cc < 1)
-                continue;
-
-              int indx_il = tbc_cc.GetLocalIndex(std::min(i, l), std::max(i, l));
-              int indx_jk = tbc_cc.GetLocalIndex(std::min(k, j), std::max(k, j));
-              if (indx_il < 0 or indx_jk < 0)
-                continue;
-
-              int phase1 = Z.modelspace->phase(Jprime + (ji + jl) / 2);
-              // exchange k and l
-              indx_il += (i > l ? nkets_cc : 0);
-              indx_jk += (j > k ? nkets_cc : 0);
-              double me1 = CHI_III_final[ch_cc](indx_jk, indx_il);
-              commjilk -= phase1 * (2 * Jprime + 1) * sixj1 * me1;
-
-              int phase2 = Z.modelspace->phase(Jprime + (jj + jk) / 2);
-              // exchange i and j
-              double me2 = CHI_III_final[ch_cc](indx_il, indx_jk);
-              commijkl -= phase2 * (2 * Jprime + 1) * sixj1 * me2;
-            }
-
-            double zijkl = (commjikl - Z.modelspace->phase((ji + jj) / 2 - J0) * commijkl);
-            zijkl += (-Z.modelspace->phase((jl + jk) / 2 - J0) * commjilk + Z.modelspace->phase((jk + jl + ji + jj) / 2) * commijlk);
-
-            if (i == j)
-              zijkl /= PhysConst::SQRT2;
-            if (k == l)
-              zijkl /= PhysConst::SQRT2;
-
-            Z2.AddToTBME(ch_bra, ch_ket, ibra, iket, phaseFactor * zijkl);
-          }
-        }
-      }
-
-      if (Commutator::verbose)
-      {
-        Z.profiler.timer["_" + std::string(__func__) + "_" + std::to_string(__LINE__)] += omp_get_wtime() - t_internal;
-        t_internal = omp_get_wtime();
-      }
-
-      for (int ch = 0; ch < n_nonzero; ++ch)
-      {
-        CHI_III_final[ch].clear();
-      }
-      CHI_III_final.clear();
-
       /////////////////////////////////////////////
       //     diagram    IIe and IIf
       /////////////////////////////////////////////
@@ -2659,10 +2478,10 @@ namespace Commutator
       for (int ch_cc = 0; ch_cc < n_nonzero; ++ch_cc)
       {
         bar_CHI_IV[ch_cc].clear();
-        bar_Gamma[ch_cc].clear();
+        //bar_Gamma[ch_cc].clear();
       }
       bar_CHI_IV.clear();
-      bar_Gamma.clear();
+      //bar_Gamma.clear();
 
       if (Commutator::verbose)
       {
@@ -2816,6 +2635,187 @@ namespace Commutator
       }
       bar_CHI_gamma.clear();
 
+      // ######################################################
+      //                 Diagram IIb and IId
+      // ######################################################
+      std::deque<arma::mat> CHI_III_final(n_nonzero);
+      for (int ch_cc = 0; ch_cc < n_nonzero; ++ch_cc)
+      {
+        TwoBodyChannel_CC &tbc_cc_bra = Z.modelspace->GetTwoBodyChannel_CC(ch_cc);
+        int nbras = tbc_cc_bra.GetNumberKets();
+        if (nbras < 1)
+          continue;
+        // Not symmetric
+        CHI_III_final[ch_cc] = arma::mat(nbras * 2, nbras * 2, arma::fill::zeros);
+      }
+
+#pragma omp parallel for
+      for (int ch_cc = 0; ch_cc < n_nonzero; ++ch_cc)
+      {
+        CHI_III_final[ch_cc] = bar_Gamma[ch_cc] * barCHI_III_RC[ch_cc];
+      }
+      /// release memory
+      for (size_t ch_cc = 0; ch_cc < n_nonzero; ch_cc++)
+      {
+        barCHI_III_RC[ch_cc].clear();
+        bar_Gamma[ch_cc].clear();
+      }
+      barCHI_III_RC.clear();
+      bar_Gamma.clear();
+
+
+      if (Commutator::verbose)
+      {
+        Z.profiler.timer["_" + std::string(__func__) + "_" + std::to_string(__LINE__)] += omp_get_wtime() - t_internal;
+        t_internal = omp_get_wtime();
+      }
+      //  Inverse Pandya transformation
+      //  diagram IIb and IId
+      //  X^J_ijkl  = - ( 1- P_ij ) ( 1- P_kl ) (-)^{J + ji + jj}  sum_J' (2J'+1)
+      //                (-)^{J' + ji + jk}  { j i J }  \bar{X}^J'_jl`ki`
+      //                                    { k l J'}
+#pragma omp parallel for
+      for (int ch = 0; ch < nch; ++ch)
+      {
+        size_t ch_bra = ch_bra_list[ch];
+        size_t ch_ket = ch_ket_list[ch];
+        TwoBodyChannel &tbc_bra = Z.modelspace->GetTwoBodyChannel(ch_bra);
+        TwoBodyChannel &tbc_ket = Z.modelspace->GetTwoBodyChannel(ch_ket);
+        size_t nbras = tbc_bra.GetNumberKets();
+        size_t nKets = tbc_ket.GetNumberKets();
+        if (nbras == 0 or nKets == 0)
+          continue;
+
+        int J0 = tbc_bra.J;
+        for (int ibra = 0; ibra < nbras; ++ibra)
+        {
+          Ket &bra = tbc_bra.GetKet(ibra);
+          size_t i = bra.p;
+          size_t j = bra.q;
+          Orbit &oi = *(bra.op);
+          Orbit &oj = *(bra.oq);
+          int ji = oi.j2;
+          int jj = oj.j2;
+          int phaseFactor = Z.modelspace->phase(J0 + (ji + jj) / 2);
+
+          int ketmin = 0;
+          if (ch_bra == ch_ket)
+            ketmin = ibra;
+          for (int iket = ketmin; iket < nKets; ++iket)
+          {
+            size_t k, l;
+            Ket &ket = tbc_ket.GetKet(iket);
+            k = ket.p;
+            l = ket.q;
+
+            Orbit &ok = Z.modelspace->GetOrbit(k);
+            Orbit &ol = Z.modelspace->GetOrbit(l);
+            int jk = ok.j2;
+            int jl = ol.j2;
+            double commijkl = 0;
+            double commjikl = 0;
+            double commijlk = 0;
+            double commjilk = 0;
+
+            // jikl, direct term        -->  jl  ki
+            // ijlk, exchange ij and kl -->  lj  ik
+            int parity_cc = (oi.l + ok.l) % 2;
+            int Tz_cc = std::abs(oi.tz2 - ok.tz2) / 2;
+            int Jpmin = std::max(std::abs(jj - jl), std::abs(ji - jk)) / 2;
+            int Jpmax = std::min(jj + jl, ji + jk) / 2;
+
+            for (int Jprime = Jpmin; Jprime <= Jpmax; ++Jprime)
+            {
+              double sixj1 = Z.modelspace->GetSixJ(jj * 0.5, ji * 0.5, J0, jk * 0.5, jl * 0.5, Jprime);
+              if (std::abs(sixj1) < 1e-8)
+                continue;
+              int ch_cc = Z.modelspace->GetTwoBodyChannelIndex(Jprime, parity_cc, Tz_cc);
+
+              TwoBodyChannel_CC &tbc_cc = Z.modelspace->GetTwoBodyChannel_CC(ch_cc);
+              int nkets_cc = tbc_cc.GetNumberKets();
+              if (nkets_cc < 1)
+                continue;
+
+              int indx_jl = tbc_cc.GetLocalIndex(std::min(j, l), std::max(j, l));
+              int indx_ik = tbc_cc.GetLocalIndex(std::min(k, i), std::max(k, i));
+              if (indx_jl < 0 or indx_ik < 0)
+                continue;
+
+              int phase1 = Z.modelspace->phase(Jprime + (ji + jk) / 2);
+              // direct term
+              indx_jl += (j > l ? nkets_cc : 0);
+              indx_ik += (i > k ? nkets_cc : 0);
+              double me1 = CHI_III_final[ch_cc](indx_jl, indx_ik);
+              commjikl -= phase1 * (2 * Jprime + 1) * sixj1 * me1;
+
+              int phase2 = Z.modelspace->phase(Jprime + (jj + jl) / 2);
+              // exchange ij and kl
+              double me2 = CHI_III_final[ch_cc](indx_ik, indx_jl);
+              commijlk -= phase2 * (2 * Jprime + 1) * sixj1 * me2;
+            }
+
+            // ijkl,  exchange i and j -->  il  kj
+            // jilk,  exchange k and l -->  jk li
+            parity_cc = (oi.l + ol.l) % 2;
+            Tz_cc = std::abs(oi.tz2 - ol.tz2) / 2;
+            Jpmin = std::max(std::abs(ji - jl), std::abs(jj - jk)) / 2;
+            Jpmax = std::min(ji + jl, jj + jk) / 2;
+
+            for (int Jprime = Jpmin; Jprime <= Jpmax; ++Jprime)
+            {
+              double sixj1 = Z.modelspace->GetSixJ(ji * 0.5, jj * 0.5, J0, jk * 0.5, jl * 0.5, Jprime);
+              if (std::abs(sixj1) < 1e-8)
+                continue;
+              int ch_cc = Z.modelspace->GetTwoBodyChannelIndex(Jprime, parity_cc, Tz_cc);
+              TwoBodyChannel_CC &tbc_cc = Z.modelspace->GetTwoBodyChannel_CC(ch_cc);
+              int nkets_cc = tbc_cc.GetNumberKets();
+              if (nkets_cc < 1)
+                continue;
+
+              int indx_il = tbc_cc.GetLocalIndex(std::min(i, l), std::max(i, l));
+              int indx_jk = tbc_cc.GetLocalIndex(std::min(k, j), std::max(k, j));
+              if (indx_il < 0 or indx_jk < 0)
+                continue;
+
+              int phase1 = Z.modelspace->phase(Jprime + (ji + jl) / 2);
+              // exchange k and l
+              indx_il += (i > l ? nkets_cc : 0);
+              indx_jk += (j > k ? nkets_cc : 0);
+              double me1 = CHI_III_final[ch_cc](indx_jk, indx_il);
+              commjilk -= phase1 * (2 * Jprime + 1) * sixj1 * me1;
+
+              int phase2 = Z.modelspace->phase(Jprime + (jj + jk) / 2);
+              // exchange i and j
+              double me2 = CHI_III_final[ch_cc](indx_il, indx_jk);
+              commijkl -= phase2 * (2 * Jprime + 1) * sixj1 * me2;
+            }
+
+            double zijkl = (commjikl - Z.modelspace->phase((ji + jj) / 2 - J0) * commijkl);
+            zijkl += (-Z.modelspace->phase((jl + jk) / 2 - J0) * commjilk + Z.modelspace->phase((jk + jl + ji + jj) / 2) * commijlk);
+
+            if (i == j)
+              zijkl /= PhysConst::SQRT2;
+            if (k == l)
+              zijkl /= PhysConst::SQRT2;
+
+            Z2.AddToTBME(ch_bra, ch_ket, ibra, iket, phaseFactor * zijkl);
+          }
+        }
+      }
+
+      if (Commutator::verbose)
+      {
+        Z.profiler.timer["_" + std::string(__func__) + "_" + std::to_string(__LINE__)] += omp_get_wtime() - t_internal;
+        t_internal = omp_get_wtime();
+      }
+
+      for (int ch = 0; ch < n_nonzero; ++ch)
+      {
+        CHI_III_final[ch].clear();
+      }
+      CHI_III_final.clear();
+
+
       /////////////////////////////////////////////
       //     diagram    IIIe and IIIf
       /////////////////////////////////////////////
@@ -2837,10 +2837,6 @@ namespace Commutator
         int nKets = tbc_cc.GetNumberKets();
         if (nKets < 1)
           continue;
-        // arma::Mat<double> Multi_matirx(nKets * 2, nKets * 2);
-        // Multi_matirx = bar_CHI_VII_CC[ch_cc] * bar_Eta[ch_cc];
-        // bar_CHI_VII_CC_ef[ch_cc] = Multi_matirx + hZ * Multi_matirx.t();
-
         bar_CHI_VII_CC_ef[ch_cc] = bar_CHI_VII_CC[ch_cc] * bar_Eta[ch_cc];
       }
 
