@@ -784,6 +784,8 @@ PYBIND11_MODULE(pyIMSRG, m)
        BCH.def("SetUseFactorizedCorrectionBCH_product", &BCH::SetUseFactorizedCorrectionBCH_product);
        BCH.def("SetUseFactorized_Correct_ZBTerm", &BCH::SetUseFactorized_Correct_ZBTerm);
        BCH.def("SetOnly2bOmega", &BCH::SetOnly2bOmega);
+       BCH.def("SetComm223_231", &BCH::SetComm223_231);
+       BCH.def("SetComm223_232", &BCH::SetComm223_232);
        BCH.def("Set_BCH_Transform_Threshold", &BCH::Set_BCH_Transform_Threshold);
        BCH.def("Set_BCH_Product_Threshold", &BCH::Set_BCH_Product_Threshold);
        BCH.def("SetBCHSkipiEq1", &BCH::SetBCHSkipiEq1);
