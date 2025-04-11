@@ -10964,16 +10964,6 @@ namespace ReferenceImplementations
     int n_nonzero = Eta.modelspace->GetNumberTwoBodyChannels_CC(); // number of CC channels
     auto &Z2 = Z.TwoBody;
 
-    std::vector<size_t> ch_bra_cc_list, ch_ket_cc_list;
-    for (size_t i = 0; i < n_nonzero; i++)
-    {
-      ch_bra_cc_list.push_back(i);
-      ch_ket_cc_list.push_back(i);
-    }
-    int Z_n_nonzero = ch_bra_cc_list.size(); // number of CC channels
-    if (Z_is_scalar)
-      Z_n_nonzero = n_nonzero;
-
     // determine symmetry
     int hEta = Eta.IsHermitian() ? 1 : -1;
     int hGamma = Gamma.IsHermitian() ? 1 : -1;
@@ -11977,14 +11967,12 @@ namespace ReferenceImplementations
     // ###########################################################
 
     std::deque<arma::mat> CHI_IV(nch_eta);
-    std::deque<arma::mat> CHI_IV_II(nch_eta);
     for (int ch = 0; ch < nch_eta; ++ch)
     {
       TwoBodyChannel &tbc = Z.modelspace->GetTwoBodyChannel(ch);
       int nKets = tbc.GetNumberKets();
       // Not symmetric
       CHI_IV[ch] = arma::mat(nKets * 2, nKets * 2, arma::fill::zeros);
-      CHI_IV_II[ch] = arma::mat(nKets * 2, nKets * 2, arma::fill::zeros);
     }
 
 #pragma omp parallel for
@@ -11993,15 +11981,12 @@ namespace ReferenceImplementations
       TwoBodyChannel &tbc = Z.modelspace->GetTwoBodyChannel(ch);
       int J0 = tbc.J;
       int nKets = tbc.GetNumberKets();
-      CHI_IV[ch] = Eta_matrix[ch] * Eta_matrix_c[ch];
-      CHI_IV_II[ch] = (Eta_matrix[ch] * Eta_matrix_d[ch]).t();
+      CHI_IV[ch] = Eta_matrix[ch] * Eta_matrix_c[ch] + (Eta_matrix[ch] * Eta_matrix_d[ch]).t();
     }
 
     // build bar_CHI_IV
     std::deque<arma::mat> bar_CHI_IV(n_nonzero);
-    std::deque<arma::mat> bar_CHI_IV_II(n_nonzero);
     std::deque<arma::mat> bar_CHI_gamma(n_nonzero);
-    std::deque<arma::mat> bar_CHI_gamma_II(n_nonzero);
     /// initial bar_CHI_IV
     for (int ch_cc = 0; ch_cc < n_nonzero; ++ch_cc)
     {
@@ -12013,9 +11998,7 @@ namespace ReferenceImplementations
       // because the restriction a<b in the bar and ket vector, if we want to store the full
       // Pandya transformed matrix, we twice the size of matrix
       bar_CHI_IV[ch_cc] = arma::mat(nKets_cc * 2, nKets_cc * 2, arma::fill::zeros);
-      bar_CHI_IV_II[ch_cc] = arma::mat(nKets_cc * 2, nKets_cc * 2, arma::fill::zeros);
       bar_CHI_gamma[ch_cc] = arma::mat(nKets_cc * 2, nKets_cc * 2, arma::fill::zeros);
-      bar_CHI_gamma_II[ch_cc] = arma::mat(nKets_cc * 2, nKets_cc * 2, arma::fill::zeros);
     }
 
 /// Pandya transformation
@@ -12113,12 +12096,10 @@ namespace ReferenceImplementations
             if (std::abs(sixj1) > 1e-8)
             {
               Xbar -= (2 * J_std + 1) * sixj1 * CHI_IV[ch](indx_ad, indx_cb);
-              Xbar1 -= (2 * J_std + 1) * sixj1 * CHI_IV_II[ch](indx_ad, indx_cb);
             }
           }
 
           bar_CHI_IV[ch_cc](ibra_cc, iket_cc) = Xbar;
-          bar_CHI_IV_II[ch_cc](ibra_cc, iket_cc) = Xbar1;
         }
 
         //-------------------
@@ -12133,9 +12114,7 @@ namespace ReferenceImplementations
       int nbras = tbc_cc.GetNumberKets();
       if (nbras < 1)
         continue;
-
       bar_CHI_gamma[ch_cc] = bar_CHI_IV[ch_cc] * bar_Gamma[ch_cc];
-      bar_CHI_gamma_II[ch_cc] = bar_CHI_IV_II[ch_cc] * bar_Gamma[ch_cc];
     }
 
 //  Diagram e
@@ -12210,13 +12189,13 @@ namespace ReferenceImplementations
             // jilk, exchange i and j, k and l     ->  jk   li
             int indx_jk = indx_kj + (j > k ? nkets_cc : 0);
             int indx_li = indx_il + (l > i ? nkets_cc : 0);
-            double me1 = bar_CHI_gamma[ch_cc](indx_jk, indx_li) + bar_CHI_gamma_II[ch_cc](indx_jk, indx_li);
+            double me1 = bar_CHI_gamma[ch_cc](indx_jk, indx_li);
             commjilk -= (2 * Jprime + 1) * sixj * me1;
 
             // ijkl direct term
             indx_il += (i > l ? nkets_cc : 0);
             indx_kj += (k > j ? nkets_cc : 0);
-            me1 = bar_CHI_gamma[ch_cc](indx_il, indx_kj) + bar_CHI_gamma_II[ch_cc](indx_il, indx_kj);
+            me1 = bar_CHI_gamma[ch_cc](indx_il, indx_kj);
             commijkl -= (2 * Jprime + 1) * sixj * me1;
           }
 
@@ -12245,13 +12224,13 @@ namespace ReferenceImplementations
             // ijlk, exchange k and l     ->  ik lj
             int indx_ik = indx_ki + (i > k ? nkets_cc : 0);
             int indx_lj = indx_jl + (l > j ? nkets_cc : 0);
-            double me1 = bar_CHI_gamma[ch_cc](indx_ik, indx_lj) + bar_CHI_gamma_II[ch_cc](indx_ik, indx_lj);
+            double me1 = bar_CHI_gamma[ch_cc](indx_ik, indx_lj);
             commijlk -= (2 * Jprime + 1) * sixj * me1;
 
             // jikl, exchange i and j    ->  jl ki
             indx_ki += (k > i ? nkets_cc : 0);
             indx_jl += (j > l ? nkets_cc : 0);
-            me1 = bar_CHI_gamma[ch_cc](indx_jl, indx_ki) + +bar_CHI_gamma_II[ch_cc](indx_jl, indx_ki);
+            me1 = bar_CHI_gamma[ch_cc](indx_jl, indx_ki);
             commjikl -= (2 * Jprime + 1) * sixj * me1;
           }
 
@@ -12833,11 +12812,7 @@ namespace ReferenceImplementations
       int J0 = tbc_bra.J;
 
       arma::Mat<double> Multi_matirx(nbras * 2, nkets * 2);
-      arma::Mat<double> Multi_matirxII(nbras * 2, nkets * 2);
-
-      Multi_matirx = Eta_matrix[ch_bra] * CHI_VI[ch];
-
-      Multi_matirxII = CHI_VI_II[ch] * Eta_matrix[ch_ket];
+      Multi_matirx = Eta_matrix[ch_bra] * CHI_VI[ch] + (CHI_VI_II[ch] * Eta_matrix[ch_ket]);
 
       for (int ibra = 0; ibra < nbras; ++ibra)
       {
@@ -12854,29 +12829,16 @@ namespace ReferenceImplementations
           size_t q = ket.p;
           size_t h = ket.q;
 
-          double zpgqhIIIc = Multi_matirx(ibra, iket);
-          double zpgqhIIId = 0;
-
-          if (Z_is_scalar)
-          {
-            zpgqhIIId = hZ * Multi_matirx(iket, ibra);
-          }
-          else
-          {
-            zpgqhIIId = Multi_matirxII(ibra, iket);
-          }
-
+          double zpgqhIIIcd = Multi_matirx(ibra, iket);
           if (p == g)
           {
-            zpgqhIIIc /= PhysConst::SQRT2;
-            zpgqhIIId /= PhysConst::SQRT2;
+            zpgqhIIIcd /= PhysConst::SQRT2;
           }
           if (q == h)
           {
-            zpgqhIIIc /= PhysConst::SQRT2;
-            zpgqhIIId /= PhysConst::SQRT2;
+            zpgqhIIIcd /= PhysConst::SQRT2;
           }
-          Z2.AddToTBME(ch_bra, ch_ket, ibra, iket, -zpgqhIIIc - zpgqhIIId);
+          Z2.AddToTBME(ch_bra, ch_ket, ibra, iket, -zpgqhIIIcd);
         } // iket
       } // ibra
 
