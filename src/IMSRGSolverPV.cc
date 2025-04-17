@@ -63,8 +63,8 @@ void IMSRGSolverPV::Solve_flow_RK4_PV()
             int nops_pv = FlowingOpsPV.size();
             if (nops != nops_pv)
             {
-                  std::cout<<"Problem, number of PC and PV operators isn't the same..."<<std::endl;
-                  exit(0);
+                std::cout<<"Problem, number of PC and PV operators isn't the same..."<<std::endl;
+                exit(0);
             }
             std::vector<Operator> K1H(nops);
             std::vector<Operator> K2H(nops);
@@ -109,13 +109,14 @@ void IMSRGSolverPV::Solve_flow_RK4_PV()
                 FlowingOps[i] += ds / 6.0 * (K1H[i] + 2 * K2H[i] + 2 * K3H[i] + K4H[i]);
                 FlowingOpsPV[i] += ds / 6.0 * (K1V[i] + 2 * K2V[i] + 2 * K3V[i] + K4V[i]);
             }
+            // FlowingOps[0].PrintOneBody();
             generatorPV.Update(FlowingOps[0], FlowingOpsPV[0], Eta, Etapv);
-
             // Write details of the flow
             WriteFlowStatusPV(flowfile);
             WriteFlowStatusPV(std::cout);
             Elast = FlowingOps[0].ZeroBody;
       }
+    //   FlowingOps[0].PrintOneBody();
 }
 
 
@@ -265,6 +266,7 @@ void IMSRGSolverPV::Solve_magnus_euler_PV()
     WriteFlowStatusPV(std::cout);
     Elast = FlowingOps[0].ZeroBody;
   }
+//   WriteFlowStatusPV(std::cout);
 }
 
 

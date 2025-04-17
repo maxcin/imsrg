@@ -170,7 +170,7 @@ namespace Commutator
     }
     int nmat = bra_channels.size();
     //   #pragma omp parallel for schedule(dynamic,1) if (not Z.modelspace->tensor_transform_first_pass[Z.GetJRank()*2+Z.GetParity()])
-    // #pragma omp parallel for schedule(dynamic, 1) if (not single_thread)
+    #pragma omp parallel for schedule(dynamic, 1) if (not single_thread)
     for (int ii = 0; ii < nmat; ++ii)
     {
       int ch_bra = bra_channels[ii];

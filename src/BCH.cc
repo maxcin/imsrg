@@ -503,16 +503,15 @@ namespace BCH
         OpNested = Optmp; // the ith nested commutator
         OpNestedPV = OptmpPV;
         factorial_denom /= i;
-
         OpOut += factorial_denom * OpNested;
         OpOutPV += factorial_denom * OpNestedPV;
         if (OpOut.rank_J > 0)
         {
-          std::cout << "Tensor BCH, i=" << i << "  Norm = " << std::setw(12) << std::setprecision(8) << std::fixed << OpNested.OneBodyNorm() << " "
+          std::cout << "Tensor BCH, i=" << i << "  Norm = " << std::setw(12) << std::setprecision(8) << std::fixed << OpOut.OneBodyNorm() << " "
                     << std::setw(12) << std::setprecision(8) << std::fixed << OpNested.TwoBodyNorm() << " "
                     << std::setw(12) << std::setprecision(8) << std::fixed << OpNested.ThreeBody.Norm() << " "
                     << std::setw(12) << std::setprecision(8) << std::fixed << OpNested.Norm() << std::endl;
-          std::cout << "Tensor BCH, i=" << i << "  NormPV = " << std::setw(12) << std::setprecision(8) << std::fixed << OpNestedPV.OneBodyNorm() << " "
+          std::cout << "Tensor BCH, i=" << i << "  NormPV = " << std::setw(12) << std::setprecision(8) << std::fixed << OpOutPV.OneBodyNorm() << " "
                     << std::setw(12) << std::setprecision(8) << std::fixed << OpNestedPV.TwoBodyNorm() << " "
                     << std::setw(12) << std::setprecision(8) << std::fixed << OpNestedPV.ThreeBody.Norm() << " "
                     << std::setw(12) << std::setprecision(8) << std::fixed << OpNestedPV.Norm() << std::endl;

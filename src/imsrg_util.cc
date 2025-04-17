@@ -1970,7 +1970,7 @@ Operator FourierBesselCoeff(ModelSpace& modelspace, int nu, double R, std::set<i
     Operator EL(modelspace, YL,0,YL%2,2);
     double bL = pow( HBARC*HBARC/M_NUCLEON/modelspace.GetHbarOmega(),0.5*rL); // b^L where b=sqrt(hbar/mw)
     double bLp = pow( HBARC*HBARC/M_NUCLEON/modelspace.GetHbarOmega(),0.5*1);
-    int norbits = modelspace.GetNumberOrbits();
+    // int norbits = modelspace.GetNumberOrbits();
     for (int i : modelspace.proton_orbits)
    // for (int i=0; i<norbits; ++i) //DK: modify for protons only
     {     
@@ -1984,7 +1984,7 @@ Operator FourierBesselCoeff(ModelSpace& modelspace, int nu, double R, std::set<i
         double r2int = RadialIntegral(oi.n,oi.l,oj.n,oj.l,rL) * bL ;
         double r2intp = RadialIntegral(oi.n,oi.l,oj.n,oj.l,1) * bLp ;
         r2int = r2int - 5.0/3.0*r2intp*Rms*Rms ;
-        EL.OneBody(i,j) = modelspace.phase(jj+YL-0.5) * sqrt( (2*ji+1)*(2*jj+1)*(2*YL+1)/4./3.1415926) * AngMom::ThreeJ(ji,jj,YL,0.5,-0.5,0) * r2int;
+        EL.OneBody(i,j) = modelspace.phase(jj+YL-0.5) * sqrt( (2*ji+1)*(2*jj+1)*(2*YL+1)/4./PI) * AngMom::ThreeJ(ji,jj,YL,0.5,-0.5,0) * r2int;
         EL.OneBody(j,i) = modelspace.phase((oi.j2-oj.j2)/2) * EL.OneBody(i,j);
       }
     }
@@ -3037,45 +3037,45 @@ Operator FourierBesselCoeff(ModelSpace& modelspace, int nu, double R, std::set<i
  Operator TViolatingPotential_Op( ModelSpace& modelspace, std::vector<double> LECs )
  {
   //alpha0,alpha1,alpha2 are the inputs which are gg_0,2mpi/(8piMnucleon)
-   double alpha0 = LECs[0];
-   double alpha1 = LECs[1];
-   double alpha2 = LECs[2];
-   Operator VPT(modelspace, 0,0,1,2 ); // J=0, dTz=0, parity=odd, particle-rank=2
+  double alpha0 = LECs[0];
+  double alpha1 = LECs[1];
+  double alpha2 = LECs[2];
+  Operator VPT(modelspace, 0,0,1,2 ); // J=0, dTz=0, parity=odd, particle-rank=2
 
-   // Isospin factors converted to proton-neutron basis
-     // ATT'Tz = alpha0[4T-3]+2*alpha1*Tz + 2*alpha2*delta_T,1*[delta_|Tz|,1 -2delta_|Tz|,0
-     // BTT' = 2 alpha1 delta_T+T',1
-     // A111 = alpha0 + 2 alpha1 + 2 alpha2
-     // A110 = alpha0 - 4 alpha2
-     // A000 = -3 alpha0 -4 alpha2
-     // B10 = B01 = 2 alpha1
-     // |np> = (|1,0> + |0,0>)/sqrt(2),  |pn> = (|1,0> - |0,0>)/sqrt(2)
-     // Apppp = A111  = alpha0 + 2 alpha1 + 2 alpha2
-     // Annnn = A11-1 = alpha0 - 2 alpha1 + 2 alpha2
-     // Apnpn = Anpnp = 1/2 (A110 + A000) = -alpha0 - 4 alpha2
-     // Anppn = Apnnp = 1/2 (A110 - A000) = 2 alpha0
-     // Bnpnp = -Bpnpn = 1/2 (B10 + B01) = 2 alpha1
-     // Bnppn = -Bpnnp = 1/2(B01 - B10) = 0
-   double Apppp = alpha0 + 2*alpha1 + 2*alpha2;
-   double Annnn = alpha0 - 2*alpha1 + 2*alpha2;
-   double Apnpn = -alpha0 - 4*alpha2;
-   double Anpnp = Apnpn;
-   double Anppn = 2 * alpha0;
-   double Apnnp = Anppn;
-   double Bnpnp = 2 * alpha1;
-   double Bpnpn = -Bnpnp;
+  // Isospin factors converted to proton-neutron basis
+    // ATT'Tz = alpha0[4T-3]+2*alpha1*Tz + 2*alpha2*delta_T,1*[delta_|Tz|,1 -2delta_|Tz|,0
+    // BTT' = 2 alpha1 delta_T+T',1
+    // A111 = alpha0 + 2 alpha1 + 2 alpha2
+    // A110 = alpha0 - 4 alpha2
+    // A000 = -3 alpha0 -4 alpha2
+    // B10 = B01 = 2 alpha1
+    // |np> = (|1,0> + |0,0>)/sqrt(2),  |pn> = (|1,0> - |0,0>)/sqrt(2)
+    // Apppp = A111  = alpha0 + 2 alpha1 + 2 alpha2
+    // Annnn = A11-1 = alpha0 - 2 alpha1 + 2 alpha2
+    // Apnpn = Anpnp = 1/2 (A110 + A000) = -alpha0 - 4 alpha2
+    // Anppn = Apnnp = 1/2 (A110 - A000) = 2 alpha0
+    // Bnpnp = -Bpnpn = 1/2 (B10 + B01) = 2 alpha1
+    // Bnppn = -Bpnnp = 1/2(B01 - B10) = 0
+  double Apppp = alpha0 + 2*alpha1 + 2*alpha2;
+  double Annnn = alpha0 - 2*alpha1 + 2*alpha2;
+  double Apnpn = -alpha0 - 4*alpha2;
+  double Anpnp = Apnpn;
+  double Anppn = 2 * alpha0;
+  double Apnnp = Anppn;
+  double Bnpnp = 2 * alpha1;
+  double Bpnpn = -Bnpnp;
 
  //  auto isoA = [alpha0,alpha1,alpha2] (int T,int Tp,int Tz) { return alpha0*(4*T-3) + 2*alpha1*Tz + 2*alpha2*T*( 3*std::abs(Tz) - 2) * (T==Tp) ; } ;
-   auto isoA = [alpha0,alpha1,alpha2] (int T,int Tp,int Tz) { return (alpha0*(4*T-3) + 2*alpha1*Tz + 2*alpha2*(T==1)*((std::abs(Tz)==1) - 2*(Tz==0))) * (T==Tp) ; } ;
-   auto isoB = [alpha1] (int T,int Tp) { return 2*alpha1 * ((T+Tp)==1) ; };
+  auto isoA = [alpha0,alpha1,alpha2] (int T,int Tp,int Tz) { return (alpha0*(4*T-3) + 2*alpha1*Tz + 2*alpha2*(T==1)*((std::abs(Tz)==1) - 2*(Tz==0))) * (T==Tp) ; } ;
+  auto isoB = [alpha1] (int T,int Tp) { return 2*alpha1 * ((T+Tp)==1) ; };
 
-   double hw = modelspace.GetHbarOmega();
-   double bosc = HBARC/sqrt( hw * M_NUCLEON);
-   double mpi = (2*PhysConst::M_PION_CHARGED + PhysConst::M_PION_NEUTRAL)/3;
-   int emax = modelspace.Emax;
+  double hw = modelspace.GetHbarOmega();
+  double bosc = HBARC/sqrt( hw * M_NUCLEON);
+  double mpi = (2*PhysConst::M_PION_CHARGED + PhysConst::M_PION_NEUTRAL)/3;
+  int emax = modelspace.Emax;
 
    std::map< std::array<int,4>,double> IntegralLookup;
-   #pragma omp parallel for 
+   #pragma omp parallel for schedule(dynamic, 1)
    // Do the radial integral and cache it
    for (int n=0; n <= emax; n++)
    {
@@ -3112,12 +3112,9 @@ Operator FourierBesselCoeff(ModelSpace& modelspace, int nu, double R, std::set<i
      ch_ket_list.push_back(itmat.first[1]);
    }
    int nbraket = ch_bra_list.size();
-   #pragma omp parallel for 
-   //   for (auto& itmat : VPT.TwoBody.MatEl )
+   #pragma omp parallel for schedule(dynamic, 1)
    for (int ibraket=0; ibraket<nbraket; ibraket++ )
    {
-     //     int ch_bra = itmat.first[0];
-     //     int ch_ket = itmat.first[1];
      int ch_bra = ch_bra_list[ibraket];
      int ch_ket = ch_ket_list[ibraket];
      TwoBodyChannel& tbc_bra = modelspace.GetTwoBodyChannel(ch_bra);
@@ -3243,7 +3240,7 @@ Operator FourierBesselCoeff(ModelSpace& modelspace, int nu, double R, std::set<i
            }//Sp
          }//S
          vpt *= AngMom::phase(J) * 2*sqrt(3) * sqrt((2*ja+1)*(2*jb+1)*(2*jc+1)*(2*jd+1)) ;// * (2*J+1); //(2*J+1) should not be here?
-         vpt *= sqrt(2*J+1); //Because the operator violates parity, the code expects the operator to be reduced
+         vpt *= sqrt(2*J+1.); //Because the operator violates parity, the code expects the operator to be reduced
          if (bra.p==bra.q) vpt /= SQRT2;
          if (ket.p==ket.q) vpt /= SQRT2;
 
