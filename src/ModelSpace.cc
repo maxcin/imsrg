@@ -1581,7 +1581,6 @@ uint64_t ModelSpace::SixJHash(double j1, double j2, double j3, double J1, double
 
 
 
-
 void ModelSpace::SixJUnHash(uint64_t key, uint64_t &j1, uint64_t &j2, uint64_t &j3, uint64_t &J1, uint64_t &J2, uint64_t &J3)
 {
   J3 = (key >> 50) & 0x3FFL;

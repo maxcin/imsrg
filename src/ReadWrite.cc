@@ -74,7 +74,7 @@ void ReadWrite::ReadTBME_Oslo( std::string filename, Operator& Hbare)
   if ( !infile.good() )
   {
      std::cerr << "************************************" << std::endl
-          << "**    Trouble reading file  !!!   **" << filename << std::endl
+          << "**    Trouble reading file  !!!   **" << filename << " line " << __LINE__ << std::endl
           << "************************************" << std::endl;
      goodstate = false;
      return;
@@ -156,7 +156,7 @@ void ReadWrite::ReadTBME_OakRidge( std::string spname, std::string tbmename, Ope
   if (!tbmefile.good())
   {
      std::cerr << "************************************" << std::endl
-          << "**    Trouble reading file  !!!   **" << tbmename << std::endl
+          << "**    Trouble reading file  !!!   **" << tbmename << " line " << __LINE__ << std::endl
           << "************************************" << std::endl;
      goodstate = false;
      return;
@@ -5578,7 +5578,7 @@ void ReadWrite::ReadTokyo(std::string filename, Operator& op)
   if (!infile.good() )
   {
     std::cerr << "************************************" << std::endl
-          << "**    Trouble reading file  !!!   **" << filename << std::endl
+          << "**    Trouble reading file  !!!   **" << filename << " line " << __LINE__ << std::endl
           << "************************************" << std::endl;
      return;
   }
@@ -5681,7 +5681,7 @@ void ReadWrite::ReadTensorTokyo(std::string filename, Operator& op)
   if (!infile.good() )
   {
     std::cerr << "************************************" << std::endl
-          << "**    Trouble reading file  !!!   **" << filename << std::endl
+          << "**    Trouble reading file  !!!   **" << filename << " line " << __LINE__ <<  std::endl
           << "************************************" << std::endl;
      return;
   }
@@ -6142,7 +6142,7 @@ Operator ReadWrite::ReadOperator2b_Miyagi(std::string filename, ModelSpace& mode
   if ( !infile.good() )
   {
     std::cerr << "************************************" << std::endl
-      << "**    Trouble reading file  !!!   **" << filename << std::endl
+      << "**    Trouble reading file  !!!   **" << filename << " line " << __LINE__ << std::endl
       << "************************************" << std::endl;
     goodstate = false;
     exit(0);

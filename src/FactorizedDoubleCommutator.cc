@@ -790,6 +790,7 @@ namespace Commutator
       return;
     }
 
+
     ////////////////////////////////////////////////////////////////////////////
     /// factorized 223_232 double commutator with 1b intermediate
     ////////////////////////////////////////////////////////////////////////////
@@ -935,6 +936,7 @@ namespace Commutator
               {
                 double xabiq = Eta.TwoBody.GetTBME_J(J2, J2, a, b, i, q);
                 double xipab, yipab;
+
                 if (Z_is_scalar)
                 {
                   Eta.TwoBody.GetTBME_J_twoOps(Gamma.TwoBody, J2, J2, i, p, a, b, xipab, yipab);
@@ -944,6 +946,7 @@ namespace Commutator
                   xipab = Eta.TwoBody.GetTBME_J(J2, J2, i, p, a, b);
                   yipab = Gamma.TwoBody.GetTBME_J(J2, J2, i, p, a, b);
                 }
+
                 chi_pq += 0.5 * occfactor * (2 * J2 + 1) / (oq.j2 + 1) * xipab * xabiq;
                 chiY_pq += 0.5 * occfactor * (2 * J2 + 1) / (oq.j2 + 1) * yipab * xabiq;
               }

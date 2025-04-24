@@ -1197,10 +1197,9 @@ double UnitTest::GetMschemeMatrixElement_3leg(const Operator &Op, int a, int ma,
 
 bool UnitTest::Test_against_ref_impl(const Operator &X, const Operator &Y, commutator_func ComOpt, commutator_func ComRef, std::string output_tag)
 {
-
   int z_Jrank = X.GetJRank() + Y.GetJRank(); // I sure hope this is zero.
   int z_Trank = X.GetTRank() + Y.GetTRank();
-  int z_parity = (X.GetParity() + Y.GetParity()) % 2; 
+  int z_parity = (X.GetParity() + Y.GetParity()) % 2;
   int z_particlerank = Commutator::use_imsrg3 ? 3: 2;
   int hx = X.IsHermitian() ? +1 : -1;
   int hy = Y.IsHermitian() ? +1 : -1;
@@ -1229,10 +1228,11 @@ bool UnitTest::Test_against_ref_impl(const Operator &X, const Operator &Y, commu
   if ( z_particlerank > 2 )
   {
      Z.ThreeBody.SetMode("pn");
-  }
+  } 
 //  Operator Z(Y);
 //  Z.Erase();
   Operator Zref(Z);
+
 
   if (Z.IsReduced() and z_Jrank==0)
     Z.MakeNotReduced();
