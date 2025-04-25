@@ -92,14 +92,38 @@ namespace Commutator
     void comm223_231(const Operator &Eta, const Operator &Gamma, Operator &Z)
     {
 
+      // Do some extra work to check if the operators being passed in are reduced,
+      // because the comm223_231 routines assume not-reduced matrix elements
+      const Operator * Etanred   = &Eta;  // Pointer to the non-reduced version of the operator
+      const Operator * Gammanred = &Gamma;
+      Operator Etatmp,Gammatmp;  // Declared, but not yet allocated, for reasons of scope.
+      if ( Eta.IsReduced() ) // comm223_231 doesn't expect reduced operators. Need to make it not reduced.
+      {
+         Etatmp = Eta; // Actual copy, not a reference
+         Etatmp.MakeNotReduced();
+         Etanred = &Etatmp; // Now Etanred points to the not-reduced copy Etatmp
+      }
+      if ( Gamma.IsReduced() )
+      {
+         Gammatmp = Gamma;
+         Gammatmp.MakeNotReduced();
+         Gammanred = &Gammatmp;  // Now Gammanred points to the not-reduced copy Gammatmp
+      }
+
+      bool z_was_reduced = Z.IsReduced();
+      if (z_was_reduced) Z.MakeNotReduced();
+
+
       if (use_1b_intermediates)
       {
-        comm223_231_chi1b(Eta, Gamma, Z); // topology with 1-body intermediate (fast)
+        comm223_231_chi1b(*Etanred, *Gammanred, Z); // topology with 1-body intermediate (fast)
       }
       if (use_2b_intermediates)
       {
-        comm223_231_chi2b(Eta, Gamma, Z); // topology with 2-body intermediate (slow)
+        comm223_231_chi2b(*Etanred, *Gammanred, Z); // topology with 2-body intermediate (slow)
       }
+      if (z_was_reduced) Z.MakeReduced();
+
       return;
     } // comm223_231
 
@@ -794,14 +818,39 @@ namespace Commutator
     void comm223_232(const Operator &Eta, const Operator &Gamma, Operator &Z)
     {
 
+      // Do some extra work to check if the operators being passed in are reduced,
+      // because the comm223_232 routines assume not-reduced matrix elements
+      const Operator * Etanred   = &Eta;  // Pointer to the non-reduced version of the operator
+      const Operator * Gammanred = &Gamma;
+      Operator Etatmp,Gammatmp;  // Declared, but not yet allocated, for reasons of scope.
+      if ( Eta.IsReduced() ) // comm223_231 doesn't expect reduced operators. Need to make it not reduced.
+      {
+         Etatmp = Eta; // Actual copy, not a reference
+         Etatmp.MakeNotReduced();
+         Etanred = &Etatmp; // Now Etanred points to the not-reduced copy Etatmp
+      }
+      if ( Gamma.IsReduced() )
+      {
+         Gammatmp = Gamma;
+         Gammatmp.MakeNotReduced();
+         Gammanred = &Gammatmp;  // Now Gammanred points to the not-reduced copy Gammatmp
+      }
+
+      bool z_was_reduced = Z.IsReduced();
+      if (z_was_reduced) Z.MakeNotReduced();
+
+
+
       if (use_1b_intermediates)
       {
-        comm223_232_chi1b(Eta, Gamma, Z); // topology with 1-body intermediate (fast)
+        comm223_232_chi1b(*Etanred, *Gammanred, Z); // topology with 1-body intermediate (fast)
       }
       if (use_2b_intermediates)
       {
-        comm223_232_chi2b(Eta, Gamma, Z); // topology with 2-body intermediate (slow)
+        comm223_232_chi2b(*Etanred, *Gammanred, Z); // topology with 2-body intermediate (slow)
       }
+
+      if (z_was_reduced) Z.MakeReduced(); // put it back the way we found it...
 
       return;
     }
