@@ -249,8 +249,10 @@ double GetA(int index_p, int index_pp, int J, int l, int type, std::unordered_ma
   }
   else // if we didn't find it, calculate it and add it to the list!
   {
-    printf("DANGER!!!!!!!  Updating AList inside a parellel loop breaks thread safety!\n");
-    printf("   I shouldn't be here in GetA(%d, %d, %d, %d):   key =%llx", index_p, index_pp, J, l, key);
+    std::cout << "DANGER!!!!!!!  Updating AList inside a parellel loop breaks thread safety!" << std::endl;
+    std::cout << "   I shouldn't be here in GetA(" << index_p << " , " << index_pp << " , " << J << " , " << l << "):   key = " << key << std::endl;
+//    printf("DANGER!!!!!!!  Updating AList inside a parellel loop breaks thread safety!\n");
+//    printf("   I shouldn't be here in GetA(%d, %d, %d, %d):   key =%lx", index_p, index_pp, J, l, key);
     exit(EXIT_FAILURE);
   }
   return A;

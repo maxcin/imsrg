@@ -1693,7 +1693,11 @@ void ReadWrite::Store_Darmstadt_3body( const std::vector<float>& ThreeBME, const
                         }
                         else if (autozero)
                         {
-                            printf(" <--------- AAAHHHH!!!!!! Reading 3body file. <%d %d %d  %d %d  %d |V| %d %d %d  %d %d  %d>_(%d) should be zero but its %f.  nread = %lu index_ab = %lu\n",a,b,c,Jab,tab,twoT,d,e,f,JJab,ttab,twoTT,twoJC,V,nread,index_ab);
+                            std::cout << " <--------- AAAHHHH!!!!!! Reading 3body file. <"
+                                      << a << " " << b << " " << c << "  " << Jab << " " << tab << " " << twoT << " |V| "
+                                      << d << " " << e << " " << f << "  " << JJab << " " << ttab << " " << twoTT << " >_" << twoJC
+                                      << "   should be zero but its " << V << ".  nread = " << nread << "  index_ab = " << index_ab << std::endl; 
+//                            printf(" <--------- AAAHHHH!!!!!! Reading 3body file. <%d %d %d  %d %d  %d |V| %d %d %d  %d %d  %d>_(%d) should be zero but its %f.  nread = %lu index_ab = %lu\n",a,b,c,Jab,tab,twoT,d,e,f,JJab,ttab,twoTT,twoJC,V,nread,index_ab);
 //                            printf(" <--------- AAAHHHH!!!!!! Reading 3body file. <%d %d %d  %d %d |V| %d %d %d  %d %d>_(%d %d) should be zero but its %f.  nread = %lu index_ab = %lu\n",a,b,c,Jab,tab,d,e,f,JJab,ttab,twoJC,twoT,V,nread,index_ab);
                             goodstate = false;
                         }

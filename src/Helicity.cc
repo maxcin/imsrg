@@ -304,8 +304,10 @@ namespace Helicity
     }
     else // if we didn't find it, calculate it and add it to the list!
     {
-      printf("DANGER!!!!!!!  Updating IntList inside a parellel loop breaks thread safety!\n");
-      printf("   I shouldn't be here in GetA(%d, %d, %d, %d):   key =%llx", index_p, index_pp, J, l, key);
+      std::cout << "DANGER!!!!!!!  Updating IntList inside a parellel loop breaks thread safety!" << std::endl;
+      std::cout << "   I shouldn't be here in " << __func__ << "(" << index_p << " , " << index_pp << " , " << J << " , " << l << ")   key = " << key << std::endl;
+//      printf("DANGER!!!!!!!  Updating IntList inside a parellel loop breaks thread safety!\n");
+//      printf("   I shouldn't be here in GetA(%d, %d, %d, %d):   key =%llx", index_p, index_pp, J, l, key);
       exit(EXIT_FAILURE);
     }
     return A;

@@ -20,3 +20,4 @@ CMakeUserPresets.json
 imsrg++.cc
 imsrg++
 local_settings.cmake
+Makefile_local

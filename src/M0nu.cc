@@ -928,8 +928,10 @@ namespace M0nu
       gsl_integration_glfixed_table_free(t);
       if (omp_get_num_threads() >= 2)
       {
-        printf("DANGER!!!!!!!  Updating IntList inside a parellel loop breaks thread safety!\n");
-        printf("   I shouldn't be here in GetIntegral(%d, %d, %d, %d, %d, %d):   key =%llx   integral=%f\n",n,l,np,lp,S,J,key,integral);
+        std::cout << "DANGER!!!!!!!  Updating IntList inside a parellel loop breaks thread safety!" << std::endl;
+        std::cout << "   I shouldn't be here in GetIntegral(" << n << " , " << l << " , " << np << " , " << lp << " , " << S << " , " << J << "):   key = " << key << "   integral = " << integral << std::endl; 
+//        printf("DANGER!!!!!!!  Updating IntList inside a parellel loop breaks thread safety!\n");
+//        printf("   I shouldn't be here in GetIntegral(%d, %d, %d, %d, %d, %d):   key =%lx   integral=%f\n",n,l,np,lp,S,J,key,integral);
         exit(EXIT_FAILURE);
       }
       IntList[key] = integral;
@@ -1294,8 +1296,10 @@ namespace M0nu
       integral = integrateRcom(Ncom,Lam,hw,Rnucl);
       if (omp_get_num_threads() >= 2)
       {
-        printf("DANGER!!!!!!!  Updating IntList inside a parellel loop breaks thread safety!\n");
-        printf("   I shouldn't be here in GetIntegral(%d, %d):   key =%llx   integral=%f\n",Ncom,Lam,key,integral);
+        std::cout << "DANGER!!!!!!!  Updating IntList inside a parellel loop breaks thread safety!" << std::endl;;
+        std::cout << "   I shouldn't be here in " << __func__ << " ( " << Ncom << " , " << Lam << ")    key =" << key << "  integral = " << integral << std::endl;
+//        printf("DANGER!!!!!!!  Updating IntList inside a parellel loop breaks thread safety!\n");
+//        printf("   I shouldn't be here in GetIntegral(%d, %d):   key =%lx   integral=%f\n",Ncom,Lam,key,integral);
         exit(EXIT_FAILURE);
       }
       IntList[key] = integral;
