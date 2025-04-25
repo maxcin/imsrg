@@ -679,7 +679,8 @@ PYBIND11_MODULE(pyIMSRG, m)
           .def("ComputeNAS_MatrixElements", &Jacobi3BME::ComputeNAS_MatrixElements)
           .def("GetLabMatEl", &Jacobi3BME::GetLabMatEl)
           .def("TestReadTcoeffNavratil", &Jacobi3BME::TestReadTcoeffNavratil)
-          .def("GetV3mon_all", &Jacobi3BME::GetV3mon_all);
+//          .def("GetV3mon_all", &Jacobi3BME::GetV3mon_all)
+      ;
 
       py::module Commutator = m.def_submodule("Commutator", "Commutator namespace");
        Commutator.def("Commutator", &Commutator::Commutator);
