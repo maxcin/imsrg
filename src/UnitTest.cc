@@ -381,6 +381,236 @@ void UnitTest::Test3BodyAntisymmetry(Operator &Y)
   }
 }
 
+
+
+
+bool UnitTest::TestNormalOrdering(Operator& Op)
+{
+   bool passed = true;
+   Operator OpNO = Op.DoNormalOrdering();
+
+
+   // Check the zero body piece
+   double opM_zero = Op.ZeroBody;
+   // one-body -> zero body
+   for (auto a : Op.modelspace->holes)
+   {
+     Orbit& oa = Op.modelspace->GetOrbit(a);
+     for (int m2a= -oa.j2; m2a<= oa.j2; m2a+=2)
+     {
+       opM_zero += oa.occ * GetMschemeMatrixElement_1b(  Op,  a,  m2a, a, m2a );
+     }
+   }
+
+   // two-body -> zero body
+   for (auto a : Op.modelspace->holes)
+   {
+     Orbit& oa = Op.modelspace->GetOrbit(a);
+     for (auto b : Op.modelspace->holes)
+     {
+        if (b>a) continue;
+        Orbit& ob = Op.modelspace->GetOrbit(b);
+        for (int m2a= -oa.j2; m2a<= oa.j2; m2a+=2)
+        {
+           for (int m2b= -ob.j2; m2b<= ob.j2; m2b+=2)
+           {
+              if ( a==b and m2b>=m2a) continue; 
+              opM_zero += oa.occ * ob.occ * GetMschemeMatrixElement_2b(  Op,  a,m2a, b,m2b, a,m2a, b,m2b );
+           }
+        }
+        
+     }
+   }
+
+   // three-body -> zero body
+   if ( Op.GetParticleRank()>=3 )
+   {
+     for (auto a : Op.modelspace->holes)
+     {
+       Orbit& oa = Op.modelspace->GetOrbit(a);
+       for (auto b : Op.modelspace->holes)
+       {
+          if (b>a) continue;
+          Orbit& ob = Op.modelspace->GetOrbit(b);
+          for (auto c : Op.modelspace->holes)
+          {
+             if (c>b) continue;
+             Orbit& oc = Op.modelspace->GetOrbit(c);
+             for (int m2a= -oa.j2; m2a<= oa.j2; m2a+=2)
+             {
+                for (int m2b= -ob.j2; m2b<= ob.j2; m2b+=2)
+                {
+                   if ( a==b and m2b>=m2a) continue; 
+                   for (int m2c= -oc.j2; m2c<= oc.j2; m2c+=2)
+                   {
+                      if ( b==c and m2c>=m2b) continue; 
+                      opM_zero += oa.occ * ob.occ * oc.occ * GetMschemeMatrixElement_3b(  Op,  a,m2a, b,m2b, c,m2c, a,m2a, b,m2b, c,m2c );
+                   }
+                }
+             }
+          }
+       }
+     }
+   }
+
+
+
+   double diff0b = OpNO.ZeroBody - opM_zero;
+   std::cout << "0b:   m-scheme = " << opM_zero << "   J-scheme = " << OpNO.ZeroBody << "    diff = " << diff0b << std::endl;
+   passed &= ( std::abs(diff0b) < 1e-6);
+
+
+   // next check the 1b piece
+   arma::mat opM_one =  Op.OneBody;
+      // two-body -> one-body
+     for (auto i : Op.modelspace->all_orbits)
+     {
+       Orbit& oi = Op.modelspace->GetOrbit(i);
+       for (auto j : Op.modelspace->all_orbits)
+       {
+          Orbit& oj = Op.modelspace->GetOrbit(j);
+          double Oij = 0;
+          int m2i = 1;
+          int m2j = 1;
+          for (auto a : Op.modelspace->holes)
+          {
+             Orbit& oa = Op.modelspace->GetOrbit(a);
+             for (int m2a= -oa.j2; m2a<= oa.j2; m2a+=2)
+             {
+                 Oij += oa.occ * GetMschemeMatrixElement_2b(  Op,  i,m2i, a,m2a, j,m2j, a,m2a );
+             }
+          }
+          if (not Op.IsReduced() )
+          {
+             opM_one(i,j) += Oij;
+          }
+          else
+          {
+             int lambda = Op.GetJRank();
+             int mu = (m2i -m2j)/2;
+             double cg = AngMom::CG(oj.j2*0.5, m2j*0.5,  lambda,mu,  oi.j2*0.5, m2i*0.5);
+
+             if (std::abs(cg)>1e-7)
+             {
+               double opMij = opM_one(i,j);
+               opM_one(i,j) += sqrt(oi.j2+1) / cg * Oij;
+             }
+             else if ( std::abs(Oij)>1e-6)
+             {
+                std::cout << "Clebsch was bad for ij = " << i << " " << j << std::endl;
+             }
+          }
+       }
+     }
+
+      // three-body -> one-body
+     for (auto i : Op.modelspace->all_orbits)
+     {
+       Orbit& oi = Op.modelspace->GetOrbit(i);
+       for (auto j : Op.modelspace->all_orbits)
+       {
+          Orbit& oj = Op.modelspace->GetOrbit(j);
+          double Oij = 0;
+          int m2i = 1;
+          int m2j = 1;
+          for (auto a : Op.modelspace->holes)
+          {
+             Orbit& oa = Op.modelspace->GetOrbit(a);
+             for (int m2a= -oa.j2; m2a<= oa.j2; m2a+=2)
+             {
+               for (auto b : Op.modelspace->holes)
+               {
+                 if ( b>a) continue;
+                 Orbit& ob = Op.modelspace->GetOrbit(b);
+                 for (int m2b= -ob.j2; m2b<= ob.j2; m2b+=2)
+                 {
+                    if ( a==b and m2b>=m2a) continue;
+                    Oij += oa.occ * ob.occ * GetMschemeMatrixElement_3b(  Op,  i,m2i, a,m2a, b,m2b, j,m2j, a,m2a, b,m2b );
+                 }
+               }
+            }
+          }
+          if (not Op.IsReduced() )
+          {
+             opM_one(i,j) += Oij;
+          }
+          else
+          {
+             int lambda = Op.GetJRank();
+             int mu = (m2i -m2j)/2;
+             double cg = AngMom::CG(oj.j2*0.5, m2j*0.5,  lambda,mu,  oi.j2*0.5, m2i*0.5);
+
+             if (std::abs(cg)>1e-7)
+             {
+               double opMij = opM_one(i,j);
+               opM_one(i,j) += sqrt(oi.j2+1) / cg * Oij;
+             }
+             else if ( std::abs(Oij)>1e-6)
+             {
+                std::cout << "Clebsch was bad for ij = " << i << " " << j << std::endl;
+             }
+          }
+       }
+     }
+
+     arma::mat diff1b = OpNO.OneBody - opM_one;
+     std::cout << "1b:   m-scheme = " << arma::norm( opM_one ) << "   J-scheme = " << arma::norm(OpNO.OneBody)  << "    diff = " << arma::norm(diff1b) << std::endl;
+     passed &= ( arma::norm(diff1b) < 1e-6);
+
+
+    if ( Op.GetParticleRank()>=3)
+    {
+      double summed_diff_2b = 0;
+      double summed_Oijkl = 0;
+      // finally, check the 2b piece
+      for (auto i : Op.modelspace->all_orbits)
+      {
+        Orbit& oi = Op.modelspace->GetOrbit(i);
+        for (auto j : Op.modelspace->all_orbits)
+        {
+           Orbit& oj = Op.modelspace->GetOrbit(j);
+           for (auto k : Op.modelspace->all_orbits)
+           {
+             Orbit& ok = Op.modelspace->GetOrbit(k);
+             for (auto l : Op.modelspace->all_orbits)
+             {
+                Orbit& ol = Op.modelspace->GetOrbit(l);
+                double Oijkl = 0;
+                int m2i = 1;
+                int m2j = 1;
+                int m2k = 1;
+                int m2l = 1;
+                for (auto a : Op.modelspace->holes)
+                {
+                   Orbit& oa = Op.modelspace->GetOrbit(a);
+                   for (int m2a= -oa.j2; m2a<= oa.j2; m2a+=2)
+                   {
+                       Oijkl += oa.occ * GetMschemeMatrixElement_3b(  Op,  i,m2i, j,m2j, a,m2a, k,m2k, l,m2l, a,m2a );
+                   }
+                }
+                double oijkl_before = GetMschemeMatrixElement_2b( Op, i,m2i,j,m2j,k,m2k,l,m2l);
+                double oijkl_after  = GetMschemeMatrixElement_2b( OpNO, i,m2i,j,m2j,k,m2k,l,m2l);
+                double diff = ( oijkl_after - oijkl_before - Oijkl);
+                if (std::abs(diff)>1e-6)
+                {
+                  std::cout << "Trouble !  " << Oijkl << " != " << oijkl_after - oijkl_before << std::endl;
+                }
+                summed_diff_2b += std::abs(diff);
+                summed_Oijkl += std::abs(Oijkl);
+             }// for l
+           }//for k
+        }//for j
+      }//for i
+      std::cout << "2b:   summed_diff_2b = " << summed_diff_2b << "  sum |Oijkl| = " << summed_Oijkl << std::endl;
+      passed &= std::abs(summed_diff_2b) < 1e-6;
+     }
+
+   return passed;
+}
+
+
+
+
 bool UnitTest::TestCommutators()
 {
   double t_start = omp_get_wtime();
@@ -873,7 +1103,8 @@ double UnitTest::GetMschemeMatrixElement_1b(const Operator &Op, int a, int ma, i
   double matel = 0;
   int Jop = Op.GetJRank();
   int Top = Op.GetTRank();
-  if (Jop == 0 and Top == 0) // scalar operator
+//  if (Jop == 0 and Top == 0) // scalar operator
+  if (not Op.IsReduced() ) // scalar operator
   {
     if (ma == mb)
     {

@@ -35,6 +35,8 @@ class UnitTest
   void Test3BodyAntisymmetry(Operator& Y);
   void Test3BodyHermiticity(Operator& Y);
 
+  bool TestNormalOrdering(Operator& Op);
+
 //  void Test3BodySetGet(Operator& Y);
 
   // test strategy: Fill two random operators, calculate a specific commutator term
