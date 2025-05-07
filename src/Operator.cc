@@ -530,16 +530,12 @@ Operator Operator::DoNormalOrdering2(int sign, std::set<index_t> occupied) const
             {
               double jh = oh.j2 * 0.5;
 //              if ((ja + jh < J_bra) or (abs(ja - jh) > J_bra) or (jb + jh < J_ket) or (abs(jb - jh) > J_ket))
-              if (not AngMom::Triangle( ja,jh,J_bra) ) continue;
-              if (not AngMom::Triangle( jb,jh,J_ket) ) continue;
-              if ((oa.l + oh.l + tbc_bra.parity) % 2 > 0)
-                continue;
-              if ((ob.l + oh.l + tbc_ket.parity) % 2 > 0)
-                continue;
-              if ((oa.tz2 + oh.tz2) != tbc_bra.Tz * 2)
-                continue;
-              if ((ob.tz2 + oh.tz2) != tbc_ket.Tz * 2)
-                continue;
+              if (not AngMom::Triangle( ja,jh,J_bra) )    continue;
+              if (not AngMom::Triangle( jb,jh,J_ket) )    continue;
+              if ((oa.l + oh.l + tbc_bra.parity) % 2 > 0) continue;
+              if ((ob.l + oh.l + tbc_ket.parity) % 2 > 0) continue;
+              if ((oa.tz2 + oh.tz2) != tbc_bra.Tz * 2)    continue;
+              if ((ob.tz2 + oh.tz2) != tbc_ket.Tz * 2)    continue;
               double ME = hatfactor * sign * oh.occ * modelspace->phase(ja + jh - J_ket - opNO.rank_J) * modelspace->GetSixJ(J_bra, J_ket, opNO.rank_J, jb, ja, jh) * TwoBody.GetTBME(ch_bra, ch_ket, a, h, b, h);
               if ( a==b and J_bra != J_ket)
               {
