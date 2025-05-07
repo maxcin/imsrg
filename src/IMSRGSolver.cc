@@ -243,7 +243,7 @@ void IMSRGSolver::Solve_magnus_euler()
   istep = 0;
 
   generator.Update(FlowingOps[0], Eta);
-
+  // Eta.PrintTwoBody();
   // SRS noticed this on June 12 2024. If these two parameters are equal, and especially if we're using the hunter-gatherer mode, then we become sensitive to
   // numerical precision when deciding if we should split omega, leading to machine-dependent behavior.
   if ( std::abs( omega_norm_max - norm_domega)<1e-6 )

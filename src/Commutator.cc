@@ -684,7 +684,6 @@ namespace Commutator
     int pX = X.GetParity();
     int pY = Y.GetParity();
     int pZ = (pX + pY) % 2; // Added to make z.parity correct when calling only UnitTest and not through the CommutatorScalarScalar
-
     if (X.GetParticleRank() < 2 or Y.GetParticleRank() < 2)
       return;
     if (Z.IsAntiHermitian())
@@ -699,7 +698,7 @@ namespace Commutator
     std::vector<size_t> ch_bra_list, ch_ket_list;
     auto ch_iter = X.TwoBody.MatEl;
     for (auto &iter : ch_iter)
-    {
+    { 
       ch_bra_list.push_back(iter.first[0]);
       ch_ket_list.push_back(iter.first[1]);
     }
@@ -708,8 +707,9 @@ namespace Commutator
     {
       size_t ch_bra = ch_bra_list[ich];
       size_t ch_ket = ch_ket_list[ich];
-      TwoBodyChannel &tbc_bra = Z.modelspace->GetTwoBodyChannel(ch_bra);
-      TwoBodyChannel &tbc_ket = Z.modelspace->GetTwoBodyChannel(ch_ket);
+      // std::cout << ch_bra << " " << ch_ket << std::endl;
+      TwoBodyChannel &tbc_bra = X.modelspace->GetTwoBodyChannel(ch_bra);
+      TwoBodyChannel &tbc_ket = X.modelspace->GetTwoBodyChannel(ch_ket);
       int J = tbc_bra.J;
       int nbras = tbc_bra.GetNumberKets();
       int nkets = tbc_ket.GetNumberKets();
@@ -717,8 +717,10 @@ namespace Commutator
       for (int ibra = 0; ibra < nbras; ibra++)
       {
         Ket &bra = tbc_bra.GetKet(ibra);
-        Orbit &oa = Z.modelspace->GetOrbit(bra.p);
-        Orbit &ob = Z.modelspace->GetOrbit(bra.q);
+        Orbit &oa = X.modelspace->GetOrbit(bra.p);
+        Orbit &ob = X.modelspace->GetOrbit(bra.q);
+        // std::cout<< oa.n << oa.l << oa.j2 << oa.tz2 << oa.occ << std::endl;
+        // std::cout<< ob.n << ob.l << ob.j2 << ob.tz2 << ob.occ<< std::endl;
         size_t a = bra.p;
         size_t b = bra.q;
         double na = bra.op->occ;
@@ -734,20 +736,29 @@ namespace Commutator
           Ket &ket = tbc_ket.GetKet(iket);
           size_t c = ket.p;
           size_t d = ket.q;
-          Orbit &oc = Z.modelspace->GetOrbit(ket.p);
-          Orbit &od = Z.modelspace->GetOrbit(ket.q);
+          Orbit &oc = X.modelspace->GetOrbit(ket.p);
+          Orbit &od = X.modelspace->GetOrbit(ket.q);
           double nc = ket.op->occ;
           double nd = ket.oq->occ;
           double occfactor = na * nb * (1 - nc) * (1 - nd);
           double cd_symm = 2;
           if (c == d)
             cd_symm = 1;
+          // std::cout<< a<<" "<<b<<" "<<c<<" "<<d<<std::endl;
           double xabcd = X2.GetTBME_J(J, J, bra.p, bra.q, ket.p, ket.q);
           double yabcd = Y2.GetTBME_J(J, J, bra.p, bra.q, ket.p, ket.q);
           double xcdab = X2.GetTBME_J(J, J, ket.p, ket.q, bra.p, bra.q);
           double ycdab = Y2.GetTBME_J(J, J, ket.p, ket.q, bra.p, bra.q);
           comm = (xabcd * ycdab - yabcd * xcdab);
-          z0 += 1. / 4 * (2 * J + 1) * ab_symm * cd_symm * (na * nb * (1 - nc) * (1 - nd)) * comm;
+          double term = 0;
+          term += 1. / 4 * (2 * J + 1) * ab_symm * cd_symm * occfactor * comm;
+          if (pX == 1 and pY == 1)
+          {
+            term /= 2;
+            comm = xcdab*yabcd - ycdab * xabcd;
+            term += 1. / 4 * (2 * J + 1) * ab_symm * cd_symm * nc*nd*(1-na)*(1-nb) * comm;
+          }
+          z0 += term;
         }
       }
     }

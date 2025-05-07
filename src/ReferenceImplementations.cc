@@ -4,6 +4,7 @@
 #include "PhysicalConstants.hh"
 #include "AngMom.hh"
 
+
 /// Straightforward implementation of J-coupled commutator expressions
 /// without optimizations. This should be benchmarked against the
 /// mscheme implementation and then left untouched.

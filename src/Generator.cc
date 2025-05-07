@@ -18,7 +18,7 @@ std::function<double(double,double)> Generator::imaginarytime_func = [] (double 
 std::function<double(double,double)> Generator::qtransferatan1_func = [](double Hod, double denom){return pow(std::abs(denom)*M_NUCLEON/HBARC/HBARC, 0.5*1) * atan_func(Hod, denom);};
 
 Generator::Generator()
-  : generator_type("white"),/* modelspace(NULL),*/ denominator_cutoff(1e-6)  , denominator_delta(0), denominator_delta_index(-1), denominator_partitioning(Epstein_Nesbet),  only_2b_eta(false), use_isospin_averaging(false)
+  : generator_type("white"),/* modelspace(NULL),*/ denominator_cutoff(1e-6)  , denominator_delta(0), denominator_delta_index(-1), denominator_partitioning(Epstein_Nesbet),  only_2b_eta(false), use_isospin_averaging(false), only_1b_eta(false)
 {}
 
 
@@ -287,7 +287,7 @@ void Generator::ConstructGenerator_SingleRef(std::function<double (double,double
             ETA2(iket,ibra) = - ETA2(ibra,iket) ; // Eta needs to be antisymmetric
             Ket& bra = tbc_bra.GetKet(ibra);
             Ket& ket = tbc_ket.GetKet(iket);
-//            std::cout << __func__ << "  line " << __LINE__ << " bra,ket " << bra.p << " " << bra.q << " , " << ket.p << " " << ket.q  << "  J = " << tbc_bra.J << "   numerator /denom = " << H2(ibra,iket) << " / " << denominator << std::endl;
+            //            std::cout << __func__ << "  line " << __LINE__ << " bra,ket " << bra.p << " " << bra.q << " , " << ket.p << " " << ket.q  << "  J = " << tbc_bra.J << "   numerator /denom = " << H2(ibra,iket) << " / " << denominator << std::endl;
          }
       }
     }

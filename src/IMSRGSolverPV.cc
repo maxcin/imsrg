@@ -173,9 +173,7 @@ void IMSRGSolverPV::NewOmega_PV()
 void IMSRGSolverPV::Solve_magnus_euler_PV()
 {
   istep = 0;
-  
   generatorPV.Update(FlowingOps[0], FlowingOpsPV[0], Eta, Etapv);
-  
   // SRS noticed this on June 12 2024. If these two parameters are equal, and especially if we're using the hunter-gatherer mode, then we become sensitive to
   // numerical precision when deciding if we should split omega, leading to machine-dependent behavior.
   if ( std::abs( omega_norm_max - norm_domega)<1e-6 )
@@ -187,7 +185,7 @@ void IMSRGSolverPV::Solve_magnus_euler_PV()
   Elast = H_0->ZeroBody;
   cumulative_error = 0;
   // Write details of the flow
-//   WriteFlowStatusPV(flowfile);
+  //   WriteFlowStatusPV(flowfile);
   WriteFlowStatusHeaderPV(std::cout);
   WriteFlowStatusPV(std::cout);
 
@@ -260,13 +258,15 @@ void IMSRGSolverPV::Solve_magnus_euler_PV()
     // }
 
     generatorPV.Update(FlowingOps[0], FlowingOpsPV[0], Eta, Etapv);
+    // Etapv.PrintOneBody();
+    // Etapv.PrintTwoBody();
 
     // Write details of the flow
     // WriteFlowStatusPV(flowfile);
     WriteFlowStatusPV(std::cout);
     Elast = FlowingOps[0].ZeroBody;
   }
-//   WriteFlowStatusPV(std::cout);
+  //   WriteFlowStatusPV(std::cout);
 }
 
 

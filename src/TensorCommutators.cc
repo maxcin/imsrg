@@ -611,7 +611,7 @@ namespace Commutator
                   ninej = Z.modelspace->GetNineJ(ja, jd, J1, jb, jc, J2, Jbra_cc, Jket_cc, Lambda);
                 }
 
-                if (std::abs(ninej) < 1e-8)
+                if (std::abs(ninej) < 1e-10)
                   continue;
                 double hatfactor = sqrt((2 * J1 + 1) * (2 * J2 + 1) * (2 * Jbra_cc + 1) * (2 * Jket_cc + 1));
                 double tbme = Z.TwoBody.GetTBME_J(J1, J2, a, d, c, b);
@@ -642,7 +642,7 @@ namespace Commutator
                   ninej = Z.modelspace->GetNineJ(jb, jd, J1, ja, jc, J2, Jbra_cc, Jket_cc, Lambda);
                 }
 
-                if (std::abs(ninej) < 1e-8)
+                if (std::abs(ninej) < 1e-10)
                   continue;
                 double hatfactor = sqrt((2 * J1 + 1) * (2 * J2 + 1) * (2 * Jbra_cc + 1) * (2 * Jket_cc + 1));
                 double tbme = Z.TwoBody.GetTBME_J(J1, J2, b, d, c, a);
@@ -725,7 +725,7 @@ namespace Commutator
             {
               ninej = Z.modelspace->GetNineJ(ja, jd, J1, jb, jc, J2, Jbra_cc, Jket_cc, Lambda);
             }
-            if (std::abs(ninej) < 1e-8)
+            if (std::abs(ninej) < 1e-10)
               continue;
             double hatfactor = sqrt((2 * J1 + 1) * (2 * J2 + 1) * (2 * Jbra_cc + 1) * (2 * Jket_cc + 1));
             double tbme = Z.TwoBody.GetTBME_J(J1, J2, a, d, c, b);
@@ -764,7 +764,7 @@ namespace Commutator
                 ninej = Z.modelspace->GetNineJ(jb, jd, J1, ja, jc, J2, Jbra_cc, Jket_cc, Lambda);
               }
 
-              if (std::abs(ninej) < 1e-8)
+              if (std::abs(ninej) < 1e-10)
                 continue;
               double hatfactor = sqrt((2 * J1 + 1) * (2 * J2 + 1) * (2 * Jbra_cc + 1) * (2 * Jket_cc + 1));
               double tbme = Z.TwoBody.GetTBME_J(J1, J2, b, d, c, a);
@@ -869,7 +869,7 @@ namespace Commutator
                                                jj, jk, J4, 
                                                J1, J2, Lambda);
               }
-              if (std::abs(ninej) < 1e-8)
+              if (std::abs(ninej) < 1e-10)
                 continue;
               index_t ch_lo = std::min(ch_bra_cc, ch_ket_cc);
               index_t ch_hi = std::max(ch_bra_cc, ch_ket_cc);
@@ -946,7 +946,7 @@ namespace Commutator
                                                  J1, J2, Lambda);
                 }
 
-                if (std::abs(ninej) < 1e-8)
+                if (std::abs(ninej) < 1e-10)
                   continue;
 
                 index_t ch_lo = std::min(ch_bra_cc, ch_ket_cc);

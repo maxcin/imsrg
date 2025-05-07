@@ -450,6 +450,11 @@ namespace BCH
     return  Standard_BCH_TransformPV(Op, OpPV, Omega, OmegaPV);
   }
 
+  std::tuple<Operator, Operator> BCH_TransformHPV(const Operator &Op, const Operator &OpPV, const Operator &Omega, const Operator &OmegaPV)
+  {
+    return  Standard_BCH_TransformHPV(Op, OpPV, Omega, OmegaPV);
+  }
+
   /// X.BCH_Transform(Y) returns \f$ Z = e^{Y} X e^{-Y} \f$.
   /// We use the [Baker-Campbell-Hausdorff formula](http://en.wikipedia.org/wiki/Baker-Campbell-Hausdorff_formula)
   /// \f[ Z = X + [Y,X] + \frac{1}{2!}[Y,[Y,X]] + \frac{1}{3!}[Y,[Y,[Y,X]]] + \ldots \f]
@@ -498,7 +503,7 @@ namespace BCH
         //                              = [Omega, Htilde]_3b,  where Htilde = H + 1/2![Omega,H] + 1/3![Omega,[Omega,H]] + ...
         if (bch_skip_ieq1 and i == 1)
           continue;
-        Operator Optmp = Commutator::Commutator(Omega, OpNested) + Commutator::Commutator(OmegaPV, OpNestedPV);
+        Operator Optmp = Commutator::Commutator(OmegaPV, OpNestedPV) + Commutator::Commutator(Omega, OpNested)  ;
         Operator OptmpPV = Commutator::Commutator(OmegaPV, OpNested) + Commutator::Commutator(Omega, OpNestedPV);
         OpNested = Optmp; // the ith nested commutator
         OpNestedPV = OptmpPV;
@@ -530,4 +535,78 @@ namespace BCH
     return {OpOut,OpOutPV};
   }
 
+  std::tuple<Operator, Operator> Standard_BCH_TransformHPV(const Operator &OpIn, const Operator &OpInPV, const Operator &Omega, const Operator &OmegaPV)
+  {
+
+    double t_start = omp_get_wtime();
+    int max_iter = 40;
+    int warn_iter = 12;
+    double nx = OpIn.Norm();
+    double ny = Omega.Norm();
+    double nxPV = OpInPV.Norm();
+    double nyPV = OmegaPV.Norm();
+    Operator OpOut = OpIn;
+    Operator OpOutPV = OpInPV;
+    if ((OpOut.GetNumberLegs() % 2 == 0) and OpOut.GetParticleRank() < 2)
+    {
+      OpOut.SetParticleRank(2);
+    }
+
+    if (OpOut.GetJRank() == 0 and (OpOut.GetTRank() != 0 or OpOut.GetParity() != 0) and OpOut.IsReduced() == false)
+    {
+      OpOut.MakeReduced();
+    }
+
+    if (OpOutPV.GetJRank() == 0 and (OpOutPV.GetTRank() != 0 or OpOutPV.GetParity() != 0) and OpOutPV.IsReduced() == false)
+    {
+      OpOutPV.MakeReduced();
+    }
+
+    double factorial_denom = 1.0;
+
+    if (sqrt(nx * nx + nxPV * nxPV) > bch_transform_threshold)
+    {
+      Operator OpNested = OpOut;
+      Operator OpNestedPV = OpOutPV;
+
+      double epsilon = sqrt(nx * nx + nxPV * nxPV) * exp(-2 * sqrt(ny * ny + nyPV * nyPV)) * bch_transform_threshold / (2 * sqrt(ny * ny + nyPV * nyPV)); // this should probably be explained somewhere...
+      for (int i = 1; i <= max_iter; ++i)
+      {
+
+        // Specifically for the perturbative triples, we need 1/(i+1)! rather than 1/i!
+        // This is because we have Wbar = [Omega,H]_3b + 1/2![Omega,[Omega,H]]_3b + 1/3![Omega,[Omega,[Omega,H]]]_3b + ...
+        //                              = [Omega, Htilde]_3b,  where Htilde = H + 1/2![Omega,H] + 1/3![Omega,[Omega,H]] + ...
+        if (bch_skip_ieq1 and i == 1)
+          continue;
+        Operator Optmp = Commutator::Commutator(Omega, OpNested);
+        Operator OptmpPV = Commutator::Commutator(OmegaPV, OpNested) + Commutator::Commutator(Omega, OpNestedPV);
+        OpNested = Optmp; // the ith nested commutator
+        OpNestedPV = OptmpPV;
+        factorial_denom /= i;
+        OpOut += factorial_denom * OpNested;
+        OpOutPV += factorial_denom * OpNestedPV;
+        if (OpOut.rank_J > 0)
+        {
+          std::cout << "Tensor BCH, i=" << i << "  Norm = " << std::setw(12) << std::setprecision(8) << std::fixed << OpOut.OneBodyNorm() << " "
+                    << std::setw(12) << std::setprecision(8) << std::fixed << OpNested.TwoBodyNorm() << " "
+                    << std::setw(12) << std::setprecision(8) << std::fixed << OpNested.ThreeBody.Norm() << " "
+                    << std::setw(12) << std::setprecision(8) << std::fixed << OpNested.Norm() << std::endl;
+          std::cout << "Tensor BCH, i=" << i << "  NormPV = " << std::setw(12) << std::setprecision(8) << std::fixed << OpOutPV.OneBodyNorm() << " "
+                    << std::setw(12) << std::setprecision(8) << std::fixed << OpNestedPV.TwoBodyNorm() << " "
+                    << std::setw(12) << std::setprecision(8) << std::fixed << OpNestedPV.ThreeBody.Norm() << " "
+                    << std::setw(12) << std::setprecision(8) << std::fixed << OpNestedPV.Norm() << std::endl;
+        }
+        epsilon *= i + 1;
+        if (sqrt(OpNested.Norm() * OpNested.Norm() + OpNestedPV.Norm() * OpNestedPV.Norm()) < epsilon)
+          break;
+        if (i == warn_iter)
+          std::cout << "Warning: BCH_Transform not converged after " << warn_iter << " nested commutators" << std::endl;
+        else if (i == max_iter)
+          std::cout << "Warning: BCH_Transform didn't coverge after " << max_iter << " nested commutators" << std::endl;
+      }
+    }
+
+    OpIn.profiler.timer["BCH_Transform"] += omp_get_wtime() - t_start;
+    return {OpOut, OpOutPV};
+  }
 }// namespace BCH

@@ -1865,6 +1865,7 @@ Operator FourierBesselCoeff(ModelSpace& modelspace, int nu, double R, std::set<i
   Operator AnapoleMoment(ModelSpace& modelspace)
   {
     Operator As(modelspace, 1, 0, 1, 2);
+    As.SetAntiHermitian();
     double bL = pow(HBARC * HBARC / M_NUCLEON / modelspace.GetHbarOmega(), 0.5 * 1); // b^L where b=sqrt(hbar/mw)
     int norbits = modelspace.GetNumberOrbits();
     for (int i=0; i<norbits; ++i)
@@ -1874,14 +1875,16 @@ Operator FourierBesselCoeff(ModelSpace& modelspace, int nu, double R, std::set<i
       double magnetic_moment = oi.tz2 < 0 ? PROTON_SPIN_G/2 : NEUTRON_SPIN_G/2; // These are 5.586 and -3.826 for proton and neutron, respectively. Defined in PhysicalConstants.hh
       for (int j: As.OneBodyChannels.at({oi.l, oi.j2, oi.tz2}))
       {
+        if (j<i) continue;
         Orbit& oj = modelspace.GetOrbit(j);
         if (oi.tz2 != oj.tz2) continue;
         double jj = 0.5 * oj.j2; 
         double r2int = RadialIntegral(oi.n, oi.l, oj.n, oj.l, 1) * bL ;
         double nineJ = AngMom::NineJ(oi.l, 0.5, ji, oj.l, 0.5, jj, 1, 1, 1);
         double hatfactors = sqrt((2 * ji + 1) * (2 * jj + 1) * (2 * oi.l + 1) * (2 * oi.l + 1));
-        As.OneBody(i, j) = 3 * sqrt(2) * magnetic_moment * r2int * hatfactors * nineJ * AngMom::ThreeJ(oj.l, 1, oi.l, 0, 0, 0);
-        As.OneBody(j, i) = -1 * modelspace.phase((oi.j2 - oj.j2) / 2) * As.OneBody(i, j);
+        // Including the factor of sqrt(4pi/3) from the spherical harmonics
+        As.OneBody(i, j) = 3 * sqrt(2)* magnetic_moment * r2int * hatfactors * nineJ * AngMom::ThreeJ(oj.l, 1, oi.l, 0, 0, 0);
+        As.OneBody(j, i) = -modelspace.phase((oi.j2 - oj.j2) / 2) * As.OneBody(i, j); //Operator is imagniary and therefore antisymmetric
       }
     }
     return As;

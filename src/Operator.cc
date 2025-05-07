@@ -551,6 +551,10 @@ Operator Operator::DoNormalOrdering2(int sign, std::set<index_t> occupied) const
               if ((ob.tz2 + oh.tz2) != tbc_ket.Tz * 2)
                 continue;
               double ME = hatfactor * sign * oh.occ * modelspace->phase(ja + jh - J_ket - opNO.rank_J) * modelspace->GetSixJ(J_bra, J_ket, opNO.rank_J, jb, ja, jh) * TwoBody.GetTBME(ch_bra, ch_ket, a, h, b, h);
+              if (J_bra!=J_ket and a == b)
+              {
+                ME += hatfactor * sign * oh.occ * modelspace->phase(ja + jh - J_bra - opNO.rank_J) * modelspace->GetSixJ(J_ket, J_bra, opNO.rank_J, jb, ja, jh) * TwoBody.GetTBME(ch_ket, ch_bra, a, h, b, h);
+              }
               if (a > b)
               {
                 int herm = IsHermitian() ? 1 : -1;

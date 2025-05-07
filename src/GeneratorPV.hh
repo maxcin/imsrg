@@ -12,7 +12,6 @@ private:
   Operator *Etapv;
 
 public:
-  bool only_1b_eta;
   void Update(Operator &H_s, Operator &HPV_s, Operator &Eta_s, Operator &EtaPV_s);
   void AddToEtaPV(Operator &H_s, Operator &HPV_s, Operator &Eta_s, Operator &EtaPV_s);
   // void SetIMSRG1(double d){imsrg2 = d;};

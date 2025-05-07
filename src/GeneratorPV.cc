@@ -38,7 +38,10 @@ void GeneratorPV::AddToEtaPV(Operator &H_s, Operator &HPV_s, Operator &Eta_s, Op
    else if (generator_type == "shell-model-wegner")
       ConstructGeneratorPV_ShellModel(wegner_func); // never tested, probably doesn't work.
    else if (generator_type == "shell-model")
+   {
       ConstructGeneratorPV_ShellModel(white_func);
+   }
+      
    else if (generator_type == "shell-model-atan")
       ConstructGeneratorPV_ShellModel(atan_func);
    //   else if (generator_type == "shell-model-atan-npnh")        ConstructGeneratorPV_ShellModel_NpNh(atan_func);
@@ -135,7 +138,6 @@ void GeneratorPV::ConstructGeneratorPV_SingleRef(std::function<double(double, do
          {
             double denominator = Get2bDenominator(ch_bra, ch_ket, ibra, iket);
             ETAPV2(ibra, iket) =  etafunc(V2(ibra, iket), denominator);
-            ETAPV2(iket,ibra) = - ETAPV2(ibra,iket) ; // Eta needs to be antisymmetric error comes from here
          }
       }
       Etapv->profiler.timer["UpdateEta2betapv"] += omp_get_wtime() - start_time;
@@ -189,6 +191,7 @@ void GeneratorPV::ConstructGeneratorPV_ShellModel(std::function<double(double, d
          //         auto& ket = tbc.GetKet(iket);
          for (auto &ibra : VectorUnion(tbc_bra.GetKetIndex_qv(), tbc_bra.GetKetIndex_qq()))
          {
+          
             double denominator = Get2bDenominator(ch_bra, ch_ket, ibra, iket);
             ETA2(ibra, iket) = eta_func(H2(ibra, iket), denominator);
             ETA2(iket, ibra) = -ETA2(ibra, iket); // Eta needs to be antisymmetric
@@ -201,7 +204,6 @@ void GeneratorPV::ConstructGeneratorPV_ShellModel(std::function<double(double, d
          }
       }
    }
-
    for (auto &iter : Etapv->TwoBody.MatEl)
    {
       size_t ch_bra = iter.first[0];
@@ -215,6 +217,8 @@ void GeneratorPV::ConstructGeneratorPV_ShellModel(std::function<double(double, d
       {
          for (auto &ibra : VectorUnion(tbc_bra.GetKetIndex_qq(), tbc_bra.GetKetIndex_vv(), tbc_bra.GetKetIndex_qv()))
          {
+            // std::cout << "ch_bra=" << ch_bra << " ch_ket=" << ch_ket << " ibra=" << ibra << " iket=" << iket << std::endl;
+            // std::cout<< ETAPV2 <<std::endl;
             double denominator = Get2bDenominator(ch_bra, ch_ket, ibra, iket);
             ETAPV2(ibra, iket) = eta_func(V2(ibra, iket), denominator);
             // std::cout << "  looping in generatorPV,Eta 2b part = " << ETAPV2(ibra,iket) << std::endl;
@@ -224,17 +228,12 @@ void GeneratorPV::ConstructGeneratorPV_ShellModel(std::function<double(double, d
       // Decouple the valence space
       for (auto &iket : tbc_ket.GetKetIndex_vv())
       {
-         // std::cout<<"iket="<<iket<<std::endl;
-         //         auto& ket = tbc.GetKet(iket);
          for (auto &ibra : VectorUnion(tbc_bra.GetKetIndex_qv(), tbc_bra.GetKetIndex_qq()))
          {
+            // std::cout << "ch_bra=" << ch_bra << " ch_ket=" << ch_ket << " ibra=" << ibra << " iket=" << iket << std::endl;
+            // std::cout << ETAPV2 <<std::endl; 
             double denominator = Get2bDenominator(ch_bra, ch_ket, ibra, iket);
             ETAPV2(ibra, iket) = eta_func(V2(ibra, iket), denominator);
-            if (ETAPV2(ibra, iket) != 0)
-            {
-               std::cout << std::setprecision(6) << std::fixed;
-               // std::cout << "  looping in generatorPV,Eta 2b part = " << ETAPV2(ibra, iket) << std::endl;
-            }
          }
       }
    }
