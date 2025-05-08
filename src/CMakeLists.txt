@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.18)
-# set(INSTDIR $ENV{HOME})
+set(INSTDIR $ENV{HOME})
 set(BLA_VENDOR OpenBLAS)
 # set(CMAKE_SKIP_INSTALL_RPATH ON)
 # set(CMAKE_SYSTEM_PREFIX_PATH $ENV{EBROOTGENTOO})
@@ -525,7 +525,7 @@ target_link_libraries(
     GSL::gsl
     ModelSpace
     Operator
-    imsrg_util
+#    imsrg_util
     PhysicalConstants
     Pwd
     PRIVATE
@@ -621,6 +621,7 @@ target_link_libraries(
 
 add_library(
     ReferenceImplementations
+    OBJECT
     ReferenceImplementations.hh ReferenceImplementations.cc
 )
 target_link_libraries(
@@ -660,11 +661,8 @@ target_link_libraries(
 
 add_library(
     IMSRG
-    INTERFACE
-)
-target_link_libraries(
-    IMSRG
-    INTERFACE
+    SHARED
+#    INTERFACE
     ReadWrite
     ModelSpace
     TwoBodyME
@@ -686,6 +684,31 @@ target_link_libraries(
     PhysicalConstants
     RPA
 )
+target_link_libraries(
+    IMSRG
+#    INTERFACE
+    ReadWrite
+    ModelSpace
+    TwoBodyME
+    ThreeBodyME
+    Operator
+    HartreeFock
+    Commutator
+    IMSRGSolver
+    IMSRGSolverPV
+    Generator
+    GeneratorPV
+    imsrg_util
+    AngMom
+    IMSRGProfiler
+    Jacobi3BME
+    DarkMatterNREFT
+    HFMBPT
+    UnitTest
+    PhysicalConstants
+    RPA
+)
+set_target_properties(IMSRG PROPERTIES SUFFIX ".so")
 
 
 add_executable(
@@ -703,15 +726,15 @@ target_link_libraries(
 )
 
 
-target_link_libraries(
-    UnitTest
-    PUBLIC
-    IMSRG
-    Parameters
-    PhysicalConstants
-    Version
-    OpenMP::OpenMP_CXX
-)
+#target_link_libraries(
+#    UnitTest
+#    PUBLIC
+#    IMSRG
+#    Parameters
+#    PhysicalConstants
+#    Version
+#    OpenMP::OpenMP_CXX
+#)
 
 if(IMSRG_BUILD_PYTHON_BINDINGS)
     pybind11_add_module(pyIMSRG pyIMSRG.cc)
@@ -747,3 +770,4 @@ add_test(NAME Commutators3 COMMAND  python3 ../test/UnitTestCommutators3.py )
 add_test(NAME Factorized   COMMAND  python3 ../test/UnitTestFactorized.py )
 add_test(NAME Triples      COMMAND  python3 ../test/UnitTestTriples.py )
 add_test(NAME Tensor       COMMAND  python3 ../test/UnitTestTensor.py )
+add_test(NAME NormalOrdering    COMMAND  python3 ../test/UnitTestNormalOrdering.py )
