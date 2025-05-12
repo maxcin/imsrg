@@ -996,6 +996,10 @@ void Operator::SetNumberLegs(int l)
     //    if (legs>5 and (not ThreeBody.is_allocated)) ThreeBody.Allocate();
     if (legs > 5 and (not ThreeBody.IsAllocated()))
       ThreeBody.Allocate();
+    if ( legs<5 and old_legs>5)
+    {
+       ThreeBody.Deallocate();
+    }
     particle_rank = l / 2;
   }
   else
