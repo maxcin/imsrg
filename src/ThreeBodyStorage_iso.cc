@@ -334,6 +334,7 @@ void ThreeBodyStorage_iso::Deallocate()
 {
    std::vector<ThreeBodyStorage_iso::isoME_type>().swap(MatEl);
    std::unordered_map<size_t, size_t>().swap( OrbitIndexHash  );
+   is_allocated = false;
 }
 
 size_t ThreeBodyStorage_iso::size() const

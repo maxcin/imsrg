@@ -327,6 +327,7 @@ void ThreeBodyStorage_pn::Erase()
 void ThreeBodyStorage_pn::Deallocate()
 {
     std::vector<ThreeBodyStorage_pn::pnME_type>().swap( MatEl);
+    is_allocated = false;
 }
 
 size_t ThreeBodyStorage_pn::size() const
