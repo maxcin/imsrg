@@ -52,17 +52,20 @@ TwoBodyME::TwoBodyME(ModelSpace* ms, int rJ, int rT, int p)
 
  TwoBodyME& TwoBodyME::operator+=(const TwoBodyME& rhs)
  {
-   if (not this->IsAllocated() )
+   if (rhs.IsAllocated() )
    {
-      *this = rhs;
-   }
-   else
-   {
-     for ( auto& itmat : MatEl )
+     if (not this->IsAllocated() )
      {
-        auto ch_bra = itmat.first[0];
-        auto ch_ket = itmat.first[1];
-        itmat.second += rhs.GetMatrix(ch_bra,ch_ket);
+        *this = rhs;
+     }
+     else
+     {
+       for ( auto& itmat : MatEl )
+       {
+          auto ch_bra = itmat.first[0];
+          auto ch_ket = itmat.first[1];
+          itmat.second += rhs.GetMatrix(ch_bra,ch_ket);
+       }
      }
    }
    return *this;
