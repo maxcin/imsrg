@@ -61,8 +61,8 @@ class Operator
   int particle_rank; ///< Maximum particle rank. Should be 2 or 3.
   int legs; ///< The maximum number of particle legs in a diagrammatic representation, e.g. a 2-body operator has 4 legs.
 
-  int E2max; ///< For two-body matrix elements, \f$ e_i + e_j \leq \f$ E2max
-  int E3max; ///< For three-body matrix elements, \f$ e_i + e_j + e_k \leq \f$ E3max
+//  int E2max; ///< For two-body matrix elements, \f$ e_i + e_j \leq \f$ E2max   I BELIEVE THESE ARE DEPRECATED
+//  int E3max; ///< For three-body matrix elements, \f$ e_i + e_j + e_k \leq \f$ E3max    I BELIEVE THESE ARE DEPRECATED
 
   bool hermitian;
   bool antihermitian;
@@ -118,8 +118,8 @@ class Operator
   double GetTwoBody(size_t ch_bra, size_t ch_ket, size_t i, size_t j);
   void   SetTwoBody(int J1, int p1, int T1, int J2, int p2, int T2, int i, int j, int k, int l, double v);
 
-  void SetE3max(int e){E3max = e;};
-  int  GetE3max(){return E3max;};
+//  void SetE3max(int e){E3max = e;};
+//  int  GetE3max(){return E3max;};
 
   // Other setter-getters
 //  ModelSpace * GetModelSpace();
