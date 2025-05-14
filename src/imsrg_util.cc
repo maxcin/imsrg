@@ -5289,7 +5289,8 @@ Operator FourierBesselCoeff(ModelSpace& modelspace, int nu, double R, std::set<i
     double jk = modelspace->GetOrbit(k).j2 * 0.5;
     double jl = modelspace->GetOrbit(l).j2 * 0.5;
     arma::mat& OB = op1.OneBody;
-    if (Lambda==0) // scalar => no sixJs, tbmes are not reduced.
+//    if (Lambda==0) // scalar => no sixJs, tbmes are not reduced.
+    if (not op1.IsReduced() ) // scalar => no sixJs, tbmes are not reduced.
     {
        if (j==l)  embedded_tbme += OB(i,k);
        if (i==k)  embedded_tbme += OB(j,l);
