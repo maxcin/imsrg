@@ -163,7 +163,8 @@ namespace Commutator
       int norbits = Z.modelspace->all_orbits.size();
       std::vector<index_t> allorb_vec(Z.modelspace->all_orbits.begin(), Z.modelspace->all_orbits.end());
 
-      TwoBodyME intermediateTB = Z.TwoBody;
+//      TwoBodyME intermediateTB = Z.TwoBody;
+      TwoBodyME intermediateTB = Eta.TwoBody;
       intermediateTB.Erase();
 
 // full matrix
