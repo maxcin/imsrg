@@ -458,41 +458,88 @@ namespace Commutator
       TwoBodyME intermediateTB = Z.TwoBody;
       intermediateTB.Erase();
 
+      std::vector<int> bra_channels;
+      std::vector<int> ket_channels;
+
+      for (auto &itmat : Z.TwoBody.MatEl)
+      {
+        bra_channels.push_back(itmat.first[0]);
+        ket_channels.push_back(itmat.first[1]);
+      }
+      int nbra_ket_ch = bra_channels.size();
+
 // fill  Gamma_matrix Eta_matrix, Eta_matrix_nnnn
 #pragma omp parallel for schedule(dynamic, 1)
-      for (int ch = 0; ch < nch; ++ch)
+//      for (int ch = 0; ch < nch; ++ch)
+      for (int ich=0; ich<nbra_ket_ch; ich++)
       {
-        TwoBodyChannel &tbc = Z.modelspace->GetTwoBodyChannel(ch);
-        int J0 = tbc.J;
-        int nKets = tbc.GetNumberKets();
+        size_t ch_bra = bra_channels[ich];
+        size_t ch_ket = ket_channels[ich];
+        TwoBodyChannel &tbc_bra = Z.modelspace->GetTwoBodyChannel(ch_bra);
+        TwoBodyChannel &tbc_ket = Z.modelspace->GetTwoBodyChannel(ch_ket);
+        int Jbra = tbc_bra.J;
+        int nBras = tbc_bra.GetNumberKets();
+        int nKets = tbc_ket.GetNumberKets();
 
-        arma::mat Eta_matrix = Eta.TwoBody.GetMatrix(ch, ch);
-        arma::mat Eta_matrix_nnnn = Eta_matrix;
-        arma::mat Gamma_matrix = Gamma.TwoBody.GetMatrix(ch, ch);
+        const arma::mat& Eta_mat_bra = Eta.TwoBody.GetMatrix(ch_bra, ch_bra);
+        const arma::mat& Eta_mat_ket = Eta.TwoBody.GetMatrix(ch_ket, ch_ket);
+        arma::mat Eta_mat_nnnn_bra = Eta_mat_bra;
+        arma::mat Eta_mat_nnnn_ket = Eta_mat_ket;
+        const arma::mat& Gamma_mat = Gamma.TwoBody.GetMatrix(ch_bra, ch_ket);
 
+//        arma::mat Eta_matrix = Eta.TwoBody.GetMatrix(ch, ch);
+//        arma::mat Eta_matrix_nnnn = Eta_matrix;
+//        arma::mat Gamma_matrix = Gamma.TwoBody.GetMatrix(ch, ch);
+
+        for (int ibra = 0; ibra < nBras; ++ibra)
+        {
+          Ket &bra = tbc_bra.GetKet(ibra);
+          double n_i = bra.op->occ;
+          double n_j = bra.oq->occ;
+
+          for (int iket = 0; iket < nBras; ++iket)
+          {
+            Ket &ket = tbc_bra.GetKet(iket);
+            double n_k = ket.op->occ;
+            double n_l = ket.oq->occ;
+            double occfactor = n_i * n_j * (1 - n_k) * (1 - n_l) - (1 - n_i) * (1 - n_j) * n_k * n_l;
+
+            Eta_mat_nnnn_bra(ibra, iket) *= occfactor;
+          } // for iket
+        } // for ibra
         for (int ibra = 0; ibra < nKets; ++ibra)
         {
-          Ket &bra = tbc.GetKet(ibra);
+          Ket &bra = tbc_ket.GetKet(ibra);
           double n_i = bra.op->occ;
           double n_j = bra.oq->occ;
 
           for (int iket = 0; iket < nKets; ++iket)
           {
-            Ket &ket = tbc.GetKet(iket);
+            Ket &ket = tbc_ket.GetKet(iket);
             double n_k = ket.op->occ;
             double n_l = ket.oq->occ;
             double occfactor = n_i * n_j * (1 - n_k) * (1 - n_l) - (1 - n_i) * (1 - n_j) * n_k * n_l;
 
-            Eta_matrix_nnnn(ibra, iket) *= occfactor;
-
+            Eta_mat_nnnn_ket(ibra, iket) *= occfactor;
           } // for iket
         } // for ibra
 
-        arma::mat Chi_222_b = 4 * (2 * J0 + 1) * Eta_matrix * Eta_matrix_nnnn * Gamma_matrix;
+//        arma::mat Chi_222_b = 4 * (2 * J0 + 1) * Eta_matrix * Eta_matrix_nnnn * Gamma_matrix;
+        arma::mat Chi_222_b =  Eta_mat_bra * Eta_mat_nnnn_bra * Gamma_mat;
+        if ( ch_bra==ch_ket)
+        {
+          Chi_222_b += Chi_222_b.t();
+        }
+        else
+        {
+           Chi_222_b -= Gamma_mat * Eta_mat_nnnn_ket * Eta_mat_ket;
+        }
+        Chi_222_b *= 4 * (2 * Jbra + 1) ;
 
-        Chi_222_b += Chi_222_b.t();
+//        Chi_222_b += Chi_222_b.t();
 
-        intermediateTB.GetMatrix(ch, ch) = Chi_222_b;
+//        intermediateTB.GetMatrix(ch, ch) = Chi_222_b;
+        intermediateTB.GetMatrix(ch_bra, ch_ket) = Chi_222_b;
 
       } // for ch
 
