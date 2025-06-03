@@ -1881,9 +1881,9 @@ Operator FourierBesselCoeff(ModelSpace& modelspace, int nu, double R, std::set<i
         double jj = 0.5 * oj.j2; 
         double r2int = RadialIntegral(oi.n, oi.l, oj.n, oj.l, 1) * bL ;
         double nineJ = AngMom::NineJ(oi.l, 0.5, ji, oj.l, 0.5, jj, 1, 1, 1);
-        double hatfactors = sqrt((2 * ji + 1) * (2 * jj + 1) * (2 * oi.l + 1) * (2 * oi.l + 1));
+        double hatfactors = sqrt((2 * ji + 1) * (2 * jj + 1) * (2 * oi.l + 1) * (2 * oj.l + 1));
         // Including the factor of sqrt(4pi/3) from the spherical harmonics
-        As.OneBody(i, j) = 3 * sqrt(2)* magnetic_moment * r2int * hatfactors * nineJ * AngMom::ThreeJ(oj.l, 1, oi.l, 0, 0, 0);
+        As.OneBody(i, j) = 3 * sqrt(2) * magnetic_moment * r2int * hatfactors * nineJ * AngMom::ThreeJ(oj.l, 1, oi.l, 0, 0, 0);
         As.OneBody(j, i) = -modelspace.phase((oi.j2 - oj.j2) / 2) * As.OneBody(i, j); //Operator is imagniary and therefore antisymmetric
       }
     }
@@ -1907,7 +1907,7 @@ Operator FourierBesselCoeff(ModelSpace& modelspace, int nu, double R, std::set<i
         double jj = 0.5*oj.j2;
         double r2int = RadialIntegral(oi.n,oi.l,oj.n,oj.l,rL) * bL ;
         EL.OneBody(i,j) = modelspace.phase(jj+YL-0.5) * sqrt( (2*ji+1)*(2*jj+1)*(2*YL+1)/4./3.1415926) * AngMom::ThreeJ(ji,jj,YL,0.5,-0.5,0) * r2int;
-	if( YL == 0 ) EL.OneBody(i,j) = EL.OneBody(i,j) * sqrt(4.*3.1415926);
+	      if( YL == 0 ) EL.OneBody(i,j) = EL.OneBody(i,j) * sqrt(4.*3.1415926);
         double fac = isospin ? oi.tz2 : 1.0;
         EL.OneBody(i,j) = EL.OneBody(i,j) * fac;
         EL.OneBody(j,i) = modelspace.phase((oi.j2-oj.j2)/2) * EL.OneBody(i,j);
@@ -1934,7 +1934,7 @@ Operator FourierBesselCoeff(ModelSpace& modelspace, int nu, double R, std::set<i
         double r2int = RadialIntegral(oi.n,oi.l,oj.n,oj.l,rL) * bL ;
         EL.OneBody(i,j) = modelspace.phase(jj+YL-0.5) * sqrt( (2*ji+1)*(2*jj+1)*(2*YL+1)/4./3.1415926) * AngMom::ThreeJ(ji,jj,YL,0.5,-0.5,0) * r2int;
         EL.OneBody(i,j) = EL.OneBody(i,j) * (0.5 - oi.tz2*0.5 - modelspace.GetTargetZ()*1.0/modelspace.GetTargetMass() );
-	EL.OneBody(j,i) = modelspace.phase((oi.j2-oj.j2)/2) * EL.OneBody(i,j);
+	      EL.OneBody(j,i) = modelspace.phase((oi.j2-oj.j2)/2) * EL.OneBody(i,j);
       }
     }
     return EL;

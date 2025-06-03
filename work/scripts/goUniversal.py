@@ -56,8 +56,7 @@ ARGS['dsmax'] = '0.5'
 ARGS['omega_norm_max'] = '0.25'
 
 ### Model space parameters used for reading Darmstadt-style interaction files
-ARGS['file2e1max'] = '14 file2e2max=28 file2lmax=10'
-ARGS['file3e1max'] = '14 file3e2max=28 file3e3max=14'
+
 
 ### Name of a directory to write Omega operators so they don't need to be stored in memory. If not given, they'll just be stored in memory.
 #ARGS['scratch'] = 'SCRATCH'    
@@ -119,15 +118,17 @@ for Z in range(16,17):
   ARGS['reference'] = reference
   print 'Z = ',Z
   for e in [2]:
-   for hw in [13]:
+   for hw in [12,20]:
 
      ARGS['emax'] = '%d'%e
-     ARGS['e3max'] = '14'
+     ARGS['e3max'] = '24'
 
-     ARGS['2bme'] = 'input/chi2b_srg0625_eMax14_lMax10_hwHO0%d.me2j.gz'%(hw)
-     ARGS['3bme'] = 'input/me3j/chi2b3b400cD-02cE0098_hwconv036_srg0625ho40J_eMax14_EMax14_hwHO0%d.me3j.gz'%(hw)
+     ARGS['2bme'] = f'/home/belleya/projects/def-holt/shared/me2j/TwBME-HO_NN-only_N3LO_EM500_srg1.8_hw{hw}_emax16_e2max32.me2j.gz'
+     ARGS['3bme'] = f'/home/belleya/projects/def-holt/shared/me3j/NO2B_ThBME_EM1.8_2.0_3NFJmax15_IS_hw{hw}_ms16_32_24.stream.bin'
      ARGS['LECs'] = 'srg0625'
 
+     ARGS['file2e1max'] = '16 file2e2max=32 file2lmax=16'
+     ARGS['file3e1max'] = '18 file3e2max=36 file3e3max=24'
 #     ARGS['2bme'] = 'input/usdbpn.int'
 #     ARGS['3bme'] = 'none'
 #     ARGS['LECs'] = 'usdb'
