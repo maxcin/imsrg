@@ -1669,7 +1669,7 @@ bool UnitTest::Test_comm333_pph_hhpss(const Operator &X, const Operator &Y)
 
 /// M-Scheme Formula:
 ///
-/// Z0 = 1/4 * sum_ab na(1-nb) (Xab * Yba - Yab * Xba)
+/// Z0 =  sum_ab na(1-nb) (Xab * Yba - Yab * Xba)
 ///
 bool UnitTest::Mscheme_Test_comm110ss(const Operator &X, const Operator &Y)
 {
