@@ -315,12 +315,11 @@ namespace Commutator
     int z_Trank = X.GetTRank() + Y.GetTRank();
     int z_parity = (X.GetParity() + Y.GetParity()) % 2;
     int z_particlerank = use_imsrg3 ? 3 : 2;
-//    int z_particlerank = std::max(X.GetParticleRank(), Y.GetParticleRank());
-//    if (use_imsrg3)
-//      z_particlerank = std::max(z_particlerank, 3);
+    //    int z_particlerank = std::max(X.GetParticleRank(), Y.GetParticleRank());
+    //    if (use_imsrg3)
+    //      z_particlerank = std::max(z_particlerank, 3);
     ModelSpace &ms = *(Y.GetModelSpace());
     Operator Z(ms, z_Jrank, z_Trank, z_parity, z_particlerank);
-
 
 
     if (Z.IsReduced())
@@ -338,10 +337,10 @@ namespace Commutator
 
     bool save_single_thread = single_thread;
 
-//    if (Z.GetParticleRank() > 2)
-//    {
-//      Z.ThreeBody.SwitchToPN_and_discard();
-//    }
+    //    if (Z.GetParticleRank() > 2)
+    //    {
+    //      Z.ThreeBody.SwitchToPN_and_discard();
+    //    }
 
 
     // Here is where we start calling the IMSRG(2) commutator expressions.
@@ -811,7 +810,7 @@ namespace Commutator
     index_t norbits = Z.modelspace->all_orbits.size();
     int hZ = Z.IsHermitian() ? 1 : -1;
 
-#pragma omp parallel for
+    #pragma omp parallel for
     for (index_t indexi = 0; indexi < norbits; ++indexi)
     {
       auto i = indexi;
@@ -902,13 +901,14 @@ namespace Commutator
 
     int hZ = Z.IsHermitian() ? 1 : -1;
 
+
     TwoBodyME Mpp(Z.modelspace, Z.GetJRank(), Z.GetTRank(), Z.GetParity());
     TwoBodyME Mhh(Z.modelspace, Z.GetJRank(), Z.GetTRank(), Z.GetParity());
     ConstructScalarMpp_Mhh(X, Y, Z, Mpp, Mhh);
 
     int norbits = Z.modelspace->all_orbits.size();
     std::vector<index_t> allorb_vec(Z.modelspace->all_orbits.begin(), Z.modelspace->all_orbits.end());
-#pragma omp parallel for schedule(dynamic, 1)
+    //#pragma omp parallel for schedule(dynamic, 1)
     //   for (int i=0;i<norbits;++i)
     for (int indexi = 0; indexi < norbits; ++indexi)
     {
@@ -936,6 +936,10 @@ namespace Commutator
             for (int J = Jmin; J <= Jmax; J++)
             {
               zij += (2 * J + 1) * nc * Mpp.GetTBME_J(J, c, i, c, j);
+              if (i == 0 and j == 4)
+              {
+                std::cout << c << " " << J << " " << (2 * J + 1) * nc * Mpp.GetTBME_J(J, c, i, c, j) << std::endl;
+              }
             }
           }
           if (std::abs(nbarc) > 1e-9)
@@ -943,16 +947,22 @@ namespace Commutator
             for (int J = Jmin; J <= Jmax; J++)
             {
               zij += (2 * J + 1) * nbarc * Mhh.GetTBME_J(J, c, i, c, j);
-            }
+              if (i == 0 and j == 4)
+              {
+                std::cout << c << " " << J << " " << (2 * J + 1) * nbarc * Mhh.GetTBME_J(J, c, i, c, j) << std::endl;
+              }
+           }
           }
         }
-
         Z.OneBody(i, j) += zij / (oi.j2 + 1.0);
         if (jmin == i and i != j)
+        {       
           Z.OneBody(j, i) += hZ * zij / (oi.j2 + 1.0);
+        }
       } // for j
     }
-
+    Z.PrintOneBody();
+    std::cout<<"=========================="<<std::endl;
     X.profiler.timer[__func__] += omp_get_wtime() - t_start;
   }
 
@@ -1225,6 +1235,7 @@ namespace Commutator
     int hX = X.IsHermitian() ? +1 : -1;
     int hY = Y.IsHermitian() ? +1 : -1;
 
+
     std::vector<size_t> ch_bra_list, ch_ket_list;
     auto ch_iter = Z.TwoBody.MatEl;
     // TODO: We'll need to be more careful about this special case.
@@ -1248,9 +1259,9 @@ namespace Commutator
       ch_ket_list.push_back(ch_ket);
     }
     int nch = ch_bra_list.size();
-    #ifndef OPENBLAS_NOUSEOMP
-    #pragma omp parallel for schedule(dynamic, 1)
-    #endif
+    // #ifndef OPENBLAS_NOUSEOMP
+    // #pragma omp parallel for schedule(dynamic, 1)
+    // #endif
     for (int ich = 0; ich < nch; ++ich)
     {
       int ch_bra = ch_bra_list[ich];
@@ -1286,7 +1297,6 @@ namespace Commutator
 
       TwoBodyChannel &tbc_ab_XY = Z.modelspace->GetTwoBodyChannel(ch_ab_XY);
       TwoBodyChannel &tbc_ab_YX = Z.modelspace->GetTwoBodyChannel(ch_ab_YX);
-
       // If X or Y change parity or isospin, then we need to worry about the fact that we only store
       // ch_bra <= ch_ket. If we need the other ordering we get it by Hermiticity.
       auto &X_ijab = (ch_bra <= ch_ab_XY) ? X.TwoBody.GetMatrix(ch_bra, ch_ab_XY) : X.TwoBody.GetMatrix(ch_ab_XY, ch_bra).t() * hX;
@@ -1314,9 +1324,10 @@ namespace Commutator
       if (bras_pp.size() > 0)
         Matrixpp += X_ijab.cols(bras_pp) * Y_abkl.rows(bras_pp);
       if (bras_hh.size() > 0)
+      {
         Matrixhh += X_ijab.cols(bras_hh) * arma::diagmat(nanb_bra) * Y_abkl.rows(bras_hh);
-      if (bras_hh.size() > 0)
         Matrixpp += X_ijab.cols(bras_hh) * arma::diagmat(nbarnbar_hh_bra) * Y_abkl.rows(bras_hh);
+      }
       if (bras_ph.size() > 0)
         Matrixpp += X_ijab.cols(bras_ph) * arma::diagmat(nbarnbar_ph_bra) * Y_abkl.rows(bras_ph);
 

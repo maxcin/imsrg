@@ -70,16 +70,20 @@ void GeneratorPV::AddToEtaPV(Operator &H_s, Operator &HPV_s, Operator &Eta_s, Op
 void GeneratorPV::ConstructGeneratorPV_SingleRef(std::function<double(double, double)> &etafunc)
 {
    double start_time = omp_get_wtime();
+   // If V is hermitian, than it is real and Etapv is antihermitian.
+   // If V is not antihermitian, then it is imaginary and Etapv is hermitian.
+   int herm = V->IsHermitian() ? -1 : +1;
    // One body piece -- eliminate ph bits
    for (auto &a : H->modelspace->core)
    {
       for (auto &i : VectorUnion(H->modelspace->valence, H->modelspace->qspace))
       {
+         
          double denominator = Get1bDenominator(i, a);
          Eta->OneBody(i, a) = etafunc(H->OneBody(i, a), denominator);
          Eta->OneBody(a, i) = -Eta->OneBody(i, a);
          Etapv->OneBody(i, a) = etafunc(V->OneBody(i, a), denominator); // commented Beatriz 27/08/24 to make etapv(1b)=0
-         Etapv->OneBody(a, i) = -Etapv->OneBody(i, a); // old version
+         Etapv->OneBody(a, i) = herm*Etapv->OneBody(i, a); // old version
          Eta->profiler.timer["UpdateEta1beta"] += omp_get_wtime() - start_time;
          Etapv->profiler.timer["UpdateEta1betapv"] += omp_get_wtime() - start_time;
 
@@ -146,6 +150,9 @@ void GeneratorPV::ConstructGeneratorPV_SingleRef(std::function<double(double, do
 
 void GeneratorPV::ConstructGeneratorPV_ShellModel(std::function<double(double, double)> &eta_func)
 {
+   // If V is hermitian, than it is real and Etapv is antihermitian.
+   // If V is not antihermitian, then it is imaginary and Etapv is hermitian.
+   int herm = V->IsHermitian() ? -1 : +1;
    // One body piece -- make sure the valence one-body part is diagonal
    for (auto &a : VectorUnion(H->modelspace->core, H->modelspace->valence))
    {
@@ -157,7 +164,7 @@ void GeneratorPV::ConstructGeneratorPV_ShellModel(std::function<double(double, d
          Eta->OneBody(i, a) = eta_func(H->OneBody(i, a), denominator);
          Eta->OneBody(a, i) = -Eta->OneBody(i, a);
          Etapv->OneBody(i, a) = eta_func(V->OneBody(i, a), denominator);
-         Etapv->OneBody(a, i) = -Etapv->OneBody(i, a); // old version
+         Etapv->OneBody(a, i) = herm*Etapv->OneBody(i, a); // old version
          // std::cout << "  looping in generatorPV,Eta 1b part = " << Eta->OneBody(i,a) << std::endl;
          // std::cout << "  looping in generatorPV,Etapv 1b part = " << Etapv->OneBody(i,a) << std::endl;
       }
@@ -221,7 +228,6 @@ void GeneratorPV::ConstructGeneratorPV_ShellModel(std::function<double(double, d
             // std::cout<< ETAPV2 <<std::endl;
             double denominator = Get2bDenominator(ch_bra, ch_ket, ibra, iket);
             ETAPV2(ibra, iket) = eta_func(V2(ibra, iket), denominator);
-            // std::cout << "  looping in generatorPV,Eta 2b part = " << ETAPV2(ibra,iket) << std::endl;
          }
       }
 

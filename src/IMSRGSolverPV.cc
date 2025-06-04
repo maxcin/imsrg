@@ -17,10 +17,17 @@
 
 IMSRGSolverPV::IMSRGSolverPV(Operator &H_in, Operator &VPT_in)
     : IMSRGSolver(H_in), VPT_0(&VPT_in), FlowingOpsPV(1, VPT_in), Etapv(VPT_in)                                                                                                                                                                                                                   
-{
-    //Note the Eta is already added to Omega deque in the IMSRGSolver Constructor
+{   
     Etapv.Erase();
-    Etapv.SetAntiHermitian();
+    //Note the Eta is already added to Omega deque in the IMSRGSolver Constructor
+    if (VPT_in.IsHermitian())
+    {
+        Etapv.SetAntiHermitian();
+    }
+    else
+    {
+        Etapv.SetHermitian();
+    }
     OmegaPV.emplace_back(Etapv);
 }
 

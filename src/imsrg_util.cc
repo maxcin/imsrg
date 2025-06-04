@@ -1884,7 +1884,7 @@ Operator FourierBesselCoeff(ModelSpace& modelspace, int nu, double R, std::set<i
         double hatfactors = sqrt((2 * ji + 1) * (2 * jj + 1) * (2 * oi.l + 1) * (2 * oj.l + 1));
         // Including the factor of sqrt(4pi/3) from the spherical harmonics
         As.OneBody(i, j) = 3 * sqrt(2) * magnetic_moment * r2int * hatfactors * nineJ * AngMom::ThreeJ(oj.l, 1, oi.l, 0, 0, 0);
-        As.OneBody(j, i) = -modelspace.phase((oi.j2 - oj.j2) / 2) * As.OneBody(i, j); //Operator is imagniary and therefore antisymmetric
+        As.OneBody(j, i) = - As.OneBody(i, j); //Operator is imagniary and therefore antisymmetric
       }
     }
     return As;
