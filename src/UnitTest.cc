@@ -686,14 +686,15 @@ bool UnitTest::TestCommutators()
 }
 
 
-bool UnitTest::TestCommutators_Tensor()
+//bool UnitTest::TestCommutators_Tensor()
+bool UnitTest::TestCommutators_Tensor(Operator& X, Operator& Y)
 {
   double t_start = omp_get_wtime();
-  arma::arma_rng::set_seed(random_seed);
-  Operator X = RandomOp(*modelspace, 0, 0, 0, 3, -1); // generator-like. Jrank=0, even parity, Trank=0, antihermitian
-//  Operator Y = RandomOp(*modelspace, 0, 0, 0, 3, +1); // Jrank = 1,  even parity, Trank =0, hermitian
-  Operator Y = RandomOp(*modelspace, 1, 0, 0, 3, +1); // Jrank = 1,  even parity, Trank =0, hermitian
-  modelspace->PreCalculateSixJ();
+//  arma::arma_rng::set_seed(random_seed);
+//  Operator X = RandomOp(*modelspace, 0, 0, 0, 3, -1); // generator-like. Jrank=0, even parity, Trank=0, antihermitian
+////  Operator Y = RandomOp(*modelspace, 0, 0, 0, 3, +1); // Jrank = 1,  even parity, Trank =0, hermitian
+//  Operator Y = RandomOp(*modelspace, 1, 0, 0, 3, +1); // Jrank = 1,  even parity, Trank =0, hermitian
+  X.modelspace->PreCalculateSixJ();
 
   bool all_good = true;
 
