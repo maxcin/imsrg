@@ -381,6 +381,236 @@ void UnitTest::Test3BodyAntisymmetry(Operator &Y)
   }
 }
 
+
+
+
+bool UnitTest::TestNormalOrdering(Operator& Op)
+{
+   bool passed = true;
+   Operator OpNO = Op.DoNormalOrdering();
+
+
+   // Check the zero body piece
+   double opM_zero = Op.ZeroBody;
+   // one-body -> zero body
+   for (auto a : Op.modelspace->holes)
+   {
+     Orbit& oa = Op.modelspace->GetOrbit(a);
+     for (int m2a= -oa.j2; m2a<= oa.j2; m2a+=2)
+     {
+       opM_zero += oa.occ * GetMschemeMatrixElement_1b(  Op,  a,  m2a, a, m2a );
+     }
+   }
+
+   // two-body -> zero body
+   for (auto a : Op.modelspace->holes)
+   {
+     Orbit& oa = Op.modelspace->GetOrbit(a);
+     for (auto b : Op.modelspace->holes)
+     {
+        if (b>a) continue;
+        Orbit& ob = Op.modelspace->GetOrbit(b);
+        for (int m2a= -oa.j2; m2a<= oa.j2; m2a+=2)
+        {
+           for (int m2b= -ob.j2; m2b<= ob.j2; m2b+=2)
+           {
+              if ( a==b and m2b>=m2a) continue; 
+              opM_zero += oa.occ * ob.occ * GetMschemeMatrixElement_2b(  Op,  a,m2a, b,m2b, a,m2a, b,m2b );
+           }
+        }
+        
+     }
+   }
+
+   // three-body -> zero body
+   if ( Op.GetParticleRank()>=3 )
+   {
+     for (auto a : Op.modelspace->holes)
+     {
+       Orbit& oa = Op.modelspace->GetOrbit(a);
+       for (auto b : Op.modelspace->holes)
+       {
+          if (b>a) continue;
+          Orbit& ob = Op.modelspace->GetOrbit(b);
+          for (auto c : Op.modelspace->holes)
+          {
+             if (c>b) continue;
+             Orbit& oc = Op.modelspace->GetOrbit(c);
+             for (int m2a= -oa.j2; m2a<= oa.j2; m2a+=2)
+             {
+                for (int m2b= -ob.j2; m2b<= ob.j2; m2b+=2)
+                {
+                   if ( a==b and m2b>=m2a) continue; 
+                   for (int m2c= -oc.j2; m2c<= oc.j2; m2c+=2)
+                   {
+                      if ( b==c and m2c>=m2b) continue; 
+                      opM_zero += oa.occ * ob.occ * oc.occ * GetMschemeMatrixElement_3b(  Op,  a,m2a, b,m2b, c,m2c, a,m2a, b,m2b, c,m2c );
+                   }
+                }
+             }
+          }
+       }
+     }
+   }
+
+
+
+   double diff0b = OpNO.ZeroBody - opM_zero;
+   std::cout << "0b:   m-scheme = " << opM_zero << "   J-scheme = " << OpNO.ZeroBody << "    diff = " << diff0b << std::endl;
+   passed &= ( std::abs(diff0b) < 1e-6);
+
+
+   // next check the 1b piece
+   arma::mat opM_one =  Op.OneBody;
+      // two-body -> one-body
+     for (auto i : Op.modelspace->all_orbits)
+     {
+       Orbit& oi = Op.modelspace->GetOrbit(i);
+       for (auto j : Op.modelspace->all_orbits)
+       {
+          Orbit& oj = Op.modelspace->GetOrbit(j);
+          double Oij = 0;
+          int m2i = 1;
+          int m2j = 1;
+          for (auto a : Op.modelspace->holes)
+          {
+             Orbit& oa = Op.modelspace->GetOrbit(a);
+             for (int m2a= -oa.j2; m2a<= oa.j2; m2a+=2)
+             {
+                 Oij += oa.occ * GetMschemeMatrixElement_2b(  Op,  i,m2i, a,m2a, j,m2j, a,m2a );
+             }
+          }
+          if (not Op.IsReduced() )
+          {
+             opM_one(i,j) += Oij;
+          }
+          else
+          {
+             int lambda = Op.GetJRank();
+             int mu = (m2i -m2j)/2;
+             double cg = AngMom::CG(oj.j2*0.5, m2j*0.5,  lambda,mu,  oi.j2*0.5, m2i*0.5);
+
+             if (std::abs(cg)>1e-7)
+             {
+               double opMij = opM_one(i,j);
+               opM_one(i,j) += sqrt(oi.j2+1) / cg * Oij;
+             }
+             else if ( std::abs(Oij)>1e-6)
+             {
+                std::cout << "Clebsch was bad for ij = " << i << " " << j << std::endl;
+             }
+          }
+       }
+     }
+
+      // three-body -> one-body
+     for (auto i : Op.modelspace->all_orbits)
+     {
+       Orbit& oi = Op.modelspace->GetOrbit(i);
+       for (auto j : Op.modelspace->all_orbits)
+       {
+          Orbit& oj = Op.modelspace->GetOrbit(j);
+          double Oij = 0;
+          int m2i = 1;
+          int m2j = 1;
+          for (auto a : Op.modelspace->holes)
+          {
+             Orbit& oa = Op.modelspace->GetOrbit(a);
+             for (int m2a= -oa.j2; m2a<= oa.j2; m2a+=2)
+             {
+               for (auto b : Op.modelspace->holes)
+               {
+                 if ( b>a) continue;
+                 Orbit& ob = Op.modelspace->GetOrbit(b);
+                 for (int m2b= -ob.j2; m2b<= ob.j2; m2b+=2)
+                 {
+                    if ( a==b and m2b>=m2a) continue;
+                    Oij += oa.occ * ob.occ * GetMschemeMatrixElement_3b(  Op,  i,m2i, a,m2a, b,m2b, j,m2j, a,m2a, b,m2b );
+                 }
+               }
+            }
+          }
+          if (not Op.IsReduced() )
+          {
+             opM_one(i,j) += Oij;
+          }
+          else
+          {
+             int lambda = Op.GetJRank();
+             int mu = (m2i -m2j)/2;
+             double cg = AngMom::CG(oj.j2*0.5, m2j*0.5,  lambda,mu,  oi.j2*0.5, m2i*0.5);
+
+             if (std::abs(cg)>1e-7)
+             {
+               double opMij = opM_one(i,j);
+               opM_one(i,j) += sqrt(oi.j2+1) / cg * Oij;
+             }
+             else if ( std::abs(Oij)>1e-6)
+             {
+                std::cout << "Clebsch was bad for ij = " << i << " " << j << std::endl;
+             }
+          }
+       }
+     }
+
+     arma::mat diff1b = OpNO.OneBody - opM_one;
+     std::cout << "1b:   m-scheme = " << arma::norm( opM_one ) << "   J-scheme = " << arma::norm(OpNO.OneBody)  << "    diff = " << arma::norm(diff1b) << std::endl;
+     passed &= ( arma::norm(diff1b) < 1e-6);
+
+
+    if ( Op.GetParticleRank()>=3)
+    {
+      double summed_diff_2b = 0;
+      double summed_Oijkl = 0;
+      // finally, check the 2b piece
+      for (auto i : Op.modelspace->all_orbits)
+      {
+        Orbit& oi = Op.modelspace->GetOrbit(i);
+        for (auto j : Op.modelspace->all_orbits)
+        {
+           Orbit& oj = Op.modelspace->GetOrbit(j);
+           for (auto k : Op.modelspace->all_orbits)
+           {
+             Orbit& ok = Op.modelspace->GetOrbit(k);
+             for (auto l : Op.modelspace->all_orbits)
+             {
+                Orbit& ol = Op.modelspace->GetOrbit(l);
+                double Oijkl = 0;
+                int m2i = 1;
+                int m2j = 1;
+                int m2k = 1;
+                int m2l = 1;
+                for (auto a : Op.modelspace->holes)
+                {
+                   Orbit& oa = Op.modelspace->GetOrbit(a);
+                   for (int m2a= -oa.j2; m2a<= oa.j2; m2a+=2)
+                   {
+                       Oijkl += oa.occ * GetMschemeMatrixElement_3b(  Op,  i,m2i, j,m2j, a,m2a, k,m2k, l,m2l, a,m2a );
+                   }
+                }
+                double oijkl_before = GetMschemeMatrixElement_2b( Op, i,m2i,j,m2j,k,m2k,l,m2l);
+                double oijkl_after  = GetMschemeMatrixElement_2b( OpNO, i,m2i,j,m2j,k,m2k,l,m2l);
+                double diff = ( oijkl_after - oijkl_before - Oijkl);
+                if (std::abs(diff)>1e-6)
+                {
+                  std::cout << "Trouble !  " << Oijkl << " != " << oijkl_after - oijkl_before << std::endl;
+                }
+                summed_diff_2b += std::abs(diff);
+                summed_Oijkl += std::abs(Oijkl);
+             }// for l
+           }//for k
+        }//for j
+      }//for i
+      std::cout << "2b:   summed_diff_2b = " << summed_diff_2b << "  sum |Oijkl| = " << summed_Oijkl << std::endl;
+      passed &= std::abs(summed_diff_2b) < 1e-6;
+     }
+
+   return passed;
+}
+
+
+
+
 bool UnitTest::TestCommutators()
 {
   double t_start = omp_get_wtime();
@@ -456,14 +686,15 @@ bool UnitTest::TestCommutators()
 }
 
 
-bool UnitTest::TestCommutators_Tensor()
+//bool UnitTest::TestCommutators_Tensor()
+bool UnitTest::TestCommutators_Tensor(Operator& X, Operator& Y)
 {
   double t_start = omp_get_wtime();
-  arma::arma_rng::set_seed(random_seed);
-  Operator X = RandomOp(*modelspace, 0, 0, 0, 3, -1); // generator-like. Jrank=0, even parity, Trank=0, antihermitian
-//  Operator Y = RandomOp(*modelspace, 0, 0, 0, 3, +1); // Jrank = 1,  even parity, Trank =0, hermitian
-  Operator Y = RandomOp(*modelspace, 1, 0, 0, 3, +1); // Jrank = 1,  even parity, Trank =0, hermitian
-  modelspace->PreCalculateSixJ();
+//  arma::arma_rng::set_seed(random_seed);
+//  Operator X = RandomOp(*modelspace, 0, 0, 0, 3, -1); // generator-like. Jrank=0, even parity, Trank=0, antihermitian
+////  Operator Y = RandomOp(*modelspace, 0, 0, 0, 3, +1); // Jrank = 1,  even parity, Trank =0, hermitian
+//  Operator Y = RandomOp(*modelspace, 1, 0, 0, 3, +1); // Jrank = 1,  even parity, Trank =0, hermitian
+  X.modelspace->PreCalculateSixJ();
 
   bool all_good = true;
 
@@ -873,7 +1104,8 @@ double UnitTest::GetMschemeMatrixElement_1b(const Operator &Op, int a, int ma, i
   double matel = 0;
   int Jop = Op.GetJRank();
   int Top = Op.GetTRank();
-  if (Jop == 0 and Top == 0) // scalar operator
+//  if (Jop == 0 and Top == 0) // scalar operator
+  if (not Op.IsReduced() ) // scalar operator
   {
     if (ma == mb)
     {
@@ -1197,28 +1429,29 @@ double UnitTest::GetMschemeMatrixElement_3leg(const Operator &Op, int a, int ma,
 
 bool UnitTest::Test_against_ref_impl(const Operator &X, const Operator &Y, commutator_func ComOpt, commutator_func ComRef, std::string output_tag)
 {
+  int z_Jrank = X.GetJRank() + Y.GetJRank(); // I sure hope this is zero.
+  int z_Trank = X.GetTRank() + Y.GetTRank();
+  int z_parity = (X.GetParity() + Y.GetParity()) % 2;
+  int z_particlerank = Commutator::use_imsrg3 ? 3: 2;
+  int hx = X.IsHermitian() ? +1 : -1;
+  int hy = Y.IsHermitian() ? +1 : -1;
+
   Operator Xtmp, Ytmp;        // Declared, but not yet allocated, for reasons of scope.
   const Operator *Xnred = &X; // Pointer to the non-reduced version of the operator
   const Operator *Ynred = &Y;
-  if (X.IsReduced() and X.GetJRank() == 0) // CommutatorScalarScalar doesn't expect reduced operators. Need to make it not reduced.
+  if (X.IsReduced() and z_Jrank==0) // CommutatorScalarScalar doesn't expect reduced operators. Need to make it not reduced.
   {
     Xtmp = X;
     Xtmp.MakeNotReduced();
     Xnred = &Xtmp; // Now Xnred points to the not-reduced copy Xtmp
   }
-  if (Y.IsReduced() and  Y.GetJRank() == 0) // CommutatorScalarScalar doesn't expect reduced operators. Need to make it not reduced.
+  if (Y.IsReduced() and z_Jrank==0)
   {
     Ytmp = Y;
     Ytmp.MakeNotReduced();
     Ynred = &Ytmp; // Now Ynred points to the not-reduced copy Ytmp
   }
 
-  int z_Jrank = X.GetJRank() + Y.GetJRank(); // I sure hope this is zero.
-  int z_Trank = X.GetTRank() + Y.GetTRank();
-  int z_parity = (X.GetParity() + Y.GetParity()) % 2; 
-  int z_particlerank = Commutator::use_imsrg3 ? 3: 2;
-  int hx = X.IsHermitian() ? +1 : -1;
-  int hy = Y.IsHermitian() ? +1 : -1;
   
   ModelSpace &ms = *(Y.GetModelSpace());
   Operator Z(ms, z_Jrank, z_Trank, z_parity, z_particlerank);
@@ -1227,12 +1460,13 @@ bool UnitTest::Test_against_ref_impl(const Operator &X, const Operator &Y, commu
   if ( z_particlerank > 2 )
   {
      Z.ThreeBody.SetMode("pn");
-  }
+  } 
 //  Operator Z(Y);
 //  Z.Erase();
   Operator Zref(Z);
 
-  if (Z.IsReduced() and Z.GetJRank() == 0) // CommutatorScalarScalar doesn't expect reduced operators. Need to make it not reduced.
+
+  if (Z.IsReduced() and z_Jrank==0)
     Z.MakeNotReduced();
 
   if ((X.IsHermitian() and Y.IsHermitian()) or (X.IsAntiHermitian() and Y.IsAntiHermitian()))
@@ -1242,7 +1476,7 @@ bool UnitTest::Test_against_ref_impl(const Operator &X, const Operator &Y, commu
   else
     Z.SetNonHermitian();
 
-  if (Zref.IsReduced() and Zref.GetJRank() == 0) // CommutatorScalarScalar doesn't expect reduced operators. Need to make it not reduced.
+  if (Zref.IsReduced() and z_Jrank==0)
     Zref.MakeNotReduced();
 
   if ((X.IsHermitian() and Y.IsHermitian()) or (X.IsAntiHermitian() and Y.IsAntiHermitian()))
@@ -1253,14 +1487,14 @@ bool UnitTest::Test_against_ref_impl(const Operator &X, const Operator &Y, commu
     Zref.SetNonHermitian();
 
   ComOpt(*Xnred, *Ynred, Z);
-  if ((Z.GetParity() != 0) or (Z.GetTRank() != 0) and Z.GetJRank() == 0)
+  if ( not Z.IsReduced() and ((Z.GetParity() != 0) or (Z.GetTRank() != 0)) )
   {
     
     Z.MakeReduced(); // If Z changes parity or Tz, we by default store it as reduced. So make it as expected. Is that a good idea? Not sure....
   }
   double tstart = omp_get_wtime();
   ComRef(*Xnred, *Ynred, Zref);
-  if ((Zref.GetParity() != 0) or (Zref.GetTRank() != 0) and Zref.GetJRank() == 0)
+  if ( not Z.IsReduced() and ((Zref.GetParity() != 0) or (Zref.GetTRank() != 0) and z_Jrank==0) )
   {
     Zref.MakeReduced(); // If Z changes parity or Tz, we by default store it as reduced. So make it as expected. Is that a good idea? Not sure....
   }
@@ -1326,32 +1560,26 @@ bool UnitTest::Test_comm222_pp_hh_221ss(const Operator &X, const Operator &Y)
 /// scalar-tensor commutators
 bool UnitTest::Test_comm111st(const Operator &X, const Operator &Y)
 {
-  std::cout << __func__ << " about to run test" << std::endl;
   return Test_against_ref_impl(X, Y, Commutator::comm111st, ReferenceImplementations::comm111st, "comm111st");
 }
 bool UnitTest::Test_comm121st(const Operator &X, const Operator &Y)
 {
-  std::cout << __func__ << " about to run test" << std::endl;
   return Test_against_ref_impl(X, Y, Commutator::comm121st, ReferenceImplementations::comm121st, "comm121st");
 }
 bool UnitTest::Test_comm122st(const Operator &X, const Operator &Y)
 {
-  std::cout << __func__ << " about to run test" << std::endl;
   return Test_against_ref_impl(X, Y, Commutator::comm122st, ReferenceImplementations::comm122st, "comm122st");
 }
 bool UnitTest::Test_comm221st(const Operator &X, const Operator &Y)
 {
-  std::cout << __func__ << " about to run test" << std::endl;
   return Test_against_ref_impl(X, Y, Commutator::comm221st, ReferenceImplementations::comm221st, "comm221st");
 }
 bool UnitTest::Test_comm222_pp_hhst(const Operator &X, const Operator &Y)
 {
-  std::cout << __func__ << " about to run test" << std::endl;
   return Test_against_ref_impl(X, Y, Commutator::comm222_pp_hhst, ReferenceImplementations::comm222_pp_hhst, "comm222_pp_hhst");
 }
 bool UnitTest::Test_comm222_phst(const Operator &X, const Operator &Y)
 {
-  std::cout << __func__ << " about to run test" << std::endl;
   return Test_against_ref_impl(X, Y, Commutator::comm222_phst, ReferenceImplementations::comm222_phst, "comm222_phst");
 }
 
@@ -1442,7 +1670,7 @@ bool UnitTest::Test_comm333_pph_hhpss(const Operator &X, const Operator &Y)
 
 /// M-Scheme Formula:
 ///
-/// Z0 = 1/4 * sum_ab na(1-nb) (Xab * Yba - Yab * Xba)
+/// Z0 =  sum_ab na(1-nb) (Xab * Yba - Yab * Xba)
 ///
 bool UnitTest::Mscheme_Test_comm110ss(const Operator &X, const Operator &Y)
 {
@@ -5677,19 +5905,23 @@ bool UnitTest::TestFactorizedDoubleCommutators()
   Operator OpOut_direct(*modelspace, jrank, tz, parity, 3);
   Operator OpOut_factorized(*modelspace, jrank, tz, parity, 2);
   OpOut_direct.ThreeBody.SetMode("pn");
-  H.ThreeBody.SetMode("pn");
-  eta.ThreeBody.SetMode("pn");
+
 
   Commutator::comm223ss(eta, H, OpOut_direct);
   Commutator::comm231ss(eta, OpOut_direct, OpOut_direct);
   Commutator::comm232ss(eta, OpOut_direct, OpOut_direct);
 
   OpOut_direct.ThreeBody.Erase();
+  // OpOut_factorized.EraseOneBody();  
+  // OpOut_factorized.TwoBody.Erase();
+
+  Commutator::FactorizedDoubleCommutator::SetUse_1b_Intermediates(true);
+  Commutator::FactorizedDoubleCommutator::SetUse_2b_Intermediates(true);
 
   Commutator::FactorizedDoubleCommutator::comm223_231(eta, H, OpOut_factorized);
   Commutator::FactorizedDoubleCommutator::comm223_232(eta, H, OpOut_factorized);
 
-  std::cout << "Norm of OpOut_direct: " << OpOut_direct.Norm() << "  1b : " << OpOut_direct.OneBodyNorm() << "  2b : " << OpOut_direct.TwoBodyNorm() << std::endl;
+  std::cout << "Norm of OpOut_direct:     " << OpOut_direct.Norm()     << "  1b : " << OpOut_direct.OneBodyNorm()     << "  2b : " << OpOut_direct.TwoBodyNorm() << std::endl;
   std::cout << "Norm of OpOut_factorized: " << OpOut_factorized.Norm() << "  1b : " << OpOut_factorized.OneBodyNorm() << "  2b : " << OpOut_factorized.TwoBodyNorm() << std::endl;
 
   OpOut_direct -= OpOut_factorized;
@@ -5697,7 +5929,7 @@ bool UnitTest::TestFactorizedDoubleCommutators()
   if (not passed)
   {
     std::cout << __func__ << "  Uh Oh. Norm of difference is " << OpOut_direct.Norm()
-              << "  1b part: " << OpOut_direct.OneBodyNorm() << "  2b part: " << OpOut_direct.TwoBodyNorm()
+              << "  1b part: " << OpOut_direct.OneBodyNorm()   << "  2b part: " << OpOut_direct.TwoBodyNorm()
               << std::endl;
   }
 
@@ -5712,34 +5944,44 @@ bool UnitTest::TestPerturbativeTriples()
 
   Operator H = RandomOp( *modelspace, 0,0,0, 2, +1);
   Operator Omega = RandomOp( *modelspace, 0,0,0, 2, -1);
-  H /= H.Norm();
-  Omega /= Omega.Norm();
+  H *= 1e3/H.Norm();
+  Omega *= 1.0/Omega.Norm();
 
   IMSRGSolver imsrgsolver( H );
+  imsrgsolver.SetGenerator("white");
+  imsrgsolver.SetDenominatorPartitioning("Moller_Plesset");
+
+  Omega += 10* imsrgsolver.generator.GetHod(Omega);
   imsrgsolver.SetOmega(0, Omega);
+
   double triples = imsrgsolver.CalculatePerturbativeTriples();
 
   /// Now we do it out explicitly as a cross check.
-  Operator W = H;
-  W.ThreeBody.SetMode("pn");
-  W.SetParticleRank(3);
-
+  /// As described in PRC 110, 044316 (2024), section IIIB
+  /// The triples correction is
+  /// Delta E[3] = 1/2 [Omegabar, Wbar]_0
+  /// with
+  /// Wbar = [Omega_2, Htilde_2]_3  (eq 26)
+  /// Htilde = sum_k 1/(k+1)! [Omega,H](k)  (eq 27)
+  /// Omegabar = Wbar^od / Deltabar (eq 21)
   BCH::SetBCHSkipiEq1(true);
   Operator Htilde = imsrgsolver.Transform(H);
   BCH::SetBCHSkipiEq1(false);
 
-  Operator Eta = W;
-  Eta.SetAntiHermitian();
-  Commutator::comm223ss( Omega, Htilde, W);
-  imsrgsolver.SetGenerator("white");
-  imsrgsolver.SetDenominatorPartitioning("Moller_Plesset");
-  imsrgsolver.generator.Update(W,Eta);
-  Eta.EraseOneBody();
-  Eta.EraseTwoBody();
-  Operator Wtmp = 0.5*W;
-  Commutator::comm133ss(Eta,Wtmp,W);
+  Operator W = H; // We will use the 1b part of H in the denominators below
   W.ZeroBody =0;
-  Commutator::comm330ss(Eta,W,W);
+  W.ThreeBody.SetMode("pn");
+  W.SetParticleRank(3);
+  Commutator::comm223ss( Omega, Htilde, W);
+
+
+  Operator Omegabar = W*0;
+  Omegabar.SetAntiHermitian();
+
+  imsrgsolver.generator.Update(W,Omegabar); // Omegabar = Wbar_od / Deltabar
+
+  Commutator::comm330ss(Omegabar,W,W);
+  W.ZeroBody *=0.5;
   double diff = W.ZeroBody - triples;
   passed = std::abs( diff ) < 1e-6;
   if (not passed)

@@ -74,7 +74,7 @@ void ReadWrite::ReadTBME_Oslo( std::string filename, Operator& Hbare)
   if ( !infile.good() )
   {
      std::cerr << "************************************" << std::endl
-          << "**    Trouble reading file  !!!   **" << filename << std::endl
+          << "**    Trouble reading file  !!!   **" << filename << " line " << __LINE__ << std::endl
           << "************************************" << std::endl;
      goodstate = false;
      return;
@@ -156,7 +156,7 @@ void ReadWrite::ReadTBME_OakRidge( std::string spname, std::string tbmename, Ope
   if (!tbmefile.good())
   {
      std::cerr << "************************************" << std::endl
-          << "**    Trouble reading file  !!!   **" << tbmename << std::endl
+          << "**    Trouble reading file  !!!   **" << tbmename << " line " << __LINE__ << std::endl
           << "************************************" << std::endl;
      goodstate = false;
      return;
@@ -1693,7 +1693,11 @@ void ReadWrite::Store_Darmstadt_3body( const std::vector<float>& ThreeBME, const
                         }
                         else if (autozero)
                         {
-                            printf(" <--------- AAAHHHH!!!!!! Reading 3body file. <%d %d %d  %d %d  %d |V| %d %d %d  %d %d  %d>_(%d) should be zero but its %f.  nread = %lu index_ab = %lu\n",a,b,c,Jab,tab,twoT,d,e,f,JJab,ttab,twoTT,twoJC,V,nread,index_ab);
+                            std::cout << " <--------- AAAHHHH!!!!!! Reading 3body file. <"
+                                      << a << " " << b << " " << c << "  " << Jab << " " << tab << " " << twoT << " |V| "
+                                      << d << " " << e << " " << f << "  " << JJab << " " << ttab << " " << twoTT << " >_" << twoJC
+                                      << "   should be zero but its " << V << ".  nread = " << nread << "  index_ab = " << index_ab << std::endl; 
+//                            printf(" <--------- AAAHHHH!!!!!! Reading 3body file. <%d %d %d  %d %d  %d |V| %d %d %d  %d %d  %d>_(%d) should be zero but its %f.  nread = %lu index_ab = %lu\n",a,b,c,Jab,tab,twoT,d,e,f,JJab,ttab,twoTT,twoJC,V,nread,index_ab);
 //                            printf(" <--------- AAAHHHH!!!!!! Reading 3body file. <%d %d %d  %d %d |V| %d %d %d  %d %d>_(%d %d) should be zero but its %f.  nread = %lu index_ab = %lu\n",a,b,c,Jab,tab,d,e,f,JJab,ttab,twoJC,twoT,V,nread,index_ab);
                             goodstate = false;
                         }
@@ -2412,6 +2416,7 @@ void ReadWrite::ReadH2_2body( std::string filename, Operator& Op )
 
   ModelSpace * modelspace = Op.GetModelSpace();
   int norb = modelspace->GetNumberOrbits();
+  int emax = modelspace->GetEmax();
 
   // Step 1: Read version number with record delimiters
   int32_t record_size_start, record_size_end, version_number;
@@ -2420,6 +2425,12 @@ void ReadWrite::ReadH2_2body( std::string filename, Operator& Op )
   infile.read(reinterpret_cast<char*>(&record_size_end), sizeof(int32_t));
   std::cout << "Version Number: " << version_number << std::endl;
   // std::cout << record_size_start <<"  "<< record_size_end << std::endl;
+
+  if( version_number != 15200 )
+  {
+    std::cout << "\033[31m  This function only works for the format V15200 !!  \033[0m" << std::endl;
+    exit(0);
+  }
 
   // Step 2: Orbital listing header
   int32_t num_orbitals_p, num_orbitals_n;
@@ -2432,7 +2443,7 @@ void ReadWrite::ReadH2_2body( std::string filename, Operator& Op )
   // Step 3: Orbital data
   std::vector<int32_t> n(total_orbitals), l(total_orbitals), twice_j(total_orbitals), twice_tz(total_orbitals);
   std::vector<float> weight(total_orbitals);
-  std::vector<int> orbits_map(total_orbitals);
+  std::vector<int> orbits_map(total_orbitals, -1);
 
   infile.read(reinterpret_cast<char*>(n.data()), total_orbitals * sizeof(int32_t));
   infile.read(reinterpret_cast<char*>(l.data()), total_orbitals * sizeof(int32_t));
@@ -2440,17 +2451,30 @@ void ReadWrite::ReadH2_2body( std::string filename, Operator& Op )
   infile.read(reinterpret_cast<char*>(twice_tz.data()), total_orbitals * sizeof(int32_t));
   infile.read(reinterpret_cast<char*>(weight.data()), total_orbitals * sizeof(float));
 
+  // Pricipal quantum number N = 2n + l
+  std::vector<int32_t> N_HO(total_orbitals);
+  // Calculate Nho = 2n + l for each orbital
+  for (size_t i = 0; i < total_orbitals; ++i) {
+      N_HO[i] = 2 * n[i] + l[i];
+  }
+
   std::cout << "Orbital Data:" << std::endl;
   std::cout << "Proton: tz = -1/2  and Neutron tz = 1/2" << std::endl;
   for (int i = 0; i < total_orbitals; ++i) 
   {
+    if( N_HO[i] > emax )
+    {
+      continue;
+    }
     orbits_map[i] = modelspace->GetOrbitIndex(n[i], l[i], twice_j[i], -1 * twice_tz[i]);
     std::cout << i << "   n: " << n[i] << ", l: " << l[i] << ", twice_j: " << twice_j[i] << ", twice_tz: " << -1 * twice_tz[i] << ", weight: " << weight[i] << ", index: " << orbits_map[i] << std::endl;
+    /*
     if ( orbits_map[i] > modelspace->GetNumberOrbits() )
     {
       std::cout << "Identify the orbit "<< i <<" fail! nljtz "<<  n[i] << " " << l[i]  << " " << twice_j[i]  << " " << -1 * twice_tz[i]<< std::endl;
       return;
     } 
+    */
   }
 
   // Step 4: Header line 1 - operator properties
@@ -2458,7 +2482,7 @@ void ReadWrite::ReadH2_2body( std::string filename, Operator& Op )
   infile.read(reinterpret_cast<char*>(&J0), sizeof(int32_t));
   infile.read(reinterpret_cast<char*>(&g0), sizeof(int32_t));
   infile.read(reinterpret_cast<char*>(&Tz0), sizeof(int32_t));
-  // std::cout << "Operator Properties - J0: " << J0 << ", g0: " << g0 << ", Tz0: " << Tz0 << std::endl;
+  std::cout << "Operator Properties - J0: " << J0 << ", g0: " << g0 << ", Tz0: " << Tz0 << std::endl;
 
   // Step 5: Header line 2 - 2-body basis limit
   float wpp, wpn, wnn;
@@ -2496,6 +2520,7 @@ void ReadWrite::ReadH2_2body( std::string filename, Operator& Op )
   }
 
   std::vector<int> Kets_list_pp, Kets_list_pn, Kets_list_nn;  
+  std::vector<std::pair<int32_t, int32_t>> Kets_list_pair_pp, Kets_list_pair_pn, Kets_list_pair_nn;
   for (int p = 0; p < num_orbitals_p; p++)
   {
     for (int q = p; q < num_orbitals_p; q++)
@@ -2505,9 +2530,23 @@ void ReadWrite::ReadH2_2body( std::string filename, Operator& Op )
       if (weight[p] + weight[q] - wpp > 0.1)
         continue;
       if ( orbits_map[p] <= orbits_map[q]  )
-        Kets_list_pp.push_back( modelspace->GetKetIndex(orbits_map[p], orbits_map[q] ));
+      {
+        if( N_HO[p] > emax or N_HO[q] > emax )
+          Kets_list_pp.push_back( -1);
+        else
+          Kets_list_pp.push_back( modelspace->GetKetIndex(orbits_map[p], orbits_map[q] )); 
+        
+        Kets_list_pair_pp.push_back({p, q});
+      }
       else
-        Kets_list_pp.push_back( modelspace->GetKetIndex(orbits_map[q], orbits_map[p] ));
+      {
+        if( N_HO[p] > emax or N_HO[q] > emax )
+          Kets_list_pp.push_back( -1);
+        else
+          Kets_list_pp.push_back( modelspace->GetKetIndex(orbits_map[q], orbits_map[p] ));
+
+        Kets_list_pair_pp.push_back({q, p});
+      }
     }
   }
 
@@ -2520,9 +2559,23 @@ void ReadWrite::ReadH2_2body( std::string filename, Operator& Op )
       if (weight[p] + weight[q] - wpn > 0.1)
        continue;
       if ( orbits_map[p] <= orbits_map[q]  )
-        Kets_list_pn.push_back( modelspace->GetKetIndex(orbits_map[p], orbits_map[q] ));
+      {
+        if( N_HO[p] > emax or N_HO[q] > emax )
+          Kets_list_pn.push_back( -1);
+        else
+          Kets_list_pn.push_back( modelspace->GetKetIndex(orbits_map[p], orbits_map[q] ));
+
+        Kets_list_pair_pn.push_back({p, q});
+      }
       else
-        Kets_list_pn.push_back( modelspace->GetKetIndex(orbits_map[q], orbits_map[p] ));
+      {
+        if( N_HO[p] > emax or N_HO[q] > emax )
+          Kets_list_pn.push_back( -1);
+        else
+          Kets_list_pn.push_back( modelspace->GetKetIndex(orbits_map[q], orbits_map[p] ));
+
+        Kets_list_pair_pn.push_back({q, p});
+      }
     }
   }
 
@@ -2535,9 +2588,23 @@ void ReadWrite::ReadH2_2body( std::string filename, Operator& Op )
       if (weight[p] + weight[q] - wnn > 0.1)
         continue;
       if ( orbits_map[p] <= orbits_map[q]  )
-        Kets_list_nn.push_back( modelspace->GetKetIndex(orbits_map[p], orbits_map[q] ));
+      {
+        if( N_HO[p] > emax or N_HO[q] > emax )
+          Kets_list_nn.push_back( -1);
+        else
+          Kets_list_nn.push_back( modelspace->GetKetIndex(orbits_map[p], orbits_map[q] ));
+
+        Kets_list_pair_nn.push_back({p, q});
+      }
       else
-        Kets_list_nn.push_back( modelspace->GetKetIndex(orbits_map[q], orbits_map[p] ));
+      {
+        if( N_HO[p] > emax or N_HO[q] > emax )
+          Kets_list_nn.push_back( -1);
+        else
+          Kets_list_nn.push_back( modelspace->GetKetIndex(orbits_map[q], orbits_map[p] ));
+
+        Kets_list_pair_nn.push_back({q, p});
+      }
     }
   }
 
@@ -2560,20 +2627,34 @@ void ReadWrite::ReadH2_2body( std::string filename, Operator& Op )
     // pp
     for (size_t i = 0; i < Kets_list_pp.size(); i++)
     {
-      Ket& tmp_ket = modelspace->GetKet( Kets_list_pp[i]);
-      Orbit &op = *(tmp_ket.op);
-      Orbit &oq = *(tmp_ket.oq);
+      //Ket& tmp_ket = modelspace->GetKet( Kets_list_pp[i]);
+      //Orbit &op = *(tmp_ket.op);
+      //Orbit &oq = *(tmp_ket.oq);
 
-      if ((op.l + oq.l) % 2 == g && 
-          op.j2 + oq.j2 >= 2 * J && 
-          std::abs(op.j2 - oq.j2) <= 2 * J && 
-          (op.index != oq.index || (op.index == oq.index && J % 2 == 0)))
+      int32_t orb_p = Kets_list_pair_pp[i].first; 
+      int32_t orb_q = Kets_list_pair_pp[i].second;
+
+      if ((l[orb_p] + l[orb_q]) % 2 == g && 
+          twice_j[orb_p] + twice_j[orb_q] >= 2 * J && 
+          std::abs(twice_j[orb_p] - twice_j[orb_q]) <= 2 * J && 
+          (orb_p != orb_q || (orb_p == orb_q && J % 2 == 0)))
       {
         temp_kets.push_back(Kets_list_pp[i]);
         int phase = 1;
-        if ( (2* op.n + op.l) == (2* oq.n + oq.l ) and op.j2 > oq.j2 )
+        if(Kets_list_pp[i] != -1)
         {
-          phase = ((op.j2+oq.j2 )/2 + J + 1) % 2==0 ? 1 : -1;
+          Ket& tmp_ket = modelspace->GetKet( Kets_list_pp[i]);
+          Orbit &op = *(tmp_ket.op);
+          Orbit &oq = *(tmp_ket.oq);
+
+          if ( (2* op.n + op.l) == (2* oq.n + oq.l ) and op.j2 > oq.j2 )
+          {
+            phase = ((op.j2+oq.j2 )/2 + J + 1) % 2==0 ? 1 : -1;
+          }
+          //if ( N_HO[orb_p] == N_HO[orb_q] and twice_j[orb_p] > twice_j[orb_q] )
+          //{
+          //  phase = (( twice_j[orb_p] + twice_j[orb_q] )/2 + J + 1) % 2==0 ? 1 : -1;
+          //}
         }
         temp_phase.push_back(phase);
         // std::cout<< J << "   " << g << "   " << op.j2 << "   " << oq.j2 <<std::endl;
@@ -2588,20 +2669,38 @@ void ReadWrite::ReadH2_2body( std::string filename, Operator& Op )
     temp_kets.clear();
     for (size_t i = 0; i < Kets_list_pn.size(); i++)
     {
-      Ket& tmp_ket = modelspace->GetKet( Kets_list_pn[i]);
-      Orbit &op = *(tmp_ket.op);
-      Orbit &oq = *(tmp_ket.oq);
-      
-      if ( (op.l + oq.l)%2 == g 
-           and  op.j2 + oq.j2 >= 2 * J  
-           and std::abs(op.j2 - oq.j2) <= 2 * J ) 
+      //Ket& tmp_ket = modelspace->GetKet( Kets_list_pn[i]);
+      //Orbit &op = *(tmp_ket.op);
+      //Orbit &oq = *(tmp_ket.oq);
+
+      int32_t orb_p = Kets_list_pair_pn[i].first; 
+      int32_t orb_q = Kets_list_pair_pn[i].second;
+
+      //if ( (op.l + oq.l)%2 == g 
+      //    and  op.j2 + oq.j2 >= 2 * J  
+      //    and std::abs(op.j2 - oq.j2) <= 2 * J ) 
+      if ((l[orb_p] + l[orb_q]) % 2 == g && 
+        twice_j[orb_p] + twice_j[orb_q] >= 2 * J && 
+        std::abs(twice_j[orb_p] - twice_j[orb_q]) <= 2 * J )
       {
           temp_kets.push_back(Kets_list_pn[i]);
           int phase = 1;
-          if ( op.tz2 != -1 )
-          {
-            phase = ((op.j2+oq.j2 )/2 + J + 1) % 2==0 ? 1 : -1;
+          if(Kets_list_pn[i] != -1)
+          {      
+            Ket& tmp_ket = modelspace->GetKet( Kets_list_pn[i]);
+            Orbit &op = *(tmp_ket.op);
+            Orbit &oq = *(tmp_ket.oq);
+            if ( op.tz2 != -1 )
+            {
+              phase = ((op.j2+oq.j2 )/2 + J + 1) % 2==0 ? 1 : -1;
+            }
           }
+
+          //if ( twice_tz[orb_p] != 1 )
+          //{
+            // phase = ((op.j2+oq.j2 )/2 + J + 1) % 2==0 ? 1 : -1;
+            //phase = (( twice_j[orb_p] + twice_j[orb_q] )/2 + J + 1) % 2==0 ? 1 : -1;
+          //}
           temp_phase.push_back(phase);
           // std::cout<< J << "   " << g << " nljtz1 " << op.n << op.l << op.j2 << op.tz2 << "   nljtz2  " <<  oq.n << oq.l << oq.j2 << oq.tz2  <<std::endl;
       }
@@ -2615,21 +2714,43 @@ void ReadWrite::ReadH2_2body( std::string filename, Operator& Op )
     temp_phase.clear();
     for (size_t i = 0; i < Kets_list_nn.size(); i++)
     {
-      Ket& tmp_ket = modelspace->GetKet( Kets_list_nn[i]);
-      Orbit &op = *(tmp_ket.op);
-      Orbit &oq = *(tmp_ket.oq);
+      //Ket& tmp_ket = modelspace->GetKet( Kets_list_nn[i]);
+      //Orbit &op = *(tmp_ket.op);
+      //Orbit &oq = *(tmp_ket.oq);
       
-      if ( (op.l + oq.l)%2 == g and  op.j2 + oq.j2 >= 2*J  
-        and std::abs(op.j2 - oq.j2) <= 2*J 
-        and ( (op.index!=oq.index)
-        or ( (op.index==oq.index) and (J%2 == 0)))) 
+      int32_t orb_p = Kets_list_pair_nn[i].first; 
+      int32_t orb_q = Kets_list_pair_nn[i].second;
+
+      // if ( (op.l + oq.l)%2 == g and  op.j2 + oq.j2 >= 2*J  
+      //  and std::abs(op.j2 - oq.j2) <= 2*J 
+      //  and ( (op.index!=oq.index)
+      //  or ( (op.index==oq.index) and (J%2 == 0)))) 
+
+        if ((l[orb_p] + l[orb_q]) % 2 == g && 
+            twice_j[orb_p] + twice_j[orb_q] >= 2 * J && 
+            std::abs(twice_j[orb_p] - twice_j[orb_q]) <= 2 * J && 
+            (orb_p != orb_q || (orb_p == orb_q && J % 2 == 0)))
         {
           temp_kets.push_back(Kets_list_nn[i]);
           int phase = 1;
-          if ( (2* op.n + op.l) == (2* oq.n + oq.l ) and op.j2 > oq.j2 )
+          // if ( (2* op.n + op.l) == (2* oq.n + oq.l ) and op.j2 > oq.j2 )
+
+          if(Kets_list_nn[i] != -1)
           {
-            phase = ((op.j2+oq.j2 )/2 + J + 1) % 2==0 ? 1 : -1;
+            Ket& tmp_ket = modelspace->GetKet( Kets_list_nn[i]);
+            Orbit &op = *(tmp_ket.op);
+            Orbit &oq = *(tmp_ket.oq);
+
+            if ( (2* op.n + op.l) == (2* oq.n + oq.l ) and op.j2 > oq.j2 )
+            {
+              phase = ((op.j2+oq.j2 )/2 + J + 1) % 2==0 ? 1 : -1;
+            }
           }
+          //if ( N_HO[orb_p] == N_HO[orb_q] and twice_j[orb_p] > twice_j[orb_q] )
+          //{
+            // phase = ((op.j2+oq.j2 )/2 + J + 1) % 2==0 ? 1 : -1;
+            // phase = (( twice_j[orb_p] + twice_j[orb_q] )/2 + J + 1) % 2==0 ? 1 : -1;
+          //}
           temp_phase.push_back(phase);
         }
     }
@@ -2654,13 +2775,16 @@ void ReadWrite::ReadH2_2body( std::string filename, Operator& Op )
     {
       for (size_t j = i; j < dim; j++)
       {
-        Ket& bra = modelspace->GetKet( channel_pp[ch][i]);
-        Ket& ket = modelspace->GetKet( channel_pp[ch][j]);
-        Op.TwoBody.SetTBME(ch_index, ch_index, bra, ket, vpp[count] * channel_pp_phase[ch][i] * channel_pp_phase[ch][j]);
+        if( channel_pp[ch][i] >= 0 and channel_pp[ch][j] >= 0 )
+        {
+          Ket& bra = modelspace->GetKet( channel_pp[ch][i]);
+          Ket& ket = modelspace->GetKet( channel_pp[ch][j]);
+          Op.TwoBody.SetTBME(ch_index, ch_index, bra, ket, vpp[count] * channel_pp_phase[ch][i] * channel_pp_phase[ch][j]);
+        }
         count++;
       }
     }
-    std::cout << "J: " << J << ", g: " << g << ", P: " << ((g % 2 == 0) ? "+" : "-") << "    dim: "<< dim <<"   " << count << std::endl;
+    //std::cout << "J: " << J << ", g: " << g << ", P: " << ((g % 2 == 0) ? "+" : "-") << "    dim: "<< dim <<"   " << count << std::endl;
   }
   std::cout << "Read Vpp successful! num of Vpp " << count << std::endl << std::endl;
 
@@ -2680,13 +2804,16 @@ void ReadWrite::ReadH2_2body( std::string filename, Operator& Op )
     {
       for (size_t j = i; j < dim; j++)
       {
-        Ket& bra = modelspace->GetKet( channel_pn[ch][i]);
-        Ket& ket = modelspace->GetKet( channel_pn[ch][j]);
-        Op.TwoBody.SetTBME(ch_index, ch_index, bra, ket, vpn[count] * channel_pn_phase[ch][i] * channel_pn_phase[ch][j] );
+        if( channel_pn[ch][i] >= 0 and channel_pn[ch][j] >= 0 )
+        {
+          Ket& bra = modelspace->GetKet( channel_pn[ch][i]);
+          Ket& ket = modelspace->GetKet( channel_pn[ch][j]);
+          Op.TwoBody.SetTBME(ch_index, ch_index, bra, ket, vpn[count] * channel_pn_phase[ch][i] * channel_pn_phase[ch][j] );
+        }
         count++;
       }
     }
-    std::cout << "J: " << J << ", g: " << g << ", P: " << ((g % 2 == 0) ? "+" : "-") << "    dim: "<< dim <<"   " << count << std::endl;
+    //std::cout << "J: " << J << ", g: " << g << ", P: " << ((g % 2 == 0) ? "+" : "-") << "    dim: "<< dim <<"   " << count << std::endl;
   }
   std::cout << "Read Vpn successful! num of Vpn " << count << std::endl << std::endl;
 
@@ -2706,13 +2833,16 @@ void ReadWrite::ReadH2_2body( std::string filename, Operator& Op )
     {
       for (size_t j = i; j < dim; j++)
       {
-        Ket& bra = modelspace->GetKet( channel_nn[ch][i]);
-        Ket& ket = modelspace->GetKet( channel_nn[ch][j]);
-        Op.TwoBody.SetTBME(ch_index, ch_index, bra, ket, vnn[count] * channel_nn_phase[ch][i] * channel_nn_phase[ch][j]);
+        if( channel_nn[ch][i] >= 0 and channel_nn[ch][j] >= 0 )
+        {
+          Ket& bra = modelspace->GetKet( channel_nn[ch][i]);
+          Ket& ket = modelspace->GetKet( channel_nn[ch][j]);
+          Op.TwoBody.SetTBME(ch_index, ch_index, bra, ket, vnn[count] * channel_nn_phase[ch][i] * channel_nn_phase[ch][j]);
+        }
         count++;
       }
     }
-    std::cout << "J: " << J << ", g: " << g << ", P: " << ((g % 2 == 0) ? "+" : "-") << "    dim: "<< dim <<"   " << count << std::endl;
+    //std::cout << "J: " << J << ", g: " << g << ", P: " << ((g % 2 == 0) ? "+" : "-") << "    dim: "<< dim <<"   " << count << std::endl;
   }
   std::cout << "Read Vnn successful! num of Vnn " << count << std::endl << std::endl;
 }
@@ -5452,7 +5582,7 @@ void ReadWrite::ReadTokyo(std::string filename, Operator& op)
   if (!infile.good() )
   {
     std::cerr << "************************************" << std::endl
-          << "**    Trouble reading file  !!!   **" << filename << std::endl
+          << "**    Trouble reading file  !!!   **" << filename << " line " << __LINE__ << std::endl
           << "************************************" << std::endl;
      return;
   }
@@ -5557,7 +5687,7 @@ void ReadWrite::ReadTensorTokyo(std::string filename, Operator& op)
   if (!infile.good() )
   {
     std::cerr << "************************************" << std::endl
-          << "**    Trouble reading file  !!!   **" << filename << std::endl
+          << "**    Trouble reading file  !!!   **" << filename << " line " << __LINE__ <<  std::endl
           << "************************************" << std::endl;
      return;
   }
@@ -6038,7 +6168,7 @@ Operator ReadWrite::ReadOperator2b_Miyagi(std::string filename, ModelSpace& mode
   if ( !infile.good() )
   {
     std::cerr << "************************************" << std::endl
-      << "**    Trouble reading file  !!!   **" << filename << std::endl
+      << "**    Trouble reading file  !!!   **" << filename << " line " << __LINE__ << std::endl
       << "************************************" << std::endl;
     goodstate = false;
     exit(0);

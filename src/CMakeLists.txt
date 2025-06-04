@@ -489,7 +489,7 @@ target_link_libraries(
     GSL::gsl
     ModelSpace
     Operator
-    imsrg_util
+#    imsrg_util
     PhysicalConstants
     Pwd
     PRIVATE
@@ -585,6 +585,7 @@ target_link_libraries(
 
 add_library(
     ReferenceImplementations
+    OBJECT
     ReferenceImplementations.hh ReferenceImplementations.cc
 )
 target_link_libraries(
@@ -624,11 +625,32 @@ target_link_libraries(
 
 add_library(
     IMSRG
-    INTERFACE
+    SHARED
+#    INTERFACE
+    ReadWrite
+    ModelSpace
+    TwoBodyME
+    ThreeBodyME
+    Operator
+    HartreeFock
+    Commutator
+    IMSRGSolver
+    IMSRGSolverPV
+    Generator
+    GeneratorPV
+    imsrg_util
+    AngMom
+    IMSRGProfiler
+    Jacobi3BME
+    DarkMatterNREFT
+    HFMBPT
+    UnitTest
+    PhysicalConstants
+    RPA
 )
 target_link_libraries(
     IMSRG
-    INTERFACE
+#    INTERFACE
     ReadWrite
     ModelSpace
     TwoBodyME
@@ -666,15 +688,15 @@ target_link_libraries(
 )
 
 
-target_link_libraries(
-    UnitTest
-    PUBLIC
-    IMSRG
-    Parameters
-    PhysicalConstants
-    Version
-    OpenMP::OpenMP_CXX
-)
+#target_link_libraries(
+#    UnitTest
+#    PUBLIC
+#    IMSRG
+#    Parameters
+#    PhysicalConstants
+#    Version
+#    OpenMP::OpenMP_CXX
+#)
 
 
 # Install imsrg executable
@@ -693,3 +715,12 @@ install(FILES ${HEADERS}
         DESTINATION ${INSTDIR}/include
         PERMISSIONS OWNER_READ OWNER_WRITE OWNER_EXECUTE GROUP_READ  GROUP_EXECUTE WORLD_READ WORLD_EXECUTE)
 
+include(CTest)
+list(APPEND CMAKE_CTEST_ARGUMENTS "--verbose")
+# Unit Tests
+add_test(NAME Commutators2 COMMAND  python3 ../test/UnitTestCommutators2.py )
+add_test(NAME Commutators3 COMMAND  python3 ../test/UnitTestCommutators3.py )
+add_test(NAME Factorized   COMMAND  python3 ../test/UnitTestFactorized.py )
+add_test(NAME Triples      COMMAND  python3 ../test/UnitTestTriples.py )
+add_test(NAME Tensor       COMMAND  python3 ../test/UnitTestTensor.py )
+add_test(NAME NormalOrdering    COMMAND  python3 ../test/UnitTestNormalOrdering.py )

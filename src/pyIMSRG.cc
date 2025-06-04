@@ -256,8 +256,8 @@ PYBIND11_MODULE(pyIMSRG, m)
           .def("GetTRank", &Operator::GetTRank)
           .def("GetParity", &Operator::GetParity)
           .def("GetNumberLegs", &Operator::GetNumberLegs)
-          .def("GetE3max", &Operator::GetE3max)
-          .def("SetE3max", &Operator::SetE3max)
+//          .def("GetE3max", &Operator::GetE3max)
+//          .def("SetE3max", &Operator::SetE3max)
           .def("PrintTimes", &Operator::PrintTimes)
           .def("Size", &Operator::Size)
           .def("MakeNormalized", &Operator::MakeNormalized)
@@ -685,7 +685,8 @@ PYBIND11_MODULE(pyIMSRG, m)
           .def("ComputeNAS_MatrixElements", &Jacobi3BME::ComputeNAS_MatrixElements)
           .def("GetLabMatEl", &Jacobi3BME::GetLabMatEl)
           .def("TestReadTcoeffNavratil", &Jacobi3BME::TestReadTcoeffNavratil)
-          .def("GetV3mon_all", &Jacobi3BME::GetV3mon_all);
+//          .def("GetV3mon_all", &Jacobi3BME::GetV3mon_all)
+      ;
 
       py::module Commutator = m.def_submodule("Commutator", "Commutator namespace");
        Commutator.def("Commutator", &Commutator::Commutator);
@@ -730,6 +731,7 @@ PYBIND11_MODULE(pyIMSRG, m)
        // scalar-tensor commutators
        Commutator.def("comm111st", &Commutator::comm111st);
        Commutator.def("comm121st", &Commutator::comm121st);
+       Commutator.def("comm221st", &Commutator::comm221st);
        Commutator.def("comm122st", &Commutator::comm122st);
        Commutator.def("comm222_pp_hh_221st", &Commutator::comm222_pp_hh_221st);
        Commutator.def("comm222_phst", &Commutator::comm222_phst);
@@ -757,6 +759,12 @@ PYBIND11_MODULE(pyIMSRG, m)
        py::module FactorizedDoubleCommutator = Commutator.def_submodule("FactorizedDoubleCommutator", "FactorizedDoubleCommutator namespace");
         FactorizedDoubleCommutator.def("comm223_231",      &Commutator::FactorizedDoubleCommutator::comm223_231);
         FactorizedDoubleCommutator.def("comm223_232",      &Commutator::FactorizedDoubleCommutator::comm223_232);
+
+        FactorizedDoubleCommutator.def("comm223_231_chi2b",        &Commutator::FactorizedDoubleCommutator::comm223_231_chi2b);
+        FactorizedDoubleCommutator.def("comm223_231_chi1b",        &Commutator::FactorizedDoubleCommutator::comm223_231_chi1b);
+        FactorizedDoubleCommutator.def("comm223_232_chi2b",        &Commutator::FactorizedDoubleCommutator::comm223_232_chi2b);
+        FactorizedDoubleCommutator.def("comm223_232_chi1b",        &Commutator::FactorizedDoubleCommutator::comm223_232_chi1b);
+
 //        FactorizedDoubleCommutator.def("comm223_231_slow", &Commutator::FactorizedDoubleCommutator::comm223_231_slow);
 //        FactorizedDoubleCommutator.def("comm223_232_slow", &Commutator::FactorizedDoubleCommutator::comm223_232_slow);
 //        FactorizedDoubleCommutator.def("UseSlowVersion",   &Commutator::FactorizedDoubleCommutator::UseSlowVersion);
@@ -782,6 +790,8 @@ PYBIND11_MODULE(pyIMSRG, m)
        BCH.def("SetUseFactorizedCorrectionBCH_product", &BCH::SetUseFactorizedCorrectionBCH_product);
        BCH.def("SetUseFactorized_Correct_ZBTerm", &BCH::SetUseFactorized_Correct_ZBTerm);
        BCH.def("SetOnly2bOmega", &BCH::SetOnly2bOmega);
+       BCH.def("SetComm223_231", &BCH::SetComm223_231);
+       BCH.def("SetComm223_232", &BCH::SetComm223_232);
        BCH.def("Set_BCH_Transform_Threshold", &BCH::Set_BCH_Transform_Threshold);
        BCH.def("Set_BCH_Product_Threshold", &BCH::Set_BCH_Product_Threshold);
        BCH.def("SetBCHSkipiEq1", &BCH::SetBCHSkipiEq1);
@@ -839,7 +849,6 @@ PYBIND11_MODULE(pyIMSRG, m)
        ReferenceImplementations.def("comm223_231", &ReferenceImplementations::comm223_231);
        ReferenceImplementations.def("comm223_232", &ReferenceImplementations::comm223_232);
 
-
        ReferenceImplementations.def("comm331st", &ReferenceImplementations::comm331st);
        ReferenceImplementations.def("comm223st", &ReferenceImplementations::comm223st);
        ReferenceImplementations.def("comm231st", &ReferenceImplementations::comm231st);
@@ -881,10 +890,12 @@ PYBIND11_MODULE(pyIMSRG, m)
           .def("SetRandomSeed", &UnitTest::SetRandomSeed)
           .def("RandomOp", &UnitTest::RandomOp, py::arg("modelspace"), py::arg("jrank"), py::arg("tz"), py::arg("parity"), py::arg("particle_rank"), py::arg("hermitian"))
           .def("TestCommutators", &UnitTest::TestCommutators)
-          .def("TestCommutators_Tensor", &UnitTest::TestCommutators_Tensor)
+//          .def("TestCommutators_Tensor", &UnitTest::TestCommutators_Tensor)
+          .def("TestCommutators_Tensor", &UnitTest::TestCommutators_Tensor, py::arg("X"),py::arg("Y") )
           .def("TestCommutators_IsospinChanging", &UnitTest::TestCommutators_IsospinChanging)
           .def("TestCommutators_ParityChanging", &UnitTest::TestCommutators_ParityChanging)
           .def("TestCommutators3", &UnitTest::TestCommutators3)
+          .def("TestNormalOrdering", &UnitTest::TestNormalOrdering)
           .def("TestDaggerCommutators", &UnitTest::TestDaggerCommutators)
           .def("TestDaggerCommutatorsAlln", &UnitTest::TestDaggerCommutatorsAlln)
           .def("Test3BodyAntisymmetry", &UnitTest::Test3BodyAntisymmetry)

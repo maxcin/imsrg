@@ -1676,9 +1676,9 @@ Operator E0Op(ModelSpace& modelspace)
 
 
 
-//Operator FourierBesselCoeff(ModelSpace& modelspace, int nu, double R)
+// Operator FourierBesselCoeff(ModelSpace& modelspace, int nu, double R)
 // providing an index list allows us to select e.g. just protons or just neutrons
-//Operator FourierBesselCoeff(ModelSpace& modelspace, int nu, double R, std::vector<index_t> index_list)
+// Operator FourierBesselCoeff(ModelSpace& modelspace, int nu, double R, std::vector<index_t> index_list)
 Operator FourierBesselCoeff(ModelSpace& modelspace, int nu, double R, std::set<index_t> index_list)
 {
   Operator a_nu(modelspace,0,0,0,2);
@@ -5290,7 +5290,8 @@ Operator FourierBesselCoeff(ModelSpace& modelspace, int nu, double R, std::set<i
     double jk = modelspace->GetOrbit(k).j2 * 0.5;
     double jl = modelspace->GetOrbit(l).j2 * 0.5;
     arma::mat& OB = op1.OneBody;
-    if (Lambda==0) // scalar => no sixJs, tbmes are not reduced.
+//    if (Lambda==0) // scalar => no sixJs, tbmes are not reduced.
+    if (not op1.IsReduced() ) // scalar => no sixJs, tbmes are not reduced.
     {
        if (j==l)  embedded_tbme += OB(i,k);
        if (i==k)  embedded_tbme += OB(j,l);

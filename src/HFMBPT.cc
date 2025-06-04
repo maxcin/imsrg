@@ -339,7 +339,7 @@ Operator HFMBPT::GetNormalOrderedHNAT(int particle_rank)
   HNO.ZeroBody = EHF;
   HNO.OneBody = C_HO2NAT.t() * F * C_HO2NAT;
 
-  int nchan = HartreeFock::modelspace->GetNumberTwoBodyChannels();
+  int nchan = modelspace->GetNumberTwoBodyChannels();
 
 
 
@@ -374,12 +374,12 @@ Operator HFMBPT::GetNormalOrderedHNAT(int particle_rank)
           for ( auto a : modelspace->all_orbits )
           {
             Orbit & oa = modelspace->GetOrbit(a);
-            if ( 2*oa.n+oa.l+e2bra > Hbare.GetE3max() ) continue;
+            if ( 2*oa.n+oa.l+e2bra > modelspace->GetE3max() ) continue;
             for (int b : Hbare.OneBodyChannels.at({oa.l,oa.j2,oa.tz2}))
             {
               if ( std::abs(rho(a,b)) < 1e-8 ) continue; // Turns out this helps a bit (factor of 5 speed up in tests)
-              Orbit & ob = HartreeFock::modelspace->GetOrbit(b);
-              if ( 2*ob.n+ob.l+e2ket > Hbare.GetE3max() ) continue;
+              Orbit & ob = modelspace->GetOrbit(b);
+              if ( 2*ob.n+ob.l+e2ket > modelspace->GetE3max() ) continue;
 //              V3NO(i,j) += rho(a,b) * GetVNO2B(bra.p, bra.q, a, ket.p, ket.q, b, J);
               V3NO(i,j) += rho(a,b) * Hbare.ThreeBody.GetME_pn_no2b(bra.p,bra.q,a,ket.p,ket.q,b,J);
             }

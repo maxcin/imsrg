@@ -8,7 +8,8 @@ tmp*
 ../*.sif
 ../output/*
 ../input/*
-../doc/*
+../doc/latex
+../doc/html
 ../work/*
 **/CMakeFiles
 ../CMakeFiles/*
@@ -20,9 +21,13 @@ cmake_install.cmake
 ../old_armadillo/*
 ../build/*
 ../.vscode/*
+../test/*.swp
+../build/
 .vscode/
 .cache/
 CMakeUserPresets.json
 imsrg++
+local_settings.cmake
+Makefile_local
 .DS_Store
 ../.DS_Store

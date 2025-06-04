@@ -209,8 +209,8 @@ namespace Commutator
           double c2 = 0;
           double c3 = 0;
           double c4 = 0;
-          if ((ch_bra == ch_ket) and (iket > ibra))
-            continue;
+          if ((ch_bra==ch_ket)  and (iket>ibra)) continue;
+
 
           //            for ( int a : X.OneBodyChannels.at({oi.l,oi.j2,oi.tz2}) )
           for (int a : X.GetOneBodyChannel(oi.l, oi.j2, oi.tz2))
