@@ -1487,14 +1487,14 @@ bool UnitTest::Test_against_ref_impl(const Operator &X, const Operator &Y, commu
     Zref.SetNonHermitian();
 
   ComOpt(*Xnred, *Ynred, Z);
-  if ((Z.GetParity() != 0) or (Z.GetTRank() != 0))
+  if ( not Z.IsReduced() and ((Z.GetParity() != 0) or (Z.GetTRank() != 0)) )
   {
     
     Z.MakeReduced(); // If Z changes parity or Tz, we by default store it as reduced. So make it as expected. Is that a good idea? Not sure....
   }
   double tstart = omp_get_wtime();
   ComRef(*Xnred, *Ynred, Zref);
-  if ((Zref.GetParity() != 0) or (Zref.GetTRank() != 0) and z_Jrank==0)
+  if ( not Z.IsReduced() and ((Zref.GetParity() != 0) or (Zref.GetTRank() != 0) and z_Jrank==0) )
   {
     Zref.MakeReduced(); // If Z changes parity or Tz, we by default store it as reduced. So make it as expected. Is that a good idea? Not sure....
   }
