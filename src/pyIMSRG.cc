@@ -664,7 +664,10 @@ PYBIND11_MODULE(pyIMSRG, m)
           .def("PrintCounters", &IMSRGProfiler::PrintCounters)
           .def("PrintAll", &IMSRGProfiler::PrintAll)
           .def("PrintMemory", &IMSRGProfiler::PrintMemory)
-          .def("Clear", &IMSRGProfiler::Clear);
+          .def("Clear", &IMSRGProfiler::Clear)
+          .def("GetTimer", &IMSRGProfiler::GetTimer)
+          .def("GetCounter", &IMSRGProfiler::GetCounter)
+       ;
 
       py::class_<Jacobi3BME>(m, "Jacobi3BME")
           .def(py::init<>())
