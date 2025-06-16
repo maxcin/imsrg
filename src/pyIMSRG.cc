@@ -493,6 +493,7 @@ PYBIND11_MODULE(pyIMSRG, m)
               "ReadTensorTokyo", [](ReadWrite &self, std::string s, Operator &op)
               { self.ReadTensorTokyo(s, op); },
               py::arg("file_in"), py::arg("op"))
+          .def("ReadOperator2b_Miyagi", &ReadWrite::ReadOperator2b_Miyagi, py::arg("filename"), py::arg("modelspace") )
           .def("WriteOneBody_Oslo", &ReadWrite::WriteOneBody_Oslo)
           .def("WriteTwoBody_Oslo", &ReadWrite::WriteTwoBody_Oslo)
           .def("SetCoMCorr", &ReadWrite::SetCoMCorr)
