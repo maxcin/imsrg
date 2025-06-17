@@ -136,8 +136,8 @@ namespace Commutator
         Z.OneBody(i, j) += zij;
         if (i != j)
           Z.OneBody(j, i) += hZ * phase_ij * zij; // we're dealing with reduced matrix elements, which get a phase under hermitian conjugation
-      }                                           // for j
-    }                                             // for i
+      } // for j
+    } // for i
 
     X.profiler.timer[__func__] += omp_get_wtime() - tstart;
   }
@@ -169,8 +169,8 @@ namespace Commutator
       ket_channels.push_back(itmat.first[1]);
     }
     int nmat = bra_channels.size();
-//   #pragma omp parallel for schedule(dynamic,1) if (not Z.modelspace->tensor_transform_first_pass[Z.GetJRank()*2+Z.GetParity()])
-#pragma omp parallel for schedule(dynamic, 1) if (not single_thread)
+    //   #pragma omp parallel for schedule(dynamic,1) if (not Z.modelspace->tensor_transform_first_pass[Z.GetJRank()*2+Z.GetParity()])
+    #pragma omp parallel for schedule(dynamic, 1) if (not single_thread)
     for (int ii = 0; ii < nmat; ++ii)
     {
       int ch_bra = bra_channels[ii];
@@ -315,9 +315,14 @@ namespace Commutator
           Z2(ibra, iket) += cijkl / norm;
           if ((ch_bra == ch_ket) and (iket < ibra))
             Z2(iket, ibra) += Z.modelspace->phase(J1 - J2) * cijkl / norm;
+          
         }
       }
     }
+    // if (X.GetParity()==1 and Y.GetParity()==1)
+    // {
+    //   Z.PrintTwoBody();
+    // }
     X.profiler.timer["comm122st"] += omp_get_wtime() - tstart;
   }
 

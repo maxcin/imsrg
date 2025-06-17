@@ -55,5 +55,31 @@ if(IMSRG_BUILD_PYTHON_BINDINGS)
         COMMAND ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/tests/UnitTest.py 
         WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}
     )
+    add_test (
+        NAME UnitTestCommutators2
+        COMMAND ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/test/UnitTestCommutators2.py   
+        WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}
+    )
+    add_test(
+        NAME UnitTestCommutators3
+        COMMAND ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/test/UnitTestCommutators3.py
+        WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}   
+        
+    )
+    add_test (
+        NAME UnitTestFactorized
+        COMMAND ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/test/UnitTestFactorized.py 
+        WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}
+    )
+    add_test (
+        NAME UnitTestTriples
+        COMMAND ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/test/UnitTestTriples.py 
+        WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}
+    )
+    add_test (
+        NAME UnitTestTensor
+        COMMAND ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/test/UnitTestTensor.py  
+        WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}
+    )
 endif()
 

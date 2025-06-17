@@ -152,7 +152,6 @@ namespace ReferenceImplementations
     for (size_t i : Z.modelspace->all_orbits)
     {
       Orbit &oi = Z.modelspace->GetOrbit(i);
-      std::cout << i << " " << oi.occ << std::endl;
       for (size_t j : Z.GetOneBodyChannel(oi.l, oi.j2, oi.tz2))
       {
         Orbit &oj = Z.modelspace->GetOrbit(j);
@@ -180,19 +179,12 @@ namespace ReferenceImplementations
                 double yabcj = Y2.GetTBME_J(J, J, a, b, c, j);
                 double zij = 1. / 2 * (2 * J + 1) / (oi.j2 + 1.) * (oa.occ * ob.occ * (1 - oc.occ) + (1 - oa.occ) * (1 - ob.occ) * oc.occ) * (xciab * yabcj - yciab * xabcj);
                 Z1(i, j) += zij;
-                if (i==0 and j==4)
-                {
-                  if (zij!=0)
-                    std::cout << a << " " << b << " " << c << " "<< J <<" "<< zij <<std::endl;
-                }
               } // J
             } // c
           } // b
         } // a
-
       } // j
     } // i
-    Z.PrintOneBody();
   }
 
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -2489,6 +2481,7 @@ namespace ReferenceImplementations
       } // for ibra
 
     } // for ch_bra/ch_ket
+    // Z.PrintTwoBody();
   }
 
   // This has not yet been validated, and is almost certainly wrong.

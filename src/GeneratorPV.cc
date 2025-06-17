@@ -23,7 +23,9 @@ void GeneratorPV::AddToEtaPV(Operator &H_s, Operator &HPV_s, Operator &Eta_s, Op
    H = &H_s;
    Eta = &Eta_s;
    V = &HPV_s;
+   V -> MakeNotReduced();
    Etapv = &EtaPV_s;
+   Etapv->MakeNotReduced();
    //   modelspace = H->GetModelSpace();
    if (generator_type == "wegner")
       ConstructGeneratorPV_SingleRef(wegner_func); // never tested, probably doesn't work.
@@ -63,6 +65,8 @@ void GeneratorPV::AddToEtaPV(Operator &H_s, Operator &HPV_s, Operator &Eta_s, Op
    {
       std::cout << "Error. Unkown generator_type: " << generator_type << std::endl;
    }
+   V->MakeReduced();
+   Etapv->MakeReduced();
    Eta->profiler.timer["UpdateEta"] += omp_get_wtime() - start_time;
    Etapv->profiler.timer["UpdateEta"] += omp_get_wtime() - start_time;
 }

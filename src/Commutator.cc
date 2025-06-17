@@ -930,27 +930,20 @@ namespace Commutator
           double nbarc = 1.0 - nc;
           int Jmin = std::max(std::abs(oc.j2 - oi.j2), std::abs(oc.j2 - oj.j2)) / 2;
           int Jmax = (oc.j2 + std::min(oi.j2, oj.j2)) / 2;
-
+          int parity_phase = hZ == 1 ? 1 : Z.modelspace->phase(oc.l);
+          // int parity_phase = 1;
           if (std::abs(nc) > 1e-9)
           {
             for (int J = Jmin; J <= Jmax; J++)
             {
-              zij += (2 * J + 1) * nc * Mpp.GetTBME_J(J, c, i, c, j);
-              if (i == 0 and j == 4)
-              {
-                std::cout << c << " " << J << " " << (2 * J + 1) * nc * Mpp.GetTBME_J(J, c, i, c, j) << std::endl;
-              }
+              zij += (2 * J + 1) * nc * parity_phase * Mpp.GetTBME_J(J, c, i, c, j);
             }
           }
           if (std::abs(nbarc) > 1e-9)
           {
             for (int J = Jmin; J <= Jmax; J++)
             {
-              zij += (2 * J + 1) * nbarc * Mhh.GetTBME_J(J, c, i, c, j);
-              if (i == 0 and j == 4)
-              {
-                std::cout << c << " " << J << " " << (2 * J + 1) * nbarc * Mhh.GetTBME_J(J, c, i, c, j) << std::endl;
-              }
+              zij += (2 * J + 1) * parity_phase * nbarc * Mhh.GetTBME_J(J, c, i, c, j);
            }
           }
         }
@@ -961,8 +954,8 @@ namespace Commutator
         }
       } // for j
     }
-    Z.PrintOneBody();
-    std::cout<<"=========================="<<std::endl;
+    // Z.PrintOneBody();
+    // std::cout<<"=========================="<<std::endl;
     X.profiler.timer[__func__] += omp_get_wtime() - t_start;
   }
 
