@@ -510,6 +510,7 @@ PYBIND11_MODULE(pyIMSRG, m)
           .def("CopyFile", &ReadWrite::CopyFile, py::arg("filein"), py::arg("fileout"))
           .def("ReadDarmstadt_2bodyRel", &ReadWrite::ReadDarmstadt_2bodyRel)
           .def("ReadH2_2body", &ReadWrite::ReadH2_2body)
+          .def("Read2bCurrent_Navratil", &ReadWrite::Read2bCurrent_Navratil, py::arg("filename"),py::arg("Op"))
           //      .def("WriteOmega",&ReadWrite::WriteOmega, py::arg("basename"),py::arg("scratch_dir"),py::arg("nOmegas"))
           ;
 
