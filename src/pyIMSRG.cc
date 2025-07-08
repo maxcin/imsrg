@@ -496,6 +496,7 @@ PYBIND11_MODULE(pyIMSRG, m)
               "ReadTensorTokyo", [](ReadWrite &self, std::string s, Operator &op)
               { self.ReadTensorTokyo(s, op); },
               py::arg("file_in"), py::arg("op"))
+          .def("ReadOperator2b_Miyagi", &ReadWrite::ReadOperator2b_Miyagi, py::arg("filename"), py::arg("modelspace") )
           .def("WriteOneBody_Oslo", &ReadWrite::WriteOneBody_Oslo)
           .def("WriteTwoBody_Oslo", &ReadWrite::WriteTwoBody_Oslo)
           .def("SetCoMCorr", &ReadWrite::SetCoMCorr)
@@ -512,6 +513,7 @@ PYBIND11_MODULE(pyIMSRG, m)
           .def("CopyFile", &ReadWrite::CopyFile, py::arg("filein"), py::arg("fileout"))
           .def("ReadDarmstadt_2bodyRel", &ReadWrite::ReadDarmstadt_2bodyRel)
           .def("ReadH2_2body", &ReadWrite::ReadH2_2body)
+          .def("Read2bCurrent_Navratil", &ReadWrite::Read2bCurrent_Navratil, py::arg("filename"),py::arg("Op"))
           //      .def("WriteOmega",&ReadWrite::WriteOmega, py::arg("basename"),py::arg("scratch_dir"),py::arg("nOmegas"))
           ;
 
@@ -670,7 +672,10 @@ PYBIND11_MODULE(pyIMSRG, m)
           .def("PrintCounters", &IMSRGProfiler::PrintCounters)
           .def("PrintAll", &IMSRGProfiler::PrintAll)
           .def("PrintMemory", &IMSRGProfiler::PrintMemory)
-          .def("Clear", &IMSRGProfiler::Clear);
+          .def("Clear", &IMSRGProfiler::Clear)
+          .def("GetTimer", &IMSRGProfiler::GetTimer)
+          .def("GetCounter", &IMSRGProfiler::GetCounter)
+       ;
 
       py::class_<Jacobi3BME>(m, "Jacobi3BME")
           .def(py::init<>())

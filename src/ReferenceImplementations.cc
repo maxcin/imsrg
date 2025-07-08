@@ -2328,6 +2328,7 @@ namespace ReferenceImplementations
   } // comm111st
 
   // Streightforward implementation of second term of equation (B2) in Parzuchowski et al PRC 96, 034324 (2017).
+  // Note that equation (B4) of that paper has a typo. The Jhat should be Jhat^2.
   //
   void comm121st(const Operator &X, const Operator &Y, Operator &Z)
   {
