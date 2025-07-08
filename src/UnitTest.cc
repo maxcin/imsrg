@@ -43,7 +43,7 @@ Operator UnitTest::RandomOp(ModelSpace &modelspace, int jrank, int tz, int parit
     for (auto j : Rando.OneBodyChannels.at({oi.l, oi.j2, oi.tz2}))
     {
       symmetry_allowed(i, j) = 1;
-      if (jrank > 0 and j>i) // if jrank>0, we're storing reduced matrix elements, and we get a phase from Wigner-Eckart.
+      if (Rando.IsReduced() and j > i) // if jrank>0, we're storing reduced matrix elements, and we get a phase from Wigner-Eckart.
       {
         Orbit &oj = modelspace.GetOrbit(j);
         symmetry_allowed(i, j) *= AngMom::phase((oi.j2 - oj.j2) / 2);
@@ -1439,13 +1439,13 @@ bool UnitTest::Test_against_ref_impl(const Operator &X, const Operator &Y, commu
   Operator Xtmp, Ytmp;        // Declared, but not yet allocated, for reasons of scope.
   const Operator *Xnred = &X; // Pointer to the non-reduced version of the operator
   const Operator *Ynred = &Y;
-  if (X.IsReduced() and z_Jrank==0) // CommutatorScalarScalar doesn't expect reduced operators. Need to make it not reduced.
+  if (X.IsReduced() and z_Jrank ==0) // CommutatorScalarScalar doesn't expect reduced operators. Need to make it not reduced.
   {
     Xtmp = X;
     Xtmp.MakeNotReduced();
     Xnred = &Xtmp; // Now Xnred points to the not-reduced copy Xtmp
   }
-  if (Y.IsReduced() and z_Jrank==0)
+  if (Y.IsReduced() and z_Jrank ==0)
   {
     Ytmp = Y;
     Ytmp.MakeNotReduced();
@@ -1456,7 +1456,9 @@ bool UnitTest::Test_against_ref_impl(const Operator &X, const Operator &Y, commu
   ModelSpace &ms = *(Y.GetModelSpace());
   Operator Z(ms, z_Jrank, z_Trank, z_parity, z_particlerank);
   if (hx*hy > 0)
-  Z.SetAntiHermitian();
+  {
+    Z.SetAntiHermitian();
+  }
   if ( z_particlerank > 2 )
   {
      Z.ThreeBody.SetMode("pn");
@@ -1470,36 +1472,41 @@ bool UnitTest::Test_against_ref_impl(const Operator &X, const Operator &Y, commu
     Z.MakeNotReduced();
 
   if ((X.IsHermitian() and Y.IsHermitian()) or (X.IsAntiHermitian() and Y.IsAntiHermitian()))
+  {
     Z.SetAntiHermitian();
+    Zref.SetAntiHermitian();
+  }
+    
   else if ((X.IsHermitian() and Y.IsAntiHermitian()) or (X.IsAntiHermitian() and Y.IsHermitian()))
+  {
     Z.SetHermitian();
+    Zref.SetHermitian();
+  }
   else
+  {
     Z.SetNonHermitian();
+    Zref.SetNonHermitian();
+  }
 
   if (Zref.IsReduced() and z_Jrank==0)
     Zref.MakeNotReduced();
 
-  if ((X.IsHermitian() and Y.IsHermitian()) or (X.IsAntiHermitian() and Y.IsAntiHermitian()))
-    Zref.SetAntiHermitian();
-  else if ((X.IsHermitian() and Y.IsAntiHermitian()) or (X.IsAntiHermitian() and Y.IsHermitian()))
-    Zref.SetHermitian();
-  else
-    Zref.SetNonHermitian();
 
   ComOpt(*Xnred, *Ynred, Z);
-  if ( not Z.IsReduced() and ((Z.GetParity() != 0) or (Z.GetTRank() != 0)) )
-  {
-    
+  if ( not Z.IsReduced() and ((Z.GetParity() != 0) or (Z.GetTRank() != 0) and z_Jrank==0) )
+  {  
     Z.MakeReduced(); // If Z changes parity or Tz, we by default store it as reduced. So make it as expected. Is that a good idea? Not sure....
   }
+
   double tstart = omp_get_wtime();
   ComRef(*Xnred, *Ynred, Zref);
-  if ( not Z.IsReduced() and ((Zref.GetParity() != 0) or (Zref.GetTRank() != 0) and z_Jrank==0) )
+  if ( not Zref.IsReduced() and ((Zref.GetParity() != 0) or (Zref.GetTRank() != 0) and z_Jrank==0) )
   {
     Zref.MakeReduced(); // If Z changes parity or Tz, we by default store it as reduced. So make it as expected. Is that a good idea? Not sure....
   }
   Z.profiler.timer["_ref_" + output_tag] += omp_get_wtime() - tstart;
-
+  // std::cout<<Z.Norm()<<" "<<Z.ZeroBody<<std::endl;
+  // std::cout << Zref.Norm() << " " << Zref.ZeroBody << std::endl;
   double normOpt = Z.Norm() + Z.ZeroBody;
   double normRef = Zref.Norm() + Zref.ZeroBody;
   Z -= Zref;
@@ -2878,7 +2885,6 @@ bool UnitTest::Mscheme_Test_comm222_phst(const Operator &X, const Operator &Y)
             << "    summed error = " << summed_error << "  => " << passfail << std::endl;
   return passed;
 }
-
 
 /// M-Scheme Formula:
 //

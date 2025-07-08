@@ -136,8 +136,8 @@ namespace Commutator
         Z.OneBody(i, j) += zij;
         if (i != j)
           Z.OneBody(j, i) += hZ * phase_ij * zij; // we're dealing with reduced matrix elements, which get a phase under hermitian conjugation
-      }                                           // for j
-    }                                             // for i
+      } // for j
+    } // for i
 
     X.profiler.timer[__func__] += omp_get_wtime() - tstart;
   }
@@ -215,7 +215,7 @@ namespace Commutator
           //            for ( int a : X.OneBodyChannels.at({oi.l,oi.j2,oi.tz2}) )
           for (int a : X.GetOneBodyChannel(oi.l, oi.j2, oi.tz2))
           {
-//            c1 += X.OneBody(i, a) * Y.TwoBody.GetTBME(ch_bra, ch_ket, a, j, k, l);
+            //            c1 += X.OneBody(i, a) * Y.TwoBody.GetTBME(ch_bra, ch_ket, a, j, k, l);
             c1 += X.OneBody(i, a) * Y.TwoBody.GetTBME_J(J1, J2, a, j, k, l);
           }
           if (i == j)
@@ -227,14 +227,14 @@ namespace Commutator
             //              for ( int a : X.OneBodyChannels.at({oj.l,oj.j2,oj.tz2}) )
             for (int a : X.GetOneBodyChannel(oj.l, oj.j2, oj.tz2))
             {
-//              c2 += X.OneBody(j, a) * Y.TwoBody.GetTBME(ch_bra, ch_ket, i, a, k, l);
+              //              c2 += X.OneBody(j, a) * Y.TwoBody.GetTBME(ch_bra, ch_ket, i, a, k, l);
               c2 += X.OneBody(j, a) * Y.TwoBody.GetTBME_J(J1, J2, i, a, k, l);
             }
           }
           //            for ( int a : X.OneBodyChannels.at({ok.l,ok.j2,ok.tz2}) )
           for (int a : X.GetOneBodyChannel(ok.l, ok.j2, ok.tz2))
           {
-//            c3 += X.OneBody(a, k) * Y.TwoBody.GetTBME(ch_bra, ch_ket, i, j, a, l);
+            //            c3 += X.OneBody(a, k) * Y.TwoBody.GetTBME(ch_bra, ch_ket, i, j, a, l);
             c3 += X.OneBody(a, k) * Y.TwoBody.GetTBME_J(J1, J2, i, j, a, l);
           }
           if (k == l)
@@ -246,7 +246,7 @@ namespace Commutator
             //              for ( int a : X.OneBodyChannels.at({ol.l,ol.j2,ol.tz2}) )
             for (int a : X.GetOneBodyChannel(ol.l, ol.j2, ol.tz2))
             {
-//              c4 += X.OneBody(a, l) * Y.TwoBody.GetTBME(ch_bra, ch_ket, i, j, k, a);
+              //              c4 += X.OneBody(a, l) * Y.TwoBody.GetTBME(ch_bra, ch_ket, i, j, k, a);
               c4 += X.OneBody(a, l) * Y.TwoBody.GetTBME_J(J1, J2, i, j, k, a);
             }
           }
@@ -265,8 +265,9 @@ namespace Commutator
           for (int a : Y.GetOneBodyChannel(oi.l, oi.j2, oi.tz2))
           {
             double ja = Z.modelspace->GetOrbit(a).j2 * 0.5;
-            if ( not  AngMom::Triangle(J2,ja,jj)  ) continue;
-//            c1 -= Z.modelspace->GetSixJ(J2, J1, Lambda, ji, ja, jj) * Y.OneBody(i, a) * X.TwoBody.GetTBME(ch_ket, ch_ket, a, j, k, l);
+            if (not AngMom::Triangle(J2, ja, jj))
+              continue;
+            //            c1 -= Z.modelspace->GetSixJ(J2, J1, Lambda, ji, ja, jj) * Y.OneBody(i, a) * X.TwoBody.GetTBME(ch_ket, ch_ket, a, j, k, l);
             c1 -= Z.modelspace->GetSixJ(J2, J1, Lambda, ji, ja, jj) * Y.OneBody(i, a) * X.TwoBody.GetTBME_J(J2, J2, a, j, k, l);
           }
 
@@ -279,16 +280,18 @@ namespace Commutator
             for (int a : Y.GetOneBodyChannel(oj.l, oj.j2, oj.tz2))
             {
               double ja = Z.modelspace->GetOrbit(a).j2 * 0.5;
-              if ( not  AngMom::Triangle(J2,ja,ji)  ) continue;
-//              c2 += Z.modelspace->GetSixJ(J2, J1, Lambda, jj, ja, ji) * Y.OneBody(j, a) * X.TwoBody.GetTBME(ch_ket, ch_ket, a, i, k, l);
+              if (not AngMom::Triangle(J2, ja, ji))
+                continue;
+              //              c2 += Z.modelspace->GetSixJ(J2, J1, Lambda, jj, ja, ji) * Y.OneBody(j, a) * X.TwoBody.GetTBME(ch_ket, ch_ket, a, i, k, l);
               c2 += Z.modelspace->GetSixJ(J2, J1, Lambda, jj, ja, ji) * Y.OneBody(j, a) * X.TwoBody.GetTBME_J(J2, J2, a, i, k, l);
             }
           }
           for (int a : Y.GetOneBodyChannel(ok.l, ok.j2, ok.tz2))
           {
             double ja = Z.modelspace->GetOrbit(a).j2 * 0.5;
-            if ( not  AngMom::Triangle(J1,ja,jl)  ) continue;
-//            c3 -= Z.modelspace->GetSixJ(J1, J2, Lambda, jk, ja, jl) * Y.OneBody(a, k) * X.TwoBody.GetTBME(ch_bra, ch_bra, i, j, l, a);
+            if (not AngMom::Triangle(J1, ja, jl))
+              continue;
+            //            c3 -= Z.modelspace->GetSixJ(J1, J2, Lambda, jk, ja, jl) * Y.OneBody(a, k) * X.TwoBody.GetTBME(ch_bra, ch_bra, i, j, l, a);
             c3 -= Z.modelspace->GetSixJ(J1, J2, Lambda, jk, ja, jl) * Y.OneBody(a, k) * X.TwoBody.GetTBME_J(J1, J1, i, j, l, a);
           }
           if (k == l)
@@ -300,8 +303,9 @@ namespace Commutator
             for (int a : Y.GetOneBodyChannel(ol.l, ol.j2, ol.tz2))
             {
               double ja = Z.modelspace->GetOrbit(a).j2 * 0.5;
-              if ( not  AngMom::Triangle(J1,ja,jk)  ) continue;
-//              c4 += Z.modelspace->GetSixJ(J1, J2, Lambda, jl, ja, jk) * Y.OneBody(a, l) * X.TwoBody.GetTBME(ch_bra, ch_bra, i, j, k, a);
+              if (not AngMom::Triangle(J1, ja, jk))
+                continue;
+              //              c4 += Z.modelspace->GetSixJ(J1, J2, Lambda, jl, ja, jk) * Y.OneBody(a, l) * X.TwoBody.GetTBME(ch_bra, ch_bra, i, j, k, a);
               c4 += Z.modelspace->GetSixJ(J1, J2, Lambda, jl, ja, jk) * Y.OneBody(a, l) * X.TwoBody.GetTBME_J(J1, J1, i, j, k, a);
             }
           }
@@ -309,10 +313,16 @@ namespace Commutator
 
           double norm = bra.delta_pq() == ket.delta_pq() ? 1 + bra.delta_pq() : PhysConst::SQRT2;
           Z2(ibra, iket) += cijkl / norm;
-          if ( (ch_bra==ch_ket) and (iket<ibra) ) Z2(iket,ibra) += Z.modelspace->phase(J1-J2) * cijkl/norm;
+          if ((ch_bra == ch_ket) and (iket < ibra))
+            Z2(iket, ibra) += Z.modelspace->phase(J1 - J2) * cijkl / norm;
+          
         }
       }
     }
+    // if (X.GetParity()==1 and Y.GetParity()==1)
+    // {
+    //   Z.PrintTwoBody();
+    // }
     X.profiler.timer["comm122st"] += omp_get_wtime() - tstart;
   }
 
@@ -610,7 +620,7 @@ namespace Commutator
                   ninej = Z.modelspace->GetNineJ(ja, jd, J1, jb, jc, J2, Jbra_cc, Jket_cc, Lambda);
                 }
 
-                if (std::abs(ninej) < 1e-8)
+                if (std::abs(ninej) < 1e-10)
                   continue;
                 double hatfactor = sqrt((2 * J1 + 1) * (2 * J2 + 1) * (2 * Jbra_cc + 1) * (2 * Jket_cc + 1));
                 double tbme = Z.TwoBody.GetTBME_J(J1, J2, a, d, c, b);
@@ -641,7 +651,7 @@ namespace Commutator
                   ninej = Z.modelspace->GetNineJ(jb, jd, J1, ja, jc, J2, Jbra_cc, Jket_cc, Lambda);
                 }
 
-                if (std::abs(ninej) < 1e-8)
+                if (std::abs(ninej) < 1e-10)
                   continue;
                 double hatfactor = sqrt((2 * J1 + 1) * (2 * J2 + 1) * (2 * Jbra_cc + 1) * (2 * Jket_cc + 1));
                 double tbme = Z.TwoBody.GetTBME_J(J1, J2, b, d, c, a);
@@ -724,7 +734,7 @@ namespace Commutator
             {
               ninej = Z.modelspace->GetNineJ(ja, jd, J1, jb, jc, J2, Jbra_cc, Jket_cc, Lambda);
             }
-            if (std::abs(ninej) < 1e-8)
+            if (std::abs(ninej) < 1e-10)
               continue;
             double hatfactor = sqrt((2 * J1 + 1) * (2 * J2 + 1) * (2 * Jbra_cc + 1) * (2 * Jket_cc + 1));
             double tbme = Z.TwoBody.GetTBME_J(J1, J2, a, d, c, b);
@@ -763,7 +773,7 @@ namespace Commutator
                 ninej = Z.modelspace->GetNineJ(jb, jd, J1, ja, jc, J2, Jbra_cc, Jket_cc, Lambda);
               }
 
-              if (std::abs(ninej) < 1e-8)
+              if (std::abs(ninej) < 1e-10)
                 continue;
               double hatfactor = sqrt((2 * J1 + 1) * (2 * J2 + 1) * (2 * Jbra_cc + 1) * (2 * Jket_cc + 1));
               double tbme = Z.TwoBody.GetTBME_J(J1, J2, b, d, c, a);
@@ -868,7 +878,7 @@ namespace Commutator
                                                jj, jk, J4, 
                                                J1, J2, Lambda);
               }
-              if (std::abs(ninej) < 1e-8)
+              if (std::abs(ninej) < 1e-10)
                 continue;
               index_t ch_lo = std::min(ch_bra_cc, ch_ket_cc);
               index_t ch_hi = std::max(ch_bra_cc, ch_ket_cc);
@@ -945,7 +955,7 @@ namespace Commutator
                                                  J1, J2, Lambda);
                 }
 
-                if (std::abs(ninej) < 1e-8)
+                if (std::abs(ninej) < 1e-10)
                   continue;
 
                 index_t ch_lo = std::min(ch_bra_cc, ch_ket_cc);
@@ -1085,7 +1095,6 @@ namespace Commutator
   ///
   // void Operator::comm222_phst( Operator& Y, Operator& Z )
   // void Operator::comm222_phst( const Operator& X, const Operator& Y )
-
   void comm222_phst(const Operator &X, const Operator &Y, Operator &Z)
   {
     int hX = X.IsHermitian() ? 1 : -1;

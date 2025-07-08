@@ -1654,7 +1654,7 @@ uint64_t ModelSpace::NineJHash(double j1, double j2, double J12, double j3, doub
   return key;
 }
 
-void ModelSpace::NineJUnHash(uint64_t key, uint64_t& k1, uint64_t& k2, uint64_t& K12, uint64_t& k3, uint64_t& k4, uint64_t& K34, uint64_t& K13, uint64_t& K24, uint64_t& K)
+void ModelSpace::NineJUnHash(uint64_t key, uint64_t &k1, uint64_t &k2, uint64_t &K12, uint64_t &k3, uint64_t &k4, uint64_t &K34, uint64_t &K13, uint64_t &K24, uint64_t &K)
 {
   uint64_t klist[9];
   uint64_t key_so_far = 0;
@@ -1667,16 +1667,15 @@ void ModelSpace::NineJUnHash(uint64_t key, uint64_t& k1, uint64_t& k2, uint64_t&
     factor_last = factor;
     factor *= 91;
   }
-  k1  = klist[0];
-  k2  = klist[1];
+  k1 = klist[0];
+  k2 = klist[1];
   K12 = klist[2];
-  k3  = klist[3];
-  k4  = klist[4];
+  k3 = klist[3];
+  k4 = klist[4];
   K34 = klist[5];
   K13 = klist[6];
   K24 = klist[7];
-  K   = klist[8];
-
+  K = klist[8];
 }
 
 uint64_t ModelSpace::MoshinskyHash(uint64_t N, uint64_t Lam, uint64_t n, uint64_t lam, uint64_t n1, uint64_t l1, uint64_t n2, uint64_t l2, uint64_t L)
@@ -1837,8 +1836,6 @@ void ModelSpace::PreCalculateSixJ()
   profiler.timer[__func__] += omp_get_wtime() - t_start;
 }
 
-
-
 void ModelSpace::PreCalculateNineJ()
 {
   if (ninej_has_been_precalculated)
@@ -1880,10 +1877,10 @@ void ModelSpace::PreCalculateNineJ()
 #pragma omp parallel for schedule(dynamic, 1)
   for (size_t i = 0; i < KEYS.size(); ++i)
   {
-    uint64_t k1, k2, k3, k4,K12, K34, K13, K24, K;
+    uint64_t k1, k2, k3, k4, K12, K34, K13, K24, K;
     uint64_t key = KEYS[i];
-    NineJUnHash(key, k1, k2, K12, k3,k4,K34, K13, K24, K);
-    NineJList[key] = AngMom::NineJ(0.5 * k1, 0.5 * k2, 0.5*K12, 0.5 * k3, 0.5*k4, 0.5 * K34, 0.5 * K13, 0.5*K24, 0.5 * K);
+    NineJUnHash(key, k1, k2, K12, k3, k4, K34, K13, K24, K);
+    NineJList[key] = AngMom::NineJ(0.5 * k1, 0.5 * k2, 0.5 * K12, 0.5 * k3, 0.5 * k4, 0.5 * K34, 0.5 * K13, 0.5 * K24, 0.5 * K);
   }
   ninej_has_been_precalculated = true;
   std::cout << "done calculating nineJs (" << KEYS.size() << " of them)" << std::endl;
@@ -2017,48 +2014,48 @@ double ModelSpace::GetMoshinsky(int N, int Lam, int n, int lam, int n1, int l1, 
 double ModelSpace::GetNineJ(double j1, double j2, double J12, double j3, double j4, double J34, double J13, double J24, double J)
 {
 
-  uint64_t key = NineJHash(j1,j2,J12,j3,j4,J34,J13,J24,J);
+  uint64_t key = NineJHash(j1, j2, J12, j3, j4, J34, J13, J24, J);
   auto it = NineJList.find(key);
   if (it != NineJList.end())
   {
     return it->second;
   }
 
-  double ninej=0;
-  int twoxmin =  std::max( { std::abs( j1-J), std::abs(j2-J34), std::abs(j3-J24)} )*2  ;
-  int twoxmax = std::min( { j1+J, j2+J34, j3+J24} )*2;
-  for (int twox=twoxmin; twox<=twoxmax; twox+=2)
+  double ninej = 0;
+  int twoxmin = std::max({std::abs(j1 - J), std::abs(j2 - J34), std::abs(j3 - J24)}) * 2;
+  int twoxmax = std::min({j1 + J, j2 + J34, j3 + J24}) * 2;
+  for (int twox = twoxmin; twox <= twoxmax; twox += 2)
   {
-     double x = 0.5*twox;
-//     ninej += AngMom::phase(twox) * (twox+1) * AngMom::SixJ( j1,j2,J12, J34,J,x) * AngMom::SixJ(j3,j4,J34, j2,x,J24) * AngMom::SixJ(J13,J24,J, x, j1,j3);
-     ninej += AngMom::phase(twox) * (twox+1) * GetSixJ( j1,j2,J12, J34,J,x) * GetSixJ(j3,j4,J34, j2,x,J24) * GetSixJ(J13,J24,J, x, j1,j3);
+    double x = 0.5 * twox;
+    //     ninej += AngMom::phase(twox) * (twox+1) * AngMom::SixJ( j1,j2,J12, J34,J,x) * AngMom::SixJ(j3,j4,J34, j2,x,J24) * AngMom::SixJ(J13,J24,J, x, j1,j3);
+    ninej += AngMom::phase(twox) * (twox + 1) * GetSixJ(j1, j2, J12, J34, J, x) * GetSixJ(j3, j4, J34, j2, x, J24) * GetSixJ(J13, J24, J, x, j1, j3);
   }
-//  double ninej = AngMom::NineJ(j1,j2,J12,j3,j4,J34,J13,J24,J);
+  //  double ninej = AngMom::NineJ(j1,j2,J12,j3,j4,J34,J13,J24,J);
 
   if (omp_get_num_threads() < 2)
   {
 #pragma omp critical
     NineJList[key] = ninej;
   }
-//  else
-//  {
-//#pragma omp critical
-//   {
-//    uint64_t Q[9];
-//    NineJUnHash( key, Q[0],Q[1],Q[2],Q[3],Q[4],Q[5],Q[6],Q[7],Q[8]);
-//    std::cout << "DANGER!!!!!!!  Updating NineJList inside a parellel loop breaks thread safety!" << std::endl;
-//    std::cout << "  I shouldn't be here in GetNineJ(";
-//    for (int i = 0; i < 9; i++)
-//      std::cout << std::setprecision(1) << std::fixed << jlist[i] << " ";
-//
-//    std::cout << "). key = " << std::hex << key << "   ninej = " << std::dec << ninej << std::endl;
-//    std::cout << "Unhashing I get ";
-//    for (int i=0; i<9; i++) std::cout << Q[i] << " " ;
-//    std::cout << std::endl;
-//    profiler.counter["N_CalcNineJ_in_Parallel_loop"] += 1;
-//    exit(EXIT_FAILURE);
-//   }
-//  }
+  //  else
+  //  {
+  // #pragma omp critical
+  //   {
+  //    uint64_t Q[9];
+  //    NineJUnHash( key, Q[0],Q[1],Q[2],Q[3],Q[4],Q[5],Q[6],Q[7],Q[8]);
+  //    std::cout << "DANGER!!!!!!!  Updating NineJList inside a parellel loop breaks thread safety!" << std::endl;
+  //    std::cout << "  I shouldn't be here in GetNineJ(";
+  //    for (int i = 0; i < 9; i++)
+  //      std::cout << std::setprecision(1) << std::fixed << jlist[i] << " ";
+  //
+  //    std::cout << "). key = " << std::hex << key << "   ninej = " << std::dec << ninej << std::endl;
+  //    std::cout << "Unhashing I get ";
+  //    for (int i=0; i<9; i++) std::cout << Q[i] << " " ;
+  //    std::cout << std::endl;
+  //    profiler.counter["N_CalcNineJ_in_Parallel_loop"] += 1;
+  //    exit(EXIT_FAILURE);
+  //   }
+  //  }
 
   return ninej;
 }

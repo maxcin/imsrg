@@ -4,6 +4,7 @@
 #include "PhysicalConstants.hh"
 #include "AngMom.hh"
 
+
 /// Straightforward implementation of J-coupled commutator expressions
 /// without optimizations. This should be benchmarked against the
 /// mscheme implementation and then left untouched.
@@ -176,13 +177,12 @@ namespace ReferenceImplementations
                 double yciab = Y2.GetTBME_J(J, J, c, i, a, b);
                 double xabcj = X2.GetTBME_J(J, J, a, b, c, j);
                 double yabcj = Y2.GetTBME_J(J, J, a, b, c, j);
-                Z1(i, j) += 1. / 2 * (2 * J + 1) / (oi.j2 + 1.) * (oa.occ * ob.occ * (1 - oc.occ) + (1 - oa.occ) * (1 - ob.occ) * oc.occ) * (xciab * yabcj - yciab * xabcj);
-
+                double zij = 1. / 2 * (2 * J + 1) / (oi.j2 + 1.) * (oa.occ * ob.occ * (1 - oc.occ) + (1 - oa.occ) * (1 - ob.occ) * oc.occ) * (xciab * yabcj - yciab * xabcj);
+                Z1(i, j) += zij;
               } // J
             } // c
           } // b
         } // a
-
       } // j
     } // i
   }
@@ -212,7 +212,7 @@ namespace ReferenceImplementations
     int nch = ch_bra_list.size();
 
     //   int nch = Z.modelspace->GetNumberTwoBodyChannels();
-#pragma omp parallel for schedule(dynamic, 1)
+    #pragma omp parallel for schedule(dynamic, 1)
     for (int ich = 0; ich < nch; ich++)
     {
       size_t ch_bra = ch_bra_list[ich];
@@ -345,7 +345,7 @@ namespace ReferenceImplementations
     int nch = ch_bra_list.size();
     size_t norb = Z.modelspace->GetNumberOrbits();
 
-#pragma omp parallel for schedule(dynamic, 1)
+    #pragma omp parallel for schedule(dynamic, 1)
     for (int ich = 0; ich < nch; ich++)
     {
       size_t ch_bra = ch_bra_list[ich];
@@ -1090,7 +1090,7 @@ namespace ReferenceImplementations
     }
     int nmat = bra_channels.size();
 
-#pragma omp parallel for schedule(dynamic, 1)
+    #pragma omp parallel for schedule(dynamic, 1)
     for (int ch2 = 0; ch2 < nmat; ch2++)
     {
       int ch_bra = bra_channels[ch2];
@@ -1194,7 +1194,7 @@ namespace ReferenceImplementations
     int nmat = bra_channels.size();
     int nch = Z.modelspace->GetNumberTwoBodyChannels();
 
-#pragma omp parallel for schedule(dynamic, 1) if (not Z.modelspace->scalar3b_transform_first_pass)
+    #pragma omp parallel for schedule(dynamic, 1) if (not Z.modelspace->scalar3b_transform_first_pass)
     for (int ch = 0; ch < nmat; ch++)
     {
       // TwoBodyChannel &tbc = Z.modelspace->GetTwoBodyChannel(ch);
@@ -1402,7 +1402,6 @@ namespace ReferenceImplementations
 
         double zsum = 0;
         // First, connect on the bra side
-
         for (auto a : X.GetOneBodyChannel(oi.l, oi.j2, oi.tz2))
         {
           zsum += X1(i, a) * Y3.GetME_pn(Jij, Jlm, twoJ, a, j, k, l, m, n);
@@ -1488,7 +1487,7 @@ namespace ReferenceImplementations
     }
     size_t n_bra_ket_ch = bra_ket_channels.size();
 
-#pragma omp parallel for schedule(dynamic, 1)
+    #pragma omp parallel for schedule(dynamic, 1)
     for (size_t ibra_ket = 0; ibra_ket < n_bra_ket_ch; ibra_ket++)
     {
       size_t ch3bra = bra_ket_channels[ibra_ket][0];
@@ -2035,7 +2034,7 @@ namespace ReferenceImplementations
     //  size_t n_bra_ket_ch = bra_ket_channels.size();
     //  size_t nch3 = Z.modelspace->GetNumberThreeBodyChannels();
     //  for (size_t ch3=0; ch3<nch3; ch3++)
-#pragma omp parallel for schedule(dynamic, 1)
+    #pragma omp parallel for schedule(dynamic, 1)
     for (size_t ibra_ket = 0; ibra_ket < n_bra_ket_ch; ibra_ket++)
     {
       size_t ch3bra = bra_ket_channels[ibra_ket][0];
@@ -2096,7 +2095,6 @@ namespace ReferenceImplementations
         Z3.AddToME_pn_ch(ch3bra, ch3ket, ibra, iket, zijklmn); // this needs to be modified for beta decay
 
       } // iket : lmn
-
     } // chbra, chket
 
   } // comm333_ppp_hhhss
@@ -2126,8 +2124,8 @@ namespace ReferenceImplementations
     size_t nch2 = Z.modelspace->GetNumberTwoBodyChannels();
     size_t nch3 = Z.modelspace->GetNumberThreeBodyChannels();
 
-#pragma omp parallel for schedule(dynamic, 1) if (not Z.modelspace->scalar3b_transform_first_pass)
-    for (size_t ibra_ket = 0; ibra_ket < n_bra_ket_ch; ibra_ket++) //  channel and ibra
+    #pragma omp parallel for schedule(dynamic, 1) if (not Z.modelspace->scalar3b_transform_first_pass)
+    for (size_t ibra_ket = 0; ibra_ket < n_bra_ket_ch; ibra_ket++)  //  channel and ibra
     {
       // auto &Tbc = Z.modelspace->GetThreeBodyChannel(ch3);
       // size_t nkets3 = Tbc.GetNumberKets();
@@ -2484,6 +2482,7 @@ namespace ReferenceImplementations
       } // for ibra
 
     } // for ch_bra/ch_ket
+    // Z.PrintTwoBody();
   }
 
   // This has not yet been validated, and is almost certainly wrong.
@@ -4059,7 +4058,6 @@ namespace ReferenceImplementations
               } // c
             } // b
           } // a
-
           zijkl /= sqrt((1. + bra.delta_pq()) * (1. + ket.delta_pq()));
           Z2.AddToTBME(ch_bra, ch_ket, ibra, iket, zijkl);
         } // iket
@@ -4626,7 +4624,6 @@ namespace ReferenceImplementations
       double jk = 0.5 * ok.j2;
       int J1 = bra.Jpq;
       size_t iket_max = nkets3;
-
       if (ch3bra == ch3ket)
         iket_max = ibra + 1;
       for (size_t iket = 0; iket < iket_max; iket++)
@@ -8936,19 +8933,19 @@ namespace ReferenceImplementations
     if (EraseTB)
       Z.EraseTwoBody();
 
-    // ####################################################################################
-    //   diagram IIIa
-    //
-    //   III(a)^J0_pgqh = P(p/g) * P(q/h) * \sum_{abcd J2 J3 J4 J5}
-    //                   ( 2 * J2 + 1 ) ( 2 * J3 + 1 ) ( 2 * J4 + 1 ) ( 2 * J5 + 1 )
-    //
-    //                   { ja jb J5 } { J3 J0 J5 } { jq jd J5 } { J3 J0 J5 }
-    //                   { jp jc J2 } { jp jc jg } { ja jb J4 } { jq jd jh }
-    //
-    //                   ( \bar{n_a} \bar{n_c} n_b + \bar{n_b} n_a n_c )
-    //                   eta^J2_bpca eta^J3_gchd Gamma^J4_dabq
-    // ####################################################################################
-#pragma omp parallel for
+      // ####################################################################################
+      //   diagram IIIa
+      //
+      //   III(a)^J0_pgqh = P(p/g) * P(q/h) * \sum_{abcd J2 J3 J4 J5}
+      //                   ( 2 * J2 + 1 ) ( 2 * J3 + 1 ) ( 2 * J4 + 1 ) ( 2 * J5 + 1 )
+      //
+      //                   { ja jb J5 } { J3 J0 J5 } { jq jd J5 } { J3 J0 J5 }
+      //                   { jp jc J2 } { jp jc jg } { ja jb J4 } { jq jd jh }
+      //
+      //                   ( \bar{n_a} \bar{n_c} n_b + \bar{n_b} n_a n_c )
+      //                   eta^J2_bpca eta^J3_gchd Gamma^J4_dabq
+      // ####################################################################################
+    #pragma omp parallel for
     for (int ch = 0; ch < nch; ++ch)
     {
       // TwoBodyChannel &tbc = Z.modelspace->GetTwoBodyChannel(ch);
@@ -10551,7 +10548,7 @@ namespace ReferenceImplementations
       IntermediateTwobody[ch_cc] = arma::mat(nKets_cc * 2, nKets_cc * 2, arma::fill::zeros);
     }
 
-#pragma omp parallel for
+    #pragma omp parallel for
     for (size_t ch_cc = 0; ch_cc < n_nonzero; ch_cc++)
     {
       IntermediateTwobody[ch_cc] = Chi_222_a[ch_cc] * Gamma_bar[ch_cc];
