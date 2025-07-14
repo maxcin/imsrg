@@ -720,6 +720,7 @@ Operator Operator::Truncate(ModelSpace &ms_new)
   OpNew.ZeroBody = ZeroBody;
   OpNew.hermitian = hermitian;
   OpNew.antihermitian = antihermitian;
+  OpNew.is_reduced = is_reduced; // Bug fix suggested by Antoine
   size_t norb = ms_new.GetNumberOrbits();
   arma::uvec old_orbs(norb);
   for (size_t i = 0; i < norb; i++)
