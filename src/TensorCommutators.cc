@@ -159,6 +159,7 @@ namespace Commutator
   {
     double tstart = omp_get_wtime();
     int Lambda = Z.rank_J;
+    int hZ = Z.IsHermitian() ? +1 : -1;
 
     std::vector<int> bra_channels;
     std::vector<int> ket_channels;
@@ -314,7 +315,7 @@ namespace Commutator
           double norm = bra.delta_pq() == ket.delta_pq() ? 1 + bra.delta_pq() : PhysConst::SQRT2;
           Z2(ibra, iket) += cijkl / norm;
           if ((ch_bra == ch_ket) and (iket < ibra))
-            Z2(iket, ibra) += Z.modelspace->phase(J1 - J2) * cijkl / norm;
+            Z2(iket, ibra) += hZ * Z.modelspace->phase(J1 - J2) * cijkl / norm;
           
         }
       }
