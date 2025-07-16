@@ -443,6 +443,10 @@ void Generator::ConstructGenerator_ShellModel_3body(std::function<double (double
    std::vector<size_t> corevec;
    for (auto a : H->modelspace->core) corevec.push_back(a);
    std::map<int,double> e_fermi = H->modelspace->GetEFermi();
+   if (H->OneBodyNorm() < 1e-6)
+   {
+      std::cout << __func__ << "  WARNING: || H1b || is zero. This may cause trouble with the denominators." << std::endl;
+   }
    //     std::cout << __func__ << "  looping in generator 3-body part .  Size of H3 = " << H->ThreeBodyNorm() << std::endl;
    size_t nch3 = H->modelspace->GetNumberThreeBodyChannels();
    #pragma omp parallel for schedule(dynamic,1)
