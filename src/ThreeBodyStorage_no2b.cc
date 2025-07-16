@@ -607,6 +607,11 @@ void ThreeBodyStorage_no2b<StoreType>::ReadFile( std::vector<std::string>& Strin
    if ( filemode == "bin" ) // binary. check how big the file is.
    {
      infile = std::ifstream(FileName, std::ios::binary);
+     if ( not infile.good())
+     {
+        std::cout << "Uh Oh. Trouble reading 3N file " << FileName << "  " << __func__ << " line " << __LINE__ << "   dying." << std::endl;
+        std::exit(EXIT_FAILURE);
+     }
      infile.seekg(0,infile.end);
      size_t n_elem_in_file = infile.tellg();
      infile.seekg(0, infile.beg);
