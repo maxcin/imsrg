@@ -170,6 +170,7 @@ PYBIND11_MODULE(pyIMSRG, m)
               { return self.OneBodyChannels.at({l, j, tz}); },
               py::arg("l"), py::arg("j2"), py::arg("tz2"))
           //      .def("GetOrbitIndex_fromString", &MS_GetOrbitIndex_Str)
+          .def("SetSixJ_limits", &ModelSpace::SetSixJ_limits, py::arg("j2amax"),py::arg("j2bmax"),py::arg("j2cmax"),py::arg("j2dmax") )
           .def("PreCalculateSixJ", &ModelSpace::PreCalculateSixJ)
           .def("PreCalculateNineJ", &ModelSpace::PreCalculateNineJ)
           .def("PreCalculateMoshinsky",&ModelSpace::PreCalculateMoshinsky)
@@ -607,11 +608,11 @@ PYBIND11_MODULE(pyIMSRG, m)
           .def("SetDenominatorPartitioning", &IMSRGSolver::SetDenominatorPartitioning) // Can be Epstein_Nesbet (default) or Moller_Plesset
           .def("GetSystemDimension", &IMSRGSolver::GetSystemDimension)
           // .def("GetOmega", &IMSRGSolver::GetOmega)
-          .def("GetOmega", py::overload_cast<int>(&IMSRGSolver::GetOmega),
+          .def("GetOmega", py::overload_cast<int>(&IMSRGSolver::GetOmega), py::arg("index"),
                "Get an Operator at a specific index")
           .def("GetOmega", py::overload_cast<>(&IMSRGSolver::GetOmega),
                "Get the entire deque of Operators")
-          .def("SetOmega", &IMSRGSolver::SetOmega)
+          .def("SetOmega", &IMSRGSolver::SetOmega, py::arg("index"), py::arg("Omega") )
           //      .def("GetH_s",&IMSRGSolver::GetH_s,return_value_policy<reference_existing_object>())
           .def("GetH_s", &IMSRGSolver::GetH_s)
           .def("SetH_s", &IMSRGSolver::SetH_s)

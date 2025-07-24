@@ -364,6 +364,11 @@ void ModelSpace::Init(std::map<std::array<int, 4>, double> hole_list, std::set<s
   ThreeBodyJmax = 0;
   nTwoBodyChannels = 0;
 
+  upperLimit_j2a_6j = 1 * (2 * Emax + 1);
+  upperLimit_j2b_6j = 3 * (2 * Emax + 1);
+  upperLimit_j2c_6j = 1 * (2 * Emax + 1);
+  upperLimit_j2d_6j = 3 * (2 * Emax + 1);
+
   // Make sure no orbits are both core and valence
   for (auto &c : core_list)
   {
@@ -1738,6 +1743,17 @@ double ModelSpace::GetSixJ(double j1, double j2, double j3, double J1, double J2
   return sixj;
 }
 
+
+
+void ModelSpace::SetSixJ_limits( int j2amax, int j2bmax, int j2cmax, int j2dmax)
+{
+   upperLimit_j2a_6j = j2amax;
+   upperLimit_j2b_6j = j2bmax;
+   upperLimit_j2c_6j = j2cmax;
+   upperLimit_j2d_6j = j2dmax;
+   sixj_has_been_precalculated = false;
+}
+
 /// Loop over all the 6j symbols that we expect to encounter, and
 /// store them in a hash table.
 /// Calculate all symbols
@@ -1761,33 +1777,32 @@ void ModelSpace::PreCalculateSixJ()
   std::cout << "Precalculating SixJ's" << std::endl;
   double t_start = omp_get_wtime();
   std::vector<uint64_t> KEYS;
-  int upperLimit_j2a = (2 * Emax + 1);
-  int upperLimit_j2b = 3 * (2 * Emax + 1);
-  int upperLimit_j2c = (2 * Emax + 1);
-  int upperLimit_j2d = 3 * (2 * Emax + 1);
+  SixJList.clear();
 
-  for (int j2a = 1; j2a <= upperLimit_j2a; j2a += 2)
+
+  for (int j2a = 1; j2a <= upperLimit_j2a_6j; j2a += 2)
   {
-    for (int j2b = 1; j2b <= upperLimit_j2b; j2b += 2)
+    for (int j2b = 1; j2b <= upperLimit_j2b_6j; j2b += 2)
     {
-      for (int j2c = 1; j2c <= upperLimit_j2c; j2c += 2)
+      for (int j2c = 1; j2c <= upperLimit_j2c_6j; j2c += 2)
       {
         // four half-integer j's,  two integer J's
-        for (int j2d = 1; j2d <= upperLimit_j2d; j2d += 2)
+        for (int j2d = 1; j2d <= upperLimit_j2d_6j; j2d += 2)
         {
           if (j2b > std::max(j2d, 2 * Emax + 1))
             continue;
           // J1 couples a,b, and c,d;  J2 couples a,d and b,c
           // We extend the hash table to include symbols outside the coupling range for computational gain.
-          // We may want to revert this change at some point.
+          // We may want to revert this change at some point. SRS: I reverted it.
           for (int J1 = 0; J1 <= 2 * (Emax * 2 + 1); J1 += 2)
           {
+            if (not ( AngMom::Triangle(j2a,j2b,J1) and AngMom::Triangle(j2c,j2d,J1) ) ) continue;
             for (int J2 = 0; J2 <= 2 * (Emax * 2 + 1); J2 += 2)
             {
+              if (not ( AngMom::Triangle(j2a,j2d,J2) and AngMom::Triangle(j2c,j2b,J2) ) ) continue;
               uint64_t key = SixJHash(0.5 * j2a, 0.5 * j2b, 0.5 * J1, 0.5 * j2c, 0.5 * j2d, 0.5 * J2);
               if (SixJList.count(key) == 0)
               {
-                KEYS.push_back(key);
                 SixJList[key] = 0.; // Make sure eveything's in there to avoid a rehash in the parallel loop
               }
             } // for J2
@@ -1811,7 +1826,6 @@ void ModelSpace::PreCalculateSixJ()
               uint64_t key = SixJHash(0.5 * J1, 0.5 * J2, 0.5 * J3, 0.5 * j2a, 0.5 * j2b, 0.5 * j2c);
               if (SixJList.count(key) == 0)
               {
-                KEYS.push_back(key);
                 SixJList[key] = 0.; // Make sure eveything's in there to avoid a rehash in the parallel loop
               }
             } // for J3
@@ -1820,6 +1834,10 @@ void ModelSpace::PreCalculateSixJ()
       } // for j2c
     } // for j2b
   } // for j2a
+  for (auto& iter : SixJList)
+  {
+                KEYS.push_back(iter.first);
+  }
 
 #pragma omp parallel for schedule(dynamic, 1)
   for (size_t i = 0; i < KEYS.size(); ++i)
