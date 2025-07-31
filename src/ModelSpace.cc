@@ -1420,6 +1420,10 @@ void ModelSpace::SetEmax(int e)
     std::cout << __FILE__ << " line " << __LINE__ << " Changing emax from " << old_emax << " to " << Emax << "  and updating six_j_cache_2b_ ... " << std::endl;
     six_j_cache_2b_ = SixJCache_112112(2 * Emax + 1);
   }
+  upperLimit_j2a_6j = 1 * (2 * Emax + 1);
+  upperLimit_j2b_6j = 3 * (2 * Emax + 1);
+  upperLimit_j2c_6j = 1 * (2 * Emax + 1);
+  upperLimit_j2d_6j = 3 * (2 * Emax + 1);
 }
 
 void ModelSpace::SetEmaxUnocc(int e)
