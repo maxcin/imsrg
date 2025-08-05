@@ -170,7 +170,6 @@ PYBIND11_MODULE(pyIMSRG, m)
               { return self.OneBodyChannels.at({l, j, tz}); },
               py::arg("l"), py::arg("j2"), py::arg("tz2"))
           //      .def("GetOrbitIndex_fromString", &MS_GetOrbitIndex_Str)
-          .def("SetSixJ_limits", &ModelSpace::SetSixJ_limits, py::arg("j2amax"),py::arg("j2bmax"),py::arg("j2cmax"),py::arg("j2dmax") )
           .def("PreCalculateSixJ", &ModelSpace::PreCalculateSixJ)
           .def("PreCalculateNineJ", &ModelSpace::PreCalculateNineJ)
           .def("PreCalculateMoshinsky",&ModelSpace::PreCalculateMoshinsky)
@@ -1053,6 +1052,8 @@ PYBIND11_MODULE(pyIMSRG, m)
       m.def("FillFactorialLists", AngMom::FillFactorialLists);
       m.def("factorial", AngMom::factorial);
       m.def("double_fact", AngMom::double_fact);
+      m.def("AngMomJmin",AngMom::Jmin);
+      m.def("AngMomJmax",AngMom::Jmax);
 
       m.attr("HBARC") = py::float_(PhysConst::HBARC);
       m.attr("M_PROTON") = py::float_(PhysConst::M_PROTON);
