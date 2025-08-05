@@ -356,10 +356,10 @@ class ModelSpace
 
    SixJCache_112112 six_j_cache_2b_;
 
-   int upperLimit_j2a_6j;
-   int upperLimit_j2b_6j;
-   int upperLimit_j2c_6j;
-   int upperLimit_j2d_6j;
+//   int upperLimit_j2a_6j;
+//   int upperLimit_j2b_6j;
+//   int upperLimit_j2c_6j;
+//   int upperLimit_j2d_6j;
    static std::unordered_map<uint64_t,double> SixJList;
    static std::unordered_map<uint64_t,double> NineJList;
    static std::unordered_map<uint64_t,double> MoshList;
@@ -504,8 +504,6 @@ class ModelSpace
 //   std::map<int,double> GetEFermi(){ return e_fermi ;};
    std::map<int,double> GetEFermi();
    void SetEFermi(double ef_proton, double ef_neutron){e_fermi[-1] = ef_proton; e_fermi[1]=ef_neutron;};
-
-   void SetSixJ_limits( int j2amax, int j2bmax, int j2cmax, int j2dmax);
 
    double GetCachedSixJ(
       int jj1, int jj2, int j_3, int jj4, int jj5, int j_6) {
