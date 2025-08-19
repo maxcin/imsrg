@@ -912,8 +912,13 @@ PYBIND11_MODULE(pyIMSRG, m)
           .def("Test_comm222_phss", &UnitTest::Test_comm222_phss)
           .def("Test_comm222_pp_hh_221ss", &UnitTest::Test_comm222_pp_hh_221ss)
 
+          .def("Test_comm111st", &UnitTest::Test_comm111st)
+          .def("Test_comm121st", &UnitTest::Test_comm121st)
+          .def("Test_comm122st", &UnitTest::Test_comm122st)
+          .def("Test_comm221st", &UnitTest::Test_comm221st)
+          .def("Test_comm222_pp_hhst", &UnitTest::Test_comm222_pp_hhst)
           .def("Test_comm222_phst", &UnitTest::Test_comm222_phst)
-          ///
+
           .def("Test_comm330ss", &UnitTest::Test_comm330ss)
           .def("Test_comm331ss", &UnitTest::Test_comm331ss)
           .def("Test_comm231ss", &UnitTest::Test_comm231ss)
