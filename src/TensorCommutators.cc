@@ -3506,33 +3506,39 @@ namespace Commutator
                           int J3_max = (Lambda + J1p);
                           for (int J3 = J3_min; J3 <= J3_max; J3++)
                           {
+		            double sixj1 = Z.modelspace->GetSixJ(J1p,         Lambda,        J3,
+                                                                 twoj4 / 2.,  oa.j2 / 2.,    twoj3 / 2.);
+			    sixj1 *= Z.modelspace->GetSixJ( J1p,         Lambda,        J3,
+                                                            twoj2 / 2.,  o3.j2 / 2.,    twoj1 / 2.);
+                              if (std::abs(sixj1) < 1e-7)
+                                continue;
                             int J4_min = std::abs(J3 - J2p);
                             int J4_max = (J3 + J2p);
                             for (int J4 = J4_min; J4 <= J4_max; J4++)
                             {
-                              double sixj  = AngMom::SixJ(J1p,         Lambda,        J3,
-                                                          twoj4 / 2.,  oa.j2 / 2.,    twoj3 / 2.);
+//                              double sixj  = AngMom::SixJ(J1p,         Lambda,        J3,
+//                                                          twoj4 / 2.,  oa.j2 / 2.,    twoj3 / 2.);
 
-                                    sixj *= AngMom::SixJ( J1p,         Lambda,        J3,
-                                                          twoj2 / 2.,  o3.j2 / 2.,    twoj1 / 2.);
+//                                    sixj *= AngMom::SixJ( J1p,         Lambda,        J3,
+//                                                          twoj2 / 2.,  o3.j2 / 2.,    twoj1 / 2.);
 
-                                    sixj *= AngMom::SixJ( J3,          J2p,           J4,
+                                double sixj2 = Z.modelspace->GetSixJ( J3,          J2p,           J4,
                                                           ob.j2 / 2.,  oa.j2 / 2.,    twoj4 / 2.);
 
-                                    sixj *= AngMom::SixJ( o6.j2 / 2.,  o3.j2 / 2.,    J4,
+                                    sixj2 *= Z.modelspace->GetSixJ( o6.j2 / 2.,  o3.j2 / 2.,    J4,
                                                           ob.j2 / 2.,  oa.j2 / 2.,    Jb3);
 
-                                    sixj *= AngMom::SixJ( J4,          J3,            J2p,
+                                    sixj2 *= Z.modelspace->GetSixJ( J4,          J3,            J2p,
                                                           twoj2 / 2.,  o6.j2 / 2.,    o3.j2 / 2.);
 
-                              if (std::abs(sixj) < 1e-7)
+                              if (std::abs(sixj2) < 1e-7)
                                 continue;
                               int phasefactor = Z.modelspace->phase(( o3.j2  + ob.j2 ) / 2 + Jb3 );
                               double hatfactor = (2 * Jb3 + 1) * (2 * J3 + 1) * (2 * J4 + 1) * sqrt( (twoj1 + 1) * ( twoj2 + 1) * (twoj3 + 1) * (twoj4 + 1) );
                               
                               double y12a45b = Y3.GetME_pn(J1p, twoj3, J2p, twoj4, I1, I2, a, I4, I5, b);
                               double xb3a6 = X2.GetTBME_J(Jb3, b, I3, a, I6);
-                              zijklmn -= occupation_factor * phasefactor * hatfactor * sixj * Pijk * Plmn * ( y12a45b * xb3a6 );
+                              zijklmn -= occupation_factor * phasefactor * hatfactor * sixj1*sixj2 * Pijk * Plmn * ( y12a45b * xb3a6 );
 
                             } // J4
                           } // J3
@@ -3549,8 +3555,7 @@ namespace Commutator
         } // perm_ijk
         Z3.AddToME_pn_ch(ch3bra, ch3ket, ibra, iket, zijklmn); // this needs to be modified for beta decay
       } // for iket
-        //    }//ibra
-    } // ch
+    } // ch_bra,ch_ket,ibra
   
     X.profiler.timer[__func__] += omp_get_wtime() - tstart;
   } // comm233_phst
