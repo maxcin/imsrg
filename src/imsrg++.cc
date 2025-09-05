@@ -58,6 +58,8 @@
 #include "PhysicalConstants.hh"
 #include "version.hh"
 
+#include "cudaIMSRG/cuTest.hh"
+
 struct OpFromFile {
    std::string file2name,file3name,opname;
    int j,p,t,r; // J rank, parity, dTz, particle rank
@@ -427,6 +429,20 @@ int main(int argc, char** argv)
 
 
 //  std::cout << "Making the Hamiltonian..." << std::endl;
+
+
+  //Add a test case here
+  if(true)
+  {
+    cuTest::TestCommutatorKernels(modelspace);
+    cuTest::TimeCommutator(modelspace);
+
+    std::cout <<"Finished tests" <<std::endl;
+
+    exit(0);
+  }
+
+
   int particle_rank = input3bme=="none" ? 2 : 3;
   Operator Hbare = Operator(modelspace,0,0,0,particle_rank);
   Hbare.SetHermitian();
