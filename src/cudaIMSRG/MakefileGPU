@@ -1,0 +1,51 @@
+CXX = g++
+NVCC = nvcc
+CXXSTD = c++17
+
+ALL = libcuIMSRG.so
+
+#INSTDIR = $(HOME)
+EXTERN = ../extern
+INCLUDE   = -I$(EXTERN)/armadillo -I/home/max/IMSRG/cuda_repo/imsrg/src/extern/bandicoot 
+WARNFLAGS = #-Wall -Wno-comment -Wno-deprecated-declarations -Wno-missing-braces
+#FLAGS     = -O3 -march=native -std=c++11 -fopenmp -fPIC
+FLAGS     = -O3  -std=$(CXXSTD) -fPIC  # -march=native
+FLAGS    += $(WARNFLAGS)
+LIBS = /home/max/IMSRG/cuda_repo/imsrg/src/libIMSRG.so -lopenblas -llapack
+#LIBS_CUDA = -lcuda -lcudart -lnvrtc -lcublas -lcusolver -lcurand
+LIBS_CUDA = -lcuda -L/usr/local/cuda/lib64/libcudart.so.12 -lnvrtc -lcublas -lcusolver -lcurand
+LDFLAGS = -L$(PWD) 
+INCLUDE += -I$(EXTERN)/cccl/thrust -I$(EXTERN)/cccl/libcudacxx/include -I$(EXTERN)/cccl/cub -I$(EXTERN)/half/include -I../ -I$(EXTERN)/cuCollections/include
+NVFLAGS     = --expt-extended-lambda -Wno-deprecated-gpu-targets -gencode=arch=compute_60,code=sm_60 --compiler-options '-fPIC' -O3 -rdc=true -std=$(CXXSTD) --shared  # -march=native
+SOFLAGS =  $(NVFLAGS)
+LD_DIR=$(HOME)/lib
+
+#${CTK_ROOT}/include/cccl
+
+all: $(ALL)
+	@echo Created cuda IMSRG
+
+OBJ = cuTest.o cuOperator.o cuModelSpace.o cuCommutator.o cuTwoBodyME.o GPUModelSpace.o GPUTwoBodyME.o GPUOperator.o GPUCommutator.o
+
+
+%.o: %.cc %.hh
+	$(CXX) -c $*.cc -o $@ $(INCLUDE) -lopenblas -llapack $(FLAGS) $(LIBS) $(LIBS_CUDA)
+
+%.o: %.cc
+	$(CXX) -c $*.cc -o $@ $(INCLUDE) -lopenblas -llapack $(FLAGS) $(LIBS) $(LIBS_CUDA)
+
+%.o: %.cu %.hh
+	$(NVCC) -c $*.cu -o $@ $(INCLUDE) -lopenblas -llapack $(LIBS_CUDA) $(NVFLAGS) 
+
+%.o: %.cu
+	$(NVCC) -c $*.cu -o $@ $(INCLUDE) -lopenblas -llapack $(LIBS_CUDA) $(NVFLAGS) 
+
+
+libcuIMSRG.so: $(OBJ)
+	$(NVCC) $^ $(SOFLAGS) -o $@  $(LIBS) $(LIBS_CUDA)
+
+
+clean:
+	rm -f *.o *.so
+
+
