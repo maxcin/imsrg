@@ -194,7 +194,7 @@ __global__ void cuMS_construct_cc_local_hh_ph(cuModelSpace* ms)
   int ich = threadIdx.x;
   int J = ms->Jchannel_cc[ich];
   int dTz = ms->dTzchannel_cc[ich];
-  int parity = ms->Pchannel[ich];
+  int parity = ms->Pchannel_cc[ich];
 
   //Allocate global index map to fill it up at the same time
   cudaMalloc(&ms->globalIndex_cc[ich], sizeof(int)*ms->Nkets_channel_cc[ich]);
