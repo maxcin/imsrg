@@ -4,6 +4,11 @@
 
 GPUModelSpace::GPUModelSpace(ModelSpace& modelspace)
 {
+    //This fixes a bug for large model spaces but is not a permanent solution
+    //I am ashamed that this is even necessary...
+    size_t default_heapsize = 0;
+    cudaDeviceGetLimit(&default_heapsize, cudaLimitMallocHeapSize);
+    cudaDeviceSetLimit(cudaLimitMallocHeapSize, 10*default_heapsize);
     this->modelspace = &modelspace;
 
     cuModelSpace cuda_host_modelspace;
