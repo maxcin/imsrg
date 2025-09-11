@@ -5,10 +5,13 @@
 GPUModelSpace::GPUModelSpace(ModelSpace& modelspace)
 {
     //This fixes a bug for large model spaces but is not a permanent solution
+    //Default heap size 8388608 bytes
     //I am ashamed that this is even necessary...
-    size_t default_heapsize = 0;
-    cudaDeviceGetLimit(&default_heapsize, cudaLimitMallocHeapSize);
-    cudaDeviceSetLimit(cudaLimitMallocHeapSize, 10*default_heapsize);
+    // size_t default_heapsize = 0;
+    // cudaDeviceGetLimit(&default_heapsize, cudaLimitMallocHeapSize);
+    // std::cout <<"Default heapsize " <<default_heapsize <<std::endl;
+    size_t new_heapsize = 8388608 *10;
+    cudaDeviceSetLimit(cudaLimitMallocHeapSize, new_heapsize);
     this->modelspace = &modelspace;
 
     cuModelSpace cuda_host_modelspace;
