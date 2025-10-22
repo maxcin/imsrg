@@ -1777,8 +1777,9 @@ void ModelSpace::PreCalculateSixJ()
   {
     for (int j2b = 1; j2b <= jmax_3b; j2b += 2)
     {
-      for (int j2c = 1; j2c <= jmax_1b; j2c += 2)
+      for (int j2c = 1; j2c <= jmax_3b; j2c += 2)
       {
+        if ( j2b>jmax_1b and j2c>jmax_1b) continue;
         // four half-integer j's,  two integer J's
         for (int j2d = 1; j2d <= jmax_3b; j2d += 2)
         {
@@ -1812,7 +1813,8 @@ void ModelSpace::PreCalculateSixJ()
   {
     for (int j2b = 1; j2b <= jmax_3b; j2b += 2)
     {
-      for (int j2c = 1; j2c <= jmax_1b; j2c += 2)
+//      for (int j2c = 1; j2c <= jmax_1b; j2c += 2)
+      for (int j2c = 1; j2c <= jmax_3b; j2c += 2)
       {
         int J1_min = std::abs(j2b - j2c);
         int J1_max = std::min( j2b + j2c,  jmax_2b);
