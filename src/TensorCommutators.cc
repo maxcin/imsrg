@@ -3510,7 +3510,7 @@ namespace Commutator
                               if (not (AngMom::Triangle(2*J1p,oa.j2,twoj3) and AngMom::Triangle(twoj4,2*Lambda,twoj3)) ) continue;
 
                               if (not (AngMom::Triangle(J1p,Lambda,J3) and AngMom::Triangle(twoj2,o3.j2,2*J3)) ) continue;
-                              if (not (AngMom::Triangle(2*J1p,o3.j2,twoj1) and AngMom::Triangle(twoj4,2*Lambda,twoj1)) ) continue;
+                              if (not (AngMom::Triangle(2*J1p,o3.j2,twoj1) and AngMom::Triangle(twoj2,2*Lambda,twoj1)) ) continue;
 
                               if (not (AngMom::Triangle(J3,J2p,J4) and AngMom::Triangle(ob.j2,oa.j2,2*J4)) ) continue;
                               if (not (AngMom::Triangle(2*J3,oa.j2,twoj4) and AngMom::Triangle(ob.j2,2*J2p,twoj4)) ) continue;
