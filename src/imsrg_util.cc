@@ -1625,7 +1625,6 @@ Operator FormfactorAtQ(ModelSpace& modelspace, double q, std::string pn)
   return Fq;
 }
 
-
 Operator RpSpinOrbitCorrection(ModelSpace& modelspace)
 {
   Operator dr_so(modelspace,0,0,0,2);
@@ -1634,7 +1633,16 @@ Operator RpSpinOrbitCorrection(ModelSpace& modelspace)
   for (int i=0;i<norb;i++)
   {
     Orbit& oi = modelspace.GetOrbit(i);
-    double mu_i = oi.tz2<0 ? 1.79 : -1.91;
+    // mu_i  - Q_i -> mu_i - Q_i / 2 fixes error in Ong et al.
+    // where m_i is the magnetic moment of the nucleon
+    // (not the anomalous magnetic moment)
+    // and Q_i is the charge of the nucleon
+    // (
+    //   solution from M. Hoferichter,
+    //   also seen in Bertozzi et al., Phys. Lett. 41, 408 (1972)
+    // )
+    // published in Heinz et al. Phys. Rev. C 111, 034311 (2025)
+    double mu_i = oi.tz2<0 ? 2.79 - 0.5 : -1.91;
     int kappa = oi.j2 < 2*oi.l ? oi.l : -(oi.l+1);
     dr_so.OneBody(i,i) = -mu_i/M2*(kappa+1);
   }
