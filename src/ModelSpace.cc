@@ -1710,6 +1710,10 @@ double ModelSpace::GetSixJ(double j1, double j2, double j3, double J1, double J2
   }
   else
   {
+    if( not ( AngMom::Triangle(j1,j2,j3) and AngMom::Triangle(J1,J2,j3) and AngMom::Triangle(j1,J2,J3) and AngMom::Triangle(J1,j2,J3) ) )
+    {
+       return 0;
+    }
     sixj = AngMom::SixJ(j1, j2, j3, J1, J2, J3);
     //    if (not sixj_has_been_precalculated)
     if (omp_get_num_threads() < 2)
@@ -1815,9 +1819,11 @@ void ModelSpace::PreCalculateSixJ()
       for (int j2c = 1; j2c <= jmax_1b; j2c += 2)
       {
         int J1_min = std::abs(j2b - j2c);
-        int J1_max = std::min( j2b + j2c,  jmax_2b);
+//        int J1_max = std::min( j2b + j2c,  jmax_2b);
+        int J1_max = j2b + j2c;
         int J2_min = std::abs(j2a - j2c);
-        int J2_max = std::min( j2a + j2c,  jmax_2b);
+//        int J2_max = std::min( j2a + j2c,  jmax_2b);
+        int J2_max = j2a + j2c;
         for (int J1 = J1_min; J1 <= J1_max; J1 += 2)
         {
           for (int J2 = J2_min; J2 <= J2_max; J2 += 2)
