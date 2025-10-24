@@ -3181,6 +3181,7 @@ namespace Commutator
                 if (perm_ijk == ThreeBodyStorage::ABC and J4 != J1)
                   continue;
                 if ( not(AngMom::Triangle(J3,Lambda,J4) and AngMom::Triangle(twoj1,o3.j2,2*J4) ) ) continue;
+                if ( not(AngMom::Triangle(2*J3,o3.j2,twoj2) and AngMom::Triangle(twoj1,2*Lambda,twoj2) ) ) continue;
                 if (I1 == I2 and J4 % 2 != 0)
                   continue;
                 double sixj = Z.modelspace->GetSixJ(J3,          Lambda,        J4,
@@ -3254,7 +3255,8 @@ namespace Commutator
               {
                 if (perm_lmn == ThreeBodyStorage::ABC and J4 != J2)
                   continue;
-                if (not ( AngMom::Triangle( J2,Lambda,J4) and AngMom::Triangle(twoj2,o3.j2,2*J4) ) ) continue;
+                if (not ( AngMom::Triangle( J3,Lambda,J4) and AngMom::Triangle(twoj2,o3.j2,2*J4) ) ) continue;
+                if (not ( AngMom::Triangle( 2*J3,o3.j2,twoj1) and AngMom::Triangle(twoj1,2*Lambda,twoj1) ) ) continue;
                 if (I1 == I2 and J4 % 2 != 0)
                   continue;
                 double sixj = Z.modelspace->GetSixJ(J3,          Lambda,        J4,
