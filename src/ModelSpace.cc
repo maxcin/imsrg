@@ -1831,18 +1831,24 @@ void ModelSpace::PreCalculateSixJ()
 //      for (int j2c = 1; j2c <= jmax_1b; j2c += 2)
       for (int j2c = 1; j2c <= jmax_3b; j2c += 2)
       {
-        int J1_min = std::abs(j2b - j2c);
+        int J1_min = AngMom::Jmin({ {j2b,j2c} });
+        int J1_max = std::min( AngMom::Jmax({ {j2b,j2c} }), jmax_2b );
+//        int J1_min = std::abs(j2b - j2c);
 //        int J1_max = std::min( j2b + j2c,  jmax_2b);
-        int J1_max = j2b + j2c;
-        int J2_min = std::abs(j2a - j2c);
+//        int J1_max = j2b + j2c;
+        int J2_min = AngMom::Jmin({ {j2a,j2c}});
+        int J2_max = std::min( AngMom::Jmax({ {j2a,j2c}}), jmax_2b );
+//        int J2_min = std::abs(j2a - j2c);
 //        int J2_max = std::min( j2a + j2c,  jmax_2b);
-        int J2_max = j2a + j2c;
+//        int J2_max = j2a + j2c;
         for (int J1 = J1_min; J1 <= J1_max; J1 += 2)
         {
           for (int J2 = J2_min; J2 <= J2_max; J2 += 2)
           {
-            int J3_min = std::max(std::abs(J1 - J2), std::abs(j2a - j2b));
-            int J3_max = std::min(J1 + J2, j2a + j2b);
+//            int J3_min = std::max(std::abs(J1 - J2), std::abs(j2a - j2b));
+//            int J3_max = std::min(J1 + J2, j2a + j2b);
+            int J3_min = AngMom::Jmin({ {J1,J2}, {j2a,j2b} });
+            int J3_max = AngMom::Jmax({ {J1,J2}, {j2a,j2b} });
             for (int J3 = J3_min; J3 <= J3_max; J3 += 2)
             {
               uint64_t key = SixJHash(0.5 * J1, 0.5 * J2, 0.5 * J3, 0.5 * j2a, 0.5 * j2b, 0.5 * j2c);
