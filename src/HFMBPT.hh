@@ -21,6 +21,7 @@
 #define NaturalOrbital_h
 
 #include "HartreeFock.hh"
+#include "CIS_D.hh"
 #include <armadillo>
 #include <map>
 //#define OCC_CUT 1e-6
