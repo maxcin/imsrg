@@ -206,7 +206,7 @@ double CISD::vSingles(int nstate, int a, int i)
 
                             int phase = modelspace->phase(J1+(oc.j2+oa.j2)/2);
 
-                            double v = (2*J1)*phase*H_jkbc*b_bi*a_cajk ;
+                            double v = (2*J1+1)*phase*H_jkbc*b_bi*a_cajk ;
                             vai2 += v / (2.0*ja+1.0);
                         }
                     }
@@ -225,7 +225,7 @@ double CISD::vSingles(int nstate, int a, int i)
 
                             int phase = modelspace->phase(J1+(oc.j2+oa.j2)/2);
 
-                            double v = (2*J1)*phase*H_jkbc*b_aj*a_cbik ;
+                            double v = (2*J1+1)*phase*H_jkbc*b_aj*a_cbik ;
                             vai2 += v / (2.0*ji+1.0);
                         }
                     }
@@ -246,7 +246,7 @@ double CISD::vSingles(int nstate, int a, int i)
                                 double sixJ2 = modelspace->GetSixJ(ja,ji,J,jk,jc,J2);
                                 double a_acik = -H.TwoBody.GetTBME(J2,a,c,i,k) / denom;
                                 int phase = modelspace->phase(J1+J2+(oi.j2+oj.j2)/2);
-                                double v = (2*J1) * (2*J2) * phase * H_jkbc * b_bj * a_acik * sixJ1 * sixJ2 ;
+                                double v = (2*J1+1) * (2*J2+1) * phase * H_jkbc * b_bj * a_acik * sixJ1 * sixJ2 ;
                                 vai2 -= 2*v;
                             }
                         }
@@ -271,7 +271,6 @@ double CISD::E_CISD(int nstate)
         double ea = H.OneBody(a,a);
         for(int b: modelspace->particles)
         {
-            if(b>a) continue; //induces factor 2
             Orbit& ob = modelspace->GetOrbit(b);
             double eb = H.OneBody(b,b);
             int J1min = std::abs(oa.j2-ob.j2)/2;
@@ -282,7 +281,6 @@ double CISD::E_CISD(int nstate)
                 double ei = H.OneBody(i,i);
                 for(int j : modelspace->holes)
                 {
-                    if(j>i) continue; //induces factor 2
                     Orbit& oj = modelspace->GetOrbit(j);
                     double ej = H.OneBody(j,j);
                     int J2min = std::abs(oi.j2-oj.j2)/2;
@@ -297,13 +295,13 @@ double CISD::E_CISD(int nstate)
                         for(int J2 = J2min; J2 < J2max; ++J2)
                         {
                             //if (J > J1+J2 or J <std::abs(J1-J2)) continue;
-                            double u_J1J2_abij = uDoubles(nstate, J1, J2, a, b, i, j);
-                            wJsum += u_J1J2_abij*u_J1J2_abij;
+                            double u_abij = uDoubles(nstate, J1, J2, a, b, i, j);
+                            wJsum += u_abij*u_abij;
                         }
                     }
 
 
-                    wCISD -= wJsum / denom;
+                    wCISD -= 0.25 * wJsum / denom;
                 }//j
             }//i
         }//b
@@ -323,7 +321,7 @@ double CISD::E_CISD(int nstate)
         }
     }
 
-    return wCISD / ((double) (2*J+1) );
+    return wCISD / (Jhat*Jhat);
 }
 
 void CISD::Energy_test(int nstate)

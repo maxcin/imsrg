@@ -33,7 +33,7 @@ void HFMBPT::GetNaturalOrbitals()
   //Hijacking this part of the code for testing CISD natural orbitals
   std::cout <<"Testing CISD function. This will never get to IMSRG!" <<std::endl;
   Operator Hhf = HartreeFock::GetNormalOrderedH();
-  CISD cisd(Hhf, 4);
+  CISD cisd(Hhf, 2);
   //cisd.GetScalarDensity(0);
   cisd.Energy_test(0);
   exit(0); 
