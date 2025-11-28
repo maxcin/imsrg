@@ -96,7 +96,7 @@ double CISD::uDoubles(int nstate, int J1, int J2, int a, int b, int i, int j)
         double b_ci = bSingles(nstate, c, i);
         double b_cj = bSingles(nstate, c, j);
 
-        if(std::abs(b_ci) > 1e-9)
+        if(std::abs(b_ci) > 1e-10)
         {
             double sixj = modelspace->GetSixJ(J1, J2, J, ji,jc,jj);
             double H_abcj = H.TwoBody.GetTBME_J(J1,a,b,c,j);
@@ -105,7 +105,7 @@ double CISD::uDoubles(int nstate, int J1, int J2, int a, int b, int i, int j)
             u_p += phase*H_abcj*b_ci*sixj;
         }
 
-        if(std::abs(b_cj) > 1e-9)
+        if(std::abs(b_cj) > 1e-10)
         {
             double sixj = modelspace->GetSixJ(J1, J2, J, jj,jc,ji);
             double H_abci = H.TwoBody.GetTBME_J(J1,a,b,c,i);
@@ -125,7 +125,7 @@ double CISD::uDoubles(int nstate, int J1, int J2, int a, int b, int i, int j)
         double b_bk = bSingles(nstate, b, k);
         double b_ak = bSingles(nstate, a, k);
 
-        if(std::abs(b_bk) > 1e-9)
+        if(std::abs(b_bk) > 1e-10)
         {
             double sixj = modelspace->GetSixJ(J1, J2, J, jk,jb,ja);
             double H_kaij = H.TwoBody.GetTBME_J(J2,k,a,i,j);
@@ -134,7 +134,7 @@ double CISD::uDoubles(int nstate, int J1, int J2, int a, int b, int i, int j)
             u_h += phase*H_kaij*b_bk*sixj;
         }
 
-        if(std::abs(b_ak) > 1e-9)
+        if(std::abs(b_ak) > 1e-10)
         {
             double sixj = modelspace->GetSixJ(J1, J2, J, jk,ja,jb);
             double H_kbij = H.TwoBody.GetTBME_J(J2,k,b,i,j);
@@ -148,7 +148,7 @@ double CISD::uDoubles(int nstate, int J1, int J2, int a, int b, int i, int j)
     double J1hat = sqrt(2*J1+1);
     double J2hat = sqrt(2*J2+1);
 
-    double u_abij = Jhat*Jhat*J1hat*J2hat*(u_p+u_h);
+    double u_abij = J1hat*J2hat*(u_p+u_h);
 
     return u_abij;
 }
@@ -299,11 +299,6 @@ double CISD::E_CISD(int nstate)
                             //if (J > J1+J2 or J <std::abs(J1-J2)) continue;
                             double u_J1J2_abij = uDoubles(nstate, J1, J2, a, b, i, j);
                             wJsum += u_J1J2_abij*u_J1J2_abij;
-
-                            // if(u_J1J2_abij*u_J1J2_abij / denom > 1.0)
-                            // {
-                            //     std::cout <<"u(" <<J1 <<" " <<J2 <<"," <<a <<" " <<b <<" "  <<i <<" "  <<j <<")=" <<u_J1J2_abij <<"  denom = " << denom<<std::endl;
-                            // }
                         }
                     }
 
