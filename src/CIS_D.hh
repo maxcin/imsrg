@@ -37,12 +37,13 @@ class CISD : public RPA
         double E_CISD(int nstate);
 
         void Energy_test(int nstate);
-        // arma::mat TDAScalarDensityPP(int nstate);
-        // arma::mat TDAScalarDensityHH(int nstate);
+        arma::mat TDAScalarDensityPP(int nstate);
+        arma::mat TDAScalarDensityHH(int nstate);
         
-        // arma::mat CISDScalarDensityPP(int nstate);
-        // arma::mat CISDScalarDensityHH(int nstate);
+        arma::mat CISDScalarDensityPP(int nstate);
+        arma::mat CISDScalarDensityHH(int nstate);
 
+        arma::mat GetScalarDensityTDA(int nstate);
         arma::mat GetScalarDensity(int nstate);
 
 };

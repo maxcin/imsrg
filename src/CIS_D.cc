@@ -99,7 +99,7 @@ double CISD::uDoubles(int nstate, int J1, int J2, int a, int b, int i, int j)
         if(std::abs(b_ci) > 1e-10)
         {
             double sixj = modelspace->GetSixJ(J1, J2, J, ji,jc,jj);
-            double H_abcj = H.TwoBody.GetTBME_J(J1,a,b,c,j);
+            double H_abcj = H.TwoBody.GetTBME_norm(J1,a,b,c,j);
             int phase = modelspace->phase(J+J2+(oc.j2+oj.j2)/2);
 
             u_p += phase*H_abcj*b_ci*sixj;
@@ -108,7 +108,7 @@ double CISD::uDoubles(int nstate, int J1, int J2, int a, int b, int i, int j)
         if(std::abs(b_cj) > 1e-10)
         {
             double sixj = modelspace->GetSixJ(J1, J2, J, jj,jc,ji);
-            double H_abci = H.TwoBody.GetTBME_J(J1,a,b,c,i);
+            double H_abci = H.TwoBody.GetTBME_norm(J1,a,b,c,i);
             int phase = modelspace->phase(J+(oc.j2+oj.j2)/2);
 
             u_p += phase*H_abci*b_cj*sixj;
@@ -128,7 +128,7 @@ double CISD::uDoubles(int nstate, int J1, int J2, int a, int b, int i, int j)
         if(std::abs(b_bk) > 1e-10)
         {
             double sixj = modelspace->GetSixJ(J1, J2, J, jk,jb,ja);
-            double H_kaij = H.TwoBody.GetTBME_J(J2,k,a,i,j);
+            double H_kaij = H.TwoBody.GetTBME_norm(J2,k,a,i,j);
             int phase = modelspace->phase(J+J1+J2);
 
             u_h += phase*H_kaij*b_bk*sixj;
@@ -137,7 +137,7 @@ double CISD::uDoubles(int nstate, int J1, int J2, int a, int b, int i, int j)
         if(std::abs(b_ak) > 1e-10)
         {
             double sixj = modelspace->GetSixJ(J1, J2, J, jk,ja,jb);
-            double H_kbij = H.TwoBody.GetTBME_J(J2,k,b,i,j);
+            double H_kbij = H.TwoBody.GetTBME_norm(J2,k,b,i,j);
             int phase = modelspace->phase(J+J2+(oa.j2+ob.j2)/2);
 
             u_h -= phase*H_kbij*b_ak*sixj;
@@ -201,8 +201,8 @@ double CISD::vSingles(int nstate, int a, int i)
                         for(int J1 = J1min; J1 <= J1max; ++J1)
                         {
                             double denom = ec + ea - ej - ek;
-                            double H_jkbc = H.TwoBody.GetTBME(J1,j,k,b,c);
-                            double a_cajk = -H.TwoBody.GetTBME(J1,c,a,j,k)/ (denom);
+                            double H_jkbc = H.TwoBody.GetTBME_norm(J1,j,k,b,c);
+                            double a_cajk = -H.TwoBody.GetTBME_norm(J1,c,a,j,k)/ (denom);
 
                             int phase = modelspace->phase(J1+(oc.j2+oa.j2)/2);
 
@@ -220,8 +220,8 @@ double CISD::vSingles(int nstate, int a, int i)
                         for(int J1 = J1min; J1 <= J1max; ++J1)
                         {
                             double denom = ec + eb - ei - ek;
-                            double H_jkbc = H.TwoBody.GetTBME(J1,j,k,b,c);
-                            double a_cbik = -H.TwoBody.GetTBME(J1,c,b,i,k)/ (denom);
+                            double H_jkbc = H.TwoBody.GetTBME_norm(J1,j,k,b,c);
+                            double a_cbik = -H.TwoBody.GetTBME_norm(J1,c,b,i,k)/ (denom);
 
                             int phase = modelspace->phase(J1+(oc.j2+oa.j2)/2);
 
@@ -239,12 +239,12 @@ double CISD::vSingles(int nstate, int a, int i)
                         double denom = ea + ec - ei - ek;
                         for(int J1 = J1min; J1 <= J1max; ++J1)
                         {
-                            double H_jkbc = H.TwoBody.GetTBME(J1,j,k,b,c);
+                            double H_jkbc = H.TwoBody.GetTBME_norm(J1,j,k,b,c);
                             double sixJ1 = modelspace->GetSixJ(jb,jj,J,jk,jc,J1);
                             for(int J2 = J2min; J2 <= J2max; ++J2)
                             {
                                 double sixJ2 = modelspace->GetSixJ(ja,ji,J,jk,jc,J2);
-                                double a_acik = -H.TwoBody.GetTBME(J2,a,c,i,k) / denom;
+                                double a_acik = -H.TwoBody.GetTBME_norm(J2,a,c,i,k) / denom;
                                 int phase = modelspace->phase(J1+J2+(oi.j2+oj.j2)/2);
                                 double v = (2*J1+1) * (2*J2+1) * phase * H_jkbc * b_bj * a_acik * sixJ1 * sixJ2 ;
                                 vai2 -= 2*v;
@@ -307,7 +307,7 @@ double CISD::E_CISD(int nstate)
         }//b
     }//a
 
-    std::cout <<"u correction " <<wCISD / ((double) (2*J+1) ) <<std::endl;
+    // std::cout <<"u correction " <<wCISD / ((double) (2*J+1) ) <<std::endl;
 
     for(int a : modelspace->particles)
     {
@@ -331,13 +331,205 @@ void CISD::Energy_test(int nstate)
     double wCISD = E_CISD(nstate);
     std::cout <<"TDA " <<Energies(nstate) <<std::endl;
     std::cout <<"CISD " <<Energies(nstate)+wCISD<<std::endl;
-    std::cout <<"CISD correction " <<wCISD<<std::endl;
+    // std::cout <<"CISD correction " <<wCISD<<std::endl;
         
+}
+
+//Correction of TDA to the scalar density
+arma::mat CISD::TDAScalarDensityPP(int nstate)
+{
+    int Norbits = modelspace->norbits;
+    arma::mat rho_TDA = arma::zeros(Norbits, Norbits);
+
+    for(int a : modelspace->particles)
+    {
+        Orbit& oa = modelspace->GetOrbit(a);
+
+        for(int b : modelspace->OneBodyChannels.at({oa.l,oa.j2,oa.tz2}))
+        {
+            Orbit& ob = modelspace->GetOrbit(b);
+            if(ob.occ > modelspace->OCC_CUT) continue;
+            if(b > a) continue;
+
+            double r_ab = 0.0;
+
+            for(int i : modelspace->holes)
+            {
+                Orbit& oi = modelspace->GetOrbit(i);
+
+                r_ab += bSingles(nstate, a,i)*bSingles(nstate, b,i);
+            }
+
+            rho_TDA(a,b) = r_ab / ((2*J+1)*(oa.j2+1));
+            rho_TDA(b,a) = r_ab / ((2*J+1)*(oa.j2+1));
+
+        }
+    }
+
+    return rho_TDA;
+}
+
+arma::mat CISD::TDAScalarDensityHH(int nstate)
+{
+    int Norbits = modelspace->norbits;
+    arma::mat rho_TDA = arma::zeros(Norbits, Norbits);
+
+    for(int i : modelspace->holes)
+    {
+        Orbit& oi = modelspace->GetOrbit(i);
+
+        for(int j : modelspace->OneBodyChannels.at({oi.l,oi.j2,oi.tz2}))
+        {
+            Orbit& oj = modelspace->GetOrbit(j);
+            if(oj.occ < modelspace->OCC_CUT) continue;
+            if(j > i) continue;
+
+            double r_ij = 0.0;
+
+            for(int a : modelspace->particles)
+            {
+                Orbit& oa = modelspace->GetOrbit(a);
+
+                r_ij -= bSingles(nstate, a,i)*bSingles(nstate, a,j);
+            }
+
+            rho_TDA(i,j) = r_ij / ((2*J+1)*(oi.j2+1));
+            rho_TDA(j,i) = r_ij / ((2*J+1)*(oi.j2+1));
+
+        }
+    }
+
+    return rho_TDA;
+}
+
+//Correction of CIS(D) to the scalar density
+arma::mat CISD::CISDScalarDensityPP(int nstate)
+{
+    int Norbits = modelspace->norbits;
+    arma::mat rho_CISD = arma::zeros(Norbits, Norbits);
+
+    for(int a : modelspace->particles)
+    {
+        Orbit& oa = modelspace->GetOrbit(a);
+
+        for(int b : modelspace->OneBodyChannels.at({oa.l,oa.j2,oa.tz2}))
+        {
+            Orbit& ob = modelspace->GetOrbit(b);
+            if(ob.occ > modelspace->OCC_CUT) continue;
+            if(b > a) continue;
+
+            double r_ab = 0.0;
+            for(int c : modelspace->particles)
+            {
+                Orbit& oc = modelspace->GetOrbit(c);
+                for(int i : modelspace->holes)
+                {
+                    Orbit& oi = modelspace->GetOrbit(i);
+                    for(int j : modelspace->holes)
+                    {
+                        Orbit& oj = modelspace->GetOrbit(j);
+
+                        int J1min = std::max(std::abs(oa.j2-oc.j2), std::abs(ob.j2-oc.j2))/2;
+                        int J1max = std::min(oa.j2+oc.j2, ob.j2+oc.j2);
+
+                        int J2min = std::abs(oi.j2-oj.j2)/2;
+                        int J2max = (oi.j2+oj.j2)/2;
+
+                        for(int J1 = J1min; J1<=J1max; ++J1)
+                        {
+                            for(int J2 = J2min; J2<=J2max; ++J2)
+                            {
+                                r_ab += bDoubles(nstate, J1, J2, c, a, i ,j)*bDoubles(nstate, J1, J2, c, b, i ,j);
+                            }
+                        }
+                    }//j
+                }//i
+            }//c
+            rho_CISD(a,b) = r_ab / ((2*J+1)*(oa.j2+1));
+            rho_CISD(b,a) = r_ab / ((2*J+1)*(oa.j2+1));
+        }//b
+    }//a
+
+    return rho_CISD;
+}
+
+
+arma::mat CISD::CISDScalarDensityHH(int nstate)
+{
+    int Norbits = modelspace->norbits;
+    arma::mat rho_CISD = arma::zeros(Norbits, Norbits);
+
+    for(int i : modelspace->holes)
+    {
+        Orbit& oi = modelspace->GetOrbit(i);
+
+        for(int j : modelspace->OneBodyChannels.at({oi.l,oi.j2,oi.tz2}))
+        {
+            Orbit& oj = modelspace->GetOrbit(j);
+            if(oj.occ < modelspace->OCC_CUT) continue;
+            if(j > i) continue;
+
+            double r_ij = 0.0;
+            for(int k : modelspace->holes)
+            {
+                Orbit& ok = modelspace->GetOrbit(k);
+                for(int a : modelspace->particles)
+                {
+                    Orbit& oa = modelspace->GetOrbit(a);
+                    for(int b : modelspace->particles)
+                    {
+                        Orbit& ob = modelspace->GetOrbit(b);
+
+                        int J1min = std::abs(oa.j2-ob.j2)/2;
+                        int J1max = (oa.j2+ob.j2)/2;
+
+                        int J2min = std::max(std::abs(oi.j2-ok.j2), std::abs(oj.j2-ok.j2))/2;
+                        int J2max = std::min(oi.j2+ok.j2, oj.j2+ok.j2);
+
+                        for(int J1 = J1min; J1<=J1max; ++J1)
+                        {
+                            for(int J2 = J2min; J2<=J2max; ++J2)
+                            {
+                                r_ij -= bDoubles(nstate, J1, J2, a, b, i ,k)*bDoubles(nstate, J1, J2, a, b, j ,k);
+                            }
+                        }
+                    }//b
+                }//a
+            }//k
+            rho_CISD(i,j) = r_ij / ((2*J+1)*(oi.j2+1));
+            rho_CISD(j,i) = r_ij / ((2*J+1)*(oi.j2+1));
+        }//j
+    }//i
+
+    return rho_CISD;
+}
+
+arma::mat CISD::GetScalarDensityTDA(int nstate)
+{
+    int Norbits = modelspace->norbits;
+    arma::mat rho = arma::zeros(Norbits,Norbits);
+    for (auto& i : modelspace->holes)  rho(i,i) = modelspace->GetOrbit(i).occ;
+
+    //TDA corrections
+    rho += TDAScalarDensityHH(nstate);
+    rho += TDAScalarDensityPP(nstate);
+
+    return rho;
 }
 
 arma::mat CISD::GetScalarDensity(int nstate)
 {
+    int Norbits = modelspace->norbits;
+    arma::mat rho = arma::zeros(Norbits,Norbits);
+    for (auto& i : modelspace->holes)  rho(i,i) = modelspace->GetOrbit(i).occ;
 
-    arma::mat a = arma::zeros(5);
-    return a;
+    //TDA corrections
+    rho += TDAScalarDensityHH(nstate);
+    rho += TDAScalarDensityPP(nstate);
+
+    //CISD corrections
+    rho += CISDScalarDensityHH(nstate);
+    rho += CISDScalarDensityPP(nstate);
+
+    return rho;
 }

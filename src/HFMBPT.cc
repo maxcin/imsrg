@@ -30,12 +30,20 @@ HFMBPT::HFMBPT(Operator& hbare)
 //*********************************************************************
 void HFMBPT::GetNaturalOrbitals()
 {
-  //Hijacking this part of the code for testing CISD natural orbitals
+  //Hijacking this part of the code for testing CISD correction
   std::cout <<"Testing CISD function. This will never get to IMSRG!" <<std::endl;
   Operator Hhf = HartreeFock::GetNormalOrderedH();
-  CISD cisd(Hhf, 2);
-  //cisd.GetScalarDensity(0);
-  cisd.Energy_test(0);
+  for(int J=1; J <= 6; ++J)
+  {
+    std::cout <<"J=" <<J <<std::endl;
+    for(int i = 0; i <=2; ++i)
+    {
+      CISD cisd(Hhf, J);
+      //cisd.GetScalarDensity(0);
+      cisd.Energy_test(i);
+    }
+  }
+  
   exit(0); 
 
 
