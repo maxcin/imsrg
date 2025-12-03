@@ -33,18 +33,20 @@ void HFMBPT::GetNaturalOrbitals()
   //Hijacking this part of the code for testing CISD correction
   std::cout <<"Testing CISD function. This will never get to IMSRG!" <<std::endl;
   Operator Hhf = HartreeFock::GetNormalOrderedH();
-  for(int J=1; J <= 6; ++J)
+  for(int J=2; J <= 2; ++J)
   {
     std::cout <<"J=" <<J <<std::endl;
-    for(int i = 0; i <=2; ++i)
+    CISD cisd(Hhf, J);
+    for(int i = 0; i <=0; ++i)
     {
-      CISD cisd(Hhf, J);
+      cisd.uPrecalculateDoubles(i);
       //cisd.GetScalarDensity(0);
       cisd.Energy_test(i);
+      cisd.DensityTest(i);
     }
   }
   
-  exit(0); 
+  
 
 
   int norbits = HartreeFock::modelspace->GetNumberOrbits();
@@ -54,11 +56,18 @@ void HFMBPT::GetNaturalOrbitals()
   DiagonalizeRho();  // Find the 1b transformation that diagonalizes rho, but don't apply it to anything yet.
 
   double AfromTr = 0.0;
+  double ZfromTr = 0.0;
+  double NfromTr = 0.0;
   for(int i=0; i< norbits; ++i)
   {
     Orbit& oi = HartreeFock::modelspace->GetOrbit(i);
     AfromTr += rho(i,i) * (oi.j2+1);
+    if(oi.tz2==-1) ZfromTr += rho(i,i) * (oi.j2+1);
+    if(oi.tz2==1)  NfromTr += rho(i,i) * (oi.j2+1);
   }
+
+  std::cout <<"MBPT  Z=" <<ZfromTr <<" N=" <<NfromTr <<std::endl;
+  exit(0); 
 
   if(std::abs(AfromTr - A) > 1e-8)
   {
