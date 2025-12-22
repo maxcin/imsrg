@@ -53,8 +53,6 @@ class CISD : public RPA
 
         void DensityTest(int nstate);
         void printDensity(arma::mat& rho); //Helper function to print density by channel
-        void printStateNAT(arma::mat& rho); //Helper function to print state specific NAT basis
-        void printOccInBasis(arma::mat& rho, arma::mat& C_HF2NAT); //Helper function to print occupations in (arbitrary) NAT basis
 
 };
 

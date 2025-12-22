@@ -33,21 +33,69 @@ void HFMBPT::GetNaturalOrbitals()
   //Hijacking this part of the code for testing CISD correction
   std::cout <<"Testing CISD function. This will never get to IMSRG!" <<std::endl;
   Operator Hhf = HartreeFock::GetNormalOrderedH();
-  for(int J=2; J <= 2; ++J)
+  for(int J=2; J <= 6; J+=1)
   {
     std::cout <<"J=" <<J <<std::endl;
     CISD cisd(Hhf, J);
-    for(int i = 0; i <=0; ++i)
+    int nstatemax = 0;
+    if(J==2) nstatemax = 1;
+    for(int i = 0; i <=nstatemax; ++i)
     {
       cisd.uPrecalculateDoubles(i);
       //cisd.GetScalarDensity(0);
-      cisd.Energy_test(i);
-      cisd.DensityTest(i);
+      // cisd.Energy_test(i);
+      double wCISD = cisd.E_CISD(i);  
+      std::cout <<"TDA  CISD"  <<std::endl;
+      std::cout <<cisd.Energies(i) <<" " <<cisd.Energies(i)+wCISD<<std::endl;
+
+      arma::mat rho_TDA = cisd.GetScalarDensityTDA(i);
+      arma::mat rho_cisd = cisd.GetScalarDensity(i);
+
+      //We now run through constructing the NAT basis again
+      std::cout <<"\n\nTDA basis " <<std::endl;
+      int norbits = HartreeFock::modelspace->GetNumberOrbits();
+      Occ      = arma::vec(norbits,arma::fill::zeros);
+      rho = rho_TDA;
+      DiagonalizeRho();
+      C_HO2NAT = C * C_HF2NAT;
+      for ( auto i : modelspace->all_orbits)
+      {
+        Orbit& oi = modelspace->GetOrbit(i);
+        oi.occ_nat = std::abs(Occ(i));  // it's possible that Occ(i) is negative, and for occ_nat, we don't want that.
+      }
+      // cisd.DensityTest(i);
+      arma::mat tmp = C_HO2NAT.cols(holeorbs);
+      rho = (tmp.each_row() % hole_occ) * tmp.t(); // now rho is in the HO basis, with our prescribed occupations in the NAT basis
+      UpdateF();  // Now F is in the HO basis, but with rho from filling in the NAT basis.
+
+      ReorderHFMBPTCoefficients();
+      C_HO2NAT = C * C_HF2NAT; // bug fix suggested by Emily Love
+      
+      PrintSPEandWF();
+
+      std::cout <<"\n\nCISD basis " <<std::endl;
+      //We now run through constructing the NAT basis again
+      Occ      = arma::vec(norbits,arma::fill::zeros);
+      rho = rho_cisd;
+      DiagonalizeRho();
+      C_HO2NAT = C * C_HF2NAT;
+      for ( auto i : modelspace->all_orbits)
+      {
+        Orbit& oi = modelspace->GetOrbit(i);
+        oi.occ_nat = std::abs(Occ(i));  // it's possible that Occ(i) is negative, and for occ_nat, we don't want that.
+      }
+      // cisd.DensityTest(i);
+      tmp = C_HO2NAT.cols(holeorbs);
+      rho = (tmp.each_row() % hole_occ) * tmp.t(); // now rho is in the HO basis, with our prescribed occupations in the NAT basis
+      UpdateF();  // Now F is in the HO basis, but with rho from filling in the NAT basis.
+
+      ReorderHFMBPTCoefficients();
+      C_HO2NAT = C * C_HF2NAT; // bug fix suggested by Emily Love
+      PrintSPEandWF();
     }
   }
   
   
-
 
   int norbits = HartreeFock::modelspace->GetNumberOrbits();
   int A = HartreeFock::modelspace->GetTargetMass();
@@ -66,8 +114,8 @@ void HFMBPT::GetNaturalOrbitals()
     if(oi.tz2==1)  NfromTr += rho(i,i) * (oi.j2+1);
   }
 
-  std::cout <<"MBPT  Z=" <<ZfromTr <<" N=" <<NfromTr <<std::endl;
-  exit(0); 
+  // std::cout <<"MBPT  Z=" <<ZfromTr <<" N=" <<NfromTr <<std::endl;
+  // exit(0); 
 
   if(std::abs(AfromTr - A) > 1e-8)
   {
@@ -163,6 +211,10 @@ void HFMBPT::GetNaturalOrbitals()
 
   ReorderHFMBPTCoefficients();
   C_HO2NAT = C * C_HF2NAT; // bug fix suggested by Emily Love
+  
+  std::cout <<"\n\nGound state" <<std::endl;
+  PrintSPEandWF();
+  exit(0);
 }
 
 //*********************************************************************

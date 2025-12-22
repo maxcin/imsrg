@@ -106,38 +106,25 @@ void CISD::uPrecalculateDoubles(int nstate)
             }
         }
 
-        //hh pp
-        if(ichannel_ket != ichannel_bra)
+        //hh pp, Need to swap J1 and J2
+        std::swap(J1,J2);
+        for(auto& bra_hh : channel_bra.GetKetIndex_hh())
         {
-            //Need to swap J1 and J2
-            std::swap(J1,J2);
-            for(auto& bra_hh : channel_bra.GetKetIndex_hh())
+            Ket bra = channel_bra.GetKet(bra_hh);
+            int i = bra.p;
+            int j = bra.q;
+
+            for(auto& ket_pp : channel_ket.GetKetIndex_pp())
             {
-                Ket bra = channel_bra.GetKet(bra_hh);
-                int i = bra.p;
-                int j = bra.q;
+                Ket ket = channel_ket.GetKet(ket_pp);
+                int a = ket.p;
+                int b = ket.q;
 
-                for(auto& ket_pp : channel_ket.GetKetIndex_pp())
-                {
-                    Ket ket = channel_ket.GetKet(ket_pp);
-                    int a = ket.p;
-                    int b = ket.q;
+                double u_abij = uDoubles(nstate, J1, J2, a,b,i,j);
 
-                    double u_abij = uDoubles(nstate, J1, J2, a,b,i,j);
+                //We now have <ab J1|u|ij J2> but we need <ij J2|u|ab J1> which introduces an additional phase 
+                Mat(bra_hh, ket_pp) = modelspace->phase(J1-J2)*u_abij;
 
-                    //We now have <ab J1|u|ij J2> but we need <ij J2|u|ab J1> which introduces an additional phase 
-                    Mat(bra_hh, ket_pp) = modelspace->phase(J1-J2)*u_abij;
-
-                    if(J1==1 and J2==1 and a==14 and b==22 and i==2 and j==8)
-                    {
-                        std::cout <<"ch_bra  < ch_ket" <<std::endl;
-                        std::cout <<"u_abij = " << u_abij <<std::endl;
-                        std::cout <<"u_abji = " <<  uDoubles(nstate, J1, J2, a,b,j,i) <<std::endl;
-                        std::cout <<"u_abij_cached = " << uCache.GetTBME_J_norm(J1,J2,a,b,i,j) <<std::endl;
-                        std::cout <<"u_abji_cached = " << uCache.GetTBME_J_norm(J1,J2,a,b,j,i) <<std::endl;
-                        exit(0);
-                    }
-                }
             }
         }
     }//MatEl
@@ -168,8 +155,6 @@ double CISD::uDoublesCached(int nstate, int J1, int J2, int a, int b , int i, in
 
 double CISD::uDoubles(int nstate, int J1, int J2, int a, int b, int i, int j)
 {
-    double u_p = 0.0;
-
     Orbit& oa = modelspace->GetOrbit(a);
     Orbit& ob = modelspace->GetOrbit(b);
     Orbit& oi = modelspace->GetOrbit(i);
@@ -179,6 +164,8 @@ double CISD::uDoubles(int nstate, int J1, int J2, int a, int b, int i, int j)
     double jb = ( (double) ob.j2 ) / 2.0;
     double ji = ( (double) oi.j2 ) / 2.0;
     double jj = ( (double) oj.j2 ) / 2.0;
+
+    double u_p = 0.0;
 
     for(int c : modelspace->particles)
     {
@@ -283,11 +270,9 @@ double CISD::vSingles(int nstate, int a, int i)
 
                     
                     //Term 1
-                    if(oa.j2 == ob.j2)
+                    double b_bi = bSingles(nstate,b,i);
+                    if(oa.j2 == ob.j2 and std::abs(b_bi) > 1e-10)
                     {
-                        double b_bi = bSingles(nstate,b,i);
-                        if(std::abs(b_bi) < 1e-10) continue;
-
                         for(int J1 = J1min; J1 <= J1max; ++J1)
                         {
                             double denom = ec + ea - ej - ek;
@@ -296,31 +281,29 @@ double CISD::vSingles(int nstate, int a, int i)
 
                             int phase = modelspace->phase(J1+(oc.j2+oa.j2)/2);
 
-                            double v = (2*J1+1)*phase*H_jkbc*b_bi*a_cajk ;
+                            double v = phase*(2*J1+1)*H_jkbc*b_bi*a_cajk ;
                             vai2 += v / (2.0*ja+1.0);
                         }
                     }
                     
                     //Term 2
-                    if(oi.j2 == oj.j2)
+                    double b_aj = bSingles(nstate,a,j);
+                    if(oi.j2 == oj.j2 and std::abs(b_aj) > 1e-10)
                     {
-                        double b_aj = bSingles(nstate,a,j);
-                        if(std::abs(b_aj) < 1e-10) continue;
-
                         for(int J1 = J1min; J1 <= J1max; ++J1)
                         {
                             double denom = ec + eb - ei - ek;
                             double H_jkbc = H.TwoBody.GetTBME_J_norm(J1,j,k,b,c);
                             double a_cbik = -H.TwoBody.GetTBME_J_norm(J1,c,b,i,k)/ (denom);
 
-                            int phase = modelspace->phase(J1+(oc.j2+oa.j2)/2);
+                            int phase = modelspace->phase(J1+(oc.j2+ob.j2)/2);
 
-                            double v = (2*J1+1)*phase*H_jkbc*b_aj*a_cbik ;
+                            double v = phase*(2*J1+1)*H_jkbc*b_aj*a_cbik ;
                             vai2 += v / (2.0*ji+1.0);
                         }
                     }
-                    //Term 3
 
+                    //Term 3
                     double b_bj = bSingles(nstate, b,j);
                     if (std::abs(b_bj) > 1e-10) 
                     {
@@ -336,7 +319,7 @@ double CISD::vSingles(int nstate, int a, int i)
                                 double sixJ2 = modelspace->GetSixJ(ja,ji,J,jk,jc,J2);
                                 double a_acik = -H.TwoBody.GetTBME_J_norm(J2,a,c,i,k) / denom;
                                 int phase = modelspace->phase(J1+J2+(oi.j2+oj.j2)/2);
-                                double v = (2*J1+1) * (2*J2+1) * phase * H_jkbc * b_bj * a_acik * sixJ1 * sixJ2 ;
+                                double v = phase * (2*J1+1) * (2*J2+1) * H_jkbc * b_bj * a_acik * sixJ1 * sixJ2 ;
                                 vai2 -= 2*v;
                             }
                         }
@@ -376,13 +359,13 @@ double CISD::E_CISD(int nstate)
                     int J2min = std::abs(oi.j2-oj.j2)/2;
                     int J2max = (oi.j2+oj.j2)/2;
 
-                    double denom = ea+ eb- ei- ej - wTDA;
+                    double denom = ea + eb - ei - ej - wTDA;
 
                     double wJsum = 0.0;
 
-                    for(int J1 = J1min; J1 < J1max; ++J1)
+                    for(int J1 = J1min; J1 <= J1max; ++J1)
                     {
-                        for(int J2 = J2min; J2 < J2max; ++J2)
+                        for(int J2 = J2min; J2 <= J2max; ++J2)
                         {
                             //if (J > J1+J2 or J <std::abs(J1-J2)) continue;
                             // double u_abij = uDoubles(nstate, J1, J2, a, b, i, j);
@@ -399,7 +382,6 @@ double CISD::E_CISD(int nstate)
         }//b
     }//a
 
-    std::cout <<"u correction " <<wCISD / ((double) (2*J+1) ) <<std::endl;
 
     for(int a : modelspace->particles)
     {
@@ -420,10 +402,13 @@ void CISD::Energy_test(int nstate)
 {
     std::cout <<"State " <<nstate <<std::endl;
 
+    // double E_mat = arma::as_scalar(X.col(nstate).t() * A * X.col(nstate));
+
     double wCISD = E_CISD(nstate);
+    // std::cout <<"TDA with matrix " <<E_mat <<std::endl;
     std::cout <<"TDA " <<Energies(nstate) <<std::endl;
     std::cout <<"CISD " <<Energies(nstate)+wCISD<<std::endl;
-    // std::cout <<"CISD correction " <<wCISD<<std::endl;
+    std::cout <<"CISD correction " <<wCISD<<std::endl;
         
 }
 
@@ -627,7 +612,7 @@ arma::mat CISD::GetScalarDensity(int nstate)
     return rho;
 }
 
-//Run some tests on the densiy 
+//Run some tests on the density 
 void CISD::DensityTest(int nstate)
 {
     std::cout <<"Calculating TDA density" <<std::endl;
@@ -682,3 +667,4 @@ void CISD::printDensity(arma::mat& rho)
     std::cout <<rho_ch <<std::endl;
   }
 }
+
