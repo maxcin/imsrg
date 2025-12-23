@@ -31,7 +31,9 @@ HFMBPT::HFMBPT(Operator& hbare)
 void HFMBPT::GetNaturalOrbitals()
 {
   //Hijacking this part of the code for testing CISD correction
-  std::cout <<"Testing CISD function. This will never get to IMSRG!" <<std::endl;
+  std::cout <<"\nHF solution" <<std::endl;
+  PrintSPEandWF();
+  std::cout <<"\n\nTesting CISD function. This will never get to IMSRG!" <<std::endl;
   Operator Hhf = HartreeFock::GetNormalOrderedH();
   for(int J=2; J <= 6; J+=1)
   {
