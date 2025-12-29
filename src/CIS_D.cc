@@ -62,7 +62,7 @@ double CISD::bSingles(int nstate, int a, int i)
 
 void CISD::uPrecalculateDoubles(int nstate)
 {
-
+    if(!modelspace->sixj_has_been_precalculated) modelspace->PreCalculateSixJ();
     // std::cout <<"Precalculating u_abij J=" <<J <<" P=" <<P <<" Tz=" <<Tz <<" ..." <<std::endl;
 
     uDoublesCache.insert({nstate, TwoBodyME(modelspace, J, Tz, P)});
@@ -72,11 +72,14 @@ void CISD::uPrecalculateDoubles(int nstate)
 
     //We now loop over the matrix elements and fill them with our amplitudes
     //Because TBME stores only bra <= ket we need to fill pphh AND hhpp if bra < ket
-    //#pragma omp parallel for schedule(dynamic, 1)
-    for(auto& it : uCache.MatEl)
+    int size = uCache.MatEl.size();
+    #pragma omp parallel for schedule(dynamic, 1)
+    for(int index = 0; index<size; ++index)
     {
-        int ichannel_bra = it.first[0];
-        int ichannel_ket = it.first[1];
+        auto it = uCache.MatEl.begin();
+        std::advance(it, index);
+        int ichannel_bra = it->first[0];
+        int ichannel_ket = it->first[1];
 
         TwoBodyChannel& channel_bra = modelspace->GetTwoBodyChannel(ichannel_bra);
         TwoBodyChannel& channel_ket = modelspace->GetTwoBodyChannel(ichannel_ket);
@@ -84,7 +87,7 @@ void CISD::uPrecalculateDoubles(int nstate)
         int J1 = channel_bra.J;
         int J2 = channel_ket.J;
 
-        arma::mat& Mat = it.second;
+        arma::mat& Mat = it->second;
 
         //pp hh
         for(auto& bra_pp : channel_bra.GetKetIndex_pp())

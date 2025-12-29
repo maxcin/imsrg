@@ -1155,7 +1155,7 @@ void HFMBPT::CalculateValenceSpectrum(Operator& Hhf, int Tz)
 //Additionally this prints out the spectrum 
 void HFMBPT::GetStateAveragedDensityMatrix(int Tz)
 {
-
+  modelspace->PreCalculateSixJ();
   Operator Hhf = HartreeFock::GetNormalOrderedH();
   Operator& H(Hhf);
   double t_start = omp_get_wtime();
@@ -1247,21 +1247,27 @@ void HFMBPT::GetStateAveragedDensityMatrix(int Tz)
 
   rho = rho_full;
   profiler.timer["CIS(D) DensityMatrix"] += omp_get_wtime() - t_start;
+
+  // profiler.PrintAll();
+  // exit(0);
 }
 
 //Construct density for 2+1 state. This is mainly for testing and can be removed if things work fro state averaging
 void HFMBPT::Get2pDensityMatrix()
 {
+  modelspace->PreCalculateSixJ();
   Operator Hhf = HartreeFock::GetNormalOrderedH();
   Operator& H(Hhf);
   double t_start = omp_get_wtime();
+
+  int J = 2;
 
   // After the HF step, rho is the density of harmonic oscillator states for a filled HF reference
   //  i.e. <a|rho|b> = sum_i <a|i> <b|i>  where i is an occupied HF state and a and b are HO basis states.
   // Now we switch to the HF basis, so rho should be diagonal before adding in the perturbative corrections.
   rho.zeros(); 
   for (auto& i : HartreeFock::modelspace->holes)  rho(i,i) = HartreeFock::modelspace->GetOrbit(i).occ; // Set hole occupations to 1.
-  CISD cisd(Hhf, 2);
+  CISD cisd(Hhf, J);
   cisd.uPrecalculateDoubles(0);
   double w_TDA = cisd.Energies(0);
   double w_CISD = w_TDA + cisd.E_CISD(0); 
