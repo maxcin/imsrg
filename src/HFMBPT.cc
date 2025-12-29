@@ -31,78 +31,91 @@ HFMBPT::HFMBPT(Operator& hbare)
 void HFMBPT::GetNaturalOrbitals()
 {
   //Hijacking this part of the code for testing CISD correction
-  std::cout <<"\nHF solution" <<std::endl;
-  PrintSPEandWF();
-  std::cout <<"\n\nTesting CISD function. This will never get to IMSRG!" <<std::endl;
-  Operator Hhf = HartreeFock::GetNormalOrderedH();
-  for(int J=2; J <= 6; J+=1)
-  {
-    std::cout <<"J=" <<J <<std::endl;
-    CISD cisd(Hhf, J);
-    int nstatemax = 0;
-    if(J==2) nstatemax = 1;
-    for(int i = 0; i <=nstatemax; ++i)
-    {
-      cisd.uPrecalculateDoubles(i);
-      //cisd.GetScalarDensity(0);
-      // cisd.Energy_test(i);
-      double wCISD = cisd.E_CISD(i);  
-      std::cout <<"TDA  CISD"  <<std::endl;
-      std::cout <<cisd.Energies(i) <<" " <<cisd.Energies(i)+wCISD<<std::endl;
+  // std::cout <<"\nHF solution" <<std::endl;
+  // PrintSPEandWF();
+  // std::cout <<"\n\nTesting CISD function. This will never get to IMSRG!" <<std::endl;
+  // Operator Hhf = HartreeFock::GetNormalOrderedH();
+  // CalculateValenceSpectrum(Hhf, 0);
 
-      arma::mat rho_TDA = cisd.GetScalarDensityTDA(i);
-      arma::mat rho_cisd = cisd.GetScalarDensity(i);
+  // for(int J=2; J <= 6; J+=1)
+  // {
+  //   std::cout <<"J=" <<J <<std::endl;
+  //   CISD cisd(Hhf, J);
+  //   int nstatemax = 0;
+  //   if(J==2) nstatemax = 1;
+  //   for(int i = 0; i <=nstatemax; ++i)
+  //   {
+  //     cisd.uPrecalculateDoubles(i);
+  //     //cisd.GetScalarDensity(0);
+  //     // cisd.Energy_test(i);
+  //     double wCISD = cisd.E_CISD(i);  
+  //     std::cout <<"TDA  CISD"  <<std::endl;
+  //     std::cout <<cisd.Energies(i) <<" " <<cisd.Energies(i)+wCISD<<std::endl;
 
-      //We now run through constructing the NAT basis again
-      std::cout <<"\n\nTDA basis " <<std::endl;
-      int norbits = HartreeFock::modelspace->GetNumberOrbits();
-      Occ      = arma::vec(norbits,arma::fill::zeros);
-      rho = rho_TDA;
-      DiagonalizeRho();
-      C_HO2NAT = C * C_HF2NAT;
-      for ( auto i : modelspace->all_orbits)
-      {
-        Orbit& oi = modelspace->GetOrbit(i);
-        oi.occ_nat = std::abs(Occ(i));  // it's possible that Occ(i) is negative, and for occ_nat, we don't want that.
-      }
-      // cisd.DensityTest(i);
-      arma::mat tmp = C_HO2NAT.cols(holeorbs);
-      rho = (tmp.each_row() % hole_occ) * tmp.t(); // now rho is in the HO basis, with our prescribed occupations in the NAT basis
-      UpdateF();  // Now F is in the HO basis, but with rho from filling in the NAT basis.
+  //     arma::mat rho_TDA = cisd.GetScalarDensityTDA(i);
+  //     arma::mat rho_cisd = cisd.GetScalarDensity(i);
 
-      ReorderHFMBPTCoefficients();
-      C_HO2NAT = C * C_HF2NAT; // bug fix suggested by Emily Love
+  //     //We now run through constructing the NAT basis again
+  //     std::cout <<"\n\nTDA basis " <<std::endl;
+  //     int norbits = HartreeFock::modelspace->GetNumberOrbits();
+  //     Occ      = arma::vec(norbits,arma::fill::zeros);
+  //     rho = rho_TDA;
+  //     DiagonalizeRho();
+  //     C_HO2NAT = C * C_HF2NAT;
+  //     for ( auto i : modelspace->all_orbits)
+  //     {
+  //       Orbit& oi = modelspace->GetOrbit(i);
+  //       oi.occ_nat = std::abs(Occ(i));  // it's possible that Occ(i) is negative, and for occ_nat, we don't want that.
+  //     }
+  //     // cisd.DensityTest(i);
+  //     arma::mat tmp = C_HO2NAT.cols(holeorbs);
+  //     rho = (tmp.each_row() % hole_occ) * tmp.t(); // now rho is in the HO basis, with our prescribed occupations in the NAT basis
+  //     UpdateF();  // Now F is in the HO basis, but with rho from filling in the NAT basis.
+
+  //     ReorderHFMBPTCoefficients();
+  //     C_HO2NAT = C * C_HF2NAT; // bug fix suggested by Emily Love
       
-      PrintSPEandWF();
+  //     PrintSPEandWF();
 
-      std::cout <<"\n\nCISD basis " <<std::endl;
-      //We now run through constructing the NAT basis again
-      Occ      = arma::vec(norbits,arma::fill::zeros);
-      rho = rho_cisd;
-      DiagonalizeRho();
-      C_HO2NAT = C * C_HF2NAT;
-      for ( auto i : modelspace->all_orbits)
-      {
-        Orbit& oi = modelspace->GetOrbit(i);
-        oi.occ_nat = std::abs(Occ(i));  // it's possible that Occ(i) is negative, and for occ_nat, we don't want that.
-      }
-      // cisd.DensityTest(i);
-      tmp = C_HO2NAT.cols(holeorbs);
-      rho = (tmp.each_row() % hole_occ) * tmp.t(); // now rho is in the HO basis, with our prescribed occupations in the NAT basis
-      UpdateF();  // Now F is in the HO basis, but with rho from filling in the NAT basis.
+  //     std::cout <<"\n\nCISD basis " <<std::endl;
+  //     //We now run through constructing the NAT basis again
+  //     Occ      = arma::vec(norbits,arma::fill::zeros);
+  //     rho = rho_cisd;
+  //     DiagonalizeRho();
+  //     C_HO2NAT = C * C_HF2NAT;
+  //     for ( auto i : modelspace->all_orbits)
+  //     {
+  //       Orbit& oi = modelspace->GetOrbit(i);
+  //       oi.occ_nat = std::abs(Occ(i));  // it's possible that Occ(i) is negative, and for occ_nat, we don't want that.
+  //     }
+  //     // cisd.DensityTest(i);
+  //     tmp = C_HO2NAT.cols(holeorbs);
+  //     rho = (tmp.each_row() % hole_occ) * tmp.t(); // now rho is in the HO basis, with our prescribed occupations in the NAT basis
+  //     UpdateF();  // Now F is in the HO basis, but with rho from filling in the NAT basis.
 
-      ReorderHFMBPTCoefficients();
-      C_HO2NAT = C * C_HF2NAT; // bug fix suggested by Emily Love
-      PrintSPEandWF();
-    }
-  }
+  //     ReorderHFMBPTCoefficients();
+  //     C_HO2NAT = C * C_HF2NAT; // bug fix suggested by Emily Love
+  //     PrintSPEandWF();
+  //   }
+  // }
   
   
 
   int norbits = HartreeFock::modelspace->GetNumberOrbits();
   int A = HartreeFock::modelspace->GetTargetMass();
   Occ      = arma::vec(norbits,arma::fill::zeros);  // Occupations are the eigenvalues of the density matrix
-  GetDensityMatrix();  // Include 2nd order MBPT corrections to rho
+
+  if(NAT_type == "ground_state") GetDensityMatrix();  // Include 2nd order MBPT corrections to rho
+  else if(NAT_type == "2p") Get2pDensityMatrix(); // Include corrections for the first 2+ state
+  else if(NAT_type == "CISD") GetStateAveragedDensityMatrix(0); // Include ground and excited state corrections
+  else
+  {
+    std::cout <<"Unknown specifier for NAT basis " <<NAT_type <<std::endl;
+    exit(0);
+  }
+
+
+
   DiagonalizeRho();  // Find the 1b transformation that diagonalizes rho, but don't apply it to anything yet.
 
   double AfromTr = 0.0;
@@ -214,9 +227,9 @@ void HFMBPT::GetNaturalOrbitals()
   ReorderHFMBPTCoefficients();
   C_HO2NAT = C * C_HF2NAT; // bug fix suggested by Emily Love
   
-  std::cout <<"\n\nGound state" <<std::endl;
-  PrintSPEandWF();
-  exit(0);
+  // std::cout <<"\n\nGound state" <<std::endl;
+  // PrintSPEandWF();
+  // exit(0);
 }
 
 //*********************************************************************
@@ -508,8 +521,18 @@ void HFMBPT::GetDensityMatrix()
   // compute second order corrections to the density matrix
   DensityMatrixPP(H);
   DensityMatrixHH(H);
-  DensityMatrixPH(H);
+  // DensityMatrixPH(H); //For frozen natural orbitals we do not need this 
 //  std::cout << std::endl << "after perturbative correction, rho is" << std::endl << rho << std::endl;
+  //For FNO we may still have some unitary transformation in the hh block. We want to keep the HF property of a diagonal Fock matrix in the hh block
+  //so set remaining off-diagonal hole matrix elements to zero
+  for(int i: modelspace->holes)
+  {
+    Orbit& oi = modelspace->GetOrbit(i);
+    for(int j : modelspace->OneBodyChannels.at({oi.l,oi.j2,oi.tz2}))
+    {
+      if(i != j)rho(i,j) = 0.0;      
+    }
+  }
   profiler.timer["HFMBPT DensityMatrix"] += omp_get_wtime() - t_start;
 }
 
@@ -1066,6 +1089,196 @@ arma::vec HFMBPT::GetMP2_Impacts(Operator& OpIn) const
    }
    IMSRGProfiler::timer[__func__] += omp_get_wtime() - t_start;
    return orbit_impacts;
+}
+
+//Loop over valence particles and holes, determine the possible TDA states and print the spectrum including CIS(D) corrections
+// Tz = 0 target nucleus
+// Tz = 1  N+1, Z-1 neighbour
+// Tz = -1 N-1, Z+1 neighbour
+//Note that the order of the states is arbitrary and not associated with specific orbitals
+void HFMBPT::CalculateValenceSpectrum(Operator& Hhf, int Tz)
+{
+
+  //map to remember which states already calculated
+  //states start numbering at 0 
+  std::map<int, int> nStateMap; // J -> number states already calculated
+  std::cout << std::fixed << std::setw(3) << "J" << std::setw(5) << "P" << std::setw(5) <<"n" <<std::setw(7) <<"dTz" <<std::setw(12) <<"TDA" 
+  <<std::setw(12) << "CIS(D)" << std::endl;
+  for(int i : modelspace->valence)
+  {
+    Orbit& oi = modelspace->GetOrbit(i);
+    //i is hole
+    if(oi.occ < modelspace->OCC_CUT) continue;
+    for(int a: modelspace->valence)
+    {
+      Orbit& oa = modelspace->GetOrbit(a);
+      //a is particle
+      if(oa.occ > modelspace->OCC_CUT) continue;
+
+      int dTz = (oa.tz2 - oi.tz2)/2;
+
+      if(dTz != Tz) continue;
+
+      int P = (oa.l + oi.l)%2 == 0 ? 0 : 1;
+      int Jmin = std::abs(oa.j2-oi.j2)/2;
+      int Jmax = (oa.j2+oi.j2)/2;
+
+      for(int J = Jmin; J<=Jmax; ++J)
+      {
+        //Get n
+        int n = 0;
+        if(nStateMap.find(J) != nStateMap.end())
+        {
+          n = nStateMap.at(J) + 1;
+        }
+
+
+        CISD cisd(Hhf, J);
+        cisd.uPrecalculateDoubles(n);
+        double w_TDA = cisd.Energies(n);
+        double w_CISD = w_TDA + cisd.E_CISD(n); 
+
+        nStateMap.insert_or_assign(J, n);
+
+        std::cout << std::fixed << std::setw(3) << J << std::setw(5) << P << std::setw(5) <<n <<std::setw(7) <<dTz <<std::setw(12) <<w_TDA 
+        <<std::setw(12) << w_CISD << std::endl;
+      }   
+
+
+    }// a
+  }// i
+
+}
+
+//Calculate the state averaged density matrix
+//This includes ground state and excited states in the valence space
+//Additionally this prints out the spectrum 
+void HFMBPT::GetStateAveragedDensityMatrix(int Tz)
+{
+
+  Operator Hhf = HartreeFock::GetNormalOrderedH();
+  Operator& H(Hhf);
+  double t_start = omp_get_wtime();
+
+  // After the HF step, rho is the density of harmonic oscillator states for a filled HF reference
+  //  i.e. <a|rho|b> = sum_i <a|i> <b|i>  where i is an occupied HF state and a and b are HO basis states.
+  // Now we switch to the HF basis, so rho should be diagonal before adding in the perturbative corrections.
+  rho.zeros(); 
+  for (auto& i : HartreeFock::modelspace->holes)  rho(i,i) = HartreeFock::modelspace->GetOrbit(i).occ; // Set hole occupations to 1.
+
+  DensityMatrixPP(H);
+  DensityMatrixHH(H);
+
+  arma::mat rho_excitation = arma::zeros(modelspace->norbits, modelspace->norbits);
+  int N = 0;
+
+  //map to remember which states already calculated
+  //states start numbering at 0 
+  std::map<int, int> nStateMap; // J -> number states already calculated
+  std::cout << std::fixed << std::setw(3) << "J" << std::setw(5) << "P" << std::setw(5) <<"n" <<std::setw(7) <<"dTz" <<std::setw(12) <<"TDA" 
+  <<std::setw(12) << "CIS(D)"  <<std::setw(15) <<"state averaging"<< std::endl;
+  for(int i : modelspace->valence)
+  {
+    Orbit& oi = modelspace->GetOrbit(i);
+    //i is hole
+    if(oi.occ < modelspace->OCC_CUT) continue;
+    for(int a: modelspace->valence)
+    {
+      Orbit& oa = modelspace->GetOrbit(a);
+      //a is particle
+      if(oa.occ > modelspace->OCC_CUT) continue;
+
+      int dTz = (oa.tz2 - oi.tz2)/2;
+
+      if(dTz != Tz) continue;
+
+      int P = (oa.l + oi.l)%2 == 0 ? 0 : 1;
+      int Jmin = std::abs(oa.j2-oi.j2)/2;
+      int Jmax = (oa.j2+oi.j2)/2;
+
+      for(int J = Jmin; J<=Jmax; ++J)
+      {
+        //Get n
+        int n = 0;
+        if(nStateMap.find(J) != nStateMap.end())
+        {
+          n = nStateMap.at(J) + 1;
+        }
+
+
+        CISD cisd(Hhf, J);
+        cisd.uPrecalculateDoubles(n);
+        double w_TDA = cisd.Energies(n);
+        double w_CISD = w_TDA + cisd.E_CISD(n); 
+
+        nStateMap.insert_or_assign(J, n);
+
+        //Here can put some condition wether a state should be included
+        bool include = w_CISD <= 25 ? true : false;
+
+        if(include)
+        {
+          rho_excitation += cisd.GetScalarDensity(n);
+          N += 1;
+        } 
+
+        std::string include_string = include ? "Yes" : "No";
+
+        std::cout << std::fixed << std::setw(3) << J << std::setw(5) << P << std::setw(5) <<n <<std::setw(7) <<dTz <<std::setw(12) <<w_TDA 
+        <<std::setw(12) << w_CISD <<std::setw(15) <<include_string << std::endl;
+      }   
+
+
+    }// a
+  }// i
+
+  arma::mat rho_full = (rho + rho_excitation) / (N+1);
+
+  //For FNO we may still have some unitary transformation in the hh block. We want to keep the HF property of a diagonal Fock matrix in the hh block
+  //so set remaining off-diagonal hole matrix elements to zero
+  for(int i: modelspace->holes)
+  {
+    Orbit& oi = modelspace->GetOrbit(i);
+    for(int j : modelspace->OneBodyChannels.at({oi.l,oi.j2,oi.tz2}))
+    {
+      if(i != j)rho_full(i,j) = 0.0;
+    }
+  }
+
+  rho = rho_full;
+  profiler.timer["CIS(D) DensityMatrix"] += omp_get_wtime() - t_start;
+}
+
+//Construct density for 2+1 state. This is mainly for testing and can be removed if things work fro state averaging
+void HFMBPT::Get2pDensityMatrix()
+{
+  Operator Hhf = HartreeFock::GetNormalOrderedH();
+  Operator& H(Hhf);
+  double t_start = omp_get_wtime();
+
+  // After the HF step, rho is the density of harmonic oscillator states for a filled HF reference
+  //  i.e. <a|rho|b> = sum_i <a|i> <b|i>  where i is an occupied HF state and a and b are HO basis states.
+  // Now we switch to the HF basis, so rho should be diagonal before adding in the perturbative corrections.
+  rho.zeros(); 
+  for (auto& i : HartreeFock::modelspace->holes)  rho(i,i) = HartreeFock::modelspace->GetOrbit(i).occ; // Set hole occupations to 1.
+  CISD cisd(Hhf, 2);
+  cisd.uPrecalculateDoubles(0);
+  double w_TDA = cisd.Energies(0);
+  double w_CISD = w_TDA + cisd.E_CISD(0); 
+
+  rho = cisd.GetScalarDensity(0);
+
+  //For FNO we may still have some unitary transformation in the hh block. We want to keep the HF property of a diagonal Fock matrix in the hh block
+  //so set remaining off-diagonal hole matrix elements to zero
+  for(int i: modelspace->holes)
+  {
+    Orbit& oi = modelspace->GetOrbit(i);
+    for(int j : modelspace->OneBodyChannels.at({oi.l,oi.j2,oi.tz2}))
+    {
+      if(i != j)rho(i,j) = 0.0;      
+    }
+  }
+  profiler.timer["HFMBPT DensityMatrix 2+"] += omp_get_wtime() - t_start;
 }
 
 

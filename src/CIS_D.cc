@@ -63,7 +63,7 @@ double CISD::bSingles(int nstate, int a, int i)
 void CISD::uPrecalculateDoubles(int nstate)
 {
 
-    std::cout <<"Precalculating u_abij J=" <<J <<" P=" <<P <<" Tz=" <<Tz <<" ..." <<std::endl;
+    // std::cout <<"Precalculating u_abij J=" <<J <<" P=" <<P <<" Tz=" <<Tz <<" ..." <<std::endl;
 
     uDoublesCache.insert({nstate, TwoBodyME(modelspace, J, Tz, P)});
 

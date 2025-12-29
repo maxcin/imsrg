@@ -36,10 +36,16 @@ class HFMBPT : public HartreeFock
     bool use_NAT_occupations; // Option to use occupations from (if true) density matrix, or (if false) use naive filling.
     std::string NAT_order; // The default is to order by occupation
 
+    std::string NAT_type; //default  is ground state
+
     ~HFMBPT();
     HFMBPT(Operator& hbare); // same as HartreeFock constructor
     void GetNaturalOrbitals();
     void GetDensityMatrix();
+
+    void GetStateAveragedDensityMatrix(int Tz); // Calculate the state averaged density matrix of ground and excited states
+    void Get2pDensityMatrix(); // Calculate the density matrix of the first 2+ state (This is just for testing)
+
     void DensityMatrixPP(Operator& H);
     void DensityMatrixHH(Operator& H);
     void DensityMatrixPH(Operator& H);
@@ -53,6 +59,7 @@ class HFMBPT : public HartreeFock
     double GetTransformed3bme( Operator& OpIn, int Jab, int Jde, int J2, size_t a, size_t b, size_t c, size_t d, size_t e, size_t f);
 
     void PrintSPEandWF(); // Function override, since we want to express the SPWF in terms of HO states
+    void CalculateValenceSpectrum(Operator& Hhf, int Tz); // Calculates spectrum within the CIS(D) model based in the valence space
     void ReorderHFMBPTCoefficients();
     void UseNATOccupations( bool tf=true ){ use_NAT_occupations=tf;}; // Choose whether to use occupations from rho.
     void OrderNATBy( std::string order ){ NAT_order = order;}; // Choose how to label orbits ("occupation", "energy", "mp2")

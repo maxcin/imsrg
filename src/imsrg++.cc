@@ -95,6 +95,7 @@ int main(int argc, char** argv)
   std::string physical_system = parameters.s("physical_system");
   std::string denominator_partitioning = parameters.s("denominator_partitioning");
   std::string NAT_order = parameters.s("NAT_order");
+  std::string NAT_type = parameters.s("NAT_type");
 
   bool use_brueckner_bch = parameters.s("use_brueckner_bch") == "true";
   bool nucleon_mass_correction = parameters.s("nucleon_mass_correction") == "true";
@@ -574,6 +575,7 @@ int main(int argc, char** argv)
     if (order_NAT_by_energy) NAT_order = "energy";
     hf.UseNATOccupations( use_NAT_occupations );
     hf.OrderNATBy( NAT_order );
+    hf.NAT_type = NAT_type;
     hf.GetNaturalOrbitals();
   }
 
