@@ -1152,7 +1152,6 @@ void HFMBPT::CalculateValenceSpectrum(Operator& Hhf, int Tz)
 
 //Calculate the state averaged density matrix
 //This includes ground state and excited states in the valence space
-//The second order ground state corrections are handled separately as they appear in all state corrections
 //Additionally this prints out the spectrum 
 void HFMBPT::GetStateAveragedDensityMatrix(int Tz)
 {
@@ -1167,12 +1166,8 @@ void HFMBPT::GetStateAveragedDensityMatrix(int Tz)
   rho.zeros(); 
   for (auto& i : HartreeFock::modelspace->holes)  rho(i,i) = HartreeFock::modelspace->GetOrbit(i).occ; // Set hole occupations to 1.
 
-  arma::mat rho_HF = rho;
-
   DensityMatrixPP(H);
   DensityMatrixHH(H);
-
-  arma::mat rho_MP2 = rho - rho_HF;
 
   arma::mat rho_excitation = arma::zeros(modelspace->norbits, modelspace->norbits);
   int N = 0;
@@ -1237,8 +1232,7 @@ void HFMBPT::GetStateAveragedDensityMatrix(int Tz)
     }// a
   }// i
 
-  //Each state has rho_MP2 so in total (N+1)rho_MP2 . 
-  arma::mat rho_full = rho_MP2 + (rho_HF + rho_excitation) / (N+1);
+  arma::mat rho_full = (rho + rho_excitation) / (N+1);
 
   //For FNO we may still have some unitary transformation in the hh block. We want to keep the HF property of a diagonal Fock matrix in the hh block
   //so set remaining off-diagonal hole matrix elements to zero
@@ -1258,7 +1252,7 @@ void HFMBPT::GetStateAveragedDensityMatrix(int Tz)
   // exit(0);
 }
 
-//Construct density for 2+_1 state. This is mainly for testing and can be removed if things work fro state averaging
+//Construct density for gs and 2+_1 state. This is mainly for testing and can be removed if things work fro state averaging
 //Don't forget the ground state density matrix
 void HFMBPT::Get2pDensityMatrix()
 {
@@ -1275,19 +1269,17 @@ void HFMBPT::Get2pDensityMatrix()
   rho.zeros(); 
   for (auto& i : HartreeFock::modelspace->holes)  rho(i,i) = HartreeFock::modelspace->GetOrbit(i).occ; // Set hole occupations to 1.
 
-  arma::mat rho_HF = rho;
 
   DensityMatrixPP(H);
   DensityMatrixHH(H);
 
-  arma::mat rho_MP2 = rho - rho_HF;
 
   CISD cisd(Hhf, J);
   cisd.uPrecalculateDoubles(0);
   double w_TDA = cisd.Energies(0);
   double w_CISD = w_TDA + cisd.E_CISD(0); 
 
-  rho = rho_MP2 + cisd.GetScalarDensity(0);
+  rho = (rho + cisd.GetScalarDensity(0)) / 2.0;
 
   //For FNO we may still have some unitary transformation in the hh block. We want to keep the HF property of a diagonal Fock matrix in the hh block
   //so set remaining off-diagonal hole matrix elements to zero
