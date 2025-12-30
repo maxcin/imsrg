@@ -1,6 +1,6 @@
-
 #include "CIS_D.hh"
 #include "PhysicalConstants.hh"
+#include <omp.h>
 
 CISD::CISD(Operator& Op, int J, int P, int Tz) : RPA(Op), J(J), P(P), Tz(Tz), Jhat(sqrt(2*J+1))
 {
@@ -14,9 +14,11 @@ CISD::CISD(Operator& Op, int J) : RPA(Op), J(J), Jhat(sqrt(2*J+1))
 
 void CISD::RunTDA()
 {
+    double t_start = omp_get_wtime();
     ConstructAMatrix(J, P, Tz, false);
     SolveTDA();
     BuildTDAIndex();
+    H.profiler.timer["CIS(D) RunTDA"] += omp_get_wtime() - t_start;
 }
 
 void CISD::BuildTDAIndex()
@@ -64,7 +66,7 @@ void CISD::uPrecalculateDoubles(int nstate)
 {
     if(!modelspace->sixj_has_been_precalculated) modelspace->PreCalculateSixJ();
     // std::cout <<"Precalculating u_abij J=" <<J <<" P=" <<P <<" Tz=" <<Tz <<" ..." <<std::endl;
-
+    double t_start = omp_get_wtime();
     uDoublesCache.insert({nstate, TwoBodyME(modelspace, J, Tz, P)});
 
     TwoBodyME& uCache = uDoublesCache.at(nstate);
@@ -131,6 +133,9 @@ void CISD::uPrecalculateDoubles(int nstate)
             }
         }
     }//MatEl
+
+
+    H.profiler.timer["CIS(D) uPrecalculateDoubles"] += omp_get_wtime() - t_start;
 }
 
 double CISD::bDoubles(int nstate, int J1, int J2, int a, int b, int i, int j)
@@ -268,15 +273,25 @@ double CISD::vSingles(int nstate, int a, int i)
                     double jc = ( (double) oc.j2 )/ 2.0;
                     double ec = H.OneBody(c,c);
 
+                    //Check if the relevant H_jkbc can even exist
+                    if( (oj.tz2 + ok.tz2) != (ob.tz2 + oc.tz2) ) continue;
+                    if( (oj.l + ok.l + ob.l +oc.l)%2 != 0 ) continue;
+
                     int J1min = std::max(std::abs(oj.j2-ok.j2),std::abs(ob.j2-oc.j2))/2;
                     int J1max = std::min(oj.j2+ok.j2, ob.j2+oc.j2)/2;
+                    int dJ1 = 1;
+                    if(j == k or b == c) 
+                    {
+                        J1min = J1min % 2 == 0 ? J1min : J1min+1;
+                        dJ1 = 2;
+                    } 
 
                     
                     //Term 1
                     double b_bi = bSingles(nstate,b,i);
                     if(oa.j2 == ob.j2 and std::abs(b_bi) > 1e-10)
                     {
-                        for(int J1 = J1min; J1 <= J1max; ++J1)
+                        for(int J1 = J1min; J1 <= J1max; J1+=dJ1)
                         {
                             double denom = ec + ea - ej - ek;
                             double H_jkbc = H.TwoBody.GetTBME_J_norm(J1,j,k,b,c);
@@ -293,7 +308,7 @@ double CISD::vSingles(int nstate, int a, int i)
                     double b_aj = bSingles(nstate,a,j);
                     if(oi.j2 == oj.j2 and std::abs(b_aj) > 1e-10)
                     {
-                        for(int J1 = J1min; J1 <= J1max; ++J1)
+                        for(int J1 = J1min; J1 <= J1max; J1+=dJ1)
                         {
                             double denom = ec + eb - ei - ek;
                             double H_jkbc = H.TwoBody.GetTBME_J_norm(J1,j,k,b,c);
@@ -313,7 +328,7 @@ double CISD::vSingles(int nstate, int a, int i)
                         int J2min = std::max(std::abs(oi.j2-ok.j2),std::abs(oa.j2-oc.j2))/2;
                         int J2max = std::min(oi.j2+ok.j2, oa.j2+oc.j2)/2;
                         double denom = ea + ec - ei - ek;
-                        for(int J1 = J1min; J1 <= J1max; ++J1)
+                        for(int J1 = J1min; J1 <= J1max; J1+=dJ1)
                         {
                             double H_jkbc = H.TwoBody.GetTBME_J_norm(J1,j,k,b,c);
                             double sixJ1 = modelspace->GetSixJ(jb,jj,J,jk,jc,J1);
@@ -339,6 +354,7 @@ double CISD::vSingles(int nstate, int a, int i)
 //Energy correction
 double CISD::E_CISD(int nstate)
 {
+    double t_start = omp_get_wtime();
     double wTDA = Energies(nstate);
     double wCISD = 0.0;
     for(int a: modelspace->particles)
@@ -384,20 +400,62 @@ double CISD::E_CISD(int nstate)
             }//i
         }//b
     }//a
+    H.profiler.timer["CIS(D) E correction uabij"] += omp_get_wtime() - t_start;
+    double t_start_vai = omp_get_wtime();
 
-
-    for(int a : modelspace->particles)
+    //Calculate v_ai in parallel
+    int nelem = X.n_rows;
+    arma::vec v = arma::zeros(nelem);
+    TwoBodyChannel_CC& tbc_cc = modelspace->GetTwoBodyChannel_CC(modelspace->GetTwoBodyChannelIndex(J,P,Tz));
+    const arma::uvec& KetIndex_ph = tbc_cc.GetKetIndex_ph();
+    
+    #pragma omp parallel for schedule(dynamic, 1)
+    for (int index = 0; index<KetIndex_ph.size(); ++index)
     {
-        for(int i: modelspace->holes)
-        {
-            double b_ai = bSingles(nstate,a,i);
-            if(std::abs(b_ai) < 1e-10) continue;
-            double v_ai = vSingles(nstate, a,i);
+        int iket_ai = KetIndex_ph(index);
+        Ket& ket_ai = modelspace->GetKet(tbc_cc.GetKetIndex(iket_ai));
+        int a = ket_ai.p;
+        int i = ket_ai.q;
 
-            wCISD += b_ai*v_ai;
-        }
+        Orbit& oa = modelspace->GetOrbit(a);
+        Orbit& oi = modelspace->GetOrbit(i);
+
+        if(oa.occ > modelspace->OCC_CUT and oi.occ < modelspace->OCC_CUT) std::swap(a,i);
+        double b_ai = bSingles(nstate,a,i);
+        if(std::abs(b_ai) < 1e-10) continue;
+        
+        v(index) = vSingles(nstate, a,i);
     }
 
+    for (int index = 0; index<KetIndex_ph.size(); ++index)
+    {
+        int iket_ai = KetIndex_ph(index);
+        Ket& ket_ai = modelspace->GetKet(tbc_cc.GetKetIndex(iket_ai));
+        int a = ket_ai.p;
+        int i = ket_ai.q;
+
+        Orbit& oa = modelspace->GetOrbit(a);
+        Orbit& oi = modelspace->GetOrbit(i);
+
+        if(oa.occ > modelspace->OCC_CUT and oi.occ < modelspace->OCC_CUT) std::swap(a,i);
+        double b_ai = bSingles(nstate,a,i);
+        // if(std::abs(b_ai) < 1e-10) continue;
+        wCISD += b_ai * v(index);
+    }
+
+    // for(int a : modelspace->particles)
+    // {
+    //     for(int i: modelspace->holes)
+    //     {
+    //         double b_ai = bSingles(nstate,a,i);
+    //         if(std::abs(b_ai) < 1e-10) continue;
+    //         double v_ai = vSingles(nstate, a,i);
+
+    //         wCISD += b_ai*v_ai;
+    //     }
+    // }
+    H.profiler.timer["CIS(D) E correction vai"] += omp_get_wtime() - t_start_vai;
+    H.profiler.timer["CIS(D) E correction"] += omp_get_wtime() - t_start;
     return wCISD / (Jhat*Jhat);
 }
 
@@ -418,6 +476,7 @@ void CISD::Energy_test(int nstate)
 //Correction of TDA to the scalar density
 arma::mat CISD::TDAScalarDensityPP(int nstate)
 {
+    double t_start = omp_get_wtime();
     int Norbits = modelspace->norbits;
     arma::mat rho_TDA = arma::zeros(Norbits, Norbits);
 
@@ -445,12 +504,13 @@ arma::mat CISD::TDAScalarDensityPP(int nstate)
 
         }
     }
-
+    H.profiler.timer["TDAScalarDensityPP"] += omp_get_wtime() - t_start;
     return rho_TDA;
 }
 
 arma::mat CISD::TDAScalarDensityHH(int nstate)
 {
+    double t_start = omp_get_wtime();
     int Norbits = modelspace->norbits;
     arma::mat rho_TDA = arma::zeros(Norbits, Norbits);
 
@@ -478,13 +538,14 @@ arma::mat CISD::TDAScalarDensityHH(int nstate)
 
         }
     }
-
+    H.profiler.timer["TDAScalarDensityHH"] += omp_get_wtime() - t_start;
     return rho_TDA;
 }
 
 //Correction of CIS(D) to the scalar density
 arma::mat CISD::CISDScalarDensityPP(int nstate)
 {
+    double t_start = omp_get_wtime();
     int Norbits = modelspace->norbits;
     arma::mat rho_CISD = arma::zeros(Norbits, Norbits);
 
@@ -530,13 +591,14 @@ arma::mat CISD::CISDScalarDensityPP(int nstate)
             rho_CISD(b,a) = 0.5*r_ab / ((2*J+1)*(oa.j2+1));
         }//b
     }//a
-
+    H.profiler.timer["CISDScalarDensityPP"] += omp_get_wtime() - t_start;
     return rho_CISD;
 }
 
 
 arma::mat CISD::CISDScalarDensityHH(int nstate)
 {
+    double t_start = omp_get_wtime();
     int Norbits = modelspace->norbits;
     arma::mat rho_CISD = arma::zeros(Norbits, Norbits);
 
@@ -582,6 +644,7 @@ arma::mat CISD::CISDScalarDensityHH(int nstate)
             rho_CISD(j,i) = 0.5*r_ij / ((2*J+1)*(oi.j2+1));
         }//j
     }//i
+    H.profiler.timer["CISDScalarDensityHH"] += omp_get_wtime() - t_start;
     return rho_CISD;
 }
 
