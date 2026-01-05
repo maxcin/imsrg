@@ -58,6 +58,8 @@
 #include "PhysicalConstants.hh"
 #include "version.hh"
 
+#include "FSCPT.hh"
+
 struct OpFromFile {
    std::string file2name,file3name,opname;
    int j,p,t,r; // J rank, parity, dTz, particle rank
@@ -120,6 +122,7 @@ int main(int argc, char** argv)
   bool brueckner_restart = false;
   bool write_HO_ops = parameters.s("write_HO_ops") == "true";  // added by Antoine Belley
   bool write_HF_ops = parameters.s("write_HF_ops") == "true";  // added by Antoine Belley
+  bool FSCPT_correction = parameters.s("FSCPT_correction") == "true";
 
   int eMax = parameters.i("emax");
   int lmax = parameters.i("lmax"); // so far I only use this with atomic systems.
@@ -921,6 +924,8 @@ int main(int argc, char** argv)
     BCH::SetOnly2bOmega(only_2b_omega);
   }
 
+  //For post-processing we can keep the initial Hamiltonian
+  Operator H_full = HNO;
 
   // We may want to use a smaller model space for the IMSRG evolution than we used for the HF step.
   // This is most effective when using natural orbitals or when including 3-body operators.
@@ -1262,6 +1267,40 @@ int main(int argc, char** argv)
       HNO.SetParticleRank(2);
     }
 
+    //Before Normal ordering we can calculate FSCPT corrections the steps are as follow
+    //1. Place the flowing Hamiltonian inside of H_full
+    //2. Run FSCPT with the valence space
+    //3. Take out the off diagonal part of H_full ( O(g^1)=H_full^(d) )
+    //4. Do core normal ordering for H_full,  Heff2 and Heff3
+    //5. Write H_full+Heff2 and Hfull+Heff2+Heff3 to snt 
+    
+    if(FSCPT_correction)
+    {
+      std::cout <<"Using FSCPT to correct effective interaction up to third order" <<std::endl;
+      H_full.replaceSubOperator(HNO);
+      FSCPT primas(H_full);
+
+      H_full -= primas.GetOpOd(H_full);
+
+      // //Redo normal order wrt core
+      H_full = H_full.UndoNormalOrdering();
+      primas.Heff2 = primas.Heff2.UndoNormalOrdering();
+      primas.Heff3 = primas.Heff3.UndoNormalOrdering();
+
+
+      H_full = H_full.DoNormalOrderingCore();
+      primas.Heff2 = primas.Heff2.DoNormalOrderingCore();
+      primas.Heff3 = primas.Heff3.DoNormalOrderingCore();
+
+      // //Now write files to second order
+      // rw.WriteTokyo(H_full,intfile+"g1"+".snt", ""); //first order file = usual interaction file
+      H_full += primas.Heff2;
+      rw.WriteTokyo(H_full,intfile+"g2"+".snt", ""); //second order file
+      H_full += primas.Heff3;
+      rw.WriteTokyo(H_full,intfile+"g3"+".snt", ""); //second order file
+    }
+
+
     HNO = HNO.UndoNormalOrdering();
     
     // HNO.SetModelSpace(ms2);
@@ -1314,40 +1353,6 @@ int main(int argc, char** argv)
       rw.WriteNuShellX_sps(imsrgsolver.GetH_s(),intfile+".sp");
     }
 
-//    if (method == "magnus" or method=="flow_RK4")
-//    {
-//       for (index_t i=0;i<ops.size();++i)
-//       {
-//          if ( ((ops[i].GetJRank()+ops[i].GetTRank()+ops[i].GetParity())<1) and (ops[i].GetNumberLegs()%2==0) )
-//          {
-//            if (valence_file_format == "tokyo")
-//            {
-//              rw.WriteTokyo(ops[i],intfile+opnames[i]+".snt", "op");
-//            }
-//            else
-//            {
-//              rw.WriteNuShellX_op(ops[i],intfile+opnames[i]+".int");
-//            }
-//          }
-//          else if ( ops[i].GetNumberLegs()%2==1) // odd number of legs -> this is a dagger operator
-//          {
-////            rw.WriteNuShellX_op(ops[i],intfile+opnames[i]+".int"); // do this for now. later make a *.dag format.
-//            rw.WriteDaggerOperator( ops[i], intfile+opnames[i]+".dag",opnames[i]);
-//          }
-//          else
-//          {
-//            if (valence_file_format == "tokyo")
-//            {
-//              rw.WriteTensorTokyo(intfile+opnames[i]+"_2b.snt",ops[i]);
-//            }
-//            else
-//            {
-//              rw.WriteTensorOneBody(intfile+opnames[i]+"_1b.op",ops[i],opnames[i]);
-//              rw.WriteTensorTwoBody(intfile+opnames[i]+"_2b.op",ops[i],opnames[i]);
-//            }
-//          }
-//       }
-//    }
   }
   else // single ref. just print the zero body pieces out. (maybe check if its magnus?)
   {

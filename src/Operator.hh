@@ -194,6 +194,7 @@ class Operator
   //  Operator UndoNormalOrderingDagger() const {return this->DoNormalOrderingDagger(-1);}; ///< Returns the operator normal-ordered wrt the vacuum
 
   Operator Truncate(ModelSpace& ms_new); ///< Returns the operator trunacted to the new model space
+  void replaceSubOperator(Operator& subOp); //Place subOp into Op while (subOp.modelspace < Op.modelspace)
 
   Operator DoIsospinAveraging() const;
 

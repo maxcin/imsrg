@@ -1252,8 +1252,7 @@ void HFMBPT::GetStateAveragedDensityMatrix(int Tz)
   // exit(0);
 }
 
-//Construct density for gs and 2+_1 state. This is mainly for testing and can be removed if things work fro state averaging
-//Don't forget the ground state density matrix
+//Construct density for gs and 2+_1 state. This is mainly for testing and can be removed if things work for state averaging
 void HFMBPT::Get2pDensityMatrix()
 {
   modelspace->PreCalculateSixJ();

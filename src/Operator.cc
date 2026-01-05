@@ -1918,3 +1918,70 @@ arma::vec Operator::GetMP2_Impacts() const
    return orbit_impacts;
 }
 */
+
+//Do essentially the reverse of truncate
+void Operator::replaceSubOperator(Operator& subOp)
+{
+  int sub_emax = subOp.modelspace->GetEmax();
+  if (sub_emax > modelspace->GetEmax())
+  {
+    std::cout << "Error: Cannot emplace an operator with emax = " << sub_emax << " into one with emax = " << modelspace->GetEmax() << std::endl;
+    exit(0);
+  }
+
+  //We take over the Zerobody term of the smaller Operator
+  ZeroBody = subOp.ZeroBody;
+  if( (subOp.hermitian != hermitian) or (subOp.antihermitian != antihermitian) or (subOp.is_reduced != is_reduced))
+  {
+    std::cout <<"Operators are not compatible with each other! Cannot combine them in a meaningful way" <<std::endl;
+    exit(0);
+  }
+  
+  size_t norb = subOp.modelspace->GetNumberOrbits();
+  arma::uvec sub_orbs(norb);
+  for (size_t i = 0; i < norb; i++)
+  {
+    Orbit &oi = subOp.modelspace->GetOrbit(i);
+    size_t ifull = modelspace->GetOrbitIndex(oi.n, oi.l, oi.j2, oi.tz2);
+    sub_orbs(i) = ifull;
+  }
+  
+  OneBody.submat(sub_orbs, sub_orbs) = subOp.OneBody;
+  //  std::cout << "Done truncating one body " << std::endl << OneBody << std::endl << std::endl << OpNew.OneBody << std::endl;
+
+  for (auto &itmat : subOp.TwoBody.MatEl)
+  {
+
+    int ch_bra_small = itmat.first[0];
+    int ch_ket_small = itmat.first[1];
+    TwoBodyChannel &tbc_bra_small = subOp.modelspace->GetTwoBodyChannel(ch_bra_small);
+    TwoBodyChannel &tbc_ket_small = subOp.modelspace->GetTwoBodyChannel(ch_ket_small);
+    auto &Mat_small = itmat.second;
+
+    int ch_bra_large = modelspace->GetTwoBodyChannelIndex(tbc_bra_small.J, tbc_bra_small.parity, tbc_bra_small.Tz);
+    int ch_ket_large = modelspace->GetTwoBodyChannelIndex(tbc_ket_small.J, tbc_ket_small.parity, tbc_ket_small.Tz);
+    TwoBodyChannel &tbc_bra_large = modelspace->GetTwoBodyChannel(ch_bra_large);
+    TwoBodyChannel &tbc_ket_large = modelspace->GetTwoBodyChannel(ch_ket_large);
+    auto &Mat_large = TwoBody.GetMatrix(ch_bra_large, ch_ket_large);
+
+    int nbras_small = tbc_bra_small.GetNumberKets();
+    int nkets_small = tbc_ket_small.GetNumberKets();
+    arma::uvec ibra_large(nbras_small);
+    arma::uvec iket_large(nkets_small);
+
+    for (int ibra = 0; ibra < nbras_small; ++ibra)
+    {
+      auto &bra_small = tbc_bra_small.GetKet(ibra);
+      ibra_large(ibra) = tbc_bra_large.GetLocalIndex(sub_orbs(bra_small.p), sub_orbs(bra_small.q));
+    }
+
+    for (int iket = 0; iket < nkets_small; ++iket)
+    {
+      auto ket_small = tbc_ket_small.GetKet(iket);
+      iket_large(iket) = tbc_ket_large.GetLocalIndex(sub_orbs(ket_small.p), sub_orbs(ket_small.q));
+    }
+
+    Mat_large.submat(ibra_large, iket_large) = Mat_small;
+  }
+
+}

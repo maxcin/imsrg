@@ -104,6 +104,7 @@ std::map<std::string,std::string> Parameters::string_par = {
   {"write_HF_ops",              "false"},       // Write the HF operators before doing IMSRG transformation ; Added by Antoine Belley
   {"denominator_partitioning",  "Epstein_Nesbet"}, // Denominators used in IMSRG generators. Can be Moller_Plesset or Epstein_Nesbet.
   {"NAT_type", "ground_state"}, // Determine the density matrix used for NAT construction. "ground_state", "2p" or "CISD"
+  {"FSCPT_correction", "false"}, //Use Fock space canonical perturbation theory of primas to account for truncated Hamiltonian
 };
 
 
