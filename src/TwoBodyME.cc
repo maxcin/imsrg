@@ -149,6 +149,7 @@ double TwoBodyME::GetTBME(int ch_bra, int ch_ket, int a, int b, int c, int d) co
    if (a==b) norm *= PhysConst::SQRT2;
    if (c==d) norm *= PhysConst::SQRT2;
    return norm * GetTBME_norm(ch_bra,ch_ket,a,b,c,d);
+   // return 100*GetTBME_norm(ch_bra,ch_ket,a,b,c,d);
 }
 
 /// This returns the normalized matrix element 

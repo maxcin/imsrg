@@ -2,6 +2,8 @@
 #include "Commutator.hh"
 #include "Generator.hh"
 
+#include <omp.h>
+
 FSCPT::FSCPT(Operator& H) :         
         H0(arma::diagmat(H.OneBody)),
         V(*H.modelspace),
@@ -14,6 +16,8 @@ FSCPT::FSCPT(Operator& H) :
 {
     // std::cout <<"Started Fock space canonical perturbation theory" <<std::endl;
     //V is by definition without H0
+    double t_start = omp_get_wtime();
+
     V.OneBody = H.OneBody - H0;
     V.TwoBody = H.TwoBody;
     Vod = GetOpOd(V);
@@ -45,7 +49,7 @@ FSCPT::FSCPT(Operator& H) :
         std::cout <<"Third order = " <<Heff3.ZeroBody <<std::endl;
     }
     // std::cout <<"Third order = " <<Heff3.ZeroBody <<std::endl;
-
+    H.profiler.timer["FSCPT"] += omp_get_wtime() - t_start;
 
     
 }
@@ -59,7 +63,7 @@ void FSCPT::FSCPT2()
 
     Heff2 = second_order-second_order_od;
 
-    G2 = Delta(GetOpOd(second_order_od));
+    G2 = Delta(second_order_od);
 }
 
 

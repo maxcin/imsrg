@@ -54,6 +54,8 @@ class CISD : public RPA
         void DensityTest(int nstate);
         void printDensity(arma::mat& rho); //Helper function to print density by channel
 
+        double GetNorm(int istate);
+
 };
 
 #endif

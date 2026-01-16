@@ -57,6 +57,7 @@
 #include "Parameters.hh"
 #include "PhysicalConstants.hh"
 #include "version.hh"
+#include "ReferenceImplementations.hh"
 
 #include "FSCPT.hh"
 
@@ -429,6 +430,49 @@ int main(int argc, char** argv)
     std::cout << std::endl;
   }
 
+  // int Ntbc = modelspace.GetNumberTwoBodyChannels();
+  // for(int itbc = 0; itbc < Ntbc; ++itbc)
+  // {
+  //   TwoBodyChannel& tmptbc = modelspace.GetTwoBodyChannel(itbc);
+  //   std::cout <<itbc <<std::endl;
+  //   std::cout <<"Total kets: " <<tmptbc.GetNumberKets() <<std::endl;
+  //   std::cout <<"cc kets: " <<tmptbc.GetKetIndex_cc().size() <<std::endl;
+  //   std::cout <<"vv kets: " <<tmptbc.GetKetIndex_vv().size() <<std::endl;
+  //   std::cout <<"qq kets: " <<tmptbc.GetKetIndex_qq().size() <<std::endl;
+  //   std::cout <<std::endl;
+  // }
+  // exit(0);
+  // int tbcprint = 4;
+  // if(true)
+  // {
+  //   TwoBodyChannel& tmp = modelspace.GetTwoBodyChannel(tbcprint);
+
+  //   std::cout <<"J=" <<tmp.J <<" P=" <<tmp.parity <<" Tz=" <<tmp.Tz <<std::endl;
+
+  //   std::cout <<"Ket_cc " << tmp.GetKetIndex_cc().t() <<std::endl;
+  //   std::cout <<"Ket_vc " << tmp.GetKetIndex_vc().t() <<std::endl;
+  //   std::cout <<"Ket_qc " << tmp.GetKetIndex_qc().t() <<std::endl;
+
+  //   std::cout <<"Ket_vv " << tmp.GetKetIndex_vv().t() <<std::endl;
+  //   std::cout <<"Ket_vq " << tmp.GetKetIndex_qv().t() <<std::endl;
+    
+  //   std::cout <<"Ket_qq " << tmp.GetKetIndex_qq().t() <<std::endl;
+
+  //   std::vector<int> emax_ket;
+  //   int Nkets = tmp.GetNumberKets();
+  //   for(int i = 0; i<Nkets; ++i)
+  //   {
+  //     Ket& ket = tmp.GetKet(i);
+  //     Orbit& op = modelspace.GetOrbit(ket.p);
+  //     Orbit& oq = modelspace.GetOrbit(ket.q);
+  //     int e = std::max( 2*op.n + op.l , 2*oq.n + oq.l );
+  //     emax_ket.push_back(e);
+  //   }
+  //   std::cout <<arma::conv_to<arma::uvec>::from(emax_ket) <<std::endl;
+
+  //   exit(0);
+  // }
+  
 
 //  std::cout << "Making the Hamiltonian..." << std::endl;
   int particle_rank = input3bme=="none" ? 2 : 3;
@@ -606,7 +650,7 @@ int main(int argc, char** argv)
   ModelSpace modelspace_imsrg = modelspace;
   if ( (eMax_imsrg != -1) or (e2Max_imsrg != -1) or (e3Max_imsrg != -1) or (eMax_3body_imsrg != -1))
   {
-    
+
      if ( eMax_imsrg==-1 ) eMax_imsrg = eMax;
      if ( e2Max_imsrg==-1 ) e2Max_imsrg = 2*eMax_imsrg;
      if ( e3Max_imsrg==-1 ) e3Max_imsrg = std::min( E3max, 3*eMax_imsrg);
@@ -923,7 +967,7 @@ int main(int argc, char** argv)
     std::cout << " Restricting the Magnus operator Omega to be 2b." << std::endl;
     BCH::SetOnly2bOmega(only_2b_omega);
   }
-
+  // FSCPT pri2mas(HNO);
   //For post-processing we can keep the initial Hamiltonian
   Operator H_full = HNO;
 
@@ -933,7 +977,8 @@ int main(int argc, char** argv)
 //  ModelSpace modelspace_imsrg = modelspace;
   if ( (eMax_imsrg != -1) or (e2Max_imsrg != -1) or (e3Max_imsrg != -1) or (eMax_3body_imsrg != -1))
   {
-    
+      // std::cout <<"Initial " <<std::endl;
+      // std::cout <<HNO.TwoBody.GetMatrix(tbcprint) <<std::endl;
 //     if ( eMax_imsrg==-1 ) eMax_imsrg = eMax;
 //     if ( e2Max_imsrg==-1 ) e2Max_imsrg = 2*eMax_imsrg;
 //     if ( e3Max_imsrg==-1 ) e3Max_imsrg = std::min( E3max, 3*eMax_imsrg);
@@ -1273,11 +1318,19 @@ int main(int argc, char** argv)
     //3. Take out the off diagonal part of H_full ( O(g^1)=H_full^(d) )
     //4. Do core normal ordering for H_full,  Heff2 and Heff3
     //5. Write H_full+Heff2 and Hfull+Heff2+Heff3 to snt 
+
+    //The correction needs to carry out 5 full space commutators. Asymptotically this will limit the potential speed up
+    //As an example HF Ca48 0hw emax=12 may take 500 commutators => maximal speed up is x100.
     
     if(FSCPT_correction)
     {
       std::cout <<"Using FSCPT to correct effective interaction up to third order" <<std::endl;
       H_full.replaceSubOperator(HNO);
+
+      
+      // std::cout <<"VSIMSRG(2) " <<std::endl;
+      // std::cout <<H_full.TwoBody.GetMatrix(tbcprint) <<std::endl;
+
       FSCPT primas(H_full);
 
       H_full -= primas.GetOpOd(H_full);
@@ -1298,6 +1351,8 @@ int main(int argc, char** argv)
       rw.WriteTokyo(H_full,intfile+"g2"+".snt", ""); //second order file
       H_full += primas.Heff3;
       rw.WriteTokyo(H_full,intfile+"g3"+".snt", ""); //second order file
+      // std::cout <<"VSIMSRG + Perturbative corrections " <<std::endl;
+      // std::cout <<H_full.TwoBody.GetMatrix(tbcprint) <<std::endl;
     }
 
 

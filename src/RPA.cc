@@ -43,6 +43,13 @@ void RPA::ConstructAMatrix_byIndex(size_t ich_CC, bool Isovector=false)
      channel = ich_CC;
      TwoBodyChannel_CC& tbc_CC = modelspace->GetTwoBodyChannel_CC(ich_CC);
      size_t nkets_ph = tbc_CC.GetKetIndex_ph().size();
+    //  std::cout <<"Dimension from modelspace is " <<nkets_ph <<std::endl;
+    //  std::cout <<"J= " <<tbc_CC.J <<" P=" <<tbc_CC.parity <<" Tz=" <<tbc_CC.Tz <<std::endl;
+    //  for(auto& i : tbc_CC.KetList)
+    //  {
+    //   Ket& ket = modelspace->GetKet(i);
+    //   std::cout <<"p  q : " <<ket.p <<"  " <<ket.q <<std::endl;
+    //  }
      A.zeros( nkets_ph, nkets_ph);
 //     arma::mat Vbar_bjck( nkets_ph, nkets_ph, arma::fill::zeros );
      int Jph = tbc_CC.J;
@@ -72,6 +79,9 @@ void RPA::ConstructAMatrix_byIndex(size_t ich_CC, bool Isovector=false)
          std::swap(phase_ai,phase_ia);
        }
 
+       Orbit& oa = modelspace->GetOrbit(a);
+       Orbit& oi = modelspace->GetOrbit(i);
+
        size_t II_ph = 0;
        for (auto iket_bj : tbc_CC.GetKetIndex_ph() )
        {
@@ -91,8 +101,12 @@ void RPA::ConstructAMatrix_byIndex(size_t ich_CC, bool Isovector=false)
            std::swap(phase_bj,phase_jb);
          }
 
+        Orbit& ob = modelspace->GetOrbit(b);
+        Orbit& oj = modelspace->GetOrbit(j);
+
 //         double Delta_ijab = OneBody(i,i) + OneBody(j,j) - OneBody(a,a) - OneBody(b,b);
-         double H1b = ( iket_ai==iket_bj ) ? H.OneBody(a,a) - H.OneBody(i,i)   :   0. ;
+         //double H1b = ( iket_ai==iket_bj ) ? H.OneBody(a,a) - H.OneBody(i,i)   :   0. ;
+         double H1b = ( iket_ai==iket_bj ) ? H.OneBody(a,a)*(1.0-oa.occ) - H.OneBody(i,i)*oi.occ   :   0. ;
 
 //         int J1min = std::max(std::abs(ja-jb),std::abs(ji-jj));
 //         int J1max = std::min(ja+jb,ji+jj);
@@ -111,11 +125,12 @@ void RPA::ConstructAMatrix_byIndex(size_t ich_CC, bool Isovector=false)
          {
           for (int J1=J1min;J1<=J1max;++J1)  //Pandya 1: <ai`| V |bj`>_Jtot
           {
-//            V_aibj -= modelspace->GetSixJ(ja,ji,Jph,jb,jj,J1)  * (2*J1 + 1) *  H.TwoBody.GetTBME_J_norm(J1,a,j,b,i);
+          //  V_aibj -= modelspace->GetSixJ(ja,ji,Jph,jb,jj,J1)  * (2*J1 + 1) *  H.TwoBody.GetTBME_J_norm(J1,a,j,b,i);
             V_aibj -= modelspace->GetSixJ(ja,ji,Jph,jb,jj,J1)  * (2*J1 + 1) *  H.TwoBody.GetTBME_J(J1,a,j,b,i);
           }
          }
-         A(I_ph,II_ph) = H1b  + V_aibj * phase_ai *phase_bj;
+        //  A(I_ph,II_ph) = H1b  + V_aibj * phase_ai *phase_bj;
+        A(I_ph,II_ph) = H1b  + oi.occ*oj.occ*(1-oa.occ)*(1-ob.occ)*V_aibj * phase_ai *phase_bj;
 //         Vbar_iabj(I_ph,II_ph) = tbme_iabj * phase_ia * phase_bj / Delta_ijab;
          II_ph ++;
        }

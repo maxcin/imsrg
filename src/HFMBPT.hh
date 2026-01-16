@@ -44,7 +44,9 @@ class HFMBPT : public HartreeFock
     void GetDensityMatrix();
 
     void GetStateAveragedDensityMatrix(int Tz); // Calculate the state averaged density matrix of ground and excited states
-    void Get2pDensityMatrix(); // Calculate the density matrix of the first 2+ state (This is just for testing)
+    void GetAverage2pDensityMatrix(); // Calculate the state average density matrix of the ground and first 2+ state 
+    void Get2pDensityMatrix(); // Calculate the density matrix of the first 2+ state
+    void GetDTzDensityMatrix(); // Calculate the density matrix of the state with dTz = -1
 
     void DensityMatrixPP(Operator& H);
     void DensityMatrixHH(Operator& H);
@@ -65,6 +67,8 @@ class HFMBPT : public HartreeFock
     void OrderNATBy( std::string order ){ NAT_order = order;}; // Choose how to label orbits ("occupation", "energy", "mp2")
 
     arma::vec GetMP2_Impacts(Operator& OpIn) const;
+
+    double GetNorm(Operator& H); //Norm of second order MBPT wave function
 
 };
 #endif

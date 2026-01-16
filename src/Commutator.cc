@@ -20,6 +20,8 @@
 #include <iostream>
 #include <iomanip>
 
+#include "ReferenceImplementations.hh"
+
 #include <omp.h>
 
 /// Commutator expressions for second-quantized operators
