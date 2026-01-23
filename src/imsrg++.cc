@@ -1330,11 +1330,16 @@ int main(int argc, char** argv)
       //To test things we can transform the full truncated H
       if(FSCPT_magnusfull)
       {
-        Operator zero = 0.0*HNO;
-        H_full.replaceSubOperator(zero);
+        Operator zero_smallspace = 0.0*HNO;
+        Operator zero_largespace(modelspace);
+        
+        zero_largespace.SetAntiHermitian();
+        Operator omega_curr = zero_largespace;
+        H_full.replaceSubOperator(zero_smallspace);
         for (size_t i = 0; i < imsrgsolver.Omega.size(); ++i)
         {
-          H_full = BCH::BCH_Transform(H_full, imsrgsolver.Omega[i]);
+          omega_curr.replaceSubOperator(imsrgsolver.Omega[i]);
+          H_full = BCH::BCH_Transform(H_full, omega_curr);
         }
 
         H_full.replaceSubOperator(HNO);
