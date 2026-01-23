@@ -117,14 +117,19 @@ Operator FSCPT::Delta(const Operator& Op)
         }
     }
 
-    // #pragma omp parallel for schedule(dynamic, 1)
-    for ( auto& iter : Opdelta.TwoBody.MatEl )
+    
+    int nmatel = Opdelta.TwoBody.MatEl.size();
+    //for ( auto& iter : Opdelta.TwoBody.MatEl )
+    #pragma omp parallel for schedule(dynamic, 1)
+    for(int index = 0 ; index < nmatel; ++index)
     {
-        size_t ch_bra = iter.first[0];
-        size_t ch_ket = iter.first[1];
+        auto iter = Opdelta.TwoBody.MatEl.begin();
+        std::advance(iter , index);
+        size_t ch_bra = iter->first[0];
+        size_t ch_ket = iter->first[1];
         TwoBodyChannel& tbc_bra = Op.modelspace->GetTwoBodyChannel(ch_bra);
         TwoBodyChannel& tbc_ket = Op.modelspace->GetTwoBodyChannel(ch_ket);
-        arma::mat& OpMat =  iter.second;
+        arma::mat& OpMat =  iter->second;
         for (int iket = 0; iket< tbc_ket.GetNumberKets(); ++iket )
         // for ( auto& iket : tbc_ket.GetKetIndex_cc() )
         {
@@ -133,7 +138,7 @@ Operator FSCPT::Delta(const Operator& Op)
             for (int ibra = 0; ibra< tbc_bra.GetNumberKets(); ++ibra )
             // for ( auto& ibra : VectorUnion(tbc_bra.GetKetIndex_qq(), tbc_bra.GetKetIndex_vv(), tbc_bra.GetKetIndex_qv() ) )
             {
-                double matel = Op.TwoBody.MatEl.at(iter.first)(ibra,iket);
+                double matel = Op.TwoBody.MatEl.at(iter->first)(ibra,iket);
                 if(matel==0) continue;
                 Ket& bra = Opdelta.modelspace->GetKet(tbc_ket.GetKetIndex(ibra));
                 double e_bra = H0(bra.p,bra.p) + H0(bra.q,bra.q);
