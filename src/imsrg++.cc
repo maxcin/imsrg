@@ -124,6 +124,7 @@ int main(int argc, char** argv)
   bool write_HO_ops = parameters.s("write_HO_ops") == "true";  // added by Antoine Belley
   bool write_HF_ops = parameters.s("write_HF_ops") == "true";  // added by Antoine Belley
   bool FSCPT_correction = parameters.s("FSCPT_correction") == "true";
+  bool FSCPT_magnusfull = parameters.s("FSCPT_magnusfull") == "true";
 
   int eMax = parameters.i("emax");
   int lmax = parameters.i("lmax"); // so far I only use this with atomic systems.
@@ -1325,7 +1326,22 @@ int main(int argc, char** argv)
     if(FSCPT_correction)
     {
       std::cout <<"Using FSCPT to correct effective interaction up to third order" <<std::endl;
-      H_full.replaceSubOperator(HNO);
+
+      //To test things we can transform the full truncated H
+      if(FSCPT_magnusfull)
+      {
+        Operator zero = 0.0*HNO;
+        H_full.replaceSubOperator(zero);
+        for (size_t i = 0; i < imsrgsolver.Omega.size(); ++i)
+        {
+          H_full = BCH::BCH_Transform(H_full, imsrgsolver.Omega[i]);
+        }
+
+        H_full.replaceSubOperator(HNO);
+      }
+      else H_full.replaceSubOperator(HNO);
+
+      
 
       
       // std::cout <<"VSIMSRG(2) " <<std::endl;
@@ -1345,8 +1361,8 @@ int main(int argc, char** argv)
       primas.Heff2 = primas.Heff2.DoNormalOrderingCore();
       primas.Heff3 = primas.Heff3.DoNormalOrderingCore();
 
-      // //Now write files to second order
-      // rw.WriteTokyo(H_full,intfile+"g1"+".snt", ""); //first order file = usual interaction file
+      // //Now write files up to third order
+      rw.WriteTokyo(H_full,intfile+"g1"+".snt", ""); //first order file = usual interaction file
       H_full += primas.Heff2;
       rw.WriteTokyo(H_full,intfile+"g2"+".snt", ""); //second order file
       H_full += primas.Heff3;

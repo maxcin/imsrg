@@ -105,6 +105,7 @@ std::map<std::string,std::string> Parameters::string_par = {
   {"denominator_partitioning",  "Epstein_Nesbet"}, // Denominators used in IMSRG generators. Can be Moller_Plesset or Epstein_Nesbet.
   {"NAT_type", "ground_state"}, // Determine the density matrix used for NAT construction. "ground_state", "2p" or "CISD"
   {"FSCPT_correction", "false"}, //Use Fock space canonical perturbation theory of Primas to account for truncated Hamiltonian
+  {"FSCPT_magnusfull","false"}, //For FSCPT use the full magnus transformation of the truncated Operator
 };
 
 
