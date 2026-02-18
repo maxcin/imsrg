@@ -1371,7 +1371,7 @@ int main(int argc, char** argv)
       H_full += primas.Heff2;
       rw.WriteTokyo(H_full,intfile+"g2"+".snt", ""); //second order file
       H_full += primas.Heff3;
-      rw.WriteTokyo(H_full,intfile+"g3"+".snt", ""); //second order file
+      rw.WriteTokyo(H_full,intfile+"g3"+".snt", ""); //third order file
       // std::cout <<"VSIMSRG + Perturbative corrections " <<std::endl;
       // std::cout <<H_full.TwoBody.GetMatrix(tbcprint) <<std::endl;
     }

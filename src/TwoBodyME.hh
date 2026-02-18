@@ -89,7 +89,7 @@ class TwoBodyME
   const arma::mat& GetMatrix(size_t chbra, size_t chket)const {return  MatEl.at({chbra,chket});};
   const arma::mat& GetMatrix(size_t ch)const {return  GetMatrix(ch,ch);};
 
- //TwoBody setter/getters
+  //TwoBody setter/getters
   double GetTBME(int ch_bra, int ch_ket, int a, int b, int c, int d) const;
   double GetTBME_norm(int ch_bra, int ch_ket, int a, int b, int c, int d) const;
   void   SetTBME(int ch_bra, int ch_ket, int a, int b, int c, int d, double tbme);

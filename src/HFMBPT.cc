@@ -1236,11 +1236,12 @@ void HFMBPT::GetStateAveragedDensityMatrix(int Tz)
         cisd.uPrecalculateDoubles(n);
         double w_TDA = cisd.Energies(n);
         double w_CISD = w_TDA + cisd.E_CISD(n); 
-
+        double norm_state = cisd.GetNorm(n);
         nStateMap.insert_or_assign(J, n);
 
         //Here can put some condition wether a state should be included
-        bool include = w_CISD <= 25 ? true : false;
+        //Currently look for energy as well as norm
+        bool include = w_CISD <= 25 and norm_state < 5.0 ? true : false;
         ZfromTr = 0;
         NfromTr = 0;
         
@@ -1259,7 +1260,7 @@ void HFMBPT::GetStateAveragedDensityMatrix(int Tz)
 
         std::string include_string = include ? "Yes" : "No";
 
-        double norm_state = cisd.GetNorm(n);
+        
 
         std::cout << std::fixed << std::setw(3) << J << std::setw(5) << P << std::setw(5) <<n <<std::setw(7) <<dTz <<std::setw(13) <<w_TDA 
         <<std::setw(13) << w_CISD <<std::setw(7) <<include_string <<std::setw(13) <<ZfromTr <<std::setw(13) <<NfromTr <<std::setw(13) <<norm_state <<std::endl;
