@@ -4,6 +4,7 @@
 #include "HartreeFock.hh"
 #include "PhysicalConstants.hh"
 #include "AngMom.hh"
+#include "IMSRG.hh"
 
 #include <omp.h>
 
@@ -112,6 +113,7 @@ void HFMBPT::GetNaturalOrbitals()
   else if(NAT_type == "CISD") GetStateAveragedDensityMatrix(0); // Include ground and excited state corrections in valence space
   else if(NAT_type == "VS") GetStateAveragedDensityMatrix(0); // Include ground and excited state corrections in valence space
   else if(NAT_type == "Beta") GetDTzDensityMatrix();
+  else if(NAT_type == "R") GetWeightDensityRp2Rn2();
   else
   {
     std::cout <<"Unknown specifier for NAT basis " <<NAT_type <<std::endl;
@@ -1462,4 +1464,394 @@ double HFMBPT::GetNorm(Operator& H)
   }//a
 
   return 1.0 + norm;
+}
+
+arma::mat HFMBPT::WeightMatrixPP(Operator& H, Operator& D)
+{
+  int Norbits = modelspace->GetNumberOrbits();
+
+  arma::mat W_pp = arma::zeros(Norbits, Norbits);
+
+  for (auto& a : HartreeFock::modelspace->particles)
+  {
+    double ea = H.OneBody(a,a);
+    Orbit& oa = HartreeFock::modelspace->GetOrbit(a);
+    if ( (1-oa.occ)<ModelSpace::OCC_CUT) continue;
+
+    for (auto& b : modelspace->OneBodyChannels.at({oa.l,oa.j2,oa.tz2}))
+    {
+      if(b > a) continue;
+      double eb = H.OneBody(b,b);
+      Orbit& ob = HartreeFock::modelspace->GetOrbit(b);
+      if((1-ob.occ) <ModelSpace::OCC_CUT) continue;
+
+      double r = 0.0;
+      for(auto& c : HartreeFock::modelspace->particles)
+      {
+        double ec = H.OneBody(c,c);
+        Orbit& oc = HartreeFock::modelspace->GetOrbit(c);
+        if ( (1-oc.occ)<ModelSpace::OCC_CUT) continue;
+
+        for(auto& i : HartreeFock::modelspace->holes)
+        {
+          double ei = H.OneBody(i,i);
+          Orbit& oi = HartreeFock::modelspace->GetOrbit(i);
+          if ( oi.occ < ModelSpace::OCC_CUT ) continue;
+
+          for(auto& j : HartreeFock::modelspace->holes){
+            double ej = H.OneBody(j,j);
+            Orbit& oj = HartreeFock::modelspace->GetOrbit(j);
+            if ( oj.occ < ModelSpace::OCC_CUT ) continue;
+
+            double e_acij = ea + ec - ei - ej;
+            // if(std::abs(e_acij) < 1.e-8) continue;
+            int Jmin = std::max(std::abs(oa.j2-oc.j2), std::max(std::abs(oi.j2-oj.j2), std::abs(ob.j2-oc.j2)))/2;
+            int Jmax = std::min(         oa.j2+oc.j2,  std::min(         oi.j2+oj.j2,           ob.j2+oc.j2))/2;
+
+            double tbme = 0.0;
+            for(int J = Jmin; J <= Jmax; ++J){
+              tbme +=  (2*J+1) * H.TwoBody.GetTBME_J(J,a,c,i,j) / e_acij
+                               * D.TwoBody.GetTBME_J(J,i,j,b,c);
+            }
+            // tbme *=  (1-oa.occ) * (1-ob.occ) *  (1-oc.occ)*(1-oc.occ) * oi.occ*oi.occ * oj.occ*oj.occ ;
+            tbme *=  (1-oa.occ) * (1-ob.occ) *  (1-oc.occ)*oi.occ * oj.occ ;
+            // double epsilon = 0.5*sqrt(std::abs(e_acij * e_bcij));
+            // r += 0.5* ( sqrt(tbme + epsilon*epsilon) - epsilon ) / sqrt(tbme + epsilon*epsilon);
+            r += tbme;
+          }
+        }
+      }
+      W_pp(a,b) += r * 0.5 / (oa.j2+1);
+      W_pp(b,a) += r * 0.5 / (oa.j2+1);
+    }
+  }
+
+  return W_pp;
+}
+
+arma::mat HFMBPT::WeightMatrixHH(Operator& H, Operator& D)
+{
+  int Norbits = modelspace->GetNumberOrbits();
+
+  arma::mat W_hh = arma::zeros(Norbits, Norbits);
+
+  double W1 = 0.0;
+
+  for(auto i : modelspace->holes)
+  {
+    Orbit& oi = modelspace->GetOrbit(i);
+    double ei = H.OneBody(i,i);
+    for(auto j : modelspace->holes)
+    {
+      Orbit& oj = modelspace->GetOrbit(j);
+      double ej = H.OneBody(j,j);
+      for(auto a : modelspace->particles)
+      {
+        Orbit& oa = modelspace->GetOrbit(a);
+        double ea = H.OneBody(a,a);
+        for(auto b : modelspace->particles)
+        {
+          Orbit& ob = modelspace->GetOrbit(b);
+          double eb = H.OneBody(b,b);
+
+          double e_abij = ea + eb - ei -ej;
+          int Jmin = std::max(std::abs(oa.j2-ob.j2), std::abs(oi.j2-oj.j2))/2;
+          int Jmax = std::min(         oa.j2+ob.j2,           oi.j2+oj.j2)/2;
+
+            double tbme = 0.0;
+          for(int J = Jmin; J <= Jmax; ++J)
+          {
+            W1 += 0.5 * (2*J+1) * H.TwoBody.GetTBME_J(J,a,b,i,j) / e_abij
+                            * D.TwoBody.GetTBME_J(J,i,j,a,b);
+          }
+        }
+      } 
+    }
+  }
+
+  for(auto i : modelspace->holes)
+  {
+    Orbit& oi = HartreeFock::modelspace->GetOrbit(i);
+    W_hh(i,i) += oi.occ * (D.ZeroBody+W1) / (oi.j2+1);
+  }
+
+  for (auto& i : HartreeFock::modelspace->holes)
+  {
+    double ei = H.OneBody(i,i);
+    Orbit& oi = HartreeFock::modelspace->GetOrbit(i);
+    if ( oi.occ < ModelSpace::OCC_CUT) continue;
+
+    for (auto& j : HartreeFock::modelspace->OneBodyChannels.at({oi.l,oi.j2,oi.tz2}))
+    {
+      if(j > i) continue;
+      double ej = H.OneBody(j,j);
+      Orbit& oj = HartreeFock::modelspace->GetOrbit(j);
+      if ( oj.occ<ModelSpace::OCC_CUT) continue;
+
+      double r = 0.0;
+      for(auto& a : HartreeFock::modelspace->particles)
+//      for(auto& a : HartreeFock::modelspace->all_orbits)
+      {
+        double ea = H.OneBody(a,a);
+        Orbit& oa = HartreeFock::modelspace->GetOrbit(a);
+        if ( (1-oa.occ)<ModelSpace::OCC_CUT) continue;
+
+        for(auto& b : HartreeFock::modelspace->particles)
+//        for(auto& b : HartreeFock::modelspace->all_orbits)
+        {
+          double eb = H.OneBody(b,b);
+          Orbit& ob = HartreeFock::modelspace->GetOrbit(b);
+          if ( (1-ob.occ)<ModelSpace::OCC_CUT) continue;
+
+          for(auto& k : HartreeFock::modelspace->holes)
+          {
+            double ek = H.OneBody(k,k);
+            Orbit& ok = HartreeFock::modelspace->GetOrbit(k);
+            if ( ok.occ<ModelSpace::OCC_CUT) continue;
+
+            double e_abik = ea + eb - ei - ek;
+            double e_abjk = ea + eb - ek - ej;
+            if( std::abs(e_abik*e_abjk) < 1.e-8) continue;
+            int Jmin = std::max(std::abs(oa.j2-ob.j2), std::max(std::abs(oi.j2-ok.j2), std::abs(oj.j2-ok.j2)))/2;
+            int Jmax = std::min(         oa.j2+ob.j2,  std::min(         oi.j2+ok.j2,           oj.j2+ok.j2))/2;
+
+            double tbme = 0.0;
+            for(int J = Jmin; J <= Jmax; ++J)
+            {
+              tbme += (2*J+1) * H.TwoBody.GetTBME_J(J,a,b,i,k) / e_abik
+                              * D.TwoBody.GetTBME_J(J,j,k,a,b);
+            }
+
+            // tbme *=  (1-oa.occ)*(1-oa.occ) * (1-ob.occ)*(1-ob.occ) * ok.occ*ok.occ   *  oi.occ * oj.occ ;
+            tbme *=  (1-oa.occ)* (1-ob.occ) * ok.occ * oi.occ * oj.occ ;
+            r += tbme;
+          }
+        }
+      }
+      W_hh(i,j) += - r * 0.5 / (oi.j2+1);
+      W_hh(j,i) += - r * 0.5 / (oi.j2+1);
+    }
+  }
+
+  return W_hh;
+}
+
+arma::mat HFMBPT::WeightMatrixPH(Operator& H, Operator& D)
+{
+  int Norbits = modelspace->GetNumberOrbits();
+
+  arma::mat W_ph = arma::zeros(Norbits, Norbits);
+
+  //Contribution from HF if fractional occupation
+  for(auto i : modelspace->holes)
+  {
+    Orbit& oi = modelspace->GetOrbit(i);
+    for(auto a : modelspace->OneBodyChannels.at({oi.l,oi.j2,oi.tz2}))
+    {
+      Orbit& oa = modelspace->GetOrbit(a);
+      if(oa.occ > modelspace->OCC_CUT) continue;
+
+      W_ph(a,i) += oi.occ*(oa.occ)*D.OneBody(a,i);
+      W_ph(i,a) += oi.occ*(oa.occ)*D.OneBody(a,i);
+    }
+  }
+
+  //New contribution
+  for(auto i : modelspace->holes)
+  {
+    Orbit& oi = modelspace->GetOrbit(i);
+    double ei = H.OneBody(i,i);
+    for(auto a : modelspace->OneBodyChannels.at({oi.l,oi.j2,oi.tz2}))
+    {
+      Orbit& oa = modelspace->GetOrbit(a);
+      double ea = H.OneBody(a,a);
+      if(oa.occ > modelspace->OCC_CUT) continue; // a is particle
+
+      double r = 0.0;
+      for(auto b : modelspace->particles)
+      {
+        Orbit& ob = modelspace->GetOrbit(b);
+        double eb = H.OneBody(b,b);
+        for(auto j : modelspace->OneBodyChannels.at({ob.l,ob.j2,ob.tz2}))
+        {
+          Orbit& oj = modelspace->GetOrbit(j);
+          double ej = H.OneBody(j,j);
+          if(oj.occ < modelspace->OCC_CUT) continue; // j is hole
+          int Jmin = std::max(std::abs(oa.j2-ob.j2), std::abs(oi.j2-oj.j2))/2;
+          int Jmax = std::min(         oa.j2+ob.j2,           oi.j2+oj.j2)/2;
+
+          double e_abij = ea + eb - ei -ej;
+          double tbme = 0.0;
+          for(int J = Jmin; J <= Jmax; ++J)
+          {
+            tbme += (2*J+1) * H.TwoBody.GetTBME_J(J,a,b,i,j) / e_abij
+                            * D.OneBody(b,j);
+          }
+          r += tbme ;
+        }
+      }
+
+      W_ph(a,i) -= -2*r / (oa.j2+1);
+    }
+  }
+
+  //NAT like contributions
+  for (auto& i : HartreeFock::modelspace->holes)
+  {
+    double ei = H.OneBody(i,i);
+    Orbit& oi = HartreeFock::modelspace->GetOrbit(i);
+    if ( oi.occ < ModelSpace::OCC_CUT) continue;
+
+    for (auto& a : HartreeFock::modelspace->OneBodyChannels.at({oi.l,oi.j2,oi.tz2}))
+    {
+      double ea = H.OneBody(a,a);
+      Orbit& oa = HartreeFock::modelspace->GetOrbit(a);
+      if ( (1-oa.occ)<ModelSpace::OCC_CUT) continue;
+
+      double r = 0.0;
+      for(auto& b : HartreeFock::modelspace->particles)
+      {
+        double eb = H.OneBody(b,b);
+        Orbit& ob = HartreeFock::modelspace->GetOrbit(b);
+        if ( (1-ob.occ)<ModelSpace::OCC_CUT) continue;
+
+        for(auto& c : HartreeFock::modelspace->particles)
+        {
+          double ec = H.OneBody(c,c);
+          Orbit& oc = HartreeFock::modelspace->GetOrbit(c);
+          if ( (1-oc.occ)<ModelSpace::OCC_CUT) continue;
+
+          for(auto& j : HartreeFock::modelspace->holes)
+          {
+            double ej = H.OneBody(j,j);
+            Orbit& oj = HartreeFock::modelspace->GetOrbit(j);
+            if ( oj.occ < ModelSpace::OCC_CUT) continue;
+
+            double e_ai = ea - ei;
+            double e_bcij = eb + ec - ei - ej;
+            if(e_ai*e_bcij < 1.e-8) continue;
+            int Jmin = std::max(std::abs(oa.j2-oj.j2), std::max(std::abs(ob.j2-oc.j2), std::abs(oi.j2-oj.j2)))/2;
+            int Jmax = std::min(         oa.j2+oj.j2,  std::min(         ob.j2+oc.j2,           oi.j2+oj.j2))/2;
+
+            double tbme = 0.0;
+            for(int J = Jmin; J <= Jmax; ++J)
+            {
+              tbme += (2*J+1) * D.TwoBody.GetTBME_J(J,a,j,b,c)
+                              * H.TwoBody.GetTBME_J(J,b,c,i,j) / e_bcij;
+            }
+
+            tbme *= (1-oa.occ) * (1-ob.occ) * (1-oc.occ) * oi.occ * oj.occ ;
+            r += tbme;
+          }
+        }
+      }
+      W_ph(a,i) += r * 0.5 / (oa.j2+1);
+      W_ph(i,a) += r * 0.5 / (oa.j2+1);
+    }
+  }
+
+
+
+  for (auto& i : HartreeFock::modelspace->holes)
+  {
+      double ei = H.OneBody(i,i);
+      Orbit& oi = HartreeFock::modelspace->GetOrbit(i);
+
+    for (auto& a : HartreeFock::modelspace->OneBodyChannels.at({oi.l,oi.j2,oi.tz2}))
+    {
+      double ea = H.OneBody(a,a);
+      Orbit& oa = HartreeFock::modelspace->GetOrbit(a);
+      if ( (1-oa.occ)<ModelSpace::OCC_CUT) continue;
+
+
+      double r = 0.0;
+      for(auto& b : HartreeFock::modelspace->particles)
+      {
+        double eb = H.OneBody(b,b);
+        Orbit& ob = HartreeFock::modelspace->GetOrbit(b);
+        if ( (1-ob.occ)<ModelSpace::OCC_CUT) continue;
+
+        for(auto& j : HartreeFock::modelspace->holes)
+        {
+          double ej = H.OneBody(j,j);
+          Orbit& oj = HartreeFock::modelspace->GetOrbit(j);
+
+          for(auto& k : HartreeFock::modelspace->holes)
+          {
+            double ek = H.OneBody(k,k);
+            Orbit& ok = HartreeFock::modelspace->GetOrbit(k);
+
+            double e_ai = ea - ei;
+            double e_abkj = ea + eb - ek - ej;
+            if(e_ai*e_abkj < 1.e-8) continue;
+            int Jmin = std::max(std::abs(ok.j2-oj.j2), std::max(std::abs(oi.j2-ob.j2), std::abs(oa.j2-ob.j2)))/2;
+            int Jmax = std::min(         ok.j2+oj.j2,  std::min(         oi.j2+ob.j2,           oa.j2+ob.j2))/2;
+
+            double tbme = 0.0;
+            for(int J = Jmin; J <= Jmax; ++J)
+            {
+              tbme += (2*J+1) * D.TwoBody.GetTBME_J(J,k,j,i,b) 
+                              * H.TwoBody.GetTBME_J(J,a,b,k,j) / e_abkj;
+            }
+            tbme *= (1-oa.occ) * oi.occ * oj.occ * ok.occ * (1-ob.occ);
+            r += tbme ;
+          }
+        }
+      }
+      W_ph(a,i) -= r * 0.5 / (oa.j2+1);
+      W_ph(i,a) -= r * 0.5 / (oa.j2+1);
+    }
+  }
+
+  return W_ph;
+
+}
+
+//Calcualtes property specific orbitals
+//First calculates W^T W for Rp2 Rn2 and then averages them
+//The density is then the average
+//Density has nothing to do with particle number
+void HFMBPT::GetWeightDensityRp2Rn2()
+{
+  Operator Hhf = HartreeFock::GetNormalOrderedH();
+  Operator& H(Hhf);
+  //Get Ops
+  Operator Rp2 = imsrg_util::Rp2_corrected_Op(*modelspace, modelspace->Aref, modelspace->Zref);
+  Operator Rn2 = imsrg_util::Rn2_corrected_Op(*modelspace, modelspace->Aref, modelspace->Zref);
+  //Transform to HF
+  Rp2 = HartreeFock::TransformToHFBasis(Rp2);
+  Rn2 = HartreeFock::TransformToHFBasis(Rn2);
+  //Normal Order
+  Rp2 = Rp2.DoNormalOrdering();
+  Rn2 = Rn2.DoNormalOrdering();
+  //Calculate weight matrices
+  int Norbits = modelspace->GetNumberOrbits();
+  arma::mat W_p = arma::zeros(Norbits,Norbits);
+  arma::mat W_n = arma::zeros(Norbits,Norbits);
+
+  W_p = WeightMatrixPP(H,Rp2) + WeightMatrixHH(H,Rp2) + WeightMatrixPH(H,Rp2);
+  W_n = WeightMatrixPP(H,Rn2) + WeightMatrixHH(H,Rn2) + WeightMatrixPH(H,Rn2);
+
+  arma::mat fake_rho = 0.5*(W_p.t()*W_p + W_n.t()*W_n);
+
+  //Now clean up the new density
+  for(auto i : modelspace->holes)
+  {
+    for(auto a : modelspace->particles)
+    {
+      fake_rho(a,i) = 0.0;
+      fake_rho(i,a) = 0.0;
+    }
+  }
+
+  for(auto i : modelspace->holes)
+  {
+    for(auto j : modelspace->holes)
+    {
+      if(i == j) continue;
+      fake_rho(i,j) = 0.0;
+    }
+  }
+
+  rho = fake_rho;
 }

@@ -48,9 +48,18 @@ class HFMBPT : public HartreeFock
     void Get2pDensityMatrix(); // Calculate the density matrix of the first 2+ state
     void GetDTzDensityMatrix(); // Calculate the density matrix of the state with dTz = -1
 
+    void GetWeightDensityRp2Rn2();
+
     void DensityMatrixPP(Operator& H);
     void DensityMatrixHH(Operator& H);
     void DensityMatrixPH(Operator& H);
+
+
+    //Weight matrix calculation for propery specific NAT basis
+    arma::mat WeightMatrixPP(Operator& H, Operator& D);
+    arma::mat WeightMatrixHH(Operator& H, Operator& D);
+    arma::mat WeightMatrixPH(Operator& H, Operator& D);
+
     void DiagonalizeRho();
     void PrintOccupation();
     Operator TransformHFToNATBasis(Operator& OpIn);
