@@ -44,6 +44,7 @@ class HFMBPT : public HartreeFock
     void GetDensityMatrix();
 
     void GetStateAveragedDensityMatrix(int Tz); // Calculate the state averaged density matrix of ground and excited states
+    void GetStateAveragedDensityMatrixTDA(int Tz); //Just the HF+MBPT ground state and TDA excited states
     void GetAverage2pDensityMatrix(); // Calculate the state average density matrix of the ground and first 2+ state 
     void Get2pDensityMatrix(); // Calculate the density matrix of the first 2+ state
     void GetDTzDensityMatrix(); // Calculate the density matrix of the state with dTz = -1

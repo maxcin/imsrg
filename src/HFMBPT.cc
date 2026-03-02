@@ -112,6 +112,7 @@ void HFMBPT::GetNaturalOrbitals()
   else if(NAT_type == "gs2p") GetAverage2pDensityMatrix(); // Include corrections for the ground and first 2+ state 
   else if(NAT_type == "CISD") GetStateAveragedDensityMatrix(0); // Include ground and excited state corrections in valence space
   else if(NAT_type == "VS") GetStateAveragedDensityMatrix(0); // Include ground and excited state corrections in valence space
+  else if(NAT_type == "TDA") GetStateAveragedDensityMatrixTDA(0); //HF+MBPT ground state and TDA excited states in valence space
   else if(NAT_type == "Beta") GetDTzDensityMatrix();
   else if(NAT_type == "R") GetWeightDensityRp2Rn2();
   else
@@ -1266,6 +1267,141 @@ void HFMBPT::GetStateAveragedDensityMatrix(int Tz)
 
         std::cout << std::fixed << std::setw(3) << J << std::setw(5) << P << std::setw(5) <<n <<std::setw(7) <<dTz <<std::setw(13) <<w_TDA 
         <<std::setw(13) << w_CISD <<std::setw(7) <<include_string <<std::setw(13) <<ZfromTr <<std::setw(13) <<NfromTr <<std::setw(13) <<norm_state <<std::endl;
+      }   
+
+
+    }// a
+  }// i
+
+  arma::mat rho_full = (rho + rho_excitation) / (N+1);
+
+  //For FNO we may still have some unitary transformation in the hh block. We want to keep the HF property of a diagonal Fock matrix in the hh block
+  //so set remaining off-diagonal hole matrix elements to zero
+  for(int i: modelspace->holes)
+  {
+    Orbit& oi = modelspace->GetOrbit(i);
+    for(int j : modelspace->OneBodyChannels.at({oi.l,oi.j2,oi.tz2}))
+    {
+      if(i != j)
+      {
+        rho(i,j) = 0.0;       
+        rho(j,i) = 0.0;       
+      }
+    }
+  }
+
+  rho = rho_full;
+  profiler.timer["CIS(D) DensityMatrix"] += omp_get_wtime() - t_start;
+
+  // profiler.PrintAll();
+  // exit(0);
+}
+
+//As the above except we only focus on the TDA states and neglect perturbative corrections
+void HFMBPT::GetStateAveragedDensityMatrixTDA(int Tz)
+{
+  modelspace->PreCalculateSixJ();
+  Operator Hhf = HartreeFock::GetNormalOrderedH();
+  Operator& H(Hhf);
+  double t_start = omp_get_wtime();
+
+  // After the HF step, rho is the density of harmonic oscillator states for a filled HF reference
+  //  i.e. <a|rho|b> = sum_i <a|i> <b|i>  where i is an occupied HF state and a and b are HO basis states.
+  // Now we switch to the HF basis, so rho should be diagonal before adding in the perturbative corrections.
+  rho.zeros(); 
+  for (auto& i : HartreeFock::modelspace->holes)  rho(i,i) = HartreeFock::modelspace->GetOrbit(i).occ; // Set hole occupations to 1.
+  
+  DensityMatrixPP(H);
+  DensityMatrixHH(H);
+
+  double ZfromTr = 0.0;
+  double NfromTr = 0.0;
+  for(int i=0; i< modelspace->norbits; ++i)
+  {
+    Orbit& oi = HartreeFock::modelspace->GetOrbit(i);
+    if(oi.tz2==-1) ZfromTr += rho(i,i) * (oi.j2+1);
+    if(oi.tz2==1)  NfromTr += rho(i,i) * (oi.j2+1);
+  }
+
+  arma::mat rho_excitation = arma::zeros(modelspace->norbits, modelspace->norbits);
+  int N = 0;
+
+  std::map<int, int> nStateMap; // J -> number states already calculated
+
+  std::cout <<"Constructing valence space NAT basis" <<std::endl;
+  std::cout << std::fixed << std::setw(3) << "J" << std::setw(5) << "P" << std::setw(5) <<"n" <<std::setw(7) <<"dTz" <<std::setw(13) <<"TDA" 
+  <<std::setw(7) <<"rho" <<std::setw(13) <<"Z" <<std::setw(13) <<"N" <<std::setw(13) <<"<n|n>"<<std::endl;
+
+  //Ground state 
+  std::cout << std::fixed << std::setw(3) << 0 << std::setw(5) << 0 << std::setw(5) <<0 <<std::setw(7) <<0 <<std::setw(13) <<0.0 
+         <<std::setw(7) <<"Yes" <<std::setw(13) <<ZfromTr <<std::setw(13) <<NfromTr <<std::setw(13) <<GetNorm(Hhf) <<std::endl;
+
+  for(int i : modelspace->valence)
+  {
+    Orbit& oi = modelspace->GetOrbit(i);
+    //i is hole
+    if(oi.occ < modelspace->OCC_CUT) continue;
+    for(int a: modelspace->valence)
+    {
+      Orbit& oa = modelspace->GetOrbit(a);
+      //a is particle
+      if(oa.occ > modelspace->OCC_CUT) continue;
+
+      int dTz = (oa.tz2 - oi.tz2)/2;
+
+      if(dTz != Tz) continue;
+
+      int P = (oa.l + oi.l)%2 == 0 ? 0 : 1;
+      int Jmin = std::abs(oa.j2-oi.j2)/2;
+      int Jmax = (oa.j2+oi.j2)/2;
+
+      for(int J = Jmin; J<=Jmax; ++J)
+      {
+        //Get n
+        int n = 0;
+        if(nStateMap.find(J) != nStateMap.end())
+        {
+          n = nStateMap.at(J) + 1;
+        }
+
+
+        CISD cisd(Hhf, J);
+        double w_TDA = cisd.Energies(n);
+        // cisd.uPrecalculateDoubles(n);
+        
+        // double w_CISD = w_TDA + cisd.E_CISD(n); 
+
+        //The TDA states are obtained directly from diagonalizing of the TDA hamiltonian
+        //The norm is thus alway 1 indepentent of the quality of the state
+        double norm_state = 1.0;
+
+        nStateMap.insert_or_assign(J, n);
+
+        //Here can put some condition wether a state should be included
+        //Currently look for energy as well as norm
+        bool include = w_TDA <= 25 and norm_state < 5.0 ? true : false;
+        ZfromTr = 0;
+        NfromTr = 0;
+        
+        if(include)
+        {
+          arma::mat rho_state = cisd.GetScalarDensityTDA(n);  
+          for(int i=0; i< modelspace->norbits; ++i)
+          {
+            Orbit& oi = HartreeFock::modelspace->GetOrbit(i);
+            if(oi.tz2==-1) ZfromTr += rho_state(i,i) * (oi.j2+1);
+            if(oi.tz2==1)  NfromTr += rho_state(i,i) * (oi.j2+1);
+          }
+          rho_excitation += rho_state;
+          N += 1;
+        } 
+
+        std::string include_string = include ? "Yes" : "No";
+
+        
+
+        std::cout << std::fixed << std::setw(3) << J << std::setw(5) << P << std::setw(5) <<n <<std::setw(7) <<dTz <<std::setw(13) <<w_TDA 
+        <<std::setw(7) <<include_string <<std::setw(13) <<ZfromTr <<std::setw(13) <<NfromTr <<std::setw(13) <<norm_state <<std::endl;
       }   
 
 
