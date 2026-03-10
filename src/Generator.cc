@@ -740,36 +740,39 @@ Operator Generator::GetHod_ShellModel(Operator& H)
 
 
  
-    // off-diagonal:   <ppp|ccc>, <ppp|vcc>, <ppp|vvc>, <qpp|vvv>  where p is v or q
-    //                 
-    size_t nch3 = H.modelspace->GetNumberThreeBodyChannels();
-    #pragma omp parallel for schedule(dynamic,1)
-    for (size_t ch3=0; ch3<nch3; ch3++)
+    if(H.particle_rank > 2)
     {
-      ThreeBodyChannel& Tbc = H.modelspace->GetThreeBodyChannel(ch3);
-      size_t nkets3 = Tbc.GetNumberKets();
-      for (size_t ibra=0; ibra<nkets3; ibra++)
+      // off-diagonal:   <ppp|ccc>, <ppp|vcc>, <ppp|vvc>, <qpp|vvv>  where p is v or q
+      //                 
+      size_t nch3 = H.modelspace->GetNumberThreeBodyChannels();
+      #pragma omp parallel for schedule(dynamic,1)
+      for (size_t ch3=0; ch3<nch3; ch3++)
       {
-        Ket3& bra = Tbc.GetKet(ibra);
-        if (   (bra.op->cvq==0) or (bra.oq->cvq==0) or (bra.oR->cvq==0)  ) continue; //cvq==0 means core, so we want all v or q in the bra. 
+         ThreeBodyChannel& Tbc = H.modelspace->GetThreeBodyChannel(ch3);
+         size_t nkets3 = Tbc.GetNumberKets();
+         for (size_t ibra=0; ibra<nkets3; ibra++)
+         {
+         Ket3& bra = Tbc.GetKet(ibra);
+         if (   (bra.op->cvq==0) or (bra.oq->cvq==0) or (bra.oR->cvq==0)  ) continue; //cvq==0 means core, so we want all v or q in the bra. 
 
-        
-        for (size_t iket=0; iket<nkets3; iket++)
-        {
-           Ket3& ket = Tbc.GetKet(iket);
-           if (   (ket.op->cvq==2) or (ket.oq->cvq==2) or (ket.oR->cvq==2)  ) continue; //cvq==2 means q, i.e. not core or valence. we want all c or v in ket. 
-           if (  (bra.op->cvq==1) and (bra.oq->cvq==1) and (bra.oR->cvq==1) and (ket.op->cvq==1) and (ket.oq->cvq==1) and (ket.oR->cvq==1) ) continue;// no vvvvvv
+         
+         for (size_t iket=0; iket<nkets3; iket++)
+         {
+            Ket3& ket = Tbc.GetKet(iket);
+            if (   (ket.op->cvq==2) or (ket.oq->cvq==2) or (ket.oR->cvq==2)  ) continue; //cvq==2 means q, i.e. not core or valence. we want all c or v in ket. 
+            if (  (bra.op->cvq==1) and (bra.oq->cvq==1) and (bra.oR->cvq==1) and (ket.op->cvq==1) and (ket.oq->cvq==1) and (ket.oR->cvq==1) ) continue;// no vvvvvv
 
 
-           double ME_od = H.ThreeBody.GetME_pn_ch(ch3,ch3,ibra,iket );
+            double ME_od = H.ThreeBody.GetME_pn_ch(ch3,ch3,ibra,iket );
 
-           Hod.ThreeBody.SetME_pn_ch( ch3,ch3,ibra,iket,  ME_od); // hermitian conjugate automatically gets added
+            Hod.ThreeBody.SetME_pn_ch( ch3,ch3,ibra,iket,  ME_od); // hermitian conjugate automatically gets added
 
-           
-        }// for iket
-      }// for ibra
+            
+         }// for iket
+         }// for ibra
 
-    }// for ch3
+      }// for ch3
+   }
 
 
 
