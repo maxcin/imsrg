@@ -1295,7 +1295,7 @@ int main(int argc, char** argv)
       }
     }
   }
-  if ( renormal_order )
+  if ( renormal_order or FSCPT_correction )
   {
 
     HNO = imsrgsolver.GetH_s();
