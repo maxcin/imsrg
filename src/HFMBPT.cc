@@ -280,6 +280,58 @@ void HFMBPT::GetFrozenNaturalOrbitals()
   }
   C_HO2NAT = C * C_HF2NAT;
 
+  //Credit to Matthias. Sometimes negative occupation numbers appear in the DiagonalizeRho() step. In that case let's sort according to absolute occupation number
+  for (auto i : modelspace->all_orbits) {
+    Orbit& oi = modelspace->GetOrbit(i);
+    std::vector<std::pair<double, int>> occs_inds_orig;
+    for (int j : Hbare.OneBodyChannels.at({oi.l, oi.j2, oi.tz2}))  // j runs over HO states
+    {
+      occs_inds_orig.push_back(std::make_pair(Occ(j), j));
+    }
+
+    std::vector<std::pair<double, int>> occs_inds_new(occs_inds_orig);
+    std::sort(
+        occs_inds_new.begin(),
+        occs_inds_new.end(),
+        [](const std::pair<double, int>& a, const std::pair<double, int>& b) -> bool {
+          return std::abs(a.first) > std::abs(b.first);
+        });
+
+    bool resorting_necessary = false;
+    for (std::size_t ind_j = 0; ind_j < occs_inds_new.size(); ind_j += 1) {
+      resorting_necessary =
+          resorting_necessary || (occs_inds_new[ind_j].second != occs_inds_orig[ind_j].second);
+    }
+
+    if (resorting_necessary) {
+      std::cout << std::setw(3) << i << "_old -> ";
+      for (const auto& occ_ind : occs_inds_orig) {
+        std::cout << "(" << std::setw(3) << occ_ind.second << ", " << std::setprecision(6)
+                  << std::setw(10) << occ_ind.first << ") ";
+      }
+      std::cout << "\n";
+      std::cout << std::setw(3) << i << "_new -> ";
+      for (const auto& occ_ind : occs_inds_new) {
+        std::cout << "(" << std::setw(3) << occ_ind.second << ", " << std::setprecision(6)
+                  << std::setw(10) << occ_ind.first << ") ";
+      }
+      std::cout << "\n";
+
+      arma::mat C_HF2NAT_new = C_HF2NAT;
+      for (std::size_t ind_j = 0; ind_j < occs_inds_new.size(); ind_j += 1) {
+        int j_new = occs_inds_orig[ind_j].second;
+        int j_old = occs_inds_new[ind_j].second;
+
+        Occ(j_new) = occs_inds_new[ind_j].first;
+        for (int k : Hbare.OneBodyChannels.at({oi.l, oi.j2, oi.tz2}))  // k runs over HO states
+        {
+          C_HF2NAT_new(k, j_new) = C_HF2NAT(k, j_old);
+        }
+      }
+      C_HF2NAT = C_HF2NAT_new;
+    }
+  }
+
   // set the occ_nat values
   for ( auto i : modelspace->all_orbits)
   {
@@ -298,7 +350,6 @@ void HFMBPT::GetFrozenNaturalOrbitals()
   
   //At this point HNO_frozen is in the HF basis
   //We transform to the NAT basis
-
   HNO_frozen = TransformHFToNATBasis(HNO_frozen);
 
 }
@@ -1043,6 +1094,7 @@ void HFMBPT::ReorderHFMBPTCoefficients()
       oi.occ_nat = std::abs(Occ(i));  // it's possible that Occ(i) is negative, and for occ_nat, we don't want that.
     }
   }
+
 }
 
 
