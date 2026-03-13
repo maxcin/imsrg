@@ -624,7 +624,10 @@ int main(int argc, char** argv)
     hf.UseNATOccupations( use_NAT_occupations );
     hf.OrderNATBy( NAT_order );
     hf.NAT_type = NAT_type;
-    hf.GetNaturalOrbitals();
+    // hf.GetNaturalOrbitals();
+
+    //Saves on one normal ordering step
+    hf.GetFrozenNaturalOrbitals();
   }
 
   if (basis=="HF" or basis=="NAT")
@@ -710,31 +713,24 @@ int main(int argc, char** argv)
   }
   else if (basis == "NAT") // we want to use the natural orbital basis
   {
-    // for backwards compatibility: order_NAT_by_energy overrides NAT_order
-//    if (order_NAT_by_energy) NAT_order = "energy";
 
-//    hf.UseNATOccupations( use_NAT_occupations );
-//    hf.OrderNATBy( NAT_order );
+    //We use frozen natural orbials so there is already a finished version of HNO present in HFMBPT
+    //We simply copy from it and then clear the version in HFMBPT
+    // HNO = hf.GetNormalOrderedHNAT( hno_particle_rank );
 
-//  GetNaturalOrbitals() calls GetDensityMatrix(), which computes the 1b density matrix up to MBPT2
-//  using the NO2B Hamiltonian in the HF basis, obtained with GetNormalOrderedH().
-//  Then it calls DiagonalizeRho() which diagonalizes the density matrix, yielding the natural orbital basis.
-//    hf.GetNaturalOrbitals();
-    HNO = hf.GetNormalOrderedHNAT( hno_particle_rank );
+    //Check if Zero
+    // Operator zero = HNO - hf.HNO_frozen;
+    // std::cout <<"ZeroBody " <<zero.ZeroBody <<std::endl;
+    // std::cout <<"OneBody " <<zero.OneBodyNorm() <<std::endl;
+    // std::cout <<"TwoBody " <<zero.TwoBodyNorm() <<std::endl;
 
-//  SRS: I'm commenting this out because this is not reasonably-expected default behavior
-//    // For now, even if we use the NAT occupations, we switch back to naive occupations after the normal ordering
-//    // This should be investigated in more detail.
-//    if (use_NAT_occupations)
-//    {
-//      hf.FillLowestOrbits();
-//      std::cout << "Undoing NO wrt A=" << modelspace.GetAref() << " Z=" << modelspace.GetZref() << std::endl;
-//      HNO = HNO.UndoNormalOrdering();
-//      hf.UpdateReference();
-//      modelspace.SetReference(modelspace.core); // change the reference
-//      std::cout << "Doing NO wrt A=" << modelspace.GetAref() << " Z=" << modelspace.GetZref() << std::endl;
-//      HNO = HNO.DoNormalOrdering();
-//    }
+    // exit(0);
+
+    HNO = hf.HNO_frozen;
+
+    //This will makes sure that the TBMEs are actually deleted
+    hf.HNO_frozen = Operator();
+
 
   }
   else if (basis == "oscillator")

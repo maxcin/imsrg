@@ -21,6 +21,7 @@
 #define NaturalOrbital_h
 
 #include "HartreeFock.hh"
+#include "Operator.hh"
 #include <armadillo>
 #include <map>
 //#define OCC_CUT 1e-6
@@ -42,6 +43,13 @@ class HFMBPT : public HartreeFock
     HFMBPT(Operator& hbare); // same as HartreeFock constructor
     void GetNaturalOrbitals();
     void GetDensityMatrix();
+
+    //If we use FNO then we can just prestore the HF normal odered H and transform HF -> NAT 
+    //This saves one three-body normal ordering step
+    //To not interfere we store the Operator temporarily
+    void GetFrozenNaturalOrbitals();
+    bool FrozenHNAT = false;
+    Operator HNO_frozen;
 
     void GetStateAveragedDensityMatrix(int Tz); // Calculate the state averaged density matrix of ground and excited states
     void GetStateAveragedDensityMatrixTDA(int Tz); //Just the HF+MBPT ground state and TDA excited states

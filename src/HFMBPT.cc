@@ -239,6 +239,70 @@ void HFMBPT::GetNaturalOrbitals()
   // exit(0);
 }
 
+void HFMBPT::GetFrozenNaturalOrbitals()
+{
+  int norbits = HartreeFock::modelspace->GetNumberOrbits();
+  int A = HartreeFock::modelspace->GetTargetMass();
+  Occ      = arma::vec(norbits,arma::fill::zeros);  // Occupations are the eigenvalues of the density matrix
+
+  FrozenHNAT = true;
+  //In these function we store the HNO in HF basis in HNO_frozen if FrozenHNAT is set  
+  if(NAT_type == "ground_state") GetDensityMatrix();  // Include 2nd order MBPT corrections to rho
+  else if(NAT_type == "2p") Get2pDensityMatrix(); // Include corrections for the first 2+ state
+  else if(NAT_type == "gs2p") GetAverage2pDensityMatrix(); // Include corrections for the ground and first 2+ state 
+  else if(NAT_type == "CISD") GetStateAveragedDensityMatrix(0); // Include ground and excited state corrections in valence space
+  else if(NAT_type == "VS") GetStateAveragedDensityMatrix(0); // Include ground and excited state corrections in valence space
+  else if(NAT_type == "TDA") GetStateAveragedDensityMatrixTDA(0); //HF+MBPT ground state and TDA excited states in valence space
+  else if(NAT_type == "Beta") GetDTzDensityMatrix();
+  else if(NAT_type == "R") GetWeightDensityRp2Rn2();
+  else
+  {
+    std::cout <<"Unknown specifier for NAT basis " <<NAT_type <<std::endl;
+    exit(0);
+  }
+
+  DiagonalizeRho();  // Find the 1b transformation that diagonalizes rho, but don't apply it to anything yet.
+
+  double AfromTr = 0.0;
+  double ZfromTr = 0.0;
+  double NfromTr = 0.0;
+  for(int i=0; i< norbits; ++i)
+  {
+    Orbit& oi = HartreeFock::modelspace->GetOrbit(i);
+    AfromTr += rho(i,i) * (oi.j2+1);
+    if(oi.tz2==-1) ZfromTr += rho(i,i) * (oi.j2+1);
+    if(oi.tz2==1)  NfromTr += rho(i,i) * (oi.j2+1);
+  }
+
+  if(std::abs(AfromTr - A) > 1e-8)
+  {
+    std::cout << "Warning: Mass != Tr(rho)   " << A << " != " << AfromTr <<  std::endl;
+  }
+  C_HO2NAT = C * C_HF2NAT;
+
+  // set the occ_nat values
+  for ( auto i : modelspace->all_orbits)
+  {
+    Orbit& oi = modelspace->GetOrbit(i);
+    oi.occ_nat = std::abs(Occ(i));  // it's possible that Occ(i) is negative, and for occ_nat, we don't want that.
+  }
+
+  // In principle, this could be iterated until self-consistency. But I don't do that for now. This would only have an impact
+  // if the energy ordering of occupied and unoccupied levels gets flipped, which would be a fairly pathological case.
+  arma::mat tmp = C_HO2NAT.cols(holeorbs);
+  rho = (tmp.each_row() % hole_occ) * tmp.t(); // now rho is in the HO basis, with our prescribed occupations in the NAT basis
+  UpdateF();  // Now F is in the HO basis, but with rho from filling in the NAT basis.
+
+  ReorderHFMBPTCoefficients();
+  C_HO2NAT = C * C_HF2NAT; // bug fix suggested by Emily Love
+  
+  //At this point HNO_frozen is in the HF basis
+  //We transform to the NAT basis
+
+  HNO_frozen = TransformHFToNATBasis(HNO_frozen);
+
+}
+
 //*********************************************************************
 // Diagonalize the 1b density matrix
 //*********************************************************************
@@ -546,6 +610,9 @@ void HFMBPT::GetDensityMatrix()
       }
     }
   }
+
+  if(FrozenHNAT) HNO_frozen = Hhf;
+
   profiler.timer["HFMBPT DensityMatrix"] += omp_get_wtime() - t_start;
 }
 
@@ -1291,6 +1358,9 @@ void HFMBPT::GetStateAveragedDensityMatrix(int Tz)
   }
 
   rho = rho_full;
+
+  if(FrozenHNAT) HNO_frozen = Hhf;
+
   profiler.timer["CIS(D) DensityMatrix"] += omp_get_wtime() - t_start;
 
   // profiler.PrintAll();
@@ -1426,6 +1496,8 @@ void HFMBPT::GetStateAveragedDensityMatrixTDA(int Tz)
   }
 
   rho = rho_full;
+  if(FrozenHNAT) HNO_frozen = Hhf;
+
   profiler.timer["CIS(D) DensityMatrix"] += omp_get_wtime() - t_start;
 
   // profiler.PrintAll();
@@ -1470,6 +1542,7 @@ void HFMBPT::Get2pDensityMatrix()
       }
     }
   }
+  if(FrozenHNAT) HNO_frozen = Hhf;
   profiler.timer["HFMBPT DensityMatrix 2+"] += omp_get_wtime() - t_start;
 }
 
@@ -1514,6 +1587,7 @@ void HFMBPT::GetAverage2pDensityMatrix()
       }
     }
   }
+  if(FrozenHNAT) HNO_frozen = Hhf;
   profiler.timer["HFMBPT DensityMatrix 2+"] += omp_get_wtime() - t_start;
 }
 
@@ -1563,6 +1637,7 @@ void HFMBPT::GetDTzDensityMatrix()
       }
     }
   }
+  if(FrozenHNAT) HNO_frozen = Hhf;
   profiler.timer["HFMBPT DensityMatrix 2+"] += omp_get_wtime() - t_start;
 }
 
