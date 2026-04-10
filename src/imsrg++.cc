@@ -755,20 +755,22 @@ int main(int argc, char** argv)
     std::cout << "You have chosen IMSRG3. good luck..." << std::endl;
     std::cout << "Truncations: dE3max = " << dE3max << "   OccNat3Cut = " << std::scientific << OccNat3Cut << "  ->  number of 3-body states kept:  " << nstates[0] << " out of " << nstates[1] << std::endl;
 
-    if (hno_particle_rank<3 ) // if we're doing IMSRG3, we need a 3 body operator
-    {
-//      Operator H3(modelspace,0,0,0,3);
-//      std::cout << "Constructed H3" << std::endl;
-//      H3.ZeroBody = HNO.ZeroBody;
-//      H3.OneBody = HNO.OneBody;
-//      H3.TwoBody = HNO.TwoBody;
-//      HNO = H3;
-//      std::cout << "Replacing HNO" << std::endl;
-//      std::cout << "Hbare Three Body Norm is " << Hbare.ThreeBodyNorm() << std::endl;
-        HNO.ThreeBody.SetMode("pn");
-        HNO.SetParticleRank(3);
-      // HNO.ThreeBody.SwitchToPN_and_discard();
-    }
+    //why is this allocated in the full space if it will just be zero?
+    //better to do this after truncating, no?
+//     if (hno_particle_rank<3 ) // if we're doing IMSRG3, we need a 3 body operator
+//     {
+// //      Operator H3(modelspace,0,0,0,3);
+// //      std::cout << "Constructed H3" << std::endl;
+// //      H3.ZeroBody = HNO.ZeroBody;
+// //      H3.OneBody = HNO.OneBody;
+// //      H3.TwoBody = HNO.TwoBody;
+// //      HNO = H3;
+// //      std::cout << "Replacing HNO" << std::endl;
+// //      std::cout << "Hbare Three Body Norm is " << Hbare.ThreeBodyNorm() << std::endl;
+//         HNO.ThreeBody.SetMode("pn");
+//         HNO.SetParticleRank(3);
+//       // HNO.ThreeBody.SwitchToPN_and_discard();
+//     }
   }
 
 

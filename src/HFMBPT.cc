@@ -281,7 +281,8 @@ void HFMBPT::GetFrozenNaturalOrbitals()
   C_HO2NAT = C * C_HF2NAT;
 
   //Credit to Matthias. Sometimes negative occupation numbers appear in the DiagonalizeRho() step. In that case let's sort according to absolute occupation number
-  for (auto i : modelspace->all_orbits) {
+  for (auto i : modelspace->all_orbits) 
+  {
     Orbit& oi = modelspace->GetOrbit(i);
     std::vector<std::pair<double, int>> occs_inds_orig;
     for (int j : Hbare.OneBodyChannels.at({oi.l, oi.j2, oi.tz2}))  // j runs over HO states
