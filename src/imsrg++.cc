@@ -1015,6 +1015,10 @@ int main(int argc, char** argv)
        HNO = HNO.Truncate(modelspace_imsrg);
        if (IMSRG3) // we'll want a 3N structure for IMSRG3
        {
+          std::array<size_t,2> nstates = modelspace_imsrg.CountThreeBodyStatesInsideCut();
+          std::cout << "You have chosen IMSRG3. good luck..." << std::endl;
+          std::cout << "Truncations: dE3max = " << dE3max << "   OccNat3Cut = " << std::scientific << OccNat3Cut << "  ->  number of 3-body states kept:  " << nstates[0] << " out of " << nstates[1] << std::endl;
+
            // Always do IMSRG(3) in pn mode. SetMode also calls Allocate.
            HNO.ThreeBody.SetMode("pn");
            HNO.SetParticleRank(3);
