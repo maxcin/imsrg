@@ -1199,10 +1199,10 @@ double Operator::GetMP2_Energy()
             if (std::abs(tbme) > 1e-9)
             {
               Emp2 += (2 * J + 1) * oa.occ * ob.occ * tbme * tbme / denom; // no factor 1/4 because of the restricted sum
-                                                                           //              std::cout << "MBPT2 " << a << " " << b << " " << i << " " << j << "    " << J << "  " << oa.occ << " " << ob.occ << "  "
-                                                                           //                        << std::setw(12) << std::setprecision(6) << tbme << " "
-                                                                           //                        << std::setw(12) << std::setprecision(6) << denom << "   "
-                                                                           //                        << std::setw(12) << std::setprecision(6) << (2*J+1) * oa.occ*ob.occ*tbme*tbme/denom  << std::endl;
+                                                                                        // std::cout << "MBPT2 " << a << " " << b << " " << i << " " << j << "    " << J << "  " << oa.occ << " " << ob.occ << "  "
+                                                                                        //           << std::setw(12) << std::setprecision(6) << tbme << " "
+                                                                                        //           << std::setw(12) << std::setprecision(6) << denom << "   "
+                                                                                        //           << std::setw(12) << std::setprecision(6) << (2*J+1) * oa.occ*ob.occ*tbme*tbme/denom  << std::endl;
             }
           }
         }

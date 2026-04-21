@@ -145,11 +145,10 @@ bool TwoBodyME::IsAllocated()const
 /// This returns the matrix element times a factor \f$ \sqrt{(1+\delta_{ij})(1+\delta_{kl})} \f$
 double TwoBodyME::GetTBME(int ch_bra, int ch_ket, int a, int b, int c, int d) const
 {
-  double norm = 1;
+   double norm = 1;
    if (a==b) norm *= PhysConst::SQRT2;
    if (c==d) norm *= PhysConst::SQRT2;
    return norm * GetTBME_norm(ch_bra,ch_ket,a,b,c,d);
-   // return 100*GetTBME_norm(ch_bra,ch_ket,a,b,c,d);
 }
 
 /// This returns the normalized matrix element 

@@ -5,6 +5,7 @@
 #include "PhysicalConstants.hh"
 #include "AngMom.hh"
 #include "IMSRG.hh"
+#include "Operator.hh"
 
 #include <omp.h>
 
@@ -641,6 +642,8 @@ void HFMBPT::GetDensityMatrix()
   // Now we switch to the HF basis, so rho should be diagonal before adding in the perturbative corrections.
   rho.zeros(); // This and the following line fixes bug found by Baishan Dec 2020.
   for (auto& i : HartreeFock::modelspace->holes)  rho(i,i) = HartreeFock::modelspace->GetOrbit(i).occ; // Set hole occupations to 1.
+
+  TwoOrbitalDensity();
 
 //  std::cout << std::endl << "before perturbative correction, rho is" << std::endl << rho << std::endl;
   // compute second order corrections to the density matrix
@@ -2118,4 +2121,52 @@ void HFMBPT::GetWeightDensityRp2Rn2()
   }
 
   rho = fake_rho;
+}
+
+
+//Two body density matrix test
+void HFMBPT::TwoOrbitalDensity()
+{
+
+  //Now take the trace
+  double Ntrace = 0.0;
+  double Ptrace = 0.0;
+  double Atrace = 0.0;
+  double Mtrace = 0.0;
+
+  for(int i : modelspace->all_orbits)
+  {
+    Orbit& oi = modelspace->GetOrbit(i);
+    for(int j : modelspace->all_orbits)
+    {
+      Orbit& oj = modelspace->GetOrbit(j);
+
+      int Tz = oi.tz2+oj.tz2;
+
+      // double Tr = rho(i,i)*rho(j,j)*(oi.j2+1)*(oj.j2+1) - rho(i,j)*rho(i,j)*(oi.j2+1); // This one works
+
+      //This one also works
+      double Tr = 0.0;
+
+      int Jmax = (oi.j2 + oj.j2) / 2;
+      int Jmin = abs(oi.j2 - oj.j2) / 2;
+
+      for(int J = Jmin; J <= Jmax; ++J)
+      {
+        int phase = ( ( (oi.j2+oj.j2) / 2 ) - J )% 2 ? -1 : +1;
+        
+        Tr += (2*J+1)*( rho(i,i)*rho(j,j) - phase*rho(i,j)*rho(i,j) );
+      }
+
+      if(Tz == +2) Ntrace += Tr;
+      else if(Tz == -2) Ptrace += Tr;
+      else if(Tz == 0) Mtrace += Tr;
+      Atrace += Tr;
+    }
+  }
+
+  std::cout <<"Ntrace = " <<Ntrace <<std::endl;
+  std::cout <<"Ptrace = " <<Ptrace <<std::endl;
+  std::cout <<"Mtrace = " <<Mtrace <<std::endl;
+  std::cout <<"Atrace = " <<Atrace <<std::endl;
 }

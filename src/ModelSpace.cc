@@ -100,6 +100,9 @@ ModelSpace::ModelSpace(const ModelSpace &ms)
       KetIndex_vv(ms.KetIndex_vv),
       KetIndex_qv(ms.KetIndex_qv),
       KetIndex_qq(ms.KetIndex_qq),
+
+      KetIndex_nbarnbar(ms.KetIndex_nbarnbar),
+
       Ket_occ_hh(ms.Ket_occ_hh),
       Ket_unocc_hh(ms.Ket_unocc_hh),
       SortedTwoBodyChannels(ms.SortedTwoBodyChannels),
@@ -138,6 +141,9 @@ ModelSpace::ModelSpace(ModelSpace &&ms)
       KetIndex_vv(ms.KetIndex_vv),
       KetIndex_qv(ms.KetIndex_qv),
       KetIndex_qq(ms.KetIndex_qq),
+
+      KetIndex_nbarnbar(ms.KetIndex_nbarnbar),
+
       Ket_occ_hh(ms.Ket_occ_hh),
       Ket_unocc_hh(ms.Ket_unocc_hh),
       SortedTwoBodyChannels(std::move(ms.SortedTwoBodyChannels)),
@@ -870,6 +876,9 @@ ModelSpace ModelSpace::operator=(const ModelSpace &ms)
   KetIndex_vv = ms.KetIndex_vv;
   KetIndex_qv = ms.KetIndex_qv;
   KetIndex_qq = ms.KetIndex_qq;
+
+  KetIndex_nbarnbar = ms.KetIndex_nbarnbar;
+
   Ket_occ_hh = ms.Ket_occ_hh;
   Ket_unocc_hh = ms.Ket_unocc_hh;
   Emax = ms.Emax;
@@ -923,6 +932,9 @@ ModelSpace ModelSpace::operator=(ModelSpace &&ms)
   KetIndex_vv = std::move(ms.KetIndex_vv);
   KetIndex_qv = std::move(ms.KetIndex_qv);
   KetIndex_qq = std::move(ms.KetIndex_qq);
+
+  KetIndex_nbarnbar = std::move(ms.KetIndex_nbarnbar);
+
   Ket_unocc_hh = std::move(ms.Ket_unocc_hh);
   Ket_occ_hh = std::move(ms.Ket_occ_hh);
   Emax = std::move(ms.Emax);
@@ -1232,6 +1244,10 @@ void ModelSpace::SetupKets()
         Ket_occ_hh.push_back(occp * occq);
         Ket_unocc_hh.push_back((1 - occp) * (1 - occq));
       }
+      if( (1-occp) > OCC_CUT and (1-occq) > OCC_CUT)
+      {
+        KetIndex_nbarnbar.push_back(index);
+      }
     }
   }
 
@@ -1486,6 +1502,9 @@ void ModelSpace::ClearVectors()
   KetIndex_vv.clear();
   KetIndex_qv.clear();
   KetIndex_qq.clear();
+
+  KetIndex_nbarnbar.clear();
+
   Ket_occ_hh.clear();
   Ket_occ_ph.clear();
   Ket_unocc_hh.clear();

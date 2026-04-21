@@ -138,6 +138,10 @@ struct TwoBodyChannel_base
    arma::uvec KetIndex_vv ;
    arma::uvec KetIndex_qv ;
    arma::uvec KetIndex_qq ;
+
+   //Useful in Commutator
+   arma::uvec KetIndex_nbarnbar;
+
    arma::vec  Ket_occ_hh;
    arma::vec  Ket_unocc_hh;
    arma::vec  Ket_occ_ph;
@@ -173,6 +177,7 @@ struct TwoBodyChannel_base
    const arma::uvec& GetKetIndex_vv() const;
    const arma::uvec& GetKetIndex_qv() const;
    const arma::uvec& GetKetIndex_qq() const;
+   const arma::uvec& GetKetIndex_nbarnbar() const;
 
 
    virtual bool CheckChannel_ket(Orbit* op, Orbit* oq) const;  // check if |pq> participates in this channel
@@ -335,6 +340,9 @@ class ModelSpace
    std::vector<double> Ket_unocc_hh;
    std::vector<double> Ket_occ_ph;
    std::vector<double> Ket_unocc_ph;
+
+   //Convenient for evaluating commutators
+   std::vector<index_t> KetIndex_nbarnbar;
 
    std::array< std::array< std::unordered_map<index_t,index_t>, 3>,3> MonopoleKets; //List of kets of a given Tz,parity
 

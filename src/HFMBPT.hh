@@ -88,5 +88,7 @@ class HFMBPT : public HartreeFock
 
     double GetNorm(Operator& H); //Norm of second order MBPT wave function
 
+    void TwoOrbitalDensity();
+
 };
 #endif
