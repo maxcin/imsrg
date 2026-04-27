@@ -36,7 +36,8 @@ class SixJCache_112112 {
         return six_js_[index];
     }
 
-  private:
+  //I change this to acces these members, which is bad practice...
+//   private:
     int jj_1_max_ = 1;
     std::size_t dim_1_ = 1;
     std::size_t dim_2_ = 2;

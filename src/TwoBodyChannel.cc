@@ -43,6 +43,7 @@ void TwoBodyChannel_base::Initialize()
 
    //Useful in commutator
    KetIndex_nbarnbar = GetKetIndexFromList(modelspace->KetIndex_nbarnbar);
+   KetIndex_occdiff = GetKetIndexFromList(modelspace->KetIndex_occdiff);
 
    std::vector<double> occvec;
    std::vector<double> unoccvec;
@@ -102,6 +103,7 @@ const arma::uvec& TwoBodyChannel_base::GetKetIndex_vv() const { return KetIndex_
 const arma::uvec& TwoBodyChannel_base::GetKetIndex_qv() const { return KetIndex_qv;};
 const arma::uvec& TwoBodyChannel_base::GetKetIndex_qq() const { return KetIndex_qq;};
 const arma::uvec& TwoBodyChannel_base::GetKetIndex_nbarnbar() const { return KetIndex_nbarnbar; };
+const arma::uvec& TwoBodyChannel_base::GetKetIndex_occdiff() const { return KetIndex_occdiff; };
 
 
 

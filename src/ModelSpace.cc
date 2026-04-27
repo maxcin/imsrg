@@ -102,6 +102,7 @@ ModelSpace::ModelSpace(const ModelSpace &ms)
       KetIndex_qq(ms.KetIndex_qq),
 
       KetIndex_nbarnbar(ms.KetIndex_nbarnbar),
+      KetIndex_occdiff(ms.KetIndex_occdiff),
 
       Ket_occ_hh(ms.Ket_occ_hh),
       Ket_unocc_hh(ms.Ket_unocc_hh),
@@ -143,6 +144,7 @@ ModelSpace::ModelSpace(ModelSpace &&ms)
       KetIndex_qq(ms.KetIndex_qq),
 
       KetIndex_nbarnbar(ms.KetIndex_nbarnbar),
+      KetIndex_occdiff(ms.KetIndex_occdiff),
 
       Ket_occ_hh(ms.Ket_occ_hh),
       Ket_unocc_hh(ms.Ket_unocc_hh),
@@ -878,6 +880,7 @@ ModelSpace ModelSpace::operator=(const ModelSpace &ms)
   KetIndex_qq = ms.KetIndex_qq;
 
   KetIndex_nbarnbar = ms.KetIndex_nbarnbar;
+  KetIndex_occdiff = ms.KetIndex_occdiff;
 
   Ket_occ_hh = ms.Ket_occ_hh;
   Ket_unocc_hh = ms.Ket_unocc_hh;
@@ -934,6 +937,7 @@ ModelSpace ModelSpace::operator=(ModelSpace &&ms)
   KetIndex_qq = std::move(ms.KetIndex_qq);
 
   KetIndex_nbarnbar = std::move(ms.KetIndex_nbarnbar);
+  KetIndex_occdiff = std::move(ms.KetIndex_occdiff);
 
   Ket_unocc_hh = std::move(ms.Ket_unocc_hh);
   Ket_occ_hh = std::move(ms.Ket_occ_hh);
@@ -1248,6 +1252,10 @@ void ModelSpace::SetupKets()
       {
         KetIndex_nbarnbar.push_back(index);
       }
+      if( std::abs(occp-occq) > OCC_CUT )
+      {
+        KetIndex_occdiff.push_back(index);
+      }
     }
   }
 
@@ -1504,6 +1512,7 @@ void ModelSpace::ClearVectors()
   KetIndex_qq.clear();
 
   KetIndex_nbarnbar.clear();
+  KetIndex_occdiff.clear();
 
   Ket_occ_hh.clear();
   Ket_occ_ph.clear();
