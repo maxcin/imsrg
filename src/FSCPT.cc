@@ -4,61 +4,109 @@
 
 #include <omp.h>
 
-FSCPT::FSCPT(Operator& H) :         
-        H0(arma::diagmat(H.OneBody)),
-        V(*H.modelspace),
-        Vod(*H.modelspace),
-        Vd(*H.modelspace),
-        G1(*H.modelspace),
-        G2(*H.modelspace),
-        Heff2(*H.modelspace),
-        Heff3(*H.modelspace)
+FSCPT::FSCPT(ModelSpace& ms_imsrg, std::string od):
+        modelspace_imsrg(&ms_imsrg),
+        off_diagonal(od) 
 {
-    // std::cout <<"Started Fock space canonical perturbation theory" <<std::endl;
-    //V is by definition without H0
-    double t_start = omp_get_wtime();
+    std::cout <<"Created FSCPT instance for " <<od <<" type corrections" <<std::endl;
+}
 
+//Needs 7 Operators (+3 +6 for 2nd and 3rd order = 13 worst case at once)
+Operator FSCPT::Calculate(Operator& H)
+{
+    //If we do not want any correction we just truncate
+    if(order < 2) return H.Truncate(*modelspace_imsrg);
+
+    //Allocate all the operators we will need
+    H0 = arma::diagmat(H.OneBody);
+    V = Operator(*H.modelspace);
+    Vod = Operator(*H.modelspace);
+    Vd = Operator(*H.modelspace);
+    G1 = Operator(*H.modelspace);
+    G2 = Operator(*H.modelspace);
+    
+    Heff2 = Operator(*H.modelspace);
+    Heff3 = Operator(*H.modelspace);
+
+    //initialize
     V.OneBody = H.OneBody - H0;
     V.TwoBody = H.TwoBody;
     Vod = GetOpOd(V);
     Vd = V-Vod;
-    
+
     G1.SetAntiHermitian();
     G2.SetAntiHermitian();
-    //Here we can start implementing actual expressions
 
-    // generator.SetType("white");
-    // generator.SetDenominatorPartitioning("MP");
-    // generator.AddToEta(V,G1);
+    //Do the calculation
     G1 = Delta(GetOpOd(V));
-
-    std::cout <<"Norm of G1 " <<G1.Norm() <<std::endl;
-
-    //second order
     FSCPT2();
-    if(off_diagonal == "single_reference")
+    std::cout <<"Second order energy= " <<Heff2.ZeroBody <<std::endl;
+    if(order > 2)
     {
-        std::cout <<"Second order = " <<Heff2.ZeroBody <<std::endl;
-    }
-    // std::cout <<"Second order = " <<Heff2.ZeroBody <<std::endl;
+        FSCPT3();
+        std::cout <<"Third order energy= " <<Heff3.ZeroBody <<std::endl;
+    }    
 
-    //Third order
-    FSCPT3();
-    if(off_diagonal == "single_reference")
+    //For valence space the off-diagonal part lives only in the to be truncated space
+    //we can return immediately the answer
+    if(off_diagonal == "valence")
+        return H.Truncate(*modelspace_imsrg)+Heff2.Truncate(*modelspace_imsrg)+Heff3.Truncate(*modelspace_imsrg);
+
+    //For single reference we just return the truncated operator along with the corrections
+    //But we need to substract the inner corrections so we do it all again
+    else if(off_diagonal == "single_reference")
     {
-        std::cout <<"Third order = " <<Heff3.ZeroBody <<std::endl;
-    }
-    // std::cout <<"Third order = " <<Heff3.ZeroBody <<std::endl;
-    H.profiler.timer["FSCPT"] += omp_get_wtime() - t_start;
+        double dE_2 = Heff2.ZeroBody;
+        double dE_3 = Heff3.ZeroBody;
+        Operator H_small = H.Truncate(*modelspace_imsrg);
 
-    
+        H0 = arma::diagmat(H_small.OneBody);
+        V = Operator(*H_small.modelspace);
+        Vod = Operator(*H_small.modelspace);
+        Vd = Operator(*H_small.modelspace);
+        G1 = Operator(*H_small.modelspace);
+        G2 = Operator(*H_small.modelspace);
+        
+        Heff2 = Operator(*H_small.modelspace);
+        Heff3 = Operator(*H_small.modelspace);
+
+        //initialize
+        V.OneBody = H_small.OneBody - H0;
+        V.TwoBody = H_small.TwoBody;
+        Vod = GetOpOd(V);
+        Vd = V-Vod;
+
+        G1.SetAntiHermitian();
+        G2.SetAntiHermitian();
+        //Do the calculation
+        G1 = Delta(GetOpOd(V));
+        FSCPT2();
+        std::cout <<"Second order energy small space= " <<Heff2.ZeroBody <<std::endl;
+        if(order > 2)
+        {
+            FSCPT3();
+            std::cout <<"Third order energy small space= " <<Heff3.ZeroBody <<std::endl;
+        }    
+        double E_corr = dE_2 + dE_3 - Heff2.ZeroBody - Heff3.ZeroBody;
+        std::cout <<"Perturbative correction second order: " <<dE_2 - Heff2.ZeroBody <<std::endl;
+        std::cout <<"Perturbative correction third order: " <<dE_3 - Heff3.ZeroBody <<std::endl;
+        std::cout <<"Perturbative correction total: " <<E_corr <<std::endl;
+        H_small.ZeroBody += E_corr; //Add just the energy corrections
+        return H_small;
+    }
+    else
+    {
+        std::cout <<"Unknown off diagonal definition in FSCPT..." <<std::endl;
+        exit(1);
+    }
+
 }
 
-//Needs 1 commutator
+//Needs 1 commutator and creates 3 Operators
 void FSCPT::FSCPT2()
 {
-    Operator vd2vod = 2*Vd + Vod;
-    Operator second_order = 0.5*Commutator::Commutator(G1, vd2vod);
+    // Operator vd2vod = 2*Vd + Vod;
+    Operator second_order = 0.5*Commutator::Commutator(G1, 2*Vd + Vod);
     Operator second_order_od = GetOpOd(second_order);
 
     Heff2 = second_order-second_order_od;
@@ -67,29 +115,42 @@ void FSCPT::FSCPT2()
 }
 
 
-//Needs 4 commutators
+//Needs 4 (5) commutators and creates 6 Operators
 void FSCPT::FSCPT3()
 {
-    Operator v_vd = V+Vd;
-    Operator vv_vd = 2*V+Vd;
-    Operator vd_vd_vod = 2*Vd + Vod;
+    // Operator v_vd = V+Vd;
+    // Operator vv_vd = 2*V+Vd;
+    // Operator vd_vd_vod = 2*Vd + Vod;
 
-    Operator g1_vd_vd_vod_3 = 3*GetOpOd(Commutator::Commutator(G1,vd_vd_vod));
+    // Operator g1_vd_vd_vod_3 = 3*GetOpOd(Commutator::Commutator(G1,vd_vd_vod));
 
-    Operator combine = 2*Commutator::Commutator(G1,vv_vd) - g1_vd_vd_vod_3;
+    // Operator combine = 2*Commutator::Commutator(G1,vv_vd) - g1_vd_vd_vod_3;
     
-    Operator third_order = 0.5 * Commutator::Commutator(G2,v_vd) + (1/12.0)* Commutator::Commutator(G1,combine);
+    // Operator third_order = 0.5 * Commutator::Commutator(G2,v_vd) + (1/12.0)* Commutator::Commutator(G1,combine);
+
+    Operator third_order = 0.5* Commutator::Commutator(G2, V+Vd)
+                        + 1/6. * Commutator::Commutator(G1, Commutator::Commutator(G1, 2*V+Vd))
+                        - 1/4. * Commutator::Commutator(G1, GetOpOd(Commutator::Commutator(G1,2*Vd+Vod)) );
     
     Heff3 = third_order - GetOpOd(third_order);
-    //G3 = Delta(third_order - Heff3);
+
+    //G3 is not needed for this type of calculation so we dont store it it
+    //G3 = Delta(third_order - Heff3); 
 }
 
 Operator FSCPT::GetOpOd(const Operator& Op)
 {
     Operator OpOd(Op);
 
-    if(off_diagonal == "valence") OpOd = generator.GetHod_ShellModel(OpOd);
-    else if(off_diagonal == "single_reference") OpOd = generator.GetHod_SingleRef(OpOd);
+    if(off_diagonal == "valence")
+    {
+        OpOd = generator.GetHod_ShellModel(OpOd);
+        //Off diagonal is only in the large space
+        //These lines replace the P space components with 0
+        Operator small_space(*modelspace_imsrg);
+        OpOd.replaceSubOperator(small_space);        
+    } 
+    else if(off_diagonal == "single_reference") OpOd = generator.GetHod_SingleRef_ph(OpOd);
     else 
     {
         std::cout <<"Unknown definition of off-diagonal" <<std::endl;

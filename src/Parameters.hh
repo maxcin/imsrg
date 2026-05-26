@@ -105,7 +105,7 @@ std::map<std::string,std::string> Parameters::string_par = {
   {"denominator_partitioning",  "Epstein_Nesbet"}, // Denominators used in IMSRG generators. Can be Moller_Plesset or Epstein_Nesbet.
   {"NAT_type", "ground_state"}, // Determine the density matrix used for NAT construction. "ground_state", "2p" or "CISD"
   {"FSCPT_correction", "false"}, //Use Fock space canonical perturbation theory of Primas to account for truncated Hamiltonian
-  {"FSCPT_magnusfull","false"}, //For FSCPT use the full magnus transformation of the truncated Operator
+  {"FSCPT_type", "None"} // use single reference energy of valence operator correction
 };
 
 
@@ -147,6 +147,7 @@ std::map<std::string,int> Parameters::int_par = {
   {"e2max_imsrg",       -1}, // e2max for imsrg part. defaults to 2*emax_imsrg
   {"e3max_imsrg",       -1}, // e3max for imsrg part. defaults to min(e3max,3*emax_imsrg)
   {"emax_3body_imsrg",        -1}, // emax truncation for the 3-body operators in the imsrg part (default: emax_imsrg)
+  {"FSCPT_order",3}, // Determine the order of perturbative corrections for truncation
 };
 
 std::map<std::string,std::vector<std::string>> Parameters::vec_par = {

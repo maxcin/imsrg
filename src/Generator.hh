@@ -87,7 +87,8 @@ class Generator
   double Get2bDenominator_Jdep(int ch, int ibra, int iket);
   double Get3bDenominator(int i, int j, int k, int l, int m, int n);
 
-  Operator GetHod_SingleRef( Operator& H );
+  Operator GetHod_SingleRef( Operator& H ); //This one is not single reference according to my definition, I leave this because maybe someone wants this
+  Operator GetHod_SingleRef_ph( Operator& H ); //This one is 
   Operator GetHod_ShellModel( Operator& H );
   
 

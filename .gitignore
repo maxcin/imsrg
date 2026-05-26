@@ -15,6 +15,7 @@ Testing/
 *.a
 #Compiled executables
 src/imsrg++
+src/imsrg++_test
 #Temporary files
 tmp*
 src/.*.swp

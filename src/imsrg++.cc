@@ -99,6 +99,7 @@ int main(int argc, char** argv)
   std::string denominator_partitioning = parameters.s("denominator_partitioning");
   std::string NAT_order = parameters.s("NAT_order");
   std::string NAT_type = parameters.s("NAT_type");
+  std::string FSCPT_type = parameters.s("FSCPT_type");
 
   bool use_brueckner_bch = parameters.s("use_brueckner_bch") == "true";
   bool nucleon_mass_correction = parameters.s("nucleon_mass_correction") == "true";
@@ -124,7 +125,6 @@ int main(int argc, char** argv)
   bool write_HO_ops = parameters.s("write_HO_ops") == "true";  // added by Antoine Belley
   bool write_HF_ops = parameters.s("write_HF_ops") == "true";  // added by Antoine Belley
   bool FSCPT_correction = parameters.s("FSCPT_correction") == "true";
-  bool FSCPT_magnusfull = parameters.s("FSCPT_magnusfull") == "true";
 
   int eMax = parameters.i("emax");
   int lmax = parameters.i("lmax"); // so far I only use this with atomic systems.
@@ -144,6 +144,7 @@ int main(int argc, char** argv)
   int e2Max_imsrg = parameters.i("e2max_imsrg");
   int e3Max_imsrg = parameters.i("e3max_imsrg");
   int eMax_3body_imsrg = parameters.i("emax_3body_imsrg");
+  int FSCPT_order = parameters.i("FSCPT_order");
 //  if ( not ( eMax_imsrg==-1 and e2Max_imsrg==-1 and e3Max_imsrg==-1 ) )
 //  {
 //    if ( eMax_imsrg==-1 ) eMax_imsrg = eMax;
@@ -972,45 +973,21 @@ int main(int argc, char** argv)
 
   // We may want to use a smaller model space for the IMSRG evolution than we used for the HF step.
   // This is most effective when using natural orbitals or when including 3-body operators.
+  //Optionally we can also run some perturbative corrections
 //  ModelSpace modelspace_imsrg = ( reference=="default" ? ModelSpace(eMax_imsrg,e2Max_imsrg,e3Max_imsrg,valence_space) : ModelSpace(eMax_imsrg,e2Max_imsrg,e3Max_imsrg,reference,valence_space) );
 //  ModelSpace modelspace_imsrg = modelspace;
   if ( (eMax_imsrg != -1) or (e2Max_imsrg != -1) or (e3Max_imsrg != -1) or (eMax_3body_imsrg != -1))
   {
-      // std::cout <<"Initial " <<std::endl;
-      // std::cout <<HNO.TwoBody.GetMatrix(tbcprint) <<std::endl;
-//     if ( eMax_imsrg==-1 ) eMax_imsrg = eMax;
-//     if ( e2Max_imsrg==-1 ) e2Max_imsrg = 2*eMax_imsrg;
-//     if ( e3Max_imsrg==-1 ) e3Max_imsrg = std::min( E3max, 3*eMax_imsrg);
-//     if ( eMax_3body_imsrg==-1) eMax_3body_imsrg = eMax_imsrg;
-//
-////     ModelSpace modelspace_imsrg = modelspace;
-//     std::cout << "Truncating modelspace for IMSRG calculation: emax e2max e3max  ->  " << eMax_imsrg << " " << e2Max_imsrg << " " << e3Max_imsrg << std::endl;
-//     modelspace_imsrg.SetEmax( eMax_imsrg);
-//     modelspace_imsrg.SetE2max( e2Max_imsrg);
-//     modelspace_imsrg.SetE3max( e3Max_imsrg);
-//     modelspace_imsrg.SetEmax3Body( eMax_3body_imsrg );
-//     modelspace_imsrg.Init( eMax_imsrg, reference, valence_space);
-//   //  if (emax_unocc>0) modelspace_imsrg.SetEmaxUnocc(emax_unocc);
-//     if (physical_system == "atomic") modelspace_imsrg.InitSingleSpecies(eMax_imsrg, reference, valence_space);
-//     if (occ_file != "none" and occ_file != "" ) modelspace_imsrg.Init_occ_from_file(eMax_imsrg,valence_space,occ_file);
-////     if (physical_system == "atomic") modelspace_imsrg.InitSingleSpecies(eMax_imsrg, eMax_imsrg, e3Max_imsrg, reference, valence_space);
-////     if (occ_file != "none" and occ_file != "" ) modelspace_imsrg.Init_occ_from_file(eMax_imsrg,e2Max_imsrg,e3Max_imsrg,valence_space,occ_file);
-//
-//
-//     // If the occupations in modelspace were different from the naive filling, we want to keep those.
-//     std::map<index_t,double> hole_map;
-//     for ( auto& i_new : modelspace_imsrg.all_orbits )
-//     {
-//        Orbit& oi_new = modelspace_imsrg.GetOrbit(i_new);
-//        index_t i_old = modelspace.GetOrbitIndex( oi_new.n, oi_new.l, oi_new.j2, oi_new.tz2 );
-//        Orbit& oi_old = modelspace.GetOrbit(i_old);
-//        hole_map[i_new] = oi_old.occ;
-//     }
-//     modelspace_imsrg.SetReference( hole_map );
 
      /// If HNO has a 3N piece, we already did the truncation while transforming to the HF basis
      /// so we don't want to do that again. Kludgey solution, make a temporary 2N operator, truncate and copy.
-     if (HNO.GetParticleRank() < 3)
+     if(FSCPT_correction)
+     {
+        FSCPT pt_correction(modelspace_imsrg, FSCPT_type);
+        pt_correction.order = FSCPT_order;
+        HNO = pt_correction.Calculate(HNO);
+     } 
+     else if (HNO.GetParticleRank() < 3)
      {
        HNO = HNO.Truncate(modelspace_imsrg);
        if (IMSRG3) // we'll want a 3N structure for IMSRG3
@@ -1030,17 +1007,11 @@ int main(int argc, char** argv)
        Htmp2b.OneBody = HNO.OneBody;
        Htmp2b.TwoBody = HNO.TwoBody;
        Htmp2b = Htmp2b.Truncate(modelspace_imsrg);
+
        HNO.OneBody = Htmp2b.OneBody;
        HNO.TwoBody = Htmp2b.TwoBody;
      }
 
-//     HNO = HNO.Truncate(modelspace_imsrg);
-//     if (IMSRG3) {
-//       HNO.ThreeBody.SwitchToPN_and_discard();
-//     }
-
-//     modelspace = modelspace_imsrg;  // this could cause some confusion later on...
-//    hf.PrintSPEandWF();
   }
   else
   {
@@ -1297,7 +1268,7 @@ int main(int argc, char** argv)
       }
     }
   }
-  if ( renormal_order or FSCPT_correction )
+  if ( renormal_order )
   {
 
     HNO = imsrgsolver.GetH_s();
@@ -1313,69 +1284,6 @@ int main(int argc, char** argv)
       std::cout << "Re-normal-ordering wrt the core. For now, we just throw away the 3N at this step." << std::endl;
       HNO.SetNumberLegs(4);
       HNO.SetParticleRank(2);
-    }
-
-    //Before Normal ordering we can calculate FSCPT corrections the steps are as follow
-    //1. Place the flowing Hamiltonian inside of H_full
-    //2. Run FSCPT with the valence space
-    //3. Take out the off diagonal part of H_full ( O(g^1)=H_full^(d) )
-    //4. Do core normal ordering for H_full,  Heff2 and Heff3
-    //5. Write H_full+Heff2 and Hfull+Heff2+Heff3 to snt 
-
-    //The correction needs to carry out 5 full space commutators. Asymptotically this will limit the potential speed up
-    //As an example HF Ca48 0hw emax=12 may take 500 commutators => maximal speed up is x100.
-    
-    if(FSCPT_correction)
-    {
-      std::cout <<"Using FSCPT to correct effective interaction up to third order" <<std::endl;
-
-      //To test things we can transform the full truncated H
-      if(FSCPT_magnusfull)
-      {
-        Operator zero_smallspace = 0.0*HNO;
-        Operator zero_largespace(modelspace);
-        
-        zero_largespace.SetAntiHermitian();
-        Operator omega_curr = zero_largespace;
-        H_full.replaceSubOperator(zero_smallspace);
-        for (size_t i = 0; i < imsrgsolver.Omega.size(); ++i)
-        {
-          omega_curr.replaceSubOperator(imsrgsolver.Omega[i]);
-          H_full = BCH::BCH_Transform(H_full, omega_curr);
-        }
-
-        H_full.replaceSubOperator(HNO);
-      }
-      else H_full.replaceSubOperator(HNO);
-
-      
-
-      
-      // std::cout <<"VSIMSRG(2) " <<std::endl;
-      // std::cout <<H_full.TwoBody.GetMatrix(tbcprint) <<std::endl;
-
-      FSCPT primas(H_full);
-
-      H_full -= primas.GetOpOd(H_full);
-
-      // //Redo normal order wrt core
-      H_full = H_full.UndoNormalOrdering();
-      primas.Heff2 = primas.Heff2.UndoNormalOrdering();
-      primas.Heff3 = primas.Heff3.UndoNormalOrdering();
-
-
-      H_full = H_full.DoNormalOrderingCore();
-      primas.Heff2 = primas.Heff2.DoNormalOrderingCore();
-      primas.Heff3 = primas.Heff3.DoNormalOrderingCore();
-
-      // //Now write files up to third order
-      rw.WriteTokyo(H_full,intfile+"g1"+".snt", ""); //first order file = usual interaction file
-      H_full += primas.Heff2;
-      rw.WriteTokyo(H_full,intfile+"g2"+".snt", ""); //second order file
-      H_full += primas.Heff3;
-      rw.WriteTokyo(H_full,intfile+"g3"+".snt", ""); //third order file
-      // std::cout <<"VSIMSRG + Perturbative corrections " <<std::endl;
-      // std::cout <<H_full.TwoBody.GetMatrix(tbcprint) <<std::endl;
     }
 
 

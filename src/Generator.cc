@@ -656,32 +656,70 @@ Operator  Generator::GetHod_SingleRef(Operator& H )
     }
 
    // Three body --- ppp hhh bits.
-    size_t nch3 = H.modelspace->GetNumberThreeBodyChannels();
-    #pragma omp parallel for schedule(dynamic,1)
-    for (size_t ch3=0; ch3<nch3; ch3++)
-    {
-      ThreeBodyChannel& Tbc = H.modelspace->GetThreeBodyChannel(ch3);
-      size_t nkets3 = Tbc.GetNumberKets();
-      for (size_t ibra=0; ibra<nkets3; ibra++)
+   if(H.particle_rank > 2)
+   {
+      size_t nch3 = H.modelspace->GetNumberThreeBodyChannels();
+      #pragma omp parallel for schedule(dynamic,1)
+      for (size_t ch3=0; ch3<nch3; ch3++)
       {
-        Ket3& bra = Tbc.GetKet(ibra);
-        // bra should be ppp where p is eiher v or q
-        if ( (  (bra.op->cvq==0) or (bra.oq->cvq==0) or (bra.oR->cvq==0) ) ) continue; //cvq==0 means core orbit
-        
-        for (size_t iket=0; iket<nkets3; iket++)
+        ThreeBodyChannel& Tbc = H.modelspace->GetThreeBodyChannel(ch3);
+        size_t nkets3 = Tbc.GetNumberKets();
+        for (size_t ibra=0; ibra<nkets3; ibra++)
         {
-           Ket3& ket = Tbc.GetKet(iket);
-           // ket should be ccc
-           if ( not (  (ket.op->cvq==0) and (ket.oq->cvq==0) and (ket.oR->cvq==0) ) ) continue; //cvq==0 means core orbit
+          Ket3& bra = Tbc.GetKet(ibra);
+          // bra should be ppp where p is eiher v or q
+          if ( (  (bra.op->cvq==0) or (bra.oq->cvq==0) or (bra.oR->cvq==0) ) ) continue; //cvq==0 means core orbit
+          
+          for (size_t iket=0; iket<nkets3; iket++)
+          {
+             Ket3& ket = Tbc.GetKet(iket);
+             // ket should be ccc
+             if ( not (  (ket.op->cvq==0) and (ket.oq->cvq==0) and (ket.oR->cvq==0) ) ) continue; //cvq==0 means core orbit
+  
+             double h_abcijk = H.ThreeBody.GetME_pn_ch(ch3,ch3,ibra,iket );
+  
+             Hod.ThreeBody.SetME_pn_ch( ch3,ch3,ibra,iket,  h_abcijk); // hermitian conjugate automatically gets added
+             
+          }// for iket
+        }// for ibra
+  
+      }// for ch3
+   }
 
-           double h_abcijk = H.ThreeBody.GetME_pn_ch(ch3,ch3,ibra,iket );
+   return Hod;
+}
 
-           Hod.ThreeBody.SetME_pn_ch( ch3,ch3,ibra,iket,  h_abcijk); // hermitian conjugate automatically gets added
-           
-        }// for iket
-      }// for ibra
+Operator  Generator::GetHod_SingleRef_ph(Operator& H )
+{
+   Operator Hod = 0.0* H;
+   // One body piece -- eliminate ph bits
+   for ( auto& a : H.modelspace->holes)
+   {
+      for ( auto& i : H.modelspace->particles )
+      {
+         Hod.OneBody(i,a) = H.OneBody(i,a);
+         Hod.OneBody(a,i) = H.OneBody(a,i);
+      }
+   }
 
-    }// for ch3
+   // Two body piece -- eliminate pp'hh' bits
+   for ( auto& iter : H.TwoBody.MatEl )
+   {
+      size_t ch_bra = iter.first[0];
+      size_t ch_ket = iter.first[1];
+      TwoBodyChannel& tbc_bra = H.modelspace->GetTwoBodyChannel(ch_bra);
+      TwoBodyChannel& tbc_ket = H.modelspace->GetTwoBodyChannel(ch_ket);
+      arma::mat& H2 =  iter.second;
+      arma::mat& Hod2 = Hod.TwoBody.GetMatrix(ch_bra,ch_ket);
+      for ( auto& iket : tbc_ket.GetKetIndex_hh() ) // hh means hole-hole
+      {
+         for ( auto& ibra : tbc_bra.GetKetIndex_pp() ) // pp means particle-particle
+         {
+            Hod2(ibra,iket) =  H2(ibra,iket);
+            Hod2(iket,ibra) =  H2(iket,ibra) ; // Eta needs to be antisymmetric
+         }
+      }
+    }
 
    return Hod;
 }

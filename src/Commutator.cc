@@ -510,7 +510,12 @@ namespace Commutator
     // that we need to compute and store. After the first pass, they're all stored so we can go parallel.
     bool save_single_thread = single_thread;
     if (Z.modelspace->tensor_transform_first_pass[Z.GetJRank() * 4 + X.GetParity() + 2 * Y.GetParity()])
+    {
       SetSingleThread(true);
+      //If we are running just IMSRG(2) then we can anticipate the ninejs that we need 
+      //In this case we should precompute them and run parallel from the get go
+    }
+  
 
     if (comm_term_on["comm111st"])
       comm111st(X, Y, Z);

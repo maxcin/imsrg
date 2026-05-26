@@ -1629,10 +1629,11 @@ double Operator::OneBodyNorm() const
   for (auto p : modelspace->all_orbits)
   {
     Orbit &op = modelspace->GetOrbit(p);
-    for (auto q : OneBodyChannels.at({op.l, op.j2, op.tz2}))
+    // for (auto q : OneBodyChannels.at({op.l, op.j2, op.tz2}))
+    for (auto q : modelspace->all_orbits)
     {
       Orbit &oq = modelspace->GetOrbit(q);
-      int degeneracy_factor = (op.j2 + 1) * ((std::min(oq.j2, op.j2 + rank_J) - std::max(-oq.j2, op.j2 - rank_J)) / 2 + 1);
+      int degeneracy_factor = (op.j2 + 1) * ((std::min(oq.j2, op.j2 + 2*rank_J) - std::max(-oq.j2, op.j2 - 2*rank_J)) / 2 + 1);
       //       nrm += OneBody(p,q)*OneBody(p,q) * degeneracy_factor * degeneracy_factor;
       nrm += OneBody(p, q) * OneBody(p, q) * degeneracy_factor;
     }

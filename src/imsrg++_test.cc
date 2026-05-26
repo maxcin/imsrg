@@ -12,8 +12,8 @@ int main(int argc, char** argv)
 {
     std::cout << "######  imsrg++ test timings: " << version::BuildVersion() << std::endl;
 
-    int emax = 6;
-    std::string reference = "Ca48";
+    int emax = 12;
+    std::string reference = "Pb208";
     ModelSpace modelspace_imsrg(emax,reference);
 
     UnitTest tester(modelspace_imsrg);
