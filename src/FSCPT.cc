@@ -52,6 +52,46 @@ Operator FSCPT::Calculate(Operator& H)
     if(off_diagonal == "valence")
         return H.Truncate(*modelspace_imsrg)+Heff2.Truncate(*modelspace_imsrg)+Heff3.Truncate(*modelspace_imsrg);
 
+    //Here we calculate the expansion in the full space P+Q and then subtract the results if only expanded in the P space
+    else if(off_diagonal == "valence_diff")
+    {
+        Operator H_eff = H.Truncate(*modelspace_imsrg)+Heff2.Truncate(*modelspace_imsrg)+Heff3.Truncate(*modelspace_imsrg);
+        Operator H_small = H.Truncate(*modelspace_imsrg);
+
+        H0 = arma::diagmat(H_small.OneBody);
+        V = Operator(*H_small.modelspace);
+        Vod = Operator(*H_small.modelspace);
+        Vd = Operator(*H_small.modelspace);
+        G1 = Operator(*H_small.modelspace);
+        G2 = Operator(*H_small.modelspace);
+        
+        Heff2 = Operator(*H_small.modelspace);
+        Heff3 = Operator(*H_small.modelspace);
+
+        //initialize
+        V.OneBody = H_small.OneBody - H0;
+        V.TwoBody = H_small.TwoBody;
+        Vod = GetOpOd(V);
+        Vd = V-Vod;
+
+        G1.SetAntiHermitian();
+        G2.SetAntiHermitian();
+        //Do the calculation
+        G1 = Delta(GetOpOd(V));
+        FSCPT2();
+        std::cout <<"Second order energy small space= " <<Heff2.ZeroBody <<std::endl;
+        if(order > 2)
+        {
+            FSCPT3();
+            std::cout <<"Third order energy small space= " <<Heff3.ZeroBody <<std::endl;
+        }    
+
+        H_small += Heff2 + Heff3;
+        
+        //This essentially says that we add the effective operator from P and Q space but with all parts that originate purely from the P space subtracted
+        //Strictly speaking when doing now a decoupling on this H we include also (partly) higher order components.
+        return H.Truncate(*modelspace_imsrg) + H_eff - H_small; 
+    }
     //For single reference we just return the truncated operator along with the corrections
     //But we need to substract the inner corrections so we do it all again
     else if(off_diagonal == "single_reference")
@@ -150,6 +190,7 @@ Operator FSCPT::GetOpOd(const Operator& Op)
         Operator small_space(*modelspace_imsrg);
         OpOd.replaceSubOperator(small_space);        
     } 
+    else if(off_diagonal == "valence_diff") OpOd = generator.GetHod_ShellModel(OpOd);
     else if(off_diagonal == "single_reference") OpOd = generator.GetHod_SingleRef_ph(OpOd);
     else 
     {

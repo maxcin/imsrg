@@ -709,6 +709,7 @@ int main(int argc, char** argv)
   Operator& HNO = Hbare; // The reference & means we overwrite Hbare and save some memory
   if (basis == "HF" and method !="HF")
   {
+    
     HNO = hf.GetNormalOrderedH( hno_particle_rank );
 //    if ((IMSRG3 or perturbative_triples) and OccNat3Cut>0 ) hf.GetNaturalOrbitals();
   }

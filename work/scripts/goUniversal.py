@@ -164,7 +164,7 @@ for Z in [20]:
      ARGS['emax'] = '%d'%e
      ARGS['emax_imsrg'] = '4'
      ARGS['FSCPT_correction'] = "true"
-     ARGS['FSCPT_type'] = "single_reference"
+     ARGS['FSCPT_type'] = "valence_diff"
      ARGS['FSCPT_order'] = "3"
     #  ARGS['FSCPT_magnusfull'] = "true"
 #     ARGS['method'] = method
