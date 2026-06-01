@@ -19,6 +19,9 @@
 /// to implement any scalar 2B operator using this class to generatre the relative
 /// frame TBME. Example on how this is use can be found for the 0vbb operators in
 /// M0nu.cc
+
+#include <stdint.h>
+
 class PWD
 {
   private:

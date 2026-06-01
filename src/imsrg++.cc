@@ -125,6 +125,7 @@ int main(int argc, char** argv)
   bool write_HO_ops = parameters.s("write_HO_ops") == "true";  // added by Antoine Belley
   bool write_HF_ops = parameters.s("write_HF_ops") == "true";  // added by Antoine Belley
   bool FSCPT_correction = parameters.s("FSCPT_correction") == "true";
+  bool FSCPT_Delta = parameters.s("FSCPT_Delta") == "true";
 
   int eMax = parameters.i("emax");
   int lmax = parameters.i("lmax"); // so far I only use this with atomic systems.
@@ -977,19 +978,25 @@ int main(int argc, char** argv)
   //Optionally we can also run some perturbative corrections
 //  ModelSpace modelspace_imsrg = ( reference=="default" ? ModelSpace(eMax_imsrg,e2Max_imsrg,e3Max_imsrg,valence_space) : ModelSpace(eMax_imsrg,e2Max_imsrg,e3Max_imsrg,reference,valence_space) );
 //  ModelSpace modelspace_imsrg = modelspace;
+  FSCPT pt_correction(modelspace_imsrg, FSCPT_type);
   if ( (eMax_imsrg != -1) or (e2Max_imsrg != -1) or (e3Max_imsrg != -1) or (eMax_3body_imsrg != -1))
   {
 
      /// If HNO has a 3N piece, we already did the truncation while transforming to the HF basis
      /// so we don't want to do that again. Kludgey solution, make a temporary 2N operator, truncate and copy.
-     if(FSCPT_correction)
+     if(FSCPT_correction and !FSCPT_Delta)
      {
-        FSCPT pt_correction(modelspace_imsrg, FSCPT_type);
         pt_correction.order = FSCPT_order;
         HNO = pt_correction.Calculate(HNO);
      } 
      else if (HNO.GetParticleRank() < 3)
      {
+      if(FSCPT_correction and FSCPT_Delta)
+      {
+        pt_correction.order = 3; //We calculate both second and third order contributions
+        pt_correction.off_diagonal = modelspace_imsrg.valence.size() > 0 ? "valence_diff" : "single_reference";
+        pt_correction.CalculateDHeff(HNO);
+      }
        HNO = HNO.Truncate(modelspace_imsrg);
        if (IMSRG3) // we'll want a 3N structure for IMSRG3
        {
@@ -1289,11 +1296,21 @@ int main(int argc, char** argv)
 
 
     HNO = HNO.UndoNormalOrdering();
-    
-    // HNO.SetModelSpace(ms2);
     std::cout << "Doing NO wrt A=" << ms2.GetAref() << " Z=" << ms2.GetZref() << "  norbits = " << ms2.GetNumberOrbits() << std::endl;
     HNO = HNO.DoNormalOrderingCore();
-    // HNO = HNO.DoNormalOrdering();
+
+    //If we want to have the corrections as well than we better do the same normal ordering procedures
+    if(FSCPT_correction and FSCPT_Delta)
+    {
+      pt_correction.Delta_Heff2 = pt_correction.Delta_Heff2.UndoNormalOrdering();
+      pt_correction.Delta_Heff3 = pt_correction.Delta_Heff3.UndoNormalOrdering();
+      pt_correction.Delta_Heff2 = pt_correction.Delta_Heff2.DoNormalOrderingCore();
+      pt_correction.Delta_Heff3 = pt_correction.Delta_Heff3.DoNormalOrderingCore();
+
+      //We want to have the correct Heff2 and Heff3 to be printed
+      pt_correction.Heff2 = HNO + pt_correction.Delta_Heff2;
+      pt_correction.Heff3 = HNO + pt_correction.Delta_Heff2 + pt_correction.Delta_Heff3;
+    }
 
     imsrgsolver.FlowingOps[0] = HNO;
 
@@ -1326,13 +1343,18 @@ int main(int argc, char** argv)
     if (valence_file_format == "antoine") // this is still being tested...
     {
       rw.WriteAntoine_int(imsrgsolver.GetH_s(),intfile+".ant");
-//      rw.WriteAntoine_input(imsrgsolver.GetH_s(),intfile+".inp",modelspace.GetAref(),modelspace.GetZref());
       rw.WriteAntoine_input(imsrgsolver.GetH_s(),intfile+".inp",modelspace_imsrg.GetAref(),modelspace_imsrg.GetZref());
     }
     std::cout << "Writing files: " << intfile << std::endl;
     if (valence_file_format == "tokyo")
     {
-     rw.WriteTokyo(imsrgsolver.GetH_s(),intfile+".snt", "");
+      if(FSCPT_correction and FSCPT_Delta)
+      {
+        rw.WriteTokyo(imsrgsolver.GetH_s(),intfile+"g1.snt", "");
+        rw.WriteTokyo(pt_correction.Heff2,intfile+"g2.snt", "");
+        rw.WriteTokyo(pt_correction.Heff3,intfile+"g3.snt", "");
+      }
+      else rw.WriteTokyo(imsrgsolver.GetH_s(),intfile+".snt", "");
     }
     else
     {

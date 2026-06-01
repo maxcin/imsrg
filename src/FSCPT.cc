@@ -142,6 +142,80 @@ Operator FSCPT::Calculate(Operator& H)
 
 }
 
+//Creates the dHeff2 and dHeff3 to be used in later applications
+//This function can be used to treat the truncated part "consistently" in perturbation theory
+//We always calculate up to third order here
+void FSCPT::CalculateDHeff(Operator& H)
+{
+
+    //Allocate all the operators we will need
+    H0 = arma::diagmat(H.OneBody);
+    V = Operator(*H.modelspace);
+    Vod = Operator(*H.modelspace);
+    Vd = Operator(*H.modelspace);
+    G1 = Operator(*H.modelspace);
+    G2 = Operator(*H.modelspace);
+    
+    Heff2 = Operator(*H.modelspace);
+    Heff3 = Operator(*H.modelspace);
+
+    //initialize
+    V.OneBody = H.OneBody - H0;
+    V.TwoBody = H.TwoBody;
+    Vod = GetOpOd(V);
+    Vd = V-Vod;
+
+    G1.SetAntiHermitian();
+    G2.SetAntiHermitian();
+
+    //Do the calculation
+    G1 = Delta(GetOpOd(V));
+    FSCPT2();
+    std::cout <<"Second order energy= " <<Heff2.ZeroBody <<std::endl;
+    FSCPT3();
+    std::cout <<"Third order energy= " <<Heff3.ZeroBody <<std::endl;
+
+    //We need to save Heff2 and Heff3 (we only need the P space component (actually only the ZeroBody + Valence but P space is easer)  )
+    Operator Heff2_full = Heff2.Truncate(*modelspace_imsrg);
+    Operator Heff3_full = Heff3.Truncate(*modelspace_imsrg);
+
+    Operator H_small = H.Truncate(*modelspace_imsrg);
+
+    H0 = arma::diagmat(H_small.OneBody);
+    V = Operator(*H_small.modelspace);
+    Vod = Operator(*H_small.modelspace);
+    Vd = Operator(*H_small.modelspace);
+    G1 = Operator(*H_small.modelspace);
+    G2 = Operator(*H_small.modelspace);
+    
+    Heff2 = Operator(*H_small.modelspace);
+    Heff3 = Operator(*H_small.modelspace);
+
+    //initialize
+    V.OneBody = H_small.OneBody - H0;
+    V.TwoBody = H_small.TwoBody;
+    Vod = GetOpOd(V);
+    Vd = V-Vod;
+
+    G1.SetAntiHermitian();
+    G2.SetAntiHermitian();
+    //Do the calculation
+    G1 = Delta(GetOpOd(V));
+    FSCPT2();
+    std::cout <<"Second order energy small space= " <<Heff2.ZeroBody <<std::endl;
+    FSCPT3();
+    std::cout <<"Third order energy small space= " <<Heff3.ZeroBody <<std::endl;
+
+    //Now Heff2 and Heff3 are the small space results
+    //We can now calculate the relevant Operators
+    Delta_Heff2 = Heff2_full - Heff2; //pure second order contributions from truncation
+    Delta_Heff3 = Heff3_full - Heff3; //pure third order contributions from truncation
+
+    std::cout <<"Second order energy from truncated space: " <<Delta_Heff2.ZeroBody <<std::endl;
+    std::cout <<"Third order energy from truncated space: " <<Delta_Heff3.ZeroBody <<std::endl;
+        
+}
+
 //Needs 1 commutator and creates 3 Operators
 void FSCPT::FSCPT2()
 {

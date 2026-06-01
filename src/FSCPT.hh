@@ -39,12 +39,17 @@ class FSCPT
         Operator Heff2;
         Operator Heff3;
 
+        //the delta operators that encode order-by-order differences
+        Operator Delta_Heff2;
+        Operator Delta_Heff3;
+
 
         FSCPT(ModelSpace& ms_imsrg, std::string od); // ms_imsrg = target model space
         void FSCPT2();
         void FSCPT3();
 
-        Operator Calculate(Operator& H);
+        Operator Calculate(Operator& H); //this one applies a truncation and will return the changed operator
+        void CalculateDHeff(Operator& H); //This one constructs just the corrections dHeff2 and dHeff3 to be used at a later time
 
         Operator GetOpOd(const Operator& Op); //Gets the off diagonal part of Op
         // void sr_diagonal(Operator& Op); //Single-reference diagonal
