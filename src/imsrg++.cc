@@ -77,6 +77,11 @@ int main(int argc, char** argv)
   std::string inputtbme = parameters.s("2bme");
   std::string input3bme = parameters.s("3bme");
   std::string input3bme_type = parameters.s("3bme_type");
+  const std::string input3bme_c1 = parameters.s("3bme_c1");
+  const std::string input3bme_c3 = parameters.s("3bme_c3");
+  const std::string input3bme_c4 = parameters.s("3bme_c4");
+  const std::string input3bme_cD = parameters.s("3bme_cD");
+  const std::string input3bme_cE = parameters.s("3bme_cE");
   std::string no2b_precision = parameters.s("no2b_precision");
   std::string reference = parameters.s("reference");
   std::string valence_space = parameters.s("valence_space");
@@ -156,6 +161,11 @@ int main(int argc, char** argv)
 ////  if (e3Max_imsrg==-1 and eMax_imsrg != -1) e3Max_imsrg = std::min(E3max, 3*eMax_imsrg);
 
   double hw = parameters.d("hw");
+  const double c1 = parameters.d("c1");
+  const double c3 = parameters.d("c3");
+  const double c4 = parameters.d("c4");
+  const double cD = parameters.d("cD");
+  const double cE = parameters.d("cE");
   double smax = parameters.d("smax");
   double ode_tolerance = parameters.d("ode_tolerance");
   double dsmax = parameters.d("dsmax");
@@ -170,6 +180,18 @@ int main(int argc, char** argv)
   double dE3max = parameters.d("dE3max");
   double OccNat3Cut = parameters.d("OccNat3Cut");
   double threebody_threshold = parameters.d("threebody_threshold");
+
+  const std::vector<std::string> input3bmes = { input3bme_c1, input3bme_c3, input3bme_c4, input3bme_cD, input3bme_cE};
+  const std::vector<double> input3bme_LECs = {c1, c3, c4, cD, cE};
+  //If any input3bmes are not "none" assume we want to build an interaction in the code
+  bool build_3N_from_LECs = false;
+  for(auto& input_file : input3bmes)
+  {
+    if(input_file != "none")
+    {
+      build_3N_from_LECs = true;
+    }
+  }
 
   std::vector<std::string> opnames = parameters.v("Operators");
   std::vector<std::string> opsfromfile = parameters.v("OperatorsFromFile");
@@ -203,6 +225,16 @@ int main(int argc, char** argv)
       return 1;
     }
   }
+
+  for (const auto &input3bme_file : input3bmes) {
+    if (input3bme_file != "none") {
+      if (!std::ifstream(input3bme_file).good()) {
+        std::cout << "trouble reading " << input3bme_file << " exiting. "
+                  << std::endl; 
+        return 1;
+      }
+    }
+  }  
 
   // unpack the awkward input format for reading an operator from file, and put it into a struct.
   // the format should look like OpName^j_t_p_r^/path/to/2bfile^/path/to/3bfile  if particle rank of Op is 2-body, then 3bfile is not needed.
@@ -432,53 +464,16 @@ int main(int argc, char** argv)
     for ( auto opn : opnames ) std::cout << opn << " ,  ";
     std::cout << std::endl;
   }
-
-  // int Ntbc = modelspace.GetNumberTwoBodyChannels();
-  // for(int itbc = 0; itbc < Ntbc; ++itbc)
-  // {
-  //   TwoBodyChannel& tmptbc = modelspace.GetTwoBodyChannel(itbc);
-  //   std::cout <<itbc <<std::endl;
-  //   std::cout <<"Total kets: " <<tmptbc.GetNumberKets() <<std::endl;
-  //   std::cout <<"cc kets: " <<tmptbc.GetKetIndex_cc().size() <<std::endl;
-  //   std::cout <<"vv kets: " <<tmptbc.GetKetIndex_vv().size() <<std::endl;
-  //   std::cout <<"qq kets: " <<tmptbc.GetKetIndex_qq().size() <<std::endl;
-  //   std::cout <<std::endl;
-  // }
-  // exit(0);
-  // int tbcprint = 4;
-  // if(true)
-  // {
-  //   TwoBodyChannel& tmp = modelspace.GetTwoBodyChannel(tbcprint);
-
-  //   std::cout <<"J=" <<tmp.J <<" P=" <<tmp.parity <<" Tz=" <<tmp.Tz <<std::endl;
-
-  //   std::cout <<"Ket_cc " << tmp.GetKetIndex_cc().t() <<std::endl;
-  //   std::cout <<"Ket_vc " << tmp.GetKetIndex_vc().t() <<std::endl;
-  //   std::cout <<"Ket_qc " << tmp.GetKetIndex_qc().t() <<std::endl;
-
-  //   std::cout <<"Ket_vv " << tmp.GetKetIndex_vv().t() <<std::endl;
-  //   std::cout <<"Ket_vq " << tmp.GetKetIndex_qv().t() <<std::endl;
-    
-  //   std::cout <<"Ket_qq " << tmp.GetKetIndex_qq().t() <<std::endl;
-
-  //   std::vector<int> emax_ket;
-  //   int Nkets = tmp.GetNumberKets();
-  //   for(int i = 0; i<Nkets; ++i)
-  //   {
-  //     Ket& ket = tmp.GetKet(i);
-  //     Orbit& op = modelspace.GetOrbit(ket.p);
-  //     Orbit& oq = modelspace.GetOrbit(ket.q);
-  //     int e = std::max( 2*op.n + op.l , 2*oq.n + oq.l );
-  //     emax_ket.push_back(e);
-  //   }
-  //   std::cout <<arma::conv_to<arma::uvec>::from(emax_ket) <<std::endl;
-
-  //   exit(0);
-  // }
   
 
 //  std::cout << "Making the Hamiltonian..." << std::endl;
   int particle_rank = input3bme=="none" ? 2 : 3;
+
+  for (const auto &input3bme_file : input3bmes) {
+    if (input3bme_file != "none") {
+      particle_rank = 3;
+    }
+  }
   Operator Hbare = Operator(modelspace,0,0,0,particle_rank);
   Hbare.SetHermitian();
 
@@ -519,7 +514,7 @@ int main(int argc, char** argv)
   }
 
   // Read in the 3-body file
-  if (Hbare.particle_rank >=3)
+  if (Hbare.particle_rank >=3 and !build_3N_from_LECs)
   {
     if(input3bme_type == "full")
     {
@@ -542,6 +537,43 @@ int main(int argc, char** argv)
       rw.File3N = input3bme;
     }
     std::cout << "done reading 3N" << std::endl;
+  }
+  else if(Hbare.particle_rank >=3 and build_3N_from_LECs)
+  {
+    Operator Hbare_temp = Operator(modelspace, 0, 0, 0, particle_rank);
+    Hbare_temp.SetHermitian();
+
+    for (std::size_t i = 0; i < input3bmes.size(); i += 1) {
+      const std::string input3bme = input3bmes[i];
+      const double coeff = input3bme_LECs[i];
+      if ((input3bme == "none") || (coeff == 0.0)) {
+        continue;
+      }
+      if (input3bme_type == "full") {
+        rw.Read_Darmstadt_3body(input3bme, Hbare_temp, file3e1max, file3e2max,
+                                file3e3max);
+      }
+      if (input3bme_type == "no2b") {
+
+        Hbare_temp.ThreeBody.SetMode("no2b");
+        if (no2b_precision == "half")
+          Hbare_temp.ThreeBody.SetMode("no2bhalf");
+
+        Hbare_temp.ThreeBody.ReadFile(
+            {input3bme}, {file3e1max, file3e2max, file3e3max, file3e1max});
+        rw.File3N = input3bme;
+
+      } else if (input3bme_type == "mono") {
+        Hbare_temp.ThreeBody.SetMode("mono");
+        Hbare_temp.ThreeBody.ReadFile(
+            {input3bme}, {file3e1max, file3e2max, file3e3max, file3e1max});
+        rw.File3N = input3bme;
+      }
+      Hbare += coeff * Hbare_temp;
+      Hbare_temp.EraseThreeBody();
+    }
+    std::cout << "done reading 3N" << std::endl;
+
   }
 
   if (store_3bme_pn)
