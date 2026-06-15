@@ -1380,8 +1380,8 @@ int main(int argc, char** argv)
       if(FSCPT_correction and FSCPT_Delta)
       {
         //We want to have the correct Heff2 and Heff3 to be printed
-        pt_correction.Heff2 = HNO + pt_correction.Delta_Heff2;
-        pt_correction.Heff3 = HNO + pt_correction.Delta_Heff2 + pt_correction.Delta_Heff3;
+        pt_correction.Heff2 = imsrgsolver.GetH_s() + pt_correction.Delta_Heff2;
+        pt_correction.Heff3 = imsrgsolver.GetH_s() + pt_correction.Delta_Heff2 + pt_correction.Delta_Heff3;
         rw.WriteTokyo(imsrgsolver.GetH_s(),intfile+"g1.snt", "");
         rw.WriteTokyo(pt_correction.Heff2,intfile+"g2.snt", "");
         rw.WriteTokyo(pt_correction.Heff3,intfile+"g3.snt", "");
