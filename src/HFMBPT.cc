@@ -115,7 +115,7 @@ void HFMBPT::GetNaturalOrbitals()
   else if(NAT_type == "VS") GetStateAveragedDensityMatrix(0); // Include ground and excited state corrections in valence space
   else if(NAT_type == "TDA") GetStateAveragedDensityMatrixTDA(0); //HF+MBPT ground state and TDA excited states in valence space
   else if(NAT_type == "Beta") GetDTzDensityMatrix();
-  else if(NAT_type == "R") GetWeightDensityRp2Rn2();
+  else if(NAT_type == "HF") GetHFNATDensityMatrix();
   else
   {
     std::cout <<"Unknown specifier for NAT basis " <<NAT_type <<std::endl;
@@ -255,7 +255,7 @@ void HFMBPT::GetFrozenNaturalOrbitals()
   else if(NAT_type == "VS") GetStateAveragedDensityMatrix(0); // Include ground and excited state corrections in valence space
   else if(NAT_type == "TDA") GetStateAveragedDensityMatrixTDA(0); //HF+MBPT ground state and TDA excited states in valence space
   else if(NAT_type == "Beta") GetDTzDensityMatrix();
-  else if(NAT_type == "R") GetWeightDensityRp2Rn2();
+  else if(NAT_type == "HF") GetHFNATDensityMatrix();
   else
   {
     std::cout <<"Unknown specifier for NAT basis " <<NAT_type <<std::endl;
@@ -665,6 +665,65 @@ void HFMBPT::GetDensityMatrix()
       }
     }
   }
+
+  if(FrozenHNAT) HNO_frozen = Hhf;
+
+  profiler.timer["HFMBPT DensityMatrix"] += omp_get_wtime() - t_start;
+}
+
+
+//This is similar to above but makes sure that the valence orbitals do not change from 
+//the HF versions. In combination with frozen natural orbitals this will only change unoccupied outside orbitals when 
+//going to the NAT basis
+void HFMBPT::GetHFNATDensityMatrix()
+{
+  Operator Hhf = HartreeFock::GetNormalOrderedH();
+  Operator& H(Hhf);
+  double t_start = omp_get_wtime();
+
+  // After the HF step, rho is the density of harmonic oscillator states for a filled HF reference
+  //  i.e. <a|rho|b> = sum_i <a|i> <b|i>  where i is an occupied HF state and a and b are HO basis states.
+  // Now we switch to the HF basis, so rho should be diagonal before adding in the perturbative corrections.
+  rho.zeros(); // This and the following line fixes bug found by Baishan Dec 2020.
+  for (auto& i : HartreeFock::modelspace->holes)  rho(i,i) = HartreeFock::modelspace->GetOrbit(i).occ; // Set hole occupations to 1.
+
+  TwoOrbitalDensity();
+
+//  std::cout << std::endl << "before perturbative correction, rho is" << std::endl << rho << std::endl;
+  // compute second order corrections to the density matrix
+  DensityMatrixPP(H);
+  DensityMatrixHH(H);
+  // DensityMatrixPH(H); //For frozen natural orbitals we do not need this 
+//  std::cout << std::endl << "after perturbative correction, rho is" << std::endl << rho << std::endl;
+  //For FNO we may still have some unitary transformation in the hh block. We want to keep the HF property of a diagonal Fock matrix in the hh block
+  //so set remaining off-diagonal hole matrix elements to zero
+  for(int i: modelspace->holes)
+  {
+    Orbit& oi = modelspace->GetOrbit(i);
+    for(int j : modelspace->OneBodyChannels.at({oi.l,oi.j2,oi.tz2}))
+    {
+      if(i != j)
+      {
+        rho(i,j) = 0.0;       
+        rho(j,i) = 0.0;       
+      }
+    }
+  }
+
+  //Also keep valence orbitals in HF version
+  for(int i: modelspace->valence)
+  {
+    Orbit& oi = modelspace->GetOrbit(i);
+    for(int j : modelspace->OneBodyChannels.at({oi.l,oi.j2,oi.tz2}))
+    {
+      if(i != j)
+      {
+        rho(i,j) = 0.0;       
+        rho(j,i) = 0.0;       
+      }
+    }
+  }
+
 
   if(FrozenHNAT) HNO_frozen = Hhf;
 

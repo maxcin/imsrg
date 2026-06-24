@@ -43,6 +43,7 @@ class HFMBPT : public HartreeFock
     HFMBPT(Operator& hbare); // same as HartreeFock constructor
     void GetNaturalOrbitals();
     void GetDensityMatrix();
+    void GetHFNATDensityMatrix();
 
     //If we use FNO then we can just prestore the HF normal odered H and transform HF -> NAT 
     //This saves one three-body normal ordering step
