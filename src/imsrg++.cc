@@ -131,6 +131,7 @@ int main(int argc, char** argv)
   bool write_HF_ops = parameters.s("write_HF_ops") == "true";  // added by Antoine Belley
   bool FSCPT_correction = parameters.s("FSCPT_correction") == "true";
   bool FSCPT_Delta = parameters.s("FSCPT_Delta") == "true";
+  bool FSCPT_atan = parameters.s("FSCPT_atan") == "true";
 
   int eMax = parameters.i("emax");
   int lmax = parameters.i("lmax"); // so far I only use this with atomic systems.
@@ -1025,9 +1026,18 @@ int main(int argc, char** argv)
      {
       if(FSCPT_correction and FSCPT_Delta)
       {
-        pt_correction.order = 3; //We calculate both second and third order contributions
-        pt_correction.off_diagonal = modelspace_imsrg.valence.size() > 0 ? "valence_diff" : "single_reference";
-        pt_correction.CalculateDHeff(HNO);
+        if(not FSCPT_atan)
+        {
+          pt_correction.order = 3; //We calculate both second and third order contributions
+          pt_correction.off_diagonal = modelspace_imsrg.valence.size() > 0 ? "valence_diff" : "single_reference";
+          pt_correction.CalculateDHeff(HNO);
+        }
+        else //we want to use the atan correction
+        {
+          pt_correction.order = 3;
+          pt_correction.off_diagonal = modelspace_imsrg.valence.size() > 0 ? "valence_diff" : "single_reference";
+          pt_correction.CalculateAtanDHeff(HNO);
+        }
       }
        HNO = HNO.Truncate(modelspace_imsrg);
        if (IMSRG3) // we'll want a 3N structure for IMSRG3
@@ -1334,6 +1344,11 @@ int main(int argc, char** argv)
     //If we want to have the corrections as well than we better do the same normal ordering procedures
     if(FSCPT_correction and FSCPT_Delta)
     {
+      if(FSCPT_atan)
+      {
+        pt_correction.Delta_Heff1 = pt_correction.Delta_Heff1.UndoNormalOrdering();
+        pt_correction.Delta_Heff1 = pt_correction.Delta_Heff1.DoNormalOrderingCore();  
+      }
       pt_correction.Delta_Heff2 = pt_correction.Delta_Heff2.UndoNormalOrdering();
       pt_correction.Delta_Heff3 = pt_correction.Delta_Heff3.UndoNormalOrdering();
       pt_correction.Delta_Heff2 = pt_correction.Delta_Heff2.DoNormalOrderingCore();
@@ -1380,11 +1395,23 @@ int main(int argc, char** argv)
       if(FSCPT_correction and FSCPT_Delta)
       {
         //We want to have the correct Heff2 and Heff3 to be printed
-        pt_correction.Heff2 = imsrgsolver.GetH_s() + pt_correction.Delta_Heff2;
-        pt_correction.Heff3 = imsrgsolver.GetH_s() + pt_correction.Delta_Heff2 + pt_correction.Delta_Heff3;
-        rw.WriteTokyo(imsrgsolver.GetH_s(),intfile+"g1.snt", "");
-        rw.WriteTokyo(pt_correction.Heff2,intfile+"g2.snt", "");
-        rw.WriteTokyo(pt_correction.Heff3,intfile+"g3.snt", "");
+        if(not FSCPT_atan)
+        {
+          pt_correction.Heff2 = imsrgsolver.GetH_s() + pt_correction.Delta_Heff2;
+          pt_correction.Heff3 = imsrgsolver.GetH_s() + pt_correction.Delta_Heff2 + pt_correction.Delta_Heff3;
+          rw.WriteTokyo(imsrgsolver.GetH_s(),intfile+"g1.snt", "");
+          rw.WriteTokyo(pt_correction.Heff2,intfile+"g2.snt", "");
+          rw.WriteTokyo(pt_correction.Heff3,intfile+"g3.snt", "");
+        }
+        else //decided to use the atan version
+        {
+          pt_correction.Heff1 = imsrgsolver.GetH_s() + pt_correction.Delta_Heff1;
+          pt_correction.Heff2 = imsrgsolver.GetH_s() + pt_correction.Delta_Heff2;
+          pt_correction.Heff3 = imsrgsolver.GetH_s() + pt_correction.Delta_Heff3;
+          rw.WriteTokyo(pt_correction.Heff1,intfile+"atang1.snt", "");
+          rw.WriteTokyo(pt_correction.Heff2,intfile+"atang2.snt", "");
+          rw.WriteTokyo(pt_correction.Heff3,intfile+"atang3.snt", "");
+        }
       }
       else rw.WriteTokyo(imsrgsolver.GetH_s(),intfile+".snt", "");
     }

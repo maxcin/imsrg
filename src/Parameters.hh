@@ -111,7 +111,8 @@ std::map<std::string,std::string> Parameters::string_par = {
   {"NAT_type", "ground_state"}, // Determine the density matrix used for NAT construction. "ground_state", "2p" or "CISD"
   {"FSCPT_correction", "false"}, //Use Fock space canonical perturbation theory of Primas to account for truncated Hamiltonian
   {"FSCPT_type", "None"}, // use single reference energy of valence operator correction
-  {"FSCPT_Delta", "false"} // uses the delta version that may be better compared to the implicit iteration
+  {"FSCPT_Delta", "false"}, // uses the delta version that may be better compared to the implicit iteration
+  {"FSCPT_atan", "false"}, // wether to use the atan version of the expansion
 };
 
 

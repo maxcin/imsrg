@@ -216,6 +216,124 @@ void FSCPT::CalculateDHeff(Operator& H)
         
 }
 
+//The definition of Heff changes here
+//Above Heff = Heff1 + Heff2 + Heff3 + ...
+//Here Heff2 will also contain Heff1
+//i.e. Heff = Heff1 //for first order
+//     Heff = Heff2 //for second order
+//     Heff = Heff3 //for third order
+void FSCPT::CalculateAtanDHeff(Operator& H)
+{
+    //Full space first
+
+    //Setup
+    H0 = arma::diagmat(H.OneBody);
+    Operator H0Op = Operator(*H.modelspace);
+    V = Operator(*H.modelspace);
+    Vod = Operator(*H.modelspace);
+
+    G1 = Operator(*H.modelspace);
+    G2 = Operator(*H.modelspace);
+    G3 = Operator(*H.modelspace);
+    G1.SetAntiHermitian();
+    G2.SetAntiHermitian();
+    G3.SetAntiHermitian();
+
+    
+    Heff1 = Operator(*H.modelspace);
+    Heff2 = Operator(*H.modelspace);
+    Heff3 = Operator(*H.modelspace);
+
+    H0Op.OneBody = H0;
+    V.OneBody = H.OneBody - H0;
+    V.TwoBody = H.TwoBody;
+
+    //**insert here expressions for calculating Heff1 to Heff3**
+    //1
+    G1 = atanDelta(GetOpOd(V));
+    Heff1 = H0Op + V + Commutator::Commutator(G1,H0Op);
+    //2
+    //Calculate first the transformed H then the Generator by the offdiagonal part
+    //The use add the relevant commutator
+    Operator Hn2 = Commutator::Commutator(G1, V) + (1/2.0)*Commutator::Commutator(G1, Commutator::Commutator(G1,H0Op)); 
+    G2 = atanDelta(GetOpOd(Heff1 + Hn2));
+    Heff2 = Heff1 + Hn2 + Commutator::Commutator(G2, H0Op); 
+    //3
+    Operator Hn3 = (1/6.0)*Commutator::Commutator(G1, Commutator::Commutator(G1,Commutator::Commutator(G1,H0Op)))
+                 + (1/2.0)*Commutator::Commutator(G1, Commutator::Commutator(G2, H0Op))
+                 + (1/2.0)*Commutator::Commutator(G2, Commutator::Commutator(G1, H0Op))
+                 + (1/2.0)*Commutator::Commutator(G1, Commutator::Commutator(G1, V))
+                 + Commutator::Commutator(G2, V);
+
+    G3 = atanDelta(GetOpOd(Heff2 + Hn3));
+    Heff3 = Heff2 + Hn3 + Commutator::Commutator(G3, H0Op);
+    
+    Operator Heff1_full = Heff1.Truncate(*modelspace_imsrg);
+    Operator Heff2_full = Heff2.Truncate(*modelspace_imsrg);
+    Operator Heff3_full = Heff3.Truncate(*modelspace_imsrg);
+
+    // Now the small space
+    //Setup
+    Operator H_small = H.Truncate(*modelspace_imsrg);
+    H0 = arma::diagmat(H_small.OneBody);
+    H0Op = Operator(*H_small.modelspace);
+    V = Operator(*H_small.modelspace);
+    Vod = Operator(*H_small.modelspace);
+
+    G1 = Operator(*H_small.modelspace);
+    G2 = Operator(*H_small.modelspace);
+    G3 = Operator(*H_small.modelspace);
+    G1.SetAntiHermitian();
+    G2.SetAntiHermitian();
+    G3.SetAntiHermitian();
+
+    
+    Heff1 = Operator(*H_small.modelspace);
+    Heff2 = Operator(*H_small.modelspace);
+    Heff3 = Operator(*H_small.modelspace);
+
+    H0Op.OneBody = H0;
+    V.OneBody = H_small.OneBody - H0;
+    V.TwoBody = H_small.TwoBody;
+
+    //**insert here expressions for calculating Heff1 to Heff3**
+    //1
+    G1 = atanDelta(GetOpOd(V));
+    Heff1 = H0Op + V + Commutator::Commutator(G1,H0Op);
+    //2
+    //Calculate first the transformed H then the Generator by the offdiagonal part
+    //The use add the relevant commutator
+    Hn2 = Commutator::Commutator(G1, V) + (1/2.0)*Commutator::Commutator(G1, Commutator::Commutator(G1,H0Op)); 
+    G2 = atanDelta(GetOpOd(Heff1 + Hn2));
+    Heff2 = Heff1 + Hn2 + Commutator::Commutator(G2, H0Op); 
+    //3
+    Hn3 = (1/6.0)*Commutator::Commutator(G1, Commutator::Commutator(G1,Commutator::Commutator(G1,H0Op)))
+                 + (1/2.0)*Commutator::Commutator(G1, Commutator::Commutator(G2, H0Op))
+                 + (1/2.0)*Commutator::Commutator(G2, Commutator::Commutator(G1, H0Op))
+                 + (1/2.0)*Commutator::Commutator(G1, Commutator::Commutator(G1, V))
+                 + Commutator::Commutator(G2, V);
+
+    G3 = atanDelta(GetOpOd(Heff2 + Hn3));
+    Heff3 = Heff2 + Hn3 + Commutator::Commutator(G3, H0Op);
+
+    
+
+    Delta_Heff1 = Heff1_full - Heff1;
+    Delta_Heff2 = Heff2_full - Heff2;
+    Delta_Heff3 = Heff3_full - Heff3;
+
+    //We want to keep only the diagonal part as the remainder is of higher order then indicated
+    //This makes a difference when undoing the normal ordering but because it is a higher order
+    //effect it should be fine
+    //This does not affect the convergence of the expansion (if it converges)
+    Delta_Heff1 -= GetOpOd(Delta_Heff1);
+    Delta_Heff2 -= GetOpOd(Delta_Heff2);
+    Delta_Heff3 -= GetOpOd(Delta_Heff3);
+
+    std::cout <<"Second order energy from truncated space: " <<Delta_Heff2.ZeroBody <<std::endl;
+    std::cout <<"Third order energy from truncated space: " <<Delta_Heff3.ZeroBody <<std::endl;
+}
+
 //Needs 1 commutator and creates 3 Operators
 void FSCPT::FSCPT2()
 {
@@ -319,6 +437,56 @@ Operator FSCPT::Delta(const Operator& Op)
                 Ket& bra = Opdelta.modelspace->GetKet(tbc_ket.GetKetIndex(ibra));
                 double e_bra = H0(bra.p,bra.p) + H0(bra.q,bra.q);
                 OpMat(ibra,iket) = matel / (e_bra - e_ket);
+                OpMat(iket,ibra) = -OpMat(ibra,iket);
+            }
+        }
+    }
+    return Opdelta;
+}
+
+//The new operator is antihermitian (if Op is hermitian). To make this most general we just add the delta everywhere
+Operator FSCPT::atanDelta(const Operator& Op)
+{
+    Operator Opdelta(*Op.modelspace);
+    Opdelta.SetAntiHermitian();
+    
+    for ( auto& a : Op.modelspace->all_orbits)
+    {
+        Orbit& oa = Op.modelspace->GetOrbit(a);
+        for ( auto& i : Op.modelspace->OneBodyChannels.at({oa.l,oa.j2,oa.tz2}) )
+        {
+            if(Opdelta.OneBody(a,i)==0) continue;
+            Opdelta.OneBody(a,i) = 0.5 * atan(2* Op.OneBody(a,i) / (H0(a,a) - H0(i,i)) );
+            Opdelta.OneBody(i,a) = -Opdelta.OneBody(a,i) ;
+        }
+    }
+
+    
+    int nmatel = Opdelta.TwoBody.MatEl.size();
+    //for ( auto& iter : Opdelta.TwoBody.MatEl )
+    #pragma omp parallel for schedule(dynamic, 1)
+    for(int index = 0 ; index < nmatel; ++index)
+    {
+        auto iter = Opdelta.TwoBody.MatEl.begin();
+        std::advance(iter , index);
+        size_t ch_bra = iter->first[0];
+        size_t ch_ket = iter->first[1];
+        TwoBodyChannel& tbc_bra = Op.modelspace->GetTwoBodyChannel(ch_bra);
+        TwoBodyChannel& tbc_ket = Op.modelspace->GetTwoBodyChannel(ch_ket);
+        arma::mat& OpMat =  iter->second;
+        for (int iket = 0; iket< tbc_ket.GetNumberKets(); ++iket )
+        // for ( auto& iket : tbc_ket.GetKetIndex_cc() )
+        {
+            Ket& ket = Opdelta.modelspace->GetKet(tbc_ket.GetKetIndex(iket));
+            double e_ket = H0(ket.p,ket.p) + H0(ket.q,ket.q);
+            for (int ibra = 0; ibra< tbc_bra.GetNumberKets(); ++ibra )
+            // for ( auto& ibra : VectorUnion(tbc_bra.GetKetIndex_qq(), tbc_bra.GetKetIndex_vv(), tbc_bra.GetKetIndex_qv() ) )
+            {
+                double matel = Op.TwoBody.MatEl.at(iter->first)(ibra,iket);
+                if(matel==0) continue;
+                Ket& bra = Opdelta.modelspace->GetKet(tbc_ket.GetKetIndex(ibra));
+                double e_bra = H0(bra.p,bra.p) + H0(bra.q,bra.q);
+                OpMat(ibra,iket) = 0.5 * atan(2*matel / (e_bra - e_ket));
                 OpMat(iket,ibra) = -OpMat(ibra,iket);
             }
         }

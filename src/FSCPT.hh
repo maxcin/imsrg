@@ -32,14 +32,18 @@ class FSCPT
         Operator G1;
         Operator G2;
 
+        Operator G3; //Technically only needed in the atan case 
+
         Generator generator;
 
         //second and third order corrections
         //Heff1 = Vod
+        Operator Heff1; //only used in atan case
         Operator Heff2;
         Operator Heff3;
 
         //the delta operators that encode order-by-order differences
+        Operator Delta_Heff1; //This one can appear in atan expansion
         Operator Delta_Heff2;
         Operator Delta_Heff3;
 
@@ -50,12 +54,15 @@ class FSCPT
 
         Operator Calculate(Operator& H); //this one applies a truncation and will return the changed operator
         void CalculateDHeff(Operator& H); //This one constructs just the corrections dHeff2 and dHeff3 to be used at a later time
+        void CalculateAtanDHeff(Operator& H); //Using atan expansion
 
         Operator GetOpOd(const Operator& Op); //Gets the off diagonal part of Op
         // void sr_diagonal(Operator& Op); //Single-reference diagonal
         // void vs_diagonal(Operator& Op); //valence-space diagonal
 
         Operator Delta(const Operator& Op); // apply denominator to the Delta
+
+        Operator atanDelta(const Operator& Op); //apply denominator plus atan
 };
 
 #endif
