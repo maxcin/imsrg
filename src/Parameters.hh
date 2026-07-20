@@ -108,11 +108,12 @@ std::map<std::string,std::string> Parameters::string_par = {
   {"write_HO_ops",              "false"},       // Write the HO operator before doing the HF transormation ;  Added by Antoine Belley
   {"write_HF_ops",              "false"},       // Write the HF operators before doing IMSRG transformation ; Added by Antoine Belley
   {"denominator_partitioning",  "Epstein_Nesbet"}, // Denominators used in IMSRG generators. Can be Moller_Plesset or Epstein_Nesbet.
-  {"NAT_type", "ground_state"}, // Determine the density matrix used for NAT construction. "ground_state", "2p" or "CISD"
-  {"FSCPT_correction", "false"}, //Use Fock space canonical perturbation theory of Primas to account for truncated Hamiltonian
-  {"FSCPT_type", "None"}, // use single reference energy of valence operator correction
-  {"FSCPT_Delta", "false"}, // uses the delta version that may be better compared to the implicit iteration
-  {"FSCPT_atan", "false"}, // wether to use the atan version of the expansion
+  {"NAT_type",                  "ground_state"}, // Determine the density matrix used for NAT construction. "ground_state", "2p" or "CISD"
+  {"FSCPT_correction",          "false"}, //Use Fock space canonical perturbation theory of Primas to account for truncated Hamiltonian
+  {"FSCPT_type",                "None"}, // use single reference energy of valence operator correction
+  {"FSCPT_Delta",               "false"}, // uses the delta version that may be better compared to the implicit iteration
+  {"FSCPT_atan",                "false"}, // wether to use the atan version of the expansion
+  {"approx_3f2",                "false"},       //enable imsrg3f2 corrections
 };
 
 
