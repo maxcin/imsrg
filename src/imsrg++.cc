@@ -810,7 +810,7 @@ int main(int argc, char** argv)
     modelspace_imsrg.SetupKets();
     modelspace_imsrg.Setup3bKets();
 
-    modelspace_imsrg.Print();
+    // modelspace_imsrg.Print();
   }
 
   // exit(0);
