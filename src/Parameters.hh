@@ -160,6 +160,7 @@ std::map<std::string,int> Parameters::int_par = {
   {"e3max_imsrg",       -1}, // e3max for imsrg part. defaults to min(e3max,3*emax_imsrg)
   {"emax_3body_imsrg",        -1}, // emax truncation for the 3-body operators in the imsrg part (default: emax_imsrg)
   {"FSCPT_order",3}, // Determine the order of perturbative corrections for truncation
+  {"Norbits_imsrg", -1}, //Number of orbits to be used in modelspace_imsrg
 };
 
 std::map<std::string,std::vector<std::string>> Parameters::vec_par = {

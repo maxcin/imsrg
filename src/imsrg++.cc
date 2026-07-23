@@ -153,6 +153,7 @@ int main(int argc, char** argv)
   int e3Max_imsrg = parameters.i("e3max_imsrg");
   int eMax_3body_imsrg = parameters.i("emax_3body_imsrg");
   int FSCPT_order = parameters.i("FSCPT_order");
+  int Norbits_imsrg = parameters.i("Norbits_imsrg");
 //  if ( not ( eMax_imsrg==-1 and e2Max_imsrg==-1 and e3Max_imsrg==-1 ) )
 //  {
 //    if ( eMax_imsrg==-1 ) eMax_imsrg = eMax;
@@ -731,6 +732,88 @@ int main(int argc, char** argv)
      modelspace_imsrg.SetReference( hole_map );
   }
 
+  //We may want to specify a certain number of orbitals to be used
+  //In that case we use the entropy from the NAT calculation
+
+  if(Norbits_imsrg > -1 and basis=="NAT" and Norbits_imsrg < modelspace.GetNumberOrbits())
+  {
+    double smin = 0.0;
+    if(Norbits_imsrg < modelspace.valence.size())
+    {
+      std::cout <<"Number of orbitals is smaller than the specified valence space! Please specify number of orbitals sufficient to contain the valence space" <<std::endl;
+      exit(0);
+    }
+
+    std::vector<std::pair<double, int>> entropylist(modelspace.GetNumberOrbits()); //first one is entropy the second is the index
+
+    for(int i = 0;  i < modelspace.GetNumberOrbits(); ++i)
+    {
+      Orbit& oi = modelspace.GetOrbit(i);
+      double ni = oi.occ_nat;
+      double nibar = 1.0 - ni;
+      double si = - ni * log(ni) - nibar * log(nibar);
+      entropylist.at(i) = {si, i};
+    }
+
+    //Sorts the list
+    std::sort(entropylist.begin(), entropylist.end());
+    std::reverse(entropylist.begin(), entropylist.end());
+
+    //This list will contain all the orbitals we decide to keep
+    std::vector<int> orbitlist;
+    
+    for(auto i : modelspace.valence)
+    {
+      orbitlist.push_back(i);
+    }
+
+    for(auto pair : entropylist)
+    {
+      double s = pair.first;
+      int index = pair.second;
+
+      if(std::find(orbitlist.begin(), orbitlist.end(), index) == orbitlist.end())
+      {
+        orbitlist.push_back(index);
+        smin = s;
+      } 
+
+      if(orbitlist.size() == Norbits_imsrg)
+      {
+        std::cout <<"Entropy cutoff smin=" <<smin <<std::endl; 
+        break;
+      }
+    }
+
+    std::sort(orbitlist.begin(), orbitlist.end()); //This is important as the truncate() function of Operator expects the relative ordering of orbits to remain
+    // std::reverse(orbitlist.begin(), orbitlist.end());
+
+    std::cout <<std::fixed <<std::setw(4) <<"i" <<std::fixed <<std::setw(10) <<"s" <<std::fixed <<std::setw(4) <<"e" <<std::fixed <<std::setw(4) <<"cvq" <<std::endl;
+    for(auto i : orbitlist)
+    {
+      Orbit& oi = modelspace.GetOrbit(i);
+      double ni = oi.occ_nat;
+      double nibar = 1.0 - ni;
+      double si = - ni * log(ni) - nibar * log(nibar);
+      std::cout <<std::fixed <<std::setw(4) <<i <<std::fixed <<std::setw(10) <<si <<std::fixed <<std::setw(4) <<2*oi.n+oi.l <<std::fixed <<std::setw(4) <<oi.cvq <<std::endl;
+    }
+
+    modelspace_imsrg.ClearVectors();
+    modelspace_imsrg.OrbitLookup.clear();
+    for(auto i : orbitlist)
+    {
+      Orbit& oi = modelspace.GetOrbit(i);
+      modelspace_imsrg.AddOrbit(oi);
+    }
+
+    modelspace_imsrg.FindEFermi();
+    modelspace_imsrg.SetupKets();
+    modelspace_imsrg.Setup3bKets();
+
+    modelspace_imsrg.Print();
+  }
+
+  // exit(0);
   // This new modelspace will be what we use for transforming the 3N to the HF basis.
   // For the 2N, we'll just do the transformation and then truncate.
   hf.SetModelspaceForOutput3N(modelspace_imsrg);
@@ -1009,7 +1092,7 @@ int main(int argc, char** argv)
   }
   // FSCPT pri2mas(HNO);
   //For post-processing we can keep the initial Hamiltonian
-  Operator H_full = HNO;
+  // Operator H_full = HNO;
 
   // We may want to use a smaller model space for the IMSRG evolution than we used for the HF step.
   // This is most effective when using natural orbitals or when including 3-body operators.
@@ -1017,7 +1100,7 @@ int main(int argc, char** argv)
 //  ModelSpace modelspace_imsrg = ( reference=="default" ? ModelSpace(eMax_imsrg,e2Max_imsrg,e3Max_imsrg,valence_space) : ModelSpace(eMax_imsrg,e2Max_imsrg,e3Max_imsrg,reference,valence_space) );
 //  ModelSpace modelspace_imsrg = modelspace;
   FSCPT pt_correction(modelspace_imsrg, FSCPT_type);
-  if ( (eMax_imsrg != -1) or (e2Max_imsrg != -1) or (e3Max_imsrg != -1) or (eMax_3body_imsrg != -1))
+  if ( (eMax_imsrg != -1) or (e2Max_imsrg != -1) or (e3Max_imsrg != -1) or (eMax_3body_imsrg != -1) or Norbits_imsrg > -1)
   {
 
      /// If HNO has a 3N piece, we already did the truncation while transforming to the HF basis
@@ -1081,7 +1164,7 @@ int main(int argc, char** argv)
   }
 
  // After truncating, get the perturbative energies again to see how much things changed.
-  if (eMax_imsrg != eMax)
+  if (eMax_imsrg != eMax or Norbits_imsrg > -1)
   {
     std::cout << "Perturbative estimates of gs energy:" << std::endl;
     double EMP2 = HNO.GetMP2_Energy();
