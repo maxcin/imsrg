@@ -1439,8 +1439,8 @@ int main(int argc, char** argv)
     if (IMSRG3)
     {
       std::cout << "Re-normal-ordering wrt the core. For now, we just throw away the 3N at this step." << std::endl;
-      HNO.SetNumberLegs(4);
-      HNO.SetParticleRank(2);
+      Hs.SetNumberLegs(4);
+      Hs.SetParticleRank(2);
     }
 
 
