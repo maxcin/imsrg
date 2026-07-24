@@ -1419,6 +1419,7 @@ int main(int argc, char** argv)
     if(approx_3f2){
       Commutator::FactorizedDoubleCommutator::SetUse_1b_Intermediates(true);
       Commutator::FactorizedDoubleCommutator::SetUse_2b_Intermediates(true);
+      std::cout <<"Calculating perturbative triples using all intermediates..." <<std::endl;
       Hs = imsrgsolver.Transform(HNO);
       double dE_triple = imsrgsolver.CalculatePerturbativeTriples();
       std::cout << "Perturbative triples: " << std::setw(16) << std::setprecision(8) << dE_triple << std::endl;
