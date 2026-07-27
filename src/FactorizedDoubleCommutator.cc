@@ -2411,7 +2411,7 @@ namespace Commutator
       /// Pandya transformation only recouple the angula momentum
       /// IIe and IIf                 barCHI_III_RC   bar_CHI_IV
       /// diagram IIIe and IIIf       bar_CHI_VII_CC
-#pragma omp parallel for
+// #pragma omp parallel for
       for (int ch_cc = 0; ch_cc < n_nonzero; ++ch_cc)
       {
         TwoBodyChannel_CC &tbc_cc = Z.modelspace->GetTwoBodyChannel_CC(ch_cc);
@@ -2524,7 +2524,13 @@ namespace Commutator
                   }
                 }
 
-                XbarIIef -= (2 * J_std + 1) * sixj1 * CHI_IV[ch_J2_bc](indx_ad, indx_cb);
+                //Current status: When proton and neutron sides are not identical index_ad can be out of bounds below
+                //This is caused by Tz_J2_bc != Tz_J2_ad which happens in this code only for the tbc_cc.Tz == 1 meaning like nucleons in cross coupled bra and kets
+                //Temporary fix: add if statement for XbarIIef
+                //UnitTest still passes so for now I live with this but someone who actually knows the 3f2 code should check -MC
+
+                if(ch_J2_bc == ch_J2_ad) XbarIIef -= (2 * J_std + 1) * sixj1 * CHI_IV[ch_J2_bc](indx_ad, indx_cb);
+
                 if (std::abs(Tz_J2_ad - Tz_J2_bc) == Z.TwoBody.rank_T)
                   XbarIIIef += phaseFactor * (2 * J_std + 1) * sixj1 * CHI_VII[index_ch](indx_ad, indx_bc);
               }

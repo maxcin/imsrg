@@ -813,6 +813,10 @@ int main(int argc, char** argv)
     // modelspace_imsrg.Print();
   }
 
+  //Test that the 3f2 still works
+  // UnitTest tester(modelspace_imsrg);
+  // tester.TestFactorizedDoubleCommutators();
+
   // exit(0);
   // This new modelspace will be what we use for transforming the 3N to the HF basis.
   // For the 2N, we'll just do the transformation and then truncate.
