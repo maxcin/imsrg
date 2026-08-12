@@ -47,7 +47,7 @@ ELEM = ['n','H','He','Li','Be','B','C','N',
 ARGS  =  {}
 
 ### Maximum value of s, and maximum step size ds
-ARGS['smax'] = '500'
+ARGS['smax'] = '0'#'500'
 ARGS['dsmax'] = '0.5'
 ARGS['eta_criterion'] = "1e-3"
 
@@ -118,12 +118,12 @@ path_to_ME = path.expanduser("~/IMSRG/ME/")
 
 
 ### Loop over multiple jobs to submit
-for Z in [20]:
- A= 48
+for Z in [82]:
+ A= 208
  for reference in ['%s%d'%(ELEM[Z],A)]:
   ARGS['reference'] = reference
   print ('Z = ',Z)
-  for e in [6]:
+  for e in [8]:
    for hw in [16]:
 
      ARGS['emax'] = '%d'%e
@@ -155,17 +155,19 @@ for Z in [20]:
      ARGS['hw'] = '%d'%hw
      ARGS['A'] = '%d'%A
      #ARGS['valence_space'] = reference
-     ARGS['basis'] = "HF"
-     #ARGS['NAT_type'] = "TDA"
-     ARGS['valence_space'] = '0hw-shell'
+     ARGS['basis'] = "NAT"
+     ARGS['NAT_type'] = "HF"
+     #ARGS['valence_space'] = '0hw-shell'
 #     ARGS['valence_space'] = 'Cr%d'%A
 #     ARGS['core_generator'] = 'imaginary-time'
 #     ARGS['valence_generator'] = 'shell-model-imaginary-time'
      ARGS['emax'] = '%d'%e
-     ARGS['emax_imsrg'] = '4'
-     ARGS['FSCPT_correction'] = "true"
-     ARGS['FSCPT_type'] = "valence_diff"
-     ARGS['FSCPT_order'] = "3"
+     #ARGS['Norbits_imsrg'] = "10"
+    #  ARGS['emax_imsrg'] = '4'
+    #  ARGS['FSCPT_correction'] = "true"
+     #ARGS['FSCPT_Delta'] = "true"
+     #ARGS['FSCPT_type'] = "valence_diff"
+     #ARGS['FSCPT_order'] = "3"
     #  ARGS['FSCPT_magnusfull'] = "true"
 #     ARGS['method'] = method
      #ARGS['approx_3f2'] = "true"
@@ -173,6 +175,39 @@ for Z in [20]:
 
      #ARGS['valence_space'] = "neutron_pf"
      #ARGS['custom_valence_space'] = 'Ca40,n0f7,n0f5,n1p3,n1p1'
+
+     #Test valence spaces
+     #ARGS['valence_space'] = "proton_pf_neutron_f5p3p1g9s1d5"
+     #ARGS['custom_valence_space'] = 'Ca48,p0f7,p0f5,p1p3,p1p1,n0f5,n1p3,n1p1,n0g9,n2s1,n1d5'
+
+     #ARGS['valence_space'] = "proton_pf_neutron_f5p1g9s1d5"
+     #ARGS['custom_valence_space'] = 'Ca48,p0f7,p0f5,p1p3,p1p1,n0f5,n1p1,n0g9,n2s1,n1d5'
+
+     #ARGS['valence_space'] = "proton_pf_neutron_f5g9s1d5"
+     #ARGS['custom_valence_space'] = 'Ca48,p0f7,p0f5,p1p3,p1p1,n0f5,n0g9,n2s1,n1d5'
+
+     #ARGS['valence_space'] = "proton_f7p3p1_neutron_f5g9s1d5"
+     #ARGS['custom_valence_space'] = 'Ca48,p0f7,p1p3,p1p1,n0f5,n0g9,n2s1,n1d5'
+
+     #ARGS['valence_space'] = "proton_pf_neutron_sdg"
+     #ARGS['custom_valence_space'] = "Ca60,p0f7,p0f5,p1p3,p1p1,n0g9,n0g7,n1d5,n1d3,n2s1"
+
+     #Below Pb208 Sn132 core
+     #ARGS['valence_space'] = "proton_sdg7h11_neutron_pfh9i13"
+     #ARGS['custom_valence_space'] = "Sn132,p2s1,p1d5,p1d3,p0g7,p0h11,n2p1,n2p3,n1f7,n1f5,n0h9,n0i13"
+
+     #Below Pb208 Gd154 core
+     #ARGS['valence_space'] = "proton_sd3h11_neutron_pf5h9i13"
+     #ARGS['custom_valence_space'] = "Gd154,p2s1,p1d3,p0h11,n2p1,n2p3,n1f5,n0h9,n0i13"
+
+     #Above Pb208 Sn176 core (removed j15/2 from neutrons) 
+     #neutron orbitals: 0i11/2, 1g9/2, 1g7/2, 2d5/2, 2d3/2, 3s1/2 (, 0j15/2 )
+     #ARGS['valence_space'] = "proton_sdg7h11_neutron_sdgi11"
+     #ARGS['custom_valence_space'] = "Sn176,p2s1,p1d5,p1d3,p0g7,p0h11,n3s1,n2d5,n2d3,n1g9,n1g7,n0i11"
+
+     #Above Pb208 Gd190 core
+     ARGS['valence_space'] = "proton_sd3h11_neutron_sdgi11"
+     ARGS['custom_valence_space'] = "Gd190,p2s1,p1d3,p0h11,n3s1,n2d5,n2d3,n1g9,n1g7,n0i11"
 
      #ARGS['approx_3f2'] = "true"
      #ARGS['e3max_imsrg'] = f"{3*e}"
@@ -188,7 +223,7 @@ for Z in [20]:
 #     ARGS['Operators'] = 'GamowTeller'
 
      #ARGS['IMSRG3'] = "true"
-     #ARGS['IMSRG3_n7'] = "true"
+     #ARGS['imsrg3_n7'] = "true"
 
 
 

@@ -785,7 +785,7 @@ int main(int argc, char** argv)
       }
     }
 
-    std::sort(orbitlist.begin(), orbitlist.end()); //This is important as the truncate() function of Operator expects the relative ordering of orbits to remain
+    std::sort(orbitlist.begin(), orbitlist.end()); //This is important as the truncate() function of Operator expects the relative ordering of orbits to stay the same
     // std::reverse(orbitlist.begin(), orbitlist.end());
 
     std::cout <<std::fixed <<std::setw(4) <<"i" <<std::fixed <<std::setw(10) <<"s" <<std::fixed <<std::setw(4) <<"e" <<std::fixed <<std::setw(4) <<"cvq" <<std::endl;

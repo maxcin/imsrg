@@ -849,7 +849,7 @@ namespace Commutator
     index_t norbits = Z.modelspace->all_orbits.size();
     int hZ = Z.IsHermitian() ? 1 : -1;
 
-    #pragma omp parallel for
+    #pragma omp parallel for schedule(dynamic,1)
     for (index_t indexi = 0; indexi < norbits; ++indexi)
     {
       auto i = indexi;
@@ -1291,9 +1291,9 @@ namespace Commutator
       ch_ket_list.push_back(ch_ket);
     }
     int nch = ch_bra_list.size();
-    // #ifndef OPENBLAS_NOUSEOMP
-    // #pragma omp parallel for schedule(dynamic, 1)
-    // #endif
+    #ifndef OPENBLAS_NOUSEOMP
+    #pragma omp parallel for schedule(dynamic, 1)
+    #endif
     for (int ich = 0; ich < nch; ++ich)
     {
       int ch_bra = ch_bra_list[ich];
