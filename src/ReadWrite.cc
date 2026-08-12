@@ -5834,8 +5834,8 @@ void ReadWrite::WriteTokyo(Operator& op, std::string filename, std::string mode)
      for (auto b : modelspace->valence) {
        if(a < b) continue;
        double obme = op.OneBody(a,b);
-       if (std::abs(obme) < 1e-7 or op.OneBodyNorm() == 0)
-         continue;
+      //  if (std::abs(obme) < 1e-7 or op.OneBodyNorm() == 0)
+        //  continue;
        cnt_obme += 1;
      }
    }
@@ -5855,7 +5855,7 @@ void ReadWrite::WriteTokyo(Operator& op, std::string filename, std::string mode)
          int c = ket.p;
          int d = ket.q;
          double me = op.TwoBody.GetTBME_norm(ch, a, b, c, d);
-         if (std::abs(me) < op.TwoBodyNorm() * 1e-7 or op.TwoBodyNorm() == 0) continue;
+        //  if (std::abs(me) < op.TwoBodyNorm() * 1e-7 or op.TwoBodyNorm() == 0) continue;
          cnt_tbme += 1;
        }
      }
@@ -5869,8 +5869,8 @@ void ReadWrite::WriteTokyo(Operator& op, std::string filename, std::string mode)
        int b_ind = orb2kshell[b];
        if(a < b) continue;
        double obme = op.OneBody(a,b);
-       if (std::abs(obme) < op.OneBodyNorm() * 1e-7 or op.OneBodyNorm() == 0)
-         continue;
+      //  if (std::abs(obme) < op.OneBodyNorm() * 1e-7 or op.OneBodyNorm() == 0)
+      //    continue;
        intfile << std::setw(wint) << a_ind << std::setw(wint) << b_ind << "   "
            << std::setw(wdouble) << std::setiosflags(std::ios::fixed) << std::setprecision(pdouble) << obme
            << std::endl;
@@ -5912,8 +5912,8 @@ void ReadWrite::WriteTokyo(Operator& op, std::string filename, std::string mode)
            tbme += op.TwoBody.GetTBME_norm(ch,aa,bb,cc,dd); // looks like some isospin averaging for an operator file?
            tbme /= 2;
          }
-         if (std::abs(tbme) < op.TwoBodyNorm() * 1e-7 or op.TwoBodyNorm() == 0)
-           continue;
+        //  if (std::abs(tbme) < op.TwoBodyNorm() * 1e-7 or op.TwoBodyNorm() == 0)
+          //  continue;
          intfile << std::setw(wint) << a_ind << std::setw(wint) << b_ind
            << std::setw(wint) << c_ind << std::setw(wint) << d_ind
            << std::setw(wint) << tbc.J << "  " << std::setw(wdouble)
