@@ -1128,7 +1128,8 @@ int main(int argc, char** argv)
         {
           pt_correction.order = 3;
           pt_correction.off_diagonal = modelspace_imsrg.valence.size() > 0 ? "valence_diff" : "single_reference";
-          pt_correction.CalculateAtanDHeff(HNO);
+          // pt_correction.CalculateAtanDHeff(HNO);
+          pt_correction.CalculateAtanDHeff_memory(HNO);
         }
       }
        HNO = HNO.Truncate(modelspace_imsrg);

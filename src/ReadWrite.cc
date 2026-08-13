@@ -5834,8 +5834,8 @@ void ReadWrite::WriteTokyo(Operator& op, std::string filename, std::string mode)
      for (auto b : modelspace->valence) {
        if(a < b) continue;
        double obme = op.OneBody(a,b);
-      //  if (std::abs(obme) < 1e-7 or op.OneBodyNorm() == 0)
-        //  continue;
+       if (std::abs(obme) < 1e-7 or op.OneBodyNorm() == 0)
+         continue;
        cnt_obme += 1;
      }
    }
@@ -5869,8 +5869,8 @@ void ReadWrite::WriteTokyo(Operator& op, std::string filename, std::string mode)
        int b_ind = orb2kshell[b];
        if(a < b) continue;
        double obme = op.OneBody(a,b);
-      //  if (std::abs(obme) < op.OneBodyNorm() * 1e-7 or op.OneBodyNorm() == 0)
-      //    continue;
+       if (std::abs(obme) < op.OneBodyNorm() * 1e-7 or op.OneBodyNorm() == 0)
+         continue;
        intfile << std::setw(wint) << a_ind << std::setw(wint) << b_ind << "   "
            << std::setw(wdouble) << std::setiosflags(std::ios::fixed) << std::setprecision(pdouble) << obme
            << std::endl;

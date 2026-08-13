@@ -334,6 +334,141 @@ void FSCPT::CalculateAtanDHeff(Operator& H)
     std::cout <<"Third order energy from truncated space: " <<Delta_Heff3.ZeroBody <<std::endl;
 }
 
+//As above but refactored to use less memory in the large space
+void FSCPT::CalculateAtanDHeff_memory(Operator& H)
+{
+    //Full space first
+
+    //Setup
+
+    // I count 8 Operators here
+    // At emax=16 this  is ~80 GB
+    // Taking the Commutator will also take ~ 100 GB
+
+    // H0 can be a 1B operator
+
+    H0 = arma::diagmat(H.OneBody);
+    Operator H0Op = Operator(*H.modelspace, 0 ,0 ,0 ,2);
+    V = Operator(*H.modelspace);
+
+    G1 = Operator(*H.modelspace);
+    G1.SetAntiHermitian();
+
+    G2 = Operator(*H.modelspace);
+    G2.SetAntiHermitian();
+
+    
+    // Heff1 = Operator(*H.modelspace);
+    // Heff2 = Operator(*H.modelspace);
+    // Heff3 = Operator(*H.modelspace);
+    Operator Heff = Operator(*H.modelspace);
+
+    H0Op.OneBody = H0;
+    V.OneBody = H.OneBody - H0;
+    V.TwoBody = H.TwoBody;
+
+    //**insert here expressions for calculating Heff1 to Heff3**
+    //1
+
+    G1 = atanDelta(GetOpOd(V));
+
+    Heff = H0Op + V + Commutator::Commutator(G1,H0Op);
+    Operator Heff1_full = Heff.Truncate(*modelspace_imsrg);
+    //2
+    //Calculate first the transformed H then the Generator by the offdiagonal part
+    //The use add the relevant commutator
+    Operator Hn2 = Commutator::Commutator(G1, V) + (1/2.0)*Commutator::Commutator(G1, Commutator::Commutator(G1,H0Op)); 
+    G2 = atanDelta(GetOpOd(Heff + Hn2));
+    Heff += Hn2 + Commutator::Commutator(G2, H0Op); 
+
+    //We dont need Hn2 at this point 
+    Hn2 = Operator();
+    Operator Heff2_full = Heff.Truncate(*modelspace_imsrg);
+    //3
+    Operator Hn3 = (1/6.0)*Commutator::Commutator(G1, Commutator::Commutator(G1,Commutator::Commutator(G1,H0Op)))
+                 + (1/2.0)*Commutator::Commutator(G1, Commutator::Commutator(G2, H0Op))
+                 + (1/2.0)*Commutator::Commutator(G2, Commutator::Commutator(G1, H0Op))
+                 + (1/2.0)*Commutator::Commutator(G1, Commutator::Commutator(G1, V))
+                 + Commutator::Commutator(G2, V);
+
+    //At this point neither G1, G2 or V are needed so lets free them
+    G1 = Operator();
+    G2 = Operator();
+    V = Operator();
+
+    //G3 is only needed at this point
+    G3 = Operator(*H.modelspace);
+    G3.SetAntiHermitian();
+    G3 = atanDelta(GetOpOd(Heff + Hn3));
+    Heff += Hn3 + Commutator::Commutator(G3, H0Op);
+    Operator Heff3_full = Heff.Truncate(*modelspace_imsrg);
+    Heff = Operator();
+
+    //After this everything is in the small space so we dont need to worry about memory
+
+    // Now the small space
+    //Setup
+    Operator H_small = H.Truncate(*modelspace_imsrg);
+    H0 = arma::diagmat(H_small.OneBody);
+    H0Op = Operator(*H_small.modelspace);
+    V = Operator(*H_small.modelspace);
+
+    G1 = Operator(*H_small.modelspace);
+    G1.SetAntiHermitian();
+
+    G2 = Operator(*H_small.modelspace);
+    G2.SetAntiHermitian();
+
+    G3 = Operator(*H_small.modelspace);
+    G3.SetAntiHermitian();
+
+    
+    Heff1 = Operator(*H_small.modelspace);
+    Heff2 = Operator(*H_small.modelspace);
+    Heff3 = Operator(*H_small.modelspace);
+
+    H0Op.OneBody = H0;
+    V.OneBody = H_small.OneBody - H0;
+    V.TwoBody = H_small.TwoBody;
+
+    //**insert here expressions for calculating Heff1 to Heff3**
+    //1
+    G1 = atanDelta(GetOpOd(V));
+    Heff1 = H0Op + V + Commutator::Commutator(G1,H0Op);
+    //2
+    //Calculate first the transformed H then the Generator by the offdiagonal part
+    //The use add the relevant commutator
+    Hn2 = Commutator::Commutator(G1, V) + (1/2.0)*Commutator::Commutator(G1, Commutator::Commutator(G1,H0Op)); 
+    G2 = atanDelta(GetOpOd(Heff1 + Hn2));
+    Heff2 = Heff1 + Hn2 + Commutator::Commutator(G2, H0Op); 
+    //3
+    Hn3 = (1/6.0)*Commutator::Commutator(G1, Commutator::Commutator(G1,Commutator::Commutator(G1,H0Op)))
+                 + (1/2.0)*Commutator::Commutator(G1, Commutator::Commutator(G2, H0Op))
+                 + (1/2.0)*Commutator::Commutator(G2, Commutator::Commutator(G1, H0Op))
+                 + (1/2.0)*Commutator::Commutator(G1, Commutator::Commutator(G1, V))
+                 + Commutator::Commutator(G2, V);
+
+    G3 = atanDelta(GetOpOd(Heff2 + Hn3));
+    Heff3 = Heff2 + Hn3 + Commutator::Commutator(G3, H0Op);
+
+    
+
+    Delta_Heff1 = Heff1_full - Heff1;
+    Delta_Heff2 = Heff2_full - Heff2;
+    Delta_Heff3 = Heff3_full - Heff3;
+
+    //We want to keep only the diagonal part as the remainder is of higher order then indicated
+    //This makes a difference when undoing the normal ordering but because it is a higher order
+    //effect it should be fine
+    //This does not affect the convergence of the expansion (if it converges)
+    Delta_Heff1 -= GetOpOd(Delta_Heff1);
+    Delta_Heff2 -= GetOpOd(Delta_Heff2);
+    Delta_Heff3 -= GetOpOd(Delta_Heff3);
+
+    std::cout <<"Second order energy from truncated space: " <<Delta_Heff2.ZeroBody <<std::endl;
+    std::cout <<"Third order energy from truncated space: " <<Delta_Heff3.ZeroBody <<std::endl;
+}
+
 //Needs 1 commutator and creates 3 Operators
 void FSCPT::FSCPT2()
 {
