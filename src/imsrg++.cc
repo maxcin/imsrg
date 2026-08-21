@@ -133,6 +133,7 @@ int main(int argc, char** argv)
   bool FSCPT_correction = parameters.s("FSCPT_correction") == "true";
   bool FSCPT_Delta = parameters.s("FSCPT_Delta") == "true";
   bool FSCPT_atan = parameters.s("FSCPT_atan") == "true";
+  bool FSCPT_MBPT = parameters.s("FSCPT_MBPT") == "true";
 
   int eMax = parameters.i("emax");
   int lmax = parameters.i("lmax"); // so far I only use this with atomic systems.
@@ -1098,6 +1099,24 @@ int main(int argc, char** argv)
   //For post-processing we can keep the initial Hamiltonian
   // Operator H_full = HNO;
 
+  //Before truncation I want to print out some information
+  //As truncation likely involves a non-HF basis we need to make sure that the perturbative corrections are accounted for properly
+  if(FSCPT_MBPT)
+  {
+    std::cout <<"Calculating MBPT using commutator formalism..." <<std::endl;
+    std::string nonestring = "None";
+    FSCPT perturber(*HNO.modelspace, "None");
+    perturber.order=3;
+    perturber.off_diagonal = "single_reference";
+    std::array<double,2> E_MBPT = perturber.GetMBPT(HNO);
+    std::cout <<"E_MBPT2 = " <<E_MBPT[0] <<std::endl;
+    std::cout <<"E_MBPT3 = " <<E_MBPT.at(1) <<std::endl;
+// 
+    std::cout <<"To second order = " <<E_MBPT.at(0)+HNO.ZeroBody <<std::endl;
+    std::cout <<"To third order = " <<E_MBPT.at(1)+E_MBPT.at(0)+HNO.ZeroBody <<std::endl;
+    
+  }
+
   // We may want to use a smaller model space for the IMSRG evolution than we used for the HF step.
   // This is most effective when using natural orbitals or when including 3-body operators.
   //Optionally we can also run some perturbative corrections
@@ -1181,6 +1200,25 @@ int main(int argc, char** argv)
     double EMP3 = Emp_3[0]+Emp_3[1]+Emp_3[2];
     std::cout << "E3_pp = " << Emp_3[0] << "  E3_hh = " << Emp_3[1] << " E3_ph = " << Emp_3[2] << "   EMP3 = " << EMP3 << std::endl;
     std::cout << "To 3rd order, E = " << HNO.ZeroBody + EMP2 + EMP3 + EMP2_3B << std::endl;
+
+
+    //Again the above does not take non-HF contributions into account at third order. 
+    //This is a quick hack to get these contributions anyway
+    if(FSCPT_MBPT)
+    {
+      std::cout <<"Calculating MBPT using commutator formalism..." <<std::endl;
+      std::string nonestring = "None";
+      FSCPT perturber(*HNO.modelspace, "None");
+      perturber.order=3;
+      perturber.off_diagonal = "single_reference";
+      std::array<double,2> E_MBPT = perturber.GetMBPT(HNO);
+      std::cout <<"E_MBPT2 = " <<E_MBPT[0] <<std::endl;
+      std::cout <<"E_MBPT3 = " <<E_MBPT.at(1) <<std::endl;
+  // 
+      std::cout <<"To second order = " <<E_MBPT.at(0)+HNO.ZeroBody <<std::endl;
+      std::cout <<"To third order = " <<E_MBPT.at(1)+E_MBPT.at(0)+HNO.ZeroBody <<std::endl;
+      
+    }
   }
 
   if ( method == "MP3" )

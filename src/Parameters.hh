@@ -114,6 +114,7 @@ std::map<std::string,std::string> Parameters::string_par = {
   {"FSCPT_Delta",               "false"}, // uses the delta version that may be better compared to the implicit iteration
   {"FSCPT_atan",                "false"}, // wether to use the atan version of the expansion
   {"approx_3f2",                "false"},       //enable imsrg3f2 corrections
+  {"FSCPT_MBPT",                "false"}, //Use FSCPT to provide perturbative results, which will include non-HF contributions
 };
 
 

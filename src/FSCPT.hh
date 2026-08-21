@@ -64,6 +64,10 @@ class FSCPT
         Operator Delta(const Operator& Op); // apply denominator to the Delta
 
         Operator atanDelta(const Operator& Op); //apply denominator plus atan
+
+
+        //This is a function that uses this formalism to compute single-reference corrections
+        std::array<double,2> GetMBPT(Operator& H);
 };
 
 #endif

@@ -628,3 +628,38 @@ Operator FSCPT::atanDelta(const Operator& Op)
     }
     return Opdelta;
 }
+
+//Calculates the second and third order contributions using the commutator formalism
+//Advantage is that non-HF contributions are included automatically
+std::array<double,2> FSCPT::GetMBPT(Operator& H)
+{
+    //Allocate all the operators we will need
+    H0 = arma::diagmat(H.OneBody);
+    V = Operator(*H.modelspace);
+    Vod = Operator(*H.modelspace);
+    Vd = Operator(*H.modelspace);
+    G1 = Operator(*H.modelspace);
+    G2 = Operator(*H.modelspace);
+    
+    Heff2 = Operator(*H.modelspace);
+    Heff3 = Operator(*H.modelspace);
+
+    //initialize
+    V.OneBody = H.OneBody - H0;
+    V.TwoBody = H.TwoBody;
+    Vod = GetOpOd(V);
+    Vd = V-Vod;
+
+    G1.SetAntiHermitian();
+    G2.SetAntiHermitian();
+
+    //Do the calculation
+    G1 = Delta(GetOpOd(V));
+    FSCPT2();
+    // std::cout <<"Second order energy from FSCPT= " <<Heff2.ZeroBody <<std::endl;
+    FSCPT3();
+    // std::cout <<"Third order energy from FSCPT= " <<Heff3.ZeroBody <<std::endl;
+
+    return {Heff2.ZeroBody, Heff3.ZeroBody};
+
+}
