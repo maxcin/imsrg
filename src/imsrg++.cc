@@ -735,17 +735,19 @@ int main(int argc, char** argv)
 
   //We may want to specify a certain number of orbitals to be used
   //In that case we use the entropy from the NAT calculation
+  //Entropy may not be the most ideal one as it may get complicated
+  //Perhaps better to use occupation numbers first to understand the behavior
 
   if(Norbits_imsrg > -1 and basis=="NAT" and Norbits_imsrg < modelspace.GetNumberOrbits())
   {
     double smin = 0.0;
-    if(Norbits_imsrg < modelspace.valence.size())
+    if(Norbits_imsrg < modelspace.valence.size() + modelspace.core.size() )
     {
-      std::cout <<"Number of orbitals is smaller than the specified valence space! Please specify number of orbitals sufficient to contain the valence space" <<std::endl;
+      std::cout <<"Number of orbitals is smaller than the specified valence space and core! Please specify number of orbitals sufficient to contain the valence space and core" <<std::endl;
       exit(0);
     }
 
-    std::vector<std::pair<double, int>> entropylist(modelspace.GetNumberOrbits()); //first one is entropy the second is the index
+    std::vector<std::pair<double, int>> weightlist(modelspace.GetNumberOrbits()); //first one is weight the second is the index
 
     for(int i = 0;  i < modelspace.GetNumberOrbits(); ++i)
     {
@@ -753,12 +755,12 @@ int main(int argc, char** argv)
       double ni = oi.occ_nat;
       double nibar = 1.0 - ni;
       double si = - ni * log(ni) - nibar * log(nibar);
-      entropylist.at(i) = {si, i};
+      weightlist.at(i) = {ni, i};
     }
 
     //Sorts the list
-    std::sort(entropylist.begin(), entropylist.end());
-    std::reverse(entropylist.begin(), entropylist.end());
+    std::sort(weightlist.begin(), weightlist.end());
+    std::reverse(weightlist.begin(), weightlist.end());
 
     //This list will contain all the orbitals we decide to keep
     std::vector<int> orbitlist;
@@ -768,7 +770,12 @@ int main(int argc, char** argv)
       orbitlist.push_back(i);
     }
 
-    for(auto pair : entropylist)
+    for(auto i : modelspace.core)
+    {
+      orbitlist.push_back(i);
+    }
+
+    for(auto pair : weightlist)
     {
       double s = pair.first;
       int index = pair.second;
@@ -781,7 +788,7 @@ int main(int argc, char** argv)
 
       if(orbitlist.size() == Norbits_imsrg)
       {
-        std::cout <<"Entropy cutoff smin=" <<smin <<std::endl; 
+        std::cout <<"Occupation cutoff =" << std::setprecision (15) <<smin <<std::endl; 
         break;
       }
     }
@@ -789,14 +796,14 @@ int main(int argc, char** argv)
     std::sort(orbitlist.begin(), orbitlist.end()); //This is important as the truncate() function of Operator expects the relative ordering of orbits to stay the same
     // std::reverse(orbitlist.begin(), orbitlist.end());
 
-    std::cout <<std::fixed <<std::setw(4) <<"i" <<std::fixed <<std::setw(10) <<"s" <<std::fixed <<std::setw(4) <<"e" <<std::fixed <<std::setw(4) <<"cvq" <<std::endl;
+    std::cout <<std::fixed <<std::setw(4) <<"i" <<std::fixed <<std::setw(20) <<"occ" <<std::fixed <<std::setw(4) <<"e" <<std::fixed <<std::setw(4) <<"cvq" <<std::endl;
     for(auto i : orbitlist)
     {
       Orbit& oi = modelspace.GetOrbit(i);
       double ni = oi.occ_nat;
       double nibar = 1.0 - ni;
       double si = - ni * log(ni) - nibar * log(nibar);
-      std::cout <<std::fixed <<std::setw(4) <<i <<std::fixed <<std::setw(10) <<si <<std::fixed <<std::setw(4) <<2*oi.n+oi.l <<std::fixed <<std::setw(4) <<oi.cvq <<std::endl;
+      std::cout <<std::fixed <<std::setw(4) <<i <<std::fixed <<std::setw(20) <<ni <<std::fixed <<std::setw(4) <<2*oi.n+oi.l <<std::fixed <<std::setw(4) <<oi.cvq <<std::endl;
     }
 
     modelspace_imsrg.ClearVectors();
