@@ -501,8 +501,8 @@ void FSCPT::FSCPT3()
     
     Heff3 = third_order - GetOpOd(third_order);
 
-    //G3 is not needed for this type of calculation so we dont store it it
-    //G3 = Delta(third_order - Heff3); 
+    //G3 is not needed for just the Hamiltonian but still may be useful to store
+    G3 = Delta(third_order - Heff3); 
 }
 
 Operator FSCPT::GetOpOd(const Operator& Op)
@@ -640,7 +640,8 @@ std::array<double,2> FSCPT::GetMBPT(Operator& H)
     Vd = Operator(*H.modelspace);
     G1 = Operator(*H.modelspace);
     G2 = Operator(*H.modelspace);
-    
+    G2 = Operator(*H.modelspace);
+
     Heff2 = Operator(*H.modelspace);
     Heff3 = Operator(*H.modelspace);
 
@@ -652,6 +653,7 @@ std::array<double,2> FSCPT::GetMBPT(Operator& H)
 
     G1.SetAntiHermitian();
     G2.SetAntiHermitian();
+    G3.SetAntiHermitian();
 
     //Do the calculation
     G1 = Delta(GetOpOd(V));
@@ -659,7 +661,34 @@ std::array<double,2> FSCPT::GetMBPT(Operator& H)
     // std::cout <<"Second order energy from FSCPT= " <<Heff2.ZeroBody <<std::endl;
     FSCPT3();
     // std::cout <<"Third order energy from FSCPT= " <<Heff3.ZeroBody <<std::endl;
-
+    generators_constructed = true;
     return {Heff2.ZeroBody, Heff3.ZeroBody};
 
+}
+
+std::array<double,3> FSCPT::GetMBPTOperator(Operator& O)
+{
+    if(not generators_constructed)
+    {
+        std::cout <<"Before transforming any operator first construct generators by calling FSCPT::GetMBPT" <<std::endl;
+        exit(1);
+    }
+
+    double first_order, second_order, third_order;
+    Operator On;
+
+    //First order
+    On = Commutator::Commutator(G1,O);
+    first_order = On.ZeroBody;
+    //Second order
+    On = Commutator::Commutator(G2,O) + 1.0/2.0 *Commutator::Commutator(G1, Commutator::Commutator(G1,O));
+    second_order = On.ZeroBody;
+    //Third order
+    On = Commutator::Commutator(G3, O) + 1.0/2.0 * ( Commutator::Commutator(G2, Commutator::Commutator(G1,O)) + Commutator::Commutator(G1, Commutator::Commutator(G2,O)) )
+        + 1.0 / 6.0 * Commutator::Commutator(G1, Commutator::Commutator(G1, Commutator::Commutator(G1,O)));
+    third_order = On.ZeroBody;
+
+    return {first_order, second_order, third_order};
+
+    
 }

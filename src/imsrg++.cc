@@ -1121,7 +1121,71 @@ int main(int argc, char** argv)
 // 
     std::cout <<"To second order = " <<E_MBPT.at(0)+HNO.ZeroBody <<std::endl;
     std::cout <<"To third order = " <<E_MBPT.at(1)+E_MBPT.at(0)+HNO.ZeroBody <<std::endl;
-    
+
+    //If there are Operator to transform than we should also do that
+    if (opnames.size()>0) std::cout << "Calculating perturbative corrections from Operators" << std::endl;
+
+    int count_from_file =0;
+    for (size_t i=0;i<opnames.size();++i)
+    {
+      auto opname = opnames[i];
+      std::cout << i << ": " << opname << " " << std::endl;
+
+      Operator op;
+
+      if ( opname.find("_FROMFILE") != std::string::npos)
+      {
+        OpFromFile& opff = opsfromfile_unpacked[count_from_file];
+         std::cout << "reading " << opff.opname << " with " << opff.j << " " << opff.t << " " << opff.p << " " << opff.r << "  from file " << opff.file2name << std::endl;
+        op = Operator(modelspace, opff.j, opff.t, opff.p, opff.r );
+        if (opff.r>2) op.ThreeBody.Allocate();
+        if ( input_op_fmt == "navratil" )
+        {
+          rw.Read2bCurrent_Navratil( opff.file2name, op );
+        }
+        else if ( input_op_fmt == "miyagi" )
+        {
+          if (opff.file2name != "")
+          {
+            Operator optmp = rw.ReadOperator2b_Miyagi(opff.file2name, modelspace);
+            op.TwoBody = optmp.TwoBody;
+          }
+          if ( opff.r>2 and opff.file3name != "")  rw.Read_Darmstadt_3body( opff.file3name, op,  file3e1max,file3e2max,file3e3max);
+        }
+        count_from_file++;
+        opname = opff.opname; // Get rid of the _FROMFILE bit.
+      }
+      else
+      {
+         op = imsrg_util::OperatorFromString( modelspace, opname );
+      }
+      
+
+      if (op.GetJRank() == 0 and (op.GetTRank() != 0 or op.GetParity() != 0))
+      {
+        std::cout << "Before doing HF, making " << opname << "  not reduced" << std::endl;
+        op.MakeNotReduced();
+      }
+
+      if ( basis == "oscillator" or opname=="OccRef")
+      {
+        op = op.DoNormalOrdering();
+      }
+      else if ( basis == "HF")
+      {
+        op = hf.TransformToHFBasis(op).DoNormalOrdering();
+      }
+      else if ( basis == "NAT")
+      {
+        op = hf.TransformHOToNATBasis(op).DoNormalOrdering();
+      }
+
+      std::array<double,3> op_corrections = perturber.GetMBPTOperator(op);
+      std::cout <<"Bare = " <<op.ZeroBody <<std::endl;
+      std::cout <<"To 1st order = " <<op.ZeroBody+op_corrections.at(0) <<std::endl;
+      std::cout <<"To 2nd order = " <<op.ZeroBody+op_corrections.at(0)+op_corrections.at(1) <<std::endl;
+      std::cout <<"To 3rd order = " <<op.ZeroBody+op_corrections.at(0)+op_corrections.at(1)+op_corrections.at(2) <<std::endl;
+    }
   }
 
   // We may want to use a smaller model space for the IMSRG evolution than we used for the HF step.
@@ -1225,6 +1289,71 @@ int main(int argc, char** argv)
       std::cout <<"To second order = " <<E_MBPT.at(0)+HNO.ZeroBody <<std::endl;
       std::cout <<"To third order = " <<E_MBPT.at(1)+E_MBPT.at(0)+HNO.ZeroBody <<std::endl;
       
+
+      //If there are Operator to transform than we should also do that
+      if (opnames.size()>0) std::cout << "Calculating perturbative corrections from Operators" << std::endl;
+
+      int count_from_file =0;
+      for (size_t i=0;i<opnames.size();++i)
+      {
+        auto opname = opnames[i];
+        std::cout << i << ": " << opname << " " << std::endl;
+
+        Operator op;
+
+        if ( opname.find("_FROMFILE") != std::string::npos)
+        {
+          OpFromFile& opff = opsfromfile_unpacked[count_from_file];
+          std::cout << "reading " << opff.opname << " with " << opff.j << " " << opff.t << " " << opff.p << " " << opff.r << "  from file " << opff.file2name << std::endl;
+          op = Operator(modelspace, opff.j, opff.t, opff.p, opff.r );
+          if (opff.r>2) op.ThreeBody.Allocate();
+          if ( input_op_fmt == "navratil" )
+          {
+            rw.Read2bCurrent_Navratil( opff.file2name, op );
+          }
+          else if ( input_op_fmt == "miyagi" )
+          {
+            if (opff.file2name != "")
+            {
+              Operator optmp = rw.ReadOperator2b_Miyagi(opff.file2name, modelspace);
+              op.TwoBody = optmp.TwoBody;
+            }
+            if ( opff.r>2 and opff.file3name != "")  rw.Read_Darmstadt_3body( opff.file3name, op,  file3e1max,file3e2max,file3e3max);
+          }
+          count_from_file++;
+          opname = opff.opname; // Get rid of the _FROMFILE bit.
+        }
+        else
+        {
+          op = imsrg_util::OperatorFromString( modelspace, opname );
+        }
+        
+
+        if (op.GetJRank() == 0 and (op.GetTRank() != 0 or op.GetParity() != 0))
+        {
+          std::cout << "Before doing HF, making " << opname << "  not reduced" << std::endl;
+          op.MakeNotReduced();
+        }
+
+        if ( basis == "oscillator" or opname=="OccRef")
+        {
+          op = op.DoNormalOrdering();
+        }
+        else if ( basis == "HF")
+        {
+          op = hf.TransformToHFBasis(op).DoNormalOrdering();
+        }
+        else if ( basis == "NAT")
+        {
+          op = hf.TransformHOToNATBasis(op).DoNormalOrdering();
+        }
+
+        std::array<double,3> op_corrections = perturber.GetMBPTOperator(op);
+        std::cout <<"Bare = " <<op.ZeroBody <<std::endl;
+        std::cout <<"To 1st order = " <<op.ZeroBody+op_corrections.at(0) <<std::endl;
+        std::cout <<"To 2nd order = " <<op.ZeroBody+op_corrections.at(0)+op_corrections.at(1) <<std::endl;
+        std::cout <<"To 3rd order = " <<op.ZeroBody+op_corrections.at(0)+op_corrections.at(1)+op_corrections.at(2) <<std::endl;
+      }
     }
   }
 

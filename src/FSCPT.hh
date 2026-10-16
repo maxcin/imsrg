@@ -22,6 +22,8 @@ class FSCPT
         std::string off_diagonal = "";
         int order = 3; //order to which the correction should be done
 
+        bool generators_constructed = false;
+
         ModelSpace* modelspace_imsrg;
 
         arma::mat H0;
@@ -67,7 +69,10 @@ class FSCPT
 
 
         //This is a function that uses this formalism to compute single-reference corrections
+        //The Operator version assumes GetMBPT was called previously.
+        //Power counting assumes O ~ O(1)
         std::array<double,2> GetMBPT(Operator& H);
+        std::array<double,3> GetMBPTOperator(Operator& O);
 };
 
 #endif
