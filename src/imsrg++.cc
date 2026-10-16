@@ -1347,7 +1347,7 @@ int main(int argc, char** argv)
         {
           op = hf.TransformHOToNATBasis(op).DoNormalOrdering();
         }
-
+        op = op.Truncate(modelspace_imsrg);
         std::array<double,3> op_corrections = perturber.GetMBPTOperator(op);
         std::cout <<"Bare = " <<op.ZeroBody <<std::endl;
         std::cout <<"To 1st order = " <<op.ZeroBody+op_corrections.at(0) <<std::endl;
