@@ -1888,7 +1888,7 @@ int main(int argc, char** argv)
         op = op.DoNormalOrderingCore();
       }
 //      std::cout << " (" << ops[i].ZeroBody << " ) " << std::endl;
-//      std::cout << "   IMSRG: " << op.ZeroBody << std::endl;
+      std::cout << "   IMSRG: " << op.ZeroBody << std::endl;
 //      rw.WriteOperatorHuman(ops[i],intfile+opnames[i]+"_step2.op");
 //      std::cout << "After renormal ordering Op(5,4) is " << std::setprecision(10) << op.OneBody(5,4) << std::endl;
 
